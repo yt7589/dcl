@@ -36,7 +36,6 @@ def train(Config,
           ):
     # savepoint: save without evalution
     # checkpoint: save with evaluation
-    print('train_model.train step 1 v0.0.1')
 
     step = 0
     eval_train_flag = False
@@ -46,7 +45,6 @@ def train(Config,
     train_batch_size = data_loader['train'].batch_size
     train_epoch_step = data_loader['train'].__len__()
     train_loss_recorder = LossRecord(train_batch_size)
-    print('train_model.train step 2')
 
     if savepoint > train_epoch_step:
         savepoint = 1*train_epoch_step
@@ -54,22 +52,17 @@ def train(Config,
 
     date_suffix = dt()
     log_file = open(os.path.join(Config.log_folder, 'formal_log_r50_dcl_%s_%s.log'%(str(data_size), date_suffix)), 'a')
-    print('train_model.train step 3')
 
     add_loss = nn.L1Loss()
     get_ce_loss = nn.CrossEntropyLoss()
     get_focal_loss = FocalLoss()
     get_angle_loss = AngleLoss()
-    print('train_model.train step 4')
 
     for epoch in range(start_epoch,epoch_num-1):
-        print('train_model.train step 5 epoch{0}:'.format(epoch))
         model.train(True)
-        print('train_model.train step 6')
 
         save_grad = []
         for batch_cnt, data in enumerate(data_loader['train']):
-            print('train_model.train step 7')
             step += 1
             loss = 0
             model.train(True)
@@ -77,7 +70,6 @@ def train(Config,
                 inputs, labels, img_names = data
                 inputs = Variable(inputs.cuda())
                 labels = Variable(torch.from_numpy(np.array(labels)).cuda())
-            print('train_model.train step 8')
 
             if Config.use_dcl:
                 inputs, labels, labels_swap, swap_law, img_names = data
@@ -86,22 +78,18 @@ def train(Config,
                 labels = Variable(torch.from_numpy(np.array(labels)).cuda())
                 labels_swap = Variable(torch.from_numpy(np.array(labels_swap)).cuda())
                 swap_law = Variable(torch.from_numpy(np.array(swap_law)).float().cuda())
-            print('train_model.train step 9')
 
             optimizer.zero_grad()
-            print('train_model.train step 10')
 
             if inputs.size(0) < 2*train_batch_size:
                 outputs = model(inputs, inputs[0:-1:2])
             else:
                 outputs = model(inputs, None)
-            print('train_model.train step 11')
 
             if Config.use_focal_loss:
                 ce_loss = get_focal_loss(outputs[0], labels)
             else:
                 ce_loss = get_ce_loss(outputs[0], labels)
-            print('train_model.train step 12')
 
             if Config.use_Asoftmax:
                 fetch_batch = labels.size(0)
@@ -110,7 +98,6 @@ def train(Config,
                 else:
                     angle_loss = get_angle_loss(outputs[3], labels[0:fetch_batch:2])
                 loss += angle_loss
-            print('train_model.train step 13')
 
             loss += ce_loss
 
@@ -122,26 +109,20 @@ def train(Config,
                 loss += swap_loss
                 law_loss = add_loss(outputs[2], swap_law) * gamma_
                 loss += law_loss
-            print('train_model.train step 14')
 
             loss.backward()
             torch.cuda.synchronize()
-            print('train_model.train step 15')
-
             optimizer.step()
             exp_lr_scheduler.step(epoch)
             torch.cuda.synchronize()
-            print('train_model.train step 16')
 
             if Config.use_dcl:
                 print('step: {:-8d} / {:d} loss=ce_loss+swap_loss+law_loss: {:6.4f} = {:6.4f} + {:6.4f} + {:6.4f} '.format(step, train_epoch_step, loss.detach().item(), ce_loss.detach().item(), swap_loss.detach().item(), law_loss.detach().item()), flush=True)
             if Config.use_backbone:
                 print('step: {:-8d} / {:d} loss=ce_loss+swap_loss+law_loss: {:6.4f} = {:6.4f} '.format(step, train_epoch_step, loss.detach().item(), ce_loss.detach().item()), flush=True)
             rec_loss.append(loss.detach().item())
-            print('train_model.train step 17')
 
             train_loss_recorder.update(loss.detach().item())
-            print('train_model.train step 18')
 
             # evaluation & save
             if step % checkpoint == 0:

@@ -217,7 +217,7 @@ if __name__ == '__main__':
 
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
 
-    print('before training...')
+    print('Yantao: v0.0.1')
     # train entry
     train(Config,
           model,
