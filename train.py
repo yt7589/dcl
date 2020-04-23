@@ -96,10 +96,8 @@ if __name__ == '__main__':
     Config.cls_2 = args.cls_2
     Config.cls_2xmul = args.cls_mul
     assert Config.cls_2 ^ Config.cls_2xmul
-    print('step 1')
 
     transformers = load_data_transformers(args.resize_resolution, args.crop_resolution, args.swap_num)
-    print('step 2')
 
     # inital dataloader
     train_set = dataset(Config = Config,\
@@ -156,15 +154,12 @@ if __name__ == '__main__':
 
     setattr(dataloader['val'], 'total_item_len', len(val_set))
     setattr(dataloader['val'], 'num_cls', Config.numcls)
-    print('step 3')
 
 
     cudnn.benchmark = True
 
     print('Choose model and train set', flush=True)
     model = MainModel(Config)
-
-    print('step 4')
 
     # load model
     if (args.resume is None) and (not args.auto_resume):
@@ -192,13 +187,8 @@ if __name__ == '__main__':
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
 
-    print('step 5')
-
     model.cuda()
     model = nn.DataParallel(model)
-
-    print('step 6')
-
 
     # optimizer prepare
     if Config.use_backbone:
@@ -227,12 +217,7 @@ if __name__ == '__main__':
 
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
 
-    print('step 7 before training...')
-    
-    i_debug = 1
-    if 1 == i_debug:
-        sys.exit(0)
-
+    print('before training...')
     # train entry
     train(Config,
           model,
