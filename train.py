@@ -1,5 +1,6 @@
 #coding=utf-8
 import os
+import sys
 import datetime
 import argparse
 import logging
@@ -95,8 +96,10 @@ if __name__ == '__main__':
     Config.cls_2 = args.cls_2
     Config.cls_2xmul = args.cls_mul
     assert Config.cls_2 ^ Config.cls_2xmul
+    print('step 1')
 
     transformers = load_data_transformers(args.resize_resolution, args.crop_resolution, args.swap_num)
+    print('step 2')
 
     # inital dataloader
     train_set = dataset(Config = Config,\
@@ -153,6 +156,10 @@ if __name__ == '__main__':
 
     setattr(dataloader['val'], 'total_item_len', len(val_set))
     setattr(dataloader['val'], 'num_cls', Config.numcls)
+    print('step 3')
+    i_debug = 1
+    if 1 == i_debug:
+        sys.exit(0)
 
 
     cudnn.benchmark = True
