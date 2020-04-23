@@ -157,15 +157,14 @@ if __name__ == '__main__':
     setattr(dataloader['val'], 'total_item_len', len(val_set))
     setattr(dataloader['val'], 'num_cls', Config.numcls)
     print('step 3')
-    i_debug = 1
-    if 1 == i_debug:
-        sys.exit(0)
 
 
     cudnn.benchmark = True
 
     print('Choose model and train set', flush=True)
     model = MainModel(Config)
+
+    print('step 4')
 
     # load model
     if (args.resume is None) and (not args.auto_resume):
@@ -193,8 +192,16 @@ if __name__ == '__main__':
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
 
+    print('step 5')
+
     model.cuda()
     model = nn.DataParallel(model)
+
+    print('step 6')
+    i_debug = 1
+    if 1 == i_debug:
+        sys.exit(0)
+
 
     # optimizer prepare
     if Config.use_backbone:
