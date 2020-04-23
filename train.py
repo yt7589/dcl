@@ -198,9 +198,6 @@ if __name__ == '__main__':
     model = nn.DataParallel(model)
 
     print('step 6')
-    i_debug = 1
-    if 1 == i_debug:
-        sys.exit(0)
 
 
     # optimizer prepare
@@ -229,6 +226,12 @@ if __name__ == '__main__':
 
 
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
+
+    print('step 7 before training...')
+    
+    i_debug = 1
+    if 1 == i_debug:
+        sys.exit(0)
 
     # train entry
     train(Config,
