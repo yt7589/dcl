@@ -36,7 +36,7 @@ def train(Config,
           ):
     # savepoint: save without evalution
     # checkpoint: save with evaluation
-    print('train_model.train step 1')
+    print('train_model.train step 1 v0.0.1')
 
     step = 0
     eval_train_flag = False
@@ -64,7 +64,6 @@ def train(Config,
 
     for epoch in range(start_epoch,epoch_num-1):
         print('train_model.train step 5 epoch{0}:'.format(epoch))
-        exp_lr_scheduler.step(epoch)
         model.train(True)
         print('train_model.train step 6')
 
@@ -130,6 +129,7 @@ def train(Config,
             print('train_model.train step 15')
 
             optimizer.step()
+            exp_lr_scheduler.step(epoch)
             torch.cuda.synchronize()
             print('train_model.train step 16')
 
