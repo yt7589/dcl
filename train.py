@@ -19,6 +19,7 @@ from transforms import transforms
 from utils.train_model import train
 from models.LoadModel import MainModel
 from config import LoadConfig, load_data_transformers
+import utils.dataset_DCL as dclds
 from utils.dataset_DCL import collate_fn4train, collate_fn4val, collate_fn4test, collate_fn4backbone, dataset
 
 import pdb
@@ -88,8 +89,16 @@ def auto_load_resume(load_dir):
     choosed_w = weight_list[acc_list.index(max(acc_list))]
     return os.path.join(load_dir, choosed, choosed_w)
 
+def exp():
+    print('重排数据集 v0.0.1')
+    dclds.preprocess_anno()
 
 if __name__ == '__main__':
+    i_debug = 1
+    if 1 == i_debug:
+        exp()
+        return
+    
     args = parse_args()
     print(args, flush=True)
     Config = LoadConfig(args, 'train')
