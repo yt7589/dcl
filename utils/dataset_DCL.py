@@ -194,5 +194,16 @@ def preprocess_anno():
     anno_file = './datasets/CUB_200_2011/anno/ct_train_newd.txt'
     anno = pd.read_csv(anno_file, sep="*", header=None, 
                 names=['ImageName', 'label'])
-    for row in anno:
-        print('###: {0};'.format(row))
+    if isinstance(anno, pd.core.frame.DataFrame):
+        paths = anno['ImageName'].tolist()
+        labels = anno['label'].tolist()
+        #self.labels = list(map(int, self.labels))
+    elif isinstance(anno, dict):
+        paths = anno['img_name']
+        labels = anno['label']
+
+    paths_len = len(paths)
+    labels_len = len(labels)
+    print('{0}={1}?'.format(paths_len, labels_len))
+    for i in range(paths_len):
+        print('{0} => {1};'.format(paths[i], labels[i]))
