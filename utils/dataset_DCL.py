@@ -3,7 +3,7 @@ from __future__ import division
 import os
 import torch
 import torch.utils.data as data
-import pandas
+import pandas as pd
 import random
 import PIL.Image as Image
 from PIL import ImageStat
@@ -36,7 +36,7 @@ class dataset(data.Dataset):
         self.dataset = Config.dataset
         self.use_cls_2 = Config.cls_2
         self.use_cls_mul = Config.cls_2xmul
-        if isinstance(anno, pandas.core.frame.DataFrame):
+        if isinstance(anno, pd.core.frame.DataFrame):
             self.paths = anno['ImageName'].tolist()
             self.labels = anno['label'].tolist()
             #self.labels = list(map(int, self.labels))
