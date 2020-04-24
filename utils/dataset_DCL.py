@@ -39,10 +39,12 @@ class dataset(data.Dataset):
         if isinstance(anno, pd.core.frame.DataFrame):
             self.paths = anno['ImageName'].tolist()
             self.labels = anno['label'].tolist()
+            shuffle_samples(self.paths, self.labels)
             #self.labels = list(map(int, self.labels))
         elif isinstance(anno, dict):
             self.paths = anno['img_name']
             self.labels = anno['label']
+            shuffle_samples(self.paths, self.labels)
             #self.labels = list(map(int, self.labels))
 
         if train_val:
