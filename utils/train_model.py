@@ -60,7 +60,6 @@ def train(Config,
 
     for epoch in range(start_epoch,epoch_num-1):
         model.train(True)
-
         save_grad = []
         for batch_cnt, data in enumerate(data_loader['train']):
             step += 1
@@ -120,7 +119,8 @@ def train(Config,
                 print('epoch{}: step: {:-8d} / {:d} loss=ce_loss+'
                             'swap_loss+law_loss: {:6.4f} = {:6.4f} '
                             '+ {:6.4f} + {:6.4f} '.format(
-                                epoch, step, train_epoch_step, 
+                                epoch, step % train_epoch_step, 
+                                train_epoch_step, 
                                 loss.detach().item(), 
                                 ce_loss.detach().item(), 
                                 swap_loss.detach().item(), 
@@ -129,7 +129,8 @@ def train(Config,
             if Config.use_backbone:
                 print('epoch{}: step: {:-8d} / {:d} loss=ce_loss+'
                             'swap_loss+law_loss: {:6.4f} = {:6.4f} '.format(
-                                epoch, step, train_epoch_step, 
+                                epoch, step % train_epoch_step, 
+                                train_epoch_step, 
                                 loss.detach().item(), 
                                 ce_loss.detach().item()), flush=True
                             )
