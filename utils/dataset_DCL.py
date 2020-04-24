@@ -192,6 +192,7 @@ def preprocess_anno():
     保证训练过程中的随机性
     '''
     anno_file = './datasets/CUB_200_2011/anno/ct_train_newd.txt'
+    print(anno_file)
     anno = pd.read_csv(anno_file, sep="*", header=None, 
                 names=['ImageName', 'label'])
     if isinstance(anno, pd.core.frame.DataFrame):
@@ -201,9 +202,20 @@ def preprocess_anno():
     elif isinstance(anno, dict):
         paths = anno['img_name']
         labels = anno['label']
+    shuffle_samples(paths, labels)
+    paths_len = len(paths)
+    for i in range(0, paths_len):
+        print('{0} => {1};'.format(paths[i], labels[i]))
 
+def shuffle_samples(paths, labels):
     paths_len = len(paths)
     labels_len = len(labels)
     print('{0}={1}?'.format(paths_len, labels_len))
-    for i in range(paths_len):
-        print('{0} => {1};'.format(paths[i], labels[i]))
+    for i in range(1, paths_len):
+        rn = random.randint(0, paths_len-1)
+        temp_path = paths[rn]
+        paths[rn] = paths[i]
+        paths[i] = temp_path
+        temp_label = labels[rn]
+        labels[rn] = labels[i]
+        labels[i] = temp_label
