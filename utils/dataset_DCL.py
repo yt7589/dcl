@@ -185,3 +185,14 @@ def collate_fn4test(batch):
         label.append(sample[1])
         img_name.append(sample[-1])
     return torch.stack(imgs, 0), label, img_name
+
+def preprocess_anno():
+    '''
+    将训练样本集中的数据，从文件在硬盘中的顺序变为随机顺序，
+    保证训练过程中的随机性
+    '''
+    anno_file = './datasets/CUB_200_2011/anno/ct_train_newd.txt'
+    anno = pd.read_csv(anno_file, sep="*", header=None, 
+                names=['ImageName', 'label'])
+    for row in anno:
+        print('###: {0};'.format(row))
