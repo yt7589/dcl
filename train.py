@@ -224,15 +224,16 @@ if __name__ == '__main__':
 
     lr_ratio = args.cls_lr_ratio
     base_lr = args.base_lr
+    momentum = 1.8 # 0.9
     if Config.use_backbone:
         optimizer = optim.SGD([{'params': base_params},
-                               {'params': model.module.classifier.parameters(), 'lr': base_lr}], lr = base_lr, momentum=0.9)
+                               {'params': model.module.classifier.parameters(), 'lr': base_lr}], lr = base_lr, momentum=momentum)
     else:
         optimizer = optim.SGD([{'params': base_params},
                                {'params': model.module.classifier.parameters(), 'lr': lr_ratio*base_lr},
                                {'params': model.module.classifier_swap.parameters(), 'lr': lr_ratio*base_lr},
                                {'params': model.module.Convmask.parameters(), 'lr': lr_ratio*base_lr},
-                              ], lr = base_lr, momentum=0.9)
+                              ], lr = base_lr, momentum=momentum)
 
 
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
