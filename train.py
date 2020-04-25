@@ -94,10 +94,10 @@ def exp(dataloader):
     for batch_cnt, data in enumerate(dataloader['train']):
         print('batch_cnt: {0};'.format(batch_cnt))
         inputs, labels, labels_swap, swap_law, img_names = data
-        print('inputs: {0};'.format(type(inputs)))
-        print('labels_swap: {0};'.format(labels_swap))
-        print('swap_law: {0};'.format(swap_law))
-        print('img_names: {0};'.format(img_names))
+        print('inputs: {0};'.format(inputs.shape))
+        print('labels_swap: {0}; {1};'.format(type(labels_swap), labels_swap.shape))
+        print('swap_law: {0}; {1};'.format(type(swap_law), swap_law.shape))
+        #print('img_names: {0};'.format(img_names))
         sys.exit(0)
 
 if __name__ == '__main__':
