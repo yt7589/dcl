@@ -89,15 +89,19 @@ def auto_load_resume(load_dir):
     choosed_w = weight_list[acc_list.index(max(acc_list))]
     return os.path.join(load_dir, choosed, choosed_w)
 
-def exp():
-    print('重排数据集 v0.0.1')
-    dclds.preprocess_anno()
+def exp(dataloader):
+    print('数据集归一化测试')
+    for batch_cnt, data in enumerate(dataloader['train']):
+        print('batch_cnt: {0};'.format(batch_cnt))
+        inputs, labels, labels_swap, swap_law, img_names = data
+        print('inputs: {0};'.format(type(inputs)))
+        print('labels_swap: {0};'.format(labels_swap))
+        print('swap_law: {0};'.format(swap_law))
+        print('img_names: {0};'.format(img_names))
+        sys.exit(0)
 
 if __name__ == '__main__':
-    i_debug = 10
-    if 1 == i_debug:
-        exp()
-        sys.exit(0)
+    i_debug = 1
     
     args = parse_args()
     print(args, flush=True)
@@ -163,6 +167,11 @@ if __name__ == '__main__':
 
     setattr(dataloader['val'], 'total_item_len', len(val_set))
     setattr(dataloader['val'], 'num_cls', Config.numcls)
+
+    
+    if 1 == i_debug:
+        exp(dataloader)
+        sys.exit(0)
 
 
     cudnn.benchmark = True
