@@ -48,7 +48,9 @@ class dataset(data.Dataset):
             #self.labels = list(map(int, self.labels))
 
         if train_val:
-            self.paths, self.labels = random_sample(self.paths, self.labels)
+            #self.paths, self.labels = random_sample(self.paths, self.labels)
+            self.paths = self.paths[-300:]
+            self.labels = self.labels[-300:]
         self.common_aug = common_aug
         self.swap = swap
         self.totensor = totensor
