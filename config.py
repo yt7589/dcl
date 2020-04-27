@@ -6,7 +6,10 @@ from transforms import transforms
 from utils.autoaugment import ImageNetPolicy
 
 # pretrained model checkpoints
-pretrained_model = {'resnet50' : './models/pretrained/resnet50-19c8e357.pth',}
+pretrained_model = {
+    'resnet50' : './models/pretrained/resnet50-19c8e357.pth',
+    'senet154' : './models/pretrained/senet154-c7b49a05.pth'
+}
 
 # transforms dict
 def load_data_transformers(resize_reso=512, crop_reso=448, swap_num=[7, 7]):
