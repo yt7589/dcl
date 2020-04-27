@@ -102,7 +102,7 @@ def exp(dataloader):
         sys.exit(0)
 
 if __name__ == '__main__':
-    i_debug = 10
+    i_debug = 1
     
     args = parse_args()
     print(args, flush=True)
@@ -169,12 +169,6 @@ if __name__ == '__main__':
     setattr(dataloader['val'], 'total_item_len', len(val_set))
     setattr(dataloader['val'], 'num_cls', Config.numcls)
 
-    
-    if 1 == i_debug:
-        exp(dataloader)
-        sys.exit(0)
-
-
     cudnn.benchmark = True
 
     print('Choose model and train set', flush=True)
@@ -198,6 +192,11 @@ if __name__ == '__main__':
         pretrained_dict = {k[7:]: v for k, v in pretrained_dict.items() if k[7:] in model_dict}
         model_dict.update(pretrained_dict)
         model.load_state_dict(model_dict)
+
+    
+    if 1 == i_debug:
+        exp(dataloader)
+        sys.exit(0)
 
     print('Set cache dir', flush=True)
     time = datetime.datetime.now()
