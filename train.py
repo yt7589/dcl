@@ -105,7 +105,7 @@ def exp():
     log_progress(3000, 1.0, 1.0)
 
 if __name__ == '__main__':
-    i_debug = 1
+    i_debug = 10
     if 1 == i_debug:
         exp()
         sys.exit(0)
