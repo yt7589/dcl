@@ -134,3 +134,6 @@ test.txt
 label_new.txt
 img_labels.txt
 ct_train_newd.txt
+logs/
+models/
+net_model/
