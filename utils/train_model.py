@@ -177,5 +177,16 @@ def train(Config,
 
     log_file.close()
 
+def log_progress(step, train_acc, test_acc):
+    # 以添加形式保存step
+    with open('./logs/step.txt', 'a+') as step_fd:
+        step_fd.write('{0:d},'.format(step))
+    # 以添加形式保存train_acc
+    with open('./logs/train_acc.txt', 'a+') as train_acc_fd:
+        train_acc_fd.write('{0:.4f},'.format(train_acc))
+    # 以添加形式保存test_acc
+    with open('./logs/test_acc.txt', 'a+') as test_acc_fd:
+        test_acc_fd.write('{0:.4f},'.format(test_acc))
+
 
 

@@ -17,6 +17,7 @@ import torch.backends.cudnn as cudnn
 
 from transforms import transforms
 from utils.train_model import train
+from utils.train_model import log_progress
 from models.LoadModel import MainModel
 from config import LoadConfig, load_data_transformers
 import utils.dataset_DCL as dclds
@@ -89,20 +90,25 @@ def auto_load_resume(load_dir):
     choosed_w = weight_list[acc_list.index(max(acc_list))]
     return os.path.join(load_dir, choosed, choosed_w)
 
-def exp(dataloader):
-    print('数据集归一化测试')
-    for batch_cnt, data in enumerate(dataloader['train']):
-        print('batch_cnt: {0};'.format(batch_cnt))
-        inputs, labels, labels_swap, swap_law, img_names = data
-        print('inputs: {0};'.format(inputs.shape))
-        print('input sample: {0};'.format(inputs[0]))
-        print('labels_swap: {0};'.format(type(labels_swap)))
-        print('swap_law: {0};'.format(type(swap_law)))
-        #print('img_names: {0};'.format(img_names))
-        sys.exit(0)
+def exp():
+    print('记录训练过程')
+    log_progress(2000, 0.1, 0.01)
+    log_progress(2100, 0.2, 0.04)
+    log_progress(2200, 0.3, 0.09)
+    log_progress(2300, 0.4, 0.16)
+    log_progress(2400, 0.5, 0.25)
+    log_progress(2500, 0.6, 0.36)
+    log_progress(2600, 0.7, 0.49)
+    log_progress(2700, 0.8, 0.64)
+    log_progress(2800, 0.9, 0.81)
+    log_progress(2900, 0.95, 0.95*0.95)
+    log_progress(3000, 1.0, 1.0)
 
 if __name__ == '__main__':
-    i_debug = 10
+    i_debug = 1
+    if 1 == i_debug:
+        exp()
+        sys.exit(0)
     
     args = parse_args()
     print(args, flush=True)
@@ -192,11 +198,6 @@ if __name__ == '__main__':
         pretrained_dict = {k[7:]: v for k, v in pretrained_dict.items() if k[7:] in model_dict}
         model_dict.update(pretrained_dict)
         model.load_state_dict(model_dict)
-
-    
-    if 1 == i_debug:
-        exp(dataloader)
-        sys.exit(0)
 
     print('Set cache dir', flush=True)
     time = datetime.datetime.now()
