@@ -19,7 +19,7 @@ class MainModel(nn.Module):
         self.use_Asoftmax = config.use_Asoftmax
         print(self.backbone_arch)
 
-        print('MainModel 1 :{0};'.format(dir(models)))
+        print('MainModel 1 :pretrainedmodels={0};'.format(dir(pretrainedmodels)))
         if self.backbone_arch in dir(models):
             print('MainModel 2')
             self.model = getattr(models, self.backbone_arch)()
@@ -34,8 +34,6 @@ class MainModel(nn.Module):
             else:
                 print('MainModel 4.2')
                 self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=1000)
-            print('load pretrained senet154 parameters')
-            self.model.load_state_dict(torch.load(pretrained_model[self.backbone_arch]))
 
         if self.backbone_arch == 'resnet50' or self.backbone_arch == 'se_resnet50':
             self.model = nn.Sequential(*list(self.model.children())[:-2])
