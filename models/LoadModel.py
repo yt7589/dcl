@@ -11,6 +11,7 @@ import pdb
 #torch.backends.cudnn.benchmark = False
 
 class MainModel(nn.Module):
+    custom_models = ['senet154', 'efficientsnet', 'regnet']
     def __init__(self, config):
         super(MainModel, self).__init__()
         self.use_dcl = config.use_dcl
@@ -20,7 +21,7 @@ class MainModel(nn.Module):
         print(self.backbone_arch)
 
         print('MainModel 1 :{0};'.format(dir(models)))
-        if self.backbone_arch in dir(models):
+        if self.backbone_arch in dir(models) or self.backbone_arch in MainModel.custom_models:
             print('MainModel 2')
             self.model = getattr(models, self.backbone_arch)()
             if self.backbone_arch in pretrained_model:

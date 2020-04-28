@@ -92,6 +92,8 @@ def auto_load_resume(load_dir):
 
 def exp():
     print('记录训练过程')
+    if 'senet154' in ['senet154', 'efficentsnet']:
+        print('load pretrained model')
     log_progress(2000, 0.1, 0.01)
     log_progress(2100, 0.2, 0.04)
     log_progress(2200, 0.3, 0.09)
