@@ -113,9 +113,6 @@ def exp(model):
 
 if __name__ == '__main__':
     i_debug = 1
-    if 1 == i_debug:
-        exp()
-        sys.exit(0)
     
     args = parse_args()
     print(args, flush=True)
