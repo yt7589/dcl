@@ -14,6 +14,7 @@ from torchvision import datasets, models
 import torch.optim as optim
 from torch.optim import lr_scheduler
 import torch.backends.cudnn as cudnn
+from torchsummary import summary
 
 from transforms import transforms
 from utils.train_model import train
@@ -90,7 +91,8 @@ def auto_load_resume(load_dir):
     choosed_w = weight_list[acc_list.index(max(acc_list))]
     return os.path.join(load_dir, choosed, choosed_w)
 
-def exp():
+def exp(model):
+    '''
     print('记录训练过程')
     if 'senet154' in ['senet154', 'efficentsnet']:
         print('load pretrained model')
@@ -105,9 +107,12 @@ def exp():
     log_progress(2800, 0.9, 0.81)
     log_progress(2900, 0.95, 0.95*0.95)
     log_progress(3000, 1.0, 1.0)
+    '''
+    print('打印网络结构')
+    summary(model, (3, 448, 448))
 
 if __name__ == '__main__':
-    i_debug = 10
+    i_debug = 1
     if 1 == i_debug:
         exp()
         sys.exit(0)
@@ -211,6 +216,11 @@ if __name__ == '__main__':
 
     model.cuda()
     model = nn.DataParallel(model)
+
+    
+    if 1 == i_debug:
+        exp(model)
+        sys.exit(0)
 
     # optimizer prepare
     if Config.use_backbone:
