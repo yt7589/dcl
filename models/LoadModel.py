@@ -11,7 +11,6 @@ import pdb
 #torch.backends.cudnn.benchmark = False
 
 class MainModel(nn.Module):
-    custom_models = ['senet154', 'efficientsnet', 'regnet']
     def __init__(self, config):
         super(MainModel, self).__init__()
         self.use_dcl = config.use_dcl
@@ -21,7 +20,7 @@ class MainModel(nn.Module):
         print(self.backbone_arch)
 
         print('MainModel 1 :{0};'.format(dir(models)))
-        if self.backbone_arch in dir(models) or self.backbone_arch in MainModel.custom_models:
+        if self.backbone_arch in dir(models):
             print('MainModel 2')
             self.model = getattr(models, self.backbone_arch)()
             if self.backbone_arch in pretrained_model:
@@ -35,6 +34,8 @@ class MainModel(nn.Module):
             else:
                 print('MainModel 4.2')
                 self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=1000)
+            print('load pretrained senet154 parameters')
+            self.model.load_state_dict(torch.load(pretrained_model[self.backbone_arch]))
 
         if self.backbone_arch == 'resnet50' or self.backbone_arch == 'se_resnet50':
             self.model = nn.Sequential(*list(self.model.children())[:-2])
