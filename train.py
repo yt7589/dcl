@@ -112,7 +112,7 @@ def exp(model):
     summary(model, (3, 448, 448))
 
 if __name__ == '__main__':
-    i_debug = 1
+    i_debug = 10
     
     args = parse_args()
     print(args, flush=True)
