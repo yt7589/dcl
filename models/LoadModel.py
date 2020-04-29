@@ -29,11 +29,11 @@ class MainModel(nn.Module):
         else:
             print('MainModel 4')
             if self.backbone_arch in pretrained_model:
-                print('MainModel 4.1 train from pretrained imagenet model')
+                print('MainModel 4.1 train from scratch')
                 # export TORCH_HOME="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/models/pretrained/"
                 # export TORCH_MODEL_ZOO="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/models/pretrained/"
-                self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=478, pretrained='imagenet')
-                #self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=478, pretrained=None)
+                #self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=1000, pretrained='imagenet')
+                self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=1000, pretrained=None)
             else:
                 print('MainModel 4.2')
                 self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=478)
