@@ -213,8 +213,6 @@ if __name__ == '__main__':
 
     model.cuda()
     model = nn.DataParallel(model)
-    print('打印网络结构')
-    summary(model, (3, 448, 448))
 
     
     if 1 == i_debug:
