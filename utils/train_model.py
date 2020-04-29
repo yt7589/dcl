@@ -116,16 +116,24 @@ def train(Config,
             torch.cuda.synchronize()
 
             if Config.use_dcl:
+                ce_loss_val = ce_loss.detach().item()
+                if ce_loss_val > 0.6:
+                    # 记录下这个批次，可能是该批次有标注错误情况
+                    with open('./logs/error_samples_{0}_{1}_{2}.txt'.format(epoch, step, ce_loss_val), 'a+') as fd:
+                        batch_len = len(labels)
+                        for i in range(batch_len):
+                            fd.write('{0} <=> {1};'.format(labels[i], img_names[i]))
                 print('epoch{}: step: {:-8d} / {:d} loss=ce_loss+'
                             'swap_loss+law_loss: {:6.4f} = {:6.4f} '
                             '+ {:6.4f} + {:6.4f} '.format(
                                 epoch, step % train_epoch_step, 
                                 train_epoch_step, 
                                 loss.detach().item(), 
-                                ce_loss.detach().item(), 
+                                ce_loss_val, 
                                 swap_loss.detach().item(), 
                                 law_loss.detach().item()), flush=True
                             )
+                
             if Config.use_backbone:
                 print('epoch{}: step: {:-8d} / {:d} loss=ce_loss+'
                             'swap_loss+law_loss: {:6.4f} = {:6.4f} '.format(
