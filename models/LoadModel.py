@@ -34,6 +34,7 @@ class MainModel(nn.Module):
                 # export TORCH_MODEL_ZOO="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/models/pretrained/"
                 #self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=1000, pretrained='imagenet')
                 self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=1000, pretrained=None)
+                self.model.load_state_dict(torch.load(pretrained_model[self.backbone_arch]))
             else:
                 print('MainModel 4.2')
                 self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=478)
