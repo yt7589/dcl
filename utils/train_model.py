@@ -122,7 +122,7 @@ def train(Config,
                     with open('./logs/error_samples_{0}_{1}_{2}.txt'.format(epoch, step, ce_loss_val), 'a+') as fd:
                         error_batch_len = len(img_names)
                         for i in range(error_batch_len):
-                            fd.write('{0} <=> {1};'.format(org_labels[i*2], img_names[i]))
+                            fd.write('{0} <=> {1};\r\n'.format(org_labels[i*2], img_names[i]))
                 print('epoch{}: step: {:-8d} / {:d} loss=ce_loss+'
                             'swap_loss+law_loss: {:6.4f} = {:6.4f} '
                             '+ {:6.4f} + {:6.4f} '.format(
