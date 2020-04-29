@@ -19,7 +19,7 @@ class MainModel(nn.Module):
         self.use_Asoftmax = config.use_Asoftmax
         print(self.backbone_arch)
 
-        print('MainModel 1 :pretrainedmodels={0};'.format(dir(pretrainedmodels)))
+        print('MainModel 1 :pretrainedmodels={0};'.format(dir(models)))
         if self.backbone_arch in dir(models):
             print('MainModel 2')
             self.model = getattr(models, self.backbone_arch)()
