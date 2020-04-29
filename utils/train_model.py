@@ -121,6 +121,8 @@ def train(Config,
                     # 记录下这个批次，可能是该批次有标注错误情况
                     with open('./logs/error_samples_{0}_{1}_{2}.txt'.format(epoch, step, ce_loss_val), 'a+') as fd:
                         batch_len = len(labels)
+                        len2 = len(img_names)
+                        print('record error samples: len1={0}; len1={1}'.format(batch_len, len2))
                         for i in range(batch_len):
                             fd.write('{0} <=> {1};'.format(labels[i], img_names[i]))
                 print('epoch{}: step: {:-8d} / {:d} loss=ce_loss+'
