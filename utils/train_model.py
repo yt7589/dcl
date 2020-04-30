@@ -117,7 +117,7 @@ def train(Config,
 
             if Config.use_dcl:
                 ce_loss_val = ce_loss.detach().item()
-                if 1<0 and ce_loss_val > 0.8:
+                if ce_loss_val > 0.8:
                     # 记录下这个批次，可能是该批次有标注错误情况
                     with open('./logs/error_samples_{0}_{1}_{2}.txt'.format(epoch, step, ce_loss_val), 'a+') as fd:
                         error_batch_len = len(img_names)
