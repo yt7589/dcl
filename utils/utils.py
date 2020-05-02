@@ -63,6 +63,24 @@ def Linear(in_features, out_features, bias=True):
         m.bias.data.uniform_(-0.1, 0.1)
     return m
 
+def draw_accs_curve():
+    '''
+    绘制在训练数据集、测试数据集精度曲线
+    '''
+    print('记录训练过程中精度变化曲线')
+    with open('./logs/step.txt', 'r') as step_fd:
+        steps = step_fd.read()
+        steps = steps[:-1]
+    with open('./logs/train_acc.txt', 'r') as train_fd:
+        train_accs = train_fd.read()
+        train_accs = train_accs[:-1]
+    with open('./logs/test_acc.txt', 'r') as test_fd:
+        test_accs = test_fd.read()
+        test_accs = test_accs[:-1]
+    print('steps:{0};'.format(steps))
+    print('train_accs: {0};'.format(train_accs))
+    print('test_accs: {0};'.format(test_accs))
+
 
 class convolution(nn.Module):
     def __init__(self, k, inp_dim, out_dim, stride=1, with_bn=True):
