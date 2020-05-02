@@ -127,7 +127,7 @@ def train(Config,
             if Config.use_dcl:
                 print('loss: {0}; threshold: {1}~{2}; mu: {3}; std: {4};'.format(
                     ce_loss_val, ce_loss_mu + ce_loss_std,
-                    ce_loss_mu - ce_loss_std，
+                    ce_loss_mu - ce_loss_std,
                     ce_loss_mu, ce_loss_std
                 ))
                 if ce_loss_mu > 0 and (ce_loss_val > ce_loss_mu + ce_loss_std or ce_loss_val < ce_loss_mu - ce_loss_std):
