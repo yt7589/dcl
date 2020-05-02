@@ -42,6 +42,13 @@ def train(Config,
     rec_loss = []
     checkpoint_list = []
 
+    steps = np.array([], dtype=np.int)
+    train_accs = np.array([], dtype=np.float32)
+    test_accs = np.array([], dtype=np.float32)
+    ce_losses = np.array([], dtype=np.float32)
+    ce_loss_mu = -1
+    ce_loss_std = 0.0
+
     train_batch_size = data_loader['train'].batch_size
     train_epoch_step = data_loader['train'].__len__()
     train_loss_recorder = LossRecord(train_batch_size)
@@ -117,7 +124,8 @@ def train(Config,
 
             if Config.use_dcl:
                 ce_loss_val = ce_loss.detach().item()
-                if ce_loss_val > 800:
+                ce_losses = np.append(ce_losses, ce_loss_val)
+                if ce_loss_mu > 0 and (ce_loss_val > ce_loss_mu + 3*ce_loss_std or ce_loss_val < ce_loss_mu - 3*ce_loss_std):
                     # 记录下这个批次，可能是该批次有标注错误情况
                     with open('./logs/error_samples_{0}_{1}_{2}.txt'.format(epoch, step, ce_loss_val), 'a+') as fd:
                         error_batch_len = len(img_names)
@@ -162,12 +170,28 @@ def train(Config,
                 trainval_acc1, trainval_acc2, trainval_acc3 = eval_turn(Config, model, data_loader['trainval'], 'trainval', epoch, log_file)
                 print('##### test dataset #####')
                 val_acc1, val_acc2, val_acc3 = eval_turn(Config, model, data_loader['val'], 'val', epoch, log_file)
+                steps = np.append(steps, step)
+                train_accs = np.append(trainval_acc1)
+                test_accs = np.append(val_acc1)
 
                 save_path = os.path.join(save_dir, 'weights_%d_%d_%.4f_%.4f.pth'%(epoch, batch_cnt, val_acc1, val_acc3))
                 torch.cuda.synchronize()
                 torch.save(model.state_dict(), save_path)
                 print('saved model to %s' % (save_path), flush=True)
                 torch.cuda.empty_cache()
+                # 保存精度等信息并初始化
+                np.savetxt('./logs/steps1.txt', steps)
+                np.savetxt('./logs/train_accs1.txt', train_accs)
+                np.savetxt('./logs/test_accs1.txt', test_accs)
+                ce_loss_mu = ce_losses.mean()
+                ce_loss_std = ce_losses.std()
+                steps = np.array([], dtype=np.int)
+                train_accs = np.array([], dtype=np.float32)
+                test_accs = np.array([], dtype=np.float32)
+                ce_losses = np.array([], dtype=np.float32)
+                ce_loss_mu = -1
+                ce_loss_std = 0.0
+                
 
             # save only
             elif step % savepoint == 0:

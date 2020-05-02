@@ -4,6 +4,7 @@ import sys
 import datetime
 import argparse
 import logging
+import numpy as np
 import pandas as pd
 
 import torch
@@ -106,7 +107,11 @@ def exp(args):
     log_progress(2900, 0.95, 0.95*0.95)
     log_progress(3000, 1.0, 1.0)
     '''
-    du.draw_accs_curve()
+    #du.draw_accs_curve()
+    train_accs = np.array([1.1, 1.2, 1.3], dtype=np.float32)
+    np.savetxt('./logs/t1.txt', (train_accs,))
+    ta1 = np.loadtxt('./logs/t1.txt')
+    print(ta1)
 
 
 
