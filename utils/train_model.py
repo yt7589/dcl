@@ -125,7 +125,7 @@ def train(Config,
             torch.cuda.synchronize()
 
             if Config.use_dcl:
-                if ce_loss_mu > 0 and ce_loss_val > ce_loss_mu + 2.0*ce_loss_std:
+                if ce_loss_mu > 0 and ce_loss_val > ce_loss_mu + 3.0*ce_loss_std:
                     # 记录下这个批次，可能是该批次有标注错误情况
                     print('记录可疑批次信息: loss={0}; threshold={1};'.format(ce_loss_val, ce_loss_mu + 2.0*ce_loss_std))
                     with open('./logs/abnormal_samples_{0}_{1}_{2}.txt'.format(epoch, step, ce_loss_val), 'a+') as fd:
