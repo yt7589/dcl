@@ -107,7 +107,7 @@ def exp(args):
 
 
 if __name__ == '__main__':
-    i_debug = 1
+    i_debug = 10
     if 1 == i_debug:
         exp({})
         sys.exit(0)
