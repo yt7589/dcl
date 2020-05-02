@@ -125,13 +125,9 @@ def train(Config,
             torch.cuda.synchronize()
 
             if Config.use_dcl:
-                print('loss: {0}; threshold: {1}~{2}; mu: {3}; std: {4};'.format(
-                    ce_loss_val, ce_loss_mu + ce_loss_std,
-                    ce_loss_mu - ce_loss_std,
-                    ce_loss_mu, ce_loss_std
-                ))
-                if ce_loss_mu > 0 and (ce_loss_val > ce_loss_mu + ce_loss_std or ce_loss_val < ce_loss_mu - ce_loss_std):
+                if ce_loss_mu > 0 and ce_loss_val > ce_loss_mu + 2.0*ce_loss_std:
                     # 记录下这个批次，可能是该批次有标注错误情况
+                    print('记录可疑批次信息: loss={0}; threshold={1};'.format(ce_loss_val, ce_loss_mu + 2.0*ce_loss_std))
                     with open('./logs/abnormal_samples_{0}_{1}_{2}.txt'.format(epoch, step, ce_loss_val), 'a+') as fd:
                         error_batch_len = len(img_names)
                         for i in range(error_batch_len):
