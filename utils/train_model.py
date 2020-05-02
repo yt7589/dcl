@@ -171,8 +171,8 @@ def train(Config,
                 print('##### test dataset #####')
                 val_acc1, val_acc2, val_acc3 = eval_turn(Config, model, data_loader['val'], 'val', epoch, log_file)
                 steps = np.append(steps, step)
-                train_accs = np.append(trainval_acc1)
-                test_accs = np.append(val_acc1)
+                train_accs = np.append(train_accs, trainval_acc1)
+                test_accs = np.append(test_accs, val_acc1)
 
                 save_path = os.path.join(save_dir, 'weights_%d_%d_%.4f_%.4f.pth'%(epoch, batch_cnt, val_acc1, val_acc3))
                 torch.cuda.synchronize()
@@ -182,10 +182,15 @@ def train(Config,
                 # 保存精度等信息并初始化
                 ce_loss_mu = ce_losses.mean()
                 ce_loss_std = ce_losses.std()
+                print('Cross entropy loss: mu={0}; std={1}; range:{2}~{3};'.format(
+                    ce_loss_mu, ce_loss_std, 
+                    ce_loss_mu - 3.0*ce_loss_std,
+                    ce_loss_mu + 3.0 * ce_loss_std
+                ))
                 ce_losses = np.array([], dtype=np.float32)
                 ce_loss_mu = -1
                 ce_loss_std = 0.0
-                if steps.shape[0] > 100:
+                if train_accs.shape[0] > 100:
                     np.savetxt('./logs/steps1.txt', (steps,))
                     np.savetxt('./logs/train_accs1.txt', (train_accs,))
                     np.savetxt('./logs/test_accs1.txt', (test_accs,))
