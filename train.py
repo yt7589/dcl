@@ -107,11 +107,13 @@ def exp(args):
     log_progress(2900, 0.95, 0.95*0.95)
     log_progress(3000, 1.0, 1.0)
     '''
-    #du.draw_accs_curve()
-    train_accs = np.array([1.1, 1.2, 1.3], dtype=np.float32)
-    np.savetxt('./logs/t1.txt', (train_accs,))
-    ta1 = np.loadtxt('./logs/t1.txt')
-    print(ta1)
+    steps = np.array([2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000], dtype=np.float32)
+    train_accs = np.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], dtype=np.float32)
+    test_accs = np.array([0.01, 0.04, 0.09, 0.16, 0.25, 0.36, 0.49, 0.64, 0.81, 1.0], dtype=np.float32)
+    np.savetxt('./logs/steps1.txt', (steps,))
+    np.savetxt('./logs/train_accs1.txt', (train_accs))
+    np.savetxt('./logs/test_accs1.txt', (test_accs))
+    du.draw_accs_curve()
 
 
 

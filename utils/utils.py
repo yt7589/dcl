@@ -70,22 +70,10 @@ def draw_accs_curve():
     绘制在训练数据集、测试数据集精度曲线
     '''
     print('记录训练过程中精度变化曲线')
-    with open('./logs/step.txt', 'r') as step_fd:
-        steps = step_fd.read()
-        steps = steps[:-1]
-        steps = np.array([float(x) for x in steps.split(',')], np.float32)
-    print(steps.dtype)
-    with open('./logs/train_acc.txt', 'r') as train_fd:
-        train_accs = train_fd.read()
-        train_accs = train_accs[:-1]
-        train_accs = np.array([float(x) for x in train_accs.split(',')], dtype=np.float32)
-    with open('./logs/test_acc.txt', 'r') as test_fd:
-        test_accs = test_fd.read()
-        test_accs = test_accs[:-1]
-        test_accs = np.array([float(x) for x in test_accs.split(',')], dtype=np.float32)
-    print('steps:{0};'.format(steps))
-    print('train_accs: {0};'.format(train_accs))
-    print('test_accs: {0};'.format(test_accs))
+    steps = np.loadtxt('./logs/steps1.txt')
+    print(steps)
+    train_accs = np.loadtxt('./logs/train_accs1.txt')
+    test_accs = np.loadtxt('./logs/test_accs1.txt')
     fig, ax = plt.subplots()
     ax.plot(steps, train_accs*100.0, label='train')
     ax.plot(steps, test_accs*100.0, label='test')
