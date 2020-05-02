@@ -1,3 +1,5 @@
+import numpy as np
+import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -71,15 +73,28 @@ def draw_accs_curve():
     with open('./logs/step.txt', 'r') as step_fd:
         steps = step_fd.read()
         steps = steps[:-1]
+        steps = np.array([float(x) for x in steps.split(',')], np.float32)
+    print(steps.dtype)
     with open('./logs/train_acc.txt', 'r') as train_fd:
         train_accs = train_fd.read()
         train_accs = train_accs[:-1]
+        train_accs = np.array([float(x) for x in train_accs.split(',')], dtype=np.float32)
     with open('./logs/test_acc.txt', 'r') as test_fd:
         test_accs = test_fd.read()
         test_accs = test_accs[:-1]
+        test_accs = np.array([float(x) for x in test_accs.split(',')], dtype=np.float32)
     print('steps:{0};'.format(steps))
     print('train_accs: {0};'.format(train_accs))
     print('test_accs: {0};'.format(test_accs))
+    fig, ax = plt.subplots()
+    ax.plot(steps, train_accs*100.0, label='train')
+    ax.plot(steps, test_accs*100.0, label='test')
+    ax.set_xlabel('steps')
+    ax.set_ylabel('accuracy')
+    ax.set_title("accuracy curve")
+    ax.legend()
+    plt.show()
+
 
 
 class convolution(nn.Module):

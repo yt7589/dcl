@@ -93,6 +93,7 @@ def auto_load_resume(load_dir):
     return os.path.join(load_dir, choosed, choosed_w)
 
 def exp(args):
+    '''
     log_progress(2000, 0.1, 0.01)
     log_progress(2100, 0.2, 0.04)
     log_progress(2200, 0.3, 0.09)
@@ -104,6 +105,7 @@ def exp(args):
     log_progress(2800, 0.9, 0.81)
     log_progress(2900, 0.95, 0.95*0.95)
     log_progress(3000, 1.0, 1.0)
+    '''
     du.draw_accs_curve()
 
 
