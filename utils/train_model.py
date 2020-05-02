@@ -125,7 +125,7 @@ def train(Config,
             torch.cuda.synchronize()
 
             if Config.use_dcl:
-                if ce_loss_mu > 0 and (ce_loss_val > ce_loss_mu + 3*ce_loss_std or ce_loss_val < ce_loss_mu - 3*ce_loss_std):
+                if ce_loss_mu > 0 and (ce_loss_val > ce_loss_mu + ce_loss_std or ce_loss_val < ce_loss_mu - ce_loss_std):
                     # 记录下这个批次，可能是该批次有标注错误情况
                     with open('./logs/error_samples_{0}_{1}_{2}.txt'.format(epoch, step, ce_loss_val), 'a+') as fd:
                         error_batch_len = len(img_names)
@@ -190,7 +190,7 @@ def train(Config,
                 ce_losses = np.array([], dtype=np.float32)
                 ce_loss_mu = -1
                 ce_loss_std = 0.0
-                if train_accs.shape[0] > 100:
+                if train_accs.shape[0] > 10:
                     np.savetxt('./logs/steps1.txt', (steps,))
                     np.savetxt('./logs/train_accs1.txt', (train_accs,))
                     np.savetxt('./logs/test_accs1.txt', (test_accs,))
