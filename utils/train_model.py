@@ -193,8 +193,6 @@ def train(Config,
                     ce_loss_mu + 3.0 * ce_loss_std
                 ))
                 ce_losses = np.array([], dtype=np.float32)
-                ce_loss_mu = -1
-                ce_loss_std = 0.0
                 if train_accs.shape[0] > 30:
                     np.savetxt('./logs/steps1.txt', (steps,))
                     np.savetxt('./logs/train_accs1.txt', (train_accs,))
