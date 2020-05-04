@@ -13,6 +13,7 @@ def get_best_chpts():
     max_acc1 = -1.0
     max_chpt = ''
     for fi in files:
+        print(fi)
         arrs = str(fi).split('_')
         acc1 = float(arrs[3])
         if acc1 > max_acc1:
