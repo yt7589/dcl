@@ -15,7 +15,7 @@ def get_best_chpts():
     for fi in files:
         print(fi)
         arrs = str(fi).split('_')
-        acc1 = float(arrs[3])
+        acc1 = float(arrs[-2])
         if acc1 > max_acc1:
             print('swap: acc1={0}; max_acc1={1};'.format(acc1, max_acc1))
             max_acc1 = acc1
