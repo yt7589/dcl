@@ -1,5 +1,6 @@
 #
 from pathlib import Path
+import shutil
 import utils.utils as du
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
@@ -9,20 +10,21 @@ MODE_GET_BEST_CHPTS = 1002 # 在指定目录下获取最佳参数文件
 
 def get_best_chpts():
     chpts_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/net_model/training_descibe_5216_CUB/')
+    store_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/chpts/senet154/')
     files = [x for x in chpts_dir.iterdir() if chpts_dir.is_dir()]
     max_acc1 = -1.0
     max_chpt = ''
+    max_file = ''
     for fi in files:
-        print(fi)
         arrs = str(fi).split('_')
+        arrs1 = str(fi).split('/')
         acc1 = float(arrs[-2])
         if acc1 > max_acc1:
-            print('swap: acc1={0}; max_acc1={1};'.format(acc1, max_acc1))
             max_acc1 = acc1
             max_chpt = fi
-        else:
-            print('acc1={0}; max_acc1={1};'.format(acc1, max_acc1))
-    print('max: {0};'.format(max_chpt))
+            max_file = arrs1[-1]
+    print('max: {0}; = {1};'.format(max_chpt, max_file))
+    shutil.copy(max_chpt, '{0}{1}'.format(store_dir, max_file))
 
 
 def main(args):
