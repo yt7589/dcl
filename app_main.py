@@ -5,9 +5,11 @@ from pathlib import Path
 import shutil
 import utils.utils as du
 from web.web_server import WebServer
+import app_store
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
 MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
+MODE_TRAIN_MONITOR = 103 # 以Web服务器调整超参数
 MODE_DRAW_ACCS_CURVE = 1001 # 绘制精度曲线
 MODE_GET_BEST_CHPTS = 1002 # 在指定目录下获取最佳参数文件
 
@@ -33,7 +35,7 @@ def get_best_chpts():
 
 def main(args):
     print('细粒度图像识别系统')
-    mode = MODE_RUN_WEB_SERVER
+    mode = MODE_TRAIN_MONITOR
     if MODE_DRAW_ACCS_CURVE == mode:
         du.draw_accs_curve()
     elif MODE_TRAIN_WEB_SERVER == mode:
@@ -42,15 +44,20 @@ def main(args):
         web_server = WebServer()
         web_server.setDaemon(True)
         web_server.start()
+        web_server.join()
+    elif MODE_TRAIN_MONITOR == mode:
+        web_server = WebServer()
+        web_server.setDaemon(True)
+        web_server.start()
+        # start training process
         for i in range(100):
             try:
                 time.sleep(3)
             except:
                 print('exceptions... stop thread')
                 break
-            print('loop: {0};'.format(i))
-        #web_server.join()
-        print('after join')
+            print('loop_{0}: lr={1};'.format(i, app_store.vars['lr']))
+
     elif MODE_GET_BEST_CHPTS == mode:
         get_best_chpts()
     else:

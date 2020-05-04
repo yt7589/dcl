@@ -6,12 +6,14 @@ import json
 from flask import Flask
 from flask import jsonify
 from flask import request
+import app_store
 
 app = Flask(__name__)
 @app.route('/predict', methods=['POST'])
 def predict():
     data = json.loads(request.get_data(as_text=True))
     print('img_name: {0};'.format(data['img_name']))
+    app_store.vars['lr'] -= 0.2
     return jsonify({'class_id': 'IMAGE_NET_XXX', 'class_name': 'Cat'})
     
 class WebServer(threading.Thread):
