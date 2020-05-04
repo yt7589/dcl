@@ -9,7 +9,7 @@ MODE_DRAW_ACCS_CURVE = 1001 # 绘制精度曲线
 MODE_GET_BEST_CHPTS = 1002 # 在指定目录下获取最佳参数文件
 
 def get_best_chpts():
-    chpts_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/net_model/training_descibe_5216_CUB/')
+    chpts_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/net_model/training_descibe_5412_CUB/')
     store_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/chpts/senet154/')
     files = [x for x in chpts_dir.iterdir() if chpts_dir.is_dir()]
     max_acc1 = -1.0
