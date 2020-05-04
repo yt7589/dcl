@@ -1,7 +1,10 @@
 #
+import sys
+import time
 from pathlib import Path
 import shutil
 import utils.utils as du
+from web.web_server import WebServer
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
 MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
@@ -28,20 +31,30 @@ def get_best_chpts():
     print('dst_file: {0};'.format(dst_file))
     shutil.copy(max_chpt, dst_file)
 
-
 def main(args):
     print('细粒度图像识别系统')
-    mode = MODE_GET_BEST_CHPTS
+    mode = MODE_RUN_WEB_SERVER
     if MODE_DRAW_ACCS_CURVE == mode:
         du.draw_accs_curve()
     elif MODE_TRAIN_WEB_SERVER == mode:
         print('训练过程...')
     elif MODE_RUN_WEB_SERVER == mode:
-        print('预测过程...')
+        web_server = WebServer()
+        web_server.setDaemon(True)
+        web_server.start()
+        for i in range(100):
+            try:
+                time.sleep(3)
+            except:
+                print('exceptions... stop thread')
+                break
+            print('loop: {0};'.format(i))
+        #web_server.join()
+        print('after join')
     elif MODE_GET_BEST_CHPTS == mode:
         get_best_chpts()
     else:
         print('临时测试程序...')
 
 if '__main__' == __name__:
-    main({})
+    main({'__name__': __name__})
