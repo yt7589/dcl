@@ -24,7 +24,7 @@ def get_best_chpts():
             max_chpt = fi
             max_file = arrs1[-1]
     print('max: {0}; = {1};'.format(max_chpt, max_file))
-    dst_file = '{0}{1}'.format(store_dir, max_file)
+    dst_file = '{0}/{1}'.format(store_dir, max_file)
     print('dst_file: {0};'.format(dst_file))
     shutil.copy(max_chpt, dst_file)
 
