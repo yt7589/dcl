@@ -7,22 +7,24 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 import app_store
+from web.dcl_classifier import DclClassifier
 
 app = Flask(__name__)
 @app.route('/predict', methods=['POST'])
 def predict():
     data = json.loads(request.get_data(as_text=True))
-    print('img_name: {0};'.format(data['img_name']))
-    app_store.vars['lr'] -= 0.2
-    return jsonify({'class_id': 'IMAGE_NET_XXX', 'class_name': 'Cat'})
+    rst = WebServer.classifier.predict(data['img_name'])
+    print('img_name: {0} => {1};'.format(data['img_name'], rst))
+    return jsonify({'class_id': rst, 'class_name': 'Cat'})
     
 class WebServer(threading.Thread):
-    instance = None
+    classifier = None
 
     def __init__(self):
         threading.Thread.__init__(self)
         WebServer.instance = self
         self.name = 'web.WebServer'
+        WebServer.classifier = DclClassifier()
 
     def run(self):
         app.run()
