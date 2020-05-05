@@ -13,9 +13,9 @@ app = Flask(__name__)
 @app.route('/predict', methods=['POST'])
 def predict():
     data = json.loads(request.get_data(as_text=True))
-    rst = WebServer.classifier.predict(data['img_name'])
-    print('img_name: {0} => {1};'.format(data['img_name'], rst))
-    return jsonify({'class_id': rst, 'class_name': 'Cat'})
+    class_id, class_name = WebServer.classifier.predict(data['img_name'])
+    print('img_name: {0} => {1};'.format(data['img_name'], class_id))
+    return jsonify({'class_id': class_id, 'class_name': class_name})
     
 class WebServer(threading.Thread):
     classifier = None
