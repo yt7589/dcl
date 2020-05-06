@@ -137,3 +137,7 @@ ct_train_newd.txt
 logs/
 models/
 net_model/
+
+# TensorRT related
+*.o
+*.so
