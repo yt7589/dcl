@@ -83,6 +83,10 @@ def draw_accs_curve():
     ax.legend()
     plt.show()
 
+def prepare_st_car_ds():
+    print('生成stanford car数据对应的ct_train_newd.txt、ct_val_newd.txt、ct_test_newd.txt')
+    base_dir = 'E:/work/tcv/projects/apc/data/StandCars'
+
 
 
 class convolution(nn.Module):

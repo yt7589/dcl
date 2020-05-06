@@ -12,6 +12,7 @@ MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
 MODE_TRAIN_MONITOR = 103 # 以Web服务器调整超参数
 MODE_DRAW_ACCS_CURVE = 1001 # 绘制精度曲线
 MODE_GET_BEST_CHPTS = 1002 # 在指定目录下获取最佳参数文件
+MODE_CREATE_ST_CAR_DS = 1004 # 生成斯坦福汽车数据集
 
 def get_best_chpts():
     chpts_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/net_model/training_descibe_5412_CUB/')
@@ -35,7 +36,7 @@ def get_best_chpts():
 
 def main(args):
     print('细粒度图像识别系统')
-    mode = MODE_TRAIN_MONITOR
+    mode = MODE_CREATE_ST_CAR_DS #MODE_TRAIN_MONITOR
     if MODE_DRAW_ACCS_CURVE == mode:
         du.draw_accs_curve()
     elif MODE_TRAIN_WEB_SERVER == mode:
@@ -57,9 +58,10 @@ def main(args):
                 print('exceptions... stop thread')
                 break
             print('loop_{0}: lr={1};'.format(i, app_store.vars['lr']))
-
     elif MODE_GET_BEST_CHPTS == mode:
         get_best_chpts()
+    elif MODE_CREATE_ST_CAR_DS == mode:
+        du.prepare_st_car_ds()
     else:
         print('临时测试程序...')
 

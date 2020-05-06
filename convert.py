@@ -93,7 +93,7 @@ if __name__ == '__main__':
     for k, v in model_dict.items():
         print(k)
             #   net_model/training_descibe_41419_CUB/weights_0_64099_0.6820_0.9446.pth
-    resume = './net_model/training_descibe_41419_CUB/weights_0_64099_0.6820_0.9446.pth'
+    resume = './net_model/training_descibe_5412_CUB/weights_0_66599_0.5753_0.8661.pth'
     pretrained_dict=torch.load(resume)
     pretrained_dict = {k[7:]: v for k, v in pretrained_dict.items() if k[7:] in model_dict}
     for k, v in pretrained_dict.items():
@@ -107,8 +107,18 @@ if __name__ == '__main__':
     model.cuda()
     example = torch.rand(1, 3, 448, 448).cuda()
     print(example.shape)
-    onnx.export(model, example, "./dcl.onnx", verbose=False,
+    onnx.export(model, example, "./dcl_yt.onnx", verbose=False,
                 operator_export_type=OperatorExportTypes.ONNX)
+
+
+
+    i_debug = 1
+    if 1 == i_debug:
+        print('生成onnx文件成功!')
+        sys.exit(0)
+
+
+
     model = nn.DataParallel(model)
 
     model.train(False)
