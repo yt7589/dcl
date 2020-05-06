@@ -57,7 +57,7 @@
 #include "/home/zjkj/working_zjw/onnx--prog/TensorRT-6.0.1.5/include/NvOnnxParser.h"
 #include "/home/zjkj/working_zjw/onnx--prog/TensorRT-6.0.1.5/include/NvUffParser.h"
 
-#include "sampleUtils.h"
+#include "sample_utils.h"
 
 namespace sample
 {
