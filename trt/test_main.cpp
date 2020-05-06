@@ -4,8 +4,8 @@
 //#include "/home/zjkj/opencv347/opencv/opencv-3.4.7/build/lib/libopencv_core.so.3.4"
 #include <chrono>
 #include "/usr/local/cuda-10.1/targets/x86_64-linux/include/cuda_runtime.h"
-#include <logger.h>
-#include "CarFeature.h"
+#include "logger.h"
+#include "fgvc.h"
 #include "/home/zjkj/working_zjw/onnx--prog/TensorRT-6.0.1.5/include/NvInferRuntimeCommon.h"
 #include <vector>
 
