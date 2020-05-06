@@ -6,7 +6,7 @@
 #define __NV_CROP_AND_RESIZE_NOVIO_H__
 
 #include <vector>
-#include "CarFeature.h"
+#include "fgvc.h"
 
 void nvCropAndResizeAndNormLaunch(float *cropImages,
                                   const std::vector<unsigned char *> &cudaSrc,
