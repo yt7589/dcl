@@ -16,6 +16,8 @@ import torch.optim as optim
 from torch.optim import lr_scheduler
 import torch.backends.cudnn as cudnn
 from torchsummary import summary
+import torch.onnx as onnx
+from torch.onnx import OperatorExportTypes
 
 from transforms import transforms
 from utils.train_model import train
