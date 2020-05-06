@@ -47,8 +47,8 @@
  * Users Notice.
  */
 
-#ifndef _ARGS_PARSER_H_
-#define TENSORRT_ARGS_PARSER_H
+#ifndef __ARGS_PARSER_H__
+#define __ARGS_PARSER_H__
 
 #include <string>
 #include <vector>
