@@ -105,7 +105,7 @@ if __name__ == '__main__':
 
     
     model.cuda()
-    example = torch.rand(1, 3, 448, 448).cuda()
+    example = torch.rand(1, 3, 224, 224).cuda()
     print(example.shape)
     onnx.export(model, example, "./dcl_yt.onnx", verbose=False,
                 operator_export_type=OperatorExportTypes.ONNX)
