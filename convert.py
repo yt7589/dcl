@@ -103,7 +103,7 @@ if __name__ == '__main__':
     '''
     #model.load_state_dict(pretrained_dict['net_state_dict'])
     #load_state_dict(ckpt['net_state_dict'])
-    model.load_state_dict(resume)
+    model.load_state_dict(torch.load(resume))
     model.cuda()
     example = torch.rand(1, 3, 448, 448).cuda()
     print(example.shape)
