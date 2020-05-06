@@ -1,6 +1,6 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
-#include <nvCropAndResizeNovio.h>
+#include <nv_crop_and_resize_novio.h>
 #include <iostream>
 
 
