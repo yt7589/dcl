@@ -8,7 +8,7 @@ using namespace std;
 //#include <opencv2/core.hpp>
 #include "/home/zjkj/opencv347/opencv/opencv-3.4.7/modules/core/include/opencv2/core.hpp"
 #include <vector>
-#include "AllModuleInclude.h"
+#include "all_module_include.h"
 
 typedef struct {
     std::vector<int> topKPINPAI{}; // top K的预测结果
