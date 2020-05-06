@@ -90,22 +90,22 @@ if __name__ == '__main__':
 
     model = MainModel(Config)
     model_dict=model.state_dict()
-    for k, v in model_dict.items():
-        print(k)
+    #for k, v in model_dict.items():
+    #    print(k)
             #   net_model/training_descibe_41419_CUB/weights_0_64099_0.6820_0.9446.pth
     resume = './net_model/training_descibe_5412_CUB/weights_0_66599_0.5753_0.8661.pth'
+    '''
     pretrained_dict=torch.load(resume)
     pretrained_dict = {k[7:]: v for k, v in pretrained_dict.items() if k[7:] in model_dict}
     for k, v in pretrained_dict.items():
         print(k)
     model_dict.update(pretrained_dict)
+    '''
     #model.load_state_dict(pretrained_dict['net_state_dict'])
-#load_state_dict(ckpt['net_state_dict'])
-    model.load_state_dict(model_dict)
-
-    
+    #load_state_dict(ckpt['net_state_dict'])
+    model.load_state_dict(resume)
     model.cuda()
-    example = torch.rand(1, 3, 224, 224).cuda()
+    example = torch.rand(1, 3, 448, 448).cuda()
     print(example.shape)
     onnx.export(model, example, "./dcl_yt.onnx", verbose=False,
                 operator_export_type=OperatorExportTypes.ONNX)
