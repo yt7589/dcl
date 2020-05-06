@@ -8,10 +8,10 @@
 
 #include "/home/zjkj/working_zjw/onnx--prog/TensorRT-6.0.1.5/include/NvOnnxParser.h"
 #include "common.h"
-#include "argsParser.h"
-#include "CarFeature.h"
+#include "args_parser.h"
+#include "fgvc.h"
 #include "buffers.h"
-#include "sampleOptions.h"
+#include "sample_options.h"
 
 namespace CarFeatureExtract{
     class OnnxTRT {
