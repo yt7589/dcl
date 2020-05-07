@@ -24,7 +24,7 @@ class VaoTest(object):
             if not file_obj.is_dir() and full_name.endswith(('jpg','png','jpeg','bmp')):
                 print('image filename: {0};'.format(file_obj))
             else:
-                list_img_files(str(file_obj))
+                VaoTest.list_img_files(str(file_obj))
 
 
     @staticmethod
