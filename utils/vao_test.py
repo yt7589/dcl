@@ -4,6 +4,9 @@
 from pathlib import Path
 
 class VaoTest(object):
+    MODE_PREPARE_DATASET = 1001
+    MODE_GET_VEHICLE_CODES = 1002
+
     def __init__(self):
         self.name = 'util.VaoTest'
 
@@ -14,10 +17,22 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        VaoTest.create_v_bn_no()
-        VaoTest.process_imported_vehicles_main()
-        VaoTest.process_domestic_vehicles_main()
-        #VaoTest.process_test_data_main()
+        mode = MODE_GET_VEHICLE_CODES
+        if MODE_PREPARE_DATASET == mode:
+            VaoTest.create_v_bn_no()
+            VaoTest.process_imported_vehicles_main()
+            VaoTest.process_domestic_vehicles_main()
+            #VaoTest.process_test_data_main()
+        elif MODE_GET_VEHICLE_CODES == mode:
+            VaoTest.get_all_vehicle_codes()
+
+    @staticmethod
+    def get_all_vehicle_codes():
+        '''
+        从国产车guochanche_2目录中找出所有图片，取出车辆编号，
+        形成不重复的车辆编号列表
+        '''
+        print('获取车辆型号列表...')
 
     @staticmethod
     def process_test_data_main():
