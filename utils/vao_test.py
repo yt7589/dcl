@@ -15,7 +15,10 @@ class VaoTest(object):
         for item in imported_brands_items:
             item_str = str(item)
             arrs = item_str.split('_')
-            print('{0}: {1};'.format(arrs[-2], arrs[-1]))
+            arrs1 = arrs[-2].split('/')
+            brand_no = arrs1[1]
+            brand_name = arrs[-1]
+            print('{0}: {1};'.format(brand_no, brand_name))
 
     vehicle_brands = {
         '001':'奥迪',
