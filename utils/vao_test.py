@@ -9,13 +9,17 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        ds_file = './yt_train.txt'
-        with open(ds_file, 'a+', encoding='utf-8') as fd:
-            VaoTest.create_imported_vehicle_dataset(fd)
+        VaoTest.process_imported_vehicles_main()
 
     @staticmethod
-    def create_imported_vehicle_dataset(ds_fd):
-        folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/t1'
+    def process_imported_vehicles_main():
+        ds_file = './yt_train.txt'
+        base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/t1'
+        with open(ds_file, 'a+', encoding='utf-8') as fd:
+            VaoTest.create_imported_vehicle_dataset(fd, base_dir)
+
+    @staticmethod
+    def create_imported_vehicle_dataset(ds_fd, folder_name):
         path_obj = Path(folder_name)
         for file_obj in path_obj.iterdir():
             imgs_dir = str(file_obj)
