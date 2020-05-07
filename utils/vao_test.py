@@ -8,7 +8,40 @@ class VaoTest(object):
         self.name = 'util.VaoTest'
 
     @staticmethod
-    def process_imported_vehicle():
+    def process_vehicles():
+        #_, uncovered_brand_names = VaoTest.process_imported_vehicles()
+        uncovered_brand_names = []
+        for bn in VaoTest.vehicle_brands.values():
+            uncovered_brand_names.append(bn)
+        VaoTest.process_domestic_vehicles(uncovered_brand_names)
+
+    @staticmethod
+    def process_domestic_vehicles(uncovered_brand_names):
+        print('处理国产车')
+        vehicle_codes = []
+        vc_dict = {} # 车型编号和品牌字典
+        with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as fd:
+            line = fd.readline()
+            while line:
+                print('# {0};'.format(line))
+                arrs = line.split('*')
+                print('len={0};'.format(len(arrs)))
+                if len(arrs) > 1:
+                    arrs2 = arrs[1].split('_')
+                    brand_name = arrs2[0]
+                    vc_dict[arrs[0]] = brand_name
+                line = fd.readline()
+        srcPath = Path('/media/zjkj/My Passport/guochanche_all')
+        domestic_brands_items = [x for x in srcPath.iterdir() if srcPath.is_dir()]
+        for item in domestic_brands_items:
+            item_str = str(item)
+            brand_name = bc_dict[item_str]
+            uncovered_brand_names.remove(brand_name)
+        for bn in uncovered_brand_names:
+            print(bn)
+
+    @staticmethod
+    def process_imported_vehicles():
         # 列出所有
         srcPath = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d')
         imported_brands_items = [x for x in srcPath.iterdir() if srcPath.is_dir()]
@@ -21,15 +54,21 @@ class VaoTest(object):
             imported_brands_nos.append(brand_no)
             brand_name = arrs[-1]
             print('{0}: {1};'.format(brand_no, brand_name))
-
-        # 统计未覆盖的标准中的品牌
+        # 从车型中去除进口车数据集中的品牌
         uncovered_brand_nos = []
+        uncovered_brand_names = []
         for k in VaoTest.vehicle_brands.keys():
             if not (k in imported_brands_nos):
                 uncovered_brand_nos.append(k)
-        for bn in uncovered_brand_nos:
-            print(bn)
-
+                uncovered_brand_names.append(VaoTest.vehicle_brands[k])
+        return uncovered_brand_nos, uncovered_brand_names
+        # 从车型库中去除国产车数据集中的品牌
+        # 打印未覆盖的车型
+    
+    v_no_bn = {}
+    v_bn_no = {}
+    v_no_set = set()
+    v_bn_set = set()
     vehicle_brands = {
         '001':'奥迪',
         '002':'阿尔法罗密欧',
@@ -212,3 +251,16 @@ class VaoTest(object):
         '179':'凯翼',
         '180':'北方客车'
         }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -65,7 +65,7 @@ def main(args):
     elif MODE_CREATE_ST_CAR_DS == mode:
         du.prepare_st_car_ds()
     elif MODE_VAO_TEST == mode:
-        VaoTest.process_imported_vehicle()
+        VaoTest.process_vehicles()
     else:
         print('临时测试程序...')
 
