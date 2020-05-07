@@ -37,7 +37,11 @@ class VaoTest(object):
             item_str = str(item)
             arrs = item_str.split('/')
             brand_name = vc_dict[arrs[-1]] if arrs[-1] in vc_dict else '*'
-            print('domestic: {0} => {1};'.format(item_str, brand_name))
+            if '*' == brand_name:
+                arrs1 = arrs[-1].split('_')
+                if len(arrs1) > 1:
+                    brand_name = arrs1[0]
+            print('domestic: {0} => {1};'.format(arrs[-1], brand_name))
             if brand_name in uncovered_brand_names:
                 uncovered_brand_names.remove(brand_name)
         for bn in uncovered_brand_names:
