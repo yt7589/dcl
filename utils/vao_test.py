@@ -42,7 +42,7 @@ class VaoTest(object):
     @staticmethod
     def process_domestic_vehicles_main():
         ds_file = './yt_train.txt'
-        base_dir = Path('/media/zjkj/My Passport/t2') #
+        base_dir = Path('/media/zjkj/My Passport/guochanche_all') #
         with open(ds_file, 'a+', encoding='utf-8') as fd:
             VaoTest.create_domestic_vehicle_dataset(fd, base_dir)
     
@@ -52,9 +52,7 @@ class VaoTest(object):
         with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as fd:
             line = fd.readline()
             while line:
-                print('# {0};'.format(line))
                 arrs = line.split('*')
-                print('len={0};'.format(len(arrs)))
                 if len(arrs) > 1:
                     arrs2 = arrs[1].split('_')
                     brand_name = arrs2[0]
@@ -69,7 +67,6 @@ class VaoTest(object):
                 arrs1 = arrs[-1].split('_')
                 if len(arrs1) > 1:
                     brand_name = arrs1[0]
-            print('domestic: {0} => {1};'.format(arrs[-1], brand_name))
             if brand_name in VaoTest.v_bn_no:
                 class_id = int(VaoTest.v_bn_no[brand_name]) - 1
                 VaoTest.list_img_files(ds_fd, item_str, class_id)
@@ -77,7 +74,7 @@ class VaoTest(object):
     @staticmethod
     def process_imported_vehicles_main():
         ds_file = './yt_train.txt'
-        base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/t1' #
+        base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d' #
         with open(ds_file, 'a+', encoding='utf-8') as fd:
             VaoTest.create_imported_vehicle_dataset(fd, base_dir)
 
