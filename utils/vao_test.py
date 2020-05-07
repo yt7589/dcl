@@ -41,7 +41,7 @@ class VaoTest(object):
     @staticmethod
     def append_to_ds_file(ds_file, line):
         with open(ds_file, 'a+', encoding='utf-8') as fd:
-            fd.write(line)
+            fd.write('{0}\r\n'.format(line))
 
     @staticmethod
     def process_vehicles():
