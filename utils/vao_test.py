@@ -33,6 +33,25 @@ class VaoTest(object):
         形成不重复的车辆编号列表
         '''
         print('获取车辆型号列表...')
+        base_dir = Path('/home/up/guochanche_2/')
+        rst_file = './vehicle_codes.txt'
+        with open(rst_file, 'a+', encoding='utf-8') as fd:
+            VaoTest.get_vehicle_codes_in_folder(fd, base_dir)
+
+    @staticmethod
+    def get_vehicle_codes_in_folder(rst_fd, folder_name):
+        path_obj = Path(folder_name)
+        for file_obj in path_obj.iterdir():
+            full_name = str(file_obj)
+            if not file_obj.is_dir() and full_name.endswith(('jpg','png','jpeg','bmp')):
+                arrs = full_name.split('/')
+                arrs2 = arrs[-1].split('_')
+                vehicle_code = arrs2[0]
+                rst_fd.write('{0}\r\n'.format(vehicle_code))
+            elif file_obj.is_dir():
+                VaoTest.get_vehicle_codes_in_folder(rst_fd, full_name)
+            else:
+                print('ignore other file: {0};'.format(full_name))
 
     @staticmethod
     def process_test_data_main():
