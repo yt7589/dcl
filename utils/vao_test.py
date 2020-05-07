@@ -8,8 +8,49 @@ class VaoTest(object):
         self.name = 'util.VaoTest'
 
     @staticmethod
+    def create_v_bn_no():
+        for k, v in VaoTest.vehicle_brands.items():
+            VaoTest.v_bn_no[v] = k
+
+    @staticmethod
     def startup():
-        VaoTest.process_imported_vehicles_main()
+        VaoTest.create_v_bn_no()
+        #VaoTest.process_imported_vehicles_main()
+        VaoTest.process_domestic_vehicles_main()
+
+    @staticmethod
+    def process_domestic_vehicles_main():
+        ds_file = './yt_train.txt'
+        base_dir = Path('/media/zjkj/My Passport/t2')
+        with open(ds_file, 'a+', encoding='utf-8') as fd:
+            VaoTest.create_domestic_vehicle_dataset(fd, base_dir)
+    
+    @staticmethod
+    def create_domestic_vehicle_dataset(fd, base_dir):
+        vc_dict = {} # 车型编号和品牌字典
+        with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as fd:
+            line = fd.readline()
+            while line:
+                print('# {0};'.format(line))
+                arrs = line.split('*')
+                print('len={0};'.format(len(arrs)))
+                if len(arrs) > 1:
+                    arrs2 = arrs[1].split('_')
+                    brand_name = arrs2[0]
+                    vc_dict[arrs[0]] = brand_name
+                line = fd.readline()
+        domestic_brands_items = [x for x in base_dir.iterdir() if base_dir.is_dir()]
+        for item in domestic_brands_items:
+            item_str = str(item)
+            arrs = item_str.split('/')
+            brand_name = vc_dict[arrs[-1]] if arrs[-1] in vc_dict else '*'
+            if '*' == brand_name:
+                arrs1 = arrs[-1].split('_')
+                if len(arrs1) > 1:
+                    brand_name = arrs1[0]
+            print('domestic: {0} => {1};'.format(arrs[-1], brand_name))
+            class_id = int(VaoTest.v_bn_no[brand_name]) - 1
+            VaoTest.list_img_files(fd, item_str, class_id)
 
     @staticmethod
     def process_imported_vehicles_main():
