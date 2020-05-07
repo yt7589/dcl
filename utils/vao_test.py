@@ -44,6 +44,7 @@ class VaoTest(object):
             print('domestic: {0} => {1};'.format(arrs[-1], brand_name))
             if brand_name in uncovered_brand_names:
                 uncovered_brand_names.remove(brand_name)
+        print('uncoder brand number: {0};'.format(len(uncovered_brand_names)))
         for bn in uncovered_brand_names:
             print(bn)
 
