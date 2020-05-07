@@ -3,7 +3,7 @@ import sys
 import time
 from pathlib import Path
 import shutil
-import utils.utils as du
+#import utils.utils as du
 from web.web_server import WebServer
 import app_store
 from utils.vao_test import VaoTest
@@ -40,7 +40,8 @@ def main(args):
     print('细粒度图像识别系统')
     mode = MODE_VAO_TEST #MODE_TRAIN_MONITOR
     if MODE_DRAW_ACCS_CURVE == mode:
-        du.draw_accs_curve()
+        #du.draw_accs_curve()
+        pass
     elif MODE_TRAIN_WEB_SERVER == mode:
         print('训练过程...')
     elif MODE_RUN_WEB_SERVER == mode:
@@ -63,7 +64,8 @@ def main(args):
     elif MODE_GET_BEST_CHPTS == mode:
         get_best_chpts()
     elif MODE_CREATE_ST_CAR_DS == mode:
-        du.prepare_st_car_ds()
+        #du.prepare_st_car_ds()
+        pass
     elif MODE_VAO_TEST == mode:
         VaoTest.startup()
     else:
