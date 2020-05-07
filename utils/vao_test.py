@@ -44,24 +44,6 @@ class VaoTest(object):
             fd.write(line)
 
     @staticmethod
-    def create_imported_vehicle_dataset(folder_name):
-        '''
-        生成进口车品牌识别训练数据集
-        '''
-        # 取出vehicle-type-2d目录下子目录
-        srcPath = Path(folder_name)
-        imported_brands_items = [x for x in srcPath.iterdir() if srcPath.is_dir()]
-        class_id = 0
-        # 遍历每个子目录
-        for item in imported_brands_items:
-            arrs = item.split('_')
-            brand_no = arrs[0]
-            brand_name = arrs[1]
-
-        # 用_进行分割
-
-
-    @staticmethod
     def process_vehicles():
         _, uncovered_brand_names = VaoTest.process_imported_vehicles()
         #uncovered_brand_names = []
