@@ -104,8 +104,10 @@ class VaoTest(object):
             if not file_obj.is_dir() and full_name.endswith(('jpg','png','jpeg','bmp')):
                 print('{0}*{1}'.format(file_obj, class_id))
                 ds_fd.write('{0}*{1}\r\n'.format(file_obj, class_id))
-            else:
+            elif file_obj.is_dir():
                 VaoTest.list_img_files(ds_fd, str(file_obj), class_id)
+            else:
+                print('ignore other file: {0};'.format(full_name))
 
     @staticmethod
     def process_vehicles():
