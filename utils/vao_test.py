@@ -60,6 +60,8 @@ class VaoTest(object):
                 line = fd.readline()
         domestic_brands_items = [x for x in base_dir.iterdir() if base_dir.is_dir()]
         for item in domestic_brands_items:
+            if not item.is_dir():
+                continue
             item_str = str(item)
             arrs = item_str.split('/')
             brand_name = vc_dict[arrs[-1]] if arrs[-1] in vc_dict else '*'
@@ -82,6 +84,8 @@ class VaoTest(object):
     def create_imported_vehicle_dataset(ds_fd, folder_name):
         path_obj = Path(folder_name)
         for file_obj in path_obj.iterdir():
+            if not file_obj.is_dir():
+                continue
             imgs_dir = str(file_obj)
             arrs0 = imgs_dir.split('/')
             arrs = arrs0[-1].split('_')
