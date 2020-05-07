@@ -15,9 +15,9 @@ class VaoTest(object):
     @staticmethod
     def startup():
         VaoTest.create_v_bn_no()
-        #VaoTest.process_imported_vehicles_main()
-        #VaoTest.process_domestic_vehicles_main()
-        VaoTest.process_test_data_main()
+        VaoTest.process_imported_vehicles_main()
+        VaoTest.process_domestic_vehicles_main()
+        #VaoTest.process_test_data_main()
 
     @staticmethod
     def process_test_data_main():
@@ -42,7 +42,7 @@ class VaoTest(object):
     @staticmethod
     def process_domestic_vehicles_main():
         ds_file = './yt_train.txt'
-        base_dir = Path('/media/zjkj/My Passport/t2')
+        base_dir = Path('/media/zjkj/My Passport/t2') #
         with open(ds_file, 'a+', encoding='utf-8') as fd:
             VaoTest.create_domestic_vehicle_dataset(fd, base_dir)
     
@@ -77,7 +77,7 @@ class VaoTest(object):
     @staticmethod
     def process_imported_vehicles_main():
         ds_file = './yt_train.txt'
-        base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/t1'
+        base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/t1' #
         with open(ds_file, 'a+', encoding='utf-8') as fd:
             VaoTest.create_imported_vehicle_dataset(fd, base_dir)
 
