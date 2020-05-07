@@ -8,6 +8,44 @@ class VaoTest(object):
         self.name = 'util.VaoTest'
 
     @staticmethod
+    def startup():
+        folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/t1'
+        #VaoTest.create_imported_vehicle_dataset(folder_name)
+        imgs_dir = '{0}/001_奥迪'.format(folder_name)
+        list_img_files(imgs_dir)
+
+    def list_img_files(folder_name):
+        '''
+        列出该目录以及其子目录下所有图片文件（以jpg为扩展名）列表
+        '''
+        path_obj = Path(folder_name)
+        for file_obj in path_obj.iterdir():
+            full_name = str(file_obj)
+            if not file_obj.is_dir() and full_name.endswith(('jpg','png','jpeg','bmp')):
+                print('image filename: {0};'.format(file_obj))
+            else:
+                list_img_files(str(file_obj))
+
+
+    @staticmethod
+    def create_imported_vehicle_dataset(folder_name):
+        '''
+        生成进口车品牌识别训练数据集
+        '''
+        # 取出vehicle-type-2d目录下子目录
+        srcPath = Path(folder_name)
+        imported_brands_items = [x for x in srcPath.iterdir() if srcPath.is_dir()]
+        class_id = 0
+        # 遍历每个子目录
+        for item in imported_brands_items:
+            arrs = item.split('_')
+            brand_no = arrs[0]
+            brand_name = arrs[1]
+
+        # 用_进行分割
+
+
+    @staticmethod
     def process_vehicles():
         _, uncovered_brand_names = VaoTest.process_imported_vehicles()
         #uncovered_brand_names = []
