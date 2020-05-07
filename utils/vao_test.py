@@ -12,13 +12,23 @@ class VaoTest(object):
         # 列出所有
         srcPath = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d')
         imported_brands_items = [x for x in srcPath.iterdir() if srcPath.is_dir()]
+        imported_brands_nos = []
         for item in imported_brands_items:
             item_str = str(item)
             arrs = item_str.split('_')
             arrs1 = arrs[-2].split('/')
             brand_no = arrs1[1]
+            imported_brands_nos.append(brand_no)
             brand_name = arrs[-1]
             print('{0}: {1};'.format(brand_no, brand_name))
+
+        # 统计未覆盖的标准中的品牌
+        uncovered_brand_nos = []
+        for k in VaoTest.vehicle_brands.keys():
+            if not (k in imported_brands_nos):
+                uncovered_brand_nos.append(k)
+        for bn in uncovered_brand_nos:
+            print(bn)
 
     vehicle_brands = {
         '001':'奥迪',
