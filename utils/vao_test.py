@@ -12,7 +12,7 @@ class VaoTest(object):
         folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/t1'
         #VaoTest.create_imported_vehicle_dataset(folder_name)
         imgs_dir = '{0}/001_奥迪'.format(folder_name)
-        list_img_files(imgs_dir)
+        VaoTest.list_img_files(imgs_dir)
 
     def list_img_files(folder_name):
         '''
