@@ -123,7 +123,7 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'label'])
             '''
-            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'yt_test.txt'),\
+            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'yt_test_0.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'label'])
