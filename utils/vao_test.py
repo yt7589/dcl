@@ -11,8 +11,8 @@ class VaoTest(object):
     def process_vehicles():
         _, uncovered_brand_names = VaoTest.process_imported_vehicles()
         #uncovered_brand_names = []
-        for bn in VaoTest.vehicle_brands.values():
-            uncovered_brand_names.append(bn)
+        #for bn in VaoTest.vehicle_brands.values():
+        #    uncovered_brand_names.append(bn)
         VaoTest.process_domestic_vehicles(uncovered_brand_names)
 
     @staticmethod
