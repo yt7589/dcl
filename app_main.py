@@ -4,7 +4,7 @@ import time
 from pathlib import Path
 import shutil
 #import utils.utils as du
-from web.web_server import WebServer
+#from web.web_server import WebServer
 import app_store
 from utils.vao_test import VaoTest
 
@@ -45,11 +45,15 @@ def main(args):
     elif MODE_TRAIN_WEB_SERVER == mode:
         print('训练过程...')
     elif MODE_RUN_WEB_SERVER == mode:
+        '''
         web_server = WebServer()
         web_server.setDaemon(True)
         web_server.start()
         web_server.join()
+        '''
+        pass
     elif MODE_TRAIN_MONITOR == mode:
+        '''
         web_server = WebServer()
         web_server.setDaemon(True)
         web_server.start()
@@ -61,6 +65,8 @@ def main(args):
                 print('exceptions... stop thread')
                 break
             print('loop_{0}: lr={1};'.format(i, app_store.vars['lr']))
+        '''
+        pass
     elif MODE_GET_BEST_CHPTS == mode:
         get_best_chpts()
     elif MODE_CREATE_ST_CAR_DS == mode:
