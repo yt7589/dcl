@@ -212,6 +212,7 @@ if __name__ == '__main__':
         os.makedirs(save_dir)
 
     model.cuda()
+    '''
     print('准备保存模型到onnx文件')
     example = torch.rand(1, 3, 448, 448).cuda()
     print(example.shape)
@@ -224,6 +225,7 @@ if __name__ == '__main__':
     i1 = 1
     if 1 == i1:
         sys.exit(0)
+    '''
     model = nn.DataParallel(model)
 
 
