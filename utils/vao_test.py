@@ -49,8 +49,9 @@ class VaoTest(object):
                 if len(arrs1) > 1:
                     brand_name = arrs1[0]
             print('domestic: {0} => {1};'.format(arrs[-1], brand_name))
-            class_id = int(VaoTest.v_bn_no[brand_name]) - 1
-            VaoTest.list_img_files(fd, item_str, class_id)
+            if brand_name in VaoTest.v_bn_no:
+                class_id = int(VaoTest.v_bn_no[brand_name]) - 1
+                VaoTest.list_img_files(fd, item_str, class_id)
 
     @staticmethod
     def process_imported_vehicles_main():
