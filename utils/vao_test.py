@@ -10,13 +10,16 @@ class VaoTest(object):
     @staticmethod
     def startup():
         folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/t1'
-        #VaoTest.create_imported_vehicle_dataset(folder_name)
-        imgs_dir = '{0}/001_奥迪'.format(folder_name)
-        arrs0 = imgs_dir.split('/')
-        arrs = arrs0[-1].split('_')
-        class_id = int(arrs[0]) - 1
-        brand_name = arrs[1]
-        VaoTest.list_img_files(imgs_dir, class_id)
+        path_obj = Path(folder_name)
+        for file_obj in path_obj.iterdir():
+            imgs_dir = str(file_obj)
+            #VaoTest.create_imported_vehicle_dataset(folder_name)
+            #imgs_dir = '{0}/001_奥迪'.format(folder_name)
+            arrs0 = imgs_dir.split('/')
+            arrs = arrs0[-1].split('_')
+            class_id = int(arrs[0]) - 1
+            brand_name = arrs[1]
+            VaoTest.list_img_files(imgs_dir, class_id)
 
     def list_img_files(folder_name, class_id):
         '''
