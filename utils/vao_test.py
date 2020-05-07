@@ -36,6 +36,7 @@ class VaoTest(object):
         for item in domestic_brands_items:
             item_str = str(item)
             brand_name = bc_dict[item_str]
+            print('domestic: {0} => {1};'.format(item_str, brand_name))
             uncovered_brand_names.remove(brand_name)
         for bn in uncovered_brand_names:
             print(bn)
