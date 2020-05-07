@@ -13,7 +13,8 @@ class VaoTest(object):
         srcPath = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d')
         imported_brands_items = [x for x in srcPath.iterdir() if srcPath.is_dir()]
         for item in imported_brands_items:
-            print(item)
+            arrs = item.split('_')
+            print('{0}: {1};'.format(arrs[-2], arrs[-1]))
 
     vehicle_brands = {
         '001':'奥迪',
