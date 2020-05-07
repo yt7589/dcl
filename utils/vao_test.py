@@ -31,8 +31,10 @@ class VaoTest(object):
         path_obj = Path(base_dir)
         for file_obj in path_obj.iterdir():
             imgs_dir = str(file_obj)
-            class_id = int(imgs_dir[0:3]) - 1
-            brand_name = VaoTest.vehicle_brands[imgs_dir[0:3]]
+            arrs = imgs_dir.split('/')
+            last_seg = arrs[-1]
+            class_id = int(last_seg[0:3]) - 1
+            brand_name = VaoTest.vehicle_brands[last_seg[0:3]]
             VaoTest.list_img_files(ds_fd, imgs_dir, class_id)
 
 
