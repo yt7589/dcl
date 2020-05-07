@@ -9,19 +9,23 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
+        VaoTest.create_imported_vehicle_dataset(folder_name)
+
+    @staticmethod
+    def create_imported_vehicle_dataset():
+        ds_file = './yt_train.txt'
         folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/t1'
         path_obj = Path(folder_name)
         for file_obj in path_obj.iterdir():
             imgs_dir = str(file_obj)
-            #VaoTest.create_imported_vehicle_dataset(folder_name)
-            #imgs_dir = '{0}/001_奥迪'.format(folder_name)
             arrs0 = imgs_dir.split('/')
             arrs = arrs0[-1].split('_')
             class_id = int(arrs[0]) - 1
             brand_name = arrs[1]
-            VaoTest.list_img_files(imgs_dir, class_id)
+            VaoTest.list_img_files(ds_file, imgs_dir, class_id)
 
-    def list_img_files(folder_name, class_id):
+    @staticmethod
+    def list_img_files(ds_file, folder_name, class_id):
         '''
         列出该目录以及其子目录下所有图片文件（以jpg为扩展名）列表
         '''
@@ -30,9 +34,14 @@ class VaoTest(object):
             full_name = str(file_obj)
             if not file_obj.is_dir() and full_name.endswith(('jpg','png','jpeg','bmp')):
                 print('{0}*{1}'.format(file_obj, class_id))
+                VaoTest.append_to_ds_file(ds_file, '{0}*{1}'.format(file_obj, class_id))
             else:
-                VaoTest.list_img_files(str(file_obj), class_id)
+                VaoTest.list_img_files(ds_file, str(file_obj), class_id)
 
+    @staticmethod
+    def append_to_ds_file(ds_file, line):
+        with open(ds_file, 'a+', encoding='utf-8') as fd:
+            fd.write(line)
 
     @staticmethod
     def create_imported_vehicle_dataset(folder_name):
