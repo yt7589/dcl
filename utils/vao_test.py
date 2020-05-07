@@ -47,6 +47,7 @@ class VaoTest(object):
                 arrs = full_name.split('/')
                 arrs2 = arrs[-1].split('_')
                 vehicle_code = arrs2[0]
+                print('vehicle_code: {0};'.format(vehicle_code))
                 rst_fd.write('{0}\r\n'.format(vehicle_code))
             elif file_obj.is_dir():
                 VaoTest.get_vehicle_codes_in_folder(rst_fd, full_name)
