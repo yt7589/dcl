@@ -16,7 +16,25 @@ class VaoTest(object):
     def startup():
         VaoTest.create_v_bn_no()
         #VaoTest.process_imported_vehicles_main()
-        VaoTest.process_domestic_vehicles_main()
+        #VaoTest.process_domestic_vehicles_main()
+        VaoTest.process_test_data_main()
+
+    @staticmethod
+    def process_test_data_main():
+        ds_file = './yt_test.txt'
+        base_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/品牌')
+        with open(ds_file, 'a+', encoding='utf-8') as fd:
+            VaoTest.create_test_vehicle_dataset(fd, base_dir)
+
+    @staticmethod
+    def create_test_vehicle_dataset(ds_fd, base_dir):
+        path_obj = Path(base_dir)
+        for file_obj in path_obj.iterdir():
+            imgs_dir = str(file_obj)
+            class_id = int(imgs_dir[0:3]) - 1
+            brand_name = VaoTest.vehicle_brands[imgs_dir[0:3]]
+            VaoTest.list_img_files(ds_fd, imgs_dir, class_id)
+
 
     @staticmethod
     def process_domestic_vehicles_main():
