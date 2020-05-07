@@ -34,8 +34,9 @@ class VaoTest(object):
             arrs = imgs_dir.split('/')
             last_seg = arrs[-1]
             class_id = int(last_seg[0:3]) - 1
-            brand_name = VaoTest.vehicle_brands[last_seg[0:3]]
-            VaoTest.list_img_files(ds_fd, imgs_dir, class_id)
+            if class_id < 179:
+                brand_name = VaoTest.vehicle_brands[last_seg[0:3]]
+                VaoTest.list_img_files(ds_fd, imgs_dir, class_id)
 
 
     @staticmethod
