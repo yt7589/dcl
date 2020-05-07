@@ -9,7 +9,7 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        VaoTest.create_imported_vehicle_dataset(folder_name)
+        VaoTest.create_imported_vehicle_dataset()
 
     @staticmethod
     def create_imported_vehicle_dataset():
