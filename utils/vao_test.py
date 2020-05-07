@@ -12,9 +12,12 @@ class VaoTest(object):
         folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/t1'
         #VaoTest.create_imported_vehicle_dataset(folder_name)
         imgs_dir = '{0}/001_奥迪'.format(folder_name)
-        VaoTest.list_img_files(imgs_dir)
+        arrs = imgs_dir.split('/')
+        class_id = int(arrs[0]) - 1
+        brand_name = arrs[1]
+        VaoTest.list_img_files(imgs_dir, class_id)
 
-    def list_img_files(folder_name):
+    def list_img_files(folder_name, class_id):
         '''
         列出该目录以及其子目录下所有图片文件（以jpg为扩展名）列表
         '''
@@ -22,7 +25,7 @@ class VaoTest(object):
         for file_obj in path_obj.iterdir():
             full_name = str(file_obj)
             if not file_obj.is_dir() and full_name.endswith(('jpg','png','jpeg','bmp')):
-                print('image filename: {0};'.format(file_obj))
+                print('{0}*{1}'.format(file_obj, class_id))
             else:
                 VaoTest.list_img_files(str(file_obj))
 
