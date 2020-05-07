@@ -26,7 +26,7 @@ class VaoTest(object):
             VaoTest.create_domestic_vehicle_dataset(fd, base_dir)
     
     @staticmethod
-    def create_domestic_vehicle_dataset(fd, base_dir):
+    def create_domestic_vehicle_dataset(ds_fd, base_dir):
         vc_dict = {} # 车型编号和品牌字典
         with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as fd:
             line = fd.readline()
@@ -51,7 +51,7 @@ class VaoTest(object):
             print('domestic: {0} => {1};'.format(arrs[-1], brand_name))
             if brand_name in VaoTest.v_bn_no:
                 class_id = int(VaoTest.v_bn_no[brand_name]) - 1
-                VaoTest.list_img_files(fd, item_str, class_id)
+                VaoTest.list_img_files(ds_fd, item_str, class_id)
 
     @staticmethod
     def process_imported_vehicles_main():
