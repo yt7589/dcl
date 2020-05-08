@@ -332,7 +332,7 @@ class VaoTest(object):
         c_nums = {}
         fcid_set = set()
         for cid in range(92):
-            c_nums[cid] = 0
+            c_nums['{0}'.format(cid)] = 0
         for cid in range(1):
             with open('./datasets/CUB_200_2011/anno/yt_train_92.txt', 'r', encoding='utf-8') as raw_fd:
                 for line in raw_fd:
@@ -342,9 +342,9 @@ class VaoTest(object):
                     img_file = arrs[0]
                     #print('fcid: {0};'.format(fcid))
                     if cid == fcid:
-                        c_nums[cid] += 0
+                        c_nums['{0}'.format(cid)] += 0
                         print('get correct data')
-        print('cn1={0};'.format(c_nums[0]))
+        print('cn1={0};'.format(c_nums['0']))
         print('fcid_set: {0};'.format(fcid_set))
         
 
