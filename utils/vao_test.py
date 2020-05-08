@@ -96,7 +96,6 @@ class VaoTest(object):
     def process_domestic_vehicles_main():
         ds_file = './yt_train_d.txt'
         # 统计每个类别图片数
-        sum = 0
         cids = {}
         for i in range(180):
             cids['{0}'.format(i)] = 0
@@ -105,11 +104,10 @@ class VaoTest(object):
                 arrs = line.split('*')
                 class_id = arrs[-1][:-1]
                 cids[class_id] += 1
-                print('class_id: {0};'.format(class_id))
-                sum += 1
-                if sum > 5:
-                    break
-        print('num: {0};'.format(cids['117']))
+                #print('class_id: {0};'.format(class_id))
+        for k, v in cids.items():
+            if v > 0:
+                print('{0}: {1};'.format(k, v))
         '''
         base_dir = Path('/media/zjkj/My Passport/guochanche_all') #
         with open(ds_file, 'a+', encoding='utf-8') as fd:
