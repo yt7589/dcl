@@ -105,9 +105,12 @@ class VaoTest(object):
                 class_id = arrs[-1][:-1]
                 cids[class_id] += 1
                 #print('class_id: {0};'.format(class_id))
+        sum = 0
         for k, v in cids.items():
             if v > 0:
                 print('{0}: {1};'.format(k, v))
+                sum += 1
+        print('总共品牌数：{0};'.format(sum))
         '''
         base_dir = Path('/media/zjkj/My Passport/guochanche_all') #
         with open(ds_file, 'a+', encoding='utf-8') as fd:
