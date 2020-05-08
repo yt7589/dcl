@@ -1,6 +1,7 @@
 #
 # 车管所测试工具类
 #
+import random
 from pathlib import Path
 
 class VaoTest(object):
@@ -395,8 +396,8 @@ class VaoTest(object):
                 brand_id = int(arrs[1][:-1])
                 if brand_id in bn_nums:
                     bn_nums[brand_id] += 1
-        for k, v in bn_nums.items():
-            print('b{0}: {1};'.format(k, v))
+        #for k, v in bn_nums.items():
+         #   print('b{0}: {1};'.format(k, v))
         with open(raw_ds_file, 'r', encoding='utf-8') as fd:
             with open(ds_file, 'w+', encoding='utf-8') as ds_fd:
                 for line in fd:
@@ -423,7 +424,7 @@ class VaoTest(object):
                 if brand_id in bn_nums:
                     bn_nums[brand_id] += 1
         for k, v in nbn_nums.items():
-            print('b{0}: {1};'.format(k, v))
+            print('new {0}: {1};'.format(k, v))
 
 
 
