@@ -100,7 +100,7 @@ class VaoTest(object):
         with open(ds_file, 'r', encoding='utf-8') as fd:
             for line in fd:
                 arrs = line.split('*')
-                class_id = arrs[-1]
+                class_id = arrs[-1][:-1]
                 print('class_id: {0};'.format(class_id))
                 sum += 1
                 if sum > 5:
