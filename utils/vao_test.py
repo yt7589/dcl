@@ -237,8 +237,9 @@ class VaoTest(object):
             print(vc)
         # 找出未处理的品牌
         for k in VaoTest.vehicle_brands.keys():
-            rst = not (str(int(k)-1) in our_vehicle_code_set)
-            print('{0} => {1};'.format(k, rst))
+            item = str(int(k)-1)
+            rst = not (item in our_vehicle_code_set)
+            print('{0} [{2}] => {1};'.format(k, rst, item))
             if rst:
                 uncovered_vcs.append(k)
         print('未处理品牌数：{0};'.format(len(uncovered_vcs)))
