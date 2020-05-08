@@ -26,6 +26,7 @@ class VaoTest(object):
         mode = VaoTest.MODE_PREPARE_DATASET
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
+            print('新数据集生成')
             ds_file = './yt_train_d.txt'
             VaoTest.process_imported_vehicles_main(ds_file)
             VaoTest.process_domestic_vehicles_main(ds_file)
