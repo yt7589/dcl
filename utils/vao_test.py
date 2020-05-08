@@ -228,6 +228,7 @@ class VaoTest(object):
         with open(train_ds, 'r', encoding='utf-8') as fd:
             line = fd.readline()
             while line:
+                print('正在处理：{0};'.format(line))
                 arrs = line.split('*')
                 class_id = arrs[1]
                 our_vehicle_code_set.add(class_id)
