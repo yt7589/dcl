@@ -161,8 +161,9 @@ class VaoTest(object):
             arrs0 = imgs_dir.split('/')
             arrs = arrs0[-1].split('_')
             class_id = int(arrs[0]) - 1
-            brand_name = arrs[1]
-            VaoTest.list_img_files(ds_fd, imgs_dir, class_id)
+            if class_id < 180:
+                brand_name = arrs[1]
+                VaoTest.list_img_files(ds_fd, imgs_dir, class_id)
 
     @staticmethod
     def list_img_files(ds_fd, folder_name, class_id):
