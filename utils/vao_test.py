@@ -276,6 +276,9 @@ class VaoTest(object):
                 all_vcs.remove(vc)
                 print('从总体中删除：{0}; 共删除：{1};'.format(vc, sum))
                 sum += 1
+        with open('./unknown_vcs.txt', 'a+', encoding='utf-8') as unknown_fd:
+            for vc in all_vcs:
+                unknown_fd.write('{0}\r\n'.format(vc))
 
     
     v_no_bn = {}
