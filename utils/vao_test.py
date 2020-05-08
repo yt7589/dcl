@@ -378,6 +378,40 @@ class VaoTest(object):
         # 从原始数据集文件中读出记录，找到品牌编号
         # 若品牌编号在obn_nbn_dict的key里面，则将其写入新文件，并将其类别改为obn_nbn_dict中
         # 对应的新品牌编号
+        VaoTest.create_know_86_ds_train_ds()
+        #VaoTest.create_know_86_ds_test_ds()
+
+    @staticmethod
+    def create_know_86_ds_train_ds():
+        raw_ds_file = './yt_train_d.txt'
+        ds_file = './d2.txt'
+        # 求出每个obn_nbn_dict的key的图片数量
+        bn_nums = {}
+        for k in VaoTest.obn_nbn_dict.keys():
+            bn_nums[k] = 0
+        with open(raw_ds_file, 'r', encoding='utf-8') as raw_fd:
+            for line in raw_fd:
+                arrs = line.split('*')
+                brand_id = int(arrs[1][:-1])
+                bn_nums[brand_id] += 1
+        for k, v in bn_nums:
+            print('b{0}: {1};'.format(k, v))
+        '''
+        with open(raw_ds_file, 'r', encoding='utf-8') as fd:
+            with open(ds_file, 'w+', encoding='utf-8') as ds_fd:
+                for line in fd:
+                    arrs = line.split('*')
+                    img_file = arrs[0]
+                    brand_id = int(arrs[1][:-1])
+                    if brand_id in VaoTest.obn_nbn_dict:
+                        new_brand_id = VaoTest.obn_nbn_dict[brand_id]
+                        #print('brand_id: {0} => {1}*{2};'.format(brand_id, img_file, new_brand_id))
+                        ds_fd.write('{0}*{1}\n'.format(img_file, new_brand_id))
+        '''
+
+
+    @staticmethod
+    def create_know_86_ds_test_ds():
         raw_ds_file = './datasets/CUB_200_2011/anno/yt_test.txt'
         ds_file = './d1.txt'
         with open(raw_ds_file, 'r', encoding='utf-8') as fd:
