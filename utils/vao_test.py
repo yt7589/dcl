@@ -287,7 +287,11 @@ class VaoTest(object):
     @staticmethod
     def known_vcs_ds_main():
         #VaoTest.create_known_vcs_ds('./yt_train.txt', './datasets/CUB_200_2011/anno/yt_train_92.txt') # 生成训练数据集
-        VaoTest.create_known_vcs_ds('./datasets/CUB_200_2011/anno/yt_test.txt', './datasets/CUB_200_2011/anno/yt_test_92.txt')
+        #VaoTest.create_known_vcs_ds('./datasets/CUB_200_2011/anno/yt_test.txt', './datasets/CUB_200_2011/anno/yt_test_92.txt')
+        # 从0~91重复：找出yt_train_92.txt中所有符合条件的记录，
+        # 从中随机取出1000张图片，形成yt_train_92_1000.txt作
+        # 为训练数据集
+        VaoTest.create_92_random_1000_ds()
 
     @staticmethod
     def create_known_vcs_ds(raw_file, ds_file):
@@ -317,6 +321,26 @@ class VaoTest(object):
                         ds92_fd.write('{0}*{1}\n'.format(img_file, '{0}'.format(new_class_id)))
                         sum += 1
         print('共有{0}个样本！'.format(sum))
+
+    @staticmethod
+    def .create_92_random_1000_ds():
+        '''
+        从0~91重复：找出yt_train_92.txt中所有符合条件的记录，
+        从中随机取出1000张图片，形成yt_train_92_1000.txt
+        作为训练数据集
+        '''
+        c_nums = {}
+        for cid in range(92):
+            c_nums[cid] = 0
+        for cid in range(1):
+            with open('./datasets/CUB_200_2011/anno/yt_train_92.txt', 'r', encoding='utf-8') as raw_fd:
+                for line in raw_fd:
+                    arrs = line.split('*')
+                    fcid = int(arrs[1])
+                    img_file = arrs[0]
+                    if cid == fcid:
+                        c_nums[cid] += 0
+        print('cn1={0};'.format(c_nums[0]))
         
 
     
