@@ -97,14 +97,19 @@ class VaoTest(object):
         ds_file = './yt_train_d.txt'
         # 统计每个类别图片数
         sum = 0
+        cids = {}
+        for i in range(180):
+            cids['{0}'.format(i)] = 0
         with open(ds_file, 'r', encoding='utf-8') as fd:
             for line in fd:
                 arrs = line.split('*')
                 class_id = arrs[-1][:-1]
+                cids[class_id] += 1
                 print('class_id: {0};'.format(class_id))
                 sum += 1
                 if sum > 5:
                     break
+        print('num: {0};'.format(cids['117']))
         '''
         base_dir = Path('/media/zjkj/My Passport/guochanche_all') #
         with open(ds_file, 'a+', encoding='utf-8') as fd:
