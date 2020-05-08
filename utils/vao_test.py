@@ -286,6 +286,11 @@ class VaoTest(object):
 
     @staticmethod
     def known_vcs_ds_main():
+        VaoTest.create_known_vcs_ds('./yt_train.txt', './datasets/CUB_200_2011/anno/yt_train_92.txt') # 生成训练数据集
+        VaoTest.create_known_vcs_ds('./')
+
+    @staticmethod
+    def create_known_vcs_ds(raw_file, ds_file):
         # 生成92类现有类别到0~91的对应表
         class_id = 0
         ob_nb_dict = {}
@@ -301,18 +306,17 @@ class VaoTest(object):
                 nd_dict['{0}'.format(class_id)] = brand_name
                 class_id += 1
         sum = 0
-        with open('./yt_train.txt', 'r', encoding='utf-8') as raw_fd:
-            with open('./train_ds_brand92.txt', 'w+', encoding='utf-8') as ds92_fd:
+        with open(raw_file, 'r', encoding='utf-8') as raw_fd:
+            with open(ds_file, 'w+', encoding='utf-8') as ds92_fd:
                 for line in raw_fd:
-                    if sum > 5:
-                        break
                     arrs = line.split('*')
                     img_file = arrs[0]
                     old_class_id = arrs[1][:-1]
-                    new_class_id = ob_nb_dict[old_class_id]
-                    ds92_fd.write('{0}*{1}\n'.format(img_file, '{0}'.format(new_class_id)))
-                    print('from {0} to {1};'.format(old_class_id, new_class_id))
-                    sum += 1
+                    if old_class_id in ob_nb_dict:
+                        new_class_id = ob_nb_dict[old_class_id]
+                        ds92_fd.write('{0}*{1}\n'.format(img_file, '{0}'.format(new_class_id)))
+                        sum += 1
+        print('共有{0}个样本！'.format(sum))
         
 
     
