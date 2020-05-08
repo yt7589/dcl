@@ -395,7 +395,7 @@ class VaoTest(object):
                 brand_id = int(arrs[1][:-1])
                 if brand_id in bn_nums:
                     bn_nums[brand_id] += 1
-        for k, v in bn_nums:
+        for k, v in bn_nums.items():
             print('b{0}: {1};'.format(k, v))
         '''
         with open(raw_ds_file, 'r', encoding='utf-8') as fd:
