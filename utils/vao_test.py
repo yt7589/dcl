@@ -334,6 +334,7 @@ class VaoTest(object):
         for cid in range(92):
             c_nums['{0}'.format(cid)] = 0
         for cid in range(1):
+            print('process {0} brand...'.format(cid))
             with open('./datasets/CUB_200_2011/anno/yt_train_92.txt', 'r', encoding='utf-8') as raw_fd:
                 for line in raw_fd:
                     arrs = line.split('*')
@@ -343,8 +344,9 @@ class VaoTest(object):
                     #print('fcid: {0};'.format(fcid))
                     if cid == fcid:
                         c_nums['{0}'.format(cid)] += 1
-                        print('get correct data')
-        print('cn1={0};'.format(c_nums['0']))
+                        #print('get correct data')
+        for k, v in c_nums:
+            print('{0}: {1};'.format(k, v))
         print('fcid_set: {0};'.format(fcid_set))
         
 
