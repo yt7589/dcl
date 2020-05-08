@@ -225,6 +225,7 @@ class VaoTest(object):
         our_vehicle_code_set = set()
         uncovered_vcs = []
         # 统计出已经处理完成的品牌
+        train_ds = './yt_train.txt'
         with open(train_ds, 'r', encoding='utf-8') as fd:
             line = fd.readline()
             while line:
