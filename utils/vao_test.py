@@ -57,7 +57,7 @@ class VaoTest(object):
                 vehicle_code = arrs2[0]
                 #rst_fd.write('{0}\r\n'.format(vehicle_code))
                 vehicle_code_set.add(vehicle_code)
-                #print('vehicle_code: {0}; size={1};'.format(vehicle_code, len(vehicle_code_set)))
+                print('vehicle_code: {0}; size={1};'.format(vehicle_code, len(vehicle_code_set)))
             elif file_obj.is_dir():
                 VaoTest.get_vehicle_codes_in_folder(full_name)
             else:
