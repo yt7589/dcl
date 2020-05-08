@@ -272,9 +272,10 @@ class VaoTest(object):
         # 找出未处理车辆编号
         sum = 1
         for vc in known_vcs:
-            all_vcs.remove(vc)
-            print('从总体中删除：{0}; 共删除：{1};'.format(vc, sum))
-            sum += 1
+            if vc in all_vcs:
+                all_vcs.remove(vc)
+                print('从总体中删除：{0}; 共删除：{1};'.format(vc, sum))
+                sum += 1
 
     
     v_no_bn = {}
