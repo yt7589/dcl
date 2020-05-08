@@ -393,6 +393,7 @@ class VaoTest(object):
             for line in raw_fd:
                 arrs = line.split('*')
                 brand_id = int(arrs[1][:-1])
+                print('brand_id: {0};'.format(brand_id))
                 bn_nums[brand_id] += 1
         for k, v in bn_nums:
             print('b{0}: {1};'.format(k, v))
