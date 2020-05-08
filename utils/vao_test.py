@@ -301,7 +301,7 @@ class VaoTest(object):
                 nd_dict['{0}'.format(class_id)] = brand_name
                 class_id += 1
         sum = 0
-        with open('./yt_train.txt', 'r', encoding='utf-i') as ds_fd:
+        with open('./yt_train.txt', 'r', encoding='utf-8') as ds_fd:
             for line in ds_fd:
                 if sum > 5:
                     break
