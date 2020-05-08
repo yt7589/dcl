@@ -26,8 +26,25 @@ class VaoTest(object):
         mode = VaoTest.MODE_PREPARE_DATASET
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
-            VaoTest.process_imported_vehicles_main()
-            #VaoTest.process_domestic_vehicles_main()
+            ds_file = './yt_train_d.txt'
+            VaoTest.process_imported_vehicles_main(ds_file)
+            VaoTest.process_domestic_vehicles_main(ds_file)
+            # 统计每个类别图片数
+            cids = {}
+            for i in range(180):
+                cids['{0}'.format(i)] = 0
+            with open(ds_file, 'r', encoding='utf-8') as fd:
+                for line in fd:
+                    arrs = line.split('*')
+                    class_id = arrs[-1][:-1]
+                    cids[class_id] += 1
+                    #print('class_id: {0};'.format(class_id))
+            sum = 0
+            for k, v in cids.items():
+                if v > 0:
+                    print('{0}: {1};'.format(k, v))
+                    sum += 1
+            print('总共品牌数：{0};'.format(sum))
             #VaoTest.process_test_data_main()
         elif VaoTest.MODE_GET_VEHICLE_CODES == mode:
             VaoTest.get_all_vehicle_codes()
@@ -93,8 +110,7 @@ class VaoTest(object):
 
 
     @staticmethod
-    def process_domestic_vehicles_main():
-        ds_file = './yt_train_d.txt'
+    def process_domestic_vehicles_main(ds_file):
         '''
         base_dir = Path('/media/zjkj/My Passport/guochanche_all') #
         with open(ds_file, 'a+', encoding='utf-8') as fd:
@@ -129,27 +145,10 @@ class VaoTest(object):
                 VaoTest.list_img_files(ds_fd, item_str, class_id)
 
     @staticmethod
-    def process_imported_vehicles_main():
-        ds_file = './yt_train_d.txt'
+    def process_imported_vehicles_main(ds_file):
         base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d' #
         with open(ds_file, 'a+', encoding='utf-8') as fd:
             VaoTest.create_imported_vehicle_dataset(fd, base_dir)
-        # 统计每个类别图片数
-        cids = {}
-        for i in range(180):
-            cids['{0}'.format(i)] = 0
-        with open(ds_file, 'r', encoding='utf-8') as fd:
-            for line in fd:
-                arrs = line.split('*')
-                class_id = arrs[-1][:-1]
-                cids[class_id] += 1
-                #print('class_id: {0};'.format(class_id))
-        sum = 0
-        for k, v in cids.items():
-            if v > 0:
-                print('{0}: {1};'.format(k, v))
-                sum += 1
-        print('总共品牌数：{0};'.format(sum))
 
     @staticmethod
     def create_imported_vehicle_dataset(ds_fd, folder_name):
