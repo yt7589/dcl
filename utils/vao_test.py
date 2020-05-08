@@ -286,8 +286,8 @@ class VaoTest(object):
 
     @staticmethod
     def known_vcs_ds_main():
-        VaoTest.create_known_vcs_ds('./yt_train.txt', './datasets/CUB_200_2011/anno/yt_train_92.txt') # 生成训练数据集
-        VaoTest.create_known_vcs_ds('./')
+        #VaoTest.create_known_vcs_ds('./yt_train.txt', './datasets/CUB_200_2011/anno/yt_train_92.txt') # 生成训练数据集
+        VaoTest.create_known_vcs_ds('./datasets/CUB_200_2011/anno/yt_test.txt', './datasets/CUB_200_2011/anno/yt_test_92.txt')
 
     @staticmethod
     def create_known_vcs_ds(raw_file, ds_file):
