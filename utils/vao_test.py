@@ -330,6 +330,7 @@ class VaoTest(object):
         作为训练数据集
         '''
         c_nums = {}
+        fcid_set = set()
         for cid in range(92):
             c_nums[cid] = 0
         for cid in range(1):
@@ -337,10 +338,13 @@ class VaoTest(object):
                 for line in raw_fd:
                     arrs = line.split('*')
                     fcid = int(arrs[1])
+                    fcid_set.add(fcid)
                     img_file = arrs[0]
+                    print('fcid: {0};'.format(fcid))
                     if cid == fcid:
                         c_nums[cid] += 0
         print('cn1={0};'.format(c_nums[0]))
+        print('fcid_set: {0};'.format(fcid_set))
         
 
     
