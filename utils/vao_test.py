@@ -323,7 +323,7 @@ class VaoTest(object):
         print('共有{0}个样本！'.format(sum))
 
     @staticmethod
-    def .create_92_random_1000_ds():
+    def create_92_random_1000_ds():
         '''
         从0~91重复：找出yt_train_92.txt中所有符合条件的记录，
         从中随机取出1000张图片，形成yt_train_92_1000.txt
