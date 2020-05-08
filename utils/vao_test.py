@@ -23,10 +23,10 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        mode = VaoTest.MODE_KNOWN_VCS_DS
+        mode = VaoTest.MODE_PREPARE_DATASET
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
-            VaoTest.process_imported_vehicles_main()
+            #VaoTest.process_imported_vehicles_main()
             VaoTest.process_domestic_vehicles_main()
             #VaoTest.process_test_data_main()
         elif VaoTest.MODE_GET_VEHICLE_CODES == mode:
