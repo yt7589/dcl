@@ -418,7 +418,7 @@ class VaoTest(object):
         for k in VaoTest.obn_nbn_dict.keys():
             nbn_nums[k] = 0
         with open(ds_file, 'r', encoding='utf-8') as fd:
-            for line in raw_fd:
+            for line in fd:
                 arrs = line.split('*')
                 brand_id = int(arrs[1][:-1])
                 if brand_id in bn_nums:
