@@ -155,7 +155,7 @@ class VaoTest(object):
         for file_obj in path_obj.iterdir():
             full_name = str(file_obj)
             if not file_obj.is_dir() and full_name.endswith(('jpg','png','jpeg','bmp')):
-                print('{0}*{1}'.format(file_obj, class_id))
+                #print('{0}*{1}'.format(file_obj, class_id))
                 ds_fd.write('{0}*{1}\r\n'.format(file_obj, class_id))
             elif file_obj.is_dir():
                 VaoTest.list_img_files(ds_fd, str(file_obj), class_id)
