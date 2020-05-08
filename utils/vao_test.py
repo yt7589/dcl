@@ -6,6 +6,8 @@ from pathlib import Path
 class VaoTest(object):
     MODE_PREPARE_DATASET = 1001
     MODE_GET_VEHICLE_CODES = 1002
+    # 从yt_train.txt中统计出所里附件的180个品牌中未覆盖的品牌
+    MODE_GET_UNCOVERED_VCS = 1003
 
     def __init__(self):
         self.name = 'util.VaoTest'
@@ -17,7 +19,7 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        mode = VaoTest.MODE_GET_VEHICLE_CODES
+        mode = VaoTest.MODE_GET_UNCOVERED_VCS
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
             VaoTest.process_imported_vehicles_main()
@@ -25,6 +27,8 @@ class VaoTest(object):
             #VaoTest.process_test_data_main()
         elif VaoTest.MODE_GET_VEHICLE_CODES == mode:
             VaoTest.get_all_vehicle_codes()
+        elif VaoTest.MODE_GET_UNCOVERED_VCS == mode:
+            VaoTest.get_uncovered_vcs()
 
     @staticmethod
     def get_all_vehicle_codes():
@@ -50,9 +54,9 @@ class VaoTest(object):
                 arrs = full_name.split('/')
                 arrs2 = arrs[-1].split('_')
                 vehicle_code = arrs2[0]
-                print('vehicle_code: {0};'.format(vehicle_code))
                 #rst_fd.write('{0}\r\n'.format(vehicle_code))
                 vehicle_code_set.add(vehicle_code)
+                print('vehicle_code: {0}; size={1};'.format(vehicle_code, len(vehicle_code_set)))
             elif file_obj.is_dir():
                 VaoTest.get_vehicle_codes_in_folder(full_name)
             else:
@@ -214,6 +218,30 @@ class VaoTest(object):
         return uncovered_brand_nos, uncovered_brand_names
         # 从车型库中去除国产车数据集中的品牌
         # 打印未覆盖的车型
+
+
+    @staticmethod
+    def get_uncovered_vcs():
+        our_vehicle_code_set = set()
+        uncovered_vcs = []
+        # 统计出已经处理完成的品牌
+        with open(train_ds, 'r', encoding='utf-8') as fd:
+            line = fd.readline()
+            while line:
+                arrs = line.split('*')
+                class_id = arrs[1]
+                our_vehicle_code_set.add(class_id)
+        print('已经处理品牌数：{0}/180;'.format(len(our_vehicle_code_set)))
+        for vc in our_vehicle_code_set:
+            print(vc)
+        # 找出未处理的品牌
+        for k in VaoTest.vehicle_brands.keys():
+            if not k in our_vehicle_code_set:
+                uncovered_vcs.append(k)
+        print('未处理品牌数：{1};'.format(len(uncovered_vcs)))
+        for vc in uncovered_vcs:
+            print('##### {0};'.format(vc))
+
     
     v_no_bn = {}
     v_bn_no = {}
