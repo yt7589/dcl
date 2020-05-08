@@ -302,7 +302,7 @@ class VaoTest(object):
                 class_id += 1
         sum = 0
         with open('./yt_train.txt', 'r', encoding='utf-8') as raw_fd:
-            with open('./train_ds_brand92.txt', 'r', encoding='utf-8') ds92_fd:
+            with open('./train_ds_brand92.txt', 'r', encoding='utf-8') as ds92_fd:
                 for line in raw_fd:
                     if sum > 5:
                         break
