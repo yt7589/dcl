@@ -228,24 +228,16 @@ class VaoTest(object):
         train_ds = './yt_train.txt'
         with open(train_ds, 'r', encoding='utf-8') as fd:
             for line in fd:
-                print('正在处理：{0};'.format(line))
+                #print('正在处理：{0};'.format(line))
                 arrs = line.split('*')
                 class_id = arrs[1]
-                our_vehicle_code_set.add(class_id)
-            '''
-            line = fd.readline()
-            while line:
-                print('正在处理：{0};'.format(line))
-                arrs = line.split('*')
-                class_id = arrs[1]
-                our_vehicle_code_set.add(class_id)
-            '''
+                our_vehicle_code_set.add(class_id[:-2])
         print('已经处理品牌数：{0}/180;'.format(len(our_vehicle_code_set)))
         for vc in our_vehicle_code_set:
             print(vc)
         # 找出未处理的品牌
         for k in VaoTest.vehicle_brands.keys():
-            if not k in our_vehicle_code_set:
+            if not str(int(k)) in our_vehicle_code_set:
                 uncovered_vcs.append(k)
         print('未处理品牌数：{0};'.format(len(uncovered_vcs)))
         for vc in uncovered_vcs:
