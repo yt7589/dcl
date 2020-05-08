@@ -379,7 +379,7 @@ class VaoTest(object):
         # 若品牌编号在obn_nbn_dict的key里面，则将其写入新文件，并将其类别改为obn_nbn_dict中
         # 对应的新品牌编号
         raw_ds_file = './datasets/CUB_200_2011/anno/yt_test.txt'
-        with open(raw_ds_file, 'r', encoding='utf-i') as fd:
+        with open(raw_ds_file, 'r', encoding='utf-8') as fd:
             for line in fd:
                 arrs = line.split('*')
                 brand_id = arrs[1][:-1]
