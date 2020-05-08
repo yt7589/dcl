@@ -39,15 +39,15 @@ class VaoTest(object):
         print('获取车辆型号列表...')
         base_dir = Path('/home/up/guochanche_2/')
         rst_file = './vehicle_codes.txt'
-        vehicle_code_set = VaoTest.get_vehicle_codes_in_folder(base_dir)
+        vehicle_code_set = set()
+        VaoTest.get_vehicle_codes_in_folder(base_dir, vehicle_code_set)
         print('编号总数量：{0};'.format(len(vehicle_code_set)))
         with open(rst_file, 'a+', encoding='utf-8') as fd:
             for vc in iter(vehicle_code_set):
                 fd.write('{0}\r\n'.format(vc))
 
     @staticmethod
-    def get_vehicle_codes_in_folder(folder_name):
-        vehicle_code_set = set()
+    def get_vehicle_codes_in_folder(folder_name, vehicle_code_set):
         path_obj = Path(folder_name)
         for file_obj in path_obj.iterdir():
             full_name = str(file_obj)
@@ -59,7 +59,7 @@ class VaoTest(object):
                 vehicle_code_set.add(vehicle_code)
                 print('vehicle_code: {0}; size={1};'.format(vehicle_code, len(vehicle_code_set)))
             elif file_obj.is_dir():
-                VaoTest.get_vehicle_codes_in_folder(full_name)
+                VaoTest.get_vehicle_codes_in_folder(full_name, vehicle_code_set)
             else:
                 print('ignore other file: {0};'.format(full_name))
         return vehicle_code_set
