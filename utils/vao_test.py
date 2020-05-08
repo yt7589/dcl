@@ -8,6 +8,8 @@ class VaoTest(object):
     MODE_GET_VEHICLE_CODES = 1002
     # 从yt_train.txt中统计出所里附件的180个品牌中未覆盖的品牌
     MODE_GET_UNCOVERED_VCS = 1003
+    # 找出未处理过的车辆编号
+    MODE_GET_UNKNOWN_VCS = 1004
 
     def __init__(self):
         self.name = 'util.VaoTest'
@@ -19,7 +21,7 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        mode = VaoTest.MODE_GET_VEHICLE_CODES
+        mode = VaoTest.MODE_GET_UNKNOWN_VCS
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
             VaoTest.process_imported_vehicles_main()
@@ -29,6 +31,8 @@ class VaoTest(object):
             VaoTest.get_all_vehicle_codes()
         elif VaoTest.MODE_GET_UNCOVERED_VCS == mode:
             VaoTest.get_uncovered_vcs()
+        elif VaoTest.MODE_GET_UNKNOWN_VCS == mode:
+            VaoTest.get_unknown_vcs()
 
     @staticmethod
     def get_all_vehicle_codes():
@@ -246,6 +250,21 @@ class VaoTest(object):
         print('未处理品牌数：{0};'.format(len(uncovered_vcs)))
         for vc in uncovered_vcs:
             print('##### {0};'.format(vc))
+
+    @staticmethod
+    def get_unknown_vcs():
+        '''
+        从./vehicle_codes.txt中挑出在./datasets/raw_domestic_brands.txt没有的编号
+        '''
+        # 获取所有的车辆编号
+        all_vcs = set()
+        with open('./vehicle_codes.txt', 'r', encoding='utf-8') as all_fd:
+            while line in all_fd:
+                all_vcs.add(line)
+        print('所有车辆编号数量：{0};'.format(len(all_vcs)))
+        # 获取已处理车辆编号
+        known_vcs = set()
+        # 找出未处理车辆编号
 
     
     v_no_bn = {}
