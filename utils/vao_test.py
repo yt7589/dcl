@@ -95,9 +95,21 @@ class VaoTest(object):
     @staticmethod
     def process_domestic_vehicles_main():
         ds_file = './yt_train_d.txt'
+        # 统计每个类别图片数
+        sum = 0
+        with open(ds_file, 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs = line.split('*')
+                class_id = arrs[-1]
+                print('class_id: {0};'.format(class_id))
+                sum += 1
+                if sum > 5:
+                    break
+        '''
         base_dir = Path('/media/zjkj/My Passport/guochanche_all') #
         with open(ds_file, 'a+', encoding='utf-8') as fd:
             VaoTest.create_domestic_vehicle_dataset(fd, base_dir)
+        '''
     
     @staticmethod
     def create_domestic_vehicle_dataset(ds_fd, base_dir):
