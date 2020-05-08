@@ -112,11 +112,9 @@ class VaoTest(object):
 
     @staticmethod
     def process_domestic_vehicles_main(ds_file):
-        '''
         base_dir = Path('/media/zjkj/My Passport/guochanche_all') #
         with open(ds_file, 'a+', encoding='utf-8') as fd:
             VaoTest.create_domestic_vehicle_dataset(fd, base_dir)
-        '''
     
     @staticmethod
     def create_domestic_vehicle_dataset(ds_fd, base_dir):
