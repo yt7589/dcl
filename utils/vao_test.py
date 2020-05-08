@@ -259,7 +259,7 @@ class VaoTest(object):
         # 获取所有的车辆编号
         all_vcs = set()
         with open('./vehicle_codes.txt', 'r', encoding='utf-8') as all_fd:
-            while line in all_fd:
+            for line in all_fd:
                 all_vcs.add(line)
         print('所有车辆编号数量：{0};'.format(len(all_vcs)))
         # 获取已处理车辆编号
