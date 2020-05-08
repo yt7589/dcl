@@ -301,15 +301,18 @@ class VaoTest(object):
                 nd_dict['{0}'.format(class_id)] = brand_name
                 class_id += 1
         sum = 0
-        with open('./yt_train.txt', 'r', encoding='utf-8') as ds_fd:
-            for line in ds_fd:
-                if sum > 5:
-                    break
-                arrs = line.split('*')
-                old_class_id = arrs[1][:-1]
-                new_class_id = ob_nb_dict[old_class_id]
-                print('from {0} to {1};'.format(old_class_id, new_class_id))
-                sum += 1
+        with open('./yt_train.txt', 'r', encoding='utf-8') as raw_fd:
+            with open('./train_ds_brand92.txt', 'r', encoding='utf-8') ds92_fd:
+                for line in raw_fd:
+                    if sum > 5:
+                        break
+                    arrs = line.split('*')
+                    img_file = arrs[0]
+                    old_class_id = arrs[1][:-1]
+                    new_class_id = ob_nb_dict[old_class_id]
+                    ds92_fd.write('{0}*{1}\n'.format(img_file, '{0}'.format(new_class_id)))
+                    print('from {0} to {1};'.format(old_class_id, new_class_id))
+                    sum += 1
         
 
     
