@@ -266,7 +266,8 @@ class VaoTest(object):
         known_vcs = set()
         with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as known_fd:
             for line in known_fd:
-                known_vcs.add(line)
+                arrs = line.split('*')
+                known_vcs.add(arrs[0])
         print('已处理车辆编号数量：{0};'.format(len(known_vcs)))
         # 找出未处理车辆编号
         sum = 1
