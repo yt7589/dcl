@@ -278,7 +278,7 @@ class VaoTest(object):
                 sum += 1
         with open('./unknown_vcs.txt', 'a+', encoding='utf-8') as unknown_fd:
             for vc in all_vcs:
-                unknown_fd.write('{0}\n'.format(vc))
+                unknown_fd.write('{0}'.format(vc))
 
     
     v_no_bn = {}
