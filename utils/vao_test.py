@@ -19,7 +19,7 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        mode = VaoTest.MODE_GET_UNCOVERED_VCS
+        mode = VaoTest.MODE_GET_VEHICLE_CODES
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
             VaoTest.process_imported_vehicles_main()
@@ -40,6 +40,7 @@ class VaoTest(object):
         base_dir = Path('/home/up/guochanche_2/')
         rst_file = './vehicle_codes.txt'
         vehicle_code_set = VaoTest.get_vehicle_codes_in_folder(base_dir)
+        print('编号总数量：{0};'.format(len(vehicle_code_set)))
         with open(rst_file, 'a+', encoding='utf-8') as fd:
             for vc in iter(vehicle_code_set):
                 fd.write('{0}\r\n'.format(vc))
@@ -56,7 +57,7 @@ class VaoTest(object):
                 vehicle_code = arrs2[0]
                 #rst_fd.write('{0}\r\n'.format(vehicle_code))
                 vehicle_code_set.add(vehicle_code)
-                print('vehicle_code: {0}; size={1};'.format(vehicle_code, len(vehicle_code_set)))
+                #print('vehicle_code: {0}; size={1};'.format(vehicle_code, len(vehicle_code_set)))
             elif file_obj.is_dir():
                 VaoTest.get_vehicle_codes_in_folder(full_name)
             else:
