@@ -397,7 +397,6 @@ class VaoTest(object):
                     bn_nums[brand_id] += 1
         for k, v in bn_nums.items():
             print('b{0}: {1};'.format(k, v))
-        '''
         with open(raw_ds_file, 'r', encoding='utf-8') as fd:
             with open(ds_file, 'w+', encoding='utf-8') as ds_fd:
                 for line in fd:
@@ -407,8 +406,25 @@ class VaoTest(object):
                     if brand_id in VaoTest.obn_nbn_dict:
                         new_brand_id = VaoTest.obn_nbn_dict[brand_id]
                         #print('brand_id: {0} => {1}*{2};'.format(brand_id, img_file, new_brand_id))
-                        ds_fd.write('{0}*{1}\n'.format(img_file, new_brand_id))
-        '''
+                        write_to_file = False
+                        if bn_nums[brand_id] < 1000:
+                            write_to_file = True
+                        elif random.random() < 1000.0 / bn_nums[brand_id]:
+                            write_to_file = True
+                        if write_to_file:
+                            ds_fd.write('{0}*{1}\n'.format(img_file, new_brand_id))
+        nbn_nums = {}
+        for k in VaoTest.obn_nbn_dict.keys():
+            nbn_nums[k] = 0
+        with open(ds_file, 'r', encoding='utf-8') as fd:
+            for line in raw_fd:
+                arrs = line.split('*')
+                brand_id = int(arrs[1][:-1])
+                if brand_id in bn_nums:
+                    bn_nums[brand_id] += 1
+        for k, v in nbn_nums.items():
+            print('b{0}: {1};'.format(k, v))
+
 
 
     @staticmethod
@@ -700,8 +716,7 @@ class VaoTest(object):
         127: 81,
         128: 82,
         129: 83,
-        130: 84,
-        131: 85
+        130: 84
     }
     
     nbn_name_dict = {
@@ -789,8 +804,7 @@ class VaoTest(object):
         81: '依维柯',
         82: '永源',
         83: '中华',
-        84: '众泰',
-        85: '中兴'
+        84: '众泰'
     }
 
 
