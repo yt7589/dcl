@@ -151,6 +151,7 @@ class VaoTest(object):
         '''
         列出该目录以及其子目录下所有图片文件（以jpg为扩展名）列表
         '''
+        print('processing: {0}...'.format(folder_name))
         path_obj = Path(folder_name)
         for file_obj in path_obj.iterdir():
             full_name = str(file_obj)
