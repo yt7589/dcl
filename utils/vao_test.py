@@ -340,9 +340,10 @@ class VaoTest(object):
                     fcid = int(arrs[1])
                     fcid_set.add(fcid)
                     img_file = arrs[0]
-                    print('fcid: {0};'.format(fcid))
+                    #print('fcid: {0};'.format(fcid))
                     if cid == fcid:
                         c_nums[cid] += 0
+                        print('get correct data')
         print('cn1={0};'.format(c_nums[0]))
         print('fcid_set: {0};'.format(fcid_set))
         
