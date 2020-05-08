@@ -264,7 +264,16 @@ class VaoTest(object):
         print('所有车辆编号数量：{0};'.format(len(all_vcs)))
         # 获取已处理车辆编号
         known_vcs = set()
+        with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as known_fd:
+            for line in known_fd:
+                known_vcs.add(line)
+        print('已处理车辆编号数量：{0};'.format(len(known_vcs)))
         # 找出未处理车辆编号
+        sum = 1
+        for vc in known_vcs:
+            all_vcs.remove(vc)
+            print('从总体中删除：{0}; 共删除：{1};'.format(vc, sum))
+            sum += 1
 
     
     v_no_bn = {}
