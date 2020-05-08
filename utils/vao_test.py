@@ -415,14 +415,14 @@ class VaoTest(object):
                         if write_to_file:
                             ds_fd.write('{0}*{1}\n'.format(img_file, new_brand_id))
         nbn_nums = {}
-        for k in VaoTest.obn_nbn_dict.keys():
+        for k in range(85):
             nbn_nums[k] = 0
         with open(ds_file, 'r', encoding='utf-8') as fd:
             for line in fd:
                 arrs = line.split('*')
                 brand_id = int(arrs[1][:-1])
-                if brand_id in bn_nums:
-                    bn_nums[brand_id] += 1
+                if brand_id in nbn_nums:
+                    nbn_nums[brand_id] += 1
         for k, v in nbn_nums.items():
             print('new {0}: {1};'.format(k, v))
 
