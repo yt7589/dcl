@@ -227,12 +227,18 @@ class VaoTest(object):
         # 统计出已经处理完成的品牌
         train_ds = './yt_train.txt'
         with open(train_ds, 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs = line.split('*')
+                class_id = arrs[1]
+                our_vehicle_code_set.add(class_id)
+            '''
             line = fd.readline()
             while line:
                 print('正在处理：{0};'.format(line))
                 arrs = line.split('*')
                 class_id = arrs[1]
                 our_vehicle_code_set.add(class_id)
+            '''
         print('已经处理品牌数：{0}/180;'.format(len(our_vehicle_code_set)))
         for vc in our_vehicle_code_set:
             print(vc)
