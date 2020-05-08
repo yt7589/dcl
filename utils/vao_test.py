@@ -384,8 +384,9 @@ class VaoTest(object):
                 arrs = line.split('*')
                 img_file = arrs[0]
                 brand_id = int(arrs[1][:-1])
-                new_brand_id = VaoTest.obn_nbn_dict[brand_id]
-                print('brand_id: {0} => {1}*{2};'.format(brand_id, img_file, new_brand_id))
+                if brand_id in VaoTest.obn_nbn_dict:
+                    new_brand_id = VaoTest.obn_nbn_dict[brand_id]
+                    print('brand_id: {0} => {1}*{2};'.format(brand_id, img_file, new_brand_id))
 
         
     
