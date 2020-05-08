@@ -168,9 +168,12 @@ def train(Config,
                         eval_train_flag = False
                 '''
                 print('##### validate dataset #####')
-                trainval_acc1, trainval_acc2, trainval_acc3 = eval_turn(Config, model, data_loader['trainval'], 'trainval', epoch, log_file)
+                trainval_acc1, trainval_acc2, trainval_acc3 = eval_turn(
+                    Config, model, data_loader['val'], 'val', epoch, log_file
+                ) #eval_turn(Config, model, data_loader['trainval'], 'trainval', epoch, log_file)
                 print('##### test dataset #####')
-                val_acc1, val_acc2, val_acc3 = eval_turn(Config, model, data_loader['val'], 'val', epoch, log_file)
+                val_acc1, val_acc2, val_acc3 = trainval_acc1, trainval_acc2, \
+                            trainval_acc3 # eval_turn(Config, model, data_loader['val'], 'val', epoch, log_file)
                 steps = np.append(steps, step)
                 train_accs = np.append(train_accs, trainval_acc1)
                 test_accs = np.append(test_accs, val_acc1)
