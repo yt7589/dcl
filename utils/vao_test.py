@@ -10,6 +10,8 @@ class VaoTest(object):
     MODE_GET_UNCOVERED_VCS = 1003
     # 找出未处理过的车辆编号
     MODE_GET_UNKNOWN_VCS = 1004
+    # 生成92类已有类型数据集
+    MODE_KNOWN_VCS_DS = 1005
 
     def __init__(self):
         self.name = 'util.VaoTest'
@@ -21,7 +23,7 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        mode = VaoTest.MODE_GET_UNKNOWN_VCS
+        mode = VaoTest.MODE_KNOWN_VCS_DS
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
             VaoTest.process_imported_vehicles_main()
@@ -33,6 +35,8 @@ class VaoTest(object):
             VaoTest.get_uncovered_vcs()
         elif VaoTest.MODE_GET_UNKNOWN_VCS == mode:
             VaoTest.get_unknown_vcs()
+        elif VaoTest.MODE_KNOWN_VCS_DS == mode:
+            VaoTest.known_vcs_ds_main()
 
     @staticmethod
     def get_all_vehicle_codes():
@@ -279,6 +283,34 @@ class VaoTest(object):
         with open('./unknown_vcs.txt', 'a+', encoding='utf-8') as unknown_fd:
             for vc in all_vcs:
                 unknown_fd.write('{0}'.format(vc))
+
+    @staticmethod
+    def known_vcs_ds_main():
+        # 生成92类现有类别到0~91的对应表
+        class_id = 0
+        ob_nb_dict = {}
+        nd_dict = {}
+        with open('./work/known_brands.txt', 'r', encoding='utf-8') as kb_fd:
+            for line in kb_fd:
+                print('{0}=>{1};'.format(line[:-1], class_id))
+                #on_fd.write('{0}={1}\n'.format(line[:-1], class_id))
+                ob_nb_dict[line[:-1]] = class_id
+                key = '{0:03d}'.format(int(line[:-1])+1)
+                brand_name = VaoTest.vehicle_brands[key]
+                #nd_fd.write('{0}={1}\n'.format('{0}'.format(class_id), brand_name))
+                nd_dict['{0}'.format(class_id)] = brand_name
+                class_id += 1
+        sum = 0
+        with open('./yt_train.txt', 'r', encoding='utf-i') as ds_fd:
+            for line in ds_fd:
+                if sum > 5:
+                    break
+                arrs = line.split('*')
+                old_class_id = arrs[1]
+                new_class_id = ob_nb_dict[old_class_id]
+                print('from {0} to {1};'.format(old_class_id, new_class_id))
+                sum += 1
+        
 
     
     v_no_bn = {}
