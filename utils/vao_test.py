@@ -228,6 +228,7 @@ class VaoTest(object):
         train_ds = './yt_train.txt'
         with open(train_ds, 'r', encoding='utf-8') as fd:
             for line in fd:
+                print('正在处理：{0};'.format(line))
                 arrs = line.split('*')
                 class_id = arrs[1]
                 our_vehicle_code_set.add(class_id)
@@ -246,7 +247,7 @@ class VaoTest(object):
         for k in VaoTest.vehicle_brands.keys():
             if not k in our_vehicle_code_set:
                 uncovered_vcs.append(k)
-        print('未处理品牌数：{1};'.format(len(uncovered_vcs)))
+        print('未处理品牌数：{0};'.format(len(uncovered_vcs)))
         for vc in uncovered_vcs:
             print('##### {0};'.format(vc))
 
