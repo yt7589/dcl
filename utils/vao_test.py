@@ -231,7 +231,7 @@ class VaoTest(object):
                 #print('正在处理：{0};'.format(line))
                 arrs = line.split('*')
                 class_id = arrs[1]
-                our_vehicle_code_set.add(class_id[:-2])
+                our_vehicle_code_set.add(class_id[:-1])
         print('已经处理品牌数：{0}/180;'.format(len(our_vehicle_code_set)))
         for vc in our_vehicle_code_set:
             print(vc)
