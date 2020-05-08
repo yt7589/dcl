@@ -306,8 +306,8 @@ class VaoTest(object):
                 if sum > 5:
                     break
                 arrs = line.split('*')
-                old_class_id = arrs[1]
-                new_class_id = ob_nb_dict[old_class_id[:-1]]
+                old_class_id = arrs[1][:-1]
+                new_class_id = ob_nb_dict[old_class_id]
                 print('from {0} to {1};'.format(old_class_id, new_class_id))
                 sum += 1
         
