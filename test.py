@@ -137,7 +137,8 @@ if __name__ == '__main__':
             labels = Variable(torch.from_numpy(np.array(labels)).long().cuda())
             outputs = model(inputs)
             print('outputs: {0}; {1}; {2};'.format(outputs[0].shape, outputs[1].shape, outputs[2].shape))
-            print('y_hat: {0};'.format(torch.argmax(outputs[0], dim=1)))
+            y_hat = torch.argmax(outputs[0], dim=1)
+            print('y_hat: {0};'.format(y_hat))
             print('labels: {0};'.format(labels))
             print('top1 acc: {0};'.format(torch.sum(torch.eq(y_hat, labels)) / labels.shape[0]))
 
