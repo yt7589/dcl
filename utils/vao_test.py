@@ -537,7 +537,7 @@ class VaoTest(object):
             for line in fd:
                 arrs = line.split('*')
                 if len(arrs) <= 1:
-                    print(arrs[0])
+                    print(arrs[0][:-1])
                     sum += 1
         print('共有{0}条'.format(sum))
         if 1 == i_debug:
