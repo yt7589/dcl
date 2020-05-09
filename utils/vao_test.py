@@ -456,18 +456,24 @@ class VaoTest(object):
         '''
         src_path = Path('./net_model/training_descibe_590_CUB')
         chpts = [x for x in src_path.iterdir() if src_path.is_dir()]
-        X = []
-        y = []
+        X0 = []
+        acc1 = {}
         for chpt in chpts:
             print(chpt)
             arrs0 = str(chpt).split('/')
             item = arrs0[-1]
             arrs = item.split('_')
-            print('{0} = {1};'.format(arrs[2], arrs[3]))
-            X.append(arrs[2])
-            y.append(arrs[3])
+            step = int(arrs[2])
+            X0.append(step)
+            acc1[step] = float(arrs[3])
+        # 将X0进行排序
+        X0.sort()
+        y = []
+        for step in X0:
+            y.append(acc1[step])
+            print('{0} = {1};'.format(step, acc1[step]))
         fig, ax = plt.subplots()
-        ax.plot(np.array(X, dtype=np.float32), np.array(y, dtype=np.float32)*100.0, label='top1')
+        ax.plot(np.array(X0, dtype=np.float32), np.array(y, dtype=np.float32)*100.0, label='top1')
         ax.set_xlabel('steps')
         ax.set_ylabel('accuracy')
         ax.set_title("accuracy curve")
