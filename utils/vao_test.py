@@ -518,7 +518,9 @@ class VaoTest(object):
                 vc = arrs[0]
                 if len(arrs) > 1:
                     bmy = arrs[1][:-1]
-                    print('{0} <=> {1};'.format(vc, bmy))
+                    arrs2 = bmy.split('_')
+                    brand_name = arrs2[0]
+                    print('{0} <=> {1};  brand: {2};'.format(vc, bmy, brand_name))
 
 
 
