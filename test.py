@@ -121,7 +121,6 @@ if __name__ == '__main__':
     model.load_state_dict(model_dict)
     model.cuda()
     model = nn.DataParallel(model)
-    print('^_^ The End Load model is success! v0.0.1')
     model.train(False)
     with torch.no_grad():
         val_corrects1 = 0
@@ -136,10 +135,7 @@ if __name__ == '__main__':
             inputs = Variable(inputs.cuda())
             labels = Variable(torch.from_numpy(np.array(labels)).long().cuda())
             outputs = model(inputs)
-            print('outputs: {0}; {1}; {2};'.format(outputs[0].shape, outputs[1].shape, outputs[2].shape))
             y_hat = torch.argmax(outputs[0], dim=1)
-            print('y_hat: {0};'.format(y_hat))
-            print('labels: {0};'.format(labels))
             val_corrects1 += torch.sum(torch.tensor(torch.eq(y_hat, labels).clone().detach(), dtype=torch.uint8)).item()
     print('top1 accuracy: {0}={1}/{2};'.format( val_corrects1 / len(val_set), val_corrects1, len(val_set)))
 
