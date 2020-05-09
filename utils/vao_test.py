@@ -545,9 +545,23 @@ class VaoTest(object):
             arrs0 = file_name.split('/')
             arrs1 = arrs0[-1].split('_')
             brand_no = arrs1[0]
-            print('删除进口车编号为{0}的品牌'.format(brand_no))
             if brand_no in uncovered_brands:
+                print('删除进口车编号为{0}的品牌'.format(brand_no))
                 uncovered_brands.remove(brand_no)
+        print('阶段1：未处理品牌数={0};'.format(len(uncovered_brands)))
+        # 处理国产车
+        dv_file = './datasets/raw_domestic_brands.txt'
+        with open(dv_file, 'r', encoding='utf-8') as dv_fd:
+            for line in dv_fd:
+                arrs0 = line.split('*')
+                if len(arrs0) > 1:
+                    arrs1 = arrs0[1].split('_')
+                    brand_name = arrs1[0]
+                    if brand_name in VaoTest.v_bn_no.keys():
+                        brand_no = VaoTest.v_bn_no[brand_name]
+                        uncovered_brands.remove(brand_no)
+                        print('删除国产国编号为{0}的品牌'.format(brand_no))
+        print('阶段2：未处理品牌数={0};'.format(len(uncovered_brands)))
         
 
 
