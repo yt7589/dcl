@@ -98,8 +98,7 @@ if __name__ == '__main__':
                       swap = transformers["None"],\
                       totensor = transformers["test_totensor"],\
                       test=True)
-    dataloader = {}
-    dataloader['val'] = torch.utils.data.DataLoader(val_set,\
+    dataloader = torch.utils.data.DataLoader(val_set,\
                                                 batch_size=args.val_batch,\
                                                 shuffle=False,\
                                                 num_workers=args.val_num_workers,\
@@ -120,4 +119,22 @@ if __name__ == '__main__':
     model.cuda()
     model = nn.DataParallel(model)
     print('^_^ The End Load model is success! v0.0.1')
+    model.train(False)
+    with torch.no_grad():
+        val_corrects1 = 0
+        val_corrects2 = 0
+        val_corrects3 = 0
+        val_size = ceil(len(data_set) / dataloader.batch_size)
+        result_gather = {}
+        count_bar = tqdm(total=dataloader.__len__())
+        for batch_cnt_val, data_val in enumerate(dataloader):
+            count_bar.update(1)
+            inputs, labels, img_name = data_val
+            inputs = Variable(inputs.cuda())
+            labels = Variable(torch.from_numpy(np.array(labels)).long().cuda())
+            outputs = model(inputs)
+            outputs_pred = outputs[0] + outputs[1][:,0:Config.numcls] + outputs[1][:,Config.numcls:2*Config.numcls]
+            top3_val, top3_pos = torch.topk(outputs_pred, 3)
+            print('top3_val: {0};'.format(top3_val))
+            print('top3_pos: {0};'.format(top3_pos))
 
