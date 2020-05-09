@@ -559,8 +559,9 @@ class VaoTest(object):
                     brand_name = arrs1[0]
                     if brand_name in VaoTest.v_bn_no.keys():
                         brand_no = VaoTest.v_bn_no[brand_name]
-                        uncovered_brands.remove(brand_no)
-                        print('删除国产国编号为{0}的品牌'.format(brand_no))
+                        if brand_no in uncovered_brands.keys():
+                            uncovered_brands.remove(brand_no)
+                            print('删除国产国编号为{0}的品牌'.format(brand_no))
         print('阶段2：未处理品牌数={0};'.format(len(uncovered_brands)))
         
 
