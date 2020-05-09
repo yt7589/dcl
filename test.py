@@ -140,7 +140,7 @@ if __name__ == '__main__':
             y_hat = torch.argmax(outputs[0], dim=1)
             print('y_hat: {0};'.format(y_hat))
             print('labels: {0};'.format(labels))
-            r1 = torch.eq(y_hat, labels).clone().detach().dtype=torch.uint8
+            r1 = torch.tensor(torch.eq(y_hat, labels).clone().detach(), dtype=torch.uint8)
             print('eq: {0};'.format(r1))
             print('total: {0};'.format(labels.shape[0]))
             print('top1 acc: {0};'.format(torch.sum(r1).item() / labels.shape[0]))
