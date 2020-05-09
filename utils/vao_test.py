@@ -512,7 +512,7 @@ class VaoTest(object):
         '''
         # 找出在本目录下出现并在附件2列表中，但是未在已处理的86类中的品牌
         vc_file = './work/gcc2_vc_bmy.txt'
-        with open(vc_file, 'r', encoding='utf-i') as fd:
+        with open(vc_file, 'r', encoding='utf-8') as fd:
             for line in fd:
                 arrs = line.split('*')
                 if len(arrs) > 1:
