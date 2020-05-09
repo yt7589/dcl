@@ -539,7 +539,7 @@ class VaoTest(object):
         print(VaoTest.v_bn_no)
         print(uncovered_brands)
         # 处理进口车
-        iv_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d'
+        iv_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d')
         for file_obj in iv_dir.iterdir():
             file_name = str(file_obj)
             arrs = file_name.split('_')
