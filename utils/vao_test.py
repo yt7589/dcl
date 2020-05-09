@@ -543,7 +543,7 @@ class VaoTest(object):
         for file_obj in iv_dir.iterdir():
             file_name = str(file_obj)
             arrs = file_name.split('_')
-            brand_no = arrs[0]
+            brand_no = arrs[-2]
             print('删除进口车编号为{0}的品牌'.format(brand_no))
             if brand_no in uncovered_brands:
                 uncovered_brands.remove(brand_no)
