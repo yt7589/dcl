@@ -545,7 +545,8 @@ class VaoTest(object):
             arrs = file_name.split('_')
             brand_no = arrs[0]
             print('删除进口车编号为{0}的品牌'.format(brand_no))
-            uncovered_brands.remove(brand_no)
+            if brand_no in uncovered_brands:
+                uncovered_brands.remove(brand_no)
         
 
 
