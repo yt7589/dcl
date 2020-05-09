@@ -17,6 +17,8 @@ class VaoTest(object):
     MODE_PROCESS_GUOCHANCHE_2 = 1006
     # 生成现有品牌（86种）数据集
     MODE_KNOWN_86_DS = 1007
+    # 绘制最新86种品牌数据集训练曲线
+    MODE_B86_TRAIN_CURVE = 1008
 
     def __init__(self):
         self.name = 'util.VaoTest'
@@ -28,7 +30,7 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        mode = VaoTest.MODE_KNOWN_86_DS
+        mode = VaoTest.MODE_B86_TRAIN_CURVE
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
             print('新数据集生成')
@@ -62,6 +64,8 @@ class VaoTest(object):
             VaoTest.known_vcs_ds_main()
         elif VaoTest.MODE_KNOWN_86_DS == mode:
             VaoTest.create_known_86_ds()
+        elif VaoTest.MODE_B86_TRAIN_CURVE == mode:
+            VaoTest.draw_b86_train_curve()
 
     @staticmethod
     def get_all_vehicle_codes():
@@ -443,7 +447,31 @@ class VaoTest(object):
                         #print('brand_id: {0} => {1}*{2};'.format(brand_id, img_file, new_brand_id))
                         ds_fd.write('{0}*{1}\n'.format(img_file, new_brand_id))
 
-        
+    @staticmethod
+    def draw_b86_train_curve():
+        '''
+        从训练记录文件中读出训练步数和Top1精度，使用matplotlib绘制
+        '''
+        src_path = Path('./net_model/training_descibe_590_CUB')
+        chpts = [x for x in srcPath.iterdir() if srcPath.is_dir()]
+        X = []
+        y = []
+        for chpt in chpts:
+            arrs = str(chpt).split('_')
+            X.append(arrs[2])
+            y.append(arrs[3])
+    fig, ax = plt.subplots()
+    ax.plot(X, y*100.0, label='top1')
+    ax.set_xlabel('steps')
+    ax.set_ylabel('accuracy')
+    ax.set_title("accuracy curve")
+    ax.legend()
+    plt.show()
+
+
+
+
+
     
     v_no_bn = {}
     v_bn_no = {}
