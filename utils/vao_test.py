@@ -461,13 +461,13 @@ class VaoTest(object):
             arrs = str(chpt).split('_')
             X.append(arrs[2])
             y.append(arrs[3])
-    fig, ax = plt.subplots()
-    ax.plot(X, y*100.0, label='top1')
-    ax.set_xlabel('steps')
-    ax.set_ylabel('accuracy')
-    ax.set_title("accuracy curve")
-    ax.legend()
-    plt.show()
+        fig, ax = plt.subplots()
+        ax.plot(X, y*100.0, label='top1')
+        ax.set_xlabel('steps')
+        ax.set_ylabel('accuracy')
+        ax.set_title("accuracy curve")
+        ax.legend()
+        plt.show()
 
 
 
