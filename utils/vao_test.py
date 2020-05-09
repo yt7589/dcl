@@ -531,7 +531,7 @@ class VaoTest(object):
         '''
         获取在vehicle_type_v2d、guochanche_all、guochanche_2中没有，但是却在所里附件2中存在的品牌
         '''
-        i_debug = 1
+        i_debug = 10
         sum = 0
         unfind_vcs = './unfind_vcs.txt'
         with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as fd:
