@@ -109,18 +109,15 @@ if __name__ == '__main__':
     model_dict=model.state_dict()
     for k, v in model_dict.items():
         print(k)
-    resume = './net_model/training_descibe_4158_CUB/weights_1_42854_0.7008_0.9519.pth'
+    resume = './net_model/training_descibe_5910_CUB/weights_11_2144_0.9894_0.9980.pth'
     pretrained_dict=torch.load(resume)
     pretrained_dict = {k[7:]: v for k, v in pretrained_dict.items() if k[7:] in model_dict}
     for k, v in pretrained_dict.items():
         print(k)
     model_dict.update(pretrained_dict)
-    #model.load_state_dict(pretrained_dict['net_state_dict'])
-    #load_state_dict(ckpt['net_state_dict'])
     model.load_state_dict(model_dict)
     model.cuda()
     model = nn.DataParallel(model)
-
     model.train(False)
     with torch.no_grad():
         val_corrects1 = 0
@@ -132,18 +129,13 @@ if __name__ == '__main__':
         for batch_cnt_val, data_val in enumerate(dataloader):
             count_bar.update(1)
             inputs, labels, img_name = data_val
-            #print(img_name)
-            #imggg = cv2.imread(img_name)
-            #print(imggg)
-
-
             inputs = Variable(inputs.cuda())
             labels = Variable(torch.from_numpy(np.array(labels)).long().cuda())
-
             outputs = model(inputs)
             outputs_pred = outputs[0] + outputs[1][:,0:Config.numcls] + outputs[1][:,Config.numcls:2*Config.numcls]
-
             top3_val, top3_pos = torch.topk(outputs_pred, 3)
+            print('top3_val: {0};'.format(top3_val))
+            print('top3_pos: {0};'.format(top3_pos))
             #print(top3_val)  
             #tensor([[57.0976, 37.0089, 30.7548]], device='cuda:0')         
             #print(top3_pos[:, 0])            
@@ -154,15 +146,12 @@ if __name__ == '__main__':
             #tensor([228], device='cuda:0')
 
             if args.version == 'val':
-                #print(top3_val)
-                #print(top3_pos[:, 0])
                 batch_corrects1 = torch.sum((top3_pos[:, 0] == labels)).data.item()
                 val_corrects1 += batch_corrects1
                 batch_corrects2 = torch.sum((top3_pos[:, 1] == labels)).data.item()
                 val_corrects2 += (batch_corrects2 + batch_corrects1)
                 batch_corrects3 = torch.sum((top3_pos[:, 2] == labels)).data.item()
                 val_corrects3 += (batch_corrects3 + batch_corrects2 + batch_corrects1)
-
             if args.acc_report:
                 for sub_name, sub_cat, sub_val, sub_label in zip(img_name, top3_pos.tolist(), top3_val.tolist(), labels.tolist()):
                     result_gather[sub_name] = {'top1_cat': sub_cat[0], 'top2_cat': sub_cat[1], 'top3_cat': sub_cat[2],
@@ -190,40 +179,4 @@ if __name__ == '__main__':
                    'cls_top3':cls_top3,
                    'cls_count':cls_count}, acc_report_io)
         acc_report_io.close()
-
-    im_names = ['test_image1.jpg', 'test_image1.jpg', 'test_image1.jpg']
-    #for im_name in im_names:
-    #    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    #    print('Demo for data/demo/{}'.format(im_name))
-    #    #demo(sess, net, im_name)
-    #plt.show()
-    # 001_奥迪_奥迪_a1_2011 0
-    #image_aa = cv2.imread('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/193_双龙大宇/柯兰多/unknown/KPTA0A18/KPTA0A18#KPTA0A18_闽F6915T_02_520000100529_520000104757104474.jpg', flags=1)
-    #cv2.imshow('Example',image_aa)
-    #cv2.waitKey(10000)
-    # 读入图片
-    src = cv2.imread('test_image1.jpg')
- 
-    # 调用cv.putText()添加文字
-    text = "Your are so beautiful!"
-    AddText = src.copy()
-    cv2.putText(AddText, text, (200, 100), cv2.FONT_HERSHEY_COMPLEX, 2.0, (100, 200, 200), 5)
- 
-    # 将原图片和添加文字后的图片拼接起来
-    res = np.hstack([src, AddText])
- 
-    # 显示拼接后的图片
-    cv2.imshow('text', res)
-    cv2.waitKey()
-    cv2.destroyAllWindows()
-
-
-'''
-/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/193_双龙大宇/柯兰多/unknown/KPTA0A18/KPTA0A18#KPTA0A18_闽F6915T_02_520000100529_520000104757104474.jpg
-'/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/193_双龙大宇/柯兰多/unknown/KPTA0A18/KPTA0A18#KPTA0A18_闽F6915T_02_520000100529_520000104757104474.jpg']
-
-tensor([[57.0976, 37.0090, 30.7548]], device='cuda:0')
-tensor([477], device='cuda:0')
-
-'''
 
