@@ -1,6 +1,7 @@
 #
 # 车管所测试工具类
 #
+import matplotlib.pyplot as plt
 import random
 from pathlib import Path
 
