@@ -533,12 +533,15 @@ class VaoTest(object):
         '''
         i_debug = 1
         sum = 0
+        unfind_vcs = './unfind_vcs.txt'
         with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as fd:
-            for line in fd:
-                arrs = line.split('*')
-                if len(arrs) <= 1:
-                    print(arrs[0][:-1])
-                    sum += 1
+            with open(unfind_vcs, 'w+', encoding='utf-8') as uv_fd:
+                for line in fd:
+                    arrs = line.split('*')
+                    if len(arrs) <= 1:
+                        print(arrs[0][:-1])
+                        uv_fd.write('{0}\n'.format(arrs[0][:-1]))
+                        sum += 1
         print('共有{0}条'.format(sum))
         if 1 == i_debug:
             return
