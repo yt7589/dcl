@@ -463,7 +463,7 @@ class VaoTest(object):
             X.append(arrs[2])
             y.append(arrs[3])
         fig, ax = plt.subplots()
-        ax.plot(np.array(X), np.array(y)*100.0, label='top1')
+        ax.plot(np.array(X, dtype=np.float32), np.array(y, dtype=np.float32)*100.0, label='top1')
         ax.set_xlabel('steps')
         ax.set_ylabel('accuracy')
         ax.set_title("accuracy curve")
