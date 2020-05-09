@@ -137,5 +137,6 @@ if __name__ == '__main__':
             labels = Variable(torch.from_numpy(np.array(labels)).long().cuda())
             outputs = model(inputs)
             print('outputs: {0}; {1}; {2};'.format(outputs[0].shape, outputs[1].shape, outputs[2].shape))
+            print('y_hat: {0};'.format(torch.argmax(outputs[0], dim=1)))
             print('labels: {0};'.format(labels))
 
