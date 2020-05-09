@@ -460,7 +460,9 @@ class VaoTest(object):
         y = []
         for chpt in chpts:
             print(chpt)
-            arrs = str(chpt).split('_')
+            arrs0 = str(chpt).split('/')
+            item = arrs0[-1]
+            arrs = item.split('_')
             print('{0} = {1};'.format(arrs[2], arrs[3]))
             X.append(arrs[2])
             y.append(arrs[3])
