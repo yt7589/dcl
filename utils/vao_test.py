@@ -515,8 +515,10 @@ class VaoTest(object):
         with open(vc_file, 'r', encoding='utf-8') as fd:
             for line in fd:
                 arrs = line.split('*')
+                vc = arrs[0]
                 if len(arrs) > 1:
-                    print(arrs[1])
+                    bmy = arrs[1][:-1]
+                    print('{0} <=> {1};'.format(vc, bmy))
 
 
 
