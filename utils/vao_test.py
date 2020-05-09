@@ -577,6 +577,7 @@ class VaoTest(object):
                             uncovered_brands.remove(brand_no)
                             print('删除国产国编号为{0}的品牌'.format(brand_no))
         print('阶段2：未处理品牌数={0};'.format(len(uncovered_brands)))
+        print('未处理品牌列表：')
         for bno in uncovered_brands:
             print('{0} = {1};'.format(bno, VaoTest.vehicle_brands[bno]))
         
