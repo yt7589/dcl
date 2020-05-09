@@ -105,8 +105,8 @@ if __name__ == '__main__':
                                                 collate_fn=collate_fn4test if not Config.use_backbone else collate_fn4backbone,
                                                 drop_last=True if Config.use_backbone else False,
                                                 pin_memory=True)
-    setattr(dataloader['val'], 'total_item_len', len(val_set))
-    setattr(dataloader['val'], 'num_cls', Config.numcls)
+    setattr(dataloader, 'total_item_len', len(val_set))
+    setattr(dataloader, 'num_cls', Config.numcls)
     cudnn.benchmark = True
     print('Choose model and train set', flush=True)
     model = MainModel(Config)
