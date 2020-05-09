@@ -467,7 +467,9 @@ class VaoTest(object):
             X0.append(step)
             acc1[step] = float(arrs[3])
         # 将X0进行排序
+        print('before sort: {0};'.format(X0))
         X0.sort()
+        print('after sort: {0};'.format(X0))
         y = []
         for step in X0:
             y.append(acc1[step])
