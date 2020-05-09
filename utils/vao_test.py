@@ -23,6 +23,8 @@ class VaoTest(object):
     MODE_B86_TRAIN_CURVE = 1008
     # 将测试数据集合并到训练数据集
     MODE_COPY_TEST_TO_TRAIN = 1009
+    # 处理国产车2目录：guochanche_2
+    MODE_PROCESS_GCC2 = 1010
 
     def __init__(self):
         self.name = 'util.VaoTest'
@@ -34,7 +36,7 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        mode = VaoTest.MODE_B86_TRAIN_CURVE
+        mode = VaoTest.MODE_PROCESS_GCC2
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
             print('新数据集生成')
@@ -72,6 +74,8 @@ class VaoTest(object):
             VaoTest.draw_b86_train_curve()
         elif VaoTest.MODE_COPY_TEST_TO_TRAIN == mode:
             VaoTest.copy_test_to_train()
+        elif VaoTest.MODE_PROCESS_GCC2 == mode:
+            VaoTest.process_gcc2()
 
     @staticmethod
     def get_all_vehicle_codes():
@@ -501,6 +505,18 @@ class VaoTest(object):
                 for line in src_fd:
                     dst_fd.write(line)
 
+    @staticmethod
+    def process_gcc2():
+        '''
+        处理国产车2目录下内容
+        '''
+        # 找出在本目录下出现并在附件2列表中，但是未在已处理的86类中的品牌
+        vc_file = './work/gcc2_vc_bmy.txt'
+        with open(vc_file, 'r', encoding='utf-i') as fd:
+            for line in fd:
+                arrs = line.split('*')
+                if len(arrs) > 1:
+                    print(arrs[1])
 
 
 
