@@ -466,7 +466,7 @@ class VaoTest(object):
             epoch = int(arrs[1])
             step = int(arrs[2])
             X0.append(epoch*2549 + step)
-            acc1[step] = float(arrs[3])
+            acc1[epoch*2549 + step] = float(arrs[3])
         # 将X0进行排序
         print('before sort: {0};'.format(X0))
         X0.sort()
