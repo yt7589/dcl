@@ -34,7 +34,7 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        mode = VaoTest.MODE_COPY_TEST_TO_TRAIN
+        mode = VaoTest.MODE_B86_TRAIN_CURVE
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
             print('新数据集生成')
@@ -462,6 +462,7 @@ class VaoTest(object):
         chpts = [x for x in src_path.iterdir() if src_path.is_dir()]
         X0 = []
         acc1 = {}
+        step_per_epoch = 2705
         for chpt in chpts:
             print(chpt)
             arrs0 = str(chpt).split('/')
@@ -469,8 +470,9 @@ class VaoTest(object):
             arrs = item.split('_')
             epoch = int(arrs[1])
             step = int(arrs[2])
-            X0.append(epoch*2549 + step)
-            acc1[epoch*2549 + step] = float(arrs[3])
+            total_step = epoch*step_per_epoch + step
+            X0.append(total_step)
+            acc1[total_step] = float(arrs[3])
         # 将X0进行排序
         print('before sort: {0};'.format(X0))
         X0.sort()
