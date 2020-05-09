@@ -11,6 +11,7 @@ from tqdm import tqdm
 
 import torch
 import torch.nn as nn
+from torch.autograd import Variable
 from  torch.nn import CrossEntropyLoss
 import torch.utils.data as torchdata
 from torchvision import datasets, models
