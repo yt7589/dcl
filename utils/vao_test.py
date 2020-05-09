@@ -25,6 +25,8 @@ class VaoTest(object):
     MODE_COPY_TEST_TO_TRAIN = 1009
     # 处理国产车2目录：guochanche_2
     MODE_PROCESS_GCC2 = 1010
+    # 获取当前没有数据的品牌
+    MODE_GET_UNCOVERED_BRANDS = 1011
 
     def __init__(self):
         self.name = 'util.VaoTest'
@@ -36,7 +38,7 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        mode = VaoTest.MODE_PROCESS_GCC2
+        mode = VaoTest.MODE_GET_UNCOVERED_BRANDS
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
             print('新数据集生成')
@@ -76,6 +78,8 @@ class VaoTest(object):
             VaoTest.copy_test_to_train()
         elif VaoTest.MODE_PROCESS_GCC2 == mode:
             VaoTest.process_gcc2()
+        elif VaoTest.MODE_GET_UNCOVERED_BRANDS == mode:
+            VaoTest.get_uncovered_brands()
 
     @staticmethod
     def get_all_vehicle_codes():
@@ -521,6 +525,19 @@ class VaoTest(object):
                     arrs2 = bmy.split('_')
                     brand_name = arrs2[0]
                     print('{0} <=> {1};  brand: {2};'.format(vc, bmy, brand_name))
+
+    @staticmethod
+    def get_uncovered_brands():
+        '''
+        获取在vehicle_type_v2d、guochanche_all、guochanche_2中没有，但是却在所里附件2中存在的品牌
+        '''
+        # 处理进口车
+        uncovered_brands = []
+        VaoTest.create_v_bn_no()
+        for k, v in VaoTest.vehicle_brands.items():
+            uncovered_brands.append(k)
+        print(VaoTest.v_bn_no)
+        print(uncovered_brands)
 
 
 
