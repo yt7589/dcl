@@ -531,6 +531,17 @@ class VaoTest(object):
         '''
         获取在vehicle_type_v2d、guochanche_all、guochanche_2中没有，但是却在所里附件2中存在的品牌
         '''
+        i_debug = 1
+        sum = 0
+        with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs = line.split('*')
+                if len(arrs) <= 1:
+                    print(arrs[0])
+                    sum += 1
+        print('共有{0}条'.format(sum))
+        if 1 == i_debug:
+            return
         # 处理进口车
         uncovered_brands = []
         VaoTest.create_v_bn_no()
