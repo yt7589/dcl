@@ -84,17 +84,6 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-def auto_load_resume(load_dir):
-    folders = os.listdir(load_dir)
-    #date_list = [int(x.split('_')[1].replace(' ',0)) for x in folders]
-    date_list = [int(x.split('_')[2]) for x in folders]
-    choosed = folders[date_list.index(max(date_list))]
-    weight_list = os.listdir(os.path.join(load_dir, choosed))
-    acc_list = [x[:-4].split('_')[-1] if x[:7]=='weights' else 0 for x in weight_list]
-    acc_list = [float(x) for x in acc_list]
-    choosed_w = weight_list[acc_list.index(max(acc_list))]
-    return os.path.join(load_dir, choosed, choosed_w)
-
 if __name__ == '__main__':
     args = parse_args()
     print(args, flush=True)
@@ -103,20 +92,6 @@ if __name__ == '__main__':
     Config.cls_2xmul = args.cls_mul
     assert Config.cls_2 ^ Config.cls_2xmul
     transformers = load_data_transformers(args.resize_resolution, args.crop_resolution, args.swap_num)
-    # inital dataloader
-    train_set = dataset(Config = Config,\
-                        anno = Config.train_anno,\
-                        common_aug = transformers["common_aug"],\
-                        swap = transformers["swap"],\
-                        totensor = transformers["train_totensor"],\
-                        train = True)
-    trainval_set = dataset(Config = Config,\
-                        anno = Config.train_anno,\
-                        common_aug = transformers["None"],\
-                        swap = transformers["None"],\
-                        totensor = transformers["val_totensor"],\
-                        train = False,
-                        train_val = True)
     val_set = dataset(Config = Config,\
                       anno = Config.val_anno,\
                       common_aug = transformers["None"],\
@@ -124,23 +99,6 @@ if __name__ == '__main__':
                       totensor = transformers["test_totensor"],\
                       test=True)
     dataloader = {}
-    dataloader['train'] = torch.utils.data.DataLoader(train_set,\
-                                                batch_size=args.train_batch,\
-                                                shuffle=True,\
-                                                num_workers=args.train_num_workers,\
-                                                collate_fn=collate_fn4train if not Config.use_backbone else collate_fn4backbone,
-                                                drop_last=True if Config.use_backbone else False,
-                                                pin_memory=True)
-    setattr(dataloader['train'], 'total_item_len', len(train_set))
-    dataloader['trainval'] = torch.utils.data.DataLoader(trainval_set,\
-                                                batch_size=args.val_batch,\
-                                                shuffle=False,\
-                                                num_workers=args.val_num_workers,\
-                                                collate_fn=collate_fn4val if not Config.use_backbone else collate_fn4backbone,
-                                                drop_last=True if Config.use_backbone else False,
-                                                pin_memory=True)
-    setattr(dataloader['trainval'], 'total_item_len', len(trainval_set))
-    setattr(dataloader['trainval'], 'num_cls', Config.numcls)
     dataloader['val'] = torch.utils.data.DataLoader(val_set,\
                                                 batch_size=args.val_batch,\
                                                 shuffle=False,\
@@ -161,5 +119,5 @@ if __name__ == '__main__':
     model.load_state_dict(model_dict)
     model.cuda()
     model = nn.DataParallel(model)
-    print('^_^ The End Load model is success!')
+    print('^_^ The End Load model is success! v0.0.1')
 
