@@ -542,8 +542,9 @@ class VaoTest(object):
         iv_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d')
         for file_obj in iv_dir.iterdir():
             file_name = str(file_obj)
-            arrs = file_name.split('_')
-            brand_no = arrs[-2]
+            arrs0 = file_name.split('/')
+            arrs1 = arrs0[-1].split('_')
+            brand_no = arrs1[0]
             print('删除进口车编号为{0}的品牌'.format(brand_no))
             if brand_no in uncovered_brands:
                 uncovered_brands.remove(brand_no)
