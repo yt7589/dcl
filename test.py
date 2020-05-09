@@ -136,8 +136,5 @@ if __name__ == '__main__':
             inputs = Variable(inputs.cuda())
             labels = Variable(torch.from_numpy(np.array(labels)).long().cuda())
             outputs = model(inputs)
-            outputs_pred = outputs[0] + outputs[1][:,0:Config.numcls] + outputs[1][:,Config.numcls:2*Config.numcls]
-            top3_val, top3_pos = torch.topk(outputs_pred, 3)
-            print('top3_val: {0};'.format(top3_val))
-            print('top3_pos: {0};'.format(top3_pos))
+            print('outputs: {0}; {1};'.format(outputs.shape, outputs))
 
