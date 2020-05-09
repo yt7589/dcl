@@ -38,7 +38,7 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        mode = VaoTest.MODE_GET_UNCOVERED_BRANDS
+        mode = VaoTest.MODE_B86_TRAIN_CURVE
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
             print('新数据集生成')
