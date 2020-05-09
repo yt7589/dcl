@@ -1,5 +1,6 @@
 #coding=utf-8
 import os
+import math
 import sys
 import datetime
 import argparse
@@ -124,7 +125,7 @@ if __name__ == '__main__':
         val_corrects1 = 0
         val_corrects2 = 0
         val_corrects3 = 0
-        val_size = ceil(len(data_set) / dataloader.batch_size)
+        val_size = math.ceil(len(data_set) / dataloader.batch_size)
         result_gather = {}
         count_bar = tqdm(total=dataloader.__len__())
         for batch_cnt_val, data_val in enumerate(dataloader):
