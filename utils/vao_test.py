@@ -459,7 +459,9 @@ class VaoTest(object):
         X = []
         y = []
         for chpt in chpts:
+            print(chpt)
             arrs = str(chpt).split('_')
+            print('{0} = {1};'.format(arrs[2], arrs[3]))
             X.append(arrs[2])
             y.append(arrs[3])
         fig, ax = plt.subplots()
