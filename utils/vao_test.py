@@ -1,6 +1,7 @@
 #
 # 车管所测试工具类
 #
+import numpy as np
 import matplotlib.pyplot as plt
 import random
 from pathlib import Path
@@ -462,7 +463,7 @@ class VaoTest(object):
             X.append(arrs[2])
             y.append(arrs[3])
         fig, ax = plt.subplots()
-        ax.plot(X, y*100.0, label='top1')
+        ax.plot(np.array(X), np.array(y)*100.0, label='top1')
         ax.set_xlabel('steps')
         ax.set_ylabel('accuracy')
         ax.set_title("accuracy curve")
