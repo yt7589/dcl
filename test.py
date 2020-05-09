@@ -141,5 +141,5 @@ if __name__ == '__main__':
             print('y_hat: {0};'.format(y_hat))
             print('labels: {0};'.format(labels))
             val_corrects1 += torch.sum(torch.tensor(torch.eq(y_hat, labels).clone().detach(), dtype=torch.uint8)).item()
-    print('top1 accuracy: {0}={1}/{2};'.format( val_corrects1 / dataloader.__len__(), val_corrects1, dataloader.__len__()))
+    print('top1 accuracy: {0}={1}/{2};'.format( val_corrects1 / len(val_set), val_corrects1, len(val_set)))
 
