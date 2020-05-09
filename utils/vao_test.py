@@ -538,6 +538,15 @@ class VaoTest(object):
             uncovered_brands.append(k)
         print(VaoTest.v_bn_no)
         print(uncovered_brands)
+        # 处理进口车
+        iv_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d'
+        for file_obj in path_obj.iterdir():
+            file_name = str(file_obj)
+            arrs = file_name.split('_')
+            brand_no = arrs[0]
+            print('删除进口车编号为{0}的品牌'.format(brand_no))
+            uncovered_brands.remove(brand_no)
+        
 
 
 
