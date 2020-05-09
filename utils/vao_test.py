@@ -540,7 +540,7 @@ class VaoTest(object):
         print(uncovered_brands)
         # 处理进口车
         iv_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d'
-        for file_obj in path_obj.iterdir():
+        for file_obj in iv_dir.iterdir():
             file_name = str(file_obj)
             arrs = file_name.split('_')
             brand_no = arrs[0]
