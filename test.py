@@ -102,18 +102,12 @@ if __name__ == '__main__':
                                              collate_fn=collate_fn4test)
 
     setattr(dataloader, 'total_item_len', len(data_set))
-
     cudnn.benchmark = True
-
+    resume = './net_model/training_descibe_5910_CUB/weights_11_2144_0.9894_0.9980.pth'
     model = MainModel(Config)
     model_dict=model.state_dict()
-    for k, v in model_dict.items():
-        print(k)
-    resume = './net_model/training_descibe_5910_CUB/weights_11_2144_0.9894_0.9980.pth'
     pretrained_dict=torch.load(resume)
     pretrained_dict = {k[7:]: v for k, v in pretrained_dict.items() if k[7:] in model_dict}
-    for k, v in pretrained_dict.items():
-        print(k)
     model_dict.update(pretrained_dict)
     model.load_state_dict(model_dict)
     model.cuda()
