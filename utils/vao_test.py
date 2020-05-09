@@ -21,6 +21,8 @@ class VaoTest(object):
     MODE_KNOWN_86_DS = 1007
     # 绘制最新86种品牌数据集训练曲线
     MODE_B86_TRAIN_CURVE = 1008
+    # 将测试数据集合并到训练数据集
+    MODE_COPY_TEST_TO_TRAIN = 1009
 
     def __init__(self):
         self.name = 'util.VaoTest'
@@ -32,7 +34,7 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        mode = VaoTest.MODE_B86_TRAIN_CURVE
+        mode = VaoTest.MODE_COPY_TEST_TO_TRAIN
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
             print('新数据集生成')
@@ -68,6 +70,8 @@ class VaoTest(object):
             VaoTest.create_known_86_ds()
         elif VaoTest.MODE_B86_TRAIN_CURVE == mode:
             VaoTest.draw_b86_train_curve()
+        elif VaoTest.MODE_COPY_TEST_TO_TRAIN == mode:
+            VaoTest.copy_test_to_train()
 
     @staticmethod
     def get_all_vehicle_codes():
@@ -482,6 +486,18 @@ class VaoTest(object):
         ax.set_title("accuracy curve")
         ax.legend()
         plt.show()
+
+    @staticmethod
+    def copy_test_to_train():
+        '''
+        将测试数据集数据拷贝到训练数据集中，用于测试能够在到的精度
+        '''
+        src_file = './datasets/CUB_200_2011/anno/yt_test.txt'
+        dst_file = './datasets/CUB_200_2011/anno/yt_train.txt'
+        with open(src_file, 'r', encoding='utf-8') as src_fd:
+            with open(dst_file, 'a+', encoding='utf-8') as dst_fd:
+                for line in src_fd:
+                    dst_fd.write(line)
 
 
 
