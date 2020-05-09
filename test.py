@@ -137,5 +137,6 @@ if __name__ == '__main__':
             outputs = model(inputs)
             y_hat = torch.argmax(outputs[0], dim=1)
             val_corrects1 += torch.sum(torch.eq(y_hat, labels).clone().detach().to(torch.uint8)).item()
+    count_bar.close()
     print('top1 accuracy: {0}={1}/{2};'.format( val_corrects1 / len(val_set), val_corrects1, len(val_set)))
 
