@@ -596,7 +596,10 @@ class VaoTest(object):
         train_file = '{0}/train-test-split/train_list.txt'.format(base_dir)
         with open(train_file, 'r', encoding='utf-8') as train_fd:
             for line in train_fd:
-                print(line)
+                arrs = line.split(' ')
+                img_file = arrs[0]
+                bmy_id = arrs[-1][:-1]
+                print('{0}/image/{1}*{2}'.format(base_dir, img_file, bmy_id))
 
     
     v_no_bn = {}
