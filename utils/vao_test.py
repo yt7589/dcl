@@ -595,13 +595,13 @@ class VaoTest(object):
         base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/Vehicle-1M'
         train_file = '{0}/train-test-split/train_list.txt'.format(base_dir)
         train_ds_file = '{0}/train-test-split/v1m_train.txt'.format(base_dir)
-        VaoTest.generate_vehicle1m_ds(train_file, train_ds_file)
+        VaoTest.generate_vehicle1m_ds(base_dir, train_file, train_ds_file)
         test_data_file = '{0}/train-test-split/test_1000.txt'.format(base_dir)
         test_ds_file = '{0}/train-test-split/v1m_test.txt'.format(base_dir)
-        VaoTest.generate_vehicle1m_ds(test_data_file, test_ds_file)
+        VaoTest.generate_vehicle1m_ds(base_dir, test_data_file, test_ds_file)
 
     @staticmethod
-    def generate_vehicle1m_ds(data_file, ds_file):
+    def generate_vehicle1m_ds(base_dir, data_file, ds_file):
         with open(data_file, 'r', encoding='utf-8') as data_fd:
             with open(ds_file, 'w+', encoding='utf-8') as ds_fd:
                 for line in data_fd:
