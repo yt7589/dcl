@@ -601,7 +601,7 @@ class VaoTest(object):
         VaoTest.generate_vehicle1m_ds(test_data_file, test_ds_file)
 
     @staticmethod
-    def generate_vehicle1m_ds(data_file, ds_file)
+    def generate_vehicle1m_ds(data_file, ds_file):
         with open(data_file, 'r', encoding='utf-8') as data_fd:
             with open(ds_file, 'w+', encoding='utf-8') as ds_fd:
                 for line in data_fd:
