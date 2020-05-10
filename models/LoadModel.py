@@ -56,6 +56,7 @@ class MainModel(nn.Module):
             self.Aclassifier = AngleLinear(2048, self.num_classes, bias=False)
 
     def forward(self, x, last_cont=None):
+        print('the input shape is {0};'.format(x.shape))
         x = self.model(x)
         if self.use_dcl:
             mask = self.Convmask(x)
@@ -64,8 +65,10 @@ class MainModel(nn.Module):
             mask = mask.view(mask.size(0), -1)
 
         x = self.avgpool(x)
-        #x = x.view(x.size(0), -1)
-        x = x.view(1, x.size(1))
+        print('before view x: {0};'.format(x.shape))
+        x = x.view(x.size(0), -1)
+        print('after view x: {0};'.format(x.shape))
+        #x = x.view(1, x.size(1))
         out = []
         out.append(self.classifier(x))
 
