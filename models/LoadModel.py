@@ -65,8 +65,9 @@ class MainModel(nn.Module):
 
         x = self.avgpool(x)
         print('LoadModel.forward x: {0};'.format(x.shape))
-        x = x.view(x.size(0), -1)
-        print('2 LoadModel.forward x: {0};'.format(x.shape))
+        #x = x.view(x.size(0), -1)
+        x = x.view(1, x.size(1))
+        print('2 v0.0.1 LoadModel.forward x: {0};'.format(x.shape))
         out = []
         out.append(self.classifier(x))
 
