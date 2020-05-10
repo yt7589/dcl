@@ -38,14 +38,14 @@
 JNADLL void *VehicleFeatureInstance(const string &modelPath, int cardNum,int max_batch_size)//端口初始化
 {
     samplesCommon::OnnxSampleParams params;
-    params.onnxFileName = modelPath+"cir_res50_optimized.onnx";
+    params.onnxFileName = modelPath+"dcl_yt1.onnx";
     params.inputTensorNames.emplace_back("input");
     params.batchSize = max_batch_size;
     params.outputTensorNames.emplace_back("features");
     params.gpuId = cardNum;
-    params.engineFileName =modelPath+ "carfeature_"+std::to_string(max_batch_size)+".trt";
-    params.dataDirs.emplace_back("/home/ubuntu/Novio/calibrate_data/image");
-    params.dataFile = "/home/ubuntu/Novio/calibrate_data/calibrate_data_label.txt";
+    params.engineFileName =modelPath+ "fgvc_"+std::to_string(max_batch_size)+".trt";
+    params.dataDirs.emplace_back("/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/calibrate_data");
+    params.dataFile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/calibrate_data/calibrate_data_label.txt";
     params.int8 = true;
     cudaSetDevice(cardNum);
     std::cout << params.engineFileName << std::endl;
