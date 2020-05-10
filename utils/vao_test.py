@@ -27,6 +27,8 @@ class VaoTest(object):
     MODE_PROCESS_GCC2 = 1010
     # 获取当前没有数据的品牌
     MODE_GET_UNCOVERED_BRANDS = 1011
+    # 准备vehicle-1m数据集
+    MODE_PREPARE_VEHICLE1M_DS = 1012
 
     def __init__(self):
         self.name = 'util.VaoTest'
@@ -38,7 +40,7 @@ class VaoTest(object):
 
     @staticmethod
     def startup():
-        mode = VaoTest.MODE_B86_TRAIN_CURVE
+        mode = VaoTest.MODE_PREPARE_VEHICLE1M_DS
         if VaoTest.MODE_PREPARE_DATASET == mode:
             VaoTest.create_v_bn_no()
             print('新数据集生成')
@@ -80,6 +82,8 @@ class VaoTest(object):
             VaoTest.process_gcc2()
         elif VaoTest.MODE_GET_UNCOVERED_BRANDS == mode:
             VaoTest.get_uncovered_brands()
+        elif VaoTest.MODE_PREPARE_VEHICLE1M_DS == mode:
+            VaoTest.prepare_vehicle1m_ds()
 
     @staticmethod
     def get_all_vehicle_codes():
@@ -583,7 +587,16 @@ class VaoTest(object):
         
 
 
-
+    @staticmethod
+    def prepare_vehicle1m_ds():
+        '''
+        准备Vehicle1M数据集
+        '''
+        base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/Vehicle-1M'
+        train_file = '{0}/train-test-split/train_list'.format(base_dir)
+        with open(train_file, 'r', encoding='utf-8') as train_fd:
+            for line in train_fd:
+                print(line)
 
     
     v_no_bn = {}
