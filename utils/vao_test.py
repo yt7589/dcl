@@ -594,12 +594,14 @@ class VaoTest(object):
         '''
         base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/Vehicle-1M'
         train_file = '{0}/train-test-split/train_list.txt'.format(base_dir)
+        train_ds_file = '{0}/train-test-split/dcl_train.txt'.format(base_dir)
         with open(train_file, 'r', encoding='utf-8') as train_fd:
+            with open(train_ds_file, 'w+', encoding='utf-8') as train_ds_file:
             for line in train_fd:
                 arrs = line.split(' ')
                 img_file = arrs[0]
                 bmy_id = arrs[-1][:-1]
-                print('{0}/image/{1}*{2}'.format(base_dir, img_file, bmy_id))
+                train_ds_file.write('{0}/image/{1}*{2}\n'.format(base_dir, img_file, bmy_id))
 
     
     v_no_bn = {}
