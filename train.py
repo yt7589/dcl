@@ -228,10 +228,6 @@ if __name__ == '__main__':
                                     "output":{0:"batch_size"}})
 
         print('保存成功')
-
-    i1 = 1
-    if 1 == i1:
-        sys.exit(0)
     model = nn.DataParallel(model)
 
 
