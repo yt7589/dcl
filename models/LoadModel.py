@@ -56,7 +56,6 @@ class MainModel(nn.Module):
             self.Aclassifier = AngleLinear(2048, self.num_classes, bias=False)
 
     def forward(self, x, last_cont=None):
-        print('the input shape is {0};'.format(x.shape))
         x = self.model(x)
         if self.use_dcl:
             mask = self.Convmask(x)
