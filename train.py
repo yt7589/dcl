@@ -182,6 +182,8 @@ if __name__ == '__main__':
     cudnn.benchmark = True
 
     print('Choose model and train set', flush=True)
+    Config.use_dcl = False
+    Config.use_Asoftmax = False
     model = MainModel(Config)
 
     # load model
@@ -217,8 +219,18 @@ if __name__ == '__main__':
     print(example.shape)
     model.train(False)
     model.eval()
-    onnx.export(model, example, "./dcl_yt1.onnx", verbose=False,
+    if False:
+        onnx.export(model, example, "./dcl_yt1.onnx", verbose=False,
                 operator_export_type=OperatorExportTypes.ONNX)
+    else:
+        torch.onnx.export(model, example, "dcl_yt1.onnx", verbose=True,
+                         input_names=["data"], output_names=["517"], \
+                            training=False, opset_version=9,
+                            do_constant_folding=True,
+                            dynamic_axes={"data":{0:"batch_size"},     # 批处理变量
+                                    "517":{0:"batch_size"}})
+                                    #dynamic_axes={"data":{0:"batch_size"},   "517":{0:"batch_size"}
+
     print('保存成功')
 
     i1 = 1
