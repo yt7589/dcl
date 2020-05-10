@@ -182,8 +182,6 @@ if __name__ == '__main__':
     cudnn.benchmark = True
 
     print('Choose model and train set', flush=True)
-    Config.use_dcl = False
-    Config.use_Asoftmax = False
     model = MainModel(Config)
 
     # load model
@@ -214,24 +212,22 @@ if __name__ == '__main__':
         os.makedirs(save_dir)
 
     model.cuda()
-    print('准备保存模型到onnx文件')
-    example = torch.rand(1, 3, 448, 448).cuda()
-    print(example.shape)
-    model.train(False)
-    model.eval()
-    if False:
-        onnx.export(model, example, "./dcl_yt1.onnx", verbose=False,
-                operator_export_type=OperatorExportTypes.ONNX)
-    else:
-        torch.onnx.export(model, example, "dcl_yt2.onnx", verbose=True,
-                         input_names=["data"], output_names=["output"], \
+    if 1>10:
+        print('准备保存模型到onnx文件')
+        example = torch.rand(1, 3, 448, 448).cuda()
+        print(example.shape)
+        model.train(False)
+        model.eval()
+        model.use_dcl = False
+        model.use_Asoftmax = False
+        torch.onnx.export(model, example, "dcl_yt2.onnx", verbose=False,
+                            input_names=["data"], output_names=["output"], \
                             training=False, opset_version=9,
                             do_constant_folding=True,
                             dynamic_axes={"data":{0:"batch_size"},     # 批处理变量
                                     "output":{0:"batch_size"}})
-                                    #dynamic_axes={"data":{0:"batch_size"},   "517":{0:"batch_size"}
 
-    print('保存成功')
+        print('保存成功')
 
     i1 = 1
     if 1 == i1:
