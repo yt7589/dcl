@@ -65,10 +65,8 @@ class MainModel(nn.Module):
             mask = mask.view(mask.size(0), -1)
 
         x = self.avgpool(x)
-        print('before view x: {0};'.format(x.shape))
         #x = x.view(x.size(0), -1)
         x = x.view(x.size(0), x.size(1))
-        print('^_^ after view x: {0};'.format(x.shape))
         out = []
         out.append(self.classifier(x))
 
