@@ -593,7 +593,7 @@ class VaoTest(object):
         准备Vehicle1M数据集
         '''
         base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/Vehicle-1M'
-        train_file = '{0}/train-test-split/train_list'.format(base_dir)
+        train_file = '{0}/train-test-split/train_list.txt'.format(base_dir)
         with open(train_file, 'r', encoding='utf-8') as train_fd:
             for line in train_fd:
                 print(line)
