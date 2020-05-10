@@ -17,6 +17,8 @@
 #define NUM_THREADS   1
 //#define SHOW_RESULT
 #define NO_Detect_CarTYPE_WITH_CPU
+#define IMG_H 448
+#define IMG_W 448
 
 
 void *mythread(void *threadid) {
@@ -27,7 +29,7 @@ void *mythread(void *threadid) {
     void *handler = VehicleFeatureInstance("./", tid % gpus, 32);
     std::cout << "init finish" << std::endl;
     cv::Mat testImage = cv::imread("./test_image.jpg");
-    cv::resize(testImage, testImage, cv::Size(224, 224));
+    cv::resize(testImage, testImage, cv::Size(IMG_W, IMG_H));
     int total_times = 100;
     auto start = std::chrono::system_clock::now();
     auto end = std::chrono::system_clock::now();
@@ -35,9 +37,9 @@ void *mythread(void *threadid) {
     std::vector<std::vector<CAR_FEATURE_RESULT>> results;
     std::vector<unsigned char *> testImagesGpu{};
     uint8_t *ptr;
-    cudaMalloc(&ptr, 224 * 224 * 3 * sizeof(uint8_t));
-    cudaMemcpy(ptr, testImage.data, 224 * 224 * 3 * sizeof(uint8_t), cudaMemcpyHostToDevice);
-    std::vector<int> heights(batchSize, 224), widths(batchSize, 224);
+    cudaMalloc(&ptr, IMG_W * IMG_H * 3 * sizeof(uint8_t));
+    cudaMemcpy(ptr, testImage.data, IMG_W * IMG_H * 3 * sizeof(uint8_t), cudaMemcpyHostToDevice);
+    std::vector<int> heights(batchSize, IMG_H), widths(batchSize, IMG_W);
     for (int i = 0; i < batchSize; ++i) {
         testImagesGpu.emplace_back(ptr);
     }
@@ -51,8 +53,8 @@ void *mythread(void *threadid) {
         tmp.fConfdence[0] = 1.0f;
         tmp.iLeft[0] = 0;
         tmp.iTop[0] = 0;
-        tmp.iRight[0] = 224;
-        tmp.iBottom[0] = 224;
+        tmp.iRight[0] = IMG_W;
+        tmp.iBottom[0] = IMG_H;
         dets.emplace_back(tmp);
     }
     for (int i = 0; i < total_times; ++i) {

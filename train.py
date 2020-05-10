@@ -223,8 +223,8 @@ if __name__ == '__main__':
         onnx.export(model, example, "./dcl_yt1.onnx", verbose=False,
                 operator_export_type=OperatorExportTypes.ONNX)
     else:
-        torch.onnx.export(model, example, "dcl_yt1.onnx", verbose=True,
-                         input_names=["data"], output_names=["517"], \
+        torch.onnx.export(model, example, "dcl_yt2.onnx", verbose=True,
+                         input_names=["data"], output_names=["output"], \
                             training=False, opset_version=9,
                             do_constant_folding=True,
                             dynamic_axes={"data":{0:"batch_size"},     # 批处理变量
