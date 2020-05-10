@@ -228,7 +228,7 @@ if __name__ == '__main__':
                             training=False, opset_version=9,
                             do_constant_folding=True,
                             dynamic_axes={"data":{0:"batch_size"},     # 批处理变量
-                                    "517":{0:"batch_size"}})
+                                    "output":{0:"batch_size"}})
                                     #dynamic_axes={"data":{0:"batch_size"},   "517":{0:"batch_size"}
 
     print('保存成功')
