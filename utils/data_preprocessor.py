@@ -71,12 +71,15 @@ class DataPreprocessor(object):
         #DataPreprocessor.brs_imported_vehicles(bno_nums)
         # 处理国产车
         base_path = Path('/media/zjkj/My Passport/guochanche_all')
-        DataPreprocessor.brs_domestic_vehicles(bno_nums, base_path)
+        new_brands = DataPreprocessor.brs_domestic_vehicles(bno_nums, base_path)
         # 将统计结果写入文件
         with open('./s1.txt', 'w+', encoding='utf-8') as fd:
             for k, v in bno_nums.items():
                 print('{0}: {1};'.format(k, v))
                 fd.write('{0}={1}\n'.format(k, v))
+        print('共发现新品牌：{0}个！'.format(len(new_brands)))
+        for bn in new_brands:
+            print('新品牌：{0};'.format(bn))
     @staticmethod
     def brs_imported_vehicles(bno_nums):
         # 列出进口车子目录
@@ -93,6 +96,7 @@ class DataPreprocessor(object):
                             arrs1[0], file_obj)
     @staticmethod
     def brs_domestic_vehicles(bno_nums, base_path):
+        new_brands = set()
         vc_bmy = DataPreprocessor.get_vc_bmy()
         v_bn_bno = DataPreprocessor.get_v_bn_bno()
         for file_obj in base_path.iterdir():
@@ -110,10 +114,13 @@ class DataPreprocessor(object):
                             bno_nums[bno] = 0
                         bno_nums[bno] += 1
                         print('process {0}:{1}={2};'.format(bno, bn, bno_nums[bno]))
+                    else:
+                        new_brands.add(bn)
             elif file_obj.is_dir():
                 DataPreprocessor.brs_domestic_vehicles(bno_nums, file_obj)
             else:
                 print('忽略文件：{0};'.format(full_name))
+        return new_brands
 
     @staticmethod
     def get_imgs_num_in_path(bno_nums, bno, base_path):
