@@ -62,6 +62,7 @@ class DataPreprocessor(object):
     @staticmethod
     def brand_recoganize_statistics():
         ''' 生成：品牌：训练图像数 vs 所里测试图像数 的统计信息 '''
+        v_bno_bn = DataPreprocessor.get_v_bno_bn()
         bno_nums = DataPreprocessor.get_bno_nums()
         # 处理进口车
         DataPreprocessor.brs_imported_vehicles(bno_nums)
@@ -69,15 +70,15 @@ class DataPreprocessor(object):
         have_sum = 0
         for k, v in bno_nums.items():
             if bno_nums[k] > 0:
-                print('{0}: {1};'.format(k, v))
+                print('{0}-{1}: {2};'.format(k, v_bno_bn[k], v))
                 have_sum += 1
-        print('共有{0}个品牌'.format(have_sum))
+        print('共有{0}个品牌有训练数据'.format(have_sum))
         print('**********************************************')
         lack_sum = 0
         print('缺少训练数据品牌如下所示：')
         for k, v in bno_nums.items():
             if bno_nums[k] == 0:
-                print('##### {0};'.format(k))
+                print('{0}-{1}: 0;'.format(k, v_bno_bn[k]))
                 lack_sum += 1
         print('共有{0}个品牌缺少训练数据'.format(lack_sum))
         i_debug = 1
