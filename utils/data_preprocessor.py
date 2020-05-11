@@ -105,7 +105,6 @@ class DataPreprocessor(object):
                         ('jpg','png','jpeg','bmp')):
                 arrs0 = full_name.split('_')
                 vc = arrs0[0]
-                print('process vc={0};'.format(vc))
                 if vc in vc_bmy:
                     bn = vc_bmy[vc].split('*')
                     bno = v_bn_bno[bn]
