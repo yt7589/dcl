@@ -67,18 +67,16 @@ class DataPreprocessor(object):
             bno = '{0:03d}'.format(idx+1)
             DataPreprocessor._bno_nums[bno] = 0
         # 处理进口车
-        print('before...')
-        DataPreprocessor.brs_imported_vehicles()
-        print('after...')
+        bno_nums = DataPreprocessor.get_bno_nums()
+        DataPreprocessor.brs_imported_vehicles(bno_nums)
         # 处理国产车
         # 将统计结果写入文件
-        bno_nums = DataPreprocessor.get_bno_nums()
         with open('./s1.txt', 'w+', encoding='utf-8') as fd:
             for k, v in bno_nums.items():
                 print('{0}: {1};'.format(k, v))
                 fd.write('{0}={1}\n'.format(k, v))
     @staticmethod
-    def brs_imported_vehicles():
+    def brs_imported_vehicles(bno_nums):
         # 列出进口车子目录
         # 统计训练数据集图像数量
         path_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
@@ -89,15 +87,17 @@ class DataPreprocessor(object):
                 arrs0 = full_name.split('/')
                 arrs1 = arrs0[-1].split('_')
                 print('处理：{0} {1};'.format(arrs1[0], arrs1[1]))
-                DataPreprocessor.get_imgs_num_in_path(arrs1[0], file_obj)
+                DataPreprocessor.get_imgs_num_in_path(bno_nums, 
+                            arrs1[0], file_obj)
 
     @staticmethod
-    def get_imgs_num_in_path(bno, base_path):
+    def get_imgs_num_in_path(bno_nums, bno, base_path):
+        ''' 获取指定目录下图片数量，并记录到品牌编号-图片数量字典中 '''
         for file_obj in base_path.iterdir():
             full_name = str(file_obj)
             if not file_obj.is_dir() and full_name.endswith(
                         ('jpg','png','jpeg','bmp')):
-                DataPreprocessor._bno_nums[bno] += 1
+                bno_nums[bno] += 1
             elif file_obj.is_dir():
                 DataPreprocessor.get_imgs_num_in_path(bno, file_obj)
             else:
