@@ -104,11 +104,12 @@ class DataPreprocessor(object):
                 vc = arrs1[0]
                 if vc in vc_bmy:
                     bn = vc_bmy[vc].split('_')[0]
-                    bno = v_bn_bno[bn]
-                    if bno not in bno_nums:
-                        bno_nums[bno] = 0
-                    bno_nums[bno] += 1
-                    print('process {0}:{1}={2};'.format(bno, bn, bno_nums[bno]))
+                    if bn in v_bn_bno:
+                        bno = v_bn_bno[bn]
+                        if bno not in bno_nums:
+                            bno_nums[bno] = 0
+                        bno_nums[bno] += 1
+                        print('process {0}:{1}={2};'.format(bno, bn, bno_nums[bno]))
             elif file_obj.is_dir():
                 DataPreprocessor.brs_domestic_vehicles(bno_nums, file_obj)
             else:
