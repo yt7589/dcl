@@ -62,11 +62,12 @@ class DataPreprocessor(object):
     @staticmethod
     def brand_recoganize_statistics():
         ''' 生成：品牌：训练图像数 vs 所里测试图像数 的统计信息 '''
-        DataPreprocessor._bno_nums = {}
-        for idx in range(183):
-            bno = '{0:03d}'.format(idx+1)
-            DataPreprocessor._bno_nums[bno] = 0
         bno_nums = DataPreprocessor.get_bno_nums()
+        for k, v in bno_nums.items():
+            print('{0} = {1};'.format(k, v))
+        i_debug = 1
+        if 1 == i_debug:
+            return
         # 处理进口车
         #DataPreprocessor.brs_imported_vehicles(bno_nums)
         # 处理国产车
@@ -139,6 +140,10 @@ class DataPreprocessor(object):
     def get_bno_nums():
         if DataPreprocessor._bno_nums is not None:
             return DataPreprocessor._bno_nums
-        DataPreprocessor.brand_recoganize_statistics()
+        DataPreprocessor._bno_num = {}
+        with open('./s1.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs0 = line.split('=')
+                DataPreprocessor._bno_num[arrs0[0]] = arrs0[-1][:-1]
         return DataPreprocessor._bno_nums
 
