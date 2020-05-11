@@ -104,10 +104,13 @@ class DataPreprocessor(object):
                         ('jpg','png','jpeg','bmp')):
                 arrs0 = full_name.split('_')
                 vc = arrs0[0]
-                bn = vc_bmy[vc].split('*')
-                bno = v_bn_bno[bn]
-                bno_nums[bno] += 1
-                DataPreprocessor.__sum += 1
+                if vc in vc_bmy:
+                    bn = vc_bmy[vc].split('*')
+                    bno = v_bn_bno[bn]
+                    if bno not in bno_nums:
+                        bno_nums[bno] = 0
+                    bno_nums[bno] += 1
+                    DataPreprocessor.__sum += 1
             elif file_obj.is_dir():
                 DataPreprocessor.brs_domestic_vehicles(bno_nums, file_obj)
             else:
