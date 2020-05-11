@@ -99,7 +99,7 @@ class DataPreprocessor(object):
                         ('jpg','png','jpeg','bmp')):
                 bno_nums[bno] += 1
             elif file_obj.is_dir():
-                DataPreprocessor.get_imgs_num_in_path(bno, file_obj)
+                DataPreprocessor.get_imgs_num_in_path(bno_nums, bno, file_obj)
             else:
                 print('忽略文件：{0};'.format(full_name))
 
