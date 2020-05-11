@@ -17,7 +17,8 @@ class DataPreprocessor(object):
 
     @staticmethod
     def startup():
-        DataPreprocessor.brand_recoganize_statistics()
+        #DataPreprocessor.brand_recoganize_statistics()
+        DataPreprocessor.vehicle_fgvc_statistics()
     
     @staticmethod
     def get_v_bno_bn():
@@ -65,9 +66,10 @@ class DataPreprocessor(object):
         v_bno_bn = DataPreprocessor.get_v_bno_bn()
         bno_nums = DataPreprocessor.get_bno_nums()
         # 处理进口车
-        DataPreprocessor.brs_imported_vehicles(bno_nums)
+        #DataPreprocessor.brs_imported_vehicles(bno_nums)
         # 处理国产车
-        base_path = Path('/media/zjkj/My Passport/guochanche_all')
+        #base_path = Path('/media/zjkj/My Passport/guochanche_all')
+        base_path = Path('/home/up/guochanche_2')
         new_brands = DataPreprocessor.brs_domestic_vehicles(bno_nums, base_path)
         # 将统计结果写入文件
         with open('./s1.txt', 'w+', encoding='utf-8') as fd:
@@ -156,4 +158,17 @@ class DataPreprocessor(object):
                 arrs0 = line.split('=')
                 DataPreprocessor._bno_nums[arrs0[0]] = int(arrs0[-1][:-1])
         return DataPreprocessor._bno_nums
+
+
+
+
+
+
+    @staticmethod
+    def vehicle_fgvc_statistics():
+        print('车辆细粒度识别统计')
+    def vehicle_fgvc_s_imported():
+        print('')
+    def vehicle_fgvc_s_domestic():
+        print('')
 
