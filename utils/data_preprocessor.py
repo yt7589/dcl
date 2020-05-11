@@ -65,25 +65,7 @@ class DataPreprocessor(object):
         v_bno_bn = DataPreprocessor.get_v_bno_bn()
         bno_nums = DataPreprocessor.get_bno_nums()
         # 处理进口车
-        #DataPreprocessor.brs_imported_vehicles(bno_nums)
-        print('有训练数据品牌如下所示：')
-        have_sum = 0
-        for k, v in bno_nums.items():
-            if bno_nums[k] > 0:
-                print('{0}-{1}: {2};'.format(k, v_bno_bn[k], v))
-                have_sum += 1
-        print('共有{0}个品牌有训练数据'.format(have_sum))
-        print('**********************************************')
-        lack_sum = 0
-        print('缺少训练数据品牌如下所示：')
-        for k, v in bno_nums.items():
-            if bno_nums[k] == 0:
-                print('{0}-{1}: 0;'.format(k, v_bno_bn[k]))
-                lack_sum += 1
-        print('共有{0}个品牌缺少训练数据'.format(lack_sum))
-        i_debug = 1
-        if 1 == i_debug:
-            return
+        DataPreprocessor.brs_imported_vehicles(bno_nums)
         # 处理国产车
         base_path = Path('/media/zjkj/My Passport/guochanche_all')
         new_brands = DataPreprocessor.brs_domestic_vehicles(bno_nums, base_path)
@@ -92,9 +74,23 @@ class DataPreprocessor(object):
             for k, v in bno_nums.items():
                 print('{0}: {1};'.format(k, v))
                 fd.write('{0}={1}\n'.format(k, v))
+        print('有训练数据品牌如下所示：')
+        have_sum = 0
+        for k, v in bno_nums.items():
+            if bno_nums[k] > 0:
+                print('{0}-{1}: {2};'.format(k, v_bno_bn[k], v))
+                have_sum += 1
+        print('共有{0}个品牌有训练数据'.format(have_sum))
+        lack_sum = 0
+        print('缺少训练数据品牌如下所示：')
+        for k, v in bno_nums.items():
+            if bno_nums[k] == 0:
+                print('{0}-{1}: 0;'.format(k, v_bno_bn[k]))
+                lack_sum += 1
+        print('共有{0}个品牌缺少训练数据'.format(lack_sum))
         print('共发现新品牌：{0}个！'.format(len(new_brands)))
         for bn in new_brands:
-            print('新品牌：{0};'.format(bn))
+            print('新品牌名称：{0};'.format(bn))
     @staticmethod
     def brs_imported_vehicles(bno_nums):
         # 列出进口车子目录
