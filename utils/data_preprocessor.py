@@ -94,8 +94,9 @@ class DataPreprocessor(object):
                             arrs1[0], file_obj)
     @staticmethod
     def brs_domestic_vehicles(bno_nums, base_path):
-        if DataPreprocessor.__sum > 10:
+        if DataPreprocessor.__sum > 100:
             return
+        DataPreprocessor.__sum += 1
         vc_bmy = DataPreprocessor.get_vc_bmy()
         v_bn_bno = DataPreprocessor.get_v_bn_bno()
         for file_obj in base_path.iterdir():
@@ -112,7 +113,6 @@ class DataPreprocessor(object):
                         bno_nums[bno] = 0
                     print('process {0} {1};'.format(bno, bn))
                     bno_nums[bno] += 1
-                    DataPreprocessor.__sum += 1
             elif file_obj.is_dir():
                 DataPreprocessor.brs_domestic_vehicles(bno_nums, file_obj)
             else:
