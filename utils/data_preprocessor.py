@@ -21,11 +21,12 @@ class DataPreprocessor(object):
     @staticmethod
     def get_v_bno_bn():
         ''' 获取由品牌编号查询品牌名称字典 '''
-        if DataPreprocessor._v_bno_bn not None:
+        if DataPreprocessor._v_bno_bn is not None:
             return DataPreprocessor._v_bno_bn
         DataPreprocessor._v_bno_bn = {}
-        with open('./bno_bn.txt', 'r', encoding='utf-8') as fd:
+        with open('./datasets/bno_bn.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
-                arrs = line.split('*')
-                DataPreprocessor._v_bno_bn[arrs[0]] = arrs[1][:-1]
+                arrs = line.split(':')
+                if len(arrs) >= 2:
+                    DataPreprocessor._v_bno_bn[arrs[0]] = arrs[1][:-1]
         return DataPreprocessor._v_bno_bn
