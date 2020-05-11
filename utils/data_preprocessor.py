@@ -63,13 +63,26 @@ class DataPreprocessor(object):
     def brand_recoganize_statistics():
         ''' 生成：品牌：训练图像数 vs 所里测试图像数 的统计信息 '''
         bno_nums = DataPreprocessor.get_bno_nums()
+        # 处理进口车
+        DataPreprocessor.brs_imported_vehicles(bno_nums)
+        print('有训练数据品牌如下所示：')
+        have_sum = 0
         for k, v in bno_nums.items():
-            print('{0} = {1};'.format(k, v))
+            if bno_nums[k] > 0:
+                print('{0}: {1};'.format(k, v))
+                have_sum += 1
+        print('共有{0}个品牌'.format(have_sum))
+        print('**********************************************')
+        lack_sum = 0
+        print('缺少训练数据品牌如下所示：')
+        for k, v in bno_nums.items():
+            if bno_nums[k] == 0:
+                print('##### {0};'.format(k))
+                lack_sum += 1
+        print('共有{0}个品牌缺少训练数据'.format(lack_sum))
         i_debug = 1
         if 1 == i_debug:
             return
-        # 处理进口车
-        #DataPreprocessor.brs_imported_vehicles(bno_nums)
         # 处理国产车
         base_path = Path('/media/zjkj/My Passport/guochanche_all')
         new_brands = DataPreprocessor.brs_domestic_vehicles(bno_nums, base_path)
