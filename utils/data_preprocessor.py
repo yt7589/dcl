@@ -65,7 +65,7 @@ class DataPreprocessor(object):
         v_bno_bn = DataPreprocessor.get_v_bno_bn()
         bno_nums = DataPreprocessor.get_bno_nums()
         # 处理进口车
-        DataPreprocessor.brs_imported_vehicles(bno_nums)
+        #DataPreprocessor.brs_imported_vehicles(bno_nums)
         print('有训练数据品牌如下所示：')
         have_sum = 0
         for k, v in bno_nums.items():
