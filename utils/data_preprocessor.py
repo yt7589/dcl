@@ -81,7 +81,7 @@ class DataPreprocessor(object):
             if file_obj.is_dir():
                 full_name = str(file_obj)
                 arrs0 = full_name.split('/')
-                arrs1 = arrs[-1].split('_')
+                arrs1 = arrs0[-1].split('_')
                 print('处理：{0} {1};'.format(arrs1[0], arrs1[1]))
 
     @staticmethod
