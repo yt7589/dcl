@@ -140,10 +140,12 @@ class DataPreprocessor(object):
     def get_bno_nums():
         if DataPreprocessor._bno_nums is not None:
             return DataPreprocessor._bno_nums
-        DataPreprocessor._bno_num = {}
+        DataPreprocessor._bno_nums = {}
         with open('./s1.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
+                print(line)
                 arrs0 = line.split('=')
+                print(arrs0)
                 DataPreprocessor._bno_nums[arrs0[0]] = arrs0[-1][:-1]
         return DataPreprocessor._bno_nums
 
