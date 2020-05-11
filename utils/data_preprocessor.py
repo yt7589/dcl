@@ -104,7 +104,7 @@ class DataPreprocessor(object):
             if not file_obj.is_dir() and full_name.endswith(
                         ('jpg','png','jpeg','bmp')):
                 arrs0 = full_name.split('/')
-                arrs1 = arr0[-1].split('_')
+                arrs1 = arrs0[-1].split('_')
                 vc = arrs1[0]
                 print('processing vc={0}'.format(vc))
                 if vc in vc_bmy:
