@@ -14,8 +14,8 @@ class DataPreprocessor(object):
 
     @staticmethod
     def startup():
-        v_bno_bn = DataPreprocessor.get_v_bno_bn()
-        for k, v in v_bno_bn.items():
+        v_bn_bno = DataPreprocessor.get_v_bn_bno()
+        for k, v in v_bn_bno.items():
             print('{0}: {1}'.format(k, v))
     
     @staticmethod
@@ -30,3 +30,16 @@ class DataPreprocessor(object):
                 if len(arrs) >= 2:
                     DataPreprocessor._v_bno_bn[arrs[0]] = arrs[1][:-1]
         return DataPreprocessor._v_bno_bn
+
+    @staticmethod
+    def get_v_bn_bno():
+        ''' 获取由品牌名称查询品牌编号字典 '''
+        if DataPreprocessor._v_bn_bno is not None:
+            return DataPreprocessor._v_bn_bno
+        DataPreprocessor._v_bn_bno = {}
+        with open('./datasets/bno_bn.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs = line.split(':')
+                if len(arrs) >= 2:
+                    DataPreprocessor._v_bn_bno[arrs[1][:-1]] = arrs[0]
+        return DataPreprocessor._v_bn_bno
