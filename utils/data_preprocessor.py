@@ -80,9 +80,9 @@ class DataPreprocessor(object):
         for file_obj in path_obj.iterdir():
             if file_obj.is_dir():
                 full_name = str(file_obj)
-                arrs = full_name.split('_')
-                bno = arrs[0]
-                print('处理：{0} {1};'.format(arrs[0], arrs[1]))
+                arrs0 = full_name.split('/')
+                arrs1 = arrs[-1].split('_')
+                print('处理：{0} {1};'.format(arrs1[0], arrs1[1]))
 
     @staticmethod
     def get_bno_nums():
