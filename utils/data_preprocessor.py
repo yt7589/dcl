@@ -72,7 +72,7 @@ class DataPreprocessor(object):
         #DataPreprocessor.brs_imported_vehicles(bno_nums)
         # 处理国产车
         base_path = Path('/media/zjkj/My Passport/guochanche_all')
-        DataPreprocessor.brs_domestic_vehicles(bno_num, base_path)
+        DataPreprocessor.brs_domestic_vehicles(bno_nums, base_path)
         # 将统计结果写入文件
         with open('./s1.txt', 'w+', encoding='utf-8') as fd:
             for k, v in bno_nums.items():
