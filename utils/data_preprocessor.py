@@ -156,8 +156,9 @@ class DataPreprocessor(object):
         with open('./s1.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 arrs0 = line.split('=')
-                print('{0}={1}={2};'.format(arrs0[0], arrs0[-1], arrs0[-1][:-1]))
-                DataPreprocessor._bno_nums[arrs0[0]] = int(arrs0[-1][:-1])
+                if len(arrs0) > 1:
+                    print('{0}={1}={2};'.format(arrs0[0], arrs0[-1], arrs0[-1][:-1]))
+                    DataPreprocessor._bno_nums[arrs0[0]] = int(arrs0[-1][:-1])
         return DataPreprocessor._bno_nums
 
 
