@@ -71,10 +71,12 @@ class DataPreprocessor(object):
         DataPreprocessor.brs_imported_vehicles()
         print('after...')
         # 处理国产车
-        # 统计结果
+        # 将统计结果写入文件
         bno_nums = DataPreprocessor.get_bno_nums()
-        for k, v in bno_nums.items():
-            print('{0}: {1};'.format(k, v))
+        with open('./s1.txt', 'w+', encoding='utf-8') as fd:
+            for k, v in bno_nums.items():
+                print('{0}: {1};'.format(k, v))
+                fd.write('{0}={1}\n'.format(k, v))
     @staticmethod
     def brs_imported_vehicles():
         # 列出进口车子目录
