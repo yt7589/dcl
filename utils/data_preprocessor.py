@@ -4,19 +4,20 @@
 # bmy 品牌-车型-年款
 # vc 车辆识别码，图像文件前面的编号
 # vpc 车牌
+from pathlib import Path
 
 class DataPreprocessor(object):
     _v_bno_bn = None # 由品牌编号查品牌名称
     _v_bn_bno = None # 由品牌名称查品牌编号
     _vc_bmy = None # 车辆识别码到品牌-车型-年款字典
-    _brand_nums = None # 每种品牌车的训练图片数量和所里测试集中数量
+    _bno_nums = None # 每种品牌车的训练图片数量和所里测试集中数量
 
     def __init__(self):
         self.name = 'utils.DataPreprocessor'
 
     @staticmethod
     def startup():
-        DataPreprocessor.get_vc_bmy()
+        DataPreprocessor.brand_recoganize_statistics()
     
     @staticmethod
     def get_v_bno_bn():
@@ -46,6 +47,7 @@ class DataPreprocessor(object):
 
     @staticmethod
     def get_vc_bmy():
+        ''' 生成车辆识别码到品牌-车型-年款的字典 '''
         if DataPreprocessor._vc_bmy is not None:
             return DataPreprocessor._vc_bmy
         DataPreprocessor._vc_bmy = {}
@@ -56,3 +58,36 @@ class DataPreprocessor(object):
                     vc = arrs[0]
                     bmy = arrs[1][:-1]
                     DataPreprocessor._vc_bmy[arrs[0]] = arrs[1][:-1]
+
+    @staticmethod
+    def brand_recoganize_statistics():
+        ''' 生成：品牌：训练图像数 vs 所里测试图像数 的统计信息 '''
+        DataPreprocessor._bno_nums = {}
+        for idx in range(183):
+            bno = '{0:03d}'.format(idx+1)
+            DataPreprocessor._bno_nums[bno] = 0
+        # 处理进口车
+        print('before...')
+        DataPreprocessor.brs_imported_vehicles()
+        print('after...')
+        # 处理国产车
+    @staticmethod
+    def brs_imported_vehicles():
+        # 列出进口车子目录
+        # 统计训练数据集图像数量
+        path_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
+                    '/vehicle_type_v2d/vehicle_type_v2d')
+        for file_obj in path_obj.iterdir():
+            if file_obj.is_dir():
+                full_name = str(file_obj)
+                arrs = full_name.split('_')
+                bno = arrs[0]
+                print('处理：{0} {1};'.format(arrs[0], arrs[1]))
+
+    @staticmethod
+    def get_bno_nums():
+        if DataPreprocessor._bno_nums is not None:
+            return DataPreprocessor._bno_nums
+        DataPreprocessor.brand_recoganize_statistics()
+        return DataPreprocessor._bno_nums
+
