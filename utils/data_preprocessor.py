@@ -11,6 +11,7 @@ class DataPreprocessor(object):
     _v_bn_bno = None # 由品牌名称查品牌编号
     _vc_bmy = None # 车辆识别码到品牌-车型-年款字典
     _bno_nums = None # 每种品牌车的训练图片数量和所里测试集中数量
+    __sum = 0
 
     def __init__(self):
         self.name = 'utils.DataPreprocessor'
@@ -66,10 +67,12 @@ class DataPreprocessor(object):
         for idx in range(183):
             bno = '{0:03d}'.format(idx+1)
             DataPreprocessor._bno_nums[bno] = 0
-        # 处理进口车
         bno_nums = DataPreprocessor.get_bno_nums()
-        DataPreprocessor.brs_imported_vehicles(bno_nums)
+        # 处理进口车
+        #DataPreprocessor.brs_imported_vehicles(bno_nums)
         # 处理国产车
+        base_path = Path('/media/zjkj/My Passport/guochanche_all')
+        DataPreprocessor.brs_domestic_vehicles(bno_num, base_path)
         # 将统计结果写入文件
         with open('./s1.txt', 'w+', encoding='utf-8') as fd:
             for k, v in bno_nums.items():
@@ -89,6 +92,26 @@ class DataPreprocessor(object):
                 print('处理：{0} {1};'.format(arrs1[0], arrs1[1]))
                 DataPreprocessor.get_imgs_num_in_path(bno_nums, 
                             arrs1[0], file_obj)
+    @staticmethod
+    def brs_domestic_vehicles(bno_nums, base_path):
+        if DataPreprocessor.__sum > 10:
+            return
+        vc_bmy = DataPreprocessor.get_vc_bmy()
+        v_bn_bno = DataPreprocessor.get_v_bn_bno()
+        for file_obj in base_path.iterdir():
+            full_name = str(file_obj)
+            if not file_obj.is_dir() and full_name.endswith(
+                        ('jpg','png','jpeg','bmp')):
+                arrs0 = full_name.split('_')
+                vc = arrs0[0]
+                bn = vc_bmy[vc].split('*')
+                bno = v_bn_bno[bn]
+                bno_nums[bno] += 1
+                DataPreprocessor.__sum += 1
+            elif file_obj.is_dir():
+                DataPreprocessor.brs_domestic_vehicles(bno_nums, file_obj)
+            else:
+                print('忽略文件：{0};'.format(full_name))
 
     @staticmethod
     def get_imgs_num_in_path(bno_nums, bno, base_path):
