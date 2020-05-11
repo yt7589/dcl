@@ -103,10 +103,12 @@ class DataPreprocessor(object):
             full_name = str(file_obj)
             if not file_obj.is_dir() and full_name.endswith(
                         ('jpg','png','jpeg','bmp')):
-                arrs0 = full_name.split('_')
-                vc = arrs0[0]
+                arrs0 = full_name.split('/')
+                arrs1 = arr0[-1].split('_')
+                vc = arrs1[0]
+                print('processing vc={0}'.format(vc))
                 if vc in vc_bmy:
-                    bn = vc_bmy[vc].split('*')
+                    bn = vc_bmy[vc].split('_')[0]
                     bno = v_bn_bno[bn]
                     if bno not in bno_nums:
                         bno_nums[bno] = 0
