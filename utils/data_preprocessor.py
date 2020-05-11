@@ -11,7 +11,6 @@ class DataPreprocessor(object):
     _v_bn_bno = None # 由品牌名称查品牌编号
     _vc_bmy = None # 车辆识别码到品牌-车型-年款字典
     _bno_nums = None # 每种品牌车的训练图片数量和所里测试集中数量
-    __sum = 0
 
     def __init__(self):
         self.name = 'utils.DataPreprocessor'
@@ -94,9 +93,6 @@ class DataPreprocessor(object):
                             arrs1[0], file_obj)
     @staticmethod
     def brs_domestic_vehicles(bno_nums, base_path):
-        if DataPreprocessor.__sum > 100:
-            return
-        DataPreprocessor.__sum += 1
         vc_bmy = DataPreprocessor.get_vc_bmy()
         v_bn_bno = DataPreprocessor.get_v_bn_bno()
         for file_obj in base_path.iterdir():
@@ -106,14 +102,13 @@ class DataPreprocessor(object):
                 arrs0 = full_name.split('/')
                 arrs1 = arrs0[-1].split('_')
                 vc = arrs1[0]
-                print('processing vc={0}'.format(vc))
                 if vc in vc_bmy:
                     bn = vc_bmy[vc].split('_')[0]
                     bno = v_bn_bno[bn]
                     if bno not in bno_nums:
                         bno_nums[bno] = 0
-                    print('process {0} {1};'.format(bno, bn))
                     bno_nums[bno] += 1
+                    print('process {0}:{1}={2};'.format(bno, bn, bno_nums[bno]))
             elif file_obj.is_dir():
                 DataPreprocessor.brs_domestic_vehicles(bno_nums, file_obj)
             else:
