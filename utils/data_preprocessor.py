@@ -71,6 +71,10 @@ class DataPreprocessor(object):
         DataPreprocessor.brs_imported_vehicles()
         print('after...')
         # 处理国产车
+        # 统计结果
+        bno_nums = DataPreprocessor.get_bno_nums()
+        for k, v in bno_nums.items():
+            print('{0}: {1};'.format(k, v))
     @staticmethod
     def brs_imported_vehicles():
         # 列出进口车子目录
@@ -83,6 +87,19 @@ class DataPreprocessor(object):
                 arrs0 = full_name.split('/')
                 arrs1 = arrs0[-1].split('_')
                 print('处理：{0} {1};'.format(arrs1[0], arrs1[1]))
+                DataPreprocessor.get_imgs_num_in_path(arrs1[0], file_obj)
+
+    @staticmethod
+    def get_imgs_num_in_path(bno, base_path):
+        for file_obj in base_path.iterdir():
+            full_name = str(file_obj)
+            if not file_obj.is_dir() and full_name.endswith(
+                        ('jpg','png','jpeg','bmp')):
+                DataPreprocessor._bno_nums[bno] += 1
+            elif file_obj.is_dir():
+                DataPreprocessor.get_imgs_num_in_path(bno, file_obj)
+            else:
+                print('忽略文件：{0};'.format(full_name))
 
     @staticmethod
     def get_bno_nums():
