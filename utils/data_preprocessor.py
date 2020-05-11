@@ -17,8 +17,8 @@ class DataPreprocessor(object):
 
     @staticmethod
     def startup():
-        #DataPreprocessor.brand_recoganize_statistics()
-        DataPreprocessor.vehicle_fgvc_statistics()
+        DataPreprocessor.brand_recoganize_statistics()
+        #DataPreprocessor.vehicle_fgvc_statistics()
     
     @staticmethod
     def get_v_bno_bn():
