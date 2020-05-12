@@ -171,12 +171,14 @@ class DataPreprocessor(object):
     def vehicle_fgvc_statistics():
         ''' 车辆细粒度识别数据集整理 '''
         # 处理进口车
-        # fgvc_id = DataPreprocessor.vehicle_fgvc_s_imported()
+        fgvc_id = DataPreprocessor.vehicle_fgvc_s_imported()
+        '''
         # 处理国产车
         base_path = Path('/media/zjkj/My Passport/guochanche_all')
         # base_path = Path('/home/up/guochanche_2')
         DataPreprocessor.fgvc_id = 463
         DataPreprocessor.vehicle_fgvc_s_domestic(base_path)
+        '''
 
     @staticmethod
     def vehicle_fgvc_s_imported():
@@ -185,6 +187,7 @@ class DataPreprocessor(object):
                     '/vehicle_type_v2d/vehicle_type_v2d')
         fgvc_id = 0
         imported_fgvc_all = './imported_fgvc_all.txt'
+        fgvc_bmy = {}
         with open(imported_fgvc_all, 'w+', encoding='utf-8') as fd:
             for brand_obj in path_obj.iterdir():
                 # 处理品牌
@@ -192,12 +195,16 @@ class DataPreprocessor(object):
                     for year_obj in model_obj.iterdir():
                         if year_obj.is_dir():
                             fgvc_id += 1
+                            brand_name = str(brand_obj).split('_')[1]
+                            fgvc_bmy[fgvc_id] = '{0}-{1}-{2}'.format(brand_name, model_obj, year_obj)
                             for img_obj in year_obj.iterdir():
                                 full_name = str(img_obj)
                                 if not img_obj.is_dir() and full_name.endswith(
                                             ('jpg','png','jpeg','bmp')):
                                     print('{0}*{1}'.format(str(img_obj), fgvc_id))
                                     fd.write('{0}*{1}\n'.format(str(img_obj), fgvc_id))
+        for k, v in fgvc_bmy.items():
+            print('{0}: {1};'.format(k, v))
         return fgvc_id + 1
 
     @staticmethod
