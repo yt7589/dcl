@@ -195,7 +195,8 @@ class DataPreprocessor(object):
                     for year_obj in model_obj.iterdir():
                         if year_obj.is_dir():
                             fgvc_id += 1
-                            brand_name = str(brand_obj).split('_')[1]
+                            brand_foler = str(brand_obj).split('/')[-1]
+                            brand_name = brand_foler.split('_')[1]
                             fgvc_bmy[fgvc_id] = '{0}-{1}-{2}'.format(brand_name, model_obj, year_obj)
                             for img_obj in year_obj.iterdir():
                                 full_name = str(img_obj)
