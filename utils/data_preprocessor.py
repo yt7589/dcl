@@ -209,7 +209,7 @@ class DataPreprocessor(object):
                         ('jpg','png','jpeg','bmp')):
                 # 找到车辆识别码
                 arrs0 = full_name.split('/')
-                arrs1 = arrs0[0].split('_')
+                arrs1 = arrs0[-1].split('_')
                 vc = arrs1[0]
                 print('{0}: vc={1};'.format(full_name, vc))
                 if vc in vc_bmy:
