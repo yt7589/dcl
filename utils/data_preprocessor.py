@@ -207,7 +207,7 @@ class DataPreprocessor(object):
                                         print('{0}*{1}'.format(str(img_obj), fgvc_id))
                                         fd.write('{0}*{1}\n'.format(str(img_obj), fgvc_id))
                                 fgvc_id += 1
-        with open('./fgvc_bmy_dict.txt', 'w+', encoding='utf-8') fgvc_bmy_fd:
+        with open('./fgvc_bmy_dict.txt', 'w+', encoding='utf-8') as fgvc_bmy_fd:
             for k, v in fgvc_bmy.items():
                 print('{0}: {1};'.format(k, v))
                 fgvc_fd.write('{0}:{1}\n'.format(k,v))
