@@ -185,7 +185,7 @@ class DataPreprocessor(object):
                             fgvc_id += 1
                             for img_obj in year_obj.iterdir():
                                 full_name = str(img_obj)
-                                if not file_obj.is_dir() and full_name.endswith(
+                                if not img_obj.is_dir() and full_name.endswith(
                                             ('jpg','png','jpeg','bmp')):
                                     print('{0}*{1}'.format(str(img_obj), fgvc_id))
                                     fd.write('{0}*{1}\n'.format(str(img_obj), fgvc_id))
