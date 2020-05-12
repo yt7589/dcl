@@ -180,8 +180,8 @@ class DataPreprocessor(object):
             for brand_obj in path_obj.iterdir():
                 # 处理品牌
                 for model_obj in brand_obj.iterdir():
-                    if model_obj.is_dir():
-                        for year_obj in model_obj.iterdir():
+                    for year_obj in model_obj.iterdir():
+                        if year_obj.is_dir():
                             fgvc_id += 1
                             for img_obj in year_obj.iterdir():
                                 full_name = str(img_obj)
