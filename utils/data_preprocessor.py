@@ -175,15 +175,16 @@ class DataPreprocessor(object):
         path_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
                     '/vehicle_type_v2d/vehicle_type_v2d')
         fgvc_id = 0
-        for brand_obj in path_obj.iterdir():
-            # 处理品牌
-            for model_obj in brand_obj.iterdir():
-                for year_obj in model_obj.iterdir():
-                    fgvc_id += 1
-                    for img_obj in year_obj.iterdir():
-                        print('{0}*{1}'.format(str(img_obj), fgvc_id))
-                        if fgvc_id > 100:
-                            return
+        imported_fgvc_all = './imported_fgvc_all.txt'
+        with open(imported_fgvc_all, 'w+', encoding='utf-8') as fd:
+            for brand_obj in path_obj.iterdir():
+                # 处理品牌
+                for model_obj in brand_obj.iterdir():
+                    for year_obj in model_obj.iterdir():
+                        fgvc_id += 1
+                        for img_obj in year_obj.iterdir():
+                            print('{0}*{1}'.format(str(img_obj), fgvc_id))
+                            fd.write('{0}*{1}\n'.format(str(img_obj), fgvc_id))
     def vehicle_fgvc_s_domestic():
         print('')
 
