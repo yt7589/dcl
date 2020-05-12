@@ -169,7 +169,14 @@ class DataPreprocessor(object):
     @staticmethod
     def vehicle_fgvc_statistics():
         ''' 车辆细粒度识别数据集整理 '''
-        DataPreprocessor.vehicle_fgvc_s_imported()
+        # 处理进口车
+        # fgvc_id = DataPreprocessor.vehicle_fgvc_s_imported()
+        # 处理国产车
+        base_path = Path('/media/zjkj/My Passport/guochanche_all')
+        # base_path = Path('/home/up/guochanche_2')
+        fgvc_id = 463
+        DataPreprocessor.vehicle_fgvc_s_imported(fgvc_id)
+
     def vehicle_fgvc_s_imported():
         print('进口车细粒度识别数据集整理')
         path_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
@@ -189,6 +196,29 @@ class DataPreprocessor(object):
                                             ('jpg','png','jpeg','bmp')):
                                     print('{0}*{1}'.format(str(img_obj), fgvc_id))
                                     fd.write('{0}*{1}\n'.format(str(img_obj), fgvc_id))
-    def vehicle_fgvc_s_domestic():
-        print('')
+        return fgvc_id + 1
+
+    def vehicle_fgvc_s_domestic(fgvc_id, base_path):
+        if fgvc_id > 465:
+            return
+        bmy_set = set()
+        vc_bmy = DataPreprocessor.get_vc_bmy()
+        for file_obj in base_path.iterdir():
+            full_name = str(file_obj)
+            if not file_obj.is_dir() and full_name.endswith(
+                        ('jpg','png','jpeg','bmp')):
+                # 找到车辆识别码
+                arrs0 = full_name.split('/')
+                arrs1 = arrs0[0].split('_')
+                vc = arrs1[0]
+                if vc in vc_bmy:
+                    bmy = vc_bmy[vc]
+                    if not (bmy in bmy_set):
+                        bmy_set.add(bmy)
+                        fgvc_id += 1
+                    print('{0}*{1}'.format(full_name, fgvc_id))
+            elif file_obj.is_dir():
+                DataPreprocessor.vehicle_fgvc_s_domestic(fgvc_id, file_obj)
+            else:
+                print('忽略文件：{0};'.format(full_name))
 
