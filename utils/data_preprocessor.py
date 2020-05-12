@@ -211,6 +211,7 @@ class DataPreprocessor(object):
                 arrs0 = full_name.split('/')
                 arrs1 = arrs0[0].split('_')
                 vc = arrs1[0]
+                print('vc: {0};'.format(vc))
                 if vc in vc_bmy:
                     bmy = vc_bmy[vc]
                     if not (bmy in bmy_set):
