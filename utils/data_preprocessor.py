@@ -174,7 +174,7 @@ class DataPreprocessor(object):
         print('进口车细粒度识别数据集整理')
         path_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
                     '/vehicle_type_v2d/vehicle_type_v2d')
-        class_id = 0
+        fgvc_id = 0
         for brand_obj in path_obj.iterdir():
             # 处理品牌
             for model_obj in brand_obj.iterdir():
