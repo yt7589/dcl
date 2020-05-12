@@ -168,9 +168,22 @@ class DataPreprocessor(object):
 
     @staticmethod
     def vehicle_fgvc_statistics():
-        print('车辆细粒度识别统计')
+        ''' 车辆细粒度识别数据集整理 '''
+        DataPreprocessor.vehicle_fgvc_s_imported()
     def vehicle_fgvc_s_imported():
-        print('')
+        print('进口车细粒度识别数据集整理')
+        path_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
+                    '/vehicle_type_v2d/vehicle_type_v2d')
+        class_id = 0
+        for brand_obj in path_obj.iterdir():
+            # 处理品牌
+            for model_obj in brand_obj.iterdir():
+                for year_obj in model_obj.iterdir():
+                    for img_obj in year_obj.iterdir():
+                        class_id += 1
+                        print('{0}*{1}'.format(str(img_obj), class_id))
+                        if class_id > 100:
+                            return
     def vehicle_fgvc_s_domestic():
         print('')
 
