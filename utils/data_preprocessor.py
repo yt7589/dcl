@@ -211,13 +211,13 @@ class DataPreprocessor(object):
                 arrs0 = full_name.split('/')
                 arrs1 = arrs0[-1].split('_')
                 vc = arrs1[0]
-                print('{0}: vc={1};'.format(full_name, vc))
+                print('{0}: vc={1};   FGVC_ID={2};'.format(full_name, vc, fgvc_id))
                 if vc in vc_bmy:
                     bmy = vc_bmy[vc]
                     if not (bmy in bmy_set):
                         bmy_set.add(bmy)
                         fgvc_id += 1
-                    print('{0}*{1}'.format(full_name, fgvc_id))
+                    print('########## {0}*{1}'.format(full_name, fgvc_id))
             elif file_obj.is_dir():
                 DataPreprocessor.vehicle_fgvc_s_domestic(fgvc_id, file_obj)
             else:
