@@ -175,7 +175,7 @@ class DataPreprocessor(object):
         base_path = Path('/media/zjkj/My Passport/guochanche_all')
         # base_path = Path('/home/up/guochanche_2')
         fgvc_id = 463
-        DataPreprocessor.vehicle_fgvc_s_imported(fgvc_id, base_path)
+        DataPreprocessor.vehicle_fgvc_s_domestic(fgvc_id, base_path)
 
     def vehicle_fgvc_s_imported():
         print('进口车细粒度识别数据集整理')
