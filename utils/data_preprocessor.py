@@ -199,13 +199,14 @@ class DataPreprocessor(object):
                             brand_name = brand_foler.split('_')[1]
                             model_name = str(model_obj).split('/')[-1]
                             year_name = str(year_obj).split('/')[-1]
-                            fgvc_bmy[fgvc_id] = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
-                            for img_obj in year_obj.iterdir():
-                                full_name = str(img_obj)
-                                if not img_obj.is_dir() and full_name.endswith(
-                                            ('jpg','png','jpeg','bmp')):
-                                    print('{0}*{1}'.format(str(img_obj), fgvc_id))
-                                    fd.write('{0}*{1}\n'.format(str(img_obj), fgvc_id))
+                            if year_name is not 'unknown':
+                                fgvc_bmy[fgvc_id] = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
+                                for img_obj in year_obj.iterdir():
+                                    full_name = str(img_obj)
+                                    if not img_obj.is_dir() and full_name.endswith(
+                                                ('jpg','png','jpeg','bmp')):
+                                        print('{0}*{1}'.format(str(img_obj), fgvc_id))
+                                        fd.write('{0}*{1}\n'.format(str(img_obj), fgvc_id))
         for k, v in fgvc_bmy.items():
             print('{0}: {1};'.format(k, v))
         return fgvc_id + 1
