@@ -166,6 +166,7 @@ class DataPreprocessor(object):
 
 
 
+    fgvc_id = 0
     @staticmethod
     def vehicle_fgvc_statistics():
         ''' 车辆细粒度识别数据集整理 '''
@@ -174,9 +175,10 @@ class DataPreprocessor(object):
         # 处理国产车
         base_path = Path('/media/zjkj/My Passport/guochanche_all')
         # base_path = Path('/home/up/guochanche_2')
-        fgvc_id = 463
-        DataPreprocessor.vehicle_fgvc_s_domestic(fgvc_id, base_path)
+        DataPreprocessor.fgvc_id = 463
+        DataPreprocessor.vehicle_fgvc_s_domestic(base_path)
 
+    @staticmethod
     def vehicle_fgvc_s_imported():
         print('进口车细粒度识别数据集整理')
         path_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
@@ -198,8 +200,9 @@ class DataPreprocessor(object):
                                     fd.write('{0}*{1}\n'.format(str(img_obj), fgvc_id))
         return fgvc_id + 1
 
-    def vehicle_fgvc_s_domestic(fgvc_id, base_path):
-        if fgvc_id > 465:
+    @staticmethod
+    def vehicle_fgvc_s_domestic(base_path):
+        if DataPreprocessor.fgvc_id > 465:
             return
         bmy_set = set()
         vc_bmy = DataPreprocessor.get_vc_bmy()
@@ -211,15 +214,15 @@ class DataPreprocessor(object):
                 arrs0 = full_name.split('/')
                 arrs1 = arrs0[-1].split('_')
                 vc = arrs1[0]
-                print('{0}: vc={1};   FGVC_ID={2};'.format(full_name, vc, fgvc_id))
+                print('{0}: vc={1};   FGVC_ID={2};'.format(full_name, vc, DataPreprocessor.fgvc_id))
                 if vc in vc_bmy:
                     bmy = vc_bmy[vc]
                     if not (bmy in bmy_set):
                         bmy_set.add(bmy)
-                        fgvc_id += 1
-                    print('########## {0}*{1}'.format(full_name, fgvc_id))
+                        DataPreprocessor.fgvc_id += 1
+                    print('########## {0}*{1}'.format(full_name, DataPreprocessor.fgvc_id))
             elif file_obj.is_dir():
-                DataPreprocessor.vehicle_fgvc_s_domestic(fgvc_id, file_obj)
+                DataPreprocessor.vehicle_fgvc_s_domestic(file_obj)
             else:
                 print('忽略文件：{0};'.format(full_name))
 
