@@ -180,11 +180,15 @@ class DataPreprocessor(object):
             for brand_obj in path_obj.iterdir():
                 # 处理品牌
                 for model_obj in brand_obj.iterdir():
-                    for year_obj in model_obj.iterdir():
-                        fgvc_id += 1
-                        for img_obj in year_obj.iterdir():
-                            print('{0}*{1}'.format(str(img_obj), fgvc_id))
-                            fd.write('{0}*{1}\n'.format(str(img_obj), fgvc_id))
+                    if model_obj.is_dir():
+                        for year_obj in model_obj.iterdir():
+                            fgvc_id += 1
+                            for img_obj in year_obj.iterdir():
+                                full_name = str(img_obj)
+                                if not file_obj.is_dir() and full_name.endswith(
+                                            ('jpg','png','jpeg','bmp')):
+                                    print('{0}*{1}'.format(str(img_obj), fgvc_id))
+                                    fd.write('{0}*{1}\n'.format(str(img_obj), fgvc_id))
     def vehicle_fgvc_s_domestic():
         print('')
 
