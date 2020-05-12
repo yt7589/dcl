@@ -247,6 +247,7 @@ class DataPreprocessor(object):
         with open('fgvc_train.txt', 'w+', encoding='utf-8') as fgvc_train_fd:
             with open('fgvc_test.txt', 'w+', encoding='utf-8') as fgvc_test_fd:
                 for fgvc_id in range(419):
+                    print('正在处理第{0}类'.format(fgvc_id))
                     imgs = []
                     with open('./imported_fgvc_all.txt', 'r', encoding='utf-8') as raw_fd:
                         for line in raw_fd:
