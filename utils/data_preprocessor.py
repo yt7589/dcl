@@ -5,6 +5,7 @@
 # vc 车辆识别码，图像文件前面的编号
 # vpc 车牌
 from pathlib import Path
+import random
 
 class DataPreprocessor(object):
     _v_bno_bn = None # 由品牌编号查品牌名称
@@ -18,7 +19,8 @@ class DataPreprocessor(object):
     @staticmethod
     def startup():
         #DataPreprocessor.brand_recoganize_statistics()
-        DataPreprocessor.vehicle_fgvc_statistics()
+        #DataPreprocessor.vehicle_fgvc_statistics()
+        DataPreprocessor.generate_iv_fgvc_ds()
     
     @staticmethod
     def get_v_bno_bn():
@@ -239,3 +241,35 @@ class DataPreprocessor(object):
             else:
                 print('忽略文件：{0};'.format(full_name))
 
+    @staticmethod
+    def generate_iv_fgvc_ds():
+        ''' 生成进口车细粒度识别数据集 '''
+        with open('fgvc_train.txt', 'w+', encoding='utf-8') as fgvc_train_fd:
+            with open('fgvc_test.txt', 'w+', encoding='utf-8') as fgvc_test_fd:
+                for fgvc_id in range(419):
+                    imgs = []
+                    with open('./imported_fgvc_all.txt', 'r', encoding='utf-8') as raw_fd:
+                        for line in raw_fd:
+                            arrs0 = line.split('*')
+                            line_id = int(arrs0[-1])
+                            if line_id == fgvc_id:
+                                imgs.append(arrs0[0])
+                    imgs_num = len(imgs)
+                    if imgs_num < 110:
+                        # 所有图片均用于训练数据集和测试数据集
+                        for img in imgs:
+                            if random.random() < 0.1:
+                                fgvc_test_fd.write('{0}*{1}\n'.format(img, fgvc_id))
+                            else:
+                                fgvc_train_fd.write('{0}*{1}\n'.format(img, fgvc_id))
+                    else:
+                        # 随机选出100个做训练数据集，10个做测试数据集
+                        sum = 0
+                        for img in imgs:
+                            if random.random() < 0.1:
+                                fgvc_test_fd.write('{0}*{1}\n'.format(img, fgvc_id))
+                            else:
+                                fgvc_train_fd.write('{0}*{1}\n'.format(img, fgvc_id))
+                            sum += 1
+                            if sum > 110:
+                                break
