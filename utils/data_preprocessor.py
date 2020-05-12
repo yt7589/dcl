@@ -179,10 +179,10 @@ class DataPreprocessor(object):
             # 处理品牌
             for model_obj in brand_obj.iterdir():
                 for year_obj in model_obj.iterdir():
+                    fgvc_id += 1
                     for img_obj in year_obj.iterdir():
-                        class_id += 1
-                        print('{0}*{1}'.format(str(img_obj), class_id))
-                        if class_id > 100:
+                        print('{0}*{1}'.format(str(img_obj), fgvc_id))
+                        if fgvc_id > 100:
                             return
     def vehicle_fgvc_s_domestic():
         print('')
