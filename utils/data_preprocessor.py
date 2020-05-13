@@ -306,8 +306,8 @@ class DataPreprocessor(object):
                 model = arrs1[1]
                 year = arrs1[2]
                 arrs2 = img_file.split('/')
-                print('把{0}拷贝到./{1}/{2}/{3}/{4}'.format(img_file, brand, model, year, arrs2[-1]))
-                brand_folder = './{0}'.format(brand)
+                print('把{0}拷贝到{5}/{1}/{2}/{3}/{4}'.format(img_file, brand, model, year, arrs2[-1], dst_folder))
+                brand_folder = '{0}/{1}'.format(dst_folder, brand)
                 if not os.path.exists(brand_folder):
                     os.mkdir(brand_folder)
                 model_folder = '{0}/{1}'.format(brand_folder, model)
