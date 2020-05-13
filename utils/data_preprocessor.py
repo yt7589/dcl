@@ -293,6 +293,7 @@ class DataPreprocessor(object):
     @staticmethod
     def generate_ds_folder(ds_file, dst_folder):
         fgvc_to_bmy = DataPreprocessor.get_fgvc_to_bmy()
+        sum = 1
         with open(ds_file, 'r', encoding='utf-8') as ds_fd:
             for line in ds_fd:
                 arrs0 = line.split('*')
@@ -305,7 +306,6 @@ class DataPreprocessor(object):
                 model = arrs1[1]
                 year = arrs1[2]
                 arrs2 = img_file.split('/')
-                print('拷贝{0}'.format(img_file))
                 brand_folder = '{0}/{1}'.format(dst_folder, brand)
                 if not os.path.exists(brand_folder):
                     os.mkdir(brand_folder)
@@ -317,6 +317,8 @@ class DataPreprocessor(object):
                     os.mkdir(year_folder)
                 shutil.copy(img_file, '{0}/{1}/{2}/{3}/{4}'.format(
                             dst_folder, brand, model, year, arrs2[-1]))
+                print('{0}/41760: 拷贝{1}'.format(sum, img_file))
+                sum += 1
 
     @staticmethod
     def get_fgvc_to_bmy():
