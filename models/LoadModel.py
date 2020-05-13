@@ -89,5 +89,5 @@ class MainModel(nn.Module):
                 last_x = self.avgpool(last_x)
                 last_x = last_x.view(last_x.size(0), -1)
                 out.append(self.Aclassifier(last_x))
-
+        sys.exit(0)
         return out
