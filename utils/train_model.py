@@ -78,9 +78,7 @@ def train(Config,
                 labels = Variable(torch.from_numpy(np.array(labels)).cuda())
 
             if Config.use_dcl:
-                print('data: {0}; len={1};'.format(type(data), len(data)))
                 inputs, labels, labels_swap, swap_law, img_names = data
-                print('inputs: {0};'.format(inputs.shape))
                 org_labels = labels
                 inputs = Variable(inputs.cuda())
                 labels = Variable(torch.from_numpy(np.array(labels)).cuda())
@@ -93,7 +91,6 @@ def train(Config,
                 outputs = model(inputs, inputs[0:-1:2])
             else:
                 outputs = model(inputs, None)
-            print('outputs: {0}; {1}'.format(np.array(outputs).shape, outputs[2].shape))
 
             if Config.use_focal_loss:
                 ce_loss = get_focal_loss(outputs[0], labels)
@@ -118,8 +115,6 @@ def train(Config,
             if Config.use_dcl:
                 swap_loss = get_ce_loss(outputs[1], labels_swap) * beta_
                 loss += swap_loss
-                print('outputs[2]: {0};'.format(outputs[2].shape))
-                print('swap_law:{0} {1};'.format(type(swap_law), swap_law.shape))
                 law_loss = add_loss(outputs[2], swap_law) * gamma_
                 loss += law_loss
 
