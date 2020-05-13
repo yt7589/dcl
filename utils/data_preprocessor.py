@@ -4,6 +4,7 @@
 # bmy 品牌-车型-年款
 # vc 车辆识别码，图像文件前面的编号
 # vpc 车牌
+import os
 from pathlib import Path
 import random
 import shutil
@@ -306,7 +307,16 @@ class DataPreprocessor(object):
                 year = arrs1[2]
                 arrs2 = img_file.split('/')
                 print('把{0}拷贝到./{1}/{2}/{3}/{4}'.format(img_file, brand, model, year, arrs2[-1]))
-                shutil.copy(img_file, './{1}/{2}/{3}/{4}'.format(
+                brand_folder = './{0}'.format(brand)
+                if not os.path.exists(brand_folder):
+                    os.mkdir(brand_folder)
+                model_folder = '{0}/{1}'.format(brand_folder, model)
+                if not os.path.exists(model_folder):
+                    os.mkdir(model_folder)
+                year_folder = '{0}/{1}'.format(model_folder, year)
+                if not os.path.exists(year_folder):
+                    os.mkdir(year_folder)
+                shutil.copy(img_file, './{0}/{1}/{2}/{3}'.format(
                             brand, model, year, arrs2[-1]))
                 sum += 1
                 if sum > 20:
