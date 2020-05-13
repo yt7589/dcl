@@ -70,9 +70,12 @@ class dataset(data.Dataset):
             img = self.totensor(img)
             label = self.labels[item]
             return img, label, self.paths[item]
+        print('common_aug: {0};'.format(self.common_aug))
         img_unswap = self.common_aug(img) if not self.common_aug is None else img
-
+        print('swap_size: {0};'.format(self.swap_size))
         image_unswap_list = self.crop_image(img_unswap, self.swap_size)
+        print('image_unswap_list: {0}={1};'.format(type(image_unswap_list), image_unswap_list))
+        os.exit(0)
 
         swap_range = self.swap_size[0] * self.swap_size[1]
         swap_law1 = [(i-(swap_range//2))/swap_range for i in range(swap_range)]
@@ -133,6 +136,7 @@ def collate_fn4train(batch):
     label_swap = []
     law_swap = []
     img_name = []
+    #img_unswap, img_swap, label, label_swap, swap_law1, swap_law2, self.paths[item]
     for sample in batch:
         imgs.append(sample[0])
         imgs.append(sample[1])
