@@ -302,7 +302,7 @@ class DataPreprocessor(object):
                 arrs1 = bmy.split('-')
                 brand = arrs1[0]
                 model = arrs1[1]
-                year = arrs1[2][:-1]
+                year = arrs1[2]
                 arrs2 = img_file.split('/')
                 print('把{0}拷贝到./{1}/{2}/{3}/{4}'.format(img_file, brand, model, year, arrs2[-1]))
                 sum += 1
