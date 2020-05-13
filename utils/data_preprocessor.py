@@ -248,6 +248,7 @@ class DataPreprocessor(object):
     @staticmethod
     def generate_iv_fgvc_ds():
         ''' 生成进口车细粒度识别数据集 '''
+        aim_num = 110
         with open('fgvc_train.txt', 'w+', encoding='utf-8') as fgvc_train_fd:
             with open('fgvc_test.txt', 'w+', encoding='utf-8') as fgvc_test_fd:
                 for fgvc_id in range(419):
@@ -260,7 +261,7 @@ class DataPreprocessor(object):
                             if line_id == fgvc_id:
                                 imgs.append(arrs0[0])
                     imgs_num = len(imgs)
-                    if imgs_num < 110:
+                    if imgs_num < aim_num:
                         # 所有图片均用于训练数据集和测试数据集
                         for img in imgs:
                             if random.random() < 0.1:
@@ -276,7 +277,7 @@ class DataPreprocessor(object):
                             else:
                                 fgvc_train_fd.write('{0}*{1}\n'.format(img, fgvc_id))
                             sum += 1
-                            if sum > 110:
+                            if sum > aim_num:
                                 break
 
     @staticmethod
@@ -288,7 +289,7 @@ class DataPreprocessor(object):
         # 处理训练样本集
         total_num = 41760
         train_ds_file = './datasets/CUB_200_2011/anno/fgvc_train.txt'
-        train_dst_folder = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_vbmy_min/train_bk'
+        train_dst_folder = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_vbmy_min/train'
         DataPreprocessor.generate_ds_folder(train_ds_file, train_dst_folder, total_num)
         # 测试数据集
         '''
@@ -323,8 +324,8 @@ class DataPreprocessor(object):
                 year_folder = '{0}/{1}'.format(model_folder, year)
                 if not os.path.exists(year_folder):
                     os.mkdir(year_folder)
-                #shutil.copy(img_file, '{0}/{1}/{2}/{3}/{4}'.format(
-                #            dst_folder, brand, model, year, arrs2[-1]))
+                shutil.copy(img_file, '{0}/{1}/{2}/{3}/{4}'.format(
+                            dst_folder, brand, model, year, arrs2[-1]))
                 print('{0}/{1}: 拷贝{2}'.format(sum, total_num, img_file))
                 sum += 1
 

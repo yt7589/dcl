@@ -210,8 +210,8 @@ if __name__ == '__main__':
     print('save_dir: {0} + {1};'.format(Config.save_dir, filename))
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
-
     model.cuda()
+    summary(model, (3, 224, 224))
     if 1>10:
         print('准备保存模型到onnx文件')
         example = torch.rand(1, 3, 448, 448).cuda()
