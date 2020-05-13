@@ -57,34 +57,33 @@ class MainModel(nn.Module):
             self.Aclassifier = AngleLinear(2048, self.num_classes, bias=False)
 
     def forward(self, x, last_cont=None):
-        print('LoadModel.forward 1: x: {0};'.format(x.shape))
+        #print('LoadModel.forward 1: x: {0};'.format(x.shape))
         x = self.model(x)
-        print('LoadModel.forward 1.1: x: {0};'.format(x.shape))
+        #print('LoadModel.forward 1.1: x: {0};'.format(x.shape))
         if self.use_dcl:
             mask = self.Convmask(x)
-            print('LoadModel.forward 1.2: mask: {0};'.format(mask.shape))
+            #print('LoadModel.forward 1.2: mask: {0};'.format(mask.shape))
             mask = self.avgpool2(mask)
-            print('LoadModel.forward 1.3: mask: {0};'.format(mask.shape))
+            #print('LoadModel.forward 1.3: mask: {0};'.format(mask.shape))
             mask = torch.tanh(mask)
             mask = mask.view(mask.size(0), -1)
-            print('LoadModel.forward 1.4: mask: {0};'.format(mask.shape))
+            #print('LoadModel.forward 1.4: mask: {0};'.format(mask.shape))
 
-        print('LoadModel.forward 2: mask: {0};'.format(mask.shape))
+        #print('LoadModel.forward 2: mask: {0};'.format(mask.shape))
 
         x = self.avgpool(x)
         #x = x.view(x.size(0), -1)
         x = x.view(x.size(0), x.size(1))
         out = []
         out.append(self.classifier(x))
-        print('LoadModel.forward 3: output[0]: {0};'.format(out[0].shape))
+        #print('LoadModel.forward 3: output[0]: {0};'.format(out[0].shape))
 
         if self.use_dcl:
             out.append(self.classifier_swap(x))
             out.append(mask)
-            print('out[1]: {0}; out[2]: {1};'.format(out[1].shape, out[2].shape))
+            #print('out[1]: {0}; out[2]: {1};'.format(out[1].shape, out[2].shape))
 
         if self.use_Asoftmax:
-            print('LoadModel.forward 100 use_Asoftmax...')
             if last_cont is None:
                 x_size = x.size(0)
                 out.append(self.Aclassifier(x[0:x_size:2]))
