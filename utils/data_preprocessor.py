@@ -284,23 +284,30 @@ class DataPreprocessor(object):
         人员进行评审
         '''
         # 处理训练样本集
-        fgvc_to_bmy = DataPreprocessor.get_fgvc_to_bmy()
-        for k, v in fgvc_to_bmy.items():
-            print('{0} <=> {1};'.format(k, v))
-        '''
         train_ds_file = './datasets/CUB_200_2011/anno/fgvc_train.txt'
         train_dst_folder = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_vbmy_min/train'
         DataPreprocessor.generate_ds_folder(train_ds_file, train_dst_folder)
-        '''
 
     @staticmethod
     def generate_ds_folder(ds_file, dst_folder):
+        fgvc_to_bmy = DataPreprocessor.get_fgvc_to_bmy()
+        sum = 0
         with open(ds_file, 'r', encoding='utf-8') as ds_fd:
             for line in ds_fd:
                 arrs0 = line.split('*')
                 img_file = arrs0[0]
                 fgvc_id = arrs0[1][:-1]
                 # 求出对应的品牌-车型-年款
+                bmy = fgvc_to_bmy[fgvc_id]
+                arrs1 = bmy.split('-')
+                brand = arrs1[0]
+                model = arrs1[1]
+                year = arrs1[2][:-1]
+                arrs2 = img_file.split('/')
+                print('把{0}拷贝到./{1}/{2}/{3}/{4}'.format(img_file, brand, model, year, arrs2[-1]))
+                sum += 1
+                if sum > 20:
+                    break
 
     @staticmethod
     def get_fgvc_to_bmy():
