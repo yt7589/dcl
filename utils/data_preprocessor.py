@@ -293,7 +293,6 @@ class DataPreprocessor(object):
     @staticmethod
     def generate_ds_folder(ds_file, dst_folder):
         fgvc_to_bmy = DataPreprocessor.get_fgvc_to_bmy()
-        sum = 0
         with open(ds_file, 'r', encoding='utf-8') as ds_fd:
             for line in ds_fd:
                 arrs0 = line.split('*')
@@ -318,9 +317,6 @@ class DataPreprocessor(object):
                     os.mkdir(year_folder)
                 shutil.copy(img_file, '{0}/{1}/{2}/{3}/{4}'.format(
                             dst_folder, brand, model, year, arrs2[-1]))
-                sum += 1
-                if sum > 20:
-                    break
 
     @staticmethod
     def get_fgvc_to_bmy():
