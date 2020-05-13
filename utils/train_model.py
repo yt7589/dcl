@@ -116,7 +116,7 @@ def train(Config,
                 swap_loss = get_ce_loss(outputs[1], labels_swap) * beta_
                 loss += swap_loss
                 print('outputs[2]: {0};'.format(outputs[2].shape))
-                print('swap_law:{0};'.format(type(swap_law)))
+                print('swap_law:{0} {1};'.format(type(swap_law), swap_law.shape))
                 law_loss = add_loss(outputs[2], swap_law) * gamma_
                 loss += law_loss
 
