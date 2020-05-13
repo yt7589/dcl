@@ -323,8 +323,8 @@ class DataPreprocessor(object):
                 year_folder = '{0}/{1}'.format(model_folder, year)
                 if not os.path.exists(year_folder):
                     os.mkdir(year_folder)
-                shutil.copy(img_file, '{0}/{1}/{2}/{3}/{4}'.format(
-                            dst_folder, brand, model, year, arrs2[-1]))
+                #shutil.copy(img_file, '{0}/{1}/{2}/{3}/{4}'.format(
+                #            dst_folder, brand, model, year, arrs2[-1]))
                 print('{0}/{1}: 拷贝{2}'.format(sum, total_num, img_file))
                 sum += 1
 
