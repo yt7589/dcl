@@ -97,6 +97,7 @@ class dataset(data.Dataset):
             if self.use_cls_2:
                 label_swap = -1
             img_unswap = self.totensor(img_unswap)
+            print('call it????????????????????????')
             return img_unswap, img_swap, label, label_swap, swap_law1, swap_law2, self.paths[item]
         else:
             label = self.labels[item]
