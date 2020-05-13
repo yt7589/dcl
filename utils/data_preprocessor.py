@@ -289,13 +289,13 @@ class DataPreprocessor(object):
         # 处理训练样本集
         total_num = 41760
         train_ds_file = './datasets/CUB_200_2011/anno/fgvc_train.txt'
-        train_dst_folder = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_vbmy_min/train'
+        train_dst_folder = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_vbmy_min/train_bk'
         DataPreprocessor.generate_ds_folder(train_ds_file, train_dst_folder, total_num)
         '''
         # 测试数据集
         total_num = 4526
         test_ds_file = './datasets/CUB_200_2011/anno/fgvc_test.txt'
-        test_dst_folder = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_vbmy_min/test'
+        test_dst_folder = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_vbmy_min/test_bk'
         DataPreprocessor.generate_ds_folder(test_ds_file, test_dst_folder, total_num)
 
     @staticmethod
