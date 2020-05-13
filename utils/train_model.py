@@ -93,7 +93,7 @@ def train(Config,
                 outputs = model(inputs, inputs[0:-1:2])
             else:
                 outputs = model(inputs, None)
-            print('outputs: {0};'.format(outputs.shape))
+            print('outputs: {0};'.format(np.array(outputs).shape))
 
             if Config.use_focal_loss:
                 ce_loss = get_focal_loss(outputs[0], labels)
