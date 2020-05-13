@@ -12,6 +12,7 @@ class DataPreprocessor(object):
     _v_bn_bno = None # 由品牌名称查品牌编号
     _vc_bmy = None # 车辆识别码到品牌-车型-年款字典
     _bno_nums = None # 每种品牌车的训练图片数量和所里测试集中数量
+    _fgvc_to_bmy = None # 车辆细粒度编号对应的品牌-车型-年款字典
 
     def __init__(self):
         self.name = 'utils.DataPreprocessor'
@@ -20,7 +21,8 @@ class DataPreprocessor(object):
     def startup():
         #DataPreprocessor.brand_recoganize_statistics()
         #DataPreprocessor.vehicle_fgvc_statistics()
-        DataPreprocessor.generate_iv_fgvc_ds()
+        #DataPreprocessor.generate_iv_fgvc_ds()
+        DataPreprocessor.generate_ds_folder_main()
     
     @staticmethod
     def get_v_bno_bn():
@@ -274,3 +276,41 @@ class DataPreprocessor(object):
                             sum += 1
                             if sum > 110:
                                 break
+
+    @staticmethod
+    def generate_ds_folder_main():
+        ''' 
+        将数据集变为品牌-车型-年款-图片的文件组织形式，便于标注
+        人员进行评审
+        '''
+        # 处理训练样本集
+        fgvc_to_bmy = DataPreprocessor.get_fgvc_to_bmy()
+        for k, v in fgvc_to_bmy.items():
+            print('{0} <=> {1};'.format(k, v))
+        '''
+        train_ds_file = './datasets/CUB_200_2011/anno/fgvc_train.txt'
+        train_dst_folder = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_vbmy_min/train'
+        DataPreprocessor.generate_ds_folder(train_ds_file, train_dst_folder)
+        '''
+
+    @staticmethod
+    def generate_ds_folder(ds_file, dst_folder):
+        with open(ds_file, 'r', encoding='utf-8') as ds_fd:
+            for line in ds_fd:
+                arrs0 = line.split('*')
+                img_file = arrs0[0]
+                fgvc_id = arrs0[1][:-1]
+                # 求出对应的品牌-车型-年款
+
+    @staticmethod
+    def get_fgvc_to_bmy():
+        if DataPreprocessor._fgvc_to_bmy is not None:
+            return DataPreprocessor._fgvc_to_bmy
+        DataPreprocessor._fgvc_to_bmy = {}
+        with open('./fgvc_bmy_dict.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs0 = line.split(':')
+                fgvc_id = arrs0[0]
+                bmy = arrs0[1][:-1]
+                DataPreprocessor._fgvc_to_bmy[fgvc_id] = bmy
+        return DataPreprocessor._fgvc_to_bmy
