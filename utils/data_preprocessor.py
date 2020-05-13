@@ -317,7 +317,7 @@ class DataPreprocessor(object):
                 if not os.path.exists(year_folder):
                     os.mkdir(year_folder)
                 shutil.copy(img_file, '{4}/{0}/{1}/{2}/{3}'.format(
-                            dst_folder, brand, model, year, arrs2[-1]))
+                            brand, model, year, arrs2[-1], dst_folder))
                 sum += 1
                 if sum > 20:
                     break
