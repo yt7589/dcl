@@ -79,6 +79,7 @@ def train(Config,
 
             if Config.use_dcl:
                 inputs, labels, labels_swap, swap_law, img_names = data
+                print('inputs: {0};'.format(inputs.shape))
                 org_labels = labels
                 inputs = Variable(inputs.cuda())
                 labels = Variable(torch.from_numpy(np.array(labels)).cuda())
