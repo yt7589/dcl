@@ -6,6 +6,7 @@
 # vpc 车牌
 from pathlib import Path
 import random
+import shutil
 
 class DataPreprocessor(object):
     _v_bno_bn = None # 由品牌编号查品牌名称
@@ -305,6 +306,8 @@ class DataPreprocessor(object):
                 year = arrs1[2]
                 arrs2 = img_file.split('/')
                 print('把{0}拷贝到./{1}/{2}/{3}/{4}'.format(img_file, brand, model, year, arrs2[-1]))
+                shutil.copy(img_file, './{1}/{2}/{3}/{4}'.format(
+                            brand, model, year, arrs2[-1]))
                 sum += 1
                 if sum > 20:
                     break
