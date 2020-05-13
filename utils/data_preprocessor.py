@@ -285,13 +285,21 @@ class DataPreprocessor(object):
         将数据集变为品牌-车型-年款-图片的文件组织形式，便于标注
         人员进行评审
         '''
+        '''
         # 处理训练样本集
+        total_num = 41760
         train_ds_file = './datasets/CUB_200_2011/anno/fgvc_train.txt'
         train_dst_folder = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_vbmy_min/train'
-        DataPreprocessor.generate_ds_folder(train_ds_file, train_dst_folder)
+        DataPreprocessor.generate_ds_folder(train_ds_file, train_dst_folder, total_num)
+        '''
+        # 测试数据集
+        total_num = 4526
+        test_ds_file = './datasets/CUB_200_2011/anno/fgvc_test.txt'
+        test_dst_folder = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_vbmy_min/test'
+        DataPreprocessor.generate_ds_folder(test_ds_file, test_dst_folder, total_num)
 
     @staticmethod
-    def generate_ds_folder(ds_file, dst_folder):
+    def generate_ds_folder(ds_file, dst_folder, total_num):
         fgvc_to_bmy = DataPreprocessor.get_fgvc_to_bmy()
         sum = 1
         with open(ds_file, 'r', encoding='utf-8') as ds_fd:
@@ -317,7 +325,7 @@ class DataPreprocessor(object):
                     os.mkdir(year_folder)
                 shutil.copy(img_file, '{0}/{1}/{2}/{3}/{4}'.format(
                             dst_folder, brand, model, year, arrs2[-1]))
-                print('{0}/41760: 拷贝{1}'.format(sum, img_file))
+                print('{0}/{1}: 拷贝{2}'.format(sum, total_num, img_file))
                 sum += 1
 
     @staticmethod
