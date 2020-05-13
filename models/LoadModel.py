@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 from torch import nn
 import torch
@@ -56,6 +57,7 @@ class MainModel(nn.Module):
             self.Aclassifier = AngleLinear(2048, self.num_classes, bias=False)
 
     def forward(self, x, last_cont=None):
+        print('LoadModel.forward 1: x: {0};'.format(x.shape))
         x = self.model(x)
         if self.use_dcl:
             mask = self.Convmask(x)
@@ -63,17 +65,22 @@ class MainModel(nn.Module):
             mask = torch.tanh(mask)
             mask = mask.view(mask.size(0), -1)
 
+        print('LoadModel.forward 2: mask: {0};'.format(mask.shape))
+
         x = self.avgpool(x)
         #x = x.view(x.size(0), -1)
         x = x.view(x.size(0), x.size(1))
         out = []
         out.append(self.classifier(x))
+        print('LoadModel.forward 3: output[0]: {0};'.format(out[0].shape))
 
         if self.use_dcl:
             out.append(self.classifier_swap(x))
             out.append(mask)
+            print('out[1]: {0}; out[2]: {1};'.format(out[1], out[2]))
 
         if self.use_Asoftmax:
+            print('LoadModel.forward 100 use_Asoftmax...')
             if last_cont is None:
                 x_size = x.size(0)
                 out.append(self.Aclassifier(x[0:x_size:2]))
