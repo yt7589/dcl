@@ -128,7 +128,7 @@ if __name__ == '__main__':
                         anno = Config.train_anno,\
                         common_aug = transformers["common_aug"],\
                         swap = transformers["swap"],\
-                        swap_size=[args.swap1, args.swap2], \
+                        swap_size=args.swap_num, \
                         totensor = transformers["train_totensor"],\
                         train = True)
 
@@ -136,7 +136,7 @@ if __name__ == '__main__':
                         anno = Config.train_anno,\
                         common_aug = transformers["None"],\
                         swap = transformers["None"],\
-                        swap_size=[args.swap1, args.swap2], \
+                        swap_size=args.swap_num, \
                         totensor = transformers["val_totensor"],\
                         train = False,
                         train_val = True)
@@ -145,7 +145,7 @@ if __name__ == '__main__':
                       anno = Config.val_anno,\
                       common_aug = transformers["None"],\
                       swap = transformers["None"],\
-                        swap_size=[args.swap1, args.swap2], \
+                        swap_size=args.swap_num, \
                       totensor = transformers["test_totensor"],\
                       test=True)
 
