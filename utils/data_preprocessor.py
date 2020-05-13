@@ -306,7 +306,7 @@ class DataPreprocessor(object):
                 model = arrs1[1]
                 year = arrs1[2]
                 arrs2 = img_file.split('/')
-                print('把{0}拷贝到{5}/{1}/{2}/{3}/{4}'.format(img_file, brand, model, year, arrs2[-1], dst_folder))
+                print('拷贝{0}'.format(img_file))
                 brand_folder = '{0}/{1}'.format(dst_folder, brand)
                 if not os.path.exists(brand_folder):
                     os.mkdir(brand_folder)
@@ -316,8 +316,8 @@ class DataPreprocessor(object):
                 year_folder = '{0}/{1}'.format(model_folder, year)
                 if not os.path.exists(year_folder):
                     os.mkdir(year_folder)
-                shutil.copy(img_file, '{4}/{0}/{1}/{2}/{3}'.format(
-                            brand, model, year, arrs2[-1], dst_folder))
+                shutil.copy(img_file, '{0}/{1}/{2}/{3}/{4}'.format(
+                            dst_folder, brand, model, year, arrs2[-1]))
                 sum += 1
                 if sum > 20:
                     break
