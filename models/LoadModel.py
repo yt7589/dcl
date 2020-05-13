@@ -82,6 +82,7 @@ class MainModel(nn.Module):
             out.append(self.classifier_swap(x))
             out.append(mask)
             #print('out[1]: {0}; out[2]: {1};'.format(out[1].shape, out[2].shape))
+        print('LoadModel.forward 100: output: {0};'.format(out.shape))
 
         if self.use_Asoftmax:
             if last_cont is None:
