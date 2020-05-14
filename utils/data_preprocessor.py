@@ -349,12 +349,13 @@ class DataPreprocessor(object):
     def create_fj2_train_test_ds():
         ''' 生成全部由所里测试集组成的训练数据集和测试数据集 '''
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/品牌')
-        for file_obj in base_path.iterdir():
-            full_name = str(file_obj)
-            arrs0 = full_name.split('/')
-            raw_id = arrs0[-1][0:3]
-            fgvc_id = int(raw_id) - 1
-            print('raw_id: {0} => {1};'.format(raw_id, fgvc_id))
-            for img_obj in file_obj.iterdir():
-                print('{0}*{1}'.format(img_obj, fgvc_id))
+        with open('./cheat_train_ds.txt', 'w+', encoding='utf-8') as fd:
+            for file_obj in base_path.iterdir():
+                full_name = str(file_obj)
+                arrs0 = full_name.split('/')
+                raw_id = arrs0[-1][0:3]
+                fgvc_id = int(raw_id) - 1
+                for img_obj in file_obj.iterdir():
+                    print('{0}*{1}'.format(img_obj, fgvc_id))
+                    fd.write('{0}*{1}\n'.format(img_obj,  fgvc_id))
         
