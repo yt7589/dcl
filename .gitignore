@@ -135,7 +135,8 @@ label_new.txt
 img_labels.txt
 ct_train_newd.txt
 logs/
-models/
+models/pretrained
+datasets/CUB_200_2011
 net_model/
 
 # TensorRT related
