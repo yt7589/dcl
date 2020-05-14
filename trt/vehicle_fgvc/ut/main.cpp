@@ -14,8 +14,8 @@
 #include <iostream>
 #define NUM_THREADS 1
 
-const int IMG_W = 448;
-const int IMG_H = 448;
+const int IMG_W = 224;
+const int IMG_H = 224;
 int big_batchsize = 8;
 int small_batchsize = 8;
 
