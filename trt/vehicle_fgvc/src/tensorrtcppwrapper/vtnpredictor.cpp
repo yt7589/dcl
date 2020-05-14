@@ -54,7 +54,7 @@ void VTNPredictor::setConfig(const InputConfig& iconfig, WrapperConfig& config) 
 	//config.inputLayers.push_back("input_images:0");
 	config.outputLayers.push_back("output");//596 , 698
 	//config.inputShape = std::vector<int>{-1,3,224,224};
-	config.inputShape = std::vector<int>{-1,3,IMG_W,IMG_H};
+	config.inputShape = std::vector<int>{-1,3,224,224};
 	//config.modelInputType=0;  //0:  float; 1  uint8; 
 	config.meanBGR=std::vector<float>{mean,mean,mean};
 	config.xFactorBGR=std::vector<float>{xFactor, xFactor, xFactor};	
