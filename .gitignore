@@ -141,3 +141,7 @@ net_model/
 # TensorRT related
 *.o
 *.so
+trt/opencv2/
+trt/thirdparty/
+trt/vehicle_fgvc
+
