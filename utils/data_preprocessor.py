@@ -262,17 +262,19 @@ class DataPreprocessor(object):
                                 imgs.append(arrs0[0])
                     imgs_num = len(imgs)
                     if imgs_num < aim_num:
+                        test_num = 0
                         # 所有图片均用于训练数据集和测试数据集
                         for img in imgs:
-                            if random.random() < 0.1:
+                            if random.random() < 0.1 and test_num < 15:
                                 fgvc_test_fd.write('{0}*{1}\n'.format(img, fgvc_id))
+                                test_num += 1
                             else:
                                 fgvc_train_fd.write('{0}*{1}\n'.format(img, fgvc_id))
                     else:
                         # 随机选出100个做训练数据集，10个做测试数据集
                         sum = 0
                         for img in imgs:
-                            if random.random() < 0.1:
+                            if random.random() < 0.015:
                                 fgvc_test_fd.write('{0}*{1}\n'.format(img, fgvc_id))
                             else:
                                 fgvc_train_fd.write('{0}*{1}\n'.format(img, fgvc_id))
