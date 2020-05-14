@@ -23,8 +23,8 @@ class DataPreprocessor(object):
     def startup():
         #DataPreprocessor.brand_recoganize_statistics()
         #DataPreprocessor.vehicle_fgvc_statistics()
-        #DataPreprocessor.generate_iv_fgvc_ds()
-        DataPreprocessor.generate_ds_folder_main()
+        DataPreprocessor.generate_iv_fgvc_ds()
+        #DataPreprocessor.generate_ds_folder_main()
     
     @staticmethod
     def get_v_bno_bn():
@@ -248,13 +248,13 @@ class DataPreprocessor(object):
     @staticmethod
     def generate_iv_fgvc_ds():
         ''' 生成进口车细粒度识别数据集 '''
-        aim_num = 110
+        aim_num = 1100
         with open('fgvc_train.txt', 'w+', encoding='utf-8') as fgvc_train_fd:
             with open('fgvc_test.txt', 'w+', encoding='utf-8') as fgvc_test_fd:
                 for fgvc_id in range(419):
                     print('正在处理第{0}类'.format(fgvc_id))
                     imgs = []
-                    with open('./imported_fgvc_all.txt', 'r', encoding='utf-8') as raw_fd:
+                    with open('../dcl_old/imported_fgvc_all.txt', 'r', encoding='utf-8') as raw_fd:
                         for line in raw_fd:
                             arrs0 = line.split('*')
                             line_id = int(arrs0[-1])
