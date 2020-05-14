@@ -4,7 +4,7 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
 
-
+#include "api_global.hpp"
 #include "predictor_api.hpp"
 #include "reflect.hpp"
 #include <mutex> /*std::mutex、 std::lock_guard*/
@@ -68,7 +68,7 @@ void *VehicleFgvcInstance(string modelpath,
         std::cout<<"VehicleFgvcInstance 7"<<std::endl;
         tmp.tempCudaDet = initTempCudaDet(cardnum, MAX_CAR_NUM);
         //tmp.cudaCropImage = initCropAndResizeImages(cardnum, max_big_pic+1, MAX_CAR_NUM, 224, 224);
-        tmp.cudaCropImage = initCropAndResizeImages(cardnum, max_big_pic+1, MAX_CAR_NUM, 448, 448);
+        tmp.cudaCropImage = initCropAndResizeImages(cardnum, max_big_pic+1, MAX_CAR_NUM, IMG_W, IMG_H);
         std::cout<<"VehicleFgvcInstance 8"<<std::endl;
         //max_big_pic+1  zuihou yige yongyu qianxiang shuru zhongzhuan
         G_GInfo[(void *)eng] = tmp;
