@@ -217,13 +217,13 @@ if __name__ == '__main__':
     summary(model, (3, 224, 224))
     if 1>0:
         print('准备保存模型到onnx文件')
-        example = torch.rand(1, 3, 448, 448).cuda()
+        example = torch.rand(1, 3, 224, 224).cuda()
         print(example.shape)
         model.train(False)
         model.eval()
         model.use_dcl = False
         model.use_Asoftmax = False
-        torch.onnx.export(model, example, "dcl_yt2.onnx", verbose=False,
+        torch.onnx.export(model, example, "dcl_yt3.onnx", verbose=False,
                             input_names=["data"], output_names=["output"], \
                             training=False, opset_version=9,
                             do_constant_folding=True,
