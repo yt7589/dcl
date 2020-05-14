@@ -4,7 +4,8 @@
 
 void VTNPredictor::postProcess(const std::vector<cv::Mat> &images, std::vector<std::vector<float> >& net_outputs, std::vector<std::vector<float> >& out_results) const
 {
-	std::cout<<"raw output: picture_num="<<net_outputs.size()<<"; dim="<<net_outputs[0].size()<<";"<<std::endl;
+	std::cout<<"net_outputs: picture_num="<<net_outputs.size()<<"; dim="<<net_outputs[0].size()<<";"<<std::endl;
+	std::cout<<"out_results: pn="<<out_results.size()<<"; dim="<<out_results[0].size()<<";"<<std::endl;
 	for (int in = 0; in < net_outputs[0].size()/2; ++in)
 	{
 		double a = std::exp(net_outputs[0][2*in]);
