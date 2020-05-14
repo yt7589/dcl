@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(example)
+project(fgvc_predictor_proj)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../../lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
@@ -47,19 +47,19 @@ link_directories(
 file(GLOB CPP_SRC ./*.cpp)
 file(GLOB CU_SRC ./*.cu)
 
-add_library(centernet  SHARED ${CPP_SRC})
-target_link_libraries(centernet  ${OpenCV_LIBS} tensorrtwrapper  tinytrt nvinfer  protobuf )
-target_compile_options(centernet  PUBLIC -std=c++11 -Wall -fpic  -Wfloat-conversion)
+add_library(fgvc_predictor  SHARED ${CPP_SRC})
+target_link_libraries(fgvc_predictor  ${OpenCV_LIBS} tensorrtwrapper  tinytrt nvinfer  protobuf )
+target_compile_options(fgvc_predictor  PUBLIC -std=c++11 -Wall -fpic  -Wfloat-conversion)
 
-target_link_libraries(centernet  nvinfer)
-target_link_libraries(centernet  nvinfer_plugin)
-target_link_libraries(centernet  nvparsers)
-target_link_libraries(centernet  nvonnxparser)
-#target_link_libraries(centernet  nvonnxparser_runtime)
+target_link_libraries(fgvc_predictor  nvinfer)
+target_link_libraries(fgvc_predictor  nvinfer_plugin)
+target_link_libraries(fgvc_predictor  nvparsers)
+target_link_libraries(fgvc_predictor  nvonnxparser)
+#target_link_libraries(fgvc_predictor  nvonnxparser_runtime)
 
 
-target_link_libraries(centernet nvcaffe_parser)
-target_link_libraries(centernet ${CUDART})
-target_link_libraries(centernet ${OpenCV_LIBRARIES})
+target_link_libraries(fgvc_predictor nvcaffe_parser)
+target_link_libraries(fgvc_predictor ${CUDART})
+target_link_libraries(fgvc_predictor ${OpenCV_LIBRARIES})
 
 

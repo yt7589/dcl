@@ -2,7 +2,7 @@
 #include "predictor_api.hpp"
 
 
-class CenterNetPredictorAPI :public PredictorAPI//临时方案
+class FgvcPredictorAPI :public PredictorAPI//临时方案
 {
 public:
 	struct Det{
@@ -18,7 +18,7 @@ private:
 	virtual void set(std::unique_ptr<BasePredictor>& net) override;
 };
 
-class HelmetPredictorAPI :public CenterNetPredictorAPI
+class VgvcVehiclePredictorAPI :public FgvcPredictorAPI
 {
 	private:	
 

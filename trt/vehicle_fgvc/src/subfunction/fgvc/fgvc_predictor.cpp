@@ -3,17 +3,17 @@
 #include <iostream>
 
 #include "api_global.hpp"
-#include "centernet_predictor_api.hpp"
+#include "fgvc_predictor_api.hpp"
 
 #include "opencv2/core/core.hpp"
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include "imgutils.hpp"
 
-using Det = CenterNetPredictorAPI::Det;
+using Det = FgvcPredictorAPI::Det;
 
 
-void CenterNetPredictor::setConfig(const InputConfig &iconfig, WrapperConfig &config) const
+void FgvcPredictor::setConfig(const InputConfig &iconfig, WrapperConfig &config) const
 {
     /* 
 	    constexpr static float mean[]= {0.408, 0.447, 0.470};
@@ -60,7 +60,7 @@ void CenterNetPredictor::setConfig(const InputConfig &iconfig, WrapperConfig &co
 
 
 
-void CenterNetPredictor::postProcess(const std::vector<cv::Mat> &images, \
+void FgvcPredictor::postProcess(const std::vector<cv::Mat> &images, \
 std::vector<std::vector<float>> &net_outputs, \
 std::vector<std::vector<float>> &out_results) const 
 {
@@ -123,7 +123,7 @@ std::vector<std::vector<float>> &out_results) const
     }
 }
 
-std::vector<float> HelmetPredictor::preProcess(const std::vector<cv::Mat> &images,
+std::vector<float> FgvcVehiclePredictor::preProcess(const std::vector<cv::Mat> &images,
 									const WrapperConfig& conf) const
 {
 	auto imgs = ImgUtils::resizeAndPadding(images, conf.inputShape[2], conf.inputShape[3]);
@@ -132,7 +132,7 @@ std::vector<float> HelmetPredictor::preProcess(const std::vector<cv::Mat> &image
 }
 
 
-void HelmetPredictor::postProcess(const std::vector<cv::Mat> &images, \
+void FgvcVehiclePredictor::postProcess(const std::vector<cv::Mat> &images, \
 std::vector<std::vector<float>> &net_outputs, \
 std::vector<std::vector<float>> &out_results) const 
 {
@@ -215,7 +215,7 @@ std::vector<std::vector<float>> &out_results) const
     }
 }
 
-void HelmetPredictor::setConfig(const InputConfig &iconfig, WrapperConfig &config) const
+void FgvcVehiclePredictor::setConfig(const InputConfig &iconfig, WrapperConfig &config) const
 {
     /* 
 	    constexpr static float mean[]= {0.408, 0.447, 0.470};
