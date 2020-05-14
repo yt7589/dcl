@@ -143,5 +143,5 @@ net_model/
 *.so
 trt/opencv2/
 trt/thirdparty/
-trt/vehicle_fgvc
+trt/vehicle_fgvc/models
 
