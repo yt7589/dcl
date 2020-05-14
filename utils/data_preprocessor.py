@@ -351,6 +351,7 @@ class DataPreprocessor(object):
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/品牌')
         for file_obj in base_path.iterdir():
             full_name = str(file_obj)
-            raw_id = full_name[0:3]
+            arrs0 = full_name.split('/')
+            raw_id = arrs0[-1][0:3]
             print('raw_id: {0};'.format(raw_id))
         
