@@ -139,7 +139,7 @@ void *mythread(void *threadid)
     //auto hand = CarHeadAndTailInstance("../model/dlc_sim.onnx", tid%4);
 
     //std::string modelfile = "../models/dcl_v3_sim.engine";
-    std::string modelfile = "../models/dcl_yt3.trt";
+    std::string modelfile = "../models/fgvc_32.trt";
     //modelfile = "../models/headtail.encrypt";
     //std::string model_buffer;
     //aes_decrypt(default_key, modelfile.c_str(), model_buffer);
