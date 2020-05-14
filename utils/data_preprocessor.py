@@ -23,7 +23,7 @@ class DataPreprocessor(object):
     def startup():
         #DataPreprocessor.brand_recoganize_statistics()
         #DataPreprocessor.vehicle_fgvc_statistics()
-        DataPreprocessor.imported_fgvc_all()
+        DataPreprocessor.vehicle_fgvc_s_imported()
         #DataPreprocessor.generate_iv_fgvc_ds()
         #DataPreprocessor.generate_ds_folder_main()
     
