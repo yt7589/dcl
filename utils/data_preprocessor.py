@@ -353,5 +353,8 @@ class DataPreprocessor(object):
             full_name = str(file_obj)
             arrs0 = full_name.split('/')
             raw_id = arrs0[-1][0:3]
-            print('raw_id: {0};'.format(raw_id))
+            fgvc_id = int(raw_id) - 1
+            print('raw_id: {0} => {1};'.format(raw_id, fgvc_id))
+            for img_obj in file_obj.iterdir():
+                print('{0}*{1}'.format(img_obj, fgvc_id))
         
