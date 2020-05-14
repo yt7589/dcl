@@ -23,8 +23,9 @@ class DataPreprocessor(object):
     def startup():
         #DataPreprocessor.brand_recoganize_statistics()
         #DataPreprocessor.vehicle_fgvc_statistics()
-        DataPreprocessor.generate_iv_fgvc_ds()
+        #DataPreprocessor.generate_iv_fgvc_ds()
         #DataPreprocessor.generate_ds_folder_main()
+        DataPreprocessor.create_fj2_train_test_ds()
     
     @staticmethod
     def get_v_bno_bn():
@@ -343,3 +344,13 @@ class DataPreprocessor(object):
                 bmy = arrs0[1][:-1]
                 DataPreprocessor._fgvc_to_bmy[fgvc_id] = bmy
         return DataPreprocessor._fgvc_to_bmy
+
+    @staticmethod
+    def create_fj2_train_test_ds():
+        ''' 生成全部由所里测试集组成的训练数据集和测试数据集 '''
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/品牌')
+        for file_obj in base_path.iterdir():
+            full_name = str(file_obj)
+            raw_id = full_name[0:3]
+            print('raw_id: {0};'.format(raw_id))
+        
