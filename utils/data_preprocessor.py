@@ -23,8 +23,7 @@ class DataPreprocessor(object):
     def startup():
         #DataPreprocessor.brand_recoganize_statistics()
         #DataPreprocessor.vehicle_fgvc_statistics()
-        DataPreprocessor.vehicle_fgvc_s_imported()
-        #DataPreprocessor.generate_iv_fgvc_ds()
+        DataPreprocessor.generate_iv_fgvc_ds()
         #DataPreprocessor.generate_ds_folder_main()
     
     @staticmethod
@@ -255,7 +254,7 @@ class DataPreprocessor(object):
                 for fgvc_id in range(419):
                     print('正在处理第{0}类'.format(fgvc_id))
                     imgs = []
-                    with open('../dcl_old/imported_fgvc_all.txt', 'r', encoding='utf-8') as raw_fd:
+                    with open('./datasets/CUB_200_2011/anno/imported_fgvc_all.txt', 'r', encoding='utf-8') as raw_fd:
                         for line in raw_fd:
                             arrs0 = line.split('*')
                             line_id = int(arrs0[-1])
