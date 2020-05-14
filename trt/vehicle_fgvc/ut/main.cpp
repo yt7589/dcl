@@ -163,14 +163,14 @@ void *mythread(void *threadid)
     auto inputs = getinputimg(big_batchsize);
     std::cout<<"main.cpp: step 3.1"<<std::endl;
     //std::cout << inputs.size()<< " inputs" << std::endl;
-    for (int i = 0; i < 0; ++i)
+    for (int i = 0; i < 1; ++i)
         ClassifyVehicleFgvc(hand, inputs);
     //std::cout << " start: " << std::endl;
     std::cout<<"main.cpp: step 4"<<std::endl;
 
     gettimeofday(&start1, NULL);
     VehicleFgvcResult RE;
-    int max_iter = 0;
+    int max_iter = 1;
     for (int i = 0; i < max_iter; i++)
     {
         //forward
