@@ -126,10 +126,16 @@ VehicleFgvcResult ClassifyVehicleFgvc_GPU(void *iInstanceId, float *pGpuData, in
         it->second->forward(pGpuData, num, out_results);
         //result.CarNum = out_results.size();
         result.vid = out_results.size();
+        std::cout<<"picture_num="<<out_results.size()<<std::endl;
         for (int i = 0; i < out_results.size(); ++i)
         {
             //result.headProb[i] = (out_results[i][1]);
-            std::cout<<"[0]:"<<out_results[i][0]<<"; [1]:"<<out_results[i][1]<<std::endl;
+            std::cout<<"###"<<i+1<<":";
+            for (int j=0; j<out_results[i].size(); j++)
+            {
+                std::cout<<out_results[i][j]<<", ";
+            }
+            std::cout<<std::endl;
         }
     }
     else
