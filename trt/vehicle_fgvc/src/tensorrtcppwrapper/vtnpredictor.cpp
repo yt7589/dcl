@@ -12,13 +12,14 @@ void VTNPredictor::postProcess(const std::vector<cv::Mat> &images, std::vector<s
 	// 除以最小批次
 	int batchsize = 8;
 	int classNum = net_outputs[0].size()/batchsize;
-	for (int in = 0; in < classNum; ++in)
+	for (int in = 0; in < batchsize; ++in)
 	{
 		std::vector<float> rst;
 		for (int j=0; j<classNum; j++)
 		{
 			rst.push_back(net_outputs[0][in*classNum + j]);
 		}
+		std::cout<<"rst.size:"<<rst.size()<<"; out_results.size:"<<out_results.size()<<"; s="<<out_results[0]<<";"<<std::endl;
 		//double a = std::exp(net_outputs[0][2*in]);
 		//double b = std::exp(net_outputs[0][1+2*in]);
 		out_results.push_back(rst);
