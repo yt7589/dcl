@@ -129,11 +129,11 @@ void Trt::Forward() {
 }
 
 void Trt::ForwardAsync() {
-
+    std::cout<<"Trt::ForwardAsync 1"<<std::endl;
     int nbBindings = mEngine->getNbBindings();
-
+    std::cout<<"Trt::ForwardAsync 2"<<std::endl;
     for(int i=0; i< nbBindings; i++) {
-
+        std::cout<<"Trt::ForwardAsync 3 i="<<i<<";"<<std::endl;
         nvinfer1::Dims dims = mContext->getBindingDimensions(i);
         //if(dims.d[0] == -1)
 
@@ -150,18 +150,19 @@ void Trt::ForwardAsync() {
         //     dims.d[0] = mBatchSize;
         //     exit(-1);
         // }
-        
+        std::cout<<"    Trt::ForwardAsync 4"<<std::endl;
         nvinfer1::DataType dtype = mEngine->getBindingDataType(i);
+        std::cout<<"Trt::ForwardAsync 5"<<std::endl;
         const char* name = mEngine->getBindingName(i);
+        std::cout<<"Trt::ForwardAsync 6"<<std::endl;
         int64_t totalSize = volume(dims) * getElementSize(dtype) * mBatchSize;
         mBindingSize[i] = totalSize;
         mBindingName[i] = name;
         mBindingDims[i] = dims;
         mBindingDataType[i] = dtype;
-
-
+        std::cout<<"Trt::ForwardAsync 7"<<std::endl;
     }
-
+    std::cout<<"Trt::ForwardAsync 8"<<std::endl;
     mContext->enqueue(mBatchSize, &mBinding[0], cStream, nullptr);
 }
 
