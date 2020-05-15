@@ -98,7 +98,6 @@ VehicleFgvcResult ClassifyVehicleFgvc(void *iInstanceId, std::vector<cv::Mat> im
         for (int i = 0; i < out_results.size(); ++i)
         {
             //result.headProb[i] = (out_results[i][1]);
-            std::cout<<"###"<<i+1<<":";
             for (int j=0; j<out_results[i].size(); j++)
             {
                 std::cout<<out_results[i][j]<<", ";
