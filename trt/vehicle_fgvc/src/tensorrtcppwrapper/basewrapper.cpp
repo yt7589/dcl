@@ -71,17 +71,17 @@ bool BaseWrapper::forward(const std::vector<float> &input,\
 bool BaseWrapper::forward(float* pGpuData, int num,\
 						 std::vector<std::vector<float> >& out_results)
 {
+	std::cout<<"BaseWrapper::forward 1"<<std::endl;
 	int len = num * _config.inputShape[1] * _config.inputShape[2]*
 			 _config.inputShape[3];
-
-	// std::cout << num << std::endl;
-	// exit(0);
-
+	std::cout<<"BaseWrapper::forward 2"<<std::endl;
 	if (!_bInitialized)
 	{
+		std::cout<<"BaseWrapper::forward 3"<<std::endl;
 		std::cout << "Error: BaseWrapper has not been initialized..."  << std::endl;
 		return false;
 	}
-
+	std::cout<<"BaseWrapper::forward 4"<<std::endl;
 	forward_ipl(pGpuData, len, out_results);
+	std::cout<<"BaseWrapper::forward 5"<<std::endl;
 }

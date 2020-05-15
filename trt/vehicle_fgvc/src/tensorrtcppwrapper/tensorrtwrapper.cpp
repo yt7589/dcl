@@ -136,15 +136,19 @@ bool TensorRTWrapper::forward_ipl(const std::vector<float> &input, std::vector<s
 
 bool TensorRTWrapper::forward_ipl(float* pGpuData, int len, std::vector<std::vector<float> >& out_results) const
 {
+	std::cout<<"TensorRTWrapper::forward_ipl 1"<<std::endl;
 	_pTinyTrt->DataTransfer_inputAsync(pGpuData, len,0);
-
+	std::cout<<"TensorRTWrapper::forward_ipl 2"<<std::endl;
 	// 0 for input index, you can get it from CreateEngine phase log output, True for copy input date to gpu
 	_pTinyTrt->ForwardAsync();
+	std::cout<<"TensorRTWrapper::forward_ipl 3"<<std::endl;
 	int outputIndex=1;
 	out_results.resize(_config.outputLayers.size());
+	std::cout<<"TensorRTWrapper::forward_ipl 4"<<std::endl;
 	//  get output.
     for (int i = 0 ; i < _config.outputLayers.size(); ++i)
 	    _pTinyTrt->DataTransferAsync(out_results[i], outputIndex++, false); // you can get outputIndex in CreateEngine phase
+	std::cout<<"TensorRTWrapper::forward_ipl 5"<<std::endl;
 
     return true;
 }
