@@ -21,7 +21,7 @@ void VTNPredictor::postProcess(const std::vector<cv::Mat> &images, std::vector<s
 		}
 		//double a = std::exp(net_outputs[0][2*in]);
 		//double b = std::exp(net_outputs[0][1+2*in]);
-		out_results.emplace_back(rst);
+		out_results.push_back(rst);
 	}	
 	
 
