@@ -366,6 +366,7 @@ class DataPreprocessor(object):
         # 统计所里测试集中没有的品牌
         v_bno_bn = DataPreprocessor.get_v_bno_bn()
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/acceptance_test/base')
+        sum_unkonwn = 0
         for dir_obj in base_path.iterdir():
             dir_name = str(dir_obj)
             arrs0 = dir_name.split('/')
@@ -376,6 +377,8 @@ class DataPreprocessor(object):
                 num += 1
             if num < 2:
                 print('所里没有品牌：{0}-{1};'.format(raw_id, v_bno_bn[raw_id]))
+                sum_unkonwn += 1
+        print('共有{0}个所里面没有的品牌'.format(sum_unkonwn))
 
         
         
