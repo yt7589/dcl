@@ -373,6 +373,21 @@ class DataPreprocessor(object):
                 arrs1 = arrs0[-1].split('_')
                 brand_id = int(arrs1[0]) - 1
                 print('{0} {1};'.format(brand_id, arrs1[1]))
+                DataPreprocessor.create_brand_source(arrs1[0], file_obj)
+                break
+
+    @staticmethod
+    def create_brand_source(bno, base_path):
+        ''' 获取指定目录下图片数量，并记录到品牌编号-图片数量字典中 '''
+        for file_obj in base_path.iterdir():
+            full_name = str(file_obj)
+            if not file_obj.is_dir() and full_name.endswith(
+                        ('jpg','png','jpeg','bmp')):
+                print('{0}*{1}'.format(file_obj, bno))
+            elif file_obj.is_dir():
+                DataPreprocessor.get_imgs_num_in_path(bno, file_obj)
+            else:
+                print('忽略文件：{0};'.format(full_name))
 
     @staticmethod
     def t1():
