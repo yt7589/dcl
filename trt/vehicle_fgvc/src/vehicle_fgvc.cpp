@@ -129,14 +129,16 @@ VehicleFgvcResult ClassifyVehicleFgvc_GPU(void *iInstanceId, float *pGpuData, in
         it->second->forward(pGpuData, num, out_results);
         std::cout<<"ClassifyVehicleFgvc_GPU 4"<<std::endl;
         //result.CarNum = out_results.size();
-        result.vid = out_results.size();
-        std::cout<<"picture_num="<<out_results.size()<<std::endl;
-        for (int i = 0; i < out_results.size(); ++i)
+        int picture_num = out_results.size();
+        int class_num = 0;
+        std::cout<<"picture_num="<<picture_num<<std::endl;
+        for (int i = 0; i < picture_num; ++i)
         {
             max_idx = -1;
             max_val = -1.0;
             //result.headProb[i] = (out_results[i][1]);
-            for (int j=0; j<out_results[i].size(); j++)
+            class_num = out_results[i].size();
+            for (int j=0; j<class_num; j++)
             {
                 std::cout<<"@@@ "<<out_results[i][j]<<"!  "<<std::endl;
                 if (out_results[i][j] > max_val) {

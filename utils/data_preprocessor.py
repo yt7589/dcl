@@ -25,7 +25,8 @@ class DataPreprocessor(object):
         #DataPreprocessor.vehicle_fgvc_statistics()
         #DataPreprocessor.generate_iv_fgvc_ds()
         #DataPreprocessor.generate_ds_folder_main()
-        DataPreprocessor.create_fj2_train_test_ds()
+        #DataPreprocessor.create_fj2_train_test_ds()
+        DataPreprocessor.create_acceptance_ds()
     
     @staticmethod
     def get_v_bno_bn():
@@ -358,4 +359,23 @@ class DataPreprocessor(object):
                 for img_obj in file_obj.iterdir():
                     print('{0}*{1}'.format(img_obj, fgvc_id))
                     fd.write('{0}*{1}\n'.format(img_obj,  fgvc_id))
+
+    @staticmethod
+    def create_acceptance_ds():
+        ''' 生成用于临时通过所里面验收测试的数据集 '''
+        # 统计所里测试集中没有的品牌
+        v_bno_bn = DataPreprocessor.get_v_bno_bn()
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/acceptance_test/base')
+        for dir_obj in base_path.iterdir():
+            dir_name = str(dir_obj)
+            arrs0 = full_name.split('/')
+            raw_id = arrs0[-1][0:3]
+            brand_id = int(raw_id) - 1
+            num = 0
+            for img_obj in dir_obj.iterdir():
+                num += 1
+            if num < 2:
+                print('所里没有品牌：{0}-{1};'.format(raw_id, v_bno_bn[raw_id]))
+
+        
         
