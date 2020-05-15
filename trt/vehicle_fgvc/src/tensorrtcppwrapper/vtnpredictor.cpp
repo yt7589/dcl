@@ -9,12 +9,19 @@ const int IMG_H = 224;
 void VTNPredictor::postProcess(const std::vector<cv::Mat> &images, std::vector<std::vector<float> >& net_outputs, std::vector<std::vector<float> >& out_results) const
 {
 	std::cout<<"net_outputs: picture_num="<<net_outputs.size()<<"; dim="<<net_outputs[0].size()<<";"<<std::endl;
-	//std::cout<<"out_results: pn="<<out_results.size()<<"; dim="<<out_results[0].size()<<";"<<std::endl;
-	for (int in = 0; in < net_outputs[0].size()/2; ++in)
+	// 除以最小批次
+	batchsize = 8;
+	classNum = 180;
+	for (int in = 0; in < net_outputs[0].size()/batchsize; ++in)
 	{
-		double a = std::exp(net_outputs[0][2*in]);
-		double b = std::exp(net_outputs[0][1+2*in]);
-		out_results.emplace_back(std::vector<float>{ a/(a+b), b/(a+b)});
+		std::vector<float> rst;
+		for (int j=0; j<classNum; j++)
+		{
+			rst.push_back(net_outputs[in][j]);
+		}
+		//double a = std::exp(net_outputs[0][2*in]);
+		//double b = std::exp(net_outputs[0][1+2*in]);
+		out_results.emplace_back(rst);
 	}	
 	
 
