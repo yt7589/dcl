@@ -138,7 +138,7 @@ void *mythread(void *threadid)
     {
         std::cout<<"main.cpp GPU_INPUT 1"<<std::endl;
         std::vector<float> input_src = _preProcess(inputs);
-        std::cout<<"main.cpp GPU_INPUT 2"<<std::endl;
+        std::cout<<"main.cpp GPU_INPUT 2 d="<<input_src.data()[8]<<";"<<std::endl;
         float *pGpu;
         void* deviceMem;
         (cudaMalloc(&deviceMem, input_src.size() * sizeof(float)));
