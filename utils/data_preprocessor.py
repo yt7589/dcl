@@ -363,6 +363,19 @@ class DataPreprocessor(object):
     @staticmethod
     def create_acceptance_ds():
         ''' 生成用于临时通过所里面验收测试的数据集 '''
+        # 先循环遍历进口国一级目录
+        path_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
+                    '/vehicle_type_v2d/vehicle_type_v2d')
+        for file_obj in path_obj.iterdir():
+            if file_obj.is_dir():
+                full_name = str(file_obj)
+                arrs0 = full_name.split('/')
+                arrs1 = arrs0[-1].split('_')
+                brand_id = int(arrs1[0]) - 1
+                print('{0} {1};'.format(arrs1[1]))
+
+    @staticmethod
+    def t1():
         # 统计所里测试集中没有的品牌
         v_bno_bn = DataPreprocessor.get_v_bno_bn()
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/acceptance_test/base')
