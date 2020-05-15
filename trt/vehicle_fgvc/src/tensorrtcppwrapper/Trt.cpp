@@ -162,7 +162,7 @@ void Trt::ForwardAsync() {
         mBindingDataType[i] = dtype;
         std::cout<<"Trt::ForwardAsync 7"<<std::endl;
     }
-    std::cout<<"Trt::ForwardAsync 8"<<std::endl;
+    std::cout<<"Trt::ForwardAsync 8 mBatchSize="<<mBatchSize<<"; mc="<<mEngine->getMaxBatchSize()<<";"<<std::endl;
     mContext->enqueue(mBatchSize, &mBinding[0], cStream, nullptr);
     std::cout<<"Trt::ForwardAsync 9"<<std::endl;
 }
