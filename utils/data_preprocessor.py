@@ -385,7 +385,7 @@ class DataPreprocessor(object):
                         ('jpg','png','jpeg','bmp')):
                 print('{0}*{1}'.format(file_obj, bno))
             elif file_obj.is_dir():
-                DataPreprocessor.get_imgs_num_in_path(bno, file_obj)
+                DataPreprocessor.create_brand_source(bno, file_obj)
             else:
                 print('忽略文件：{0};'.format(full_name))
 
