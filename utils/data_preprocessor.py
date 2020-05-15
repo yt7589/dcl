@@ -368,7 +368,7 @@ class DataPreprocessor(object):
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/acceptance_test/base')
         for dir_obj in base_path.iterdir():
             dir_name = str(dir_obj)
-            arrs0 = full_name.split('/')
+            arrs0 = dir_name.split('/')
             raw_id = arrs0[-1][0:3]
             brand_id = int(raw_id) - 1
             num = 0
