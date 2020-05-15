@@ -140,7 +140,7 @@ VehicleFgvcResult ClassifyVehicleFgvc_GPU(void *iInstanceId, float *pGpuData, in
                     max_val = out_results[i][j];
                 }
             }
-            //std::cout<<"###"<<i+1<<":"<<max_idx<<"("<<max_val<<");"<<std::endl;
+            std::cout<<"###"<<i+1<<":"<<max_idx<<"("<<max_val<<");"<<std::endl;
             std::cout<<std::endl;
         }
     }
