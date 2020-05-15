@@ -170,7 +170,7 @@ void *mythread(void *threadid)
 
     gettimeofday(&start1, NULL);
     VehicleFgvcResult RE;
-    int max_iter = 1;
+    int max_iter = 0;
     for (int i = 0; i < max_iter; i++)
     {
         //forward
