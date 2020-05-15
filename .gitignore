@@ -145,4 +145,4 @@ net_model/
 trt/opencv2/
 trt/thirdparty/
 trt/vehicle_fgvc/models
-
+trt/vehicle_fgvc/cmake-build-debug
