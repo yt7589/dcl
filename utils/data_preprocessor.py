@@ -363,6 +363,21 @@ class DataPreprocessor(object):
     @staticmethod
     def create_acceptance_ds():
         ''' 生成用于临时通过所里面验收测试的数据集 '''
+        #DataPreprocessor.create_brand_summary_file()
+        brand_id = 0
+        num = DataPreprocessor.get_imgs_num_of_brand(brand_id)
+        
+    @staticmethod
+    def get_imgs_num_of_brand(brand_id):
+        num = 0
+        with open('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
+                            '/acceptance_test/summary/{0:03d}.txt'.format(brand_id+1), 'w+', encoding='utf-8') as fd:
+            num += 1
+        return num
+
+    
+    @staticmethod
+    def create_brand_summary_file():
         # 先循环遍历进口国一级目录
         path_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
                     '/vehicle_type_v2d/vehicle_type_v2d')
@@ -379,7 +394,7 @@ class DataPreprocessor(object):
 
     @staticmethod
     def create_brand_source(bno, base_path, fd):
-        ''' 获取指定目录下图片数量，并记录到品牌编号-图片数量字典中 '''
+        ''' 将base_path下面内容以 图片文件*品牌编号 形式保存到summary/{bno}.txt文件中 '''
         for file_obj in base_path.iterdir():
             full_name = str(file_obj)
             if not file_obj.is_dir() and full_name.endswith(
