@@ -373,17 +373,21 @@ class DataPreprocessor(object):
                 arrs1 = arrs0[-1].split('_')
                 brand_id = int(arrs1[0]) - 1
                 print('{0} {1};'.format(brand_id, arrs1[1]))
-                DataPreprocessor.create_brand_source(arrs1[0], file_obj)
+                with open('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
+                            '/acceptance_test/summary/{0}.txt', 'w+', encoding='utf-8') as fd:
+                    DataPreprocessor.create_brand_source(arrs1[0], file_obj)
                 break
 
     @staticmethod
-    def create_brand_source(bno, base_path):
+    def create_brand_source(bno, base_path, fd):
         ''' 获取指定目录下图片数量，并记录到品牌编号-图片数量字典中 '''
         for file_obj in base_path.iterdir():
             full_name = str(file_obj)
             if not file_obj.is_dir() and full_name.endswith(
                         ('jpg','png','jpeg','bmp')):
                 print('{0}*{1}'.format(file_obj, bno))
+                brand_id = int(bno) - 1
+                fd.write('{0}*{1}\n'.format(file_obj, brand_id))
             elif file_obj.is_dir():
                 DataPreprocessor.create_brand_source(bno, file_obj)
             else:
