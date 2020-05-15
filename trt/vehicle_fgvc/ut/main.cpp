@@ -1,6 +1,7 @@
 //#include "vehicle.h"
 #include <pthread.h>
 #include <sys/time.h>
+#include <unistd.h>
 //common
 #include "file_util.hpp"
 //#include "opencv2/opencv.hpp"
@@ -96,103 +97,56 @@ std::vector<float> _preProcess(const std::vector<cv::Mat> &images)
 
 std::vector<cv::Mat> getinputimg(int num)
 {
-    std::string pathstr = "/home/ubuntu/ds/lzy/tiny_tensorrt_vtn/test_pic/fight_fi033/";
     std::vector<std::string> paths;
     for (int i = 0; i < num; ++i)
-    { //paths.push_back(pathstr+"image_00001.jpg");
-        //paths.push_back("../1.jpg");
+    { 
         paths.push_back("../ut/4354.jpg");
-        //paths.push_back("/home/zhangsy/final_dcl/cmake-build-debug/ab_test.jpg");
-        //paths.push_back(pathstr+"TIM20200116154202.png");
     }
-
     std::vector<cv::Mat> inputs;
     for (int i = 0; i < num; ++i)
     {
         auto img = cv::imread(paths[i]);
         cv::Mat resized;
-        //cv::resize(img, resized, cv::Size(224, 224), 0, 0);
         cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0);
-        //resized = cv::cvtColor(resized, cv::COLOR_BGR2RGB)
-        //if (i >= 8)
-        //{
-            //cvtColor(resized, resized, CV_RGB2BGR);
-            //resized = resized - 12;
-        //}
-
         inputs.push_back(resized.clone());
     }
-
     return inputs;
 }
-#include <unistd.h>
 
 static int init_num = 0;
 void *mythread(void *threadid)
 {
     int tid = *((int *)threadid);
-
     struct timeval start1;
     struct timeval end1;
     unsigned long timer;
-    //initBu
-    //auto hand = CarHeadAndTailInstance("../model/dlc_sim.onnx", tid%4);
-
-    //std::string modelfile = "../models/dcl_v3_sim.engine";
     std::string modelfile = "../models/dcl_yt3.trt";
-    //modelfile = "../models/headtail.encrypt";
-    //std::string model_buffer;
-    //aes_decrypt(default_key, modelfile.c_str(), model_buffer);
-
-    //model_buffer.clear();
-    //file2buffer("../models/dcl_v3_sim.engine", model_buffer);
     std::cout << "modelfile: " << modelfile.size() << std::endl;
-    std::cout<<"main.cpp: step 1"<<std::endl;
-
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);
-    std::cout<<"main.cpp: step 2"<<std::endl;
-
     init_num++;
     //read image
     while (init_num < NUM_THREADS)
     {
         usleep(1000);
     }
-    std::cout<<"main.cpp: step 3"<<std::endl;
     auto inputs = getinputimg(big_batchsize);
-    std::cout<<"main.cpp: step 3.1"<<std::endl;
-    //std::cout << inputs.size()<< " inputs" << std::endl;
-    for (int i = 0; i < 0; ++i)
-        ClassifyVehicleFgvc(hand, inputs);
-    //std::cout << " start: " << std::endl;
-    std::cout<<"main.cpp: step 4"<<std::endl;
-
+    // ClassifyVehicleFgvc(hand, inputs); // Call CPU Version
     gettimeofday(&start1, NULL);
     VehicleFgvcResult RE;
-    int max_iter = 0;
-    for (int i = 0; i < max_iter; i++)
-    {
-        //forward
-        RE = ClassifyVehicleFgvc(hand, inputs);
-        std::cout << " cpu result " << std::endl;
-        /*for (int i = 0; i < RE.CarNum; ++i)
-        {
-            std::cout << RE.headProb[i] << " " << std::endl;
-        }*/
-    }
-    std::cout<<"main.cpp: step 5"<<std::endl;
-
     if (GPU_INPUT)
     {
+        std::cout<<"main.cpp GPU_INPUT 1"<<std::endl;
         std::vector<float> input_src = _preProcess(inputs);
+        std::cout<<"main.cpp GPU_INPUT 2"<<std::endl;
         float *pGpu;
-        // exit(0);
         void* deviceMem;
         (cudaMalloc(&deviceMem, input_src.size() * sizeof(float)));
+        std::cout<<"main.cpp GPU_INPUT 3"<<std::endl;
         pGpu = (float*)deviceMem;
         cudaMemcpy(pGpu, input_src.data(),
                    input_src.size() * sizeof(float), cudaMemcpyHostToDevice);
+        std::cout<<"main.cpp GPU_INPUT 4"<<std::endl;
         // call DCL interface
         RE = ClassifyVehicleFgvc_GPU(hand, pGpu, small_batchsize); //获得检测结果
         std::cout << " gpu result is OK! v0.0.1" << std::endl;
@@ -203,15 +157,8 @@ void *mythread(void *threadid)
         cudaFree(pGpu);
     }
     std::cout<<"main.cpp: step 6"<<std::endl;
-
-    
-    //std::cout <<tid<< " result: 0, head,1 TAIL : " << RE.CarNum << std::endl;
     gettimeofday(&end1, NULL);
     timer = 1000000 * (end1.tv_sec - start1.tv_sec) + end1.tv_usec - start1.tv_usec;
-    //printf("%d  GetCarFeature:timer = %ld ms\n", tid, timer / 1000 / max_iter);
-    //printf("%d car direct:%d\n",tid ,RE.CarNum);
-    std::cout<<"main.cpp: step 7"<<std::endl;
-
     if(GPU_DETECT_INPUT)
     {
         // Call other DCL interface
@@ -263,7 +210,6 @@ void *mythread(void *threadid)
         
 
     }
-    std::cout<<"main.cpp: step 8"<<std::endl;
     ReleaseVehicleFgvcInstance(hand);
 }
 
