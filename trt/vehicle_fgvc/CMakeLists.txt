@@ -22,8 +22,8 @@ find_package(CUDA REQUIRED)
 #find_package(OpenCV REQUIRED)
 
 #thirdparty
-set(OpenCV_INCLUDE_DIRS /media/zjkj/35196947-b671-441e-9631-6245942d671b/opencv-3.4.7/include)
-set(OpenCV_LIBRARIES_DIRS /media/zjkj/35196947-b671-441e-9631-6245942d671b/opencv-3.4.7/build/lib)
+set(OpenCV_INCLUDE_DIRS ../thirdparty/opencv-3.4.7/include)
+set(OpenCV_LIBRARIES_DIRS ../thirdparty/opencv-3.4.7/build/lib)
 
 set(TENSORRT_INCLUDE_DIRS ../thirdparty/TensorRT-6.0.1.5/include)
 set(TENSORRT_LIBRARY_DIRS ../thirdparty/TensorRT-6.0.1.5/lib)
