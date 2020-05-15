@@ -161,10 +161,14 @@ void PredictorAPI::forward(const std::vector<cv::Mat> &images, std::vector<std::
 
 void PredictorAPI::forward(float* pGpuData, int num,  std::vector<std::vector<float> >& out_results)
 {
+	std::cout<<"predictor_api.forward 1"<<std::endl;
     auto a = _pPredictor.get();
+	std::cout<<"predictor_api.forward 2"<<std::endl;
     auto result = pool->enqueue([&pGpuData,&num,&out_results,a]\
             (){return a->forward(pGpuData,num,out_results );});
+	std::cout<<"predictor_api.forward 3"<<std::endl;
 	result.get(); 
+	std::cout<<"predictor_api.forward 4"<<std::endl;
 	//_pPredictor->forward(images, out_results);
 }
 
