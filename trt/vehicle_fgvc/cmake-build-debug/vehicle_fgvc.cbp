@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="vehicle_fgvc"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="tinytrt_v2">
+				<Option output="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/libtinytrt_v2.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/opencv-3.4.7/include"/>
+					<Add directory="/usr/local/cuda/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/TensorRT-6.0.1.5/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../decode/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../common"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../encryption/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 tinytrt_v2"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="tinytrt_v2/fast">
+				<Option output="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/libtinytrt_v2.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/opencv-3.4.7/include"/>
+					<Add directory="/usr/local/cuda/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/TensorRT-6.0.1.5/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../decode/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../common"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../encryption/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 tinytrt_v2/fast"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test_vehicle_fgvc">
+				<Option output="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/test_vehicle_fgvc" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/opencv-3.4.7/include"/>
+					<Add directory="/usr/local/cuda/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/TensorRT-6.0.1.5/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../decode/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../common"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../encryption/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 test_vehicle_fgvc"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test_vehicle_fgvc/fast">
+				<Option output="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/test_vehicle_fgvc" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/opencv-3.4.7/include"/>
+					<Add directory="/usr/local/cuda/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/TensorRT-6.0.1.5/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../decode/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../common"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../encryption/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 test_vehicle_fgvc/fast"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cropMain">
+				<Option output="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/cropMain" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/opencv-3.4.7/include"/>
+					<Add directory="/usr/local/cuda/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/TensorRT-6.0.1.5/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../decode/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../common"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../encryption/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 cropMain"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cropMain/fast">
+				<Option output="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/cropMain" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/opencv-3.4.7/include"/>
+					<Add directory="/usr/local/cuda/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/TensorRT-6.0.1.5/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../decode/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../common"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../encryption/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 cropMain/fast"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="vehicle_fgvc_v1">
+				<Option output="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/libvehicle_fgvc_v1.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/opencv-3.4.7/include"/>
+					<Add directory="/usr/local/cuda/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/TensorRT-6.0.1.5/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../decode/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../common"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../encryption/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 vehicle_fgvc_v1"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="vehicle_fgvc_v1/fast">
+				<Option output="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/libvehicle_fgvc_v1.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/opencv-3.4.7/include"/>
+					<Add directory="/usr/local/cuda/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../thirdparty/TensorRT-6.0.1.5/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../decode/include"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../common"/>
+					<Add directory="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/../encryption/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 vehicle_fgvc_v1/fast"/>
+					<CompileFile command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j48 -f &quot;/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/common/file_util.cpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/common/file_util.hpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/CMakeFiles/vehicle_fgvc_v1.dir/src/vehicle_fgvc_v1_generated_nvHTCropAndResize.cu.o">
+			<Option target="vehicle_fgvc_v1"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/nvHTCropAndResize.cu">
+			<Option target="vehicle_fgvc_v1"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/Int8EntropyCalibrator.cpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/Int8EntropyCalibrator.hpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/Trt.cpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/Trt.hpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/basepredictor.cpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/basepredictor.hpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/basewrapper.cpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/imgutils.cpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/imgutils.hpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/predictor_api.cpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/tensorrtpredictor.cpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/tensorrtpredictor.hpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/tensorrtwrapper.cpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/vtnpredictor.cpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/tensorrtcppwrapper/vtnpredictor.hpp">
+			<Option target="tinytrt_v2"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/vehicle_fgvc.cpp">
+			<Option target="vehicle_fgvc_v1"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/ut/cropMain.cpp">
+			<Option target="cropMain"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/ut/main.cpp">
+			<Option target="test_vehicle_fgvc"/>
+		</Unit>
+		<Unit filename="/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

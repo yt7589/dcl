@@ -374,9 +374,8 @@ class DataPreprocessor(object):
                 brand_id = int(arrs1[0]) - 1
                 print('{0} {1};'.format(brand_id, arrs1[1]))
                 with open('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
-                            '/acceptance_test/summary/{0}.txt', 'w+', encoding='utf-8') as fd:
-                    DataPreprocessor.create_brand_source(arrs1[0], file_obj)
-                break
+                            '/acceptance_test/summary/{0}.txt'.format(arrs1[0]), 'w+', encoding='utf-8') as fd:
+                    DataPreprocessor.create_brand_source(arrs1[0], file_obj, fd)
 
     @staticmethod
     def create_brand_source(bno, base_path, fd):
@@ -389,7 +388,7 @@ class DataPreprocessor(object):
                 brand_id = int(bno) - 1
                 fd.write('{0}*{1}\n'.format(file_obj, brand_id))
             elif file_obj.is_dir():
-                DataPreprocessor.create_brand_source(bno, file_obj)
+                DataPreprocessor.create_brand_source(bno, file_obj, fd)
             else:
                 print('忽略文件：{0};'.format(full_name))
 

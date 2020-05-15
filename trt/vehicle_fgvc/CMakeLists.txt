@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 set(PROJECT_NAME vehicle_fgvc)
 project(${PROJECT_NAME})
-
+set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_STANDARD 11)
 
 #cuda
@@ -81,6 +81,9 @@ target_link_libraries(tinytrt_v2  nvonnxparser)
 
 cuda_add_executable(test_vehicle_fgvc ut/main.cpp)
 target_link_libraries(test_vehicle_fgvc pthread vehicle_fgvc_v1 tinytrt_v2)
+
+cuda_add_executable(cropMain ut/cropMain.cpp)
+target_link_libraries(cropMain pthread vehicle_fgvc_v1 tinytrt_v2)
 
 install(TARGETS vehicle_fgvc_v1 tinytrt_v2 test_vehicle_fgvc
         RUNTIME DESTINATION bin

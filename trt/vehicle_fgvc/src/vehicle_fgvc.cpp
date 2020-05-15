@@ -18,7 +18,7 @@ public:
     int cardnum;
     int max_batch_size;
     ITS_Vehicle_Result_Detect *tempCudaDet;
-    std::vector<float *> cudaCropImage;
+    float * cudaCropImages;
 };
 std::map<void *, PredictorAPI *> G_SOURCE;
 std::map<void *, GInfo> G_GInfo;
@@ -66,8 +66,8 @@ void *VehicleFgvcInstance(string modelpath,
         tmp.cardnum = cardnum;
         tmp.max_batch_size = max_batch_size;
         std::cout<<"VehicleFgvcInstance 7"<<std::endl;
-        tmp.tempCudaDet = initTempCudaDet(cardnum, MAX_CAR_NUM);
-        tmp.cudaCropImage = initCropAndResizeImages(cardnum, max_big_pic+1, MAX_CAR_NUM, IMG_W, IMG_H);
+        tmp.tempCudaDet = initTempCudaDet(cardnum, 8); // std::vector<uchar *> cudaSrc // oriBatchSize =cudaSrc.size()
+        tmp.cudaCropImages = initCropAndResizeImages(cardnum, 8, MAX_CAR_NUM, IMG_W, IMG_H);
         std::cout<<"VehicleFgvcInstance 8"<<std::endl;
         //max_big_pic+1  zuihou yige yongyu qianxiang shuru zhongzhuan
         G_GInfo[(void *)eng] = tmp;
@@ -181,24 +181,19 @@ std::vector<VehicleFgvcResult> ClassifyVehicleFgvcFromDetectGPU(void *iInstanceI
                                     std::vector<int> &srcWidth, std::vector<int> &srcHeight,
                                     std::vector<ITS_Vehicle_Result_Detect> &cpuDetect)
 {
-//    for (auto iter = cpuDetect.begin(); iter != cpuDetect.end(); ++iter)
-//    {
-//        int num = iter->CarNum;
-//        std::cout << " " << num << " "<<std::endl;
-//    }
 
     auto it = G_GInfo.find(iInstanceId);
     int max_batch_size;
     int cardnum;
     ITS_Vehicle_Result_Detect *tempCudaDet;
-    std::vector<float *> cudaCropImage;
+    float * cudaCropImages;
 
     if (it != G_GInfo.end())
     {
         cardnum = it->second.cardnum;
         max_batch_size = it->second.max_batch_size;
         tempCudaDet = it->second.tempCudaDet;
-        cudaCropImage = it->second.cudaCropImage;
+        cudaCropImages = it->second.cudaCropImages;
     }
     else
     {
@@ -215,39 +210,15 @@ std::vector<VehicleFgvcResult> ClassifyVehicleFgvcFromDetectGPU(void *iInstanceI
     {
         return std::vector<VehicleFgvcResult>();
     }
-    //std::vector<ITS_Vehicle_Result_Detect> cpuDetect(batchsize);
-    //initDet(cpuDetect[0],50);
+
     assert(batchsize == cpuDetect.size());
     assert(batchsize == srcWidth.size());
     assert(batchsize == srcHeight.size());
-    std::vector<float> mean = {0, 0, 0};
-    std::vector<float> std = {1, 1, 1};
-    bool test_write = false;
-    if (!test_write)
-    {
-        mean = {0.485, 0.485, 0.485};
-        std = {0.225, 0.225, 0.225};
-    }
-    int dstW = 224, dstH = dstW;
-    nvHTCropAndReizeLaunch(cudaCropImage, cudaSrc, cpuDetect, tempCudaDet, srcWidth, srcHeight, mean, std, batchsize, dstW, dstH);
-    std::vector<cv::Mat> out_img;
-    std::vector<float > dst(dstW*dstH*3);
-    for (int b = 0; b < batchsize && test_write ;++b){
-        int detnum = cpuDetect[b].CarNum;
-        for(int j=0;j<1;++j){
-            std::vector<cv::Mat> dst_channels;
-            for (int i = 0; i < 3; ++i) {
-                cv::Mat dst_channel(dstW,dstH,CV_32FC1);
-                cudaMemcpy(dst_channel.data,cudaCropImage[b] + j*dstW*dstH*3 + i*dstW*dstH  ,sizeof(float)*dstW*dstH*1,cudaMemcpyDeviceToHost);
-                dst_channels.push_back(dst_channel);
-        }
-        cv::Mat target(dstH,dstW,CV_32FC3);
-        cv::merge(dst_channels,target);
-        cv::Mat out;
-        target.convertTo(out,CV_8UC3,255);
-        cv::imwrite("ab_test.jpg",out);
-        }
-    }
+    std::vector<float> mean = {0.485, 0.485, 0.485};
+    std::vector<float> std = {0.225, 0.225, 0.225};
+    int dstW = 224, dstH = 224;
+    int totalCarNum = nvHTCropAndReizeLaunch(cudaCropImages, cudaSrc, cpuDetect,
+            tempCudaDet, srcWidth, srcHeight, mean, std, batchsize, dstW, dstH);
     std::vector<OneBatch> totaldata(1);
     for (int b = 0; b < batchsize; ++b)
     {

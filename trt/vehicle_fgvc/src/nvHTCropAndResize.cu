@@ -3,11 +3,6 @@
 #include <nvHTCropAndResize.h>
 #include <iostream>
 
-typedef struct {
-    float num1;
-    float num2;
-    float num3;
-} number3;
 
 template <typename T>
 void check(T result, char const *const func, const char *const file,
@@ -32,6 +27,13 @@ void* safeCudaMalloc(size_t memSize)
     return deviceMem;
 }
 
+__device__ __forceinline__ float get_val(unsigned char * src,int x,int y,int c,
+        int width,int height,
+        float pad){
+        if( x < 0 || y< 0 || x>=width || y>= height) return pad;
+        return static_cast<float >(__ldg(&(src[(y*width + x)*3 + c])));
+}
+
 __device__ __forceinline__  float area_pixel_compute_source_index(
         float scale,
         int dst_index,
@@ -43,20 +45,18 @@ __device__ __forceinline__  float area_pixel_compute_source_index(
         float src_idx = scale * (dst_index + static_cast<float >(0.5)) -
                         static_cast<float>(0.5) + crop;
         // See Note[Follow Opencv resize logic]
-        return (src_idx < static_cast<float>(0))
-               ? static_cast<float>(0)
-               : src_idx;
+        return src_idx;
     }
 }
 
 __global__ void nvHTCropAndReizeKernel(unsigned char * Src, float * cropImage,ITS_Vehicle_Result_Detect* det,
-            int srcWidth,int srcHeight,int outW,int outH,number3 mean,number3 std)
+            int srcWidth,int srcHeight,int outW,int outH,float3 mean,float3 std)
 {
     int x = threadIdx.x + blockIdx.x * blockDim.x;
     int y = threadIdx.y + blockIdx.y * blockDim.y;
     int detIndex = blockIdx.z;
-    int shiftX = det[0].iLeft[detIndex],shiftY = det[0].iTop[detIndex];
-    int cropW = det[0].iRight[detIndex] - shiftX,cropH = det[0].iBottom[detIndex] - shiftY;
+    float shiftX = det[0].iLeft[detIndex],shiftY = det[0].iTop[detIndex];
+    float cropW = det[0].iRight[detIndex] - shiftX,cropH = det[0].iBottom[detIndex] - shiftY;
     float scaleX = (float)cropW/outW,scaleY = (float)cropH/outH;
     if (x >= outW || y >= outH ||cropW <=0 ||cropH <=0)
         return;
@@ -77,23 +77,24 @@ __global__ void nvHTCropAndReizeKernel(unsigned char * Src, float * cropImage,IT
 #pragma unroll
     for (int channel=0; channel < 3; channel++){
         dst = cropImage + ((detIndex*3 + channel)*outH + y )*outW + x ;
-        val = x0lambda*y0lambda* static_cast<float >(__ldg(&Src[(y1*srcWidth + x1)*3 + channel])) +
-              x0lambda*y1lambda* static_cast<float >(__ldg(&Src[((y1+y1p)*srcWidth + x1)*3 + channel])) +
-              x1lambda*y0lambda* static_cast<float >(__ldg(&Src[(y1*srcWidth + x1+x1p)*3 + channel])) +
-              x1lambda*y1lambda* static_cast<float >(__ldg(&Src[((y1+y1p)*srcWidth + x1+x1p)*3 + channel])) ;
-        *dst = ( val/255. - ((float*)&mean.num1)[channel] ) / ((float*)&std.num1)[channel] ;
+        val = x0lambda*y0lambda* get_val(Src,x1,y1,channel,srcWidth,srcHeight,0.f)+
+              x0lambda*y1lambda* get_val(Src,x1,y1+y1p,channel,srcWidth,srcHeight,0.f) +
+              x1lambda*y0lambda* get_val(Src,x1+x1p,y1,channel,srcWidth,srcHeight,0.f) +
+              x1lambda*y1lambda* get_val(Src,x1+x1p,y1+y1p,channel,srcWidth,srcHeight,0.f) ;
+        *dst = ( val/255.f - ((float*)&(mean.x))[channel] ) / ((float*)&(std.x))[channel] ;
     }
 }
 
-void nvHTCropAndReizeLaunch(std::vector<float*> &cropImages,
+int nvHTCropAndReizeLaunch(float* cropImages,
                          std::vector<unsigned char *> &cudaSrc,
                          std::vector<ITS_Vehicle_Result_Detect> &cpuDet,
                          ITS_Vehicle_Result_Detect *tempCudaDet,
                          std::vector<int> & srcWidth,std::vector<int> & srcHeight,
                          std::vector<float > & mean,std::vector<float > & std,
                          int batchSize,int cropW,int cropH){
-    number3 cpuMean = {mean[0],mean[1],mean[2]};
-    number3 cpuStd = {std[0],std[1],std[2]};
+    float3 cpuMean = {mean[0],mean[1],mean[2]};
+    float3 cpuStd = {std[0],std[1],std[2]};
+    int totalCarNum = 0;
     CUDA_CHECK(cudaMemcpy(tempCudaDet,cpuDet.data(), batchSize*sizeof(ITS_Vehicle_Result_Detect),cudaMemcpyHostToDevice));
     for(int i=0,carNum = 0;i<batchSize;++i){
         carNum = cpuDet[i].CarNum;
@@ -101,24 +102,23 @@ void nvHTCropAndReizeLaunch(std::vector<float*> &cropImages,
             dim3 block(32, 32, 1);
             dim3 grid((cropW + block.x - 1) / block.x,
                       (cropH + block.y - 1) / block.y, carNum);
-            nvHTCropAndReizeKernel<<<grid,block,0,0>>>(cudaSrc[i],cropImages[i],tempCudaDet+i,
+            nvHTCropAndReizeKernel<<<grid,block,0,0>>>(cudaSrc[i],
+                    cropImages + totalCarNum*cropW*cropH*3,tempCudaDet+i,
                     srcWidth[i],srcHeight[i],cropW,cropH,cpuMean,cpuStd);
+            totalCarNum +=carNum;
         }
     }
+    return totalCarNum;
 }
 
-std::vector<float *> initCropAndResizeImages(int cardNum,int batchSize,int maxDetNum, int maxOutWidth,int maxOutHeight){
+float * initCropAndResizeImages(int cardNum,int batchSize,int maxDetNum, int maxOutWidth,int maxOutHeight){
     cudaSetDevice(cardNum);
-    std::vector<float *> cromimages;
-    for(int i = 0;i< batchSize;++i){
-        float* cudamem = (float*)safeCudaMalloc(maxDetNum*maxOutWidth*maxOutHeight*3* sizeof(float));
-        cromimages.push_back(cudamem);
-    }
-    return cromimages;
+    float* cudamem = (float*)safeCudaMalloc(batchSize* maxDetNum*maxOutWidth*maxOutHeight*3* sizeof(float));
+    return cudamem;
 }
 
-ITS_Vehicle_Result_Detect* initTempCudaDet(int cardNum,int maxDetNum){
+ITS_Vehicle_Result_Detect* initTempCudaDet(int cardNum,int oriBatchSize){
     cudaSetDevice(cardNum);
-    ITS_Vehicle_Result_Detect* cudadet= (ITS_Vehicle_Result_Detect*)safeCudaMalloc(maxDetNum * sizeof(ITS_Vehicle_Result_Detect));
+    ITS_Vehicle_Result_Detect* cudadet= (ITS_Vehicle_Result_Detect*)safeCudaMalloc(oriBatchSize * sizeof(ITS_Vehicle_Result_Detect));
     return cudadet;
 }

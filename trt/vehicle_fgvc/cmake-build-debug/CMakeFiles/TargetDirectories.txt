@@ -1,0 +1,10 @@
+/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/CMakeFiles/install.dir
+/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/CMakeFiles/list_install_components.dir
+/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/CMakeFiles/edit_cache.dir
+/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/CMakeFiles/install/strip.dir
+/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/CMakeFiles/install/local.dir
+/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/CMakeFiles/tinytrt_v2.dir
+/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/CMakeFiles/test_vehicle_fgvc.dir
+/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/CMakeFiles/cropMain.dir
+/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug/CMakeFiles/vehicle_fgvc_v1.dir
