@@ -142,7 +142,7 @@ void *mythread(void *threadid)
         float *pGpu;
         void* deviceMem;
         (cudaMalloc(&deviceMem, input_src.size() * sizeof(float)));
-        std::cout<<"main.cpp GPU_INPUT 3"<<std::endl;
+        std::cout<<"main.cpp GPU_INPUT 3 size="<<input_src.size() * sizeof(float)<<";"<<std::endl;
         pGpu = (float*)deviceMem;
         cudaMemcpy(pGpu, input_src.data(),
                    input_src.size() * sizeof(float), cudaMemcpyHostToDevice);
