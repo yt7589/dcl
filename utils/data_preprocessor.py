@@ -372,7 +372,7 @@ class DataPreprocessor(object):
                 arrs0 = full_name.split('/')
                 arrs1 = arrs0[-1].split('_')
                 brand_id = int(arrs1[0]) - 1
-                print('{0} {1};'.format(arrs1[1]))
+                print('{0} {1};'.format(brand_id, arrs1[1]))
 
     @staticmethod
     def t1():
