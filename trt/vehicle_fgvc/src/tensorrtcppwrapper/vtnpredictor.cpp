@@ -10,8 +10,8 @@ void VTNPredictor::postProcess(const std::vector<cv::Mat> &images, std::vector<s
 {
 	std::cout<<"net_outputs: picture_num="<<net_outputs.size()<<"; dim="<<net_outputs[0].size()<<";"<<std::endl;
 	// 除以最小批次
-	batchsize = 8;
-	classNum = 180;
+	int batchsize = 8;
+	int classNum = 180;
 	for (int in = 0; in < net_outputs[0].size()/batchsize; ++in)
 	{
 		std::vector<float> rst;
