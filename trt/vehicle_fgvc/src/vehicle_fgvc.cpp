@@ -119,6 +119,8 @@ VehicleFgvcResult ClassifyVehicleFgvc_GPU(void *iInstanceId, float *pGpuData, in
     assert(num > 0);
     VehicleFgvcResult result;
     auto it = G_SOURCE.find(iInstanceId);
+    int max_idx = -1;
+    double max_val = -0.1;
     if (it != G_SOURCE.end())
     {
         std::vector<std::vector<float>> out_results;
@@ -128,12 +130,17 @@ VehicleFgvcResult ClassifyVehicleFgvc_GPU(void *iInstanceId, float *pGpuData, in
         std::cout<<"picture_num="<<out_results.size()<<std::endl;
         for (int i = 0; i < out_results.size(); ++i)
         {
+            max_idx = -1;
+            max_val = -1.0;
             //result.headProb[i] = (out_results[i][1]);
-            std::cout<<"###"<<i+1<<":";
             for (int j=0; j<out_results[i].size(); j++)
             {
-                std::cout<<out_results[i][j]<<", ";
+                if (out_results[i][j] > max_val) {
+                    max_idx = j;
+                    max_val = out_results[i][j];
+                }
             }
+            std::cout<<"###"<<i+1<<":"<<max_idx<<"("<<max_val<<");"<<std::endl;
             std::cout<<std::endl;
         }
     }
