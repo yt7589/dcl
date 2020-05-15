@@ -67,8 +67,7 @@ void *VehicleFgvcInstance(string modelpath,
         tmp.max_batch_size = max_batch_size;
         std::cout<<"VehicleFgvcInstance 7"<<std::endl;
         tmp.tempCudaDet = initTempCudaDet(cardnum, MAX_CAR_NUM);
-        //tmp.cudaCropImage = initCropAndResizeImages(cardnum, max_big_pic+1, MAX_CAR_NUM, 224, 224);
-        tmp.cudaCropImage = initCropAndResizeImages(cardnum, max_big_pic+1, MAX_CAR_NUM, 224, 224);
+        tmp.cudaCropImage = initCropAndResizeImages(cardnum, max_big_pic+1, MAX_CAR_NUM, IMG_W, IMG_H);
         std::cout<<"VehicleFgvcInstance 8"<<std::endl;
         //max_big_pic+1  zuihou yige yongyu qianxiang shuru zhongzhuan
         G_GInfo[(void *)eng] = tmp;

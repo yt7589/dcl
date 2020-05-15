@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+const int IMG_W = 224;
+const int IMG_H = 224;
+
 void VTNPredictor::postProcess(const std::vector<cv::Mat> &images, std::vector<std::vector<float> >& net_outputs, std::vector<std::vector<float> >& out_results) const
 {
 	std::cout<<"net_outputs: picture_num="<<net_outputs.size()<<"; dim="<<net_outputs[0].size()<<";"<<std::endl;
@@ -53,8 +56,7 @@ void VTNPredictor::setConfig(const InputConfig& iconfig, WrapperConfig& config) 
 	auto xFactor = 1/(0.225*255);
 	//config.inputLayers.push_back("input_images:0");
 	config.outputLayers.push_back("output");//596 , 698
-	//config.inputShape = std::vector<int>{-1,3,224,224};
-	config.inputShape = std::vector<int>{-1,3,224,224};
+	config.inputShape = std::vector<int>{-1,3,IMG_W,IMG_H};
 	//config.modelInputType=0;  //0:  float; 1  uint8; 
 	config.meanBGR=std::vector<float>{mean,mean,mean};
 	config.xFactorBGR=std::vector<float>{xFactor, xFactor, xFactor};	

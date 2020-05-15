@@ -46,7 +46,7 @@ void FgvcPredictor::setConfig(const InputConfig &iconfig, WrapperConfig &config)
                                     "output7"}; //596 , 698
     //config.outputLayers.resize(1);        
     //config.outputLayers[0] = "517";                        
-    config.inputShape = std::vector<int>{-1, 3, 224, 224};
+    config.inputShape = std::vector<int>{-1, 3, IMG_W, IMG_H};
     //config.modelInputType = 0; //0:  float; 1  uint8;
     config.meanBGR = std::vector<float>{0.408*255, 0.447*255, 0.470*255};
     config.xFactorBGR = std::vector<float>{1. / (0.289 * 255.), 1. / (0.274 * 255.), 1. / (0.278 * 255.)};
