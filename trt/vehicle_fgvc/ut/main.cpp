@@ -146,7 +146,7 @@ void *mythread(void *threadid)
         pGpu = (float*)deviceMem;
         cudaMemcpy(pGpu, input_src.data(),
                    input_src.size() * sizeof(float), cudaMemcpyHostToDevice);
-        std::cout<<"main.cpp GPU_INPUT 4"<<std::endl;
+        std::cout<<"main.cpp GPU_INPUT 4 copy_size="<<input_src.size() * sizeof(float)<<";"<<std::endl;
         // call DCL interface
         RE = ClassifyVehicleFgvc_GPU(hand, pGpu, small_batchsize); //获得检测结果
         std::cout << " gpu result is OK! v0.0.1" << std::endl;
