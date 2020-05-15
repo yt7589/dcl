@@ -164,6 +164,7 @@ void Trt::ForwardAsync() {
     }
     std::cout<<"Trt::ForwardAsync 8"<<std::endl;
     mContext->enqueue(mBatchSize, &mBinding[0], cStream, nullptr);
+    std::cout<<"Trt::ForwardAsync 9"<<std::endl;
 }
 
 void Trt::DataTransfer(std::vector<float>& data, int bindIndex, bool isHostToDevice) {
