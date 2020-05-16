@@ -36,12 +36,22 @@ class DsManager(object):
         '''
         path_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
                     '/vehicle_type_v2d/vehicle_type_v2d')
+        brand_num = 0
+        model_num = 0
+        year_num = 0
         for dir1_obj in path_obj.iterdir():
             dir1_name = str(dir1_obj)
             arrs0 = dir1_name.split('_')
             bn = arrs0[-1]
             print('品牌：{0}; {1};'.format(bn, dir1_name))
+            brand_num += 1
             for dir2_obj in dir1_obj.iterdir():
                 dir2_name = str(dir2_obj)
-                print('model: {0};'.format(dir2_name))
+                print('#### model: {0};'.format(dir2_name))
+                model_num += 1
+                for dir3_obj in dir2_obj.iterdir():
+                    dir3_name = str(dir3_obj)
+                    print('******** year: {0};'.format(dir3_name))
+                    year_num += 1
+        print('共有{0}个品牌，{1}个车型，{2}个年款'.format(brand_num, model_num, year_num))
     
