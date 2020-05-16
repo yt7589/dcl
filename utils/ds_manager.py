@@ -8,6 +8,7 @@
 # 按照对应关系，将国产车数据整理为品牌/车型/年款的目录格式，采用与进口车同样的方式找出精简数据集，逐步迭代出完整的数据集。
 # 术语：
 # bmy: 品牌-车型-年款
+from pathlib import Path
 
 class DsManager(object):
     _fgvc_id_bmy_dict = None # 细分类编号到品牌-车型-年款字典
@@ -38,6 +39,9 @@ class DsManager(object):
         for dir1_obj in path_obj.iterdir():
             dir1_name = str(dir1_obj)
             arrs0 = dir1_name.split('_')
-            bn = arrs[1][:-1]
-            print('品牌：{0};'.format(bn))
+            bn = arrs0[-1]
+            print('品牌：{0}; {1};'.format(bn, dir1_name))
+            for dir2_obj in dir1_obj.iterdir():
+                dir2_name = str(dir2_obj)
+                print('model: {0};'.format(dir2_name))
     
