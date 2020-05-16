@@ -19,7 +19,11 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        DsManager.sample_imported_vehicle_data()
+        #DsManager.sample_imported_vehicle_data()
+        folder_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
+                    '/vehicle_type_v2d/vehicle_type_v2d/001_奥迪/a1/2011')
+        imgs_num = DsManager.get_imgs_num_in_folder(folder_obj)
+        print('imgs_num={0};'.format(imgs_num))
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -54,4 +58,15 @@ class DsManager(object):
                     print('******** year: {0};'.format(dir3_name))
                     year_num += 1
         print('共有{0}个品牌，{1}个车型，{2}个年款'.format(brand_num, model_num, year_num))
+
+    @staticmethod
+    def get_imgs_num_in_folder(folder_obj):
+        imgs_num = 0
+        for file_obj in folder_obj.iterdir():
+            if not file_obj.is_dir() and full_name.endswith(
+                        ('jpg','png','jpeg','bmp')):
+                imgs_num += 1
+            else:
+                print('忽略文件：{0};'.format(file_obj))
+        return imgs_num
     
