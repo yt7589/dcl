@@ -215,7 +215,7 @@ if __name__ == '__main__':
         os.makedirs(save_dir)
     model.cuda()
     summary(model, (3, 224, 224))
-    if 1>10:
+    if 1>0:
         print('准备保存模型到onnx文件')
         example = torch.rand(1, 3, 224, 224).cuda()
         print(example.shape)
