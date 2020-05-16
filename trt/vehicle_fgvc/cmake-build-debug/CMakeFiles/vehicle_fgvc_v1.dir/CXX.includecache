@@ -392,8 +392,6 @@ string
 api_base_type_def.hpp
 ../include/api_base_type_def.hpp
 
-../include/api_global.hpp
-
 ../include/nvHTCropAndResize.h
 vector
 -
@@ -439,8 +437,6 @@ opencv2/imgproc/imgproc.hpp
 /media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/opencv2/imgproc/imgproc.hpp
 opencv2/highgui/highgui.hpp
 /media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/opencv2/highgui/highgui.hpp
-api_global.hpp
-/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/api_global.hpp
 predictor_api.hpp
 /media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/src/predictor_api.hpp
 reflect.hpp

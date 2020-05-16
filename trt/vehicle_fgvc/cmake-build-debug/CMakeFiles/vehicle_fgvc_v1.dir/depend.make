@@ -45,7 +45,6 @@ CMakeFiles/vehicle_fgvc_v1.dir/src/vehicle_fgvc.cpp.o: ../../thirdparty/opencv-3
 CMakeFiles/vehicle_fgvc_v1.dir/src/vehicle_fgvc.cpp.o: ../../thirdparty/opencv-3.4.7/include/opencv2/videoio.hpp
 CMakeFiles/vehicle_fgvc_v1.dir/src/vehicle_fgvc.cpp.o: ../../thirdparty/opencv-3.4.7/include/opencv2/videoio/videoio_c.h
 CMakeFiles/vehicle_fgvc_v1.dir/src/vehicle_fgvc.cpp.o: ../include/api_base_type_def.hpp
-CMakeFiles/vehicle_fgvc_v1.dir/src/vehicle_fgvc.cpp.o: ../include/api_global.hpp
 CMakeFiles/vehicle_fgvc_v1.dir/src/vehicle_fgvc.cpp.o: ../include/nvHTCropAndResize.h
 CMakeFiles/vehicle_fgvc_v1.dir/src/vehicle_fgvc.cpp.o: ../include/predictor_api.hpp
 CMakeFiles/vehicle_fgvc_v1.dir/src/vehicle_fgvc.cpp.o: ../include/reflect.hpp

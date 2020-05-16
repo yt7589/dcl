@@ -30,6 +30,18 @@ typedef struct
     char msg[100];
 } VehicleFgvcResult;
 
+typedef struct
+{
+    char tempVehicleType[1024];    //car name
+    float fConfdence;              //conf
+    int iVehicleSubModel;          //name index
+}Type_Vehicle_Result_Single;//һ����
+
+typedef struct
+{
+    Type_Vehicle_Result_Single tempResult[MAX_CAR_NUM]; //һ�Ŵ�ͼ��16����
+    int iNum;
+}Type_Vehicle_Result;
 
 #define JNADLL extern "C" __attribute__((visibility("default")))
 
@@ -55,10 +67,11 @@ Detect_CarHeadAndTail_FromDetectGPU(void *iInstanceId,
                                     std::vector<unsigned char *> &cudaSrc,
                                     std::vector<int> &srcWidth, std::vector<int> &srcHeight,
                                     std::vector<ITS_Vehicle_Result_Detect> &cpuDet);*/
-JNADLL std::vector<VehicleFgvcResult> ClassifyVehicleFgvcFromDetectGPU(void *iInstanceId,
-                                    std::vector<unsigned char *> &cudaSrc,
-                                    std::vector<int> &srcWidth, std::vector<int> &srcHeight,
-                                    std::vector<ITS_Vehicle_Result_Detect> &cpuDet);
+JNADLL std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanceId,
+                                        std::vector<unsigned char *> &cudaSrc,
+                                        std::vector<int> &srcWidth, std::vector<int> &srcHeight,
+                                        std::vector<ITS_Vehicle_Result_Detect> &cpuDet
+                                    );
 
 //JNADLL int ReleaseSDK_CarHeadAndTail(void *iInstanceId); //释放接口
 JNADLL int ReleaseVehicleFgvcInstance(void* iInstanceId);
