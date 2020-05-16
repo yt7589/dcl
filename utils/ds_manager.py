@@ -47,17 +47,17 @@ class DsManager(object):
             bn = arrs0[-1]
             print('品牌：{0}; {1};'.format(bn, dir1_name))
             brand_num += 1
-            if not dir1_obj.is_dir() or dir1_name == 'unknown':
+            if not dir1_obj.is_dir() or dir1_name[-7:] == 'unknown':
                 continue
             for dir2_obj in dir1_obj.iterdir():
                 dir2_name = str(dir2_obj)
                 print('#### model: {0};'.format(dir2_name))
-                if not dir2_obj.is_dir() or dir2_name == 'unknown':
+                if not dir2_obj.is_dir() or dir2_name[-7:] == 'unknown':
                     continue
                 model_num += 1
                 for dir3_obj in dir2_obj.iterdir():
                     dir3_name = str(dir3_obj)
-                    if not dir3_obj.is_dir() or dir3_name == 'unknown':
+                    if not dir3_obj.is_dir() or dir3_name[-7:] == 'unknown':
                         continue
                     imgs_num = DsManager.get_imgs_num_in_folder(dir3_obj)
                     DsManager.sample_in_folder(dir3_obj, imgs_num, aim_num, 0.1)
