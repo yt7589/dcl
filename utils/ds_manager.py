@@ -63,6 +63,7 @@ class DsManager(object):
     def get_imgs_num_in_folder(folder_obj):
         imgs_num = 0
         for file_obj in folder_obj.iterdir():
+            full_name = str(file_obj)
             if not file_obj.is_dir() and full_name.endswith(
                         ('jpg','png','jpeg','bmp')):
                 imgs_num += 1
