@@ -187,7 +187,6 @@ std::vector<VehicleFgvcResult> ClassifyVehicleFgvcFromDetectGPU(void *iInstanceI
     int cardnum;
     ITS_Vehicle_Result_Detect *tempCudaDet;
     float * cudaCropImages;
-
     if (it != G_GInfo.end())
     {
         cardnum = it->second.cardnum;
@@ -200,25 +199,14 @@ std::vector<VehicleFgvcResult> ClassifyVehicleFgvcFromDetectGPU(void *iInstanceI
         assert(false);
         return std::vector<VehicleFgvcResult>();
     }
-
-    //cv::Mat img = cv::imread("/home/ubuntu/ds/lzy/tiny_tensorrt_vtn/test_pic/int8.jpg");
-    //size_t imgSize = img.step[0]*img.rows;
-    int batchsize = cudaSrc.size(),
-        maxOutWidth = 224, maxOutHeight = 224;
-    assert(batchsize <= 8);
-    if (batchsize > 8)
-    {
-        return std::vector<VehicleFgvcResult>();
-    }
-
+    int batchsize = cudaSrc.size(),maxOutWidth = 224, maxOutHeight = 224;
     assert(batchsize == cpuDetect.size());
     assert(batchsize == srcWidth.size());
     assert(batchsize == srcHeight.size());
     std::vector<float> mean = {0.485, 0.485, 0.485};
     std::vector<float> std = {0.225, 0.225, 0.225};
-    int dstW = 224, dstH = 224;
     int totalCarNum = nvHTCropAndReizeLaunch(cudaCropImages, cudaSrc, cpuDetect,
-            tempCudaDet, srcWidth, srcHeight, mean, std, batchsize, dstW, dstH);
+            tempCudaDet, srcWidth, srcHeight, mean, std, batchsize, maxOutWidth, maxOutHeight);
     std::vector<OneBatch> totaldata(1);
     for (int b = 0; b < batchsize; ++b)
     {

@@ -5,6 +5,8 @@
 # vc 车辆识别码，图像文件前面的编号
 # vpc 车牌
 import os
+import random
+import shutil
 from pathlib import Path
 import random
 import shutil
@@ -364,15 +366,61 @@ class DataPreprocessor(object):
     def create_acceptance_ds():
         ''' 生成用于临时通过所里面验收测试的数据集 '''
         #DataPreprocessor.create_brand_summary_file()
-        brand_id = 0
-        num = DataPreprocessor.get_imgs_num_of_brand(brand_id)
+        #DataPreprocessor.move_imgs_to_ds_folder_main()
+        folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/acceptance_test/test'
+        ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/acceptance_test/at_test.txt'
+        DataPreprocessor.create_ds_by_folder(folder_name, ds_file)
+
+    @staticmethod
+    def create_ds_by_folder(folder_name, ds_file):
+        ''' 生成全部由所里测试集组成的训练数据集和测试数据集 '''
+        base_path = Path(folder_name)
+        with open(ds_file, 'w+', encoding='utf-8') as fd:
+            for file_obj in base_path.iterdir():
+                full_name = str(file_obj)
+                arrs0 = full_name.split('/')
+                raw_id = arrs0[-1][0:3]
+                fgvc_id = int(raw_id) - 1
+                for img_obj in file_obj.iterdir():
+                    print('{0}*{1}'.format(img_obj, fgvc_id))
+                    fd.write('{0}*{1}\n'.format(img_obj,  fgvc_id))
+
+    @staticmethod
+    def move_imgs_to_ds_folder_main():
+        amount = 1000
+        base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/acceptance_test/summary/'
+        for brand_id in range(180):
+            summary_file = Path('{0}{1:03d}.txt'.format(base_dir, brand_id+1))
+            print('summary_file: {0};'.format(summary_file))
+            if summary_file.exists():
+                num = DataPreprocessor.get_imgs_num_of_brand(brand_id)
+                if num < amount:
+                    ratio = 1.0
+                else:
+                    ratio = amount / num;
+                DataPreprocessor.move_imgs_to_ds_folder(brand_id, ratio)
+                print('{0} : {1};'.format(brand_id, num))
+
+    @staticmethod
+    def move_imgs_to_ds_folder(brand_id, ratio):
+        summary_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/acceptance_test/summary/{0:03d}.txt'.format(brand_id+1)
+        tpl_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/acceptance_test/train/{0:03d}/{1}'
+        with open(summary_file, 'r', encoding='utf-8') as summary_fd:
+            for line in summary_fd:
+                arrs = line.split('*')
+                if random.random() <= ratio:
+                    arrs1 = arrs[0].split('/')
+                    dst_file = tpl_file.format(brand_id+1, arrs1[-1])
+                    shutil.copy(arrs[0], dst_file)
+                    print('move file: {0} => {1};'.format(arrs[0], dst_file)) 
         
     @staticmethod
     def get_imgs_num_of_brand(brand_id):
         num = 0
-        with open('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
-                            '/acceptance_test/summary/{0:03d}.txt'.format(brand_id+1), 'w+', encoding='utf-8') as fd:
-            num += 1
+        summary_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/acceptance_test/summary/{0:03d}.txt'.format(brand_id+1)
+        with open(summary_file, 'r', encoding='utf-8') as fd:
+            for line in fd:
+                num += 1
         return num
 
     
