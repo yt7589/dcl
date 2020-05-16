@@ -10,6 +10,7 @@ import shutil
 from pathlib import Path
 import random
 import shutil
+import csv
 
 class DataPreprocessor(object):
     _v_bno_bn = None # 由品牌编号查品牌名称
@@ -28,7 +29,8 @@ class DataPreprocessor(object):
         #DataPreprocessor.generate_iv_fgvc_ds()
         #DataPreprocessor.generate_ds_folder_main()
         #DataPreprocessor.create_fj2_train_test_ds()
-        DataPreprocessor.create_acceptance_ds()
+        #DataPreprocessor.create_acceptance_ds()
+        DataPreprocessor.process_all_vc_excel()
     
     @staticmethod
     def get_v_bno_bn():
@@ -473,6 +475,29 @@ class DataPreprocessor(object):
                 print('所里没有品牌：{0}-{1};'.format(raw_id, v_bno_bn[raw_id]))
                 sum_unkonwn += 1
         print('共有{0}个所里面没有的品牌'.format(sum_unkonwn))
+
+    @staticmethod
+    def process_all_vc_excel():
+        ''' 从15万条记录的Excel文件中取出不同的编号，与国产车文件名开头的编号进行对比 '''
+        csv_file = 'E:/work/tcv/doc/车型识别资料/整合版本_v1.csv'
+        c1_set = set()
+        with open(csv_file, 'r', encoding='utf-8') as csv_fd:
+            csv_reader = csv.reader(csv_fd, delimiter=',')
+            for row in csv_reader:
+                c1_set.add(row[2])
+                #code2 = row[3]
+        print('共有{0}个编号'.format(len(c1_set)))
+        ggh_set = set()
+        with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as ggh_fd:
+            for line in ggh_fd:
+                arrs0 = line.split('*')
+                ggh_set.add(arrs0[0])
+        common_num = 0
+        for c1 in c1_set:
+            if c1 in ggh_set:
+                print('共有编号：{0};'.format(c1))
+                common_num += 1
+        print('共有{0}个共同编号！'.format(common_num))
 
         
         
