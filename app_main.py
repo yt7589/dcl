@@ -80,7 +80,7 @@ def main(args):
         VaoTest.startup()
     elif MODE_DATA_PREPROCESSOR == mode:
         DataPreprocessor.startup()
-    else MODE_DS_MANAGER == mode:
+    elif MODE_DS_MANAGER == mode:
         DsManager.startup()
     else:
         print('临时测试程序...')
