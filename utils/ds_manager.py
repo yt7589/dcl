@@ -9,6 +9,7 @@
 # 术语：
 # bmy: 品牌-车型-年款
 from pathlib import Path
+import random
 
 class DsManager(object):
     _fgvc_id_bmy_dict = None # 细分类编号到品牌-车型-年款字典
@@ -39,6 +40,7 @@ class DsManager(object):
         brand_num = 0
         model_num = 0
         year_num = 0
+        aim_num = 100 # 品牌-车型-年款中取出的图片数
         for dir1_obj in path_obj.iterdir():
             dir1_name = str(dir1_obj)
             arrs0 = dir1_name.split('_')
@@ -58,9 +60,41 @@ class DsManager(object):
                         continue
                     dir3_name = str(dir3_obj)
                     imgs_num = DsManager.get_imgs_num_in_folder(dir3_obj)
+                    DsManager.sample_in_folder(dir3_obj, imgs_num, aim_num, 0.1)
                     print('******** year: {0}; imgs_num={1};'.format(dir3_name, imgs_num))
                     year_num += 1
         print('共有{0}个品牌，{1}个车型，{2}个年款'.format(brand_num, model_num, year_num))
+
+    @staticmethod
+    def sample_in_folder(folder_obj, imgs_num, aim_num, ratio):
+        '''
+        从指定目录中选取数据集文件，将文件从本目录移动到训练或测试集目录下的对应目录
+            imgs_num：当前目录下图片文件总数
+            aim_num：希望取的张数
+            ratio：多大比例用于测试集
+        '''
+        for file_obj in folder_obj.iterdir():
+            full_name = str(file_obj)
+            if not file_obj.is_dir() and full_name.endswith(
+                        ('jpg','png','jpeg','bmp')):
+                if imgs_num < aim_num:
+                    # 取全部图像，其中10%作为测试集，90%作为训练集
+                    if random.random() < ratio:
+                        # 移动到测试集
+                        print('移动到测试集')
+                    else:
+                        # 移动到训练集
+                        print('移动到训练集')
+                else:
+                    # 取 aim_num / imgs_num 比例图片，其中10%作为测试集
+                    if random.random() < aim_num / imgs_num:
+                        if random.random() < ratio:
+                            print('移动到测试集')
+                        else:
+                            print('移动到训练集')
+            else:
+                print('忽略文件：{0};'.format(file_obj))
+            
 
     @staticmethod
     def get_imgs_num_in_folder(folder_obj):
