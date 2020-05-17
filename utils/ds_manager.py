@@ -24,8 +24,9 @@ class DsManager(object):
     def startup():
         #DsManager.sample_imported_vehicle_data()
         folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train'
+        ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train_ds_v1.txt'
         #DsManager.refine_bmy_and_fgvc_id_dicts(folder_name)
-        DsManager.generate_ds_by_folder(folder_name)
+        DsManager.generate_ds_by_folder(folder_name, ds_file)
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -186,7 +187,7 @@ class DsManager(object):
                 fib_fd.write('{0}:{1}\n'.format(k, v))
     
     @staticmethod
-    def generate_ds_by_folder(folder_name):
+    def generate_ds_by_folder(folder_name, ds_file):
         '''
         以指定文件夹内容生成数据集，指定文件夹内容格式：品牌/车型/年款 目录
         层次结构，下面是
@@ -194,30 +195,32 @@ class DsManager(object):
         file_sep = '/'
         bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
         base_path = Path(folder_name)
-        for brand_path in base_path.iterdir():
-            brand_fn = str(brand_path)
-            arrs1 = brand_fn.split(file_sep)
-            brand_name = arrs1[-1]
-            if not brand_path.is_dir() or brand_name == 'unknown':
-                continue
-            for model_path in brand_path.iterdir():
-                model_fn = str(model_path)
-                arrs2 = model_fn.split(file_sep)
-                model_name = arrs2[-1]
-                if not model_path.is_dir() or model_name == 'unknown':
+        with open(ds_file, 'w+', encoding='utf-8') as ds_fd:
+            for brand_path in base_path.iterdir():
+                brand_fn = str(brand_path)
+                arrs1 = brand_fn.split(file_sep)
+                brand_name = arrs1[-1]
+                if not brand_path.is_dir() or brand_name == 'unknown':
                     continue
-                for year_path in model_path.iterdir():
-                    year_fn = str(year_path)
-                    arrs3 = year_fn.split(file_sep)
-                    year_name = arrs3[-1]
-                    if not year_path.is_dir() or year_name == 'unknown':
+                for model_path in brand_path.iterdir():
+                    model_fn = str(model_path)
+                    arrs2 = model_fn.split(file_sep)
+                    model_name = arrs2[-1]
+                    if not model_path.is_dir() or model_name == 'unknown':
                         continue
-                    bmy = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
-                    if not (bmy in bmy_to_fgvc_id_dict):
-                        max_fgvc_id += 1
-                        bmy_to_fgvc_id_dict[bmy] = max_fgvc_id
-                        fgvc_id_to_bmy_dict[max_fgvc_id] = bmy
-                    for img_obj in year_path.iterdir():
-                        img_file = str(img_obj)
-                        fgvc_id = bmy_to_fgvc_id_dict[bmy]
-                        print('{0}*{1}'.format(img_file, fgvc_id))
+                    for year_path in model_path.iterdir():
+                        year_fn = str(year_path)
+                        arrs3 = year_fn.split(file_sep)
+                        year_name = arrs3[-1]
+                        if not year_path.is_dir() or year_name == 'unknown':
+                            continue
+                        bmy = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
+                        if not (bmy in bmy_to_fgvc_id_dict):
+                            max_fgvc_id += 1
+                            bmy_to_fgvc_id_dict[bmy] = max_fgvc_id
+                            fgvc_id_to_bmy_dict[max_fgvc_id] = bmy
+                        for img_obj in year_path.iterdir():
+                            img_file = str(img_obj)
+                            fgvc_id = bmy_to_fgvc_id_dict[bmy]
+                            print('{0}*{1}'.format(img_file, fgvc_id))
+                            ds_file.write('{0}*{1}\n'.format(img_file, fgvc_id))
