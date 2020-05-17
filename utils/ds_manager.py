@@ -191,6 +191,7 @@ class DsManager(object):
         以指定文件夹内容生成数据集，指定文件夹内容格式：品牌/车型/年款 目录
         层次结构，下面是
         '''
+        file_sep = '/'
         bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
         base_path = Path(folder_name)
         for brand_path in base_path.iterdir():
