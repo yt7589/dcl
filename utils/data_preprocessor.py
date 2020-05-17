@@ -499,5 +499,3 @@ class DataPreprocessor(object):
                 common_num += 1
         print('共有{0}个共同编号！'.format(common_num))
 
-        
-        

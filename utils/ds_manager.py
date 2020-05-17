@@ -14,13 +14,17 @@ import random
 class DsManager(object):
     _fgvc_id_bmy_dict = None # 细分类编号到品牌-车型-年款字典
     _bmy_fgvc_id_dict = None # 品牌-车型-年款到细分类编号字典
+    _bmy_to_fgvc_id_dict = None
+    _fgvc_id_to_bmy_dict = None
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        DsManager.sample_imported_vehicle_data()
+        #DsManager.sample_imported_vehicle_data()
+        folder_name = 'E:/fgvc_vbmy_min/train'
+        DsManager.refine_bmy_and_fgvc_id_dicts(folder_name)
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -108,3 +112,83 @@ class DsManager(object):
                 print('忽略文件：{0};'.format(file_obj))
         return imgs_num
     
+
+    @staticmethod
+    def get_bmy_and_fgvc_id_dicts():
+        '''
+        从work/bym_to_fgvc_id_dict.txt和work/fgvc_id_to_bym_dict.txt文件
+        中读出内容到bym_to_fgvc_id_dict和fgvc_id_to_bym_dict中。
+        将指定文件夹（品牌/车型/年款），遍历到每个品牌-车型-年款组合，查询
+        是否在bym_to_fgvc_id_dict和fgvc_id_to_bym_dict，如果不在则添加
+        该条目，最后将内容存储到work目录对应的文件中。
+        '''
+        if not (DsManager._bmy_to_fgvc_id_dict is None):
+            return DsManager._bmy_to_fgvc_id_dict, DsManager._fgvc_id_to_bmy_dict
+        DsManager._bmy_to_fgvc_id_dict = {}
+        DsManager._fgvc_id_to_bmy_dict = {}
+        with open('./work/bmy_to_fgvc_id_dict.txt', 'r', encoding='utf-8') as bfi_fd:
+            for line in bfi_fd:
+                arrs0 = line.split(':')
+                DsManager._bmy_to_fgvc_id_dict[arrs0[0]] = arrs0[1][:-1]
+        with open('./work/fgvc_id_to_bmy_dict.txt', 'r', encoding='utf-8') as fib_fd:
+            for line in fib_fd:
+                arrs0 = line.split(':')
+                DsManager._fgvc_id_to_bmy_dict[arrs0[0]] = arrs0[1][:-1]
+        return DsManager._bmy_to_fgvc_id_dict, DsManager._fgvc_id_to_bmy_dict
+
+    @staticmethod
+    def refine_bmy_and_fgvc_id_dicts(folder_name):
+        '''
+        从work/bym_to_fgvc_id_dict.txt和work/fgvc_id_to_bmy_dict.txt文件
+        中读出内容到bym_to_fgvc_id_dict和fgvc_id_to_bym_dict中。
+        将指定文件夹（品牌/车型/年款），遍历到每个品牌-车型-年款组合，查询
+        是否在bym_to_fgvc_id_dict和fgvc_id_to_bym_dict，如果不在则添加
+        该条目，最后将内容存储到work目录对应的文件中。
+        '''
+        file_sep = '\\'
+        bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
+        max_fgvc_id = 0
+        for k,v in fgvc_id_to_bmy_dict.items():
+            if int(k) > max_fgvc_id:
+                max_fgvc_id = int(k)
+        base_path = Path(folder_name)
+        for brand_path in base_path.iterdir():
+            brand_fn = str(brand_path)
+            arrs1 = brand_fn.split(file_sep)
+            brand_name = arrs1[-1]
+            if not brand_path.is_dir() or brand_name == 'unknown':
+                continue
+            for model_path in brand_path.iterdir():
+                model_fn = str(model_path)
+                arrs2 = model_fn.split(file_sep)
+                model_name = arrs2[-1]
+                if not model_path.is_dir() or model_name == 'unknown':
+                    continue
+                for year_path in model_path.iterdir():
+                    year_fn = str(year_path)
+                    arrs3 = year_fn.split(file_sep)
+                    year_name = arrs3[-1]
+                    if not year_path.is_dir() or year_name == 'unknown':
+                        continue
+                    bmy = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
+                    if not (bmy in bmy_to_fgvc_id_dict):
+                        max_fgvc_id += 1
+                        bmy_to_fgvc_id_dict[bmy] = max_fgvc_id
+                        fgvc_id_to_bmy_dict[max_fgvc_id] = bmy
+        # 保存品牌-车型-年款到细分类编号字典
+        with open('./work/bmy_to_fgvc_id_dict.txt', 'w+', encoding='utf-8') as bfi_fd:
+            for k, v in bmy_to_fgvc_id_dict.items():
+                bfi_fd.write('{0}:{1}\n'.format(k, v))
+        # 保存细分类编号到品牌-车型-年款字典
+        with open('./work/fgvc_id_to_bmy_dict.txt', 'w+', encoding='utf-8') as fib_fd:
+            for k, v in fgvc_id_to_bmy_dict.items():
+                fib_fd.write('{0}:{1}\n'.format(k, v))
+    
+    @staticmethod
+    def generate_ds_by_folder(folder_name):
+        '''
+        以指定文件夹内容生成数据集，指定文件夹内容格式：品牌/车型/年款 目录
+        层次结构，下面是
+        '''
+        pass
+            
