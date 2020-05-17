@@ -223,4 +223,4 @@ class DsManager(object):
                             img_file = str(img_obj)
                             fgvc_id = bmy_to_fgvc_id_dict[bmy]
                             print('{0}*{1}'.format(img_file, fgvc_id))
-                            ds_file.write('{0}*{1}\n'.format(img_file, fgvc_id))
+                            ds_fd.write('{0}*{1}\n'.format(img_file, fgvc_id))
