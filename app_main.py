@@ -42,6 +42,14 @@ def get_best_chpts():
     print('dst_file: {0};'.format(dst_file))
     shutil.copy(max_chpt, dst_file)
 
+def temp_func():
+    with open('../unknown_domestic_brands_20200517.txt', 'w+', encoding='utf-8') as dst_fd:
+        with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs0 = line.split('*')
+                if len(arrs0) < 2:
+                    dst_fd.write('{0}'.format(line))
+
 def main(args):
     print('细粒度图像识别系统')
     mode = MODE_CLUSTER_IMAGE #MODE_TRAIN_MONITOR
@@ -89,6 +97,7 @@ def main(args):
         app.startup()
     else:
         print('临时测试程序...')
+        temp_func()
 
 if '__main__' == __name__:
     main({'__name__': __name__})
