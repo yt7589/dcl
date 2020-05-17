@@ -115,6 +115,19 @@ void Trt::CreateEngine(const std::string& uffModel,
     }
     InitEngine();
 }
+void Trt::inputPointerSet_Cao(void *p) {
+    tempInputBinding = mBinding[0];
+    mBinding[0] = p;
+}
+
+void Trt::inputPointerRecover_Cao() {
+    mBinding[0] = tempInputBinding;
+}
+
+void Trt::Forward_Cao(int bacthsize) {
+    assert(bacthsize <=mBatchSize);
+    mContext->enqueue(bacthsize, &mBinding[0], cStream, nullptr);
+}
 
 void Trt::Forward() {
     cudaEvent_t start,stop;
@@ -663,22 +676,16 @@ bool Trt::BuildEngine(const std::string& onnxModel,
     }
     std::cout<<"Trt::buildEngine Ln656"<<std::endl;
 
-	
-    for(int i=0;i<network->getNbLayers();i++) {
-        nvinfer1::ILayer* custom_output = network->getLayer(i);
-/*
-        for(int j=0;j<custom_output->getNbInputs();j++) {
-            nvinfer1::ITensor* input_tensor = custom_output->getInput(j);
-            std::cout << input_tensor->getName() << " ";
-        }
-        std::cout << " -------> ";
-        for(int j=0;j<custom_output->getNbOutputs();j++) {
-            nvinfer1::ITensor* output_tensor = custom_output->getOutput(j);
-            std::cout << output_tensor->getName() << " ";
-        }
-        std::cout << std::endl;
-*/
-    }  
+//    auto* origin_output = network->getOutput(0);
+//    network->unmarkOutput(*origin_output);
+//    uint32_t axis =  origin_output->getDimensions().nbDims - 1;
+//    uint32_t axis_mask = 1 << axis;
+//	auto* topKlayer = network->addTopK(*origin_output,
+//	        nvinfer1::TopKOperation::kMAX,1,axis_mask);
+//    network->markOutput(*(topKlayer->getOutput(0)));
+//    network->markOutput(*(topKlayer->getOutput(1)));
+
+
     std::cout<<"Trt::buildEngine Ln674"<<std::endl;
     if(customOutput.size() > 0) {
         for(int i=0;i<network->getNbOutputs();i++) {

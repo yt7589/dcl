@@ -76,7 +76,7 @@ __global__ void nvHTCropAndReizeKernel(unsigned char * Src, float * cropImage,IT
     float val = 0 ;
 #pragma unroll
     for (int channel=0; channel < 3; channel++){
-        dst = cropImage + ((detIndex*3 + channel)*outH + y )*outW + x ;
+        dst = cropImage + ((detIndex*3 + 2 - channel)*outH + y )*outW + x ;
         val = x0lambda*y0lambda* get_val(Src,x1,y1,channel,srcWidth,srcHeight,0.f)+
               x0lambda*y1lambda* get_val(Src,x1,y1+y1p,channel,srcWidth,srcHeight,0.f) +
               x1lambda*y0lambda* get_val(Src,x1+x1p,y1,channel,srcWidth,srcHeight,0.f) +
@@ -106,6 +106,7 @@ int nvHTCropAndReizeLaunch(float* cropImages,
                     cropImages + totalCarNum*cropW*cropH*3,tempCudaDet+i,
                     srcWidth[i],srcHeight[i],cropW,cropH,cpuMean,cpuStd);
             totalCarNum +=carNum;
+            CUDA_CHECK(cudaGetLastError());
         }
     }
     return totalCarNum;

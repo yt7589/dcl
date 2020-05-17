@@ -40,7 +40,8 @@ void VTNPredictor::setConfig(const InputConfig& iconfig, WrapperConfig& config) 
 	auto mean = 0.485*255;
 	auto xFactor = 1/(0.225*255);
 	//config.inputLayers.push_back("input_images:0");
-	config.outputLayers.push_back("output");//596 , 698
+	config.outputLayers.push_back("output_1"); //596 , 698
+    config.outputLayers.push_back("output_2");
 	config.inputShape = std::vector<int>{-1,3,IMG_W,IMG_H};
 	//config.modelInputType=0;  //0:  float; 1  uint8; 
 	config.meanBGR=std::vector<float>{mean,mean,mean};

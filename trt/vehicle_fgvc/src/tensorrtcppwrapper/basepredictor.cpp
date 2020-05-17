@@ -251,11 +251,13 @@ void BasePredictor::forward_full(float* pGpuData, int num, std::vector<std::vect
 
 	// }
 	std::cout<<"BasePredictor.forward_full 3"<<std::endl;
-	std::vector<std::vector<float> > tmp_out_results;
+	//std::vector<std::vector<float> > tmp_out_results;
 	std::cout<<"BasePredictor.forward_full 4"<<std::endl;
-	_pWrapper->forward(pGpuData, num, tmp_out_results);
+	_pWrapper->forward(pGpuData, num, out_results);
 	std::cout<<"BasePredictor.forward_full 5"<<std::endl;
-	postProcess(pGpuData, num, tmp_out_results, out_results);
+
+
+	//postProcess(pGpuData, num, tmp_out_results, out_results);
 }
 
 

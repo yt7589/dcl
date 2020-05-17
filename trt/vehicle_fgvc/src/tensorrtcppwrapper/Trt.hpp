@@ -102,6 +102,10 @@ public:
      */
     void Forward();
 
+    void Forward_Cao(int bacthsize);
+    void inputPointerSet_Cao(void *p);
+    void inputPointerRecover_Cao();
+
     /**
      * @description: async inference on engine context
      * @stream cuda stream for async inference and data transfer
@@ -116,8 +120,9 @@ public:
      * @bindIndex binding data index, you can see this in CreateEngine log output.
      * @isHostToDevice 0 for device to host, 1 for host to device (host: cpu memory, device: gpu memory)
      */
+
+
     void DataTransfer( std::vector<float>& data, int bindIndex, bool isHostToDevice);
-	
 	void DataTransfer_input(const std::vector<float>& data, int bindIndex);
 	void DataTransfer_inputAsync(const std::vector<float>& data, int bindIndex);
     void DataTransfer_inputAsync(float* pGpuData, int len, int bindIndex);
@@ -127,6 +132,7 @@ public:
      * @stream cuda stream for async interface and data transfer.
      * @return: 
      */
+
     void DataTransferAsync( std::vector<float>& data, int bindIndex, bool isHostToDevice);
 
     void CopyFromHostToDevice(const std::vector<float>& input, int bindIndex);
@@ -228,6 +234,8 @@ protected:
     nvinfer1::IRuntime* mRuntime = nullptr;
 
     std::vector<void*> mBinding;
+
+    void *tempInputBinding;
 
     std::vector<size_t> mBindingSize;
 

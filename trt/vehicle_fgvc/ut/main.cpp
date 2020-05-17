@@ -120,7 +120,8 @@ void *mythread(void *threadid)
     struct timeval start1;
     struct timeval end1;
     unsigned long timer;
-    std::string modelfile = "../models/dcl_v001.trt";
+    std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/"
+                            "fgvc/dcl/trt/vehicle_fgvc/models/dcl_v001.trt";
     std::cout << "modelfile: " << modelfile.size() << std::endl;
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);

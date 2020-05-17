@@ -1,4 +1,0 @@
-/home/zjkj/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc
--- Configuring done
--- Generating done
--- Build files have been written to: /media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/trt/vehicle_fgvc/cmake-build-debug

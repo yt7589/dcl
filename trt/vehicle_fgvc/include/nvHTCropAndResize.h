@@ -9,7 +9,7 @@
 #include "AllModuleInclude.h"
 
 
-int  nvHTCropAndReizeLaunch(float* &cropImages,
+int  nvHTCropAndReizeLaunch(float* cropImages,
                   std::vector<unsigned char *> &cudaSrc,
                   std::vector<ITS_Vehicle_Result_Detect> &cpuDet,
                   ITS_Vehicle_Result_Detect *tempCudaDet,
