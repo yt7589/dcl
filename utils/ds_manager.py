@@ -23,12 +23,12 @@ class DsManager(object):
     @staticmethod
     def startup():
         #DsManager.sample_imported_vehicle_data()
-        #folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train'
-        folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test'
+        folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train'
+        DsManager.refine_bmy_and_fgvc_id_dicts(folder_name)
+        #folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test'
         #ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train_ds_v1.txt'
-        ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test_ds_v1.txt'
-        #DsManager.refine_bmy_and_fgvc_id_dicts(folder_name)
-        DsManager.generate_ds_by_folder(folder_name, ds_file)
+        #ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test_ds_v1.txt'
+        #DsManager.generate_ds_by_folder(folder_name, ds_file)
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -176,9 +176,9 @@ class DsManager(object):
                         continue
                     bmy = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
                     if not (bmy in bmy_to_fgvc_id_dict):
-                        max_fgvc_id += 1
                         bmy_to_fgvc_id_dict[bmy] = max_fgvc_id
                         fgvc_id_to_bmy_dict[max_fgvc_id] = bmy
+                        max_fgvc_id += 1
         # 保存品牌-车型-年款到细分类编号字典
         with open('./work/bmy_to_fgvc_id_dict.txt', 'w+', encoding='utf-8') as bfi_fd:
             for k, v in bmy_to_fgvc_id_dict.items():
