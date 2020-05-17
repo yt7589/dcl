@@ -9,6 +9,7 @@ import app_store
 from utils.vao_test import VaoTest
 from utils.data_preprocessor import DataPreprocessor
 from utils.ds_manager import DsManager
+from apps.cluster.cluster_app import ClusterApp
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
 MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
@@ -19,6 +20,7 @@ MODE_CREATE_ST_CAR_DS = 1004 # 生成斯坦福汽车数据集
 MODE_VAO_TEST = 1005 # 车管所测试工具
 MODE_DATA_PREPROCESSOR = 1006 # 数据预处理器
 MODE_DS_MANAGER = 1007 # 数据集管理器程序
+MODE_CLUSTER_IMAGE = 1008 # 探索使用图像聚类方法
 
 def get_best_chpts():
     chpts_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/net_model/training_descibe_5412_CUB/')
@@ -42,7 +44,7 @@ def get_best_chpts():
 
 def main(args):
     print('细粒度图像识别系统')
-    mode = MODE_DS_MANAGER #MODE_TRAIN_MONITOR
+    mode = MODE_CLUSTER_IMAGE #MODE_TRAIN_MONITOR
     if MODE_DRAW_ACCS_CURVE == mode:
         #du.draw_accs_curve()
         pass
@@ -82,6 +84,9 @@ def main(args):
         DataPreprocessor.startup()
     elif MODE_DS_MANAGER == mode:
         DsManager.startup()
+    elif MODE_CLUSTER_IMAGE == mode:
+        app = ClusterApp()
+        app.startup()
     else:
         print('临时测试程序...')
 
