@@ -264,17 +264,32 @@ if __name__ == '__main__':
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
 
     print('Yantao: v0.0.1')
+    mode = 1 # 1-train; 2-prepare_cluster_data
     # train entry
-    train(Config,
-          model,
-          epoch_num=args.epoch,
-          start_epoch=args.start_epoch,
-          optimizer=optimizer,
-          exp_lr_scheduler=exp_lr_scheduler,
-          data_loader=dataloader,
-          save_dir=save_dir,
-          data_size=args.crop_resolution,
-          savepoint=args.save_point,
-          checkpoint=args.check_point)
+    if 1 == mode:
+        train(Config,
+            model,
+            epoch_num=args.epoch,
+            start_epoch=args.start_epoch,
+            optimizer=optimizer,
+            exp_lr_scheduler=exp_lr_scheduler,
+            data_loader=dataloader,
+            save_dir=save_dir,
+            data_size=args.crop_resolution,
+            savepoint=args.save_point,
+            checkpoint=args.check_point)
+    else:
+        # 准备图像聚类算法数据
+        prepare_cluster_data(Config,
+            model,
+            epoch_num=args.epoch,
+            start_epoch=args.start_epoch,
+            optimizer=optimizer,
+            exp_lr_scheduler=exp_lr_scheduler,
+            data_loader=dataloader,
+            save_dir=save_dir,
+            data_size=args.crop_resolution,
+            savepoint=args.save_point,
+            checkpoint=args.check_point)
 
 
