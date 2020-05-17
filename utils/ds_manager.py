@@ -23,7 +23,7 @@ class DsManager(object):
     @staticmethod
     def startup():
         #DsManager.sample_imported_vehicle_data()
-        folder_name = 'E:/fgvc_vbmy_min/train'
+        folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train'
         DsManager.refine_bmy_and_fgvc_id_dicts(folder_name)
 
     @staticmethod
@@ -145,7 +145,7 @@ class DsManager(object):
         是否在bym_to_fgvc_id_dict和fgvc_id_to_bym_dict，如果不在则添加
         该条目，最后将内容存储到work目录对应的文件中。
         '''
-        file_sep = '\\'
+        file_sep = '/'
         bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
         max_fgvc_id = 0
         for k,v in fgvc_id_to_bmy_dict.items():
