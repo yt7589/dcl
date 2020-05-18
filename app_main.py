@@ -21,6 +21,7 @@ MODE_VAO_TEST = 1005 # 车管所测试工具
 MODE_DATA_PREPROCESSOR = 1006 # 数据预处理器
 MODE_DS_MANAGER = 1007 # 数据集管理器程序
 MODE_CLUSTER_IMAGE = 1008 # 探索使用图像聚类方法
+MODE_LOCAL_STANFORD_CARS = 1009 # 本地运行Stanford Cars数据集
 
 def get_best_chpts():
     chpts_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/net_model/training_descibe_5412_CUB/')
@@ -43,16 +44,11 @@ def get_best_chpts():
     shutil.copy(max_chpt, dst_file)
 
 def temp_func():
-    with open('../unknown_domestic_brands_20200517.txt', 'w+', encoding='utf-8') as dst_fd:
-        with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as fd:
-            for line in fd:
-                arrs0 = line.split('*')
-                if len(arrs0) < 2:
-                    dst_fd.write('{0}'.format(line))
+    VaoTest.draw_b86_train_curve()
 
 def main(args):
     print('细粒度图像识别系统')
-    mode = MODE_DS_MANAGER #MODE_TRAIN_MONITOR
+    mode = MODE_DRAW_ACCS_CURVE*222 #MODE_TRAIN_MONITOR
     if MODE_DRAW_ACCS_CURVE == mode:
         #du.draw_accs_curve()
         pass
@@ -95,6 +91,8 @@ def main(args):
     elif MODE_CLUSTER_IMAGE == mode:
         app = ClusterApp()
         app.startup()
+    elif MODE_LOCAL_STANFORD_CARS == mode:
+        DataPreprocessor.startup()
     else:
         print('临时测试程序...')
         temp_func()

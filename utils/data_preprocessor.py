@@ -30,7 +30,24 @@ class DataPreprocessor(object):
         #DataPreprocessor.generate_ds_folder_main()
         #DataPreprocessor.create_fj2_train_test_ds()
         #DataPreprocessor.create_acceptance_ds()
-        DataPreprocessor.process_all_vc_excel()
+        #DataPreprocessor.process_all_vc_excel()
+        DataPreprocessor.prepare_stanford_cars_ds()
+
+    @staticmethod
+    def prepare_stanford_cars_ds():
+        #base_path = Path('E:/work/tcv/projects/datasets/StandCars/train')
+        #ds_file = 'E:/work/tcv/projects/datasets/StandCars/stanford_cars_train.txt'
+        base_path = Path('E:/work/tcv/projects/datasets/StandCars/test')
+        ds_file = 'E:/work/tcv/projects/datasets/StandCars/stanford_cars_test.txt'
+        file_sep = '\\'
+        with open(ds_file, 'w+', encoding='utf-8') as ds_fd:
+            for path_obj in base_path.iterdir():
+                full_name = str(path_obj)
+                arrs = full_name.split(file_sep)
+                fgvc_id = int(arrs[-1]) - 1
+                for img_obj in path_obj.iterdir():
+                    print('{0}*{1}'.format(img_obj, fgvc_id))
+                    ds_fd.write('{0}*{1}\n'.format(img_obj, fgvc_id))
     
     @staticmethod
     def get_v_bno_bn():
