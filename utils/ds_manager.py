@@ -24,13 +24,13 @@ class DsManager(object):
     def startup():
         #DsManager.sample_imported_vehicle_data()
         # ************************************************
-        # folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train'
-        #DsManager.refine_bmy_and_fgvc_id_dicts(folder_name)
+        folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train'
+        DsManager.refine_bmy_and_fgvc_id_dicts(folder_name)
         # ***************************************************
         #folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train'
-        folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test'
+        #folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test'
         #ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train_ds_v1.txt'
-        ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test_ds_v1.txt'
+        #ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test_ds_v1.txt'
         DsManager.generate_ds_by_folder(folder_name, ds_file)
 
     @staticmethod

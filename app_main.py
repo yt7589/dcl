@@ -48,7 +48,7 @@ def temp_func():
 
 def main(args):
     print('细粒度图像识别系统')
-    mode = MODE_DRAW_ACCS_CURVE*222 #MODE_TRAIN_MONITOR
+    mode = MODE_DS_MANAGER #MODE_TRAIN_MONITOR
     if MODE_DRAW_ACCS_CURVE == mode:
         #du.draw_accs_curve()
         pass
