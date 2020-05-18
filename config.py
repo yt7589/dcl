@@ -75,7 +75,7 @@ class LoadConfig(object):
             self.rawdata_root = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d'
             self.anno_root = './datasets/CUB_200_2011/anno'
             #self.numcls = 478
-            self.numcls = 412
+            self.numcls = 414
         elif args.dataset == 'STCAR':
             self.dataset = args.dataset
             self.rawdata_root = './dataset/st_car/data'
