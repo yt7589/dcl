@@ -247,6 +247,7 @@ def prepare_cluster_data(Config,
     model.train(False)
     with torch.no_grad():
         for batch_cnt_val, data_val in enumerate(data_loader['train']):
+            print('data_val: {0};'.format(data_val))
             inputs = Variable(data_val[0].cuda())
             labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
             features = model(inputs, run_mode=MainModel.RUN_MODE_FEATURE_EXTRACT)
