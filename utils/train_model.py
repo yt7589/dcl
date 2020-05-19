@@ -246,13 +246,17 @@ def prepare_cluster_data(Config,
     '''
     model.train(False)
     with torch.no_grad():
-        for batch_cnt_val, data_val in enumerate(data_loader['train']):
-            print('data_val: {0}; {1}'.format(len(data_val[4]), data_val[4][0]))
-            inputs = Variable(data_val[0].cuda())
-            labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
-            features = model(inputs, run_mode=MainModel.RUN_MODE_FEATURE_EXTRACT)
-            print('labels: {0}; {1};'.format(labels.shape, labels))
-            print('features: {0}; {1}'.format(len(features), features[0].shape))
+        with open('./logs/cluster_imgs.txt', 'w+', encoding='utf-8') as imgs_fd:
+            with open('./logs/cluster_features.txt', 'w+', encoding='utf-8') as features_fd:
+                for batch_cnt_val, data_val in enumerate(data_loader['train']):
+                    imgs = data_val[4]
+                    for img in imgs:
+                        imgs_fd.write('{0}\n'.format(img))
+                    inputs = Variable(data_val[0].cuda())
+                    labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
+                    features = model(inputs, run_mode=MainModel.RUN_MODE_FEATURE_EXTRACT)
+                    for feature in features:
+                        features_fd.write('{0}\n'.format(feature))
 
 
 
