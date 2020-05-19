@@ -264,7 +264,7 @@ if __name__ == '__main__':
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
 
     print('Yantao: v0.0.1')
-    mode = 2 # 1-train; 2-prepare_cluster_data
+    mode = 1 # 1-train; 2-prepare_cluster_data
     # train entry
     if 1 == mode:
         train(Config,
