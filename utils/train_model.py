@@ -252,7 +252,7 @@ def prepare_cluster_data(Config,
             labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
             features = model(inputs)
             print('labels: {0}; {1};'.format(labels.shape, labels))
-            print('features: {0};'.format(features.shape))
+            print('features: {0}; {1}'.format(len(features), features[0].shape))
 
 
 
