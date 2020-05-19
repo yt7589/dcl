@@ -258,6 +258,7 @@ def prepare_cluster_data(Config,
                     print('f1: {0};'.format(features.shape))
                     features = features.view(-1, 2048)[:30, :]
                     print('f2: {0}; {1};'.format(features.shape, type(features)))
+                    features = features.detach().cpu().numpy()
                     for feature in features:
                         features_fd.write('{0}\n'.format(feature))
 
