@@ -258,7 +258,7 @@ def prepare_cluster_data(Config,
                 features = features.view(-1, 2048)[:30, :]
                 print('f2: {0}; {1};'.format(features.shape, type(features)))
                 features = features.detach().cpu().numpy()
-                np.savetext('./logs/cluster_features.txt', features)
+                np.savetxt('./logs/cluster_features.txt', features)
 
 
 
