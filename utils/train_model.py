@@ -255,6 +255,9 @@ def prepare_cluster_data(Config,
                     inputs = Variable(data_val[0].cuda())
                     labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
                     features = model(inputs, run_mode=MainModel.RUN_MODE_FEATURE_EXTRACT)
+                    print('f1: {0};'.format(features.shape))
+                    features = features.view(30, 2048)
+                    print('f2: {0}; {1};'.format(features.shape, type(features)))
                     for feature in features:
                         features_fd.write('{0}\n'.format(feature))
 
