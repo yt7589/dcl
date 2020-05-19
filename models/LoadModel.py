@@ -21,7 +21,7 @@ class MainModel(nn.Module):
         self.num_classes = config.numcls
         self.backbone_arch = config.backbone
         self.use_Asoftmax = config.use_Asoftmax
-        self.run_mode = 1 # 1-正常运行；2-输出最后一层的特征；
+        self.run_mode = MainModel.RUN_MODE_NORMAL # 1-正常运行；2-输出最后一层的特征；
         print(self.backbone_arch)
 
         if self.backbone_arch in dir(models):
@@ -68,7 +68,7 @@ class MainModel(nn.Module):
             mask = torch.tanh(mask)
             mask = mask.view(mask.size(0), -1)
         x = self.avgpool(x)
-        print('forward 1')
+        print('forward 1 run_mode={0};'.format(self.run_mode))
         if MainModel.RUN_MODE_FEATURE_EXTRACT == self.run_mode:
             print('forward 2')
             return x

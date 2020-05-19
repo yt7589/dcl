@@ -245,11 +245,11 @@ def prepare_cluster_data(Config,
     为图像聚类分析准备特征值，取DCL最后一层2048维的向量作为特征，然后再用DBScan和t-SNE进行降维处理
     '''
     model.train(False)
-    model.run_mode = MainModel.RUN_MODE_FEATURE_EXTRACT
     with torch.no_grad():
         for batch_cnt_val, data_val in enumerate(data_loader['train']):
             inputs = Variable(data_val[0].cuda())
             labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
+            model.run_mode = MainModel.RUN_MODE_FEATURE_EXTRACT
             features = model(inputs)
             print('labels: {0}; {1};'.format(labels.shape, labels))
             print('features: {0}; {1}'.format(len(features), features[0].shape))
