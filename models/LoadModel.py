@@ -12,12 +12,16 @@ import pdb
 #torch.backends.cudnn.benchmark = False
 
 class MainModel(nn.Module):
+    RUN_MODE_NORMAL = 100
+    RUN_MODE_FEATURE_EXTRACT = 101
+    
     def __init__(self, config):
         super(MainModel, self).__init__()
         self.use_dcl = config.use_dcl
         self.num_classes = config.numcls
         self.backbone_arch = config.backbone
         self.use_Asoftmax = config.use_Asoftmax
+        self.run_mode = 1 # 1-正常运行；2-输出最后一层的特征；
         print(self.backbone_arch)
 
         if self.backbone_arch in dir(models):
@@ -64,6 +68,8 @@ class MainModel(nn.Module):
             mask = torch.tanh(mask)
             mask = mask.view(mask.size(0), -1)
         x = self.avgpool(x)
+        if MainModel.RUN_MODE_FEATURE_EXTRACT == mode:
+            return x
         #x = x.view(x.size(0), -1)
         x = x.view(x.size(0), x.size(1))
         out = []
@@ -84,3 +90,4 @@ class MainModel(nn.Module):
                 out.append(self.Aclassifier(last_x))
 
         return out
+
