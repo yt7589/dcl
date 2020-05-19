@@ -470,7 +470,7 @@ class VaoTest(object):
         '''
         从训练记录文件中读出训练步数和Top1精度，使用matplotlib绘制
         '''
-        src_path = Path('./net_model/training_descibe_5722_CUB')
+        src_path = Path('./net_model/training_descibe_51718_CUB')
         chpts = [x for x in src_path.iterdir() if src_path.is_dir()]
         X0 = []
         acc1 = {}

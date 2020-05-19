@@ -17,7 +17,7 @@ from utils.eval_model import eval_turn
 from utils.Asoftmax_loss import AngleLoss
 
 import pdb
-from LOadModel import MainModel
+from models.LoadModel import MainModel
 
 def dt():
     return datetime.datetime.now().strftime("%Y-%m-%d-%H_%M_%S")
@@ -252,7 +252,7 @@ def prepare_cluster_data(Config,
             labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
             features = model(inputs)
             print('labels: {0}; {1};'.format(labels.shape, labels))
-            print('features: {0};'.format(feature.shape))
+            print('features: {0};'.format(features.shape))
 
 
 
