@@ -250,13 +250,13 @@ def prepare_cluster_data(Config,
             with open('./logs/cluster_features.txt', 'w+', encoding='utf-8') as features_fd:
                 for batch_cnt_val, data_val in enumerate(data_loader['train']):
                     imgs = data_val[4]
-                    for img in imgs:
-                        imgs_fd.write('{0}\n'.format(img))
                     inputs = Variable(data_val[0].cuda())
                     labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
                     features = model(inputs, run_mode=MainModel.RUN_MODE_FEATURE_EXTRACT)
+                    for img in imgs:
+                        imgs_fd.write('{0}\n'.format(img))
                     print('f1: {0};'.format(features.shape))
-                    features = features.view(-1, 2048)
+                    features = features.view(-1, 2048)[:30, :]
                     print('f2: {0}; {1};'.format(features.shape, type(features)))
                     for feature in features:
                         features_fd.write('{0}\n'.format(feature))
