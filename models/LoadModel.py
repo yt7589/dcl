@@ -14,7 +14,7 @@ import pdb
 class MainModel(nn.Module):
     RUN_MODE_NORMAL = 100
     RUN_MODE_FEATURE_EXTRACT = 101
-    
+
     def __init__(self, config):
         super(MainModel, self).__init__()
         self.use_dcl = config.use_dcl
@@ -68,7 +68,7 @@ class MainModel(nn.Module):
             mask = torch.tanh(mask)
             mask = mask.view(mask.size(0), -1)
         x = self.avgpool(x)
-        if MainModel.RUN_MODE_FEATURE_EXTRACT == mode:
+        if MainModel.RUN_MODE_FEATURE_EXTRACT == self.run_mode:
             return x
         #x = x.view(x.size(0), -1)
         x = x.view(x.size(0), x.size(1))
