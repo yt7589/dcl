@@ -68,8 +68,11 @@ class MainModel(nn.Module):
             mask = torch.tanh(mask)
             mask = mask.view(mask.size(0), -1)
         x = self.avgpool(x)
+        print('forward 1')
         if MainModel.RUN_MODE_FEATURE_EXTRACT == self.run_mode:
+            print('forward 2')
             return x
+        print('forward 3')
         #x = x.view(x.size(0), -1)
         x = x.view(x.size(0), x.size(1))
         out = []
