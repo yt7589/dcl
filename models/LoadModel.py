@@ -60,7 +60,7 @@ class MainModel(nn.Module):
         if self.use_Asoftmax:
             self.Aclassifier = AngleLinear(2048, self.num_classes, bias=False)
 
-    def forward(self, x, last_cont=None):
+    def forward(self, x, last_cont=None, run_mode=RUN_MODE_NORMAL):
         x = self.model(x)
         if self.use_dcl:
             mask = self.Convmask(x)
@@ -68,8 +68,8 @@ class MainModel(nn.Module):
             mask = torch.tanh(mask)
             mask = mask.view(mask.size(0), -1)
         x = self.avgpool(x)
-        print('forward 1 run_mode={0};'.format(self.run_mode))
-        if MainModel.RUN_MODE_FEATURE_EXTRACT == self.run_mode:
+        print('forward 1 run_mode={0};'.format(run_mode))
+        if MainModel.RUN_MODE_FEATURE_EXTRACT == run_mode:
             print('forward 2')
             return x
         print('forward 3')

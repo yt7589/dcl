@@ -249,8 +249,7 @@ def prepare_cluster_data(Config,
         for batch_cnt_val, data_val in enumerate(data_loader['train']):
             inputs = Variable(data_val[0].cuda())
             labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
-            model.run_mode = MainModel.RUN_MODE_FEATURE_EXTRACT
-            features = model(inputs)
+            features = model(inputs, run_mode=MainModel.RUN_MODE_FEATURE_EXTRACT)
             print('labels: {0}; {1};'.format(labels.shape, labels))
             print('features: {0}; {1}'.format(len(features), features[0].shape))
 
