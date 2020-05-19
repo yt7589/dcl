@@ -17,6 +17,7 @@ from utils.eval_model import eval_turn
 from utils.Asoftmax_loss import AngleLoss
 
 import pdb
+from LOadModel import MainModel
 
 def dt():
     return datetime.datetime.now().strftime("%Y-%m-%d-%H_%M_%S")
