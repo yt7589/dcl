@@ -15,9 +15,11 @@ class ClusterApp(object):
         '''
         将训练数据集文件中指定的图片，以a+类别编号形式命名并拷贝文件
         '''
+        idx = 1
         with open('./datasets/CUB_200_2011/anno/t1.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 arrs0 = line.split('*')
                 src_img = arrs0[0]
                 fgvc_id = arrs0[-1][:-1]
-                shutil.copy(src_img, './work/a{0}.jpg'.format(fgvc_id))
+                shutil.copy(src_img, './work/a{0}_{1}.jpg'.format(fgvc_id, idx))
+                idx += 1
