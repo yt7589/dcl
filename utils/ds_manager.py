@@ -353,7 +353,7 @@ class DsManager(object):
                         vid = arrs[1][:-1]
                         if vid in vid_to_fgvc_id_dict:
                             print('vid: {0}={1}'.format(img, vid_to_fgvc_id_dict[vid]))
-                            if random.random() < 0.1:
+                            if random.random() < 0.045:
                                 test_fd.write('{0}*{1}\n'.format(img, vid_to_fgvc_id_dict[vid]))
                             else:
                                 train_fd.write('{0}*{1}\n'.format(img, vid_to_fgvc_id_dict[vid]))
