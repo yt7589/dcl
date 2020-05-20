@@ -348,7 +348,7 @@ class DsManager(object):
             sum = 0
             for line in tl_fd:
                 arrs = line.split(' ')
-                img = arrs[0]
+                img = '{0}/image/{1}.jpg'.format(base_dir, arrs[0])
                 vid = arrs[1][:-1]
                 print('vid: {0}={1}'.format(img, vid_to_fgvc_id_dict[vid]))
                 sum += 1
