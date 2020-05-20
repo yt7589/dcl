@@ -336,7 +336,7 @@ class DsManager(object):
         '''
         # 打开train_list.txt文件
         base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/VehicleID/VehicleID_V1.0'
-        with open('{0}/train_test_split/train_list.txt'.format(base_idr), 'r', encoding='utf-8') as tl_fd:
+        with open('{0}/train_test_split/train_list.txt'.format(base_dir), 'r', encoding='utf-8') as tl_fd:
             sum = 0
             for line in tl_fd:
                 arrs = line.split(' ')
