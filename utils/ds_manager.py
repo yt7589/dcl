@@ -337,7 +337,7 @@ class DsManager(object):
         base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/VehicleID/VehicleID_V1.0'
         # 从model_attr.txt中获取VID对应的模型编号
         vid_to_fgvc_id_dict = {}
-        with open('{0}/attribute/model_attr.txt', 'r', encoding='utf-8') as mv_fd:
+        with open('{0}/attribute/model_attr.txt'.format(base_dir), 'r', encoding='utf-8') as mv_fd:
             for line in mv_fd:
                 arrs = line.split(' ')
                 vid = arrs[0]
