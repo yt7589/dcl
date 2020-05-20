@@ -17,21 +17,116 @@ class DsManager(object):
     _bmy_to_fgvc_id_dict = None
     _fgvc_id_to_bmy_dict = None
 
+    RUN_MODE_SAMPLE_IMPORTED = 1001 # 从进口车目录随机选取数据
+    RUN_MODE_REFINE = 1002 # 根据目录内容细化品牌-车型-年款与细分类编号对应表
+    RUN_MODE_FGVC_DS = 1003 # 根据fgvc_dataset/train,test目录生成数据集
+    RUN_MODE_BMY_STATISTICS = 1004 # 根据gcc2_vc_bmy.txt统计国产车品牌数量和车型数量
+
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        #DsManager.sample_imported_vehicle_data()
-        # ************************************************
-        #folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train'
-        #DsManager.refine_bmy_and_fgvc_id_dicts(folder_name)
-        # ***************************************************
+        run_mode = DsManager.RUN_MODE_BMY_STATISTICS
+        if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
+            # 从进口车目录随机选取数据
+            DsManager.sample_imported_vehicle_data()
+        elif DsManager.RUN_MODE_REFINE == run_mode:
+            # 根据目录内容细化品牌-车型-年款与细分类编号对应表
+            DsManager.refine()
+        elif DsManager.RUN_MODE_FGVC_DS == run_mode:
+            # 根据fgvc_dataset/train,test目录生成数据集
+            DsManager.fgvc_ds_main()
+        elif DsManager.RUN_MODE_BMY_STATISTICS == run_mode:
+            # 根据gcc2_vc_bmy.txt统计国产车品牌数量和车型数量
+            DsManager.bmy_statistics()
+
+    @staticmethod
+    def sample_imported_vehicle_data():
+        ''' 从进口车目录随机选取数据 '''
+        DsManager.sample_imported_vehicle_data()
+
+    @staticmethod
+    def refine():
+        ''' 根据目录内容细化品牌-车型-年款与细分类编号对应表 '''
+        folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train'
+        DsManager.refine_bmy_and_fgvc_id_dicts(folder_name)
+
+    @staticmethod
+    def fgvc_ds_main():
+        ''' 根据fgvc_dataset/train,test目录生成数据集 '''
         #folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train'
         folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test'
         #ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train_ds_v1.txt'
         ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test_ds_v1.txt'
         DsManager.generate_ds_by_folder(folder_name, ds_file)
+
+    @staticmethod
+    def bmy_statistics():
+        bmy_set = set()
+        brand_set = set()
+        print('国产车品牌统计')
+        DsManager.domestic_bmy_statistics(bmy_set, brand_set)
+        DsManager.imported_bmy_statistics(bmy_set, brand_set)
+        print('我们现有品牌库共有{0}个品牌，{1}个车型（具体到年款）'.format(len(brand_set), len(bmy_set)))
+        for bn in brand_set:
+            print('已有品牌: {0};'.format(bn))
+        obns = DsManager.get_left_brands(brand_set)
+        print('未收录品牌数：{0};'.format(len(obns)))
+        for obn in obns:
+            print('未知品牌: {0};'.format(obn))
+        
+
+    @staticmethod
+    def domestic_bmy_statistics(bmy_set, brand_set):
+        ''' 根据gcc2_vc_bmy.txt统计国产车品牌数量和车型数量 '''
+        with open('./work/gcc2_vc_bmy.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs0 = line.split('*')
+                if len(arrs0) > 1:
+                    bmy = arrs0[1][:-1]
+                    arrs1 = bmy.split('_')
+                    brand_name = arrs1[0]
+                    bmy_set.add(bmy)
+                    brand_set.add(brand_name)
+
+    @staticmethod
+    def imported_bmy_statistics(bmy_set, brand_set):
+        file_sep = '\\'
+        base_path = Path('E:/fgvc_vbmy_min/train')
+        for brand_path in base_path.iterdir():
+            if not brand_path.is_dir():
+                continue
+            brand_name = str(brand_path).split(file_sep)[-1]
+            for model_path in brand_path.iterdir():
+                if not model_path.is_dir():
+                    continue
+                model_name = str(model_path).split(file_sep)[-1]
+                for year_path in model_path.iterdir():
+                    if not year_path.is_dir():
+                        continue
+                    year_name = str(year_path).split(file_sep)[-1]
+                    bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
+                    bmy_set.add(bmy)
+                    brand_set.add(brand_name)
+
+    @staticmethod
+    def get_left_brands(brand_set):
+        obns = set()
+        # 官方品牌库
+        with open('./datasets/bno_bn.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs0 = line.split(':')
+                obn = arrs0[-1][:-1]
+                obns.add(obn)
+        for bn in brand_set:
+            if bn in obns:
+                obns.remove(bn)
+        return obns
+
+
+
+
 
     @staticmethod
     def sample_imported_vehicle_data():
