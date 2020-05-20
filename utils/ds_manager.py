@@ -334,14 +334,23 @@ class DsManager(object):
         '''
         将开源Vehicle1D数据集转换为DCL数据集
         '''
-        # 打开train_list.txt文件
         base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/VehicleID/VehicleID_V1.0'
+        # 从model_attr.txt中获取VID对应的模型编号
+        vid_to_fgvc_id_dict = {}
+        with open('{0}/attribute/model_attr.txt', 'r', encoding='utf-8') as mv_fd:
+            for line in mv_fd:
+                arrs = line.split(' ')
+                vid = arrs[0]
+                fgvc_id = arrs[1][:-1]
+                vid_to_fgvc_id_dict[vid] = fgvc_id
+        # 打开train_list.txt文件
         with open('{0}/train_test_split/train_list.txt'.format(base_dir), 'r', encoding='utf-8') as tl_fd:
             sum = 0
             for line in tl_fd:
                 arrs = line.split(' ')
+                img = arrs[0]
                 vid = arrs[1][:-1]
-                print('vid: {0};'.format(vid))
+                print('vid: {0}={1}'.format(img, vid_to_fgvc_id_dict[vid]))
                 sum += 1
                 if sum > 5:
                     break
