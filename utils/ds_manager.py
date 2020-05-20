@@ -356,6 +356,6 @@ class DsManager(object):
                             if random.random() < 0.1:
                                 test_fd.write('{0}*{1}\n'.format(img, vid_to_fgvc_id_dict[vid]))
                             else:
-                                ds_fd.write('{0}*{1}\n'.format(img, vid_to_fgvc_id_dict[vid]))
+                                train_fd.write('{0}*{1}\n'.format(img, vid_to_fgvc_id_dict[vid]))
                         else:
                             print('没有的VID：{0};'.format(vid))
