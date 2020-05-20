@@ -344,13 +344,11 @@ class DsManager(object):
                 fgvc_id = arrs[1][:-1]
                 vid_to_fgvc_id_dict[vid] = fgvc_id
         # 打开train_list.txt文件
-        with open('{0}/train_test_split/train_list.txt'.format(base_dir), 'r', encoding='utf-8') as tl_fd:
-            sum = 0
-            for line in tl_fd:
-                arrs = line.split(' ')
-                img = '{0}/image/{1}.jpg'.format(base_dir, arrs[0])
-                vid = arrs[1][:-1]
-                print('vid: {0}={1}'.format(img, vid_to_fgvc_id_dict[vid]))
-                sum += 1
-                if sum > 5:
-                    break
+        with open('{0}/vehicle1d_train.txt', 'w+', encoding='utf-8') as ds_fd:
+            with open('{0}/train_test_split/train_list.txt'.format(base_dir), 'r', encoding='utf-8') as tl_fd:
+                for line in tl_fd:
+                    arrs = line.split(' ')
+                    img = '{0}/image/{1}.jpg'.format(base_dir, arrs[0])
+                    vid = arrs[1][:-1]
+                    print('vid: {0}={1}'.format(img, vid_to_fgvc_id_dict[vid]))
+                    ds_fd.write('{0}*{1}\n'.format(img, vid_to_fgvc_id_dict[vid]))
