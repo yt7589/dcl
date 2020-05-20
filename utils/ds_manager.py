@@ -340,7 +340,7 @@ class DsManager(object):
             sum = 0
             for line in tl_fd:
                 arrs = line.split(' ')
-                vid = arrs[1]
+                vid = arrs[1][:-1]
                 print('vid: {0};'.format(vid))
                 sum += 1
                 if sum > 5:
