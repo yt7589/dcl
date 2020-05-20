@@ -344,14 +344,18 @@ class DsManager(object):
                 fgvc_id = arrs[1][:-1]
                 vid_to_fgvc_id_dict[vid] = fgvc_id
         # 打开train_list.txt文件
-        with open('{0}/vehicle1d_test.txt'.format(base_dir), 'w+', encoding='utf-8') as ds_fd:
-            with open('{0}/train_test_split/test_list_800.txt'.format(base_dir), 'r', encoding='utf-8') as tl_fd:
-                for line in tl_fd:
-                    arrs = line.split(' ')
-                    img = '{0}/image/{1}.jpg'.format(base_dir, arrs[0])
-                    vid = arrs[1][:-1]
-                    if vid in vid_to_fgvc_id_dict:
-                        print('vid: {0}={1}'.format(img, vid_to_fgvc_id_dict[vid]))
-                        ds_fd.write('{0}*{1}\n'.format(img, vid_to_fgvc_id_dict[vid]))
-                    else:
-                        print('没有的VID：{0};'.format(vid))
+        with open('{0}/vehicle1d_train.txt'.format(base_dir), 'w+', encoding='utf-8') as train_fd:
+            with open('{0}/vehicle1d_test.txt'.format(base_dir), 'w+', encoding='utf-8') as test_fd:
+                with open('{0}/train_test_split/train_list.txt'.format(base_dir), 'r', encoding='utf-8') as tl_fd:
+                    for line in tl_fd:
+                        arrs = line.split(' ')
+                        img = '{0}/image/{1}.jpg'.format(base_dir, arrs[0])
+                        vid = arrs[1][:-1]
+                        if vid in vid_to_fgvc_id_dict:
+                            print('vid: {0}={1}'.format(img, vid_to_fgvc_id_dict[vid]))
+                            if random.random() < 0.1:
+                                test_fd.write('{0}*{1}\n'.format(img, vid_to_fgvc_id_dict[vid]))
+                            else:
+                                ds_fd.write('{0}*{1}\n'.format(img, vid_to_fgvc_id_dict[vid]))
+                        else:
+                            print('没有的VID：{0};'.format(vid))
