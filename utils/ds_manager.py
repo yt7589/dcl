@@ -350,5 +350,8 @@ class DsManager(object):
                     arrs = line.split(' ')
                     img = '{0}/image/{1}.jpg'.format(base_dir, arrs[0])
                     vid = arrs[1][:-1]
-                    print('vid: {0}={1}'.format(img, vid_to_fgvc_id_dict[vid]))
-                    ds_fd.write('{0}*{1}\n'.format(img, vid_to_fgvc_id_dict[vid]))
+                    if vid in vid_to_fgvc_id_dict:
+                        print('vid: {0}={1}'.format(img, vid_to_fgvc_id_dict[vid]))
+                        ds_fd.write('{0}*{1}\n'.format(img, vid_to_fgvc_id_dict[vid]))
+                    else:
+                        print('没有的VID：{0};'.format(vid))
