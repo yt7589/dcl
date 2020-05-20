@@ -21,13 +21,14 @@ class DsManager(object):
     RUN_MODE_REFINE = 1002 # 根据目录内容细化品牌-车型-年款与细分类编号对应表
     RUN_MODE_FGVC_DS = 1003 # 根据fgvc_dataset/train,test目录生成数据集
     RUN_MODE_BMY_STATISTICS = 1004 # 根据gcc2_vc_bmy.txt统计国产车品牌数量和车型数量
+    RUN_MODE_VEHICLE_1D = 1005 # 处理VehicleID为DCL训练集格式
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_BMY_STATISTICS
+        run_mode = DsManager.RUN_MODE_VEHICLE_1D
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
             DsManager.sample_imported_vehicle_data()
@@ -40,6 +41,9 @@ class DsManager(object):
         elif DsManager.RUN_MODE_BMY_STATISTICS == run_mode:
             # 根据gcc2_vc_bmy.txt统计国产车品牌数量和车型数量
             DsManager.bmy_statistics()
+        elif DsManager.RUN_MODE_VEHICLE_1D == run_mode:
+            # 处理VehicleID为DCL训练集格式
+            DsManager.process_vehicle_1d()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -324,3 +328,20 @@ class DsManager(object):
                             fgvc_id = bmy_to_fgvc_id_dict[bmy]
                             print('{0}*{1}'.format(img_file, fgvc_id))
                             ds_fd.write('{0}*{1}\n'.format(img_file, fgvc_id))
+
+    @staticmethod
+    def process_vehicle_1d():
+        '''
+        将开源Vehicle1D数据集转换为DCL数据集
+        '''
+        # 打开train_list.txt文件
+        base_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/VehicleID/VehicleID_V1.0'
+        with open('{0}/train_test_split/train_list.txt'.format(base_idr), 'r', encoding='utf-8') as tl_fd:
+            sum = 0
+            for line in tl_fd:
+                arrs = line.split(' ')
+                vid = arrs[1]
+                print('vid: {0};'.format(vid))
+                sum += 1
+                if sum > 5:
+                    break
