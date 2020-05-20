@@ -214,7 +214,7 @@ if __name__ == '__main__':
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
     model.cuda()
-    summary(model, (3, 224, 224))
+    #summary(model, (3, 224, 224))
     if 1>10:
         print('准备保存模型到onnx文件')
         example = torch.rand(1, 3, 224, 224).cuda()
@@ -263,7 +263,6 @@ if __name__ == '__main__':
 
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
 
-    print('Yantao: v0.0.1')
     mode = 1 # 1-train; 2-prepare_cluster_data
     # train entry
     if 1 == mode:
