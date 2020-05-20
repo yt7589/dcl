@@ -24,6 +24,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
     val_corrects1 = 0
     val_corrects2 = 0
     val_corrects3 = 0
+    brand_correct = 0
     val_size = data_loader.__len__()
     item_count = data_loader.total_item_len
     t0 = time.time()
@@ -64,12 +65,19 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             val_corrects2 += (batch_corrects2 + batch_corrects1)
             batch_corrects3 = torch.sum((top3_pos[:, 2] == labels)).data.item()
             val_corrects3 += (batch_corrects3 + batch_corrects2 + batch_corrects1)
+            # 求出品牌精度
+            pred_size = top3_pos[:, 0].shape[0]
+            for idx in range(pred_size):
+                print('预测值：{0}; 预测品牌：{1}; 真实值：{2}; 真实品牌：{3};'.format(top3_pos[idx][0], 'a', labels[idx], 'b'))
+                batch_brand_correct = 1
+                brand_correct += batch_brand_correct
 
         val_acc1 = val_corrects1 / item_count
         val_acc2 = val_corrects2 / item_count
         val_acc3 = val_corrects3 / item_count
 
         log_file.write(val_version  + '\t' +str(val_loss_recorder.get_val())+'\t' + str(val_celoss_recorder.get_val()) + '\t' + str(val_acc1) + '\t' + str(val_acc3) + '\n')
+
 
         t1 = time.time()
         since = t1-t0

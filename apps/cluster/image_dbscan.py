@@ -23,6 +23,60 @@ class ImageDbscan(object):
         self.cluster_images()
 
     def cluster_images(self):
+        X = np.loadtxt('./logs/cluster_features.txt', delimiter=' ')
+        labels_true = np.array([
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            2, 2, 2, 2, 2, 2, 2, 2, 2, 2
+        ])
+        '''
+        X = np.array([
+            [0.1, 0.15],
+            [0.01, 0.05],
+            [0.1, 0.1],
+            [-0.1, -0.08],
+            [-0.01, -0.002],
+            #
+            [2.01, 2.02],
+            [1.99, 1.98],
+            [2.1, 2.12],
+            [2.08, 2.05],
+            [1.98, 1.97],
+            #
+            [5.01, 5.02],
+            [5.1, 5.09],
+            [4.98, 4.99],
+            [4.99, 5.0],
+            [5.0, 4.97]
+        ])
+        labels_true = np.array([
+            0,0,0,0,0,
+            1,1,1,1,1,
+            2,2,2,2,2
+        ])
+        '''
+        tsne = TSNE(n_components=2, init='pca', perplexity=1.5)
+        Y = tsne.fit_transform(X)
+        print('Y: {0}; {1}; {2};'.format(type(Y), Y.shape, Y))
+        plt.plot(Y[:, 0], Y[:, 1], 'o')
+        plt.show()
+        n_clusters_, n_noise_, labels, core_samples_mask = self.run_dbscan(X, eps=52.5, min_samples=5)
+        print('labels: {0}; {1}; {2};'.format(type(labels), labels.shape, labels))
+        print('Estimated number of clusters: %d' % n_clusters_)
+        print('Estimated number of noise points: %d' % n_noise_)
+        print("Homogeneity: %0.3f" % metrics.homogeneity_score(labels_true, labels))
+        print("Completeness: %0.3f" % metrics.completeness_score(labels_true, labels))
+        print("V-measure: %0.3f" % metrics.v_measure_score(labels_true, labels))
+        '''
+        print("Adjusted Rand Index: %0.3f"
+            % metrics.adjusted_rand_score(labels_true, labels))
+        print("Adjusted Mutual Information: %0.3f"
+            % metrics.adjusted_mutual_info_score(labels_true, labels))
+        print("Silhouette Coefficient: %0.3f"
+            % metrics.silhouette_score(X, labels))
+        '''
+
+    def cluster_images0(self):
         # 循环读出所有图片文件名
         X = None
         labels_true = np.array([])
