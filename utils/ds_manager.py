@@ -8,6 +8,8 @@
 # 按照对应关系，将国产车数据整理为品牌/车型/年款的目录格式，采用与进口车同样的方式找出精简数据集，逐步迭代出完整的数据集。
 # 术语：
 # bmy: 品牌-车型-年款
+import os
+import shutil
 from pathlib import Path
 import random
 
@@ -369,7 +371,9 @@ class DsManager(object):
     def domestic_data_main():
         print('处理国产车目录')
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
-        DsManager.process_base_folder(base_path)
+        dst_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/raw')
+        #DsManager.process_base_folder(base_path)
+        DsManager.prepare_bmy_folder(dst_path, '奥迪_A6L_2018')
 
     @staticmethod
     def process_base_folder(base_path):
@@ -412,6 +416,25 @@ class DsManager(object):
                     bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2][:-1])
                     DsManager._ggh_to_bmy_dict[arrs0[0]] = bmy
         return DsManager._ggh_to_bmy_dict
+
+    @staticmethod
+    def prepare_bmy_folder(dst_path, bmy):
+        '''
+        如果目标目录中存在品牌-车型-年款目录，则返回该目录，如果没有则创建并返回该目录
+        '''
+        arrs = bmy.split('_')
+        brand_name = arrs[0]
+        model_name = arrs[1]
+        year_name = arrs[2]
+        brand_path = '{0}/{1}'.format(dst_pat, brand_name)
+        if not os.path.exists(brand_path):
+            os.mkdir(brand_path)
+        model_path = '{0}/{1}'.format(brand_path, model_name)
+        if not os.path.exists(model_path):
+            os.mkdir(model_path)
+        year_path = '{0}/{1}'.format(model_path, year_name)
+        if not os.path.exists(year_path):
+            os.mkdir(year_path)
 
 
 
