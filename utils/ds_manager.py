@@ -387,7 +387,8 @@ class DsManager(object):
             else:
                 vggh = folder_name
             if vggh in ggh_to_bmy_dict:
-                print('### {0}: {1};'.format(vggh, ggh_to_bmy_dict[vggh]))
+                bmy = ggh_to_bmy_dict[vggh]
+                print('### {0}: {1};'.format(vggh, bmy))
                 DsManager.move_img_to_data_folder(path_obj, bmy, dst_base_path)
             else:
                 print('未知车辆公告号：{0};'.format(vggh))
