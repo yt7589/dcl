@@ -75,7 +75,7 @@ class LoadConfig(object):
             self.rawdata_root = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d'
             self.anno_root = './datasets/CUB_200_2011/anno'
             #self.numcls = 478
-            self.numcls = 250 # 414
+            self.numcls = 414
         elif args.dataset == 'STCAR':
             self.dataset = args.dataset
             self.rawdata_root = './dataset/st_car/data'
@@ -99,7 +99,7 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'label'])
             '''
-            self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'vehicle1d_train.txt'),\
+            self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'fgvc_train_ds_v1.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'label'])
@@ -111,7 +111,7 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'label'])
             '''
-            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'vehicle1d_test.txt'),\
+            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'fgvc_test_ds_v1.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'label'])
@@ -123,7 +123,7 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'label'])
             '''
-            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'vehicle1d_test.txt'),\
+            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'fgvc_test_ds_v1.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'label'])
