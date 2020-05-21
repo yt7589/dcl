@@ -452,6 +452,24 @@ class DsManager(object):
     @staticmethod
     def merge_ggh_bmy():
         print('合并公告号与品牌-车型-年款对应关系')
+        ggh_set = set()
+        unknown_ggh_set = set()
+        bmy_set = set()
+        ggh_to_bmy_dict = {}
+        # 处理raw_domestic_brands.txt
+        with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') af rdb_fd:
+            for line in rdb_fd:
+                arrs0 = line.split('*')
+                ggh = arrs0[0]
+                ggh_set.add(ggh)
+                arrs1 = arrs0[-1][:-1].split('_')
+                if len(arrs1) > 1:
+                    bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2])
+                    bmy_set.add(bmy)
+                    ggh_to_bmy_dict[ggh] = bmy
+                else:
+                    unknown_ggh_set.add(ggh)
+        print('共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys)))
 
 
 
