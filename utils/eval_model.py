@@ -101,6 +101,7 @@ def filter_samples(Config, model, data_loader):
     '''
     使用模型对增量数据进行预测，将预测错误的数据记录下来
     '''
+    error_samples = []
     model.train(False)
     val_corrects1 = 0
     brand_correct = 0
@@ -127,19 +128,22 @@ def filter_samples(Config, model, data_loader):
             pred_size = top3_pos[:, 0].shape[0]
             batch_brand_correct = 0
             for idx in range(pred_size):
-                if top3_pos[idx][0] != labels[idx]:
-                    print('错误样本：{0}*{1}=>{2};'.format(data_val[-1][idx], top3_pos[idx][0], labels[idx]))
                 pred_bmy = fgvc_id_to_bmy_dict['{0}'.format(top3_pos[idx][0])]
                 pred_brand = pred_bmy.split('-')[0]
                 gt_bmy = fgvc_id_to_bmy_dict['{0}'.format(labels[idx])]
                 gt_brand = gt_bmy.split('-')[0]
                 if pred_brand == gt_brand:
                     batch_brand_correct += 1
+                if top3_pos[idx][0] != labels[idx]:
+                    error_samples.append('错误样本：{0}*{1}=>{2};'.format(data_val[-1][idx], pred_bmy, gt_bmy)
             brand_correct += batch_brand_correct
         val_acc1 = val_corrects1 / item_count
         brand_acc = brand_correct / item_count
         t1 = time.time()
         since = t1-t0
         print('top1: {0}; brand: {1};'.format(val_acc1, brand_acc))
+        print('共有错误样本{0}个，如下所示：'.format(len(error_samples)))
+        for es in error_samples:
+            print(es)
     return val_acc1
 
