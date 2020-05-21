@@ -464,7 +464,8 @@ class DsManager(object):
                     len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
         
         rst = DsManager.process_domestic_folder('', ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict)
-        print('rst={0};'.format(rst))
+        print('1:共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(
+                    len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
 
     @staticmethod
     def process_interm_txt_file(txt_file, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict):
@@ -504,6 +505,7 @@ class DsManager(object):
                 print('##### 已收录：{0};'.format(ggh))
             else:
                 unknown_ggh_set.add(ggh)
+        return 18
         
 
 
