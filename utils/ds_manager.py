@@ -458,8 +458,6 @@ class DsManager(object):
         ggh_to_bmy_dict = {}
         txt_file = './datasets/raw_domestic_brands.txt'
         DsManager.process_interm_txt_file(txt_file, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict)
-        print('0:共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(
-                    len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
         txt_file = './work/gcc2_vc_bmy.txt'
         DsManager.process_interm_txt_file(txt_file, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict)
         print('1:共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(
@@ -480,6 +478,18 @@ class DsManager(object):
                     ggh_to_bmy_dict[ggh] = bmy
                 else:
                     unknown_ggh_set.add(ggh)
+
+    @staticmethod
+    def process_domestic_folder(base_path: str, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict) -> int:
+        base_obj = Path(base_path)
+        '''
+        for path_obj in base_obj.iterdir():
+            full_name = str(path_obj)
+            arrs0 = full_name.split('*')
+            ggh = arrs0[0]
+            if len(arrs0) > 1:
+                arrs1 = arrs0[-1].split('_')
+        '''
         
 
 
