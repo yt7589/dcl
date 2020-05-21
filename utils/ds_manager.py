@@ -510,6 +510,8 @@ class DsManager(object):
             elif ggh in ggh_to_bmy_dict:
                 print('##### 已收录：{0};'.format(ggh))
             else:
+                unknown_ggh_set.add(ggh)
+                '''
                 item = ggh.split('/')[-1]
                 arrs2 = item.split('_')
                 if len(arrs2) == 4:
@@ -524,6 +526,7 @@ class DsManager(object):
                         ggh_to_bmy_dict[real_ggh] = bmy
                 else:
                     unknown_ggh_set.add(item)
+                '''
         return 18
         
 
