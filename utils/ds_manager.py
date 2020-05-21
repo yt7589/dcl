@@ -370,10 +370,11 @@ class DsManager(object):
     @staticmethod
     def domestic_data_main():
         print('处理国产车目录')
-        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
-        dst_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
-        #DsManager.process_base_folder(base_path)
-        DsManager.prepare_bmy_folder(dst_path, '奥迪_A6L_2018')
+        src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
+        dst_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
+        DsManager.process_base_folder(base_path)
+        #dst_path = DsManager.prepare_bmy_folder(dst_base_path, '奥迪_A6L_2018')
+        #print('dst_path: {0};'.format(dst_path))
 
     @staticmethod
     def process_base_folder(base_path):
