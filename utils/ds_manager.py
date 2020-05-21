@@ -439,6 +439,7 @@ class DsManager(object):
         year_path = '{0}/{1}'.format(model_path, year_name)
         if not os.path.exists(year_path):
             os.mkdir(year_path)
+        return year_path
 
 
 
