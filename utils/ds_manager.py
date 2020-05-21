@@ -469,7 +469,7 @@ class DsManager(object):
                     ggh_to_bmy_dict[ggh] = bmy
                 else:
                     unknown_ggh_set.add(ggh)
-        print('共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys)))
+        print('共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
 
 
 
