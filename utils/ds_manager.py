@@ -491,26 +491,42 @@ class DsManager(object):
 
     @staticmethod
     def process_domestic_folder(base_path: str, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict) -> int:
+        s1 = 0
+        s2 = 0
+        s3 = 0
+        s4 = 0
+        s5 = 0
         base_obj = Path(base_path)
         for path_obj in base_obj.iterdir():
+            mode = -1
+            s1 += 1
             full_name = str(path_obj)
             arrs0 = full_name.split('/')
             arrs1 = arrs0[-1].split('_')
+            org_size = len(ggh_set)
             if len(arrs1) == 4:
+                s2 += 1
                 ggh = arrs1[-1]
                 bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2])
                 ggh_set.add(ggh)
                 if ggh in ggh_to_bmy_dict:
+                    mode = 1
                     bmy1 = ggh_to_bmy_dict[ggh]
                     if bmy != bmy1:
                         print('冲突：{0}: {1} vs {2}'.format(ggh, bmy, bmy1))
                 else:
+                    mode = 2
                     ggh_to_bmy_dict[ggh] = bmy
             else:
+                s3 += 1
                 ggh = arrs0[-1]
                 ggh_set.add(ggh)
                 if not (ggh in ggh_to_bmy_dict):
+                    mode = 3
                     unknown_ggh_set.add(ggh)
+            new_size = len(ggh_set)
+            if org_size != new_size:
+                print('mode={0};'.format(mode))
         return 18
         
 
