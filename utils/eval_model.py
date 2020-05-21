@@ -127,6 +127,8 @@ def filter_samples(Config, model, data_loader):
             pred_size = top3_pos[:, 0].shape[0]
             batch_brand_correct = 0
             for idx in range(pred_size):
+                if top3_pos[idx][0] != labels[idx]:
+                    print('错误样本：{0}*{1}=>{2};'.format(data_val[-1][idx], top3_pos[idx][0], labels[idx]))
                 pred_bmy = fgvc_id_to_bmy_dict['{0}'.format(top3_pos[idx][0])]
                 pred_brand = pred_bmy.split('-')[0]
                 gt_bmy = fgvc_id_to_bmy_dict['{0}'.format(labels[idx])]
