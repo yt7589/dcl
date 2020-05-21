@@ -524,7 +524,7 @@ class DsManager(object):
                     else:
                         ggh_to_bmy_dict[real_ggh] = bmy
                 else:
-                    unknown_ggh_set.add()
+                    unknown_ggh_set.add(item)
         return 18
         
 
