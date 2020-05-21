@@ -400,7 +400,7 @@ class DsManager(object):
             if not file_obj.is_dir() and full_name.endswith(
                         ('jpg','png','jpeg','bmp')):
                 img_file = full_name.split('/')[-1]
-                dst_path = DsManager.prepare_bmy_folder(dst_base_apth, bmy)
+                dst_path = DsManager.prepare_bmy_folder(dst_base_path, bmy)
                 shutil.move(full_name, '{0}/{1}'.format(dst_path, img_file))
                 print('移动：{0} => {1};', format(full_name, '{0}/{1}'.format(dst_path, img_file)))
             else:
