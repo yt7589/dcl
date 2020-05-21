@@ -493,6 +493,7 @@ class DsManager(object):
             if len(arrs0) > 1:
                 arrs1 = arrs0[-1].split('_')
                 bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2])
+                bmy_set.add(bmy)
                 if ggh in ggh_to_bmy_dict:
                     bmy1 = ggh_to_bmy_dict[ggh]
                     if bmy != bmy1:
