@@ -463,7 +463,7 @@ class DsManager(object):
         print('1:共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(
                     len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
         
-        rst = DsManager.process_domestic_folder('', ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict)
+        rst = DsManager.process_domestic_folder('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all', ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict)
         print('1:共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(
                     len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
 
