@@ -488,6 +488,7 @@ class DsManager(object):
         base_obj = Path(base_path)
         for path_obj in base_obj.iterdir():
             full_name = str(path_obj)
+            print('处理：{0}...'.format(full_name))
             arrs0 = full_name.split('*')
             ggh = arrs0[0]
             ggh_set.add(ggh)
