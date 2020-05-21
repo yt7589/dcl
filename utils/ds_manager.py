@@ -22,13 +22,14 @@ class DsManager(object):
     RUN_MODE_FGVC_DS = 1003 # 根据fgvc_dataset/train,test目录生成数据集
     RUN_MODE_BMY_STATISTICS = 1004 # 根据gcc2_vc_bmy.txt统计国产车品牌数量和车型数量
     RUN_MODE_VEHICLE_1D = 1005 # 处理VehicleID为DCL训练集格式
+    RUN_MODE_DOMESTIC_DATA = 1006 # 将国产车组织成进口车目录格式；品牌-车型-年款
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_VEHICLE_1D
+        run_mode = DsManager.RUN_MODE_DOMESTIC_DATA
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
             DsManager.sample_imported_vehicle_data()
@@ -44,6 +45,9 @@ class DsManager(object):
         elif DsManager.RUN_MODE_VEHICLE_1D == run_mode:
             # 处理VehicleID为DCL训练集格式
             DsManager.process_vehicle_1d()
+        elif DsManager.RUN_MODE_DOMESTIC_DATA == run_mode:
+            # 将国产车组织成进口车目录格式；品牌-车型-年款
+            DsManager.domestic_data_main()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -359,3 +363,12 @@ class DsManager(object):
                                 train_fd.write('{0}*{1}\n'.format(img, vid_to_fgvc_id_dict[vid]))
                         else:
                             print('没有的VID：{0};'.format(vid))
+
+    @staticmethod
+    def domestic_data_main():
+        print('处理国产车目录')
+
+
+
+
+        
