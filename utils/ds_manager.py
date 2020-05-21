@@ -376,13 +376,10 @@ class DsManager(object):
     @staticmethod
     def domestic_data_main():
         print('处理国产车目录')
-        rst = DsManager.process_domestic_folder('', set(), set(), set(), dict())
-        '''
         #src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
         src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/g001')
         dst_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
         DsManager.process_base_folder(src_base_path, dst_base_path)
-        '''
 
     @staticmethod
     def process_base_folder(src_base_path, dst_base_path):
@@ -465,6 +462,8 @@ class DsManager(object):
         DsManager.process_interm_txt_file(txt_file, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict)
         print('1:共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(
                     len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
+        
+        rst = DsManager.process_domestic_folder('', ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict)
 
     @staticmethod
     def process_interm_txt_file(txt_file, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict):
