@@ -492,6 +492,7 @@ class DsManager(object):
     @staticmethod
     def process_domestic_folder(base_path: str, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict) -> int:
         base_obj = Path(base_path)
+        s = 0
         s1 = 0
         s11 = 0
         s12 = 0
@@ -516,6 +517,8 @@ class DsManager(object):
             else:
                 #unknown_ggh_set.add(ggh)
                 item = ggh.split('/')[-1]
+                s += 1
+                '''
                 arrs2 = item.split('_')
                 if len(arrs2) == 4:
                     s1 += 1
@@ -535,7 +538,8 @@ class DsManager(object):
                     s2 += 1
                     print('s2:{0};'.format(item))
                     unknown_ggh_set.add(item)
-        print('s1={0}; s11={1}; s12={2}; s2={3};'.format(s1, s11, s12, s2))
+                '''
+        print('s1={0}; s11={1}; s12={2}; s2={3}; s={4};'.format(s1, s11, s12, s2, s))
         return 18
         
 
