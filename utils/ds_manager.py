@@ -374,7 +374,13 @@ class DsManager(object):
     def move_img_to_data_folder(base_path):
         print('将指定目录下文件移到指定目录下')
         for path_obj in base_path.iterdir():
-            print('### {0};'.format(path_obj))
+            folder_name = str(path_obj).split('/')[-1]
+            arrs = folder_name.split('_')
+            if len(arrs) > 1:
+                vggh = arrs[-1]
+            else:
+                vggh = folder_name
+            print('### {0};'.format(vggh))
 
 
 
