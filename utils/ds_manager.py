@@ -492,6 +492,10 @@ class DsManager(object):
     @staticmethod
     def process_domestic_folder(base_path: str, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict) -> int:
         base_obj = Path(base_path)
+        s1 = 0
+        s11 = 0
+        s12 = 0
+        s2 = 0
         for path_obj in base_obj.iterdir():
             full_name = str(path_obj)
             arrs0 = full_name.split('*')
@@ -510,23 +514,26 @@ class DsManager(object):
             elif ggh in ggh_to_bmy_dict:
                 print('##### 已收录：{0};'.format(ggh))
             else:
-                unknown_ggh_set.add(ggh)
-                '''
+                #unknown_ggh_set.add(ggh)
                 item = ggh.split('/')[-1]
                 arrs2 = item.split('_')
                 if len(arrs2) == 4:
+                    s1 += 1
                     bmy = '{0}_{1}_{2}'.format(arrs2[0], arrs2[1], arrs2[2])
                     real_ggh = arrs2[3]
                     ggh_set.add(real_ggh)
                     if real_ggh in ggh_to_bmy_dict:
+                        s11 += 1
                         bmy1 = ggh_to_bmy_dict[real_ggh]
                         if bmy1 != bmy:
                             print('############# {0}小类冲突：{1} vs {2}'.format(real_ggh, bmy, bmy1))
                     else:
+                        s12 += 1
                         ggh_to_bmy_dict[real_ggh] = bmy
                 else:
+                    s2 += 1
                     unknown_ggh_set.add(item)
-                '''
+        print('s1={0}; s11={1}; s12={2}; s2={3};'.format(s1, s11, s12, s2))
         return 18
         
 
