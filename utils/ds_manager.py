@@ -367,8 +367,14 @@ class DsManager(object):
     @staticmethod
     def domestic_data_main():
         print('处理国产车目录')
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
+
+    @staticmethod
+    def move_img_to_data_folder(base_path):
+        print('将指定目录下文件移到指定目录下')
+        for path_obj in base_path.iterdir():
+            print('### {0};'.format(path_obj))
 
 
 
 
-        
