@@ -370,20 +370,17 @@ class DsManager(object):
     @staticmethod
     def domestic_data_main():
         print('处理国产车目录')
-        src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
+        #src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
+        src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/g001')
         dst_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
-        #DsManager.process_base_folder(src_base_path)
+        DsManager.process_base_folder(src_base_path)
         dst_path = DsManager.prepare_bmy_folder(dst_base_path, '奥迪_A6L_2018')
-        print('dst_path: {0};'.format(dst_path))
-        src_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/GAC7000BEVH0A_贵A069CX_02_520000101400_520000104285409144.jpg'
-        dst_file = '{0}/GAC7000BEVH0A_贵A069CX_02_520000101400_520000104285409144.jpg'.format(dst_path)
-        shutil.move(src_file, dst_file)
 
     @staticmethod
-    def process_base_folder(base_path):
+    def process_base_folder(src_base_path, dst_base_path):
         print('将指定目录下文件移到指定目录下')
         ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
-        for path_obj in base_path.iterdir():
+        for path_obj in src_base_path.iterdir():
             folder_name = str(path_obj).split('/')[-1]
             arrs = folder_name.split('_')
             if len(arrs) > 1:
@@ -392,17 +389,20 @@ class DsManager(object):
                 vggh = folder_name
             if vggh in ggh_to_bmy_dict:
                 print('### {0}: {1};'.format(vggh, ggh_to_bmy_dict[vggh]))
-                DsManager.move_img_to_data_folder(path_obj)
+                DsManager.move_img_to_data_folder(path_obj, bmy, dst_base_path)
             else:
                 print('未知车辆公告号：{0};'.format(vggh))
 
     @staticmethod
-    def move_img_to_data_folder(path_obj):
+    def move_img_to_data_folder(path_obj, bmy, dst_base_path):
         for file_obj in path_obj.iterdir():
             full_name = str(file_obj)
             if not file_obj.is_dir() and full_name.endswith(
                         ('jpg','png','jpeg','bmp')):
-                print('移动文件：{0};'.format(full_name))
+                img_file = full_name.split('/')[-1]
+                dst_path = DsManager.prepare_bmy_folder(dst_base_apth, bmy)
+                shutil.move(full_name, '{0}/{1}'.format(dst_path, img_file))
+                print('移动：{0} => {1};', format(full_name, '{0}/{1}'.format(dst_path, img_file)))
             else:
                 print('忽略文件：{0};'.format(full_name))
 
