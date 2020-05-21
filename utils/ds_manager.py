@@ -485,15 +485,24 @@ class DsManager(object):
     @staticmethod
     def process_domestic_folder(base_path: str, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict) -> int:
         base_obj = Path(base_path)
-        return 18
-        '''
         for path_obj in base_obj.iterdir():
             full_name = str(path_obj)
             arrs0 = full_name.split('*')
             ggh = arrs0[0]
+            ggh_set.add(ggh)
             if len(arrs0) > 1:
                 arrs1 = arrs0[-1].split('_')
-        '''
+                bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2])
+                if ggh in ggh_to_bmy_dict:
+                    bmy1 = ggh_to_bmy_dict[ggh]
+                    if bmy != bmy1:
+                        print('############# {0}小类冲突：{1} vs {2}'.format(ggh, bmy, bmy1))
+                else:
+                    ggh_to_bmy_dict[ggh] = bmy
+            elif ggh in ggh_to_bmy_dict:
+                print('##### 已收录：{0};'.format(ggh))
+            else:
+                unknown_ggh_set.add(ggh)
         
 
 
