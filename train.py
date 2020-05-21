@@ -292,6 +292,6 @@ if __name__ == '__main__':
             savepoint=args.save_point,
             checkpoint=args.check_point)
     elif 3 == mode:
-        filter_samples(config, model, dataloader['val'])
+        filter_samples(Config, model, dataloader['val'])
 
 
