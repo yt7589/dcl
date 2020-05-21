@@ -464,6 +464,7 @@ class DsManager(object):
                     len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
         
         rst = DsManager.process_domestic_folder('', ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict)
+        print('rst={0};'.format(rst))
 
     @staticmethod
     def process_interm_txt_file(txt_file, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict):
