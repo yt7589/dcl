@@ -487,7 +487,7 @@ class DsManager(object):
                     bmy_set.add(bmy)
                     ggh_to_bmy_dict[ggh] = bmy
                 else:
-                    unknown_ggh_set.add(ggh)
+                    unknown_ggh_set.add(ggh[:-1])
 
     @staticmethod
     def process_domestic_folder(base_path: str, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict) -> int:
@@ -511,7 +511,20 @@ class DsManager(object):
             elif ggh in ggh_to_bmy_dict:
                 print('##### 已收录：{0};'.format(ggh))
             else:
-                unknown_ggh_set.add(ggh)
+                item = ggh.split('/')[-1]
+                arrs2 = item.split('_')
+                if len(arrs2) == 4:
+                    bmy = '{0}_{1}_{2}'.format(arrs2[0], arrs2[1], arrs2[2])
+                    real_ggh = arrs2[3]
+                    ggh_set.add(real_ggh)
+                    if real_ggh in ggh_to_bmy_dict:
+                        bmy1 = ggh_to_bmy_dict[real_ggh]
+                        if bmy1 != bmy:
+                            print('############# {0}小类冲突：{1} vs {2}'.format(real_ggh, bmy, bmy1))
+                    else:
+                        ggh_to_bmy_dict[real_ggh] = bmy
+                else:
+                    unknown_ggh_set.add()
         return 18
         
 
