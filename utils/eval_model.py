@@ -135,7 +135,7 @@ def filter_samples(Config, model, data_loader):
                 if pred_brand == gt_brand:
                     batch_brand_correct += 1
                 if top3_pos[idx][0] != labels[idx]:
-                    error_samples.append('错误样本：{0}*{1}=>{2};'.format(data_val[-1][idx], pred_bmy, gt_bmy)
+                    error_samples.append('错误样本：{0}*{1}=>{2};'.format(data_val[-1][idx], pred_bmy, gt_bmy))
             brand_correct += batch_brand_correct
         val_acc1 = val_corrects1 / item_count
         brand_acc = brand_correct / item_count
