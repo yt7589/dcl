@@ -144,7 +144,7 @@ def filter_samples(Config, model, data_loader):
         print('top1: {0}; brand: {1};'.format(val_acc1, brand_acc))
         with open('./logs/error_samples.txt', 'w+', encoding='utf-i') as fd:
             print('共有错误样本{0}个，如下所示：'.format(len(error_samples)))
-                for es in error_samples:
-                    fd.write('{0}\n'.format(es))
+            for es in error_samples:
+                fd.write('{0}\n'.format(es))
     return val_acc1
 
