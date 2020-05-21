@@ -457,7 +457,7 @@ class DsManager(object):
         bmy_set = set()
         ggh_to_bmy_dict = {}
         # 处理raw_domestic_brands.txt
-        with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') af rdb_fd:
+        with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as rdb_fd:
             for line in rdb_fd:
                 arrs0 = line.split('*')
                 ggh = arrs0[0]
