@@ -376,7 +376,7 @@ class DsManager(object):
     @staticmethod
     def domestic_data_main():
         print('处理国产车目录')
-        DsManager.process_domestic_folder()
+        rst = DsManager.process_domestic_folder('', set(), set(), set(), dict())
         '''
         #src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
         src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/g001')
@@ -485,6 +485,7 @@ class DsManager(object):
     @staticmethod
     def process_domestic_folder(base_path: str, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict) -> int:
         base_obj = Path(base_path)
+        return 18
         '''
         for path_obj in base_obj.iterdir():
             full_name = str(path_obj)
