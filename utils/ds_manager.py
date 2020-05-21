@@ -390,6 +390,7 @@ class DsManager(object):
                 bmy = ggh_to_bmy_dict[vggh]
                 print('### {0}: {1};'.format(vggh, bmy))
                 DsManager.move_img_to_data_folder(path_obj, bmy, dst_base_path)
+                shutil.rmtree(path_obj)
             else:
                 print('未知车辆公告号：{0};'.format(vggh))
 
