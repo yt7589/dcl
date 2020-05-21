@@ -26,13 +26,16 @@ class DsManager(object):
     RUN_MODE_BMY_STATISTICS = 1004 # 根据gcc2_vc_bmy.txt统计国产车品牌数量和车型数量
     RUN_MODE_VEHICLE_1D = 1005 # 处理VehicleID为DCL训练集格式
     RUN_MODE_DOMESTIC_DATA = 1006 # 将国产车组织成进口车目录格式；品牌-车型-年款
+    # 将raw_domestic_brands.txt、gcc2_vc_bmy.txt、guochanche_all目录、
+    # guochanche_2目录的公告号与品牌-车型-年款内容合并成一个文件
+    RUN_MODE_MERGE_GGH_BMY = 1007 
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_DOMESTIC_DATA
+        run_mode = DsManager.RUN_MODE_MERGE_GGH_BMY
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
             DsManager.sample_imported_vehicle_data()
@@ -51,6 +54,9 @@ class DsManager(object):
         elif DsManager.RUN_MODE_DOMESTIC_DATA == run_mode:
             # 将国产车组织成进口车目录格式；品牌-车型-年款
             DsManager.domestic_data_main()
+        elif DsManager.RUN_MODE_MERGE_GGH_BMY == run_mode:
+            # 合并多个公告号与品牌_车型_年款对应关系
+            DsManager.merge_ggh_bmy()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -442,6 +448,10 @@ class DsManager(object):
         if not os.path.exists(year_path):
             os.mkdir(year_path)
         return year_path
+
+    @staticmethod
+    def merge_ggh_bmy():
+        print('合并公告号与品牌-车型-年款对应关系')
 
 
 
