@@ -135,15 +135,16 @@ def filter_samples(Config, model, data_loader):
                 if pred_brand == gt_brand:
                     batch_brand_correct += 1
                 if top3_pos[idx][0] != labels[idx]:
-                    error_samples.append('错误样本：{0}*{1}=>{2};'.format(data_val[-1][idx], pred_bmy, gt_bmy))
+                    error_samples.append('{0}:{1}=>{2};'.format(data_val[-1][idx], pred_bmy, gt_bmy))
             brand_correct += batch_brand_correct
         val_acc1 = val_corrects1 / item_count
         brand_acc = brand_correct / item_count
         t1 = time.time()
         since = t1-t0
         print('top1: {0}; brand: {1};'.format(val_acc1, brand_acc))
+        with open('./logs/error_samples.txt', 'w+', encoding='utf-i') as fd:
         print('共有错误样本{0}个，如下所示：'.format(len(error_samples)))
-        for es in error_samples:
-            print(es)
+            for es in error_samples:
+                fd.write('{0}\n'.format(es))
     return val_acc1
 
