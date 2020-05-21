@@ -458,9 +458,11 @@ class DsManager(object):
         ggh_to_bmy_dict = {}
         txt_file = './datasets/raw_domestic_brands.txt'
         DsManager.process_interm_txt_file(txt_file, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict)
+        print('0:共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(
+                    len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
         txt_file = './work/gcc2_vc_bmy.txt'
         DsManager.process_interm_txt_file(txt_file, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict)
-        print('共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(
+        print('1:共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(
                     len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
 
     @staticmethod
