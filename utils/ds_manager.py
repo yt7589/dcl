@@ -393,7 +393,7 @@ class DsManager(object):
         DsManager._ggh_to_bmy_dict = {}
         with open('./work/gcc2_vc_bmy.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
-                arrs = line.splie('*')
+                arrs = line.split('*')
                 if len(arrs) > 1:
                     DsManager._ggh_to_bmy_dict[arrs[0]] = arrs[1][:-1]
         return DsManager._ggh_to_bmy_dict
