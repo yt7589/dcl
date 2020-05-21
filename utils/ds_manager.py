@@ -369,10 +369,10 @@ class DsManager(object):
     def domestic_data_main():
         print('处理国产车目录')
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
-        DsManager.move_img_to_data_folder(base_path)
+        DsManager.process_base_folder(base_path)
 
     @staticmethod
-    def move_img_to_data_folder(base_path):
+    def process_base_folder(base_path):
         print('将指定目录下文件移到指定目录下')
         ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
         for path_obj in base_path.iterdir():
@@ -384,8 +384,20 @@ class DsManager(object):
                 vggh = folder_name
             if vggh in ggh_to_bmy_dict:
                 print('### {0}: {1};'.format(vggh, ggh_to_bmy_dict[vggh]))
+                DsManager.move_img_to_data_folder(path_obj)
             else:
                 print('未知车辆公告号：{0};'.format(vggh))
+
+    @staticmethod
+    def move_img_to_data_folder(path_obj):
+        for file_obj in path_obj.iterdir():
+            full_name = str(file_obj)
+            if not file_obj.is_dir() and full_name.endswith(
+                        ('jpg','png','jpeg','bmp')):
+                print('移动文件：{0};'.format(full_name))
+            else:
+                print('忽略文件：{0};'.format(full_name))
+
 
     @staticmethod
     def get_ggh_to_bmy_dict():
