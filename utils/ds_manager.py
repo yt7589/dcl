@@ -16,6 +16,7 @@ class DsManager(object):
     _bmy_fgvc_id_dict = None # 品牌-车型-年款到细分类编号字典
     _bmy_to_fgvc_id_dict = None
     _fgvc_id_to_bmy_dict = None
+    _ggh_to_bmy_dict = None
 
     RUN_MODE_SAMPLE_IMPORTED = 1001 # 从进口车目录随机选取数据
     RUN_MODE_REFINE = 1002 # 根据目录内容细化品牌-车型-年款与细分类编号对应表
@@ -368,7 +369,10 @@ class DsManager(object):
     def domestic_data_main():
         print('处理国产车目录')
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
-        DsManager.move_img_to_data_folder(base_path)
+        #DsManager.move_img_to_data_folder(base_path)
+        ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
+        for k, v in ggh_to_bmy_dict.items():
+            print('{0}:{1}'.format(k, v))
 
     @staticmethod
     def move_img_to_data_folder(base_path):
@@ -381,6 +385,18 @@ class DsManager(object):
             else:
                 vggh = folder_name
             print('### {0};'.format(vggh))
+
+    @staticmethod
+    def get_ggh_to_bmy_dict():
+        if not(DsManager._ggh_to_bmy_dict is NULL):
+            return DsManager._ggh_to_bmy_dict
+        DsManager._ggh_to_bmy_dict = {}
+        with open('./work/gcc2_vc_bmy.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs = line.splie('*')
+                if len(arrs) > 1:
+                    DsManager._ggh_to_bmy_dict[arrs[0]] = arrs[1][:-1]
+        return DsManager._ggh_to_bmy_dict
 
 
 
