@@ -96,3 +96,48 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
 
     return val_acc1, val_acc2, val_acc3
 
+
+def filter_samples(Config, model, data_loader):
+    '''
+    使用模型对增量数据进行预测，将预测错误的数据记录下来
+    '''
+    model.train(False)
+    val_corrects1 = 0
+    brand_correct = 0
+    val_size = data_loader.__len__()
+    item_count = data_loader.total_item_len
+    t0 = time.time()
+    val_batch_size = data_loader.batch_size
+    val_epoch_step = data_loader.__len__()
+    num_cls = data_loader.num_cls
+    _, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
+    with torch.no_grad():
+        for batch_cnt_val, data_val in enumerate(data_loader):
+            inputs = Variable(data_val[0].cuda())
+            labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
+            outputs = model(inputs)
+            if Config.use_dcl and Config.cls_2xmul:
+                outputs_pred = outputs[0] + outputs[1][:,0:num_cls] + outputs[1][:,num_cls:2*num_cls]
+            else:
+                outputs_pred = outputs[0]
+            top3_val, top3_pos = torch.topk(outputs_pred, 3)
+            batch_corrects1 = torch.sum((top3_pos[:, 0] == labels)).data.item()
+            val_corrects1 += batch_corrects1
+            # 求出品牌精度
+            pred_size = top3_pos[:, 0].shape[0]
+            batch_brand_correct = 0
+            for idx in range(pred_size):
+                pred_bmy = fgvc_id_to_bmy_dict['{0}'.format(top3_pos[idx][0])]
+                pred_brand = pred_bmy.split('-')[0]
+                gt_bmy = fgvc_id_to_bmy_dict['{0}'.format(labels[idx])]
+                gt_brand = gt_bmy.split('-')[0]
+                if pred_brand == gt_brand:
+                    batch_brand_correct += 1
+            brand_correct += batch_brand_correct
+        val_acc1 = val_corrects1 / item_count
+        brand_acc = brand_correct / item_count
+        t1 = time.time()
+        since = t1-t0
+        print('top1: {0}; brand: {1};'.format(val_acc1, brand_acc))
+    return val_acc1, val_acc2, val_acc3
+

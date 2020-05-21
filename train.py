@@ -20,7 +20,7 @@ import torch.onnx as onnx
 from torch.onnx import OperatorExportTypes
 
 from transforms import transforms
-from utils.train_model import train, prepare_cluster_data
+from utils.train_model import train, prepare_cluster_data, filter_samples
 from utils.train_model import log_progress
 from models.LoadModel import MainModel
 from config import LoadConfig, load_data_transformers
@@ -263,7 +263,7 @@ if __name__ == '__main__':
 
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
 
-    mode = 1 # 1-train; 2-prepare_cluster_data
+    mode = 1 # 1-train; 2-prepare_cluster_data；3-筛查有问题样本数据
     # train entry
     if 1 == mode:
         train(Config,
@@ -277,7 +277,7 @@ if __name__ == '__main__':
             data_size=args.crop_resolution,
             savepoint=args.save_point,
             checkpoint=args.check_point)
-    else:
+    elif 2 == mode:
         # 准备图像聚类算法数据
         prepare_cluster_data(Config,
             model,
@@ -290,5 +290,7 @@ if __name__ == '__main__':
             data_size=args.crop_resolution,
             savepoint=args.save_point,
             checkpoint=args.check_point)
+    elif 3 == mode:
+        filter_samples(config, model, dataloader['val'])
 
 
