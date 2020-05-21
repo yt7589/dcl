@@ -139,5 +139,5 @@ def filter_samples(Config, model, data_loader):
         t1 = time.time()
         since = t1-t0
         print('top1: {0}; brand: {1};'.format(val_acc1, brand_acc))
-    return val_acc1, val_acc2, val_acc3
+    return val_acc1
 

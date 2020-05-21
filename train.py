@@ -20,8 +20,9 @@ import torch.onnx as onnx
 from torch.onnx import OperatorExportTypes
 
 from transforms import transforms
-from utils.train_model import train, prepare_cluster_data, filter_samples
+from utils.train_model import train, prepare_cluster_data
 from utils.train_model import log_progress
+from utils.eval_model import filter_samples
 from models.LoadModel import MainModel
 from config import LoadConfig, load_data_transformers
 import utils.dataset_DCL as dclds
