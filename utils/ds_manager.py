@@ -376,10 +376,13 @@ class DsManager(object):
     @staticmethod
     def domestic_data_main():
         print('处理国产车目录')
+        DsManager.process_domestic_folder()
+        '''
         #src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
         src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/g001')
         dst_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
         DsManager.process_base_folder(src_base_path, dst_base_path)
+        '''
 
     @staticmethod
     def process_base_folder(src_base_path, dst_base_path):
