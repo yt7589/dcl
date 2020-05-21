@@ -492,54 +492,25 @@ class DsManager(object):
     @staticmethod
     def process_domestic_folder(base_path: str, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict) -> int:
         base_obj = Path(base_path)
-        s = 0
-        s1 = 0
-        s11 = 0
-        s12 = 0
-        s2 = 0
         for path_obj in base_obj.iterdir():
             full_name = str(path_obj)
-            arrs0 = full_name.split('*')
-            ggh = arrs0[0]
-            ggh_set.add(ggh)
-            if len(arrs0) > 1:
-                arrs1 = arrs0[-1].split('_')
+            arrs0 = full_name.split('/')
+            arrs1 = arrs0[-1].split('_')
+            if len(arrs1) == 4:
+                ggh = arrs1[-1]
                 bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2])
-                bmy_set.add(bmy)
+                ggh_set.add(ggh)
                 if ggh in ggh_to_bmy_dict:
                     bmy1 = ggh_to_bmy_dict[ggh]
                     if bmy != bmy1:
-                        print('############# {0}小类冲突：{1} vs {2}'.format(ggh, bmy, bmy1))
+                        print('冲突：{0}: {1} vs {2}'.format(ggh, bmy, bmy1))
                 else:
                     ggh_to_bmy_dict[ggh] = bmy
-            elif ggh in ggh_to_bmy_dict:
-                print('##### 已收录：{0};'.format(ggh))
             else:
-                #unknown_ggh_set.add(ggh)
-                item = ggh.split('/')[-1]
-                s += 1
-                '''
-                arrs2 = item.split('_')
-                if len(arrs2) == 4:
-                    s1 += 1
-                    bmy = '{0}_{1}_{2}'.format(arrs2[0], arrs2[1], arrs2[2])
-                    real_ggh = arrs2[3]
-                    ggh_set.add(real_ggh)
-                    print('real_ggh: {0}'.format(real_ggh))
-                    if real_ggh in ggh_to_bmy_dict:
-                        s11 += 1
-                        bmy1 = ggh_to_bmy_dict[real_ggh]
-                        if bmy1 != bmy:
-                            print('############# {0}小类冲突：{1} vs {2}'.format(real_ggh, bmy, bmy1))
-                    else:
-                        s12 += 1
-                        ggh_to_bmy_dict[real_ggh] = bmy
-                else:
-                    s2 += 1
-                    print('s2:{0};'.format(item))
-                    unknown_ggh_set.add(item)
-                '''
-        print('s1={0}; s11={1}; s12={2}; s2={3}; s={4};'.format(s1, s11, s12, s2, s))
+                ggh = arrs0[-1]
+                ggh_set.add(ggh)
+                if not (ggh in ggh_to_bmy_dict):
+                    unknown_ggh_set.add(ggh)
         return 18
         
 
