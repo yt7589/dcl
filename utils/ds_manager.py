@@ -466,6 +466,12 @@ class DsManager(object):
         rst = DsManager.process_domestic_folder('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all', ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict)
         print('1:共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(
                     len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
+        with open('./work/ggh_to_bmy_dict.txt', 'w+', encoding='utf-8') as gbd_fd:
+            for k, v in ggh_to_bmy_dict.items():
+                gbd_fd.write('{0}:{1}\n'.format(k, v))
+        with open('./work/unknown_ggh.txt', 'w+', encoding='utf-8') as ub_fd:
+            for ggh in unknown_ggh_set:
+                ub_fd.write('{0}\n'.format(ggh))
 
     @staticmethod
     def process_interm_txt_file(txt_file, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict):
