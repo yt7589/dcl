@@ -382,7 +382,10 @@ class DsManager(object):
                 vggh = arrs[-1]
             else:
                 vggh = folder_name
-            print('### {0}: {1};'.format(vggh, ggh_to_bmy_dict[vggh]))
+            if vggh in ggh_to_bmy_dict:
+                print('### {0}: {1};'.format(vggh, ggh_to_bmy_dict[vggh]))
+            else:
+                print('未知车辆公告号：{0};'.format(vggh))
 
     @staticmethod
     def get_ggh_to_bmy_dict():
