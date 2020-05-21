@@ -388,7 +388,7 @@ class DsManager(object):
 
     @staticmethod
     def get_ggh_to_bmy_dict():
-        if not(DsManager._ggh_to_bmy_dict is NULL):
+        if not(DsManager._ggh_to_bmy_dict is None):
             return DsManager._ggh_to_bmy_dict
         DsManager._ggh_to_bmy_dict = {}
         with open('./work/gcc2_vc_bmy.txt', 'r', encoding='utf-8') as fd:
