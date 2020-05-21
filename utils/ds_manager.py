@@ -522,6 +522,7 @@ class DsManager(object):
                     bmy = '{0}_{1}_{2}'.format(arrs2[0], arrs2[1], arrs2[2])
                     real_ggh = arrs2[3]
                     ggh_set.add(real_ggh)
+                    print('real_ggh: {0}'.format(real_ggh))
                     if real_ggh in ggh_to_bmy_dict:
                         s11 += 1
                         bmy1 = ggh_to_bmy_dict[real_ggh]
@@ -532,6 +533,7 @@ class DsManager(object):
                         ggh_to_bmy_dict[real_ggh] = bmy
                 else:
                     s2 += 1
+                    print('s2:{0};'.format(item))
                     unknown_ggh_set.add(item)
         print('s1={0}; s11={1}; s12={2}; s2={3};'.format(s1, s11, s12, s2))
         return 18
