@@ -426,7 +426,7 @@ class DsManager(object):
         brand_name = arrs[0]
         model_name = arrs[1]
         year_name = arrs[2]
-        brand_path = '{0}/{1}'.format(dst_pat, brand_name)
+        brand_path = '{0}/{1}'.format(dst_path, brand_name)
         if not os.path.exists(brand_path):
             os.mkdir(brand_path)
         model_path = '{0}/{1}'.format(brand_path, model_name)
