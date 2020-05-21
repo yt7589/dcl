@@ -369,14 +369,12 @@ class DsManager(object):
     def domestic_data_main():
         print('处理国产车目录')
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
-        #DsManager.move_img_to_data_folder(base_path)
-        ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
-        for k, v in ggh_to_bmy_dict.items():
-            print('{0}:{1}'.format(k, v))
+        DsManager.move_img_to_data_folder(base_path)
 
     @staticmethod
     def move_img_to_data_folder(base_path):
         print('将指定目录下文件移到指定目录下')
+        ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
         for path_obj in base_path.iterdir():
             folder_name = str(path_obj).split('/')[-1]
             arrs = folder_name.split('_')
@@ -384,7 +382,7 @@ class DsManager(object):
                 vggh = arrs[-1]
             else:
                 vggh = folder_name
-            print('### {0};'.format(vggh))
+            print('### {0}: {1};'.format(vggh, ggh_to_bmy_dict[vggh]))
 
     @staticmethod
     def get_ggh_to_bmy_dict():
