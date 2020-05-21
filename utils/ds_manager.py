@@ -456,8 +456,15 @@ class DsManager(object):
         unknown_ggh_set = set()
         bmy_set = set()
         ggh_to_bmy_dict = {}
+        txt_file = './datasets/raw_domestic_brands.txt'
+        DsManager.process_interm_txt_file(txt_file, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict)
+        print('共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(
+                    len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
+
+    @staticmethod
+    def process_interm_txt_file(txt_file, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict):
         # 处理raw_domestic_brands.txt
-        with open('./datasets/raw_domestic_brands.txt', 'r', encoding='utf-8') as rdb_fd:
+        with open(txt_file, 'r', encoding='utf-8') as rdb_fd:
             for line in rdb_fd:
                 arrs0 = line.split('*')
                 ggh = arrs0[0]
@@ -469,7 +476,7 @@ class DsManager(object):
                     ggh_to_bmy_dict[ggh] = bmy
                 else:
                     unknown_ggh_set.add(ggh)
-        print('共有{0}个公告号，未知公告号为{1}个，小类有{2}个！'.format(len(ggh_set), len(unknown_ggh_set), len(ggh_to_bmy_dict.keys())))
+        
 
 
 
