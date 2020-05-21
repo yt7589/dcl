@@ -471,7 +471,10 @@ class DsManager(object):
                 gbd_fd.write('{0}:{1}\n'.format(k, v))
         with open('./work/unknown_ggh.txt', 'w+', encoding='utf-8') as ub_fd:
             for ggh in unknown_ggh_set:
-                ub_fd.write('{0}\n'.format(ggh))
+                if ggh[-1] == '\n' or ggh[-1] == '\r':
+                    ub_fd.write('{0}'.format(ggh))
+                else:
+                    ub_fd.write('{0}\n'.format(ggh))
 
     @staticmethod
     def process_interm_txt_file(txt_file, ggh_set, unknown_ggh_set, bmy_set, ggh_to_bmy_dict):
