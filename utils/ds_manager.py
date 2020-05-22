@@ -556,5 +556,19 @@ class DsManager(object):
     @staticmethod
     def generate_fgvc_ds():
         print('生成正式数据集')
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train')
+        bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
+        with open('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/fgvc_train_ds_v2.txt', 'w+', encoding='utf-8') as ds_fd:
+            for brand_obj in base_path.iterdir():
+                brand_name = str(brand_obj)
+                for model_obj in brand_obj.iterdir():
+                    model_name = str(model_obj)
+                    for year_obj in model_obj.iterdir():
+                        year_name = str(year_obj)
+                        bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
+                        for file_obj in year_obj.iterdir():
+                            print('{0}*{1}'.format(file_obj, bmy_to_fgvc_id_dict[bmy]))
+                            ds_fd.write('{0}*{1}\n'.format(file_obj, bmy_to_fgvc_id_dict[bmy]))
+
 
 
