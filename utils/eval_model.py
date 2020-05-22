@@ -73,9 +73,9 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             batch_brand_correct = 0
             for idx in range(pred_size):
                 pred_bmy = fgvc_id_to_bmy_dict['{0}'.format(top3_pos[idx][0])]
-                pred_brand = pred_bmy.split('-')[0]
+                pred_brand = pred_bmy.split('_')[0]
                 gt_bmy = fgvc_id_to_bmy_dict['{0}'.format(labels[idx])]
-                gt_brand = gt_bmy.split('-')[0]
+                gt_brand = gt_bmy.split('_')[0]
                 if pred_brand == gt_brand:
                     batch_brand_correct += 1
             brand_correct += batch_brand_correct
