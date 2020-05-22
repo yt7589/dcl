@@ -37,8 +37,8 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        #run_mode = DsManager.RUN_MODE_GENERATE_FGVC_DS
-        run_mode = DsManager.RUN_MODE_MERGE_BMY_FGVC_ID
+        run_mode = DsManager.RUN_MODE_REFINE
+        # refine_bmy_and_fgvc_id_dicts
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
             DsManager.sample_imported_vehicle_data()
