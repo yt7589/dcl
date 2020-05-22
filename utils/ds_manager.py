@@ -37,7 +37,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_MERGE_BMY_FGVC_ID
+        run_mode = DsManager.RUN_MODE_REFINE
         # refine_bmy_and_fgvc_id_dicts
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
@@ -298,7 +298,7 @@ class DsManager(object):
                     year_name = arrs3[-1]
                     if not year_path.is_dir() or year_name == 'unknown':
                         continue
-                    bmy = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
+                    bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
                     if not (bmy in bmy_to_fgvc_id_dict):
                         bmy_to_fgvc_id_dict[bmy] = max_fgvc_id
                         fgvc_id_to_bmy_dict[max_fgvc_id] = bmy
