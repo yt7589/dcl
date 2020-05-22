@@ -542,9 +542,13 @@ class DsManager(object):
                 bmy_set.add(bmy)
         bmy_set = sorted(bmy_set)
         fgvc_id = 0
-        for bmy in bmy_set:
-            print('bmy: {0}*{1};'.format(bmy, fgvc_id))
-            fgvc_id += 1
+        with open('./work/bmy_to_fgvc_id_dict.txt', 'w+', encoding='utf-8') as bfi_fd:
+            with open('./work/fgvc_id_to_bmy_dict.txt', 'w+', encoding='utf-8') as fib_fd:
+                for bmy in bmy_set:
+                    print('bmy: {0}*{1};'.format(bmy, fgvc_id))
+                    bfi_fd.write('{0}:{1}\n'.format(bmy, fgvc_id))
+                    fib_fd.write('{0}:{1}\n'.format(fgvc_id, bmy))
+                    fgvc_id += 1
         
 
 
