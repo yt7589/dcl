@@ -540,8 +540,10 @@ class DsManager(object):
                 bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2])
                 bmy_set.add(bmy)
         bmy_set = sorted(bmy_set)
+        fgvc_id = 0
         for bmy in bmy_set:
-            print('bmy: {0};'.format(bmy))
+            print('bmy: {0}*{1};'.format(bmy, fgvc_id))
+            fgvc_id += 1
         
 
 
