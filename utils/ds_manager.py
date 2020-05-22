@@ -533,7 +533,6 @@ class DsManager(object):
                 arrs0 = line.split(':')
                 bmy = arrs0[1][:-2]
                 bmy_set.add(bmy)
-        print('数量1：{0};'.format(bmy))
         with open('./work/bmy_to_fgvc_id_dict.txt', 'r', encoding='utf-8') as bf_fd:
             for line in bf_fd:
                 arrs0 = line.split(':')
