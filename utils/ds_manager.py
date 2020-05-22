@@ -574,9 +574,10 @@ class DsManager(object):
                         arrs2 = year_str.split('/')
                         year_name = arrs2[-1]
                         bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
-                        for file_obj in year_obj.iterdir():
-                            print('{0}*{1}'.format(file_obj, bmy_to_fgvc_id_dict[bmy]))
-                            ds_fd.write('{0}*{1}\n'.format(file_obj, bmy_to_fgvc_id_dict[bmy]))
+                        if bmy in bmy_to_fgvc_id_dict:
+                            for file_obj in year_obj.iterdir():
+                                print('{0}*{1}'.format(file_obj, bmy_to_fgvc_id_dict[bmy]))
+                                ds_fd.write('{0}*{1}\n'.format(file_obj, bmy_to_fgvc_id_dict[bmy]))
 
 
 
