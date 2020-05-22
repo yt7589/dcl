@@ -527,11 +527,20 @@ class DsManager(object):
         按品牌-车型-年款排序后，写入bmy_to_fgvc_id_dict和fgvc_id_to_bmy_dict
         中
         '''
+        bmy_set = set()
         with open('./work/ggh_to_bmy_dict.txt', 'r', encoding='utf-8') as gb_fd:
             for line in gb_fd:
                 arrs0 = line.split(':')
                 bmy = arrs0[1][:-2]
-                print('bmy: {0}'.format(bmy))
+                bmy_set.add(bmy)
+        bmy_set = sorted(bmy_set)
+        with open('./work/bmy_to_fgvc_id_dict.txt', 'r', encoding='utf-8') as bf_fd:
+            for line in bf_fd:
+                arrs0 = line.split(':')
+                arrs1 = arrs0[0].split('-')
+                bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2])
+                print('##### {0};'.format(bmy))
+        
 
 
 
