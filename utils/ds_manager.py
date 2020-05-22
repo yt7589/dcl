@@ -540,7 +540,7 @@ class DsManager(object):
         with open('./work/bmy_to_fgvc_id_dict.txt', 'r', encoding='utf-8') as bf_fd:
             for line in bf_fd:
                 arrs0 = line.split(':')
-                arrs1 = arrs0[0].split('-')
+                arrs1 = arrs0[0].split('_')
                 bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2])
                 bmy_set.add(bmy)
         bmy_set = sorted(bmy_set)
