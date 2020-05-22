@@ -533,13 +533,15 @@ class DsManager(object):
                 arrs0 = line.split(':')
                 bmy = arrs0[1][:-2]
                 bmy_set.add(bmy)
-        bmy_set = sorted(bmy_set)
         with open('./work/bmy_to_fgvc_id_dict.txt', 'r', encoding='utf-8') as bf_fd:
             for line in bf_fd:
                 arrs0 = line.split(':')
                 arrs1 = arrs0[0].split('-')
                 bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2])
-                print('##### {0};'.format(bmy))
+                bmy_set.add(bmy)
+        bmy_set = sorted(bmy_set)
+        for bmy in bmy_set:
+            print('bmy: {0};'.format(bmy))
         
 
 
