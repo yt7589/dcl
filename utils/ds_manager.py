@@ -29,13 +29,14 @@ class DsManager(object):
     # 将raw_domestic_brands.txt、gcc2_vc_bmy.txt、guochanche_all目录、
     # guochanche_2目录的公告号与品牌-车型-年款内容合并成一个文件
     RUN_MODE_MERGE_GGH_BMY = 1007 
+    RUN_MODE_MERGE_BMY_FGVC_ID = 1008 # 合并品牌-车型-年款与FGVC_ID字典
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_MERGE_GGH_BMY
+        run_mode = DsManager.RUN_MODE_MERGE_BMY_FGVC_ID
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
             DsManager.sample_imported_vehicle_data()
@@ -57,6 +58,9 @@ class DsManager(object):
         elif DsManager.RUN_MODE_MERGE_GGH_BMY == run_mode:
             # 合并多个公告号与品牌_车型_年款对应关系
             DsManager.merge_ggh_bmy()
+        elif DsManager.RUN_MODE_MERGE_BMY_FGVC_ID:
+            # 合并品牌-车型-年款与FGVC_ID字典
+            DsManager.merge_bmy_fgvc_id()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -516,7 +520,18 @@ class DsManager(object):
                     unknown_ggh_set.add(ggh)
         return 18
         
-
+    @staticmethod
+    def merge_bmy_fgvc_id():
+        '''
+        将ggh_to_bmy_dict.txt中所有品牌_车型_年款与bmy_to_fgvc_id合并，
+        按品牌-车型-年款排序后，写入bmy_to_fgvc_id_dict和fgvc_id_to_bmy_dict
+        中
+        '''
+        with open('./work/ggh_to_bmy_dict.txt', 'r', encoding='utf-8') as gb_fd:
+            for line in gb_fd:
+                arrs0 = line.split(':')
+                bmy = arrs0[1][:-2]
+                print('bmy: {0}'.format(bmy))
 
 
 
