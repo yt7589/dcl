@@ -59,10 +59,10 @@ class DsManager(object):
         elif DsManager.RUN_MODE_MERGE_GGH_BMY == run_mode:
             # 合并多个公告号与品牌_车型_年款对应关系
             DsManager.merge_ggh_bmy()
-        elif DsManager.RUN_MODE_MERGE_BMY_FGVC_ID:
+        elif DsManager.RUN_MODE_MERGE_BMY_FGVC_ID == run_mode:
             # 合并品牌-车型-年款与FGVC_ID字典
             DsManager.merge_bmy_fgvc_id()
-        elif DsManager.RUN_MODE_GENERATE_FGVC_DS:
+        elif DsManager.RUN_MODE_GENERATE_FGVC_DS == run_mode:
             # 将目录内容生成训练或测试数据集
             DsManager.generate_fgvc_ds()
 
