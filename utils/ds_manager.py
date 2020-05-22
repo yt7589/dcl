@@ -30,13 +30,14 @@ class DsManager(object):
     # guochanche_2目录的公告号与品牌-车型-年款内容合并成一个文件
     RUN_MODE_MERGE_GGH_BMY = 1007 
     RUN_MODE_MERGE_BMY_FGVC_ID = 1008 # 合并品牌-车型-年款与FGVC_ID字典
+    RUN_MODE_GENERATE_FGVC_DS = 1009 # 将审核好的数据目录中内容生成训练数据集或测试数据集
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_MERGE_BMY_FGVC_ID
+        run_mode = DsManager.RUN_MODE_GENERATE_FGVC_DS
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
             DsManager.sample_imported_vehicle_data()
@@ -61,6 +62,9 @@ class DsManager(object):
         elif DsManager.RUN_MODE_MERGE_BMY_FGVC_ID:
             # 合并品牌-车型-年款与FGVC_ID字典
             DsManager.merge_bmy_fgvc_id()
+        elif DsManager.RUN_MODE_GENERATE_FGVC_DS:
+            # 将目录内容生成训练或测试数据集
+            DsManager.generate_fgvc_ds()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -549,6 +553,8 @@ class DsManager(object):
                     fib_fd.write('{0}:{1}\n'.format(fgvc_id, bmy))
                     fgvc_id += 1
         
-
+    @staticmethod
+    def generate_fgvc_ds():
+        print('生成正式数据集')
 
 
