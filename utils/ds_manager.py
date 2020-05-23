@@ -597,7 +597,8 @@ class DsManager(object):
         bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
         # 求出最大fgvc_id
         max_fgvc_id = -1
-        for fid in fgvc_id_to_bmy_dict.keys():
+        for key in fgvc_id_to_bmy_dict.keys():
+            fid = int(key)
             if fid > max_fgvc_id:
                 max_fgvc_id = fid
         print('max_fgvc_id={0};'.format(max_fgvc_id))
