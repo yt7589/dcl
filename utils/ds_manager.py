@@ -200,14 +200,36 @@ class DsManager(object):
                     dir3_name = str(dir3_obj)
                     if not dir3_obj.is_dir() or dir3_name[-7:] == 'unknown':
                         continue
+                    arrs3 = dir3_name.split('/')
+                    brand_name = arrs3[-3]
+                    model_name = arrs3[-2]
+                    year_name = arrs3[-1]
+                    dbn_train_dir = '{0}/train/{1}'.format(dst_dir, brand_name)
+                    if not os.path.exists(dbn_train_dir):
+                        os.mkdir(dbn_train_dir)
+                    dbn_test_dir = '{0}/test/{1}'.format(dst_dir, brand_name)
+                    if not os.path.exists(dbn_test_dir):
+                        os.mkdir(dbn_test_dir)
+                    dmn_train_dir = '{0}/{1}'.format(dbn_train_dir, model_anme)
+                    if not os.path.exists(dmn_train_dir):
+                        os.mkdir(dmn_train_dir)
+                    dmn_test_dir = '{0}{1}'.format(dbn_test_dir, model_name)
+                    if not os.path.exists(dmn_test_dir):
+                        os.mkdir(dmn_test_dir)
+                    dyn_train_dir = '{0}/{1}'.format(dmn_train_dir, year_name)
+                    if not os.path.exists(dyn_train_dir):
+                        os.mkdir(dyn_train_dir)
+                    dyn_test_dir = '{0}/{1}'.format(dmn_test_dir, year_name)
+                    if not os.path.exists(dyn_test_dir):
+                        os.mkdir(dyn_test_dir)
                     imgs_num = DsManager.get_imgs_num_in_folder(dir3_obj)
-                    DsManager.sample_in_folder(dir3_obj, dst_dir, imgs_num, aim_num, 0.1)
+                    DsManager.sample_in_folder(dir3_obj, dst_dir, brand_name, model_name, year_name, imgs_num, aim_num, 0.1)
                     print('******** year: {0}; imgs_num={1};'.format(dir3_name, imgs_num))
                     year_num += 1
         print('共有{0}个品牌，{1}个车型，{2}个年款'.format(brand_num, model_num, year_num))
 
     @staticmethod
-    def sample_in_folder(folder_obj, dst_dir, imgs_num, aim_num, ratio):
+    def sample_in_folder(folder_obj, dst_dir, brand_name, model_name, year_name, imgs_num, aim_num, ratio):
         '''
         从指定目录中选取数据集文件，将文件从本目录移动到训练或测试集目录下的对应目录
             imgs_num：当前目录下图片文件总数
@@ -223,17 +245,17 @@ class DsManager(object):
                     # 取全部图像，其中10%作为测试集，90%作为训练集
                     if random.random() < ratio:
                         # 移动到测试集
-                        shutil.copy(full_name, '{0}/test/{1}'.format(dst_dir, img_file))
+                        shutil.copy(full_name, '{0}/test/{1}/{2}/{3}/{4}'.format(dst_dir, brand_name, model_name, year_name, img_file))
                     else:
                         # 移动到训练集
-                        shutil.copy(full_name, '{0}/train/{1}'.format(dst_dir, img_file))
+                        shutil.copy(full_name, '{0}/train/{1}/{2}/{3}/{4}'.format(dst_dir, brand_name, model_name, year_name, img_file))
                 else:
                     # 取 aim_num / imgs_num 比例图片，其中10%作为测试集
                     if random.random() < aim_num / imgs_num:
                         if random.random() < ratio:
-                            shutil.copy(full_name, '{0}/test/{1}'.format(dst_dir, img_file))
+                            shutil.copy(full_name, '{0}/test/{1}/{2}/{3}/{4}'.format(dst_dir, brand_name, model_name, year_name, img_file))
                         else:
-                            shutil.copy(full_name, '{0}/train/{1}'.format(dst_dir, img_file))
+                            shutil.copy(full_name, '{0}/train/{1}/{2}/{3}/{4}'.format(dst_dir, brand_name, model_name, year_name, img_file))
             else:
                 print('忽略文件：{0};'.format(file_obj))
             
