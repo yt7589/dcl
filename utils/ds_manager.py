@@ -32,6 +32,7 @@ class DsManager(object):
     RUN_MODE_MERGE_BMY_FGVC_ID = 1008 # 合并品牌-车型-年款与FGVC_ID字典
     RUN_MODE_GENERATE_FGVC_DS = 1009 # 将审核好的数据目录中内容生成训练数据集或测试数据集
     RUN_MODE_GET_TEST_DS_BMY = 1010 # 统计测试数据集中的品牌-车型-年款信息
+    RUN_MODE_PREPROCESS_TEST_DS = 1011 # 
 
     def __init__(self):
         self.name = 'utils.DsManager'
@@ -70,6 +71,9 @@ class DsManager(object):
         elif DsManager.RUN_MODE_GET_TEST_DS_BMY == run_mode:
             # 统计测试数据集中的品牌-车型-年款信息
             DsManager.get_test_ds_bmy()
+        elif DsManager.RUN_MODE_PREPROCESS_TEST_DS == run_mode:
+            # 
+            DsManager.preprocess_test_ds()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -642,5 +646,15 @@ class DsManager(object):
             for k, v in fgvc_id_to_bmy_dict.items():
                 fib_fd.write('{0}:{1}\n'.format(k, v))
 
+    @staticmethod
+    def preprocess_test_ds():
+        ''' '''
+        bno_bn = {}
+        with open('./datasets/bno_bn.txt', 'r', encoding='utf-8') as bb_fd:
+            for line in bb_fd:
+                arrs0 = line.split(':')
+                bno_bn[arrs0[0]] = arrs0[1][:-1]
+        for k, v in bno_bn.items():
+            print('{0}:{1};'.format(k, v))
 
 
