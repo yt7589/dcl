@@ -39,7 +39,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_PREPROCESS_TEST_DS
+        run_mode = DsManager.RUN_MODE_SAMPLE_IMPORTED
         # refine_bmy_and_fgvc_id_dicts
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
@@ -176,7 +176,9 @@ class DsManager(object):
         将新生成的测试集和训练集给人工进行校对
         '''
         path_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
-                    '/vehicle_type_v2d/vehicle_type_v2d')
+                    '/fgvc_dataset/raw')
+        dst_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b'
+                    '/fgvc_dataset'
         brand_num = 0
         model_num = 0
         year_num = 0
@@ -200,13 +202,13 @@ class DsManager(object):
                     if not dir3_obj.is_dir() or dir3_name[-7:] == 'unknown':
                         continue
                     imgs_num = DsManager.get_imgs_num_in_folder(dir3_obj)
-                    DsManager.sample_in_folder(dir3_obj, imgs_num, aim_num, 0.1)
+                    DsManager.sample_in_folder(dir3_obj, dst_dir, imgs_num, aim_num, 0.1)
                     print('******** year: {0}; imgs_num={1};'.format(dir3_name, imgs_num))
                     year_num += 1
         print('共有{0}个品牌，{1}个车型，{2}个年款'.format(brand_num, model_num, year_num))
 
     @staticmethod
-    def sample_in_folder(folder_obj, imgs_num, aim_num, ratio):
+    def sample_in_folder(folder_obj, dst_dir, imgs_num, aim_num, ratio):
         '''
         从指定目录中选取数据集文件，将文件从本目录移动到训练或测试集目录下的对应目录
             imgs_num：当前目录下图片文件总数
@@ -217,21 +219,22 @@ class DsManager(object):
             full_name = str(file_obj)
             if not file_obj.is_dir() and full_name.endswith(
                         ('jpg','png','jpeg','bmp')):
+                img_file = full_name.split('/')[-1]
                 if imgs_num < aim_num:
                     # 取全部图像，其中10%作为测试集，90%作为训练集
                     if random.random() < ratio:
                         # 移动到测试集
-                        print('移动到测试集')
+                        shutil.copy(full_name, '{0}/test/{1}'.format(dst_dir, img_file))
                     else:
                         # 移动到训练集
-                        print('移动到训练集')
+                        shutil.copy(full_name, '{0}/train/{1}'.format(dst_dir, img_file))
                 else:
                     # 取 aim_num / imgs_num 比例图片，其中10%作为测试集
                     if random.random() < aim_num / imgs_num:
                         if random.random() < ratio:
-                            print('移动到测试集')
+                            shutil.copy(full_name, '{0}/test/{1}'.format(dst_dir, img_file))
                         else:
-                            print('移动到训练集')
+                            shutil.copy(full_name, '{0}/train/{1}'.format(dst_dir, img_file))
             else:
                 print('忽略文件：{0};'.format(file_obj))
             
