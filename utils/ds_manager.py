@@ -210,7 +210,7 @@ class DsManager(object):
                         print('creat {0} folder;'.format(dbn_train_dir))
                         os.mkdir(dbn_train_dir)
                     dbn_test_dir = '{0}/test/{1}'.format(dst_dir, brand_name)
-                    print('check {0};'.format(dbn_test_dir))
+                    print('v1 check {0};'.format(dbn_test_dir))
                     if not os.path.exists(dbn_test_dir):
                         print('create {0} folder;'.format(dbn_test_dir))
                         os.mkdir(dbn_test_dir)
