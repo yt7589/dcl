@@ -31,6 +31,7 @@ class DsManager(object):
     RUN_MODE_MERGE_GGH_BMY = 1007 
     RUN_MODE_MERGE_BMY_FGVC_ID = 1008 # 合并品牌-车型-年款与FGVC_ID字典
     RUN_MODE_GENERATE_FGVC_DS = 1009 # 将审核好的数据目录中内容生成训练数据集或测试数据集
+    RUN_MODE_GET_TEST_DS_BMY = 1010 # 统计测试数据集中的品牌-车型-年款信息
 
     def __init__(self):
         self.name = 'utils.DsManager'
@@ -66,6 +67,9 @@ class DsManager(object):
         elif DsManager.RUN_MODE_GENERATE_FGVC_DS == run_mode:
             # 将目录内容生成训练或测试数据集
             DsManager.generate_fgvc_ds()
+        elif DsManager.RUN_MODE_GET_TEST_DS_BMY == run_mode:
+            # 统计测试数据集中的品牌-车型-年款信息
+            DsManager.get_test_ds_bmy()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -385,8 +389,8 @@ class DsManager(object):
     @staticmethod
     def domestic_data_main():
         print('处理国产车目录')
-        #src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
-        src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/g001')
+        src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
+        #src_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/g001')
         dst_base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
         DsManager.process_base_folder(src_base_path, dst_base_path)
 
@@ -582,6 +586,21 @@ class DsManager(object):
                             for file_obj in year_obj.iterdir():
                                 print('{0}*{1}'.format(file_obj, bmy_to_fgvc_id_dict[bmy]))
                                 ds_fd.write('{0}*{1}\n'.format(file_obj, bmy_to_fgvc_id_dict[bmy]))
+
+    @staticmethod
+    def get_test_ds_bmy():
+        '''
+        取出bmy_to_fgvc_id_dict，并求出最大fgvc_id
+        从测试数据集目录中形成品牌-车型-年款的bmy，查询bmy_to_fgvc_id_dict，如果有则不做任何处理；如果
+        没有，则fgvc_id加1，再向bmy_to_fgvc_id_dict加入相应记录
+        '''
+        bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
+        # 求出最大fgvc_id
+        max_fgvc_id = -1
+        for fid in fgvc_id_to_bmy_dict.keys():
+            if fid > max_fgvc_id:
+                max_fgvc_id = fid
+        print('max_fgvc_id={0};'.format(max_fgvc_id))
 
 
 
