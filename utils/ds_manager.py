@@ -658,7 +658,8 @@ class DsManager(object):
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/品牌')
         for brand_path in base_path.iterdir():
             brand_str = str(brand_path)
-            bno = brand_str[:3]
+            arrs0 = brand_str.split('/')
+            bno = arrs0[-1][:3]
             print('bno={0};'.format(bno))
             bn = bno_bn[int(bno)-1]
             print('{0} => {1};'.format(bno, bn))
