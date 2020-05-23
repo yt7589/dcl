@@ -205,19 +205,15 @@ class DsManager(object):
                     model_name = arrs3[-2]
                     year_name = arrs3[-1]
                     dbn_train_dir = '{0}/train/{1}'.format(dst_dir, brand_name)
-                    print('check {0};'.format(dbn_train_dir))
                     if not os.path.exists(dbn_train_dir):
-                        print('creat {0} folder;'.format(dbn_train_dir))
                         os.mkdir(dbn_train_dir)
                     dbn_test_dir = '{0}/test/{1}'.format(dst_dir, brand_name)
-                    print('v1 check {0};'.format(dbn_test_dir))
                     if not os.path.exists(dbn_test_dir):
-                        print('create {0} folder;'.format(dbn_test_dir))
                         os.mkdir(dbn_test_dir)
                     dmn_train_dir = '{0}/{1}'.format(dbn_train_dir, model_name)
                     if not os.path.exists(dmn_train_dir):
                         os.mkdir(dmn_train_dir)
-                    dmn_test_dir = '{0}{1}'.format(dbn_test_dir, model_name)
+                    dmn_test_dir = '{0}/{1}'.format(dbn_test_dir, model_name)
                     if not os.path.exists(dmn_test_dir):
                         os.mkdir(dmn_test_dir)
                     dyn_train_dir = '{0}/{1}'.format(dmn_train_dir, year_name)
