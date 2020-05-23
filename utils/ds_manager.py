@@ -39,7 +39,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_SAMPLE_IMPORTED
+        run_mode = DsManager.RUN_MODE_FGVC_DS
         # refine_bmy_and_fgvc_id_dicts
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
@@ -89,10 +89,10 @@ class DsManager(object):
     @staticmethod
     def fgvc_ds_main():
         ''' 根据fgvc_dataset/train,test目录生成数据集 '''
-        #folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train'
-        folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test'
-        #ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train_ds_v1.txt'
-        ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test_ds_v1.txt'
+        folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train'
+        #folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test'
+        ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/train_ds_v3.txt'
+        #ds_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test_ds_v1.txt'
         DsManager.generate_ds_by_folder(folder_name, ds_file)
 
     @staticmethod
