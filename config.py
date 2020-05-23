@@ -99,7 +99,7 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'label'])
             '''
-            self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'fgvc_train_ds_v2.txt'),\
+            self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'fgvc_train_ds_v3.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'label'])
@@ -111,7 +111,7 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'label'])
             '''
-            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'fgvc_test_ds_v2.txt'),\
+            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'fgvc_test_ds_v3.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'label'])
@@ -123,7 +123,7 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'label'])
             '''
-            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'fgvc_test_ds_v2.txt'),\
+            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'fgvc_test_ds_v3.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'label'])
