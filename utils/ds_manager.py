@@ -377,7 +377,7 @@ class DsManager(object):
                         year_name = arrs3[-1]
                         if not year_path.is_dir() or year_name == 'unknown':
                             continue
-                        bmy = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
+                        bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
                         if not (bmy in bmy_to_fgvc_id_dict):
                             max_fgvc_id += 1
                             bmy_to_fgvc_id_dict[bmy] = max_fgvc_id
