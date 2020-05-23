@@ -655,7 +655,11 @@ class DsManager(object):
             for line in bb_fd:
                 arrs0 = line.split(':')
                 bno_bn[arrs0[0]] = arrs0[1][:-1]
-        for k, v in bno_bn.items():
-            print('{0}:{1};'.format(k, v))
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/品牌')
+        for brand_path in base_path.iterdir():
+            brand_str = str(brand_path)
+            bno = brand_str[:3]
+            bn = bno_bn[bno]
+            print('{0} => {1};'.format(bno, bn))
 
 
