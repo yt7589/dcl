@@ -660,8 +660,8 @@ class DsManager(object):
             brand_str = str(brand_path)
             arrs0 = brand_str.split('/')
             bno = arrs0[-1][:3]
-            print('bno={0};'.format(bno))
-            #bn = bno_bn[int(bno)-1]
-            #print('{0} => {1};'.format(bno, bn))
+            print('bno={0}; {1};'.format(bno, int(bno) -1))
+            bn = bno_bn['{0}'.format(int(bno)-1)]
+            print('{0} => {1};'.format(bno, bn))
 
 
