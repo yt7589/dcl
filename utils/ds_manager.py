@@ -661,7 +661,7 @@ class DsManager(object):
             arrs0 = brand_str.split('/')
             bno = arrs0[-1][:3]
             print('bno={0};'.format(bno))
-            bn = bno_bn[int(bno)-1]
+            #bn = bno_bn[int(bno)-1]
             print('{0} => {1};'.format(bno, bn))
 
 
