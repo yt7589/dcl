@@ -594,6 +594,7 @@ class DsManager(object):
         从测试数据集目录中形成品牌-车型-年款的bmy，查询bmy_to_fgvc_id_dict，如果有则不做任何处理；如果
         没有，则fgvc_id加1，再向bmy_to_fgvc_id_dict加入相应记录
         '''
+        file_sep = '\\'
         bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
         # 求出最大fgvc_id
         max_fgvc_id = -1
@@ -602,6 +603,42 @@ class DsManager(object):
             if fid > max_fgvc_id:
                 max_fgvc_id = fid
         print('max_fgvc_id={0};'.format(max_fgvc_id))
+        # 遍历添加新品牌-车型-年款和fgvc_id对应关系
+        base_path = Path('E:/work/品牌yt')
+        for brand_path in base_path.iterdir():
+            brand_str = str(brand_path)
+            arrs0 = brand_str.split(file_sep)
+            brand_raw = arrs0[-1]
+            if len(brand_raw) <= 3:
+                continue
+            brand_name = brand_raw[3:]
+            print(brand_name)
+            for model_path in brand_path.iterdir():
+                if not model_path.is_dir():
+                    continue
+                model_str = str(model_path)
+                arrs1 = model_str.split(file_sep)
+                model_name = arrs1[-1]
+                print('     {0};'.format(model_name))
+                for year_path in model_path.iterdir():
+                    year_str = str(year_path)
+                    arrs2 = year_str.split(file_sep)
+                    year_name = arrs2[-1]
+                    bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
+                    bmyl = bmy.lower()
+                    bmyu = bmy.upper()
+                    if (not bmyl in bmy_to_fgvc_id_dict) and (not bmyu in bmy_to_fgvc_id_dict):
+                        max_fgvc_id += 1
+                        print('##### {0}={1};'.format(bmy, max_fgvc_id))
+                        bmy_to_fgvc_id_dict[bmy] = max_fgvc_id
+                        fgvc_id_to_bmy_dict[max_fgvc_id] = bmy
+        # 将bmy_to_fgvc_id_dict和fgvc_id_to_bmy_dict保存到文件中
+        with open('./work/bmy_to_fgvc_id_dict.txt', 'w+', encoding='utf-8') as bfi_fd:
+            for k, v in bmy_to_fgvc_id_dict.items():
+                bfi_fd.write('{0}:{1}\n'.format(k, v))
+        with open('./work/fgvc_id_to_bmy_dict.txt', 'w+', encoding='utf-8') as fib_fd:
+            for k, v in fgvc_id_to_bmy_dict.items():
+                fib_fd.write('{0}:{1}\n'.format(k, v))
 
 
 
