@@ -659,7 +659,8 @@ class DsManager(object):
         for brand_path in base_path.iterdir():
             brand_str = str(brand_path)
             bno = brand_str[:3]
-            bn = bno_bn[bno]
+            print('bno={0};'.format(bno))
+            bn = bno_bn[int(bno)-1]
             print('{0} => {1};'.format(bno, bn))
 
 
