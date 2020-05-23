@@ -39,7 +39,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_REFINE
+        run_mode = DsManager.RUN_MODE_PREPROCESS_TEST_DS
         # refine_bmy_and_fgvc_id_dicts
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
