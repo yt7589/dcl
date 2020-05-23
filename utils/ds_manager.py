@@ -303,6 +303,7 @@ class DsManager(object):
                     if not year_path.is_dir() or year_name == 'unknown':
                         continue
                     bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
+                    print('processing {0};'.format(bmy))
                     if not (bmy in bmy_to_fgvc_id_dict):
                         bmy_to_fgvc_id_dict[bmy] = max_fgvc_id
                         fgvc_id_to_bmy_dict[max_fgvc_id] = bmy
