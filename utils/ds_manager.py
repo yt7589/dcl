@@ -356,7 +356,7 @@ class DsManager(object):
         max_fgvc_id = -1
         for k in fgvc_id_to_bmy_dict.keys():
             if int(k) > max_fgvc_id:
-                max_fgvc_id = k
+                max_fgvc_id = int(k)
         base_path = Path(folder_name)
         with open(ds_file, 'w+', encoding='utf-8') as ds_fd:
             for brand_path in base_path.iterdir():
