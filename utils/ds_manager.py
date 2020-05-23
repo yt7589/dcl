@@ -403,10 +403,11 @@ class DsManager(object):
             arrs = folder_name.split('_')
             if len(arrs) > 1:
                 vggh = arrs[-1]
-                print('process: {0};'.format(vggh))
             else:
                 vggh = folder_name
+            print('vggh: {0}; fn={1};'.format(vggh, folder_name))
             if vggh in ggh_to_bmy_dict:
+                print('      ^_^')
                 bmy = ggh_to_bmy_dict[vggh]
                 print('### {0}: {1};'.format(vggh, bmy))
                 DsManager.move_img_to_data_folder(path_obj, bmy, dst_base_path)
@@ -434,9 +435,9 @@ class DsManager(object):
         if not(DsManager._ggh_to_bmy_dict is None):
             return DsManager._ggh_to_bmy_dict
         DsManager._ggh_to_bmy_dict = {}
-        with open('./work/gcc2_vc_bmy.txt', 'r', encoding='utf-8') as fd:
+        with open('./work/ggh_to_bmy_dict.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
-                arrs0 = line.split('*')
+                arrs0 = line.split(':')
                 if len(arrs0) > 1:
                     arrs1 = arrs0[1][:-1].split('_')
                     bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2][:-1])
