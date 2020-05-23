@@ -353,6 +353,10 @@ class DsManager(object):
         '''
         file_sep = '/'
         bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
+        max_fgvc_id = -1
+        for k in fgvc_id_to_bmy_dict.keys():
+            if int(k) > max_fgvc_id:
+                max_fgvc_id = k
         base_path = Path(folder_name)
         with open(ds_file, 'w+', encoding='utf-8') as ds_fd:
             for brand_path in base_path.iterdir():
