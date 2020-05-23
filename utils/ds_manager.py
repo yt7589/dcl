@@ -210,7 +210,7 @@ class DsManager(object):
                     dbn_test_dir = '{0}/test/{1}'.format(dst_dir, brand_name)
                     if not os.path.exists(dbn_test_dir):
                         os.mkdir(dbn_test_dir)
-                    dmn_train_dir = '{0}/{1}'.format(dbn_train_dir, model_anme)
+                    dmn_train_dir = '{0}/{1}'.format(dbn_train_dir, model_name)
                     if not os.path.exists(dmn_train_dir):
                         os.mkdir(dmn_train_dir)
                     dmn_test_dir = '{0}{1}'.format(dbn_test_dir, model_name)
