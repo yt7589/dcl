@@ -38,7 +38,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_GET_TEST_DS_BMY
+        run_mode = DsManager.RUN_MODE_DOMESTIC_DATA
         # refine_bmy_and_fgvc_id_dicts
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
@@ -396,7 +396,7 @@ class DsManager(object):
 
     @staticmethod
     def process_base_folder(src_base_path, dst_base_path):
-        print('将指定目录下文件移到指定目录下')
+        print('将指定目录下文件移到指定目录下 ???')
         ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
         for path_obj in src_base_path.iterdir():
             folder_name = str(path_obj).split('/')[-1]
