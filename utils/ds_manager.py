@@ -655,13 +655,34 @@ class DsManager(object):
             for line in bb_fd:
                 arrs0 = line.split(':')
                 bno_bn[arrs0[0]] = arrs0[1][:-1]
+        for k, v in bno_bn.items():
+            print('{0} {1}={2};'.format(type(k), k, v))
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/品牌')
+        dst_path = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/t1'
         for brand_path in base_path.iterdir():
             brand_str = str(brand_path)
             arrs0 = brand_str.split('/')
             bno = arrs0[-1][:3]
-            print('bno={0}; {1};'.format(bno, int(bno) -1))
-            bn = bno_bn['{0}'.format(int(bno)-1)]
+            bn = bno_bn[bno]
             print('{0} => {1};'.format(bno, bn))
+            for file_path in brand_path.iterdir():
+                file_str = str(file_path)
+                img_file = file_str.split('/')[-1]
+                if len(img_file) > 15:
+                    arrs1 = img_file.split('_')
+                    brand_name = arrs1[3]
+                    model_name = arrs1[4]
+                    year_name = arrs1[5]
+                    print('{0}: {1}_{2}_{3};'.format(img_file, brand_name, model_name, year_name))
+                    dbn_dir = '{0}/{1}'.format(dst_path, brand_name)
+                    if not os.path.exists(dbn_dir):
+                        os.mkdir(dbn_dir)
+                    dmn_dir = '{0}/{1}'.format(dbn_dir, model_name)
+                    if not os.path.exists(dmn_dir):
+                        os.mkdir(dmn_dir)
+                    dyn_dir = '{0}/{1}'.format(dmn_dir, year_name)
+                    if not os.path.exists(dyn_dir):
+                        os.mkdir(dyn_dir)
+                    shutil.move(file_str, '{0}/{1}'.format(dyn_dir, img_file))
 
 
