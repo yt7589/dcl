@@ -403,6 +403,7 @@ class DsManager(object):
             arrs = folder_name.split('_')
             if len(arrs) > 1:
                 vggh = arrs[-1]
+                print('process: {0};'.format(vggh))
             else:
                 vggh = folder_name
             if vggh in ggh_to_bmy_dict:
@@ -410,8 +411,8 @@ class DsManager(object):
                 print('### {0}: {1};'.format(vggh, bmy))
                 DsManager.move_img_to_data_folder(path_obj, bmy, dst_base_path)
                 shutil.rmtree(path_obj)
-            else:
-                print('未知车辆公告号：{0};'.format(vggh))
+            #else:
+            #    print('未知车辆公告号：{0};'.format(vggh))
 
     @staticmethod
     def move_img_to_data_folder(path_obj, bmy, dst_base_path):
