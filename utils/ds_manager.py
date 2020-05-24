@@ -33,13 +33,17 @@ class DsManager(object):
     RUN_MODE_GENERATE_FGVC_DS = 1009 # 将审核好的数据目录中内容生成训练数据集或测试数据集
     RUN_MODE_GET_TEST_DS_BMY = 1010 # 统计测试数据集中的品牌-车型-年款信息
     RUN_MODE_PREPROCESS_TEST_DS = 1011 # 
+    RUN_MODE_TRAINING_DEMO = 1012 #
+    # 将测试数据集的目录表示的品牌_车型_年款与现有品牌车型年
+    # 款进行比较，添加新品牌_车型_年款信息，并记录下来
+    RUN_MODE_PROCESS_TEST_DS_BMY = 1013 
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_FGVC_DS
+        run_mode = DsManager.RUN_MODE_PROCESS_TEST_DS_BMY
         # refine_bmy_and_fgvc_id_dicts
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
@@ -74,6 +78,12 @@ class DsManager(object):
         elif DsManager.RUN_MODE_PREPROCESS_TEST_DS == run_mode:
             # 
             DsManager.preprocess_test_ds()
+        elif DsManager.RUN_MODE_TRAINING_DEMO == run_mode:
+            DsManager.training_demo()
+        elif DsManager.RUN_MODE_PROCESS_TEST_DS_BMY == run_mode:
+            # 将测试数据集的目录表示的品牌_车型_年款与现有品牌
+            # 车型年款进行比较，添加新品牌_车型_年款信息，并记录下来
+            DsManager.process_test_ds_bmy()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -713,4 +723,63 @@ class DsManager(object):
                         os.mkdir(dyn_dir)
                     shutil.move(file_str, '{0}/{1}'.format(dyn_dir, img_file))
 
+    @staticmethod
+    def training_demo():
+        print('手工排序算法讲解')
+        x = [1.5, 2.3, 1.8, 5.0, 0.2, 8.5, 3.1]
+        len_x = len(x)
+        print('len_x={0};'.format(len_x))
+        print('排序前：{0};'.format(x))
+        for i in range(len_x):
+            for j in range(i+1, len_x):
+                if x[i] < x[j]:
+                    aux = x[i]
+                    x[i] = x[j]
+                    x[j] = aux
+        print('排序后：{0};'.format(x))
 
+    @staticmethod
+    def process_test_ds_bmy():
+        '''
+        将测试数据集的目录表示的品牌_车型_年款与现有品牌车型年款进行比较，
+        添加新品牌_车型_年款信息，并记录下来
+        '''
+        print('处理测试数据集品牌_车型_年款信息')
+        new_test_bmy_file = 'E:/temp/ntb.txt'
+        bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
+        max_fgvc_id = -1
+        for k in fgvc_id_to_bmy_dict.keys():
+            if int(k) > max_fgvc_id:
+                max_fgvc_id = int(k)
+        file_sep = '\\'
+        base_path = Path('E:/work/tcv/t1')
+        sum_num = 0
+        with open(new_test_bmy_file, 'w+', encoding='utf-8') as ntb_fd:
+            for brand_path in base_path.iterdir():
+                brand_str = str(brand_path)
+                arrs0 = brand_str.split(file_sep)
+                brand_name = arrs0[-1]
+                for model_path in brand_path.iterdir():
+                    model_str = str(model_path)
+                    arrs1 = model_str.split(file_sep)
+                    model_name = arrs1[-1]
+                    for year_path in model_path.iterdir():
+                        year_str = str(year_path)
+                        arrs2 = year_str.split(file_sep)
+                        year_name = arrs2[-1]
+                        bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
+                        print('##### {0};'.format(bmy))
+                        if bmy not in bmy_to_fgvc_id_dict:
+                            sum_num += 1
+                            print('             添加：{0};'.format(bmy))
+                            max_fgvc_id += 1
+                            bmy_to_fgvc_id_dict[bmy] = max_fgvc_id
+                            fgvc_id_to_bmy_dict[max_fgvc_id] = bmy
+                            ntb_fd.write('{0}*{1}\n'.format(max_fgvc_id, bmy))
+        print('共添加{0}个新小类'.format(sum_num))
+        with open('./work/bmy_to_fgvc_id_dict.txt', 'w+', encoding='utf-8') as bfi_fd:
+            for k, v in bmy_to_fgvc_id_dict.items():
+                bfi_fd.write('{0}:{1}\n'.format(k, v))
+        with open('./work/fgvc_id_to_bmy_dict.txt', 'w+', encoding='utf-8') as fib_fd:
+            for k, v in fgvc_id_to_bmy_dict.items():
+                fib_fd.write('{0}:{1}\n'.format(k, v))
