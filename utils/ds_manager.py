@@ -745,13 +745,44 @@ class DsManager(object):
         添加新品牌_车型_年款信息，并记录下来
         '''
         print('处理测试数据集品牌_车型_年款信息')
+        # 拷贝测试数据集有而我们数据集没有的图像拷贝到训练数据集中
+        file_sep = '/'
+        seq = 0
+        train_base = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/tr0'
+        test_base = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/t1'
+        with open('./work/test_ds_to_copy.txt', 'r', encoding='utf-8') as tds_fd:
+            for line in tds_fd:
+                arrs0 = line.split('*')
+                bmy = arrs0[1][:-1]
+                arrs1 = bmy.split('_')
+                brand_name = arrs1[0]
+                model_name = arrs1[1]
+                year_name = arrs1[2]
+                dst_brand_dir = '{0}/{1}'.format(train_base, brand_name)
+                if not os.path.exists(dst_band_dir):
+                    os.mkdir(dst_brand_dir)
+                dst_model_dir = '{0}/{1}'.format(dst_brand_dir, model_name)
+                if not os.path.exists(dst_model_dir):
+                    os.mkdir(dst_model_dir)
+                dst_year_dir = '{0}/{1}'.format(dst_model_dir, year_name)
+                if not os.path.exists(dst_year_dir):
+                    os.mkdir(dst_year_dir)
+                src_path = Path('{0}/{1}/{2}/{3}'.format(test_base, brand_name, model_name, year_name))
+                for img_obj in src_path.iterdir():
+                    img_str = str(img_obj)
+                    arrs2 = img_str.split(file_sep)
+                    img_file = arrs2[-1]
+                    shutil.copy(img_str, '{0}/{1}'.format(dst_year_dir, img_file))
+                
+        i_debug = 1
+        if 1 == i_debug:
+            return
         new_test_bmy_file = 'E:/temp/ntb.txt'
         bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
         max_fgvc_id = -1
         for k in fgvc_id_to_bmy_dict.keys():
             if int(k) > max_fgvc_id:
                 max_fgvc_id = int(k)
-        file_sep = '\\'
         base_path = Path('E:/work/tcv/t1')
         sum_num = 0
         with open(new_test_bmy_file, 'w+', encoding='utf-8') as ntb_fd:
