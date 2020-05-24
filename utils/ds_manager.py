@@ -759,7 +759,7 @@ class DsManager(object):
                 model_name = arrs1[1]
                 year_name = arrs1[2]
                 dst_brand_dir = '{0}/{1}'.format(train_base, brand_name)
-                if not os.path.exists(dst_band_dir):
+                if not os.path.exists(dst_brand_dir):
                     os.mkdir(dst_brand_dir)
                 dst_model_dir = '{0}/{1}'.format(dst_brand_dir, model_name)
                 if not os.path.exists(dst_model_dir):
