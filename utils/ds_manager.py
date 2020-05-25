@@ -837,6 +837,7 @@ class DsManager(object):
                     if len(arrs2) > 1:
                         ggh2 = arrs2[1]
                         if ggh1 != ggh2:
+                            ggh_set.add(ggh2)
                             print('###### {0} vs {1};'.format(ggh1, ggh2))
         for ggh in ggh_set:
             print(ggh)
