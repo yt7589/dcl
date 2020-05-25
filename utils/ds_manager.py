@@ -839,6 +839,8 @@ class DsManager(object):
                         if ggh1 != ggh2:
                             ggh_set.add(ggh2)
         ggh_set = sorted(ggh_set)
-        for ggh in ggh_set:
-            print(ggh)
+        with open('./logs/gghs.txt', 'w+', encoding='utf-8') as fd:
+            for ggh in ggh_set:
+                print(ggh)
+                fd.write('{0}\n'.format(ggh))
         print('共有{0}个公告号'.format(len(ggh_set)))
