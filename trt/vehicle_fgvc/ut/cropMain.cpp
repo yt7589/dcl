@@ -45,7 +45,7 @@ void *mythread(void *threadid)
 
     // Call other DCL interface
     std::cout << "GPU_DETECT_INPUT: " << std::endl;
-    int batchSize = 7 ;
+    int batchSize = 8;
     std::vector<unsigned char*> cudaSrc(batchSize);
     std::vector<int> srcWidth(batchSize);
     std::vector<int> srcHeight(batchSize);
