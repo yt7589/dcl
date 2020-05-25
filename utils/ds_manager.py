@@ -833,10 +833,11 @@ class DsManager(object):
                     prefix = arrs1[0]
                     arrs2 = prefix.split('#')
                     ggh1 = arrs2[0]
-                    ggh2 = arrs2[1]
                     ggh_set.add(ggh1)
-                    if ggh1 != ggh2:
-                        print('{0} vs {1};'.format(ggh1, ggh2))
+                    if len(arrs2) > 1:
+                        ggh2 = arrs2[1]
+                        if ggh1 != ggh2:
+                            print('###### {0} vs {1};'.format(ggh1, ggh2))
         for ggh in ggh_set:
             print(ggh)
         print('共有{0}个公告号'.format(len(ggh_set)))
