@@ -37,13 +37,14 @@ class DsManager(object):
     # 将测试数据集的目录表示的品牌_车型_年款与现有品牌车型年
     # 款进行比较，添加新品牌_车型_年款信息，并记录下来
     RUN_MODE_PROCESS_TEST_DS_BMY = 1013 
+    RUN_MODE_EMERGENCY = 1014 # 处理紧急情况
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_PROCESS_TEST_DS_BMY
+        run_mode = DsManager.RUN_MODE_EMERGENCY
         # refine_bmy_and_fgvc_id_dicts
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
@@ -84,6 +85,8 @@ class DsManager(object):
             # 将测试数据集的目录表示的品牌_车型_年款与现有品牌
             # 车型年款进行比较，添加新品牌_车型_年款信息，并记录下来
             DsManager.process_test_ds_bmy()
+        elif DsManager.RUN_MODE_EMERGENCY == run_mode:
+            DsManager.emergency()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -814,3 +817,26 @@ class DsManager(object):
         with open('./work/fgvc_id_to_bmy_dict.txt', 'w+', encoding='utf-8') as fib_fd:
             for k, v in fgvc_id_to_bmy_dict.items():
                 fib_fd.write('{0}:{1}\n'.format(k, v))
+
+    @staticmethod
+    def emergency():
+        print('处理紧急情况...')
+        brand_path = Path('')
+        ggh_set = set()
+        for model_path in brand_path.iterdir():
+            for year_path in model_path.iterdir():
+                for img_path in year_path.iterdir():
+                    img_str = str(img_path)
+                    arrs0 = img_str.split('/')
+                    img_file = arrs0[-1]
+                    arrs1 = img_file.split('_')
+                    prefix = arrs1[0]
+                    arrs2 = prefix.split('#')
+                    ggh1 = arrs2[0]
+                    ggh2 = arrs2[1]
+                    ggh_set.add(ggh1)
+                    if ggh1 != ggh2:
+                        print('{0} vs {1};'.format(ggh1, ggh2))
+        for ggh in ggh_set:
+            print(ggh)
+        print('共有{0}个公告号'.format(len(ggh_set)))
