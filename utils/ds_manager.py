@@ -821,7 +821,7 @@ class DsManager(object):
     @staticmethod
     def emergency():
         print('处理紧急情况...')
-        brand_path = Path('')
+        brand_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/004_奔驰')
         ggh_set = set()
         for model_path in brand_path.iterdir():
             for year_path in model_path.iterdir():
