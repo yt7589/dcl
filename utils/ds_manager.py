@@ -838,7 +838,7 @@ class DsManager(object):
                         ggh2 = arrs2[1]
                         if ggh1 != ggh2:
                             ggh_set.add(ggh2)
-                            print('###### {0} vs {1};'.format(ggh1, ggh2))
+        ggh = sorted(ggh)
         for ggh in ggh_set:
             print(ggh)
         print('共有{0}个公告号'.format(len(ggh_set)))
