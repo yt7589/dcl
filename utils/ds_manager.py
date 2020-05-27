@@ -854,12 +854,11 @@ class DsManager(object):
         修复My硬盘拷贝文件目录时，总会丢失个别文件的问题
         '''
         print('修复')
-        src_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/004_奔驰')
+        src_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/t1/GMC')
         dst_path = Path('/media/zjkj/My/王力/004_奔驰')
         total = 0
         loss_num = 0
-        brand_name = '004_奔驰'
-        print('brand_name: {0};'.format(brand_name))
+        brand_name = 'GMC'
         for model_path in src_path.iterdir():
             model_str = str(model_path)
             arrs1 = model_str.split('/')
@@ -873,7 +872,6 @@ class DsManager(object):
                     arrs0 = file_str.split('/')
                     file_name = arrs0[-1]
                     dst_file = '{0}/{1}/{2}/{3}'.format(dst_path, model_name, year_name, file_name)
-                    print('dst_file:{0};'.format(dst_file))
                     total += 1
                     if not os.path.exists(dst_file):
                         print('###########缺少文件：{0}'.format(dst_file))
