@@ -874,7 +874,7 @@ class DsManager(object):
                     arrs0 = file_str.split('/')
                     file_name = arrs0[-1]
                     print('file_name:{0};'.format(file_name))
-                    dst_file = '{0}/{1}/{2}/{3}/{4}'.format(dst_path, brand_name, model_name, year_name, file_name)
+                    dst_file = '{0}/{1}/{2}/{3}'.format(dst_path, model_name, year_name, file_name)
                     print('dst_file:{0};'.format(dst_file))
                     if not os.path.exists(dst_file):
                         print('缺少文件：{0}'.format(dst_file))
