@@ -859,21 +859,24 @@ class DsManager(object):
         total = 0
         loss_num = 0
         brand_name = '004_奔驰'
+        '''
         for model_path in src_path.iterdir():
             model_str = str(model_path)
             arrs1 = model_str.split('/')
             model_name = arrs1[-1]
-            for year_path in model_path.iterdir():
-                year_str = str(year_path)
-                arrs2 = year_str.split('/')
-                year_name = arrs2[-1]
-                for file_obj in year_path.iterdir():
-                    file_str = str(file_obj)
-                    arrs0 = file_str.split('/')
-                    file_name = arrs0[-1]
-                    dst_file = '{0}/{1}/{2}/{3}'.format(dst_path, model_name, year_name, file_name)
-                    total += 1
-                    #if not os.path.exists(dst_file):
-                     #   print('###########缺少文件：{0}'.format(dst_file))
-                      #  loss_num += 1
+        '''
+        model_name = '324 a2'
+        for year_path in model_path.iterdir():
+            year_str = str(year_path)
+            arrs2 = year_str.split('/')
+            year_name = arrs2[-1]
+            for file_obj in year_path.iterdir():
+                file_str = str(file_obj)
+                arrs0 = file_str.split('/')
+                file_name = arrs0[-1]
+                dst_file = '{0}/{1}/{2}/{3}'.format(dst_path, model_name, year_name, file_name)
+                total += 1
+                #if not os.path.exists(dst_file):
+                    #   print('###########缺少文件：{0}'.format(dst_file))
+                    #  loss_num += 1
         print('共{0}个文件，缺少{1}个文件'.format(total, loss_num))
