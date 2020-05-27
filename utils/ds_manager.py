@@ -863,7 +863,7 @@ class DsManager(object):
             model_str = str(model_path)
             arrs0 = model_str.split('/')
             model_name = arrs0[-1]
-            for year_path in src_path.iterdir():
+            for year_path in model_path.iterdir():
                 year_str = str(year_path)
                 arrs1 = year_str.split('/')
                 year_name = arrs1[-1]
@@ -871,8 +871,6 @@ class DsManager(object):
                     file_str = str(file_obj)
                     arrs2 = file_str.split('/')
                     file_name = arrs2[-1]
-                    print('file_name: {0};'.format(file_name))
-                    '''
                     if file_obj.is_dir():
                         for img_obj in file_obj.iterdir():
                             img_str = str(img_obj)
@@ -889,5 +887,4 @@ class DsManager(object):
                         #if not os.path.exists(dst_file):
                             #   print('###########缺少文件：{0}'.format(dst_file))
                             #  loss_num += 1
-                    '''
         print('共{0}个文件，缺少{1}个文件'.format(total, loss_num))
