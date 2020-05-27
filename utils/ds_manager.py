@@ -866,7 +866,7 @@ class DsManager(object):
             model_name = arrs1[-1]
         '''
         model_name = '324 a2'
-        for year_path in model_path.iterdir():
+        for year_path in src_path.iterdir():
             year_str = str(year_path)
             arrs2 = year_str.split('/')
             year_name = arrs2[-1]
