@@ -856,7 +856,8 @@ class DsManager(object):
         print('修复')
         src_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/004_奔驰')
         dst_path = Path('/media/zjkj/My/王力/004_奔驰')
-        num = 0
+        total = 0
+        loss_num = 0
         brand_name = '004_奔驰'
         print('brand_name: {0};'.format(brand_name))
         for model_path in src_path.iterdir():
@@ -873,7 +874,8 @@ class DsManager(object):
                     file_name = arrs0[-1]
                     dst_file = '{0}/{1}/{2}/{3}'.format(dst_path, model_name, year_name, file_name)
                     print('dst_file:{0};'.format(dst_file))
+                    total += 1
                     if not os.path.exists(dst_file):
                         print('###########缺少文件：{0}'.format(dst_file))
-                        num += 1
-        print('共缺少{0}个文件'.format(num))
+                        loss_num += 1
+        print('共{0}个文件，缺少{1}个文件'.format(total, loss_num))
