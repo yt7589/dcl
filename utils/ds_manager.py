@@ -38,13 +38,14 @@ class DsManager(object):
     # 款进行比较，添加新品牌_车型_年款信息，并记录下来
     RUN_MODE_PROCESS_TEST_DS_BMY = 1013 
     RUN_MODE_EMERGENCY = 1014 # 处理紧急情况
+    RUN_MODE_FIX_BAD_HDD = 1015 # 修复坏硬盘拷贝丢失文件问题
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_EMERGENCY
+        run_mode = DsManager.RUN_MODE_FIX_BAD_HDD
         # refine_bmy_and_fgvc_id_dicts
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
@@ -87,6 +88,8 @@ class DsManager(object):
             DsManager.process_test_ds_bmy()
         elif DsManager.RUN_MODE_EMERGENCY == run_mode:
             DsManager.emergency()
+        elif DsManager.RUN_MODE_FIX_BAD_HDD == run_mode:
+            DsManager.fix_bad_hdd()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -844,3 +847,34 @@ class DsManager(object):
                 print(ggh)
                 fd.write('{0}\n'.format(ggh))
         print('共有{0}个公告号'.format(len(ggh_set)))
+
+    @staticmethod
+    def fix_bad_hdd():
+        '''
+        修复My硬盘拷贝文件目录时，总会丢失个别文件的问题
+        '''
+        print('修复')
+        src_path = Path('')
+        dst_path = Path('')
+        num = 0
+        for brand_path in src_path.iterdir():
+            brand_str = str(brand_path)
+            arrs0 = brand_str.split('/')
+            brand_name = arrs0[-1]
+            for model_path in brand_path.iterdir():
+                model_str = str(model_path)
+                arrs1 = model_str.split('/')
+                model_name = arrs1[-1]
+                for year_path in model_path.iterdir():
+                    year_str = str(year_path)
+                    arrs2 = year_str.split('/')
+                    year_name = arrs2[-1]
+                    for file_obj in year_path.iterdir():
+                        file_str = str(file_obj)
+                        arrs0 = file_str.split('/')
+                        file_name = arrs0[-1]
+                        dst_file = '{0}/{1}/{2}/{3}/{4}'.format(dst_path, brand_name, model_name, year_name, file_name)
+                        if not os.path.exists(dst_file):
+                            print('缺少文件：{0}'.format(dst_file))
+                            num += 1
+        print('共缺少{0}个文件'.format(num))
