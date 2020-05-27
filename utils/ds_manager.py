@@ -871,6 +871,7 @@ class DsManager(object):
                     file_str = str(file_obj)
                     arrs2 = file_str.split('/')
                     file_name = arrs2[-1]
+                    print(file_obj)
                     if file_obj.is_dir():
                         for img_obj in file_obj.iterdir():
                             img_str = str(img_obj)
