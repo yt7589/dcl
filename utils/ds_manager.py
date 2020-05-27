@@ -854,7 +854,7 @@ class DsManager(object):
         修复My硬盘拷贝文件目录时，总会丢失个别文件的问题
         '''
         print('修复')
-        src_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/004_奔驰/B级')
+        src_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/004_奔驰/CLA级')
         dst_path = Path('/media/zjkj/My/王力/004_奔驰')
         total = 0
         loss_num = 0
@@ -865,7 +865,7 @@ class DsManager(object):
             arrs1 = model_str.split('/')
             model_name = arrs1[-1]
         '''
-        model_name = 'B级'
+        model_name = 'CLA级'
         for year_path in src_path.iterdir():
             year_str = str(year_path)
             arrs2 = year_str.split('/')
