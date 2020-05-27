@@ -880,13 +880,15 @@ class DsManager(object):
                             total += 1
                             src_size = os.path.getsize(img_str)
                             dst_size = os.path.getsize(dst_file)
+                            print('{0}: {1} vs {2};'.format(dst_file, dst_size, src_size))
                             if src_size != dst_size:
-                                print('{0}: {1} vs {2}'.format(dst_file, dst_size, src_size))
+                                print('################# {0}: {1} vs {2}'.format(dst_file, dst_size, src_size))
                     else:
                         dst_file = '{0}/{1}/{2}/{3}'.format(dst_path, model_name, year_name, file_name)
                         src_size = os.path.getsize(file_str)
                         dst_size = os.path.getsize(dst_file)
                         total += 1
+                        print('{0}: {1} vs {2};'.format(dst_file, dst_size, src_size))
                         if src_size != dst_size:
-                            print('{0}: {1} vs {2}'.format(dst_file, dst_size, src_size))
+                            print('################### {0}: {1} vs {2}'.format(dst_file, dst_size, src_size))
         print('共{0}个文件，缺少{1}个文件'.format(total, loss_num))
