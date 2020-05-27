@@ -859,7 +859,7 @@ class DsManager(object):
         num = 0
         brand_name = '004_奔驰'
         print('brand_name: {0};'.format(brand_name))
-        for model_path in brand_path.iterdir():
+        for model_path in src_path.iterdir():
             model_str = str(model_path)
             arrs1 = model_str.split('/')
             model_name = arrs1[-1]
