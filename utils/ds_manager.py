@@ -854,29 +854,37 @@ class DsManager(object):
         修复My硬盘拷贝文件目录时，总会丢失个别文件的问题
         '''
         print('修复')
-        src_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/004_奔驰/C级')
+        src_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/004_奔驰')
         dst_path = Path('/media/zjkj/My/王力/004_奔驰')
         total = 0
         loss_num = 0
         brand_name = '004_奔驰'
-        '''
         for model_path in src_path.iterdir():
             model_str = str(model_path)
-            arrs1 = model_str.split('/')
-            model_name = arrs1[-1]
-        '''
-        model_name = 'C级'
-        for year_path in src_path.iterdir():
-            year_str = str(year_path)
-            arrs2 = year_str.split('/')
-            year_name = arrs2[-1]
-            for file_obj in year_path.iterdir():
-                file_str = str(file_obj)
-                arrs0 = file_str.split('/')
-                file_name = arrs0[-1]
-                dst_file = '{0}/{1}/{2}/{3}'.format(dst_path, model_name, year_name, file_name)
-                total += 1
-                #if not os.path.exists(dst_file):
-                    #   print('###########缺少文件：{0}'.format(dst_file))
-                    #  loss_num += 1
+            arrs0 = model_str.split('/')
+            model_name = arrs0[-1]
+            for year_path in src_path.iterdir():
+                year_str = str(year_path)
+                arrs1 = year_str.split('/')
+                year_name = arrs1[-1]
+                for file_obj in year_path.iterdir():
+                    file_str = str(file_obj)
+                    arrs2 = file_str.split('/')
+                    file_name = arrs2[-1]
+                    if file_obj.is_dir():
+                        for img_obj in file_obj.iterdir():
+                            img_str = str(img_obj)
+                            arrs3 = img_str.split('/')
+                            img_name= arrs3[-1]
+                            dst_file = '{0}/{1}/{2}/{3}/{4}'.format(dst_path, model_name, year_name, file_name, img_name)
+                            total += 1
+                            #if not os.path.exists(dst_file):
+                                #   print('###########缺少文件：{0}'.format(dst_file))
+                                #  loss_num += 1
+                    else:
+                        dst_file = '{0}/{1}/{2}/{3}'.format(dst_path, model_name, year_name, file_name)
+                        total += 1
+                        #if not os.path.exists(dst_file):
+                            #   print('###########缺少文件：{0}'.format(dst_file))
+                            #  loss_num += 1
         print('共{0}个文件，缺少{1}个文件'.format(total, loss_num))
