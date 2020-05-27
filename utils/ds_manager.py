@@ -854,7 +854,7 @@ class DsManager(object):
         修复My硬盘拷贝文件目录时，总会丢失个别文件的问题
         '''
         print('修复')
-        src_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/004_奔驰')
+        src_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/004_奔驰/324 a2')
         dst_path = Path('/media/zjkj/My/王力/004_奔驰')
         total = 0
         loss_num = 0
