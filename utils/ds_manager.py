@@ -147,7 +147,7 @@ class DsManager(object):
         for brand_path in base_path.iterdir():
             if not brand_path.is_dir():
                 continue
-            brand_name = str(brand_path).split(file_sep)[-1]
+            brand_name = str(brand_path).split(file_sep)[-1][4:]
             for model_path in brand_path.iterdir():
                 if not model_path.is_dir():
                     continue
