@@ -10,6 +10,8 @@
 std::mutex my_lock;
 #include "nvHTCropAndResize.h"
 #include <map>
+#include <time.h>
+
 class GInfo
 {
 public:
@@ -179,10 +181,17 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
     std::vector<Type_Vehicle_Result> result(batchsize);
     int batchId = 0,curCarNum = 0;
     int imgSize = maxOutHeight*maxOutHeight*3;
+
+    clock_t batch_start, batch_end;
+    batch_start = clock();
     for(int i = 0; i< batchTimes; ++i) {
         std::vector<std::vector<float>> out_results;
+        clock_t item_start, item_end;
+        item_start = clock();
         predictor->second->forward(cudaCropImages + i*max_batch_size*imgSize,
                 max_batch_size, out_results);
+        item_end = clock();
+        std::cout<<"处理单个样本时间："<<((double)(item_end - item_start))/CLOCKS_PER_SEC*1000.0<<"毫秒;"<<std::endl;
         for(int n = 0; n < max_batch_size; ++n){
             if(curCarNum == cpuDet[batchId].CarNum) {
                 batchId++;
@@ -214,6 +223,10 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
             curCarNum++;
         }
     }
+    batch_end = clock();
+    std::cout<<"处理整个批次时间："<<((double)(batch_end - batch_start))/CLOCKS_PER_SEC*1000.0<<"毫秒;"<<std::endl;
+
+
     return std::move(result);
 }
 

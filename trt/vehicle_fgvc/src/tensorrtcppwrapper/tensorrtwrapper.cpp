@@ -45,8 +45,6 @@ std::vector<char> TensorRTWrapper::query_info(std::string key)
 bool TensorRTWrapper::initial_ipl(const std::vector<std::vector<char>>& model_data,\
 									const WrapperConfig& config) // 初始化
 {
-	std::cout<<"TensorRTWrapper::initial_ipl 1"<<std::endl;
-	
 	if (!config.iConfig.devices.empty() )
 	{
 		//std::cout << "warning: make sure saved engine file match choosed device" << std::endl;
@@ -56,13 +54,11 @@ bool TensorRTWrapper::initial_ipl(const std::vector<std::vector<char>>& model_da
 	}
 	
 	std::string model_str(model_data[0].begin(), model_data[0].end());
-	std::cout<<"TensorRTWrapper::initial_ipl 1"<<std::endl;
 
 	
 	_pTinyTrt = std::unique_ptr<Trt>(new Trt());
 	if (config.iConfig.modelType == "onnx")
 	{ 
-		std::cout<<"TensorRTWrapper::initial_ipl 3"<<std::endl;
 		// since build engine is time consuming,so save we can serialize engine to file, it's much more faster
 		if (_engine_data_save.empty())
 			return _pTinyTrt->CreateEngine(model_str,
@@ -78,7 +74,6 @@ bool TensorRTWrapper::initial_ipl(const std::vector<std::vector<char>>& model_da
 	}
 	else if (config.iConfig.modelType == "engine")
 	{
-		std::cout<<"TensorRTWrapper::initial_ipl 4"<<std::endl;
 		return _pTinyTrt->CreateEngine("",
 						 model_str, 
 						 config.outputLayers, config.iConfig.maxBatchSize,
@@ -86,7 +81,6 @@ bool TensorRTWrapper::initial_ipl(const std::vector<std::vector<char>>& model_da
 	}
     else if (config.iConfig.modelType == "caffe")
     {
-		std::cout<<"TensorRTWrapper::initial_ipl 5"<<std::endl;
         assert(model_data.size() == 2);
         std::string model_str_caffe_model(model_data[1].begin(), model_data[1].end());
         std::function<std::vector<float>(int) > calib;
@@ -112,7 +106,6 @@ bool TensorRTWrapper::initial_ipl(const std::vector<std::vector<char>>& model_da
     }
 	else
 	{
-		std::cout<<"TensorRTWrapper::initial_ipl 6"<<std::endl;
 		//std::cout << "unkown config.modelType "<< config.iConfig.modelType << std::endl ;
 		return false;
 	}  
