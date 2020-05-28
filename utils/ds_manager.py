@@ -45,7 +45,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_BMY_STATISTICS
+        run_mode = DsManager.RUN_MODE_TRAINING_DEMO
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -734,18 +734,14 @@ class DsManager(object):
 
     @staticmethod
     def training_demo():
-        print('手工排序算法讲解')
-        x = [1.5, 2.3, 1.8, 5.0, 0.2, 8.5, 3.1]
-        len_x = len(x)
-        print('len_x={0};'.format(len_x))
-        print('排序前：{0};'.format(x))
-        for i in range(len_x):
-            for j in range(i+1, len_x):
-                if x[i] < x[j]:
-                    aux = x[i]
-                    x[i] = x[j]
-                    x[j] = aux
-        print('排序后：{0};'.format(x))
+        brand_set = set()
+        with open('./work/bmy_to_fgvc_id_dict.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs0 = line.split(':')
+                arrs1 = arrs0[0].split('_')
+                brand_name = arrs1[0]
+                brand_set.add(brand_name)
+        print('现有品牌：{0};'.format(len(brand_set)))
 
     @staticmethod
     def process_test_ds_bmy():

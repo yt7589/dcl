@@ -22,7 +22,7 @@ def update_dict():
         'code': 0,
         'msg': 'Ok',
         'data': {
-            'total_num': 100
+            'result': '更新字典成功！'
         }
     }
     return json.dumps(resp, ensure_ascii=False)
