@@ -25,7 +25,10 @@ def get_brands():
     return json.dumps(resp, ensure_ascii=False)
 
 def main(args):
-    app.run()
+    app.run(
+        host = '0.0.0.0',
+        port = 5000
+    )
 
 if __name__ == '__main__':
     main({})
