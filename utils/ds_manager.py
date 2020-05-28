@@ -23,7 +23,7 @@ class DsManager(object):
     RUN_MODE_SAMPLE_IMPORTED = 1001 # 从进口车目录随机选取数据
     RUN_MODE_REFINE = 1002 # 根据目录内容细化品牌-车型-年款与细分类编号对应表
     RUN_MODE_FGVC_DS = 1003 # 根据fgvc_dataset/train,test目录生成数据集
-    RUN_MODE_BMY_STATISTICS = 1004 # 根据gcc2_vc_bmy.txt统计国产车品牌数量和车型数量
+    RUN_MODE_BMY_STATISTICS = 1004 # 根据ggh_to_bmy_dict.txt统计国产车品牌数量和车型数量
     RUN_MODE_VEHICLE_1D = 1005 # 处理VehicleID为DCL训练集格式
     RUN_MODE_DOMESTIC_DATA = 1006 # 将国产车组织成进口车目录格式；品牌-车型-年款
     # 将raw_domestic_brands.txt、gcc2_vc_bmy.txt、guochanche_all目录、
@@ -45,7 +45,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_FIX_BAD_HDD
+        run_mode = DsManager.RUN_MODE_BMY_STATISTICS
         # refine_bmy_and_fgvc_id_dicts
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
@@ -115,7 +115,7 @@ class DsManager(object):
     def bmy_statistics():
         bmy_set = set()
         brand_set = set()
-        print('国产车品牌统计')
+        print('品牌库统计')
         DsManager.domestic_bmy_statistics(bmy_set, brand_set)
         DsManager.imported_bmy_statistics(bmy_set, brand_set)
         print('我们现有品牌库共有{0}个品牌，{1}个车型（具体到年款）'.format(len(brand_set), len(bmy_set)))
@@ -130,7 +130,7 @@ class DsManager(object):
     @staticmethod
     def domestic_bmy_statistics(bmy_set, brand_set):
         ''' 根据gcc2_vc_bmy.txt统计国产车品牌数量和车型数量 '''
-        with open('./work/gcc2_vc_bmy.txt', 'r', encoding='utf-8') as fd:
+        with open('./work/ggh_to_bmy_dict.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 arrs0 = line.split('*')
                 if len(arrs0) > 1:
@@ -142,8 +142,8 @@ class DsManager(object):
 
     @staticmethod
     def imported_bmy_statistics(bmy_set, brand_set):
-        file_sep = '\\'
-        base_path = Path('E:/fgvc_vbmy_min/train')
+        file_sep = '/'
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d')
         for brand_path in base_path.iterdir():
             if not brand_path.is_dir():
                 continue
