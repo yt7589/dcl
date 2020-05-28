@@ -742,6 +742,9 @@ class DsManager(object):
                 brand_name = arrs1[0]
                 brand_set.add(brand_name)
         print('现有品牌：{0};'.format(len(brand_set)))
+        with open('./logs/brands_temp.txt', 'w+', encoding='utf-8') as wfd:
+            for brand in brand_set:
+                wfd.write('{0}\n'.format(brand))
 
     @staticmethod
     def process_test_ds_bmy():
