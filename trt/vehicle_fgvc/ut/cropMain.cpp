@@ -40,7 +40,6 @@ void *mythread(void *threadid)
     unsigned long timer;
     std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
                             "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v002_cao.trt";
-    std::cout << "modelfile: " << modelfile.size() << std::endl;
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);
 
@@ -71,7 +70,7 @@ void *mythread(void *threadid)
     for (int u = 0; u < all_results.size(); ++u)
     {
         auto &RE = all_results[u];
-        for (int i = 0; i < RE.iNum; ++i)
+        /*for (int i = 0; i < RE.iNum; ++i)
         {
 
             std::cout << " batch: " << u
@@ -80,10 +79,8 @@ void *mythread(void *threadid)
                         <<" clsID :" <<RE.tempResult[i].iVehicleSubModel
                         << " " << std::endl;
         }
-        std::cout <<std::endl;
+        std::cout <<std::endl;*/
     }
-    std::cout<<"Call other DCL interface is OK"<<std::endl;
-
     ReleaseVehicleFgvcInstance(hand);
 }
 

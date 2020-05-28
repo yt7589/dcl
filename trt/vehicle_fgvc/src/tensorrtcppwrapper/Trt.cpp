@@ -467,7 +467,6 @@ bool Trt::BuildEngine(const std::string& prototxt,
                         const std::vector<std::string>& outputBlobName,
                         std::function<std::vector<float >  (int)> next_batch,
                         int maxBatchSize) {
-		std::cout<<"Trt::buildEngine Ln464"<<std::endl;
 		assert(engineFile.empty());
         mBatchSize = maxBatchSize;
         nvinfer1::IBuilder* builder = nvinfer1::createInferBuilder(mLogger);
@@ -501,27 +500,21 @@ bool Trt::BuildEngine(const std::string& prototxt,
             network->markOutput(*blobNameToTensor->find(s.c_str()));
         }
 
-        std::cout << "Input layer: " << std::endl;
         for(int i = 0; i < network->getNbInputs(); i++) {
-            std::cout << network->getInput(i)->getName() << " : ";
-
             nvinfer1::Dims dims = network->getInput(i)->getDimensions();
             dims.d[0] = -1;
             network->getInput(i)->setDimensions(dims);
-            for(int j = 0; j < dims.nbDims; j++) {
+            /*for(int j = 0; j < dims.nbDims; j++) {
                 std::cout << dims.d[j] << "x"; 
             }
-            std::cout << "\b "  << std::endl;
-            
+            std::cout << "\b "  << std::endl;*/
         }
-        std::cout << "Output layer: " << std::endl;
         for(int i = 0; i < network->getNbOutputs(); i++) {
-            std::cout << network->getOutput(i)->getName() << " : ";
             nvinfer1::Dims dims = network->getOutput(i)->getDimensions();
-            for(int j = 0; j < dims.nbDims; j++) {
+            /*for(int j = 0; j < dims.nbDims; j++) {
                 std::cout << dims.d[j] << "x"; 
             }
-            std::cout << "\b " << std::endl;
+            std::cout << "\b " << std::endl;*/
         }
         nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
 
@@ -537,7 +530,6 @@ bool Trt::BuildEngine(const std::string& prototxt,
                     beginPos = 0;
                 }
                 std::string calibratorName = prototxt.substr(beginPos,endPos - beginPos);
-                std::cout << "create calibrator,Named:" << calibratorName << std::endl;
                 calibrator = new Int8EntropyCalibrator(maxBatchSize,g_calib,calibratorName,false);
             }
             // enum class BuilderFlag : int
@@ -610,24 +602,20 @@ bool Trt::BuildEngine(const std::string& prototxt,
 bool Trt::BuildEngine(const std::string& onnxModel,
                       std::string& engineFile,
                       const std::vector<std::string>& customOutput,
-                      int maxBatchSize) {
-    std::cout<<"Trt::buildEngine Ln608"<<std::endl;                       
+                      int maxBatchSize) {                   
     mBatchSize = maxBatchSize;
     nvinfer1::IBuilder* builder = nvinfer1::createInferBuilder(mLogger);
     assert(builder != nullptr);
     // NetworkDefinitionCreationFlag::kEXPLICIT_BATCH 
     //nvinfer1::INetworkDefinition* network = builder->createNetworkV2(0);
-    std::cout<<"Trt::buildEngine Ln614"<<std::endl;
 	
 	const auto explicitBatch = 1U << static_cast<uint32_t>(nvinfer1::NetworkDefinitionCreationFlag::kEXPLICIT_BATCH);
     nvinfer1::INetworkDefinition* network = builder->createNetworkV2(explicitBatch);
-    std::cout<<"Trt::buildEngine Ln618"<<std::endl;
 		
     assert(network != nullptr);
     nvonnxparser::IParser* parser = nvonnxparser::createParser(*network, mLogger);
 	std::ifstream fin(onnxModel);
 	bool bIsfile = true;
-    std::cout<<"Trt::buildEngine Ln624"<<std::endl;
 	
 	if (!fin)
 	{
@@ -635,18 +623,15 @@ bool Trt::BuildEngine(const std::string& onnxModel,
 	   bIsfile=false;
 	}
 	fin.close(); 
-    std::cout<<"Trt::buildEngine Ln631"<<std::endl;
 	
     if (false) 
     {
-        std::cout<<"Trt::buildEngine Ln636"<<std::endl;
         parser->parseFromFile(
             "/home/zhangsy/tensorrt7/tiny_tensorrt_vtn/model/person-reidentification-retail-0200_dynamic.onnx", 
             static_cast<int>(ILogger::Severity::kWARNING));
     }
     else
     { 
-        std::cout<<"Trt::buildEngine Ln642"<<std::endl;
         if (!bIsfile){
             if (!parser->parse(onnxModel.data(),onnxModel.size()))
             {
@@ -659,7 +644,6 @@ bool Trt::BuildEngine(const std::string& onnxModel,
             return false;
         }
     }
-    std::cout<<"Trt::buildEngine Ln656"<<std::endl;
 
 //    auto* origin_output = network->getOutput(0);
 //    network->unmarkOutput(*origin_output);
@@ -671,7 +655,6 @@ bool Trt::BuildEngine(const std::string& onnxModel,
 //    network->markOutput(*(topKlayer->getOutput(1)));
 
 
-    std::cout<<"Trt::buildEngine Ln674"<<std::endl;
     if(customOutput.size() > 0) {
         for(int i=0;i<network->getNbOutputs();i++) {
             nvinfer1::ITensor* origin_output = network->getOutput(i);
@@ -689,7 +672,6 @@ bool Trt::BuildEngine(const std::string& onnxModel,
             }
         }    
     }
-    std::cout<<"Trt::buildEngine Ln692"<<std::endl;
     nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
 
         Int8EntropyCalibrator* calibrator = nullptr;
@@ -711,26 +693,19 @@ bool Trt::BuildEngine(const std::string& onnxModel,
 	    config->setFlag(nvinfer1::BuilderFlag::kINT8); 
          config->setInt8Calibrator(calibrator);	
     }
-    std::cout<<"Trt::buildEngine Ln714"<<std::endl;
 
     builder->setMaxBatchSize(mBatchSize);
-    std::cout<<"Trt::buildEngine Ln717"<<std::endl;
     config->setMaxWorkspaceSize(1*mBatchSize << 20);
-    std::cout<<"Trt::buildEngine Ln719"<<std::endl;
 
-	if (network == NULL) {
+	/*if (network == NULL) {
         std::cout<<"network is NULL!!!!!!!!!"<<std::endl;
     }
-    std::cout<<"Trt::buildEngine Ln724"<<std::endl;
     if (network->getInput(0) == NULL) {
         std::cout<<"network->getInput(0) is NULL"<<std::endl;
     }
-    std::cout<<"Trt::buildEngine Ln727"<<std::endl;
+    std::cout<<"Trt::buildEngine Ln727"<<std::endl;*/
 	mNetBatchSize = network->getInput(0)->getDimensions().d[0];
-	std::cout << " network->getInput(0)->getDimensions() "
      << network->getInput(0)->getDimensions().d[0] << std::endl;
-     std::cout<<"Trt::buildEngine Ln722"<<std::endl;
-
     if (mRunMode == 0 && network->getInput(0)->getDimensions().d[0] ==-1)
     {
         auto profile = builder->createOptimizationProfile();
@@ -747,11 +722,7 @@ bool Trt::BuildEngine(const std::string& onnxModel,
         profile->setDimensions("data", OptProfileSelector::kMAX, dim_max);
 
         config->addOptimizationProfile(profile);
-    }
-    std::cout<<"Trt::buildEngine Ln741"<<std::endl;
-
-	
-		
+    }		
     mEngine = builder -> buildEngineWithConfig(*network, *config);
     assert(mEngine != nullptr);
 
@@ -763,7 +734,6 @@ bool Trt::BuildEngine(const std::string& onnxModel,
 		engineFile = tmpstr;
         data->destroy();
 	}
-    std::cout<<"Trt::buildEngine Ln756"<<std::endl;
 	
     builder->destroy();
     network->destroy();
@@ -781,7 +751,6 @@ bool Trt::BuildEngine(const std::string& uffModel,
                       const std::vector<std::vector<int>>& inputDims,
                       const std::vector<std::string>& outputTensorNames,
                       int maxBatchSize) {
-    std::cout<<"Trt::buildEngine Ln758"<<std::endl;
     mBatchSize = maxBatchSize;
     nvinfer1::IBuilder* builder = nvinfer1::createInferBuilder(mLogger);
     assert(builder != nullptr);
@@ -821,11 +790,9 @@ bool Trt::BuildEngine(const std::string& uffModel,
 
 
 void Trt::InitEngine() {
-    std::cout<<"Trt::InitEngine 1"<<std::endl;
     //spdlog::info("init engine...");
     mContext = mEngine->createExecutionContext();
     assert(mContext != nullptr);
-    std::cout<<"Trt::InitEngine 2"<<std::endl;
 
     //spdlog::info("malloc device memory");
     int nbBindings = mEngine->getNbBindings();
@@ -835,9 +802,7 @@ void Trt::InitEngine() {
     mBindingName.resize(nbBindings);
     mBindingDims.resize(nbBindings);
     mBindingDataType.resize(nbBindings);
-    std::cout<<"Trt::InitEngine 3"<<std::endl;
     for(int i=0; i< nbBindings; i++) { 
-        std::cout<<"Trt::InitEngine 4"<<std::endl;
         nvinfer1::Dims dims = mEngine->getBindingDimensions(i);
         //if(dims.d[0] == -1)
         // if(dims.d[0] == -1)
@@ -849,11 +814,9 @@ void Trt::InitEngine() {
         {
             mContext->setBindingDimensions(i, dims);
         }
-        std::cout<<"Trt::InitEngine 5"<<std::endl;
         nvinfer1::DataType dtype = mEngine->getBindingDataType(i);
         const char* name = mEngine->getBindingName(i);
         // assert(mBatchSize == 32);
-        std::cout<<"Trt::InitEngine 6"<<std::endl;
         // exit(0);
         int64_t totalSize = volume(dims)  * getElementSize(dtype)*mBatchSize;
         mBindingSize[i] = totalSize;
@@ -871,11 +834,9 @@ void Trt::InitEngine() {
         //     std::cout << dims.d[j] << " x ";
         // }
         // std::cout << totalSize<<""<<"totalSize\b\b  "<< std::endl;
-        std::cout<<"Trt::InitEngine 7"<<std::endl;
         mBinding[i] = safeCudaMalloc(totalSize);
         if(mEngine->bindingIsInput(i)) {
             mInputSize++;
         }
     }
-    std::cout<<"Trt::InitEngine 8"<<std::endl;
 }
