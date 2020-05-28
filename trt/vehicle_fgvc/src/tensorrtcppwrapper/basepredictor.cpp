@@ -234,7 +234,6 @@ void BasePredictor::forward_full(const std::vector<cv::Mat> &images, std::vector
 
 void BasePredictor::forward_full(float* pGpuData, int num, std::vector<std::vector<float> >& out_results) const
 {
-	std::cout<<"BasePredictor.forward_full 1"<<std::endl;
     if (num > _config.iConfig.maxBatchSize)
     {
 		std::cout<<"BasePredictor.forward_full 2"<<std::endl;
@@ -250,11 +249,8 @@ void BasePredictor::forward_full(float* pGpuData, int num, std::vector<std::vect
 	// 	return;
 
 	// }
-	std::cout<<"BasePredictor.forward_full 3"<<std::endl;
 	//std::vector<std::vector<float> > tmp_out_results;
-	std::cout<<"BasePredictor.forward_full 4"<<std::endl;
 	_pWrapper->forward(pGpuData, num, out_results);
-	std::cout<<"BasePredictor.forward_full 5"<<std::endl;
 
 
 	//postProcess(pGpuData, num, tmp_out_results, out_results);
