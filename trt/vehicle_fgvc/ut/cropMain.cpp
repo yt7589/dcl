@@ -60,9 +60,13 @@ void *mythread(void *threadid)
         srcHeight[t] = (img.rows);
         initDet(cpuDetect[t],7);
     }
+    clock_t classify_start, classify_end;
+    classify_start = clock();
     auto all_results = ClassifyVehicleFgvcFromDetectGPU(hand,
                                 cudaSrc,srcWidth, srcHeight,
                                 cpuDetect);
+    classify_end = clock();
+    std::cout<<"程序运行时间："<<(classify_end - classify_start)<<"毫秒"<<std::endl;
     for (int u = 0; u < all_results.size(); ++u)
     {
         auto &RE = all_results[u];
