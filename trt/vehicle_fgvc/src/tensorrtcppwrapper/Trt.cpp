@@ -705,7 +705,7 @@ bool Trt::BuildEngine(const std::string& onnxModel,
     }
     std::cout<<"Trt::buildEngine Ln727"<<std::endl;*/
 	mNetBatchSize = network->getInput(0)->getDimensions().d[0];
-     << network->getInput(0)->getDimensions().d[0] << std::endl;
+
     if (mRunMode == 0 && network->getInput(0)->getDimensions().d[0] ==-1)
     {
         auto profile = builder->createOptimizationProfile();
@@ -722,7 +722,10 @@ bool Trt::BuildEngine(const std::string& onnxModel,
         profile->setDimensions("data", OptProfileSelector::kMAX, dim_max);
 
         config->addOptimizationProfile(profile);
-    }		
+    }
+
+	
+		
     mEngine = builder -> buildEngineWithConfig(*network, *config);
     assert(mEngine != nullptr);
 
