@@ -132,7 +132,7 @@ class DsManager(object):
         ''' 根据gcc2_vc_bmy.txt统计国产车品牌数量和车型数量 '''
         with open('./work/ggh_to_bmy_dict.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
-                arrs0 = line.split('*')
+                arrs0 = line.split(':')
                 if len(arrs0) > 1:
                     bmy = arrs0[1][:-1]
                     arrs1 = bmy.split('_')
