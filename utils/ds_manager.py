@@ -46,13 +46,17 @@ class DsManager(object):
     @staticmethod
     def startup():
         run_mode = DsManager.RUN_MODE_BMY_STATISTICS
+        DsManager.run(run_mode, {})
+
+    @staticmethod
+    def run(run_mode, args):
         # refine_bmy_and_fgvc_id_dicts
         if DsManager.RUN_MODE_SAMPLE_IMPORTED == run_mode:
             # 从进口车目录随机选取数据
             DsManager.sample_imported_vehicle_data()
         elif DsManager.RUN_MODE_REFINE == run_mode:
             # 根据目录内容细化品牌-车型-年款与细分类编号对应表
-            DsManager.refine()
+            DsManager.refine(args)
         elif DsManager.RUN_MODE_FGVC_DS == run_mode:
             # 根据fgvc_dataset/train,test目录生成数据集
             DsManager.fgvc_ds_main()
@@ -97,10 +101,9 @@ class DsManager(object):
         DsManager.sample_imported_vehicle_data()
 
     @staticmethod
-    def refine():
+    def refine(args):
         ''' 根据目录内容细化品牌-车型-年款与细分类编号对应表 '''
-        folder_name = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw'
-        DsManager.refine_bmy_and_fgvc_id_dicts(folder_name)
+        DsManager.refine_bmy_and_fgvc_id_dicts(args['folder_name'])
 
     @staticmethod
     def fgvc_ds_main():

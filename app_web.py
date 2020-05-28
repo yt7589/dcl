@@ -1,6 +1,9 @@
 import json
 from flask import Flask, jsonify
 from flask_cors import CORS
+from flask import request
+#
+from utils.ds_manager import DsManager
 
 app = Flask(__name__)
 CORS(app)
@@ -8,6 +11,13 @@ CORS(app)
 @app.route('/', methods=['GET'])
 def ping_pong():
     return jsonify('Hello World!')     #（jsonify返回一个json格式的数据）
+
+# /updateDict?folderName=/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao
+@app.route('/updateDict', methods=['GET'])
+def update_dict():
+    folder_name = request.args.get("folderName")
+    args = {'folder_name': folder_name}
+    DsManager.run(DsManager.RUN_MODE_REFINE, args)
 
 @app.route('/getBrands', methods=['GET'])
 def get_brands():
