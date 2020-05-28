@@ -67,7 +67,7 @@ void *mythread(void *threadid)
                                 cudaSrc,srcWidth, srcHeight,
                                 cpuDetect);
     classify_end = clock()*1.0;
-    std::cout<<"程序运行时间："<<(classify_end - classify_start)<<"; c="<<CLOCKS_PER_SEC<<";"<<std::endl;
+    std::cout<<"程序运行时间："<<((double)(classify_end - classify_start))/CLOCKS_PER_SEC<<"; c="<<CLOCKS_PER_SEC<<";"<<std::endl;
     for (int u = 0; u < all_results.size(); ++u)
     {
         auto &RE = all_results[u];
