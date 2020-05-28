@@ -147,20 +147,16 @@ void BasePredictor::destroy()
 	
 void BasePredictor::forward(float* pGpuData, int num, std::vector<std::vector<float> >& out_results) const
 {
-	std::cout<<"BasePredictor.forward 1"<<std::endl;
 	if (num == 0)
 		return;
-	std::cout<<"BasePredictor.forward 2"<<std::endl;
 	
 	if (num <= _config.iConfig.maxBatchSize)
 	{
-		std::cout<<"BasePredictor.forward 3"<<std::endl;
 		forward_full(pGpuData, num, out_results);
 		return ;
 	}
 	else
 	{
-		std::cout<<"BasePredictor.forward 4"<<std::endl;
 		std::cout << "error ,num <= _config.iConfig.maxBatchSize "<< 
 				num <<" vs. "<<_config.iConfig.maxBatchSize<< std::endl;
 		assert(false);
@@ -187,7 +183,6 @@ void BasePredictor::forward(const std::vector<cv::Mat> &images, std::vector<std:
 {
 	if (images.empty())
 		return;
-	std::cout << "forward images.size()  "<<images.size() <<std::endl;
 	
 	if (images.size() <= _config.iConfig.maxBatchSize)
 	{
@@ -218,7 +213,6 @@ void BasePredictor::forward_full(const std::vector<cv::Mat> &images, std::vector
         return;
     }
 	auto input = preProcess(images, _config);
-    std::cout << "_config.iConfig.modelInputType  "<<_config.iConfig.modelInputType <<std::endl;
 	if (_config.iConfig.modelInputType == 2 && _config.iConfig.modelType != "engine")
 	{
 		
