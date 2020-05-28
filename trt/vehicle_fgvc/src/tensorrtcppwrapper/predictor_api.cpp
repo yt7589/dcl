@@ -15,15 +15,11 @@
 //extern thread_local std::function<std::vector<float>(int)> g_calib;
 bool PredictorAPI::init(std::vector<std::string> model_path, const InputConfig& iconfig) // 初始化
 {	 
-	std::cout<<"PredictorAPI::init0 1"<<std::endl;
-     
 	set(_pPredictor);
     //_pPredictor->init, _pPredictor, 
     auto a = _pPredictor.get();
-	std::cout<<"PredictorAPI::init0 2"<<std::endl;
 	if (iconfig.modelInputType == 2)
 	{
-		std::cout<<"PredictorAPI::init0 3"<<std::endl;
 		assert(!_calibImages.empty());
 		if (_calibImages.empty())
 		{
@@ -33,7 +29,6 @@ bool PredictorAPI::init(std::vector<std::string> model_path, const InputConfig& 
 	}
 	else
 	{
-		std::cout<<"PredictorAPI::init0 4"<<std::endl;
 		assert(iconfig.modelInputType != 1);
 		//iconfig.modelInputType = 0;
 	}
@@ -46,13 +41,10 @@ bool PredictorAPI::init(std::vector<std::string> model_path, const InputConfig& 
  
 bool PredictorAPI::init(const std::vector<std::vector<char>>& model_data, const InputConfig& iconfig) // 初始化
 { 
-	std::cout<<"PredictorAPI::init1 1"<<std::endl;
 	set(_pPredictor);
 	auto a = _pPredictor.get();
-	std::cout<<"PredictorAPI::init 2"<<std::endl;
 	if (iconfig.modelInputType == 2)
 	{
-		std::cout<<"PredictorAPI::init 3"<<std::endl;
 		assert(!_calibImages.empty());
 		if (_calibImages.empty())
 		{
@@ -62,17 +54,14 @@ bool PredictorAPI::init(const std::vector<std::vector<char>>& model_data, const 
 	}
 	else
 	{
-		std::cout<<"PredictorAPI::init 4"<<std::endl;
 		assert(iconfig.modelInputType != 1);
 		//iconfig.modelInputType = 0;
 	}
-	std::cout<<"PredictorAPI::init 5"<<std::endl;
 	//g_calib = [this](int batchsize)(return this->calib(batchsize))
     //auto a = _pPredictor.get();
 	//a->_calib = [this](int batchsize)(return this->calib(batchsize));
     auto result = pool->enqueue([&model_data, &iconfig,a]\
             (){return a->init(model_data,iconfig );});
-	std::cout<<"PredictorAPI::init 6"<<std::endl;
              
 	return result.get(); 
 	//return _pPredictor->init(model_data, iconfig);
@@ -93,7 +82,6 @@ void PredictorAPI::setCalibImages(const std::vector<std::string> &images, int ds
 
 std::vector<float> PredictorAPI::calib(int batchsize)
 {
-    std::cout <<_calibImages.size()<< " PredictorAPI::calib(int batchsize) " << batchsize << std::endl;
     std::vector<float> result;
     if (_calibImages.size() < batchsize)
     {
@@ -105,7 +93,6 @@ std::vector<float> PredictorAPI::calib(int batchsize)
     while (index < batchsize  )
     {
         auto img_path = _calibImages.back();
-        std::cout <<batchsize<<" == "<< index <<" read " << img_path << std::endl;
         auto img = cv::imread(img_path);
         if (_dstWidth != 0 && _dstHeight != 0)
         {
