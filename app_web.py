@@ -18,6 +18,14 @@ def update_dict():
     folder_name = request.args.get("folderName")
     args = {'folder_name': folder_name}
     DsManager.run(DsManager.RUN_MODE_REFINE, args)
+    resp = {
+        'code': 0,
+        'msg': 'Ok',
+        'data': {
+            'total_num': 100
+        }
+    }
+    return json.dumps(resp, ensure_ascii=False)
 
 @app.route('/getBrands', methods=['GET'])
 def get_brands():
