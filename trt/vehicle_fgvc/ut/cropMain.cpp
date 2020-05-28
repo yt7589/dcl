@@ -1,6 +1,7 @@
 //#include "vehicle.h"
 #include <pthread.h>
-#include <sys/time.h>
+//#include <sys/time.h>
+#include <time.h>
 #include <unistd.h>
 //common
 #include "file_util.hpp"
@@ -66,7 +67,7 @@ void *mythread(void *threadid)
                                 cudaSrc,srcWidth, srcHeight,
                                 cpuDetect);
     classify_end = clock();
-    std::cout<<"程序运行时间："<<(classify_end - classify_start)<<"毫秒"<<std::endl;
+    std::cout<<"程序运行时间："<<(classify_end - classify_start)/CLOCKS_PER_SEC*1000<<"毫秒"<<std::endl;
     for (int u = 0; u < all_results.size(); ++u)
     {
         auto &RE = all_results[u];
