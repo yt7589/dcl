@@ -8,10 +8,11 @@ class VbgApp(object):
     def startup(self):
         print('车标游戏')
         model = MVehicleBrand()
+        vehicle_brand_id = 1
         vehicle_brand_vo = {
-            'vehicle_brand_id': 2,
-            'vehicle_brand_name': '雪铁龙',
-            'vehicle_brand_alias': 'CITROEN',
-            'place_of_origin': '法国·巴黎'
+            'place_of_origin': '韩国.汉城'
         }
-        model.insert_vehicle_brand(vehicle_brand_vo)
+        model.update_by_vehicle_brand_id(
+            vehicle_brand_id,
+            vehicle_brand_vo
+        )
