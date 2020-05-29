@@ -22,3 +22,8 @@ class MVehicleBrand(object):
     def delete_by_vehicle_brand_id(self, vehicle_brand_id):
         query_cond = {'vehicle_brand_id': vehicle_brand_id}
         self.tbl.delete_one(query_cond)
+
+    def query_by_vehicle_brand_name(self, vehicle_brand_name):
+        query_cond = {'vehicle_brand_name': vehicle_brand_name}
+        fields = {'vehicle_brand_name': 1, 'vehicle_brand_alias': 1}
+        return self.tbl.find(query_cond, fields)

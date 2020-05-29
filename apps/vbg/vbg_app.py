@@ -7,13 +7,9 @@ class VbgApp(object):
 
     def startup(self):
         print('车标游戏')
-        vehicle_brand_id = 1
+        vehicle_brand_name = '雪铁龙'
         model = MVehicleBrand()
-        '''
-        vehicle_brand_vo = {
-            'place_of_origin': '韩国.汉城'
-        }
-        '''
-        model.delete_by_vehicle_brand_id(
-            vehicle_brand_id
-        )
+        recs = model.query_by_vehicle_brand_name(vehicle_brand_name)
+        print('recs: {0};'.format(type(recs)))
+        for rec in recs:
+            print(rec)
