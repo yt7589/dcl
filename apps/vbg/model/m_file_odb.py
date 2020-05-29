@@ -1,4 +1,5 @@
 # 基于mongodb的文件存储
+import pymongo
 from gridfs import GridFS
 
 class MFileOdb(object):
