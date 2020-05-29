@@ -18,3 +18,7 @@ class MVehicleBrand(object):
             'place_of_origin':  vehicle_brand_vo['place_of_origin']
         } }
         self.tbl.update_one(query_cond, new_values)
+
+    def delete_by_vehicle_brand_id(self, vehicle_brand_id):
+        query_cond = {'vehicle_brand_id': vehicle_brand_id}
+        self.tbl.delete_one(query_cond)

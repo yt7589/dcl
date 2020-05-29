@@ -7,12 +7,13 @@ class VbgApp(object):
 
     def startup(self):
         print('车标游戏')
-        model = MVehicleBrand()
         vehicle_brand_id = 1
+        model = MVehicleBrand()
+        '''
         vehicle_brand_vo = {
             'place_of_origin': '韩国.汉城'
         }
-        model.update_by_vehicle_brand_id(
-            vehicle_brand_id,
-            vehicle_brand_vo
+        '''
+        model.delete_by_vehicle_brand_id(
+            vehicle_brand_id
         )
