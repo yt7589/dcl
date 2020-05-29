@@ -1,5 +1,6 @@
 # 车标识别游戏
 from apps.vbg.model.m_vehicle_brand import MVehicleBrand
+from apps.vbg.model.m_file_odb import MFileOdb
 
 class VbgApp(object):
     def __init__(self):
@@ -7,9 +8,5 @@ class VbgApp(object):
 
     def startup(self):
         print('车标游戏')
-        vehicle_brand_name = '雪铁龙'
-        model = MVehicleBrand()
-        recs = model.query_by_vehicle_brand_name(vehicle_brand_name)
-        print('recs: {0};'.format(type(recs)))
-        for rec in recs:
-            print(rec)
+        model = MFileOdb()
+        model.insert(None, None)
