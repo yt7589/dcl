@@ -17,4 +17,4 @@ class MVehicleBrand(object):
         new_values = { '$set': { 
             'place_of_origin':  vehicle_brand_vo['place_of_origin']
         } }
-        self.tbl.update_one()
+        self.tbl.update_one(query_cond, new_values)
