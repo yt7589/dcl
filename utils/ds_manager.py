@@ -734,17 +734,23 @@ class DsManager(object):
 
     @staticmethod
     def training_demo():
-        brand_set = set()
-        with open('./work/bmy_to_fgvc_id_dict.txt', 'r', encoding='utf-8') as fd:
-            for line in fd:
-                arrs0 = line.split(':')
-                arrs1 = arrs0[0].split('_')
-                brand_name = arrs1[0]
-                brand_set.add(brand_name)
-        print('现有品牌：{0};'.format(len(brand_set)))
-        with open('./logs/brands_temp.txt', 'w+', encoding='utf-8') as wfd:
-            for brand in brand_set:
-                wfd.write('{0}\n'.format(brand))
+        mb_set = set()
+        rb_set = set()
+        with open('./logs/brands_temp.txt', 'r', encoding='utf-8') as mfd:
+            for line in mfd:
+                mbn = line[:-1]
+                mb_set.add(mbn)
+        with open('./logs/new_brand.txt', 'r', encoding='utf-8') as rfd:
+            for line in rfd:
+                rbn = line[:-1]
+                rb_set.add(rbn)
+        print('现有：{0}; 对比：{1};'.format(len(mb_set), len(rb_set)))
+        for bn in mb_set:
+            if bn in rb_set:
+                print('remove: {0};'.format(bn))
+                rb_set.remove(bn)
+        print('新品牌：{0};'.format(rbn))
+        
 
     @staticmethod
     def process_test_ds_bmy():

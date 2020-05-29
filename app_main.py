@@ -10,6 +10,7 @@ from utils.vao_test import VaoTest
 from utils.data_preprocessor import DataPreprocessor
 from utils.ds_manager import DsManager
 from apps.cluster.cluster_app import ClusterApp
+from apps.vbg.vbg_app import VbgApp
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
 MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
@@ -22,6 +23,7 @@ MODE_DATA_PREPROCESSOR = 1006 # 数据预处理器
 MODE_DS_MANAGER = 1007 # 数据集管理器程序
 MODE_CLUSTER_IMAGE = 1008 # 探索使用图像聚类方法
 MODE_LOCAL_STANFORD_CARS = 1009 # 本地运行Stanford Cars数据集
+MODE_TEST_MONGODB = 1010 # MONGODB学习
 
 def get_best_chpts():
     chpts_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/net_model/training_descibe_5412_CUB/')
@@ -48,7 +50,7 @@ def temp_func():
 
 def main(args):
     print('细粒度图像识别系统')
-    mode = MODE_DS_MANAGER #MODE_TRAIN_MONITOR
+    mode = MODE_TEST_MONGODB #MODE_TRAIN_MONITOR
     if MODE_DRAW_ACCS_CURVE == mode:
         #du.draw_accs_curve()
         pass
@@ -93,6 +95,9 @@ def main(args):
         app.startup()
     elif MODE_LOCAL_STANFORD_CARS == mode:
         DataPreprocessor.startup()
+    elif MODE_TEST_MONGODB == mode:
+        app = VbgApp()
+        app.startup()
     else:
         print('临时测试程序...')
         temp_func()
