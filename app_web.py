@@ -6,6 +6,7 @@ from flask import request
 #
 from utils.ds_manager import DsManager
 from apps.vbg.vbg_util import VbgUtil
+from apps.vbg.controller.c_vbg import CVbg
 
 app = Flask(__name__)
 CORS(app)
@@ -14,6 +15,18 @@ image_root = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/i
 @app.route('/', methods=['GET'])
 def ping_pong():
     return jsonify('Hello World!')     #（jsonify返回一个json格式的数据）
+
+@app.route('/getSurveyData', methods=['GET'])
+def get_survey_data():
+    survey_data = CVbg.get_survey_data(50)
+    resp = {
+        'code': 0,
+        'msg': 'Ok',
+        'data': {
+            'survey_data': survey_data
+        }
+    }
+    return json.dumps(resp, ensure_ascii=False)
 
 def display_image_base(img_file):
     with open(img_file, 'rb') as img_fd:
