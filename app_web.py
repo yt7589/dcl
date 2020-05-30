@@ -70,8 +70,7 @@ def get_brands():
 def main(args):
     i_debug = 1
     if 1 == i_debug:
-        VbgUtil.download_image('http://www.chelogo.com/uploads/allimg/18/1-1P61F915380-L.jpg', 
-                    '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/images/vbg/vbicon_088.jpg')
+        VbgUtil.get_data()
         return
     app.run(
         host = '0.0.0.0',
