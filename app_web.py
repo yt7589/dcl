@@ -14,17 +14,27 @@ image_root = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/i
 def ping_pong():
     return jsonify('Hello World!')     #（jsonify返回一个json格式的数据）
 
-@app.route('/displayImage/<string:filename>', methods=['GET'])
-def display_image(filename):
-    global image_root
-    if filename is None:
-        return
-    with open('{0}/{1}'.format(image_root,  filename), 'rb') as img_fd:
+def display_image_base(img_file):
+    with open(img_file, 'rb') as img_fd:
         image_data = img_fd.read()
     response = flask.make_response(image_data)
     postfix = filename[-4:]
     response.headers['Content-Type'] = 'image/{0}'.format(postfix)
     return response
+
+@app.route('/displayVbicon/<string:filename>', methods=['GET'])
+def display_vbicon(filename):
+    global image_root
+    if filename is None:
+        return
+    display_image_base('{0}/vbg/{1}'.format(image_root,  filename))
+
+@app.route('/displayImage/<string:filename>', methods=['GET'])
+def display_image(filename):
+    global image_root
+    if filename is None:
+        return
+    display_image_base('{0}/{1}'.format(image_root,  filename))
 
 # /updateDict?folderName=/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao
 @app.route('/updateDict', methods=['GET'])
