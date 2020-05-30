@@ -5,6 +5,6 @@ class VbgUtil(object):
     @staticmethod
     def get_data():
         html = urlopen(
-            "https://mp.csdn.net/postedit"
+            "http://www.chelogo.com/chebiao/list_1_1.html"
         ).read().decode('utf-8')
         print(html)
