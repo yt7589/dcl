@@ -1,4 +1,5 @@
 # 工具类：准备品牌及车标
+import time
 import json
 import urllib
 from urllib.request import urlopen
@@ -35,6 +36,7 @@ class VbgUtil(object):
                         '/media/zjkj/35196947-b671-441e-9631-6245942d671b/'
                         'yantao/web_root/images/vbg/vbicon_{0:03d}.jpg'.format(vehicle_brand_id))
             vehicle_brand_id += 1
+            time.sleep(1.0)
 
     @staticmethod
     def download_image(img_url, img_file):
