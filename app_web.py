@@ -22,7 +22,8 @@ def display_image(filename):
     with open('{0}/{1}'.format(image_root,  filename), 'rb') as img_fd:
         image_data = img_fd.read()
     response = flask.make_response(image_data)
-    response.headers['Content-Type'] = 'image/jpg'
+    postfix = filename[-4:]
+    response.headers['Content-Type'] = 'image/{0}'.format(postfix)
     return response
 
 # /updateDict?folderName=/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao
