@@ -15,7 +15,7 @@ class VbgUtil(object):
         bs = BeautifulSoup(html, "html.parser")
         items = bs.find_all("ul")
         model = MVehicleBrand()
-        vehicle_brand_id = 1
+        vehicle_brand_id = 51
         for idx in range(1, len(items)):
             vehicle_brand_vo = {'vehicle_brand_id': vehicle_brand_id}
             img = items[idx].contents[1].contents[0]
