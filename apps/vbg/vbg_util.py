@@ -1,5 +1,6 @@
 # 工具类：准备品牌及车标
 import json
+import urllib
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
@@ -23,3 +24,7 @@ class VbgUtil(object):
             vehicle_brand_vo['vehicle_brand_alias'] = arrs0[0][6:]
             vehicle_brand_vo['place_of_origin'] = arrs0[1][3:]
             print('{0}; {1:03d}'.format(json.dumps(vehicle_brand_vo, ensure_ascii=False), vehicle_brand_id))
+
+    @staticmethod
+    def download_image(img_url, img_file):
+        urllib.request.urlretrieve(img_url, img_file)
