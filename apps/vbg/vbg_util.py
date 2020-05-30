@@ -6,5 +6,5 @@ class VbgUtil(object):
     def get_data():
         html = urlopen(
             "http://www.chelogo.com/chebiao/list_1_1.html"
-        ).read().decode('utf-8')
+        ).read().decode('gb2312')
         print(html)
