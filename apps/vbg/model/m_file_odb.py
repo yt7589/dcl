@@ -11,5 +11,5 @@ class MFileOdb(object):
 
     def insert(self, file_path, query):
         print('文件对象数据库')
-        fs = GridFS(self.db, self.tbl)
+        #fs = GridFS(self.db, self.tbl)
 
