@@ -1,4 +1,5 @@
 #
+import random
 from apps.vbg.model.m_vehicle_brand import MVehicleBrand
 
 class CVbg(object):
