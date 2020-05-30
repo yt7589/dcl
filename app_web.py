@@ -18,7 +18,7 @@ def display_image_base(img_file):
     with open(img_file, 'rb') as img_fd:
         image_data = img_fd.read()
     response = flask.make_response(image_data)
-    postfix = filename[-4:]
+    postfix = img_file[-4:]
     response.headers['Content-Type'] = 'image/{0}'.format(postfix)
     return response
 
