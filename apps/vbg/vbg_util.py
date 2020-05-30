@@ -10,7 +10,7 @@ class VbgUtil(object):
     @staticmethod
     def get_data():
         html = urlopen(
-            "http://www.chelogo.com/chebiao/list_1_1.html"
+            "http://www.chelogo.com/chebiao/list_1_2.html"
         ).read().decode('gb2312')
         bs = BeautifulSoup(html, "html.parser")
         items = bs.find_all("ul")
