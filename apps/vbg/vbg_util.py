@@ -12,3 +12,4 @@ class VbgUtil(object):
         items = bs.find_all("ul")
         for item in items:
             print('{0}: {1};'.format(type(item), item))
+            print('img: {0}; {1}'.format(type(item.children), item.children[0]))
