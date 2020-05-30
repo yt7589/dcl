@@ -13,4 +13,5 @@ class VbgUtil(object):
         for item in items:
             eles = item.contents
             img = eles[1].contents[0]
-            print('{0}; {1}; '.format(type(img.attrs), img.attrs))
+            for k, v in img.attrs.items():
+                print('[{0}]={1};'.format(k, v))
