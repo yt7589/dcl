@@ -12,6 +12,6 @@ class VbgUtil(object):
         items = bs.find_all("ul")
         for item in items:
             print('{0}: {1};'.format(type(item), item))
-            eles = item.contents()
+            eles = item.contents
             for idx in range(len(eles)):
                 print('{0}: {1};'.format(idx, eles[idx]))
