@@ -21,7 +21,7 @@ class CVbg(object):
         while rec['vehicle_brand_id'] in vehicle_brand_ids:
             rec = model.get_random_rec(total)
         vehicle_brand_ids.add(rec['vehicle_brand_id'])
-        question['vbicon'] = 'displayVbicon/vbicon_{0}.jpg'.format(rec['vehicle_brand_id'])
+        question['vbicon'] = 'displayVbicon/vbicon_{0:03d}.jpg'.format(rec['vehicle_brand_id'])
         question['answer'] = rec['vehicle_brand_id']
         question['choose'] = -1
         pos = random.randint(1, 4)
