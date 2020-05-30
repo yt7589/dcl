@@ -11,4 +11,4 @@ class VbgUtil(object):
         bs = BeautifulSoup(html, "html.parser")
         items = bs.find_all("ul")
         for item in items:
-            print('##### {0};'.format(item))
+            print('##### {0};'.format(item.find('img')))
