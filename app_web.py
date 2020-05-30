@@ -20,7 +20,7 @@ def display_image(filename):
         return
     with open('{0}/{1}'.format(image_root,  filename), 'rb') as img_fd:
         image_data = img_fd.read()
-    response = make_response(image_data)
+    response = flask.make_response(image_data)
     response.headers['Content-Type'] = 'image/jpg'
     return response
 
