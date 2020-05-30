@@ -8,5 +8,6 @@ class VbgApp(object):
 
     def startup(self):
         print('车标游戏')
-        model = MFileOdb()
-        model.insert(None, None)
+        model = MVehicleBrand()
+        count = model.get_total_recs()
+        print('count={0};'.format(count))

@@ -27,3 +27,6 @@ class MVehicleBrand(object):
         query_cond = {'vehicle_brand_name': vehicle_brand_name}
         fields = {'vehicle_brand_name': 1, 'vehicle_brand_alias': 1}
         return self.tbl.find(query_cond, fields)
+
+    def get_total_recs(self):
+        return self.tbl.find().count()
