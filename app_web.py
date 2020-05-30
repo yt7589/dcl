@@ -81,7 +81,7 @@ def get_brands():
     return json.dumps(resp, ensure_ascii=False)
 
 def main(args):
-    i_debug = 1
+    i_debug = 10
     if 1 == i_debug:
         VbgUtil.get_data()
         return
