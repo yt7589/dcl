@@ -9,5 +9,6 @@ class VbgApp(object):
 
     def startup(self):
         print('车标游戏')
-        CVbg.get_survey_data(50)
+        survey = CVbg.get_survey_data(50)
+        print(survey)
         

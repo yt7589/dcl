@@ -9,9 +9,10 @@ class CVbg(object):
         total = model.get_total_recs()
         vehicle_brand_ids = set()
         survey = []
-        question = CVbg.create_question(model, total, vehicle_brand_ids)
-        print(question)
-        survey.append(question)
+        for idx in range(question_num):
+            question = CVbg.create_question(model, total, vehicle_brand_ids)
+            survey.append(question)
+        return survey
 
     @staticmethod
     def create_question(model, total, vehicle_brand_ids):
