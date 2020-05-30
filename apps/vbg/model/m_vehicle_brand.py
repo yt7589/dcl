@@ -36,4 +36,9 @@ class MVehicleBrand(object):
         # 生成1~total的随机数
         num = random.randint(1, total)
         # skip(n-1).limit(1)
-        return self.tbl.find().skip(num-1).limit(1)
+        recs = self.tbl.find().skip(num-1).limit(1)
+        rst = None
+        for rec in recs:
+            rst = rec
+            break
+        return rst

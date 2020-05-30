@@ -11,7 +11,5 @@ class VbgApp(object):
         model = MVehicleBrand()
         total = model.get_total_recs()
         print('count={0};'.format(total))
-        recs = model.get_random_rec(total)
-        for rec in recs:
-            rr = rec
-        print('rec: {0};'.format(rr))
+        rec = model.get_random_rec(total)
+        print('^_^ rec: {0};'.format(rec))
