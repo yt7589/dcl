@@ -12,6 +12,8 @@ class VbgUtil(object):
         items = bs.find_all("ul")
         for item in items:
             img = item.find('img')
-            img_src = img.attrs['src']
-            brand_name = img.attrs['alt'][:-2]
-            print('{0}: {1};'.format(brand_name, img_src))
+            print(img)
+            print(img.attrs)
+            #img_src = img.attrs['src']
+            #brand_name = img.attrs['alt'][:-2]
+            #print('{0}: {1};'.format(brand_name, img_src))
