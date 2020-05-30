@@ -27,14 +27,14 @@ def display_vbicon(filename):
     global image_root
     if filename is None:
         return
-    display_image_base('{0}/vbg/{1}'.format(image_root,  filename))
+    return display_image_base('{0}/vbg/{1}'.format(image_root,  filename))
 
 @app.route('/displayImage/<string:filename>', methods=['GET'])
 def display_image(filename):
     global image_root
     if filename is None:
         return
-    display_image_base('{0}/{1}'.format(image_root,  filename))
+    return display_image_base('{0}/{1}'.format(image_root,  filename))
 
 # /updateDict?folderName=/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao
 @app.route('/updateDict', methods=['GET'])
