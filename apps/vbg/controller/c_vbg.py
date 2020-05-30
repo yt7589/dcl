@@ -30,12 +30,19 @@ class CVbg(object):
             opt = model.get_random_rec(total)
             while opt['vehicle_brand_id'] == rec['vehicle_brand_id']:
                 opt = model.get_random_rec(total)
-            options.append(opt)
-        options.append(rec)
+            options.append(CVbg.form_option(opt))
+        options.append(CVbg.form_option(rec))
         for idx in range(pos+1, 4+1):
             opt = model.get_random_rec(total)
             while opt['vehicle_brand_id'] == rec['vehicle_brand_id']:
                 opt = model.get_random_rec(total)
-            options.append(opt)
+            options.append(CVbg.form_option(opt))
         question['options'] = options
         return question
+
+    @staticmethod
+    def form_option(rec):
+        opt = {}
+        opt['vehicle_brand_id'] = rec['vehicle_brand_id']
+        opt['content'] = '{0}({1})'.format(rec['vehicle_brand_name'], rec['vehicle_brand_alias'])
+        return opt
