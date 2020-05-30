@@ -8,12 +8,12 @@ class CVbg(object):
         total = model.get_total_recs()
         vehicle_brand_ids = set()
         survey = []
-        question = CVbg.create_question(total, vehicle_brand_ids)
+        question = CVbg.create_question(model, total, vehicle_brand_ids)
         print(question)
         survey.append(question)
 
     @staticmethod
-    def create_question(total, vehicle_brand_ids):
+    def create_question(model, total, vehicle_brand_ids):
         question = {}
         rec = model.get_random_rec(total)
         while rec['vehicle_brand_id'] in vehicle_brand_ids:
