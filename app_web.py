@@ -7,10 +7,22 @@ from utils.ds_manager import DsManager
 
 app = Flask(__name__)
 CORS(app)
+image_root = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/images'
 
 @app.route('/', methods=['GET'])
 def ping_pong():
     return jsonify('Hello World!')     #（jsonify返回一个json格式的数据）
+
+@app.route('/displayImage/<string:filename>', methods=['GET'])
+def display_image(filename):
+    global image_root
+    if filename is None:
+        return
+    with open('{0}/{1}'.format(image_root,  filename), 'rb') as img_fd:
+        image_data = img_fd.read()
+    response = make_response(image_data)
+    response.headers['Content-Type'] = 'image/jpg'
+    return response
 
 # /updateDict?folderName=/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao
 @app.route('/updateDict', methods=['GET'])
