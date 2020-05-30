@@ -8,7 +8,7 @@ class CVbg(object):
         total = model.get_total_recs()
         vehicle_brand_ids = set()
         survey = []
-        question = Cvbg.create_question(total, vehicle_brand_ids)
+        question = CVbg.create_question(total, vehicle_brand_ids)
         print(question)
         survey.append(question)
 
