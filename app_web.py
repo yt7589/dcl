@@ -5,6 +5,7 @@ from flask_cors import CORS
 from flask import request
 #
 from utils.ds_manager import DsManager
+from apps.vbg.vbg_util import VbgUtil
 
 app = Flask(__name__)
 CORS(app)
@@ -67,6 +68,10 @@ def get_brands():
     return json.dumps(resp, ensure_ascii=False)
 
 def main(args):
+    i_debug = 1
+    if 1 == i_debug:
+        VbgUtil.get_data()
+        return
     app.run(
         host = '0.0.0.0',
         port = 5000
