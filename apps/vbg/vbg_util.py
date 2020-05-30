@@ -16,11 +16,11 @@ class VbgUtil(object):
         ).read().decode('gb2312')
         bs = BeautifulSoup(html, "html.parser")
         '''
-        with open('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/b1.html') as fd:
+        with open('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/b2.html') as fd:
             bs = BeautifulSoup(fd, "html.parser")
         items = bs.find_all("ul")
         model = MVehicleBrand()
-        vehicle_brand_id = 1
+        vehicle_brand_id = 51
         for idx in range(1, len(items)):
             vehicle_brand_vo = {'vehicle_brand_id': vehicle_brand_id}
             img = items[idx].contents[1].contents[0]
