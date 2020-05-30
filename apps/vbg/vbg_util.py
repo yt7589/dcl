@@ -1,5 +1,6 @@
 # 工具类：准备品牌及车标
 from urllib.request import urlopen
+from bs4 import BeautifulSoup
 
 class VbgUtil(object):
     @staticmethod
@@ -7,4 +8,7 @@ class VbgUtil(object):
         html = urlopen(
             "http://www.chelogo.com/chebiao/list_1_1.html"
         ).read().decode('gb2312')
-        print(html)
+        bs = BeautifulSoup(html, "html.parser")
+        items = bs.find_all("ul")
+        for item in items:
+            print('##### {0};'.format(item))
