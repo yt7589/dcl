@@ -9,10 +9,14 @@ from apps.vbg.model.m_vehicle_brand import MVehicleBrand
 class VbgUtil(object):
     @staticmethod
     def get_data():
+        '''
         html = urlopen(
             "http://www.chelogo.com/chebiao/list_1_2.html"
         ).read().decode('gb2312')
         bs = BeautifulSoup(html, "html.parser")
+        '''
+        with open('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/b2.html') as fd:
+            bs = BeautifulSoup(fd)
         items = bs.find_all("ul")
         model = MVehicleBrand()
         vehicle_brand_id = 51
