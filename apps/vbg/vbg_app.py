@@ -9,5 +9,7 @@ class VbgApp(object):
     def startup(self):
         print('车标游戏')
         model = MVehicleBrand()
-        count = model.get_total_recs()
-        print('count={0};'.format(count))
+        total = model.get_total_recs()
+        print('count={0};'.format(total))
+        rec = model.get_random_rec(total)
+        print('rec: {0};'.format(rec))

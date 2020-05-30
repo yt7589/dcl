@@ -1,4 +1,5 @@
 #
+import random
 import pymongo
 
 class MVehicleBrand(object):
@@ -30,3 +31,9 @@ class MVehicleBrand(object):
 
     def get_total_recs(self):
         return self.tbl.find().count()
+
+    def get_random_rec(self, total):
+        # 生成1~total的随机数
+        num = random.randint(1, total)
+        # skip(n-1).limit(1)
+        return self.tbl.find().skip(num-1).limit(1)
