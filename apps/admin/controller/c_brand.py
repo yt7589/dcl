@@ -46,7 +46,7 @@ class CBrand(object):
         for brand in raw_set2:
             if brand not in raw_set1:
                 novel_brands.add(brand)
-        print('novel brands: {0};'.format(novel_brands))
+        print('novel brands: {0};'.format(len(novel_brands)))
         #
         brands = raw_set1
         for brand in raw_set2:
