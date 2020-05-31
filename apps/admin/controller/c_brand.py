@@ -16,6 +16,7 @@ class CBrand(object):
         brands = CBrand.get_known_brands(start_idx, amount, 
                     sort_id, sort_type)
         data = {
+            'total': len(brands),
             'brands': brands
         }
         return data
@@ -23,29 +24,39 @@ class CBrand(object):
     @staticmethod
     def sort_by_num(item):
         return item['num']
+
+    @staticmethod
+    def get_files_num_in_folder(folder_name):
+        num = 0
+        base_path = Path(folder_name)
+        for model_path in base_path.iterdir():
+            model_str = str(model_path)
+            arrs0 = model_str.split('/')
+            model_name = arrs0[-1]
+            for year_path in model_path.iterdir():
+                for file_obj in year_path.iterdir():
+                    num += 1
+        return num
     
     @staticmethod
     def get_known_brands(start_idx=1, amount=-1, sort_id=1, 
                 sort_type=1):
         print('获取已有品牌列表...')
+        num = CBrand.get_files_num_in_folder('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw/奥迪')
+        print('file numbers: {0};'.format(num))
         #
-        brands = set()
+        '''
+        bns = set()
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
         for brand_path in base_path.iterdir():
             brand_str = str(brand_path)
             arrs0 = brand_str.split('/')
             brand_name = arrs0[-1]
-            brands.add(brand_name)
-        print('v1 brands={0};'.format(len(brands)))
-        bns = []
-        bns.append({'name': 'b1', 'num': 10})
-        bns.append({'name': 'b2', 'num': 5})
-        bns.append({'name': 'b3', 'num': 18})
-        print(bns)
-        b1 = sorted(bns, key=CBrand.sort_by_num, reverse=False)
-        print('b1: {0};'.format(b1))
-        rst = {
-            'total': len(brands),
-            'brands': brands
-        }
-        return rst
+            bns.add(brand_name)
+        brands = []
+        for bn in bns:
+            brand = {'name': bn, 'num': num}
+            brands.append(brand)
+        return sorted(brands, key=CBrand.sort_by_num, reverse=False)
+        '''
+        return []
