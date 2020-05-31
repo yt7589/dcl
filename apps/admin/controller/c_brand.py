@@ -33,7 +33,9 @@ class CBrand(object):
             model_str = str(model_path)
             arrs0 = model_str.split('/')
             model_name = arrs0[-1]
+            num += 1
             for year_path in model_path.iterdir():
+                num += 1
                 for file_obj in year_path.iterdir():
                     print(file_obj)
                     num += 1
