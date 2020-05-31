@@ -31,6 +31,6 @@ class CBrand(object):
                 brands.add(brand_name)
             rst = {
                 'total': len(brands),
-                'brands': list(brands)
+                'brands': sorted(list(brands))
             }
         return rst
