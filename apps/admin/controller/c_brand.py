@@ -33,7 +33,7 @@ class CBrand(object):
             brand_names = sorted(list(raw_set))
             #
             raw_set1 = set()
-            base_path = Path('')
+            base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
             for brand_path in base_path.iterdir():
                 brand_str = str(brand_path)
                 arrs0 = brand_str.split('/')
