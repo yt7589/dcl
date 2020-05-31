@@ -48,6 +48,12 @@ class CBrand(object):
                 novel_brands.add(brand)
         print('novel brands: {0};'.format(len(novel_brands)))
         #
+        print('拷贝新文件夹')
+        src_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/t1'
+        dst_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/t2'
+        for brand in novel_brands:
+            rst = os.popen('cp -R {0}/{1} {2}/.'.format(src_dir, brand, dst_dir))
+            print('{0}: {1};'.format(brand, rst))
         brands = raw_set1
         for brand in raw_set2:
             brands.add(brand)
