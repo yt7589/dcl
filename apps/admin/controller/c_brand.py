@@ -19,6 +19,10 @@ class CBrand(object):
             'brands': brands
         }
         return data
+
+    @staticmethod
+    def sort_by_num(item):
+        return item['num']
     
     @staticmethod
     def get_known_brands(start_idx=1, amount=-1, sort_id=1, 
@@ -33,6 +37,13 @@ class CBrand(object):
             brand_name = arrs0[-1]
             brands.add(brand_name)
         print('v1 brands={0};'.format(len(brands)))
+        bns = []
+        bns.append({'name': 'b1', 'num': 10})
+        bns.append({'name': 'b2', 'num': 5})
+        bns.append({'name': 'b3', 'num': 18})
+        print(bns)
+        b1 = sorted(bns, key=CBrand.sort_by_num, reverse=True)
+        print('b1: {0};'.format(b1))
         rst = {
             'total': len(brands),
             'brands': brands
