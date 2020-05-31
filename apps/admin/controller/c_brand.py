@@ -42,7 +42,7 @@ class CBrand(object):
         bns.append({'name': 'b2', 'num': 5})
         bns.append({'name': 'b3', 'num': 18})
         print(bns)
-        b1 = sorted(bns, key=CBrand.sort_by_num, reverse=True)
+        b1 = sorted(bns, key=CBrand.sort_by_num, reverse=False)
         print('b1: {0};'.format(b1))
         rst = {
             'total': len(brands),
