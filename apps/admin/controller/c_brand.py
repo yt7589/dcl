@@ -23,31 +23,31 @@ class CBrand(object):
     def get_known_brands(start_idx=1, amount=-1, sort_id=1, 
                 sort_type=1):
         print('获取已有品牌列表...')
-            #
-            raw_set1 = set()
-            base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
-            for brand_path in base_path.iterdir():
-                brand_str = str(brand_path)
-                arrs0 = brand_str.split('/')
-                brand_name = arrs0[-1]
-                raw_set1.add(brand_name)
-            print('raw_set1={0};'.format(len(raw_set1)))
-            #
-            raw_set2 = set()
-            base_path1 = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/t1')
-            for brand_path in base_path1.iterdir():
-                brand_str = str(brand_path)
-                arrs0 = brand_str.split('/')
-                brand_name = arrs0[-1]
-                raw_set2.add(brand_name)
-            print('raw_set2={0};'.format(len(raw_set3)))
-            #
-            brands = raw_set1
-            for brand in raw_set2:
-                brands.add(brand)
-            print('brands={0};'.format(len(brands)))
-            rst = {
-                'total': len(brands),
-                'brands': brands
-            }
+        #
+        raw_set1 = set()
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
+        for brand_path in base_path.iterdir():
+            brand_str = str(brand_path)
+            arrs0 = brand_str.split('/')
+            brand_name = arrs0[-1]
+            raw_set1.add(brand_name)
+        print('raw_set1={0};'.format(len(raw_set1)))
+        #
+        raw_set2 = set()
+        base_path1 = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/t1')
+        for brand_path in base_path1.iterdir():
+            brand_str = str(brand_path)
+            arrs0 = brand_str.split('/')
+            brand_name = arrs0[-1]
+            raw_set2.add(brand_name)
+        print('raw_set2={0};'.format(len(raw_set3)))
+        #
+        brands = raw_set1
+        for brand in raw_set2:
+            brands.add(brand)
+        print('brands={0};'.format(len(brands)))
+        rst = {
+            'total': len(brands),
+            'brands': brands
+        }
         return rst
