@@ -48,6 +48,16 @@ class CBrand(object):
                     brand_name = arrs1[0]
                     raw_set2.add(brand_name)
             print('raw_set2={0};'.format(len(raw_set2)))
+            #
+            raw_set3 = set()
+            base_path1 = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/t1')
+            for brand_path in base_path1.iterdir():
+                brand_str = str(brand_path)
+                arrs0 = brand_str.split('/')
+                brand_name = arrs0[-1]
+                raw_set3.add(brand_name)
+            print('raw_set3={0};'.format(len(raw_set3)))
+            #
             print('directory num={0};'.format(len(raw_set1)))
             brands = brand_names
             rst = {
