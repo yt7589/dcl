@@ -26,7 +26,7 @@ class CBrand(object):
             brands = set()
             for line in bfi_fd:
                 arrs0 = line.split(':')
-                arrs1 = arrs0[1].split('_')
+                arrs1 = arrs0[0].split('_')
                 brand_name = arrs1[0]
                 brands.add(brand_name)
             rst = {
