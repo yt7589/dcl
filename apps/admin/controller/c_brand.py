@@ -22,4 +22,15 @@ class CBrand(object):
     def get_known_brands(start_idx=1, amount=-1, sort_id=1, 
                 sort_type=1):
         print('获取已有品牌列表...')
-        return []
+        with open('./work/bmy_to_fgvc_id_dict.txt', 'r', encoding='utf-8') as bfi_fd:
+            brands = set()
+            for line in bfi_fd:
+                arrs0 = line.split(':')
+                arrs1 = arrs0[1].split('_')
+                brand_name = arrs1[0]
+                brands.add(brand_name)
+            rst = {
+                'total': len(brands),
+                'brands': brands
+            }
+        return rst
