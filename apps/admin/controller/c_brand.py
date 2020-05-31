@@ -1,4 +1,5 @@
 # 品牌控制器类
+import os
 from pathlib import Path
 
 class CBrand(object):
