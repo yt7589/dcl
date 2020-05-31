@@ -39,6 +39,15 @@ class CBrand(object):
                 arrs0 = brand_str.split('/')
                 brand_name = arrs0[-1]
                 raw_set1.add(brand_name)
+            # 
+            raw_set2 = set()
+            with open('./work/ggh_to_bmy_dict.txt', 'r', encoding='utf-8') as gb_fd:
+                for line in gb_fd:
+                    arrs0 = line.split(':')
+                    arrs1 = arrs0[1].split('_')
+                    brand_name = arrs1[0]
+                    raw_set2.add(brand_name)
+            print('raw_set2={0};'.format(len(raw_set2)))
             print('directory num={0};'.format(len(raw_set1)))
             brands = brand_names
             rst = {
