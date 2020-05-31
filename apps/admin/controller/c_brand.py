@@ -40,7 +40,7 @@ class CBrand(object):
             arrs0 = brand_str.split('/')
             brand_name = arrs0[-1]
             raw_set2.add(brand_name)
-        print('raw_set2={0};'.format(len(raw_set3)))
+        print('raw_set2={0};'.format(len(raw_set2)))
         #
         brands = raw_set1
         for brand in raw_set2:
