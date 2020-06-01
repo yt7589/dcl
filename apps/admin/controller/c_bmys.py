@@ -18,7 +18,7 @@ class CBmys(object):
         if '1' == mode:
             bmys = CBmy.get_bmys_from_db()
         elif '2' == mode:
-            bmys = CBmy.get_bmys_from_folder()
+            bmys = CBmys.get_bmys_from_folder()
         resp_param = FlaskWeb.get_resp_param()
         resp_param['data'] = {
             'total': len(bmys),
