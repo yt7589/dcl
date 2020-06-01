@@ -15,4 +15,4 @@ class CBmy(object):
         userId = request.args.get("userId")
         print('userId={0};'.format(userId))
         resp_param = FlaskWeb.get_resp_param()
-        return FlaskWeb.generate_response()
+        return FlaskWeb.generate_response(resp_param)
