@@ -8,20 +8,16 @@ from utils.ds_manager import DsManager
 from apps.vbg.vbg_util import VbgUtil
 from apps.vbg.controller.c_vbg import CVbg
 from apps.admin.controller.c_brand import CBrand
+from apps.admin.controller.c_bmy import CBmy
 
 app = Flask(__name__)
 CORS(app)
 image_root = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/images'
 
+# 获取品牌_车型_年款列表及每类中的图片数
 @app.route('/admin/getBmys', methods=['GET'])
-def get_bmys_api():
-    userId = request.args.get("userId")
-    resp = {
-        'code': 0,
-        'msg': 'Ok',
-        'data': data
-    }
-    return json.dumps(resp, ensure_ascii=False)
+def get_bmys():
+    return CBmy.get_bmys_api()
 
 @app.route('/admin/getKnownBrands', methods=['GET'])
 def get_known_brands():
