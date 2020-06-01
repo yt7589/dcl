@@ -28,15 +28,16 @@ class CBrand(object):
         brand_id = 1
         brands = []
         for rec in recs:
+            rec['brand_id'] = brand_id
             brand = {
-                'brand_id': brand_id,
+                'brand_id': rec['brand_id'],
                 'brand_name': rec['brand_name'],
                 'brand_num': rec['brand_num']
             }
             brands.append(brand)
             brand_id += 1
-            print('向数据库插入：{0};'.format(brand))
-            MBrand.insert(brand)
+            MBrand.insert(rec)
+            print('v1 向数据库插入：{0};'.format(brand))
         data = {
             'total': len(brands),
             'brands': brands
