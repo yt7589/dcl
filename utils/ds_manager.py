@@ -45,7 +45,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_TRAINING_DEMO
+        run_mode = DsManager.RUN_MODE_REFINE
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -56,6 +56,9 @@ class DsManager(object):
             DsManager.sample_imported_vehicle_data()
         elif DsManager.RUN_MODE_REFINE == run_mode:
             # 根据目录内容细化品牌-车型-年款与细分类编号对应表
+            args = {
+                'folder_name': '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw'
+            }
             DsManager.refine(args)
         elif DsManager.RUN_MODE_FGVC_DS == run_mode:
             # 根据fgvc_dataset/train,test目录生成数据集

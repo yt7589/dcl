@@ -20,24 +20,7 @@ class CBrand(object):
             'brands': brands
         }
         return data
-
-    @staticmethod
-    def sort_by_num(item):
-        return item['num']
-
-    @staticmethod
-    def get_files_num_in_folder(folder_name):
-        num = 0
-        base_path = Path(folder_name)
-        for model_path in base_path.iterdir():
-            model_str = str(model_path)
-            arrs0 = model_str.split('/')
-            model_name = arrs0[-1]
-            for year_path in model_path.iterdir():
-                for file_obj in year_path.iterdir():
-                    num += 1
-        return num
-    
+        
     @staticmethod
     def get_known_brands(start_idx=1, amount=-1, sort_id=1, 
                 sort_type=1):
@@ -57,3 +40,30 @@ class CBrand(object):
             brand = {'name': bn, 'num': num}
             brands.append(brand)
         return sorted(brands, key=CBrand.sort_by_num, reverse=False)
+
+
+
+
+
+
+
+
+
+
+    @staticmethod
+    def sort_by_num(item):
+        return item['num']
+
+    @staticmethod
+    def get_files_num_in_folder(folder_name):
+        num = 0
+        base_path = Path(folder_name)
+        for model_path in base_path.iterdir():
+            model_str = str(model_path)
+            arrs0 = model_str.split('/')
+            model_name = arrs0[-1]
+            for year_path in model_path.iterdir():
+                for file_obj in year_path.iterdir():
+                    num += 1
+        return num
+    
