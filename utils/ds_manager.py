@@ -45,7 +45,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_REFINE
+        run_mode = DsManager.RUN_MODE_SAMPLE_IMPORTED
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -199,7 +199,7 @@ class DsManager(object):
         '''
         path_obj = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b'
                     '/fgvc_dataset/raw')
-        dst_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset'
+        dst_dir = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/work'
         brand_num = 0
         model_num = 0
         year_num = 0
