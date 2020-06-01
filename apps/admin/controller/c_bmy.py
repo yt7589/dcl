@@ -9,6 +9,7 @@ class CBmy(object):
     def __init__(self):
         self.name = 'apps.admin.controller.CBmy'
 
+    '''
     @app.route('/admin/getBmys', methods=['GET'])
     @staticmethod
     def get_bmys_api():
@@ -19,3 +20,4 @@ class CBmy(object):
             'data': data
         }
         return json.dumps(resp, ensure_ascii=False)
+    '''

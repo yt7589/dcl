@@ -13,6 +13,17 @@ app = Flask(__name__)
 CORS(app)
 image_root = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/images'
 
+@app.route('/admin/getBmys', methods=['GET'])
+@staticmethod
+def get_bmys_api():
+    userId = request.args.get("userId")
+    resp = {
+        'code': 0,
+        'msg': 'Ok',
+        'data': data
+    }
+    return json.dumps(resp, ensure_ascii=False)
+
 @app.route('/admin/getKnownBrands', methods=['GET'])
 def get_known_brands():
     ''' 获取已知品牌列表 '''
