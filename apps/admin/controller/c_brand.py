@@ -23,11 +23,17 @@ class CBrand(object):
         支持按品牌名称、年款数、图像数排序，返回JSON响应，从目录中统计实时数据，并
         将结果保存到数据库中
         '''
-        brands = CBrand.get_known_brands(start_idx, amount, 
+        recs = CBrand.get_known_brands(start_idx, amount, 
                     sort_id, sort_type)
         brand_id = 1
-        for brand in brands:
-            brand['brand_id'] = brand_id
+        brands = []
+        for rec in recs:
+            brand = {
+                'brand_id': brand_id,
+                'brand_name': rec['brand_name'],
+                'brand_num': rec['brand_num']
+            }
+            brands.append(brand)
             brand_id += 1
             print('向数据库插入：{0};'.format(brand))
             MBrand.insert(brand)
