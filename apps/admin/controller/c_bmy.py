@@ -63,9 +63,12 @@ class CBmy(object):
                         stop_loop = True
                     sl_num += 1
         bmys = []
+        for rb in raw_bmys:
+            print('### {0};'.format(rb))
         recs = sorted(raw_bmys, key=CBmy.sort_by_num_bmy, reverse=False)
         bmy_id = 1
         for rec in recs:
+            print('@@@ {0};'.format(rec))
             rec['bmy_id'] = bmy_id
             bmy = {
                 'bmy_id': rec['bmy_id'],
