@@ -14,7 +14,6 @@ CORS(app)
 image_root = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/images'
 
 @app.route('/admin/getBmys', methods=['GET'])
-@staticmethod
 def get_bmys_api():
     userId = request.args.get("userId")
     resp = {
