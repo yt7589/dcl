@@ -14,7 +14,15 @@ class CBrand(object):
         从mongodb中获取已有品牌列表，包括品牌名称，年款数，图像数，
         支持按品牌名称、年款数、图像数排序，返回JSON响应
         '''
-        brands = MBrand.query_brands()
+        recs = MBrand.query_brands()
+        brands = []
+        for rec in recs:
+            brand = {
+                'brand_id': rec['brand_id'],
+                'brand_name': rec['brand_name'],
+                'brand_num': rec['brand_num']
+            }
+            brands.append(brand)
         data = {
             'total': len(brands),
             'brands': brands
