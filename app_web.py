@@ -16,7 +16,11 @@ image_root = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/i
 @app.route('/admin/getKnownBrands', methods=['GET'])
 def get_known_brands():
     ''' 获取已知品牌列表 '''
-    data = CBrand.get_known_brands_api()
+    mode = request.args.get("mode")
+    if '1' == mode:
+        data = CBrand.get_known_brands_api()
+    elif '2' == mode:
+        data = CBrand.get_refresh_known_brands_api()
     resp = {
         'code': 0,
         'msg': 'Ok',
