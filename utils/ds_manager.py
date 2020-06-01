@@ -328,11 +328,15 @@ class DsManager(object):
         该条目，最后将内容存储到work目录对应的文件中。
         '''
         file_sep = '/'
-        bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
+        #bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
+        bmy_to_fgvc_id_dict = {}
+        fgvc_id_to_bmy_dict = {}
         max_fgvc_id = 0
+        '''
         for k,v in fgvc_id_to_bmy_dict.items():
             if int(k) > max_fgvc_id:
                 max_fgvc_id = int(k)
+        '''
         base_path = Path(folder_name)
         for brand_path in base_path.iterdir():
             brand_fn = str(brand_path)
