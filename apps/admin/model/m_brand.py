@@ -12,7 +12,7 @@ class MBrand(object):
     def insert(brand_vo):
         if MBrand.db is None:
             MBrand.initialize()
-        rst = Mbrand.tbl.insert_one(brand_vo)
+        rst = MBrand.tbl.insert_one(brand_vo)
 
     @staticmethod
     def query_brands(start_idx=1, amount=-1, sort_id=1,
