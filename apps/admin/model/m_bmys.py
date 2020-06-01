@@ -1,4 +1,5 @@
 # 处理bmy表
+import pymongo
 
 class MBmys(object):
     db = None
