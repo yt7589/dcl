@@ -54,7 +54,7 @@ class CBmys(object):
                     bmy = {'bmy_name': bmy_name, 'bmy_num': num}
                     raw_bmys.append(bmy)
         bmys = []
-        recs = sorted(raw_bmys, key=CBmy.sort_by_num_bmy, reverse=False)
+        recs = sorted(raw_bmys, key=CBmys.sort_by_num_bmy, reverse=False)
         bmy_id = 1
         for rec in recs:
             rec['bmy_id'] = bmy_id
