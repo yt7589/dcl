@@ -68,7 +68,7 @@ class CBrand(object):
 
     @staticmethod
     def sort_by_num(item):
-        return item['num']
+        return item['brand_num']
 
     @staticmethod
     def get_files_num_in_folder(folder_name):
