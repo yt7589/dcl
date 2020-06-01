@@ -37,12 +37,10 @@ class CBrand(object):
             brands.append(brand)
             brand_id += 1
             MBrand.insert(rec)
-            print('v1 向数据库插入：{0};'.format(brand))
         data = {
             'total': len(brands),
             'brands': brands
         }
-        print('get_known_brands_api.data: {0};'.format(data))
         return data
         
     @staticmethod
