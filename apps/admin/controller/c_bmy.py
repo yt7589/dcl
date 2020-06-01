@@ -81,4 +81,4 @@ class CBmy(object):
 
     @staticmethod
     def sort_by_num_bmy(item):
-        return '{0}_{1}'.format(item['bmy_num'], item['bmy_name'])
+        return '{0:10d}_{1}'.format(item['bmy_num'], item['bmy_name'])
