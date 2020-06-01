@@ -27,6 +27,7 @@ class CBrand(object):
                     sort_id, sort_type)
         brand_id = 1
         brands = []
+        MBrand.clear_brands()
         for rec in recs:
             rec['brand_id'] = brand_id
             brand = {
