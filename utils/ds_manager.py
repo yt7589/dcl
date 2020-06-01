@@ -45,7 +45,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_SAMPLE_IMPORTED
+        run_mode = DsManager.RUN_MODE_REFINE
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -337,6 +337,7 @@ class DsManager(object):
             if int(k) > max_fgvc_id:
                 max_fgvc_id = int(k)
         '''
+        rfd = open('./logs/refine.txt', 'w+', encoding='utf-8')
         base_path = Path(folder_name)
         for brand_path in base_path.iterdir():
             brand_fn = str(brand_path)
@@ -357,6 +358,7 @@ class DsManager(object):
                     if not year_path.is_dir() or year_name == 'unknown':
                         continue
                     bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
+                    rfd.write('{0}\n'.format(bmy))
                     print('processing {0};'.format(bmy))
                     if not (bmy in bmy_to_fgvc_id_dict):
                         bmy_to_fgvc_id_dict[bmy] = max_fgvc_id
@@ -370,6 +372,7 @@ class DsManager(object):
         with open('./work/fgvc_id_to_bmy_dict.txt', 'w+', encoding='utf-8') as fib_fd:
             for k, v in fgvc_id_to_bmy_dict.items():
                 fib_fd.write('{0}:{1}\n'.format(k, v))
+        rfd.close()
     
     @staticmethod
     def generate_ds_by_folder(folder_name, ds_file):
