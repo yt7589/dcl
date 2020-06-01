@@ -69,7 +69,7 @@ class CBmys(object):
             rec = {
                 'bmy_id': bmy['bmy_id'],
                 'bmy_name': bmy['bmy_name'],
-                'bmy_num': bmy['num']
+                'bmy_num': bmy['bmy_num']
             }
             MBmys.insert(rec)
         return bmys
