@@ -89,7 +89,7 @@ class CBrand(object):
 
     @staticmethod
     def sort_by_num(item):
-        return item['brand_num']
+        return '{0}_{1}'.format(item['brand_num'], item['brand_name'])
 
     @staticmethod
     def get_files_num_in_folder(folder_name):
