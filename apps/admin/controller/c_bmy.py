@@ -32,6 +32,7 @@ class CBmy(object):
     @staticmethod
     def get_bmys_from_folder():
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
+        MBmys.delete_all()
         raw_bmys = []
         for brand_path in base_path.iterdir():
             brand_str = str(brand_path)
@@ -63,6 +64,13 @@ class CBmy(object):
             }
             bmy_id += 1
             bmys.append(bmy)
+        for bmy in bmys:
+            rec = {
+                'bmy_id': bmy['bmy_id'],
+                'bmy_name': bmy['bmy_name'],
+                'bmy_num': bmy['num']
+            }
+            MBmys.insert(rec)
         return bmys
 
     @staticmethod
