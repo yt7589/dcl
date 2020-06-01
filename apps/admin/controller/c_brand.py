@@ -25,12 +25,14 @@ class CBrand(object):
         '''
         brands = CBrand.get_known_brands(start_idx, amount, 
                     sort_id, sort_type)
+        '''
         brand_id = 1
         for brand in brands:
             brand['brand_id'] = brand_id
             brand_id += 1
             print('向数据库插入：{0};'.format(brand))
             MBrand.insert(brand)
+        '''
         data = {
             'total': len(brands),
             'brands': brands
