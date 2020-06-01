@@ -17,6 +17,8 @@ class MBrand(object):
     @staticmethod
     def query_brands(start_idx=1, amount=-1, sort_id=1,
                  sort_type=1):
+        if MBrand.db is None:
+            MBrand.initialize()
         query_cond = {}
         fields = {'brand_id': 1, 'brand_name': 1, 'brand_num': 1}
         return MBrand.tbl.find(query_cond, fields)
