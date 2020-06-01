@@ -6,17 +6,23 @@ from apps.admin.model.m_brand import MBrand
 class CBrand(object):
     def __init__(self):
         self.name = 'apps.admin.controller.CBrand'
-
+    
     @staticmethod
-    def get_known_brands_db_api(start_idx=1, amount=-1, sort_id=1,
+    def get_known_brands_api(start_idx=1, amount=-1, sort_id=1,
                  sort_type=1):
         '''
         从mongodb中获取已有品牌列表，包括品牌名称，年款数，图像数，
         支持按品牌名称、年款数、图像数排序，返回JSON响应
         '''
-    
+        brands = MBrand.query_brands()
+        data = {
+            'total': len(brands),
+            'brands': brands
+        }
+        return data
+
     @staticmethod
-    def get_known_brands_api(start_idx=1, amount=-1, sort_id=1,
+    def get_refresh_known_brands_api(start_idx=1, amount=-1, sort_id=1,
                  sort_type=1):
         '''
         获取已有品牌列表，包括品牌名称，年款数，图像数，
