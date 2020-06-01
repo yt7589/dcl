@@ -1,20 +1,36 @@
 # 品牌控制器类
 import os
 from pathlib import Path
+from apps.admin.model.m_brand import MBrand
 
 class CBrand(object):
     def __init__(self):
         self.name = 'apps.admin.controller.CBrand'
+
+    @staticmethod
+    def get_known_brands_db_api(start_idx=1, amount=-1, sort_id=1,
+                 sort_type=1):
+        '''
+        从mongodb中获取已有品牌列表，包括品牌名称，年款数，图像数，
+        支持按品牌名称、年款数、图像数排序，返回JSON响应
+        '''
     
     @staticmethod
     def get_known_brands_api(start_idx=1, amount=-1, sort_id=1,
                  sort_type=1):
         '''
         获取已有品牌列表，包括品牌名称，年款数，图像数，
-        支持按品牌名称、年款数、图像数排序，返回JSON响应
+        支持按品牌名称、年款数、图像数排序，返回JSON响应，从目录中统计实时数据，并
+        将结果保存到数据库中
         '''
         brands = CBrand.get_known_brands(start_idx, amount, 
                     sort_id, sort_type)
+        brand_id = 1
+        for brand in brands:
+            brand['brand_id'] = brand_id
+            brand_id += 1
+            print('向数据库插入：{0};'.format(brand))
+            MBrand.insert(brand)
         data = {
             'total': len(brands),
             'brands': brands
@@ -37,7 +53,7 @@ class CBrand(object):
         brands = []
         for bn in bns:
             num = CBrand.get_files_num_in_folder('{0}/{1}'.format(base_dir, bn))
-            brand = {'name': bn, 'num': num}
+            brand = {'brand_name': bn, 'brand_num': num}
             brands.append(brand)
         return sorted(brands, key=CBrand.sort_by_num, reverse=False)
 
