@@ -34,6 +34,7 @@ class CBmy(object):
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
         raw_bmys = []
         stop_loop = False
+        sl_num = 0
         for brand_path in base_path.iterdir():
             if stop_loop:
                 break
@@ -58,8 +59,9 @@ class CBmy(object):
                     bmy_name = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
                     bmy = {'bmy_name': bmy_name, 'bmy_num': num}
                     raw_bmys.append(bmy)
-                    if num > 10:
+                    if sl_num > 10:
                         stop_loop = True
+                    sl_num += 1
         bmys = []
         recs = sorted(raw_bmys, key=CBmy.sort_by_num_bmy, reverse=False)
         bmy_id = 1
