@@ -6,6 +6,7 @@ from pathlib import Path
 #from flask_cors import CORS
 from flask import request
 from apps.admin.controller.flask_web import FlaskWeb
+from apps.admin.model.m_bmys import MBmys
 
 class CBmy(object):
     def __init__(self):
