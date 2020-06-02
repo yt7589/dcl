@@ -16,7 +16,7 @@ class CBmys(object):
     def get_bmys_api():
         mode = request.args.get("mode")
         if '1' == mode:
-            bmys = CBmy.get_bmys_from_db()
+            bmys = CBmys.get_bmys_from_db()
         elif '2' == mode:
             bmys = CBmys.get_bmys_from_folder()
         resp_param = FlaskWeb.get_resp_param()
