@@ -19,6 +19,14 @@ class MBmys(object):
         if MBmys.tbl is None:
             MBmys._initialize()
         MBmys.tbl.delete_many({})
+
+    @staticmethod
+    def query_bmys():
+        if MBmys.tbl is None:
+            MBmys._initialize()
+        query_cond = {}
+        fields = {'bmy_id': 1, 'bmy_name': 1, 'bmy_num': 1}
+        return MBmys.tbl.find(query_cond, fields)
     
     @staticmethod
     def _initialize():
