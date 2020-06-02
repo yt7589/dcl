@@ -26,7 +26,7 @@ class MBmys(object):
             MBmys._initialize()
         query_cond = {}
         fields = {'bmy_id': 1, 'bmy_name': 1, 'bmy_num': 1}
-        return MBmys.tbl.find(query_cond, fields, sort=('bmy_num', pymongo.ASCENDING))
+        return MBmys.tbl.find(query_cond, fields, sort=[('bmy_num', pymongo.ASCENDING)])
     
     @staticmethod
     def _initialize():
