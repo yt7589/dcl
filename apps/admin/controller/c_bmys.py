@@ -28,7 +28,16 @@ class CBmys(object):
 
     @staticmethod
     def get_bmys_from_db():
-        pass
+        recs = MBmys.query_bmys()
+        bmys = []
+        for rec in recs:
+            bmy = {
+                'bmy_id': rec['bmy_id'],
+                'bmy_name': rec['bmy_name'],
+                'bmy_num': rec['bmy_num']
+            }
+            bmys.append(bmy)
+        return bmys
 
     @staticmethod
     def get_bmys_from_folder():
