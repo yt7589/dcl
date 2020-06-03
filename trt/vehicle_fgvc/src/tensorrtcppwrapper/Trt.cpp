@@ -613,9 +613,11 @@ bool Trt::BuildEngine(const std::string& onnxModel,
 	
 	const auto explicitBatch = 1U << static_cast<uint32_t>(nvinfer1::NetworkDefinitionCreationFlag::kEXPLICIT_BATCH);
     nvinfer1::INetworkDefinition* network = builder->createNetworkV2(explicitBatch);
-		
+	
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 2.1"<<std::endl;
     assert(network != nullptr);
     nvonnxparser::IParser* parser = nvonnxparser::createParser(*network, mLogger);
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 2.2 onnxModel="<<onnxModel<<";"<<std::endl;
 	std::ifstream fin(onnxModel);
 	bool bIsfile = true;
 	
