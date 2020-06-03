@@ -603,8 +603,7 @@ bool Trt::BuildEngine(const std::string& onnxModel,
                       std::string& engineFile,
                       const std::vector<std::string>& customOutput,
                       int maxBatchSize) {   
-    std::cout<<"src/tensorrtcppwrapper/trt.cpp 1"<<std::endl;     
-    exit(0);           
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 1 ^_^"<<std::endl;
     mBatchSize = maxBatchSize;
     nvinfer1::IBuilder* builder = nvinfer1::createInferBuilder(mLogger);
     assert(builder != nullptr);
