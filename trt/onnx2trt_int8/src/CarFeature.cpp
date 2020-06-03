@@ -43,9 +43,13 @@ JNADLL void *VehicleFeatureInstance(const string &modelPath, int cardNum,int max
     params.dataDirs.emplace_back("");
     params.dataFile = "../models/calib_images_all.txt";
     params.int8 = true;
+    std::cout<<"CarFeature.VehicleFeatureInstance 1"<<std::endl;
     cudaSetDevice(cardNum);
+    std::cout<<"CarFeature.VehicleFeatureInstance 2"<<std::endl;
     CarFeatureExtract::OnnxTRT *handler = new CarFeatureExtract::OnnxTRT(params,0);
+    std::cout<<"CarFeature.VehicleFeatureInstance 3"<<std::endl;
     handler->build(params.engineFileName);
+    std::cout<<"CarFeature.VehicleFeatureInstance 4"<<std::endl;
 
     return handler;
 }
