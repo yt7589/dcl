@@ -34,19 +34,14 @@
 JNADLL void *VehicleFeatureInstance(const string &modelPath, int cardNum,int max_batch_size)//端口初始化
 {
     samplesCommon::OnnxSampleParams params;
-    params.onnxFileName = modelPath + "feature_v2_no_bn.onnx";
-    params.inputTensorNames.emplace_back("input.1");
-    //params.onnxFileName = "/home/test/zhangsy/dcl_v3_sim.onnx";
-    //params.inputTensorNames.emplace_back("data");
+    params.onnxFileName = modelPath + "dcl_v005_sim.onnx";
+    params.inputTensorNames.emplace_back("data");
     params.batchSize = max_batch_size;
-    params.outputTensorNames.emplace_back("500");
-    //params.outputTensorNames.emplace_back("output");
+    params.outputTensorNames.emplace_back("output");
     params.gpuId = cardNum;
-    //params.engineFileName = "/home/test/zhangsy/dcl_v3_sim_t4.engine";
-    params.engineFileName =modelPath+ "feature_v2_no_bn_new_"+std::to_string(max_batch_size)+"_t4_bgr.trt";
+    params.engineFileName =modelPath+ "dcl_v005_q.trt";
     params.dataDirs.emplace_back("");
-    params.dataFile = "/home/test1/calib_images_all.txt";
-    //params.dataFile = "/home/test_0525/zhangsy/calib_img_head_tail.txt";
+    params.dataFile = "../models/calib_images_all.txt";
     params.int8 = true;
     cudaSetDevice(cardNum);
     CarFeatureExtract::OnnxTRT *handler = new CarFeatureExtract::OnnxTRT(params,0);

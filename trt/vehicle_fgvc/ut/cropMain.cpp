@@ -39,13 +39,7 @@ void *mythread(void *threadid)
     struct timeval end1;
     unsigned long timer;
     std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
-                            "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v005_sim.onnx";
-    int iMode = 1; // 1-生成TRT模型；其他为正常测试流程；
-    if (1 == iMode)
-    {
-        CreateTrtFromOnnx(modelfile);
-        return NULL;
-    }
+                            "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v005_q.trt";
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);
 

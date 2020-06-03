@@ -146,5 +146,6 @@ net_model/
 *.onnx
 trt/opencv2/
 trt/thirdparty/
+trt/onnx2trt_int8/models
 trt/vehicle_fgvc/models
 trt/vehicle_fgvc/cmake-build-debug
