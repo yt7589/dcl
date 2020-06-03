@@ -69,6 +69,11 @@ void *mythread(void *threadid) {
     int gpus{0};
     cudaGetDeviceCount(&gpus);
     void *handler = VehicleFeatureInstance("../models/", tid % gpus, 8);
+    int iDebug = 1;
+    if (1 == iDebug) 
+    {
+        return NULL;
+    }
     std::cout << "init finish" << std::endl;
     
     std::vector<std::string> all_img_list = for_each_file(
