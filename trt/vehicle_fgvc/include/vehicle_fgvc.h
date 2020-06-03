@@ -45,7 +45,7 @@ typedef struct
 
 #define JNADLL extern "C" __attribute__((visibility("default")))
 
-JNADLL void CreateTrtFromOnnx(string modelPath);
+JNADLL void CreateTrtFromOnnx(string modelPath, int cardNum);
 
 //JNADLL void *CarHeadAndTailInstance(string modelpath, int GPU_ID, int max_batch_size, int max_big_pic = 8, std::string businessType = "task_head_tail"); //端口初始化
 JNADLL void *VehicleFgvcInstance(string modelpath, int GPU_ID, 
