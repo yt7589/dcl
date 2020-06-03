@@ -29,45 +29,52 @@ void check(T result, char const *const func, const char *const file,
 #define CUDA_CHECK(val) check((val), #val, __FILE__, __LINE__)
 bool CarFeatureExtract::OnnxTRT::build(const std::string &engineFile) {
     if (!fileExist(engineFile)) {
-    auto builder = OnnxTRT::OnnxUniquePtr<nvinfer1::IBuilder>(nvinfer1::createInferBuilder(gLogger.getTRTLogger()));
-    if (!builder) {
-        std::cout << "get builder failed!" << std::endl;
-        return false;
-    }
-
-    auto network = OnnxUniquePtr<nvinfer1::INetworkDefinition>(builder->createNetworkV2(0));
-    if (!network) {
-        std::cout << "get network failed!" << std::endl;
-        return false;
-    }
-
-    auto config = OnnxUniquePtr<nvinfer1::IBuilderConfig>(builder->createBuilderConfig());
-    if (!config) {
-        std::cout << "get config failed!" << std::endl;
-        return false;
-    }
-
-    auto parser = OnnxUniquePtr<nvonnxparser::IParser>(
-            nvonnxparser::createParser(*network, gLogger.getTRTLogger()));
-    if (!parser) {
-        std::cout << "get parser failed!" << std::endl;
-        return false;
-    }
-
-    auto constructed = constructNetwork(builder, network, config, parser);
-    if (!constructed) {
-        std::cout << "get constructed failed!" << std::endl;
-        return false;
-    }
-    //std::cout << engineFile << std::endl;
+        std::cout<<"src/OnnxTRT.cpp 1"<<std::endl;
+        auto builder = OnnxTRT::OnnxUniquePtr<nvinfer1::IBuilder>(nvinfer1::createInferBuilder(gLogger.getTRTLogger()));
+        if (!builder) {
+            std::cout << "get builder failed!" << std::endl;
+            return false;
+        }
+        std::cout<<"src/OnnxTRT.cpp 2"<<std::endl;
+        auto network = OnnxUniquePtr<nvinfer1::INetworkDefinition>(builder->createNetworkV2(0));
+        if (!network) {
+            std::cout << "get network failed!" << std::endl;
+            return false;
+        }
+        std::cout<<"src/OnnxTRT.cpp 3"<<std::endl;
+        auto config = OnnxUniquePtr<nvinfer1::IBuilderConfig>(builder->createBuilderConfig());
+        if (!config) {
+            std::cout << "get config failed!" << std::endl;
+            return false;
+        }
+        std::cout<<"src/OnnxTRT.cpp 4"<<std::endl;
+        auto parser = OnnxUniquePtr<nvonnxparser::IParser>(
+                nvonnxparser::createParser(*network, gLogger.getTRTLogger()));
+        if (!parser) {
+            std::cout << "get parser failed!" << std::endl;
+            return false;
+        }
+        std::cout<<"src/OnnxTRT.cpp 5"<<std::endl;
+        auto constructed = constructNetwork(builder, network, config, parser);
+        if (!constructed) {
+            std::cout << "get constructed failed!" << std::endl;
+            return false;
+        }
+        //std::cout << engineFile << std::endl;
+        std::cout<<"src/OnnxTRT.cpp 6"<<std::endl;
 
         mEngine = std::shared_ptr<nvinfer1::ICudaEngine>(builder->buildEngineWithConfig(*network, *config),
                                                          samplesCommon::InferDeleter());
+        std::cout<<"src/OnnxTRT.cpp 7"<<std::endl;
         sample::saveEngine(*mEngine.get(), engineFile, std::cerr);
+        std::cout<<"src/OnnxTRT.cpp 8"<<std::endl;
     } else {
+        std::cout<<"src/OnnxTRT.cpp 9"<<std::endl;
         mEngine = std::shared_ptr<nvinfer1::ICudaEngine>(sample::loadEngine(engineFile, mParams.dlaCore, std::cerr),
                                                          samplesCommon::InferDeleter());
+        std::cout<<"src/OnnxTRT.cpp 10"<<std::endl;
     }
+    std::cout<<"src/OnnxTRT.cpp 11"<<std::endl;
     if (!mEngine) {
         return false;
     }
