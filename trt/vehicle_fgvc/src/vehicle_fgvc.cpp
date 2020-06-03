@@ -22,6 +22,14 @@ public:
 };
 std::map<void *, PredictorAPI *> G_SOURCE;
 std::map<void *, GInfo> G_GInfo;
+
+/**
+ * 从onnx文件生成量化过的trt文件用于模型推理 
+*/
+void CreateTrtFromOnnx(string modelPath) {
+    std::cout<<"生成TRT："<<modelPath<<std::endl;
+}
+
 /*void *CarHeadAndTailInstance(string modelpath,
                              int cardnum, int max_batch_size,
                              int max_big_pic,
