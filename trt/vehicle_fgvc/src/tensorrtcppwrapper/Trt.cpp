@@ -603,14 +603,14 @@ bool Trt::BuildEngine(const std::string& onnxModel,
                       std::string& engineFile,
                       const std::vector<std::string>& customOutput,
                       int maxBatchSize) {   
-    std::cout<<"src/tensorrtcppwrapper/trt.cpp 1: onnx="<<onnxModel<<"; engine="<<engineFile<<";"<<std::endl;                
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 1: onnx="<<onnxModel<<"; engine="<<engineFile<<";"<<std::endl;     
+    exit(0);           
     mBatchSize = maxBatchSize;
     nvinfer1::IBuilder* builder = nvinfer1::createInferBuilder(mLogger);
     assert(builder != nullptr);
     // NetworkDefinitionCreationFlag::kEXPLICIT_BATCH 
     //nvinfer1::INetworkDefinition* network = builder->createNetworkV2(0);
     std::cout<<"src/tensorrtcppwrapper/trt.cpp 2"<<std::endl;
-    exit(0);
 	
 	const auto explicitBatch = 1U << static_cast<uint32_t>(nvinfer1::NetworkDefinitionCreationFlag::kEXPLICIT_BATCH);
     nvinfer1::INetworkDefinition* network = builder->createNetworkV2(explicitBatch);
