@@ -745,7 +745,7 @@ bool Trt::BuildEngine(const std::string& onnxModel,
 		engineFile = tmpstr;
         data->destroy();
 	}
-    std::cout<<"src/tensorrtcppwrapper/trt.cpp 9"<<std:endl;
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 9"<<std::endl;
 	
     builder->destroy();
     network->destroy();
