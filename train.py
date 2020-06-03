@@ -216,7 +216,7 @@ if __name__ == '__main__':
         os.makedirs(save_dir)
     model.cuda()
     #summary(model, (3, 224, 224))
-    if 1>10:
+    if 1>1:
         print('准备保存模型到onnx文件')
         example = torch.rand(1, 3, 224, 224).cuda()
         print(example.shape)
@@ -224,7 +224,7 @@ if __name__ == '__main__':
         model.eval()
         model.use_dcl = False
         model.use_Asoftmax = False
-        torch.onnx.export(model, example, "dcl_v002.onnx", verbose=False,
+        torch.onnx.export(model, example, "dcl_v005.onnx", verbose=False,
                             input_names=["data"], output_names=["output"], \
                             training=False, opset_version=9,
                             do_constant_folding=True,
