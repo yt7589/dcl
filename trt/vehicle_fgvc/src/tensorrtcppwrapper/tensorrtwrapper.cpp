@@ -59,8 +59,6 @@ bool TensorRTWrapper::initial_ipl(const std::vector<std::vector<char>>& model_da
 	_pTinyTrt = std::unique_ptr<Trt>(new Trt());
 	if (config.iConfig.modelType == "onnx")
 	{ 
-		std::cout<<"src/tensorrtcppwrapper/tensorrtwrapper.cpp 1"<<std::endl;
-		exit(0);
 		// since build engine is time consuming,so save we can serialize engine to file, it's much more faster
 		if (_engine_data_save.empty())
 			return _pTinyTrt->CreateEngine(model_str,
