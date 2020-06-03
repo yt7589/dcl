@@ -44,7 +44,7 @@ void *mythread(void *threadid)
     if (1 == iMode)
     {
         CreateTrtFromOnnx(modelfile);
-        return ;
+        return NULL;
     }
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);
