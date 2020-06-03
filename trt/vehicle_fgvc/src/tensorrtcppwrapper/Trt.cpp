@@ -87,7 +87,10 @@ bool Trt::CreateEngine(const std::string& onnxModel,
                        int mode) {
               mBatchSize =    maxBatchSize;    
               mRunMode = mode;  
+    std::cout<<"src/tensorrtwrapper/trt.cpp 1"<<std::endl;
     if(!DeserializeEngine(engineFile)) {
+        std::cout<<"src/tensorrtwrapper/trt.cpp 2"<<std::endl;
+        exit(0);
         if(!BuildEngine(onnxModel,engineFile,customOutput,maxBatchSize)) {
             return false;
         }
