@@ -41,7 +41,10 @@ void *VehicleFgvcInstance(string modelpath,
     if (modelpath.find("engine") != modelpath.npos)
         iconfig.modelType = "engine";
     else if (modelpath.find("onnx") != modelpath.npos)
+    {
+        std::cout<<"##### load from onnx file"<<std::endl;
         iconfig.modelType = "onnx";
+    }
     else
     {
         iconfig.modelType = "engine";

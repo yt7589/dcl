@@ -602,12 +602,14 @@ bool Trt::BuildEngine(const std::string& prototxt,
 bool Trt::BuildEngine(const std::string& onnxModel,
                       std::string& engineFile,
                       const std::vector<std::string>& customOutput,
-                      int maxBatchSize) {                   
+                      int maxBatchSize) {   
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 1: onnx="<<onnxModel<<"; engine="<<engineFile<<";"<<std::endl;                
     mBatchSize = maxBatchSize;
     nvinfer1::IBuilder* builder = nvinfer1::createInferBuilder(mLogger);
     assert(builder != nullptr);
     // NetworkDefinitionCreationFlag::kEXPLICIT_BATCH 
     //nvinfer1::INetworkDefinition* network = builder->createNetworkV2(0);
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 2"<<std::endl;
 	
 	const auto explicitBatch = 1U << static_cast<uint32_t>(nvinfer1::NetworkDefinitionCreationFlag::kEXPLICIT_BATCH);
     nvinfer1::INetworkDefinition* network = builder->createNetworkV2(explicitBatch);
@@ -623,6 +625,7 @@ bool Trt::BuildEngine(const std::string& onnxModel,
 	   bIsfile=false;
 	}
 	fin.close(); 
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 3"<<std::endl;
 	
     if (false) 
     {
@@ -644,6 +647,7 @@ bool Trt::BuildEngine(const std::string& onnxModel,
             return false;
         }
     }
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 4"<<std::endl;
 
 //    auto* origin_output = network->getOutput(0);
 //    network->unmarkOutput(*origin_output);
@@ -672,6 +676,7 @@ bool Trt::BuildEngine(const std::string& onnxModel,
             }
         }    
     }
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 5 mRunMode="<<mRunMode<<";"<<std::endl;
     nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
 
         Int8EntropyCalibrator* calibrator = nullptr;
@@ -693,6 +698,7 @@ bool Trt::BuildEngine(const std::string& onnxModel,
 	    config->setFlag(nvinfer1::BuilderFlag::kINT8); 
          config->setInt8Calibrator(calibrator);	
     }
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 6"<<std::endl;
 
     builder->setMaxBatchSize(mBatchSize);
     config->setMaxWorkspaceSize(1*mBatchSize << 20);
@@ -705,6 +711,7 @@ bool Trt::BuildEngine(const std::string& onnxModel,
     }
     std::cout<<"Trt::buildEngine Ln727"<<std::endl;*/
 	mNetBatchSize = network->getInput(0)->getDimensions().d[0];
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 7"<<std::endl;
 
     if (mRunMode == 0 && network->getInput(0)->getDimensions().d[0] ==-1)
     {
@@ -723,6 +730,7 @@ bool Trt::BuildEngine(const std::string& onnxModel,
 
         config->addOptimizationProfile(profile);
     }
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 8"<<std::endl;
 
 	
 		
@@ -737,6 +745,7 @@ bool Trt::BuildEngine(const std::string& onnxModel,
 		engineFile = tmpstr;
         data->destroy();
 	}
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 9"<<std:endl;
 	
     builder->destroy();
     network->destroy();
