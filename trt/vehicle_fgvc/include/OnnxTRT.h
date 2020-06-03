@@ -9,7 +9,6 @@
 #include <NvOnnxParser.h>
 #include "common.h"
 #include "argsParser.h"
-#include "CarFeature.h"
 #include "buffers.h"
 #include "sampleOptions.h"
 
