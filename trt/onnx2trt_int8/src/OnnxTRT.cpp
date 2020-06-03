@@ -108,6 +108,7 @@ bool CarFeatureExtract::OnnxTRT::constructNetwork(OnnxUniquePtr<nvinfer1::IBuild
     auto parsed = parser->parseFromFile(
             this->mParams.onnxFileName.c_str(),
             static_cast<int>(gLogger.getReportableSeverity()));
+    std::cout<<"src/OnnxTRT.cpp.constructNetwork 1"<<std::endl;
     if (!parsed) {
         std::cout << "feature extraction get parsed failed!" << std::endl;
         return false;
