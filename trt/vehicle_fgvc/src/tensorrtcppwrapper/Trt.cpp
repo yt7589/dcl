@@ -617,7 +617,7 @@ bool Trt::BuildEngine(const std::string& onnxModel,
     std::cout<<"src/tensorrtcppwrapper/trt.cpp 2.1"<<std::endl;
     assert(network != nullptr);
     nvonnxparser::IParser* parser = nvonnxparser::createParser(*network, mLogger);
-    std::cout<<"src/tensorrtcppwrapper/trt.cpp 2.2 onnxModel="<<onnxModel<<";"<<std::endl;
+    std::cout<<"src/tensorrtcppwrapper/trt.cpp 2.2"<<std::endl;
 	std::ifstream fin(onnxModel);
 	bool bIsfile = true;
 	
@@ -638,16 +638,20 @@ bool Trt::BuildEngine(const std::string& onnxModel,
     else
     { 
         if (!bIsfile){
+            std::cout<<"src/tensorrtcppwrapper/trt.cpp 3.1"<<std::endl;
             if (!parser->parse(onnxModel.data(),onnxModel.size()))
             {
+                std::cout<<"src/tensorrtcppwrapper/trt.cpp 3.2"<<std::endl;
                 //spdlog::error("error: could not parse onnx engine. bIsfile: {}", bIsfile);
                 return false;
             }
         }
         else if(!parser->parseFromFile(onnxModel.c_str(), static_cast<int>(ILogger::Severity::kWARNING))) {
+            std::cout<<"src/tensorrtcppwrapper/trt.cpp 3.3"<<std::endl;
             //spdlog::error("error: could not parse onnx engine");
             return false;
         }
+        std::cout<<"src/tensorrtcppwrapper/trt.cpp 3.4"<<std::endl;
     }
     std::cout<<"src/tensorrtcppwrapper/trt.cpp 4"<<std::endl;
 
