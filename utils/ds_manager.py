@@ -930,7 +930,7 @@ class DsManager(object):
                 arrs2 = arrs1[0].split('#')
                 ggh = arrs2[0]
                 if ggh == target_ggh:
-                    #os.remove(img_str)
+                    os.remove(img_str)
                     sum += 1
                     print('删除{0};'.format(img_str))
         print('共删除：{0};'.format(sum))
