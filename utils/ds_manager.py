@@ -913,4 +913,24 @@ class DsManager(object):
 
     @staticmethod
     def process_wl_0604():
+        '''
+        删除指定品牌-车型目录下，所有年款目录中以指定公告号开头的图片文件
+        '''
         print('处理王力奔驰车数据......')
+        # 指定品牌-车型目录和要删除的公告号
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/品牌/奔驰/S级')
+        target_ggh = 'WDDUX6EB'
+        sum = 0
+        for year_path in pase_path.iterdir():
+            for img_obj in year_path.iterdir():
+                img_str = str(img_obj)
+                arrs0 = img_str.split('/')
+                img_file = arrs0[-1]
+                arrs1 = img_file.split('_')
+                arrs2 = arrs1[0].split('#')
+                ggh = arrs2[0]
+                if ggh == target_ggh:
+                    #os.remove(img_str)
+                    sum += 1
+                    print('删除{0};'.format(img_str))
+        print('共删除：{0};'.format(sum))
