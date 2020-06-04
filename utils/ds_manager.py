@@ -39,13 +39,14 @@ class DsManager(object):
     RUN_MODE_PROCESS_TEST_DS_BMY = 1013 
     RUN_MODE_EMERGENCY = 1014 # 处理紧急情况
     RUN_MODE_FIX_BAD_HDD = 1015 # 修复坏硬盘拷贝丢失文件问题
+    RUN_MODE_PROCESS_WL_0604 = 1016 # 处理王力奔驰车数据
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_REFINE
+        run_mode = DsManager.RUN_MODE_PROCESS_WL_0604
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -97,6 +98,8 @@ class DsManager(object):
             DsManager.emergency()
         elif DsManager.RUN_MODE_FIX_BAD_HDD == run_mode:
             DsManager.fix_bad_hdd()
+        elif DsManager.RUN_MODE_PROCESS_WL_0604 == run_mode:
+            DsManager.process_wl_0604()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -907,3 +910,7 @@ class DsManager(object):
                         if src_size != dst_size:
                             print('################### {0}: {1} vs {2}'.format(dst_file, dst_size, src_size))
         print('共{0}个文件，缺少{1}个文件'.format(total, loss_num))
+
+    @staticmethod
+    def process_wl_0604():
+        print('处理王力奔驰车数据......')
