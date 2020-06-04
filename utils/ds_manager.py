@@ -921,7 +921,7 @@ class DsManager(object):
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/品牌/奔驰/S级')
         target_ggh = 'WDDUX6EB'
         sum = 0
-        for year_path in pase_path.iterdir():
+        for year_path in base_path.iterdir():
             for img_obj in year_path.iterdir():
                 img_str = str(img_obj)
                 arrs0 = img_str.split('/')
