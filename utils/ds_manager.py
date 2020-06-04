@@ -918,8 +918,8 @@ class DsManager(object):
         '''
         print('处理王力奔驰车数据......')
         # 指定品牌-车型目录和要删除的公告号
-        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/品牌/奔驰/迈巴赫S级')
-        target_ggh = 'WDDUG5FB'
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/品牌/奔驰/GLE级')
+        target_ggh = 'WDCED6CB'
         sum = 0
         for year_path in base_path.iterdir():
             for img_obj in year_path.iterdir():
