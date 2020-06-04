@@ -918,7 +918,7 @@ class DsManager(object):
         '''
         print('处理王力奔驰车数据......')
         # 指定品牌-车型目录和要删除的公告号
-        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/品牌/奔驰/GLE级')
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/品牌/奔驰/GLEcoupe')
         target_ggh = 'WDCED6CB'
         sum = 0
         for year_path in base_path.iterdir():
@@ -929,7 +929,7 @@ class DsManager(object):
                 arrs1 = img_file.split('_')
                 arrs2 = arrs1[0].split('#')
                 ggh = arrs2[0]
-                if ggh == target_ggh:
+                if ggh != target_ggh:
                     os.remove(img_str)
                     sum += 1
                     print('删除{0};'.format(img_str))
