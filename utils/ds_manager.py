@@ -46,7 +46,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_PROCESS_WL_0604
+        run_mode = DsManager.RUN_MODE_REFINE
         DsManager.run(run_mode, {})
 
     @staticmethod
