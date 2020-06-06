@@ -1012,5 +1012,5 @@ class DsManager(object):
                 year_dir = '{0}/{1}'.format(model_dir, year_name)
                 if not os.path.exists(year_dir):
                     print('create path: {0};'.format(year_dir))
-                    os.exists(year_dir)
+                    os.mkdir(year_dir)
 
