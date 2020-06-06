@@ -943,7 +943,7 @@ class DsManager(object):
     @staticmethod
     def process_unknown_ggh():
         print('处理未知公告号...')
-        with open('./logs/0-12314.csv', delimiter=',', encoding='utf-8') as ug_fd:
+        with open('./logs/0-12314.csv', encoding='utf-8') as ug_fd:
             ug_rdr = csv.reader(ug_fd)
             header = next(ug_rdr)
             for row in ug_rdr:
