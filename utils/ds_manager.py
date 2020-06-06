@@ -947,7 +947,7 @@ class DsManager(object):
         add_sum = 0
         collide_sum = 0
         all_sum = 0
-        with open('./logs/0-12314.csv', 'r', encoding='utf-8') as ug_fd:
+        with open('./logs/raw0-12314.csv', 'r', encoding='utf-8') as ug_fd:
             ug_rdr = csv.reader(ug_fd, delimiter=',')
             header = next(ug_rdr)
             for row in ug_rdr:
