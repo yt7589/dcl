@@ -332,6 +332,7 @@ class DsManager(object):
         '''
         file_sep = '/'
         #bmy_to_fgvc_id_dict, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
+        # 重新开始统计
         bmy_to_fgvc_id_dict = {}
         fgvc_id_to_bmy_dict = {}
         max_fgvc_id = 0
