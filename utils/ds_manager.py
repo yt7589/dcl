@@ -959,7 +959,7 @@ class DsManager(object):
                 bmy = '{0}_{1}_{2}'.format(brand_name, row[2].strip(), row[3].strip())
                 if ggh not in ggh_to_bmy_dict:
                     ggh_to_bmy_dict[ggh] = bmy
-                    print('add {0};'.format(bmy))
+                    #print('add {0};'.format(bmy))
                 else:
                     if bmy != ggh_to_bmy_dict[ggh]:
                         print('##### Error: {0} {1} ? {2};'.format(ggh, bmy, ggh_to_bmy_dict[ggh]))
