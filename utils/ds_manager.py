@@ -945,7 +945,7 @@ class DsManager(object):
         print('处理未知公告号...')
         ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
         for k, v in ggh_to_bmy_dict.items():
-            print('### {k}:{v};'.format(k, v))
+            print('### {0}:{1};'.format(k, v))
         with open('./logs/0-12314.csv', 'r', encoding='utf-8') as ug_fd:
             ug_rdr = csv.reader(ug_fd, delimiter=',')
             header = next(ug_rdr)
