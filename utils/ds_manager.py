@@ -946,10 +946,14 @@ class DsManager(object):
         ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
         for k, v in ggh_to_bmy_dict.items():
             print('### {0}:{1};'.format(k, v))
+        add_sum = 0
+        collide_sum = 0
+        all_sum = 0
         with open('./logs/0-12314.csv', 'r', encoding='utf-8') as ug_fd:
             ug_rdr = csv.reader(ug_fd, delimiter=',')
             header = next(ug_rdr)
             for row in ug_rdr:
+                all_sum += 1
                 if len(row[1].strip())<1 or len(row[2].strip())<1 or len(row[2].strip())<1:
                     continue
                 ggh = row[0].strip()
@@ -960,6 +964,9 @@ class DsManager(object):
                 if ggh not in ggh_to_bmy_dict:
                     ggh_to_bmy_dict[ggh] = bmy
                     #print('add {0};'.format(bmy))
+                    add_sum += 1
                 else:
                     if bmy != ggh_to_bmy_dict[ggh]:
                         print('##### Error: {0} {1} ? {2};'.format(ggh, bmy, ggh_to_bmy_dict[ggh]))
+                        collide_sum += 1
+        print('all: {0}; add: {1}; collide: {2};'.format(all_sum, add_sum, collide_sum))
