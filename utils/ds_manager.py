@@ -946,5 +946,9 @@ class DsManager(object):
         with open('./logs/0-12314.csv', 'r', encoding='utf-8') as ug_fd:
             ug_rdr = csv.reader(ug_fd, delimiter=',')
             header = next(ug_rdr)
+            sum = 0
             for row in ug_rdr:
-                print('{0};'.format(type(row)))
+                print('{0}={1};'.format(type(row), len(row)))
+                if sum > 10:
+                    break
+                sum += 1
