@@ -978,3 +978,12 @@ class DsManager(object):
     @staticmethod
     def import_domestic_vehicles():
         print('导入国产车数据')
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/exp/guo')
+        DsManager.move_imgs_to_raw(base_path)
+
+    @staticmethod
+    def move_imgs_to_raw(base_path):
+        for file_obj in base_path.iterdir():
+            if file_obj.is_dir():
+                DsManager.move_imgs_to_raw(file_obj)
+            print('移动文件：{0};'.format(file_obj))
