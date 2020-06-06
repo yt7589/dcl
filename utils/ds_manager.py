@@ -979,10 +979,11 @@ class DsManager(object):
     def import_domestic_vehicles():
         print('导入国产车数据')
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/exp/guo')
-        DsManager.move_imgs_to_raw(base_path)
+        dst_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/exp/dst')
+        DsManager.move_imgs_to_raw(base_path, dst_path)
 
     @staticmethod
-    def move_imgs_to_raw(base_path):
+    def move_imgs_to_raw(base_path, dst_path):
         ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
         for file_obj in base_path.iterdir():
             if file_obj.is_dir():
@@ -995,4 +996,10 @@ class DsManager(object):
                 ggh = arrs1[0]
                 bmy = ggh_to_bmy_dict[ggh]
                 print('移动文件：{0} => {1};'.format(file_obj, bmy))
+                arrs2 = bmy.split('_')
+                brand_name = arrs2[0]
+                model_name = arrs2[1]
+                year_name = arrs2[2]
+                brand_path = dst_path.joinpath('/{0}'.format(brand_name))
+                print('brand_path: {0};'.format(brand_path))
 
