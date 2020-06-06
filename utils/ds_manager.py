@@ -967,4 +967,4 @@ class DsManager(object):
                     if bmy != ggh_to_bmy_dict[ggh]:
                         print('Error: {0} {1} ? {2};'.format(ggh, bmy, ggh_to_bmy_dict[ggh]))
                         collide_sum += 1
-        print('all: {0}; add: {1}; collide: {2};'.format(all_sum, add_sum, collide_sum))
+        print('all: {0}; add: {1}; collide: {2};'.format(len(ggh_to_bmy_dict.keys()), add_sum, collide_sum))
