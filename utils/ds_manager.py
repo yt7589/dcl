@@ -1000,6 +1000,8 @@ class DsManager(object):
                 brand_name = arrs2[0]
                 model_name = arrs2[1]
                 year_name = arrs2[2]
-                brand_path = dst_path.joinpath('/{0}'.format(brand_name))
+                brand_path = '{0}/{1}'.foramt(dst_path, brand_name)
                 print('brand_path: {0};'.format(brand_path))
+                if not os.path.exists(brand_path):
+                    print('create path: {0};'.format(brand_path))
 
