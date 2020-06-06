@@ -995,7 +995,6 @@ class DsManager(object):
                 arrs1 = file_name.split('_')
                 ggh = arrs1[0]
                 bmy = ggh_to_bmy_dict[ggh]
-                print('移动文件：{0} => {1};'.format(file_obj, bmy))
                 arrs2 = bmy.split('_')
                 brand_name = arrs2[0]
                 model_name = arrs2[1]
@@ -1013,4 +1012,6 @@ class DsManager(object):
                 if not os.path.exists(year_dir):
                     print('create path: {0};'.format(year_dir))
                     os.mkdir(year_dir)
+                print('移动文件：{0} => {1};'.format(file_obj, bmy))
+                shutil.move(file_obj, Path('{0}/{1}'.format(year_dir, file_name)))
 
