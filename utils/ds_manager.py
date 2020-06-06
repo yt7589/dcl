@@ -983,8 +983,14 @@ class DsManager(object):
 
     @staticmethod
     def move_imgs_to_raw(base_path):
+        ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
         for file_obj in base_path.iterdir():
             if file_obj.is_dir():
                 DsManager.move_imgs_to_raw(file_obj)
             else:
-                print('移动文件：{0};'.format(file_obj))
+                file_str = str(file_obj)
+                arrs0 = file_str.split('_')
+                ggh = arrs0[0]
+                bmy = ggh_to_bmy_dict[ggh]
+                print('移动文件：{0} => {1};'.format(file_obj, bmy))
+
