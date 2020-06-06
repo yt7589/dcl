@@ -947,6 +947,8 @@ class DsManager(object):
             ug_rdr = csv.reader(ug_fd, delimiter=',')
             header = next(ug_rdr)
             for row in ug_rdr:
+                if len(row[1].strip())<1 or len(row[2].strip())<1 or len(row[2].strip())<1:
+                    continue
                 ggh = row[0].strip()
                 bmy = '{0}_{1}_{2}'.format(row[1].strip(), row[2].strip(), row[3].strip())
                 print('{0}:{1};'.format(ggh, bmy))
