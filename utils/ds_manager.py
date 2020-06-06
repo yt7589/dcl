@@ -9,6 +9,7 @@
 # 术语：
 # bmy: 品牌-车型-年款
 import os
+import csv
 import shutil
 from pathlib import Path
 import random
@@ -942,3 +943,8 @@ class DsManager(object):
     @staticmethod
     def process_unknown_ggh():
         print('处理未知公告号...')
+        with open('./logs/0-12314.csv', delimiter=',', encoding='utf-8') as ug_fd:
+            ug_rdr = csv.reader(ug_fd)
+            header = next(ug_rdr)
+            for row in ug_rdr:
+                print('{0}:{1}_{2}_{4};'.format(row[0], row[1], row[2], row[3]))
