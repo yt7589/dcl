@@ -990,7 +990,9 @@ class DsManager(object):
             else:
                 file_str = str(file_obj)
                 arrs0 = file_str.split('_')
-                ggh = arrs0[0]
+                file_name = arrs0[-1]
+                arrs1 = file_name.split('_')
+                ggh = arrs1[0]
                 bmy = ggh_to_bmy_dict[ggh]
                 print('移动文件：{0} => {1};'.format(file_obj, bmy))
 
