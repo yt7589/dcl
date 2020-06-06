@@ -1000,8 +1000,17 @@ class DsManager(object):
                 brand_name = arrs2[0]
                 model_name = arrs2[1]
                 year_name = arrs2[2]
-                brand_path = '{0}/{1}'.format(dst_path, brand_name)
-                print('brand_path: {0};'.format(brand_path))
-                if not os.path.exists(brand_path):
-                    print('create path: {0};'.format(brand_path))
+                brand_dir = '{0}/{1}'.format(dst_path, brand_name)
+                print('brand_path: {0};'.format(brand_dir))
+                if not os.path.exists(brand_dir):
+                    print('create path: {0};'.format(brand_dir))
+                    os.path.mkdir(brand_dir)
+                model_dir = '{0}/{1}'.format(brand_dir, model_name)
+                if not os.path.exists(model_dir):
+                    print('create path: {0};'.format(model_dir))
+                    os.path.mkdir(model_dir)
+                year_dir = '{0}/{1}'.format(model_dir, year_name)
+                if not os.path.exists(year_dir):
+                    print('create path: {0};'.format(year_dir))
+                    os.path.exists(year_dir)
 
