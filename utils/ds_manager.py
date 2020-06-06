@@ -948,7 +948,9 @@ class DsManager(object):
             header = next(ug_rdr)
             sum = 0
             for row in ug_rdr:
-                print('{0}: {1}_{2}_{3}'.format(row[0].strip(), row[1].strip(), row[2].strip(), row[3].strip()))
+                ggh = row[0].strip()
+                bmy = '{0}_{1}_{2}'.format(row[1].strip(), row[2].strip(), row[3].strip())
+                print('{0}:{1};'.format(ggh, bmy))
                 if sum > 10:
                     break
                 sum += 1
