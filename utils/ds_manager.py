@@ -947,4 +947,4 @@ class DsManager(object):
             ug_rdr = csv.reader(ug_fd, delimiter=',')
             header = next(ug_rdr)
             for row in ug_rdr:
-                print('{0}:{1}_{2}_{4};'.format(row[0], row[1], row[2], row[3]))
+                print('{0}:{1};'.format(type(row), row))
