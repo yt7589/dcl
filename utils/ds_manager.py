@@ -944,8 +944,6 @@ class DsManager(object):
     def process_unknown_ggh():
         print('处理未知公告号...')
         ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
-        for k, v in ggh_to_bmy_dict.items():
-            print('### {0}:{1};'.format(k, v))
         add_sum = 0
         collide_sum = 0
         all_sum = 0
@@ -967,6 +965,6 @@ class DsManager(object):
                     add_sum += 1
                 else:
                     if bmy != ggh_to_bmy_dict[ggh]:
-                        print('##### Error: {0} {1} ? {2};'.format(ggh, bmy, ggh_to_bmy_dict[ggh]))
+                        print('Error: {0} {1} ? {2};'.format(ggh, bmy, ggh_to_bmy_dict[ggh]))
                         collide_sum += 1
         print('all: {0}; add: {1}; collide: {2};'.format(all_sum, add_sum, collide_sum))
