@@ -42,13 +42,14 @@ class DsManager(object):
     RUN_MODE_FIX_BAD_HDD = 1015 # 修复坏硬盘拷贝丢失文件问题
     RUN_MODE_PROCESS_WL_0604 = 1016 # 处理王力奔驰车数据
     RUN_MODE_PROCESS_UNKNOWN_GGH = 1017 # 处理未知公告号
+    RUN_MODE_IMPORT_DOMESTIC_VEHICLES = 1018 # 将国产车图片移动到raw中并按品牌/车型/年款进行组织
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_PROCESS_UNKNOWN_GGH
+        run_mode = DsManager.RUN_MODE_IMPORT_DOMESTIC_VEHICLES
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -104,6 +105,8 @@ class DsManager(object):
             DsManager.process_wl_0604()
         elif DsManager.RUN_MODE_PROCESS_UNKNOWN_GGH == run_mode:
             DsManager.process_unknown_ggh()
+        elif DsManager.RUN_MODE_IMPORT_DOMESTIC_VEHICLES == run_mode:
+            DsManager.import_domestic_vehicles()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -971,3 +974,7 @@ class DsManager(object):
             for k, v in ggh_to_bmy_dict.items():
                 gd_fd.write('{0}:{1}\n'.format(k, v))
         print('all: {0}; add: {1}; collide: {2};'.format(len(ggh_to_bmy_dict.keys()), add_sum, collide_sum))
+
+    @staticmethod
+    def import_domestic_vehicles():
+        print('导入国产车数据')
