@@ -987,7 +987,7 @@ class DsManager(object):
         ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
         for file_obj in base_path.iterdir():
             if file_obj.is_dir():
-                DsManager.move_imgs_to_raw(file_obj)
+                DsManager.move_imgs_to_raw(file_obj, dst_path)
             else:
                 file_str = str(file_obj)
                 arrs0 = file_str.split('/')
