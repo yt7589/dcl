@@ -510,7 +510,7 @@ class DsManager(object):
                 arrs0 = line.split(':')
                 if len(arrs0) > 1:
                     arrs1 = arrs0[1][:-1].split('_')
-                    bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2][:-1])
+                    bmy = '{0}_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2][:])
                     DsManager._ggh_to_bmy_dict[arrs0[0]] = bmy
         return DsManager._ggh_to_bmy_dict
 
