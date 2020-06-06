@@ -989,7 +989,7 @@ class DsManager(object):
                 DsManager.move_imgs_to_raw(file_obj)
             else:
                 file_str = str(file_obj)
-                arrs0 = file_str.split('_')
+                arrs0 = file_str.split('/')
                 file_name = arrs0[-1]
                 arrs1 = file_name.split('_')
                 ggh = arrs1[0]
