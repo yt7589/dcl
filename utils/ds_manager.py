@@ -951,7 +951,7 @@ class DsManager(object):
                     continue
                 ggh = row[0].strip()
                 brand_name = row[1].strip()
-                if '牌' == brand_name:
+                if '牌' == brand_name[-1]:
                     brand_name = brand_name[:-1]
                 bmy = '{0}_{1}_{2}'.format(brand_name, row[2].strip(), row[3].strip())
                 print('{0}:{1};'.format(ggh, bmy))
