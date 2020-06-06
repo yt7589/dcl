@@ -986,4 +986,5 @@ class DsManager(object):
         for file_obj in base_path.iterdir():
             if file_obj.is_dir():
                 DsManager.move_imgs_to_raw(file_obj)
-            print('移动文件：{0};'.format(file_obj))
+            else:
+                print('移动文件：{0};'.format(file_obj))
