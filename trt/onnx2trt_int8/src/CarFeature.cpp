@@ -34,7 +34,7 @@
 JNADLL void *VehicleFeatureInstance(const string &modelPath, int cardNum,int max_batch_size)//端口初始化
 {
     samplesCommon::OnnxSampleParams params;
-    params.onnxFileName = modelPath + "dcl_v005.onnx";
+    params.onnxFileName = modelPath + "dcl_v006_sim.onnx";
     params.inputTensorNames.emplace_back("data");
     params.batchSize = max_batch_size;
     params.outputTensorNames.emplace_back("output");
