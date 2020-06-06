@@ -943,6 +943,9 @@ class DsManager(object):
     @staticmethod
     def process_unknown_ggh():
         print('处理未知公告号...')
+        ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
+        for k, v in ggh_to_bmy_dict.items():
+            print('### {k}:{v};'.format(k, v))
         with open('./logs/0-12314.csv', 'r', encoding='utf-8') as ug_fd:
             ug_rdr = csv.reader(ug_fd, delimiter=',')
             header = next(ug_rdr)
@@ -954,4 +957,3 @@ class DsManager(object):
                 if '牌' == brand_name[-1]:
                     brand_name = brand_name[:-1]
                 bmy = '{0}_{1}_{2}'.format(brand_name, row[2].strip(), row[3].strip())
-                print('{0}:{1};'.format(ggh, bmy))
