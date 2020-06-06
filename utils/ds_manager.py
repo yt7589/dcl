@@ -40,13 +40,14 @@ class DsManager(object):
     RUN_MODE_EMERGENCY = 1014 # 处理紧急情况
     RUN_MODE_FIX_BAD_HDD = 1015 # 修复坏硬盘拷贝丢失文件问题
     RUN_MODE_PROCESS_WL_0604 = 1016 # 处理王力奔驰车数据
+    RUN_MODE_PROCESS_UNKNOWN_GGH = 1017 # 处理未知公告号
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_SAMPLE_IMPORTED
+        run_mode = DsManager.RUN_MODE_PROCESS_UNKNOWN_GGH
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -100,6 +101,8 @@ class DsManager(object):
             DsManager.fix_bad_hdd()
         elif DsManager.RUN_MODE_PROCESS_WL_0604 == run_mode:
             DsManager.process_wl_0604()
+        elif DsManager.RUN_MODE_PROCESS_UNKNOWN_GGH == run_mode:
+            DsManager.process_unknown_ggh()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -935,3 +938,7 @@ class DsManager(object):
                     sum += 1
                     print('删除{0};'.format(img_str))
         print('共删除：{0};'.format(sum))
+
+    @staticmethod
+    def process_unknown_ggh():
+        print('处理未知公告号...')
