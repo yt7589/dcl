@@ -44,6 +44,7 @@ class CGghBmy(object):
     def process_bmy_dir(ggh_to_bmy_dict):
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
         error_set = set()
+        error_dict = {}
         for brand_path in base_path.iterdir():
             brand_str = str(brand_path)
             arrs_b0 = brand_str.split('/')
@@ -71,6 +72,7 @@ class CGghBmy(object):
                             bmy0 = ggh_to_bmy_dict[ggh]
                             if bmy != bmy0:
                                 error_set.add(ggh)
+                                error_dict[ggh] = 'org:{0}<=>{1}(imported vehicles);'.format(bmy0, bmy)
                         #print('ggh: {0};'.format(ggh))
         print('共有{0}条公告号记录，冲突记录{1}条！'.format(len(ggh_to_bmy_dict), len(error_set)))
         
