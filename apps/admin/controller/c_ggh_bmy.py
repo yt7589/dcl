@@ -24,8 +24,12 @@ class CGghBmy(object):
     def ggh_to_bmy_dict():
         # 读出ggh_to_bmy_dict.txt内容
         ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
+        brand_set = set()
         for k, v in ggh_to_bmy_dict.items():
-            print('{0}:{1};'.format(k, v))
+            arrs0 = v.split('_')
+            brand_name = arrs0[0]
+            brand_set.add(brand_name)
+        print('ggh_num={0}; brand_num={1};'.format(len(ggh_to_bmy_dict), len(brand_set)))
         rst = {
             'ggh_num': 201,
             'brand_num': 202,
