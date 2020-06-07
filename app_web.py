@@ -9,10 +9,16 @@ from apps.vbg.vbg_util import VbgUtil
 from apps.vbg.controller.c_vbg import CVbg
 from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_bmys import CBmys
+from apps.admin.controller.c_ggh_bmy import CGghBmy
 
 app = Flask(__name__)
 CORS(app)
 image_root = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/images'
+
+# 导入公告号与品牌_车型_年款关系
+@app.route('/addmin/gghToBmyDict', methods=['GET'])
+def ggh_to_bmy_dict_api():
+    return CGghBmy.ggh_to_bmy_dict_api()
 
 # 获取品牌_车型_年款列表及每类中的图片数
 @app.route('/admin/getBmys', methods=['GET'])
