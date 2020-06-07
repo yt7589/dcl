@@ -990,6 +990,8 @@ class DsManager(object):
                 DsManager.move_imgs_to_raw(file_obj, dst_path)
             else:
                 file_str = str(file_obj)
+                if not file_str.endswith(('jpg','png','jpeg','bmp')):
+                    continue
                 arrs0 = file_str.split('/')
                 file_name = arrs0[-1]
                 arrs1 = file_name.split('_')
