@@ -49,7 +49,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_IMPORT_DOMESTIC_VEHICLES
+        run_mode = DsManager.RUN_MODE_PROCESS_UNKNOWN_GGH
         DsManager.run(run_mode, {})
 
     @staticmethod
