@@ -23,9 +23,9 @@ class CGghBmy(object):
     @staticmethod
     def ggh_to_bmy_dict():
         # 读出ggh_to_bmy_dict.txt内容
-        CGghBmy.process_bmy_dir()
-        '''
         ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
+        CGghBmy.process_bmy_dir(ggh_to_bmy_dict)
+        '''
         brand_set = set()
         for k, v in ggh_to_bmy_dict.items():
             arrs0 = v.split('_')
@@ -41,11 +41,20 @@ class CGghBmy(object):
         }
         return rst
     @staticmethod
-    def process_bmy_dir():
+    def process_bmy_dir(ggh_to_bmy_dict):
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
         for brand_path in base_path.iterdir():
+            brand_str = str(brand_path)
+            arrs_b0 = brand_str.split('/')
+            brand_name = arrs_b0[-1]
             for model_path in brand_path.iterdir():
+                model_str = str(model_path)
+                arrs_m0 = model_str.split('/')
+                model_name = arrs_m0[-1]
                 for year_path in model_path.iterdir():
+                    year_str = str(year_path)
+                    arrs_y0 = year_str.split('/')
+                    year_name = arrs_y0[-1]
                     for file_obj in year_path.iterdir():
                         file_str = str(file_obj)
                         arrs0 = file_str.split('/')
@@ -54,4 +63,12 @@ class CGghBmy(object):
                             continue
                         arrs2 = arrs1[0].split('#')
                         ggh = arrs2[0]
-                        print('ggh: {0};'.format(ggh))
+                        bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
+                        if ggh not in ggh_to_bmy_dict:
+                            ggh_to_bmy_dict[ggh] = bmy
+                        else:
+                            bmy0 = ggh_to_bmy_dict[ggh]
+                            if bmy != bmy0:
+                                print('Error {0}: {1} vs {2};'.format(ggh, bmy0, bmy))
+                        #print('ggh: {0};'.format(ggh))
+        
