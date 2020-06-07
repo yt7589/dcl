@@ -16,7 +16,7 @@ CORS(app)
 image_root = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/images'
 
 # 导入公告号与品牌_车型_年款关系
-@app.route('/addmin/gghToBmyDict', methods=['GET'])
+@app.route('/admin/gghToBmyDict', methods=['GET'])
 def ggh_to_bmy_dict_api():
     return CGghBmy.ggh_to_bmy_dict_api()
 
