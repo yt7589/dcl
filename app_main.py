@@ -58,7 +58,7 @@ def test_web_api():
 
 def main(args):
     print('细粒度图像识别系统')
-    mode = MODE_DS_MANAGER #MODE_TRAIN_MONITOR
+    mode = MODE_TEST_WEB_API #MODE_TRAIN_MONITOR
     if MODE_DRAW_ACCS_CURVE == mode:
         #du.draw_accs_curve()
         pass
