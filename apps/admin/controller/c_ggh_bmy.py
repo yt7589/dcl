@@ -74,5 +74,8 @@ class CGghBmy(object):
                                 error_set.add(ggh)
                                 error_dict[ggh] = 'org:{0}<=>{1}(imported vehicles);'.format(bmy0, bmy)
                         #print('ggh: {0};'.format(ggh))
+        with open('./logs/error_ggh.txt', 'w+', encoding='utf-8') as e_fd:
+            for k, v in error_dict.items():
+                e_fd.write('{0}:{1}\n'.format(k, v))
         print('共有{0}条公告号记录，冲突记录{1}条！'.format(len(ggh_to_bmy_dict), len(error_set)))
         
