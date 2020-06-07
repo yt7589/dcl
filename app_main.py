@@ -12,6 +12,7 @@ from utils.ds_manager import DsManager
 from apps.cluster.cluster_app import ClusterApp
 from apps.vbg.vbg_app import VbgApp
 from apps.admin.admin_app import AdminApp
+from apps.admin.controller.c_ggh_bmy import CGghBmy
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
 MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
@@ -26,6 +27,7 @@ MODE_CLUSTER_IMAGE = 1008 # 探索使用图像聚类方法
 MODE_LOCAL_STANFORD_CARS = 1009 # 本地运行Stanford Cars数据集
 MODE_TEST_MONGODB = 1010 # MONGODB学习
 MODE_TEST_ADMIN = 1011 # 测试后台管理功能
+MODE_TEST_WEB_API = 1012 # 测试Web接口
 
 def get_best_chpts():
     chpts_dir = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/net_model/training_descibe_5412_CUB/')
@@ -49,6 +51,10 @@ def get_best_chpts():
 
 def temp_func():
     VaoTest.draw_b86_train_curve()
+
+def test_web_api():
+    rst = CGghBmy.ggh_to_bmy_dict()
+    print(rst)
 
 def main(args):
     print('细粒度图像识别系统')
@@ -102,6 +108,8 @@ def main(args):
         app.startup()
     elif MODE_TEST_ADMIN == mode:
         AdminApp.startup()
+    elif MODE_TEST_WEB_API == mode:
+        test_web_api()
     else:
         print('临时测试程序...')
         temp_func()

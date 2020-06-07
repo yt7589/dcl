@@ -1,9 +1,6 @@
 
 import json
 from pathlib import Path
-#import flask
-#from flask import Flask, jsonify
-#from flask_cors import CORS
 from flask import request
 from apps.admin.controller.flask_web import FlaskWeb
 
