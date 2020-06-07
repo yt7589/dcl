@@ -16,10 +16,10 @@ class CGghBmy(object):
         rst = CGghBmy.ggh_to_bmy_dict()
         resp_param = FlaskWeb.get_resp_param()
         resp_param['data'] = {
-            'ggh_num': rst.ggh_num,
-            'brand_num': rst.brand_num,
-            'model_num': rst.model_num,
-            'bmy_num': rst.bmy_num
+            'ggh_num': rst['ggh_num'],
+            'brand_num': rst['brand_num'],
+            'model_num': rst['model_num'],
+            'bmy_num': rst['bmy_num']
         }
         return FlaskWeb.generate_response(resp_param)
     @staticmethod
