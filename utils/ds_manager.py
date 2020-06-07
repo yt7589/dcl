@@ -49,7 +49,7 @@ class DsManager(object):
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_PROCESS_UNKNOWN_GGH
+        run_mode = DsManager.RUN_MODE_IMPORT_DOMESTIC_VEHICLES
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -978,8 +978,8 @@ class DsManager(object):
     @staticmethod
     def import_domestic_vehicles():
         print('导入国产车数据')
-        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/exp/guo')
-        dst_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/exp/dst')
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
+        dst_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
         DsManager.move_imgs_to_raw(base_path, dst_path)
 
     @staticmethod
