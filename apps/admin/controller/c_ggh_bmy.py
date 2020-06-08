@@ -79,15 +79,15 @@ class CGghBmy(object):
         从t_bmy表中求出bmy_id，然后以ggh_code为条件更新t_ggh_bmy
         中记录的bmy_id
         '''
+        ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
         with open('./logs/error_ggh1.txt', 'r', encoding='utf-8') as gb_fd:
             for line in gb_fd:
                 arrs0 = line.split(':')
                 ggh_code = arrs0[0]
                 bmy_name = arrs0[1][:-1]
-                bmy_vo = MBmy.get_bmy_by_name(bmy_name)
-                if bmy_vo is not None:
-                    bmy_id = bmy_vo['bmy_id']
-                    print('{0}:{1}=>{2};'.format(ggh_code, bmy_name, bmy_id))
+                ggh_to_bmy_dict[ggh_code] = bmy_name
+        for k, v in ggh_to_bmy_dict.items():
+            print('{0}:{1};'.format(k, v))
 
 
 
