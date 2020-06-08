@@ -1,4 +1,5 @@
 # 车型模型类
+import pymongo
 
 class MModel(object):
     def __init__(self):
