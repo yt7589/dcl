@@ -38,7 +38,7 @@ class CGghBmy(object):
             model_set.add(model_name)
             model_id = CModel.add_model(brand_id, model_name)
             bmy_set.add(v)
-        print('统计结果：公告号：{0}个；品牌：{1}个；车型：{2}个；年款：{3}个；'
+        print('v0.0.1 统计结果：公告号：{0}个；品牌：{1}个；车型：{2}个；年款：{3}个；'
                     .format(len(ggh_to_bmy_dict), len(brand_set), 
                     len(model_set), len(bmy_set)))
         '''
