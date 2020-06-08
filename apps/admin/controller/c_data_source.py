@@ -11,6 +11,7 @@ class CDataSource(object):
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
         CDataSource.import_folder_images(base_path)
 
+    num = 0
     @staticmethod
     def import_folder_images(base_path):
         for item_obj in base_path.iterdir():
@@ -19,5 +20,6 @@ class CDataSource(object):
                 CDataSource.import_folder_images(item_obj)
             elif item_str.endswith(('jpg','png','jpeg','bmp')):
                 print('导入图片：{0};'.format(item_str))
-                if sum > 10:
+                if CDataSource.num > 30:
                     break
+            CDataSource.num += 1
