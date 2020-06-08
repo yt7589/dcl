@@ -2,6 +2,9 @@
 import pymongo
 
 class MModel(object):
+    db = None
+    tbl = None
+    
     def __init__(self):
         self.name = 'apps.admin.model.MModel'
 
