@@ -17,7 +17,7 @@ class MPkGenerator(object):
         rec = MPkGenerator.tbl.find_one(query_cond, fields)
         pk_val = rec['pk_val']
         MPkGenerator.tbl.update_one(query_cond, {'$set': {'pk_val': pk_val+1}})
-        return pk_val
+        return int(pk_val)
 
     @staticmethod
     def _initialize():
