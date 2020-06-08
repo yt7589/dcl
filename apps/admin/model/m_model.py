@@ -1,0 +1,26 @@
+# 车型模型类
+
+class MModel(object):
+    def __init__(self):
+        self.name = 'apps.admin.model.MModel'
+
+    @staticmethod
+    def get_model_by_name(model_name):
+        if MModel.db is None:
+            MModel._initialize()
+        query_cond = {'model_name': model_name}
+        fields = {'model_id': 1, 'model_name': 1, 'model_num': 1}
+        return MModel.tbl.find_one(query_cond, fields)
+
+    @staticmethod
+    def insert(model_vo):
+        if MModel.db is None:
+            MModel._initialize()
+        rst = MModel.tbl.insert_one(model_vo)
+        MModel.insert(model_vo)
+
+    @staticmethod
+    def _initialize():
+        mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
+        MBrand.db = mongo_client['tcvdb']
+        MBrand.tbl = MBrand.db['t_model']

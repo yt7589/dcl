@@ -5,6 +5,7 @@ from flask import request
 from apps.admin.controller.flask_web import FlaskWeb
 from utils.ds_manager import DsManager
 from apps.admin.controller.c_brand import CBrand
+from apps.admin.controller.c_model import CModel
 
 class CGghBmy(object):
     def __init__(self):
@@ -31,9 +32,11 @@ class CGghBmy(object):
         for k, v in ggh_to_bmy_dict.items():
             arrs0 = v.split('_')
             brand_name = arrs0[0]
-            CBrand.add_brand(brand_name)
-            brand_set.add(arrs0[0])
-            model_set.add('{0}_{1}'.format(arrs0[0], arrs0[1]))
+            brand_id = CBrand.add_brand(brand_name)
+            brand_set.add(brand_name)
+            model_name = '{0}_{1}'.format(arrs0[0], arrs0[1])
+            model_set.add(model_name)
+            model_id = CModel.add_model(brand_id, model_name)
             bmy_set.add(v)
         print('统计结果：公告号：{0}个；品牌：{1}个；车型：{2}个；年款：{3}个；'
                     .format(len(ggh_to_bmy_dict), len(brand_set), 
