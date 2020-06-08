@@ -27,16 +27,14 @@ class CGghBmy(object):
         bmy_set = set()
         # 读出ggh_to_bmy_dict.txt内容
         ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
-        CGghBmy.process_bmy_dir(ggh_to_bmy_dict)
         for k, v in ggh_to_bmy_dict.items():
             arrs0 = v.split('_')
             brand_set.add(arrs0[0])
             model_set.add('{0}_{1}'.format(arrs0[0], arrs0[1]))
             bmy_set.add(v)
-        print('### 公告号：{0}个；品牌：{1}个；车型：{2}个；年款：{3}个；'.format(len(ggh_to_bmy_dict), len(brand_set), len(model_set), len(bmy_set)))
-        with open('./work/ggh_to_bmy_dict.txt', 'w+', encoding='utf-8') as ggh_fd:
-            for k, v in ggh_to_bmy_dict.items():
-                ggh_fd.write('{0}:{1}\n'.format(k, v))
+        print('统计结果：公告号：{0}个；品牌：{1}个；车型：{2}个；年款：{3}个；'
+                    .format(len(ggh_to_bmy_dict), len(brand_set), 
+                    len(model_set), len(bmy_set)))
         '''
         brand_set = set()
         for k, v in ggh_to_bmy_dict.items():
@@ -52,6 +50,16 @@ class CGghBmy(object):
             'bmy_num': 104
         }
         return rst
+
+
+
+
+
+
+
+
+
+
     @staticmethod
     def process_bmy_dir(ggh_to_bmy_dict):
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
