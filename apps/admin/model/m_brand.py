@@ -9,6 +9,17 @@ class MBrand(object):
         self.name = 'apps.admin.model.MBrand'
 
     @staticmethod
+    def is_brand_exists(brand_name):
+        if MBrand.db is None:
+            MBrand._initialize()
+        query_cond = {'brand_name', brand_name}
+        fields = {'brand_id': 1, 'brand_name': 1, 'brand_num': 1}
+        if len(MBrand.tbl.find(query_cond, fields)) < 1:
+            return False
+        else:
+            return True
+
+    @staticmethod
     def insert(brand_vo):
         if MBrand.db is None:
             MBrand._initialize()
@@ -33,4 +44,4 @@ class MBrand(object):
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MBrand.db = mongo_client['tcvdb']
-        MBrand.tbl = MBrand.db['brands']
+        MBrand.tbl = MBrand.db['t_brand']

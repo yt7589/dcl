@@ -79,6 +79,12 @@ class CBrand(object):
         return sorted(brands, key=CBrand.sort_by_num, reverse=False)
 
 
+    @staticmethod
+    def add_brand(brand_name):
+        rst = MBrand.is_brand_exists(brand_name)
+        print('rst={0};'.format(rst))
+
+
 
 
 

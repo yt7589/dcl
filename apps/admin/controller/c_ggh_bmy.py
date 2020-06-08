@@ -4,6 +4,7 @@ from pathlib import Path
 from flask import request
 from apps.admin.controller.flask_web import FlaskWeb
 from utils.ds_manager import DsManager
+from apps.admin.controller.c_brand import CBrand
 
 class CGghBmy(object):
     def __init__(self):
@@ -22,6 +23,10 @@ class CGghBmy(object):
         return FlaskWeb.generate_response(resp_param)
     @staticmethod
     def ggh_to_bmy_dict():
+        i_debug = 1
+        if 1 == i_debug:
+            CBrand.add_brand('奔驰')
+            return
         brand_set = set()
         model_set = set()
         bmy_set = set()
@@ -29,6 +34,7 @@ class CGghBmy(object):
         ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
         for k, v in ggh_to_bmy_dict.items():
             arrs0 = v.split('_')
+            brand_name = arrs0[0]
             brand_set.add(arrs0[0])
             model_set.add('{0}_{1}'.format(arrs0[0], arrs0[1]))
             bmy_set.add(v)
