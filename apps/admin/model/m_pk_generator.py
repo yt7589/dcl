@@ -16,7 +16,7 @@ class MPkGenerator(object):
         fields = {'pk_val': 1}
         rec = MPkGenerator.tbl.find_one(query_cond, fields)
         pk_val = rec['pk_val']
-        MPkGenerator.tbl.update_one(query_cond, {'$set', {'pk_val': pk_val+1}})
+        MPkGenerator.tbl.update_one(query_cond, {'$set': {'pk_val': pk_val+1}})
         return pk_val
 
     @staticmethod
