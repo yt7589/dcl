@@ -22,5 +22,5 @@ class MModel(object):
     @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
-        MBrand.db = mongo_client['tcvdb']
-        MBrand.tbl = MBrand.db['t_model']
+        MModel.db = mongo_client['tcvdb']
+        MModel.tbl = MModel.db['t_model']
