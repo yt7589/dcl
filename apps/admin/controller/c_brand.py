@@ -2,6 +2,7 @@
 import os
 from pathlib import Path
 from apps.admin.model.m_brand import MBrand
+from apps.admin.model.m_pk_generator import MPkGenerator
 
 class CBrand(object):
     def __init__(self):
@@ -84,8 +85,10 @@ class CBrand(object):
         brand_vo = MBrand.get_brand_by_name(brand_name)
         print('brand_vo: {0};'.format(brand_vo))
         if brand_vo is None:
+            brand_id = MPkGenerator.get_pk('brand')
+            print('brand_id={0};'.format(brand_id))
             brand_vo = {
-                'brand_id': 1,
+                'brand_id': brand_id,
                 'brand_name': brand_name,
                 'brand_pics': 0
             }
