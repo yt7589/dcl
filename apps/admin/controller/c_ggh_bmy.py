@@ -53,22 +53,11 @@ class CGghBmy(object):
                     'bmy_id': bmy_id
                 }
                 MGghBmy.insert(ggh_bmy_vo)
-        print('v0.0.1 统计结果：公告号：{0}个；品牌：{1}个；车型：{2}个；年款：{3}个；'
-                    .format(len(ggh_to_bmy_dict), len(brand_set), 
-                    len(model_set), len(bmy_set)))
-        '''
-        brand_set = set()
-        for k, v in ggh_to_bmy_dict.items():
-            arrs0 = v.split('_')
-            brand_name = arrs0[0]
-            brand_set.add(brand_name)
-        print('ggh_num={0}; brand_num={1};'.format(len(ggh_to_bmy_dict), len(brand_set)))
-        '''
         rst = {
-            'ggh_num': 201,
-            'brand_num': 202,
-            'model_num': 203,
-            'bmy_num': 104
+            'ggh_num': len(ggh_to_bmy_dict),
+            'brand_num': len(brand_set),
+            'model_num': len(model_set),
+            'bmy_num': len(bmy_set)
         }
         return rst
 
