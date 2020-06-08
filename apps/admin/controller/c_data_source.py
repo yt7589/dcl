@@ -4,6 +4,9 @@ from apps.admin.controller.c_bmy import CBmy
 from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_model import CModel
 from apps.admin.controller.c_ggh_bmy import CGghBmy
+from apps.admin.controller.c_vehicle_image import CVehicleImage
+from apps.admin.model.m_pk_generator import MPkGenerator
+from apps.admin.model.m_data_source import MDataSource
 
 class CDataSource(object):
     def __init__(self):
@@ -38,6 +41,7 @@ class CDataSource(object):
                     # 如果没有品牌车型年款，则向mongodb添加品牌车型年款
                     bmy_id = CBmy.find_bmy_id_by_name(bmy_name)
                     # 添加到t_vehicle_image表
+                    vehicle_image_id = CVehicleImage.add_vehicle_image(item_str)
                     # 添加到t_data_source表，其类型为测试数据集
                 else:
                     print('处理训练数据集文件：{0};'.format(img_file))
@@ -53,6 +57,7 @@ class CDataSource(object):
                         unknown_ggh.add('{0}:{1}'.format(ggh_code, item_str))
                         continue
                     # 添加到t_vehicle_image表
+                    vehicle_image_id = CVehicleImage.add_vehicle_image(item_str)
                     # 添加到t_data_source表
                 if CDataSource.num > 30:
                     break
@@ -61,3 +66,19 @@ class CDataSource(object):
                 for g in unknown_ggh:
                     print('### {0};'.format(g))
                     ug_fd.write('{0}\n'.format(g))
+
+    @staticmethod
+    def add_data_source_sample(vehicle_image_id, bmy_id, type):
+        rec = MDataSource.get_data_source_by_vid(vehicle_image_id, bmy_id)
+        if rec is None:
+            data_source_id = MPkGenerator.get_pk('data_source')
+            data_source_vo = {
+                'data_source_id': data_source_id,
+                'vehicle_image_id': vehicle_image_id,
+                'bmy_id': bmy_id,
+                'state': 0,
+                'type': type
+            }
+        else:
+            data_source_id = rec['data_source_id']
+        return data_source_id

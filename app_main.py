@@ -59,9 +59,11 @@ def temp_func():
 
 def test_web_api():
     #CDataSource.import_data()
-    image_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all/XMQ5033XJH65/XMQ5033XJH65_贵BRT283_02_520000101158_520000104190266154.jpg'
-    vehicle_image_id = CVehicleImage.add_vehicle_image(image_file)
-    print('vehicle_image_id: {0};'.format(vehicle_image_id))
+    vehicle_image_id = 1
+    bmy_id = 10
+    type = 1 # 训练数据集
+    data_source_id = CDataSource.add_data_source_sample(vehicle_image_id, bmy_id, type)
+    print('data_source_id={0};'.format(data_source_id))
 
 def main(args):
     print('细粒度图像识别系统')
