@@ -26,7 +26,7 @@ class CDataSource(object):
                     # 获取品牌车型年款
                     arrs1 = img_file.split('_')
                     bmy_name = '{0}_{1}_{2}'.format(arrs1[3], arrs1[4], arrs1[5])
-                    print('     品牌车型年款: {0};'.format(bmy_name))
+                    print('       品牌车型年款: {0};'.format(bmy_name))
                 else:
                     print('处理训练数据集文件：{0};'.format(img_file))
                     # 获取公告号
