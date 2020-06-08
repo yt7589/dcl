@@ -36,8 +36,11 @@ class CBmy(object):
         返回值：bmy_id
         '''
         bmy_vo = MBmy.get_bmy_by_name(bmy_name)
+        arrs0 = bmy_name.split('_')
+        brand_name = arrs0[0]
+        model_name = '{0}_{1}'.format(arrs0[0], arrs0[1])
         if bmy_vo is None:
-            brand_id = CBrand.add_brand(arrs1[3])
+            brand_id = CBrand.add_brand(brand_name)
             model_id = CModel.add_model(brand_id, model_name)
             bmy_id = CBmy.add_bmy(brand_id, model_id, bmy_name)
         else:
