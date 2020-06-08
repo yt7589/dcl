@@ -3,6 +3,7 @@ from pathlib import Path
 from apps.admin.controller.c_bmy import CBmy
 from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_model import CModel
+from apps.admin.controller.c_ggh_bmy import CGghBmy
 
 class CDataSource(object):
     def __init__(self):
@@ -17,6 +18,7 @@ class CDataSource(object):
     num = 0
     @staticmethod
     def import_folder_images(base_path):
+        unknown_ggh = set()
         for item_obj in base_path.iterdir():
             item_str = str(item_obj)
             if item_obj.is_dir():
@@ -45,8 +47,17 @@ class CDataSource(object):
                     ggh_code = arrs3[0]
                     print('       公告号：{0};'.format(ggh_code))
                     # 获取品牌车型年款bmy_id，如果没有则记录下该文件并continue
+                    bmy_id = CGghBmy.get_bmy_id_by_ggh_code(ggh_code)
+                    if bmy_id < 0:
+                        print('未知公告号：{0};'.format(ggh_code))
+                        unknown_ggh.add('{0}:{1}'.format(ggh_code, item_str))
+                        continue
                     # 添加到t_vehicle_image表
                     # 添加到t_data_source表
                 if CDataSource.num > 30:
                     break
             CDataSource.num += 1
+            with open('./logs/unknown_ggh_2.txt', 'a+', encoding='utf-8') as ug_fd:
+                for g in unknown_ggh:
+                    print('### {0};'.format(g))
+                    ug_fd.write('{0}\n'.format(g))

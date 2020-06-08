@@ -17,6 +17,7 @@ from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_ggh_bmy import CGghBmy
 from apps.admin.controller.c_data_source import CDataSource
 from apps.admin.controller.c_bmy import CBmy
+from apps.admin.controller.c_vehicle_image import CVehicleImage
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
 MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
@@ -58,8 +59,9 @@ def temp_func():
 
 def test_web_api():
     #CDataSource.import_data()
-    bmy_id = CGghBmy.get_bmy_id_by_ggh_code('XXXXXXXXXXXX')
-    print('bmy_id={0};'.format(bmy_id))
+    image_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all/XMQ5033XJH65/XMQ5033XJH65_贵BRT283_02_520000101158_520000104190266154.jpg'
+    vehicle_image_id = CVehicleImage.add_vehicle_image(image_file)
+    print('vehicle_image_id: {0};'.format(vehicle_image_id))
 
 def main(args):
     print('细粒度图像识别系统')
