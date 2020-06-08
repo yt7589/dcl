@@ -25,7 +25,8 @@ class CGghBmy(object):
     def ggh_to_bmy_dict():
         i_debug = 1
         if 1 == i_debug:
-            CBrand.add_brand('奔驰')
+            brand_id = CBrand.add_brand('奔驰')
+            print('brand_id={0};'.format(brand_id))
             return
         brand_set = set()
         model_set = set()

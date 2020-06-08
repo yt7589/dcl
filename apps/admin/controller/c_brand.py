@@ -83,6 +83,13 @@ class CBrand(object):
     def add_brand(brand_name):
         rst = MBrand.is_brand_exists(brand_name)
         print('rst={0};'.format(rst))
+        brand_vo = {
+            'brand_id': 1,
+            'brand_name': brand_name,
+            'brand_pics': 0
+        }
+        MBrand.insert(brand_vo)
+        return brand_vo['brand_id']
 
 
 
