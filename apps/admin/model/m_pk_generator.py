@@ -10,8 +10,8 @@ class MPkGenerator(object):
 
     @staticmethod
     def get_pk(pk_name):
-        if MBrand.db is None:
-            MBrand._initialize()
+        if MPkGenerator.db is None:
+            MPkGenerator._initialize()
         query_cond = {'pk_name': pk_name}
         fields = {'pk_val': 1}
         rec = MPkGenerator.tbl.find_one(query_cond, fields)
@@ -22,5 +22,5 @@ class MPkGenerator(object):
     @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
-        MBrand.db = mongo_client['tcvdb']
-        MBrand.tbl = MBrand.db['t_pk']
+        MPkGenerator.db = mongo_client['tcvdb']
+        MPkGenerator.tbl = MPkGenerator.db['t_pk']
