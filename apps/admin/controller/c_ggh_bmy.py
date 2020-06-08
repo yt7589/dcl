@@ -7,6 +7,8 @@ from utils.ds_manager import DsManager
 from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_model import CModel
 from apps.admin.controller.c_bmy import CBmy
+from apps.admin.model.m_pk_generator import MPkGenerator
+from apps.admin.model.m_ggh_bmy import MGghBmy
 
 class CGghBmy(object):
     def __init__(self):
@@ -41,6 +43,15 @@ class CGghBmy(object):
             bmy_set.add(v)
             bmy_id = CBmy.add_bmy(brand_id, model_id, v)
             print('process：{0}...'.format(v))
+            ggh_bmy_vo = MGghBmy.get_ggh_bmy_by_code(k)
+            if ggh_bmy_vo is None:
+                ggh_bmy_id = MPkGenerator.get_pk('ggh_bmy')
+                ggh_bmy_vo = {
+                    'ggh_bmy_id': ggh_bmy_id,
+                    'ggh_code': k,
+                    'bmy_id': bmy_id
+                }
+                MGghBmy.insert(ggh_bmy_vo)
         print('v0.0.1 统计结果：公告号：{0}个；品牌：{1}个；车型：{2}个；年款：{3}个；'
                     .format(len(ggh_to_bmy_dict), len(brand_set), 
                     len(model_set), len(bmy_set)))
