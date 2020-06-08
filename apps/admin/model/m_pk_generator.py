@@ -15,6 +15,13 @@ class MPkGenerator(object):
         query_cond = {'pk_name': pk_name}
         fields = {'pk_val': 1}
         rec = MPkGenerator.tbl.find_one(query_cond, fields)
+        if rec is None:
+            # 添加记录
+            MPkGenerator.tbl.insert_one({
+                'pk_name': pk_name,
+                'pk_val': 1
+            })
+            rec = MPkGenerator.tbl.find_one(query_cond, fields)
         pk_val = rec['pk_val']
         MPkGenerator.tbl.update_one(query_cond, {'$set': {'pk_val': pk_val+1}})
         return int(pk_val)

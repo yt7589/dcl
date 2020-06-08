@@ -83,10 +83,8 @@ class CBrand(object):
     @staticmethod
     def add_brand(brand_name):
         brand_vo = MBrand.get_brand_by_name(brand_name)
-        print('brand_vo: {0};'.format(brand_vo))
         if brand_vo is None:
             brand_id = MPkGenerator.get_pk('brand')
-            print('brand_id={0};'.format(brand_id))
             brand_vo = {
                 'brand_id': brand_id,
                 'brand_name': brand_name,
