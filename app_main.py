@@ -56,6 +56,7 @@ def temp_func():
 def test_web_api():
     #rst = CGghBmy.ggh_to_bmy_dict()
     rst = CBrand.get_unknown_brands()
+    print('缺少品牌数：{0}个，如下所示：'.format(len(rst)))
     print(rst)
 
 def main(args):
