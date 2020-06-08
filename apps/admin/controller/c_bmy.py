@@ -1,4 +1,5 @@
 # 品牌车型年款控制器类
+from apps.admin.model.m_pk_generator import MPkGenerator
 from apps.admin.model.m_bmy import MBmy
 
 class CBmy(object):
