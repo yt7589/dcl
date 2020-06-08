@@ -15,7 +15,7 @@ class CBmy(object):
                 'brand_id': brand_id,
                 'model_id': model_id,
                 'bmy_id': bmy_id,
-                'bmy_name': brand_name,
+                'bmy_name': bmy_name,
                 'bmy_pics': 0
             }
             MBmy.insert(bmy_vo)
