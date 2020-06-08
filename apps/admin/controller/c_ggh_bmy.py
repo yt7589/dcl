@@ -88,7 +88,7 @@ class CGghBmy(object):
         由公告号求出对应的品牌车型年款对应编号，如果没有则返回-1
         '''
         rec = MGghBmy.get_ggh_bmy_by_code(ggh_code)
-        if rec not is None:
+        if not rec is None:
             return rec['bmy_id']
         else:
             return -1
