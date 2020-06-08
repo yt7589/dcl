@@ -9,6 +9,7 @@ from apps.admin.controller.c_model import CModel
 from apps.admin.controller.c_bmy import CBmy
 from apps.admin.model.m_pk_generator import MPkGenerator
 from apps.admin.model.m_ggh_bmy import MGghBmy
+from apps.admin.model.m_bmy import MBmy
 
 class CGghBmy(object):
     def __init__(self):
@@ -70,6 +71,23 @@ class CGghBmy(object):
             'bmy_num': 104
         }
         return rst
+
+    @staticmethod
+    def process_error_ggh_bmys():
+        ''' 
+        处理冲突的公告号和品牌车型年款对应关系，由品牌_车型_年款
+        从t_bmy表中求出bmy_id，然后以ggh_code为条件更新t_ggh_bmy
+        中记录的bmy_id
+        '''
+        with open('./logs/error_ggh1.txt', 'r', encoding='utf-8') as gb_fd:
+            for line in gb_fd:
+                arrs0 = line.split(':')
+                ggh_code = arrs0[0]
+                bmy_name = arrs0[1][:-1]
+                bmy_vo = MBmy.get_bmy_by_name(bmy_name)
+                if bmy_vo is not None:
+                    bmy_id = bmy_vo['bmy_id']
+                    print('{0}:{1}=>{2};'.format(ggh, bmy_name, bmy_id))
 
 
 
