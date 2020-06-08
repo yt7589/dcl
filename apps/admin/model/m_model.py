@@ -4,7 +4,7 @@ import pymongo
 class MModel(object):
     db = None
     tbl = None
-    
+
     def __init__(self):
         self.name = 'apps.admin.model.MModel'
 
@@ -20,8 +20,7 @@ class MModel(object):
     def insert(model_vo):
         if MModel.db is None:
             MModel._initialize()
-        rst = MModel.tbl.insert_one(model_vo)
-        MModel.insert(model_vo)
+        return MModel.tbl.insert_one(model_vo)
 
     @staticmethod
     def _initialize():
