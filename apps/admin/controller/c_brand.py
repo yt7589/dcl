@@ -7,6 +7,44 @@ from apps.admin.model.m_pk_generator import MPkGenerator
 class CBrand(object):
     def __init__(self):
         self.name = 'apps.admin.controller.CBrand'
+
+    @staticmethod
+    def add_brand(brand_name):
+        brand_vo = MBrand.get_brand_by_name(brand_name)
+        if brand_vo is None:
+            brand_id = MPkGenerator.get_pk('brand')
+            brand_vo = {
+                'brand_id': brand_id,
+                'brand_name': brand_name,
+                'brand_pics': 0
+            }
+            MBrand.insert(brand_vo)
+        return brand_vo['brand_id']
+
+    @staticmethod
+    def get_unknown_brands():
+        must_brands = CBrand.get_must_brands()
+        for brand in must_brands:
+            print('### {0};'.format(brand))
+
+    @staticmethod
+    def get_must_brands():
+        must_brands = []
+        with open('./datasets/bno_bn.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs0 = line.split(':')
+                bno = arrs0[0]
+                brand_name = arrs0[1][:-1]
+                must_brands.append(brand_name)
+
+    
+
+
+
+
+
+
+
     
     @staticmethod
     def get_known_brands_api(start_idx=1, amount=-1, sort_id=1,
@@ -80,18 +118,6 @@ class CBrand(object):
         return sorted(brands, key=CBrand.sort_by_num, reverse=False)
 
 
-    @staticmethod
-    def add_brand(brand_name):
-        brand_vo = MBrand.get_brand_by_name(brand_name)
-        if brand_vo is None:
-            brand_id = MPkGenerator.get_pk('brand')
-            brand_vo = {
-                'brand_id': brand_id,
-                'brand_name': brand_name,
-                'brand_pics': 0
-            }
-            MBrand.insert(brand_vo)
-        return brand_vo['brand_id']
 
 
 

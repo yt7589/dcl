@@ -13,6 +13,7 @@ from apps.cluster.cluster_app import ClusterApp
 from apps.vbg.vbg_app import VbgApp
 from apps.admin.admin_app import AdminApp
 from apps.admin.controller.c_ggh_bmy import CGghBmy
+from apps.admin.controller.c_brand import CBrand
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
 MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
@@ -53,7 +54,8 @@ def temp_func():
     VaoTest.draw_b86_train_curve()
 
 def test_web_api():
-    rst = CGghBmy.ggh_to_bmy_dict()
+    #rst = CGghBmy.ggh_to_bmy_dict()
+    rst = CBrand.get_unknown_brands()
     print(rst)
 
 def main(args):
