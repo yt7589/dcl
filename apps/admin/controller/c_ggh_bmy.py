@@ -44,6 +44,9 @@ class CGghBmy(object):
     def process_bmy_dir(ggh_to_bmy_dict):
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
         error_set = set()
+        brand_set = set()
+        model_set = set()
+        bmy_set = set()
         error_dict = {}
         for brand_path in base_path.iterdir():
             brand_str = str(brand_path)
@@ -66,6 +69,9 @@ class CGghBmy(object):
                         arrs2 = arrs1[0].split('#')
                         ggh = arrs2[0]
                         bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
+                        brand_set.add(brand_name)
+                        model_set.add('{0}_{1}'.format(brand_name, model_name))
+                        bmy_set.add(bmy)
                         if ggh not in ggh_to_bmy_dict:
                             ggh_to_bmy_dict[ggh] = bmy
                         else:
@@ -78,4 +84,6 @@ class CGghBmy(object):
             for k, v in error_dict.items():
                 e_fd.write('{0}:{1}\n'.format(k, v))
         print('共有{0}条公告号记录，冲突记录{1}条！'.format(len(ggh_to_bmy_dict), len(error_set)))
+        print('共有{0}个品牌，{1}个车型，{2}个年款！'.format(len(brand_set), len(model_set), len(bmy_set)))
+        return ggh_to_bmy_dict
         
