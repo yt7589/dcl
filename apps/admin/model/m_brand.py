@@ -12,7 +12,7 @@ class MBrand(object):
     def is_brand_exists(brand_name):
         if MBrand.db is None:
             MBrand._initialize()
-        query_cond = {'brand_name', brand_name}
+        query_cond = {'brand_name': brand_name}
         fields = {'brand_id': 1, 'brand_name': 1, 'brand_num': 1}
         if MBrand.tbl.find_one(query_cond, fields) is None:
             return False
