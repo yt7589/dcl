@@ -16,6 +16,7 @@ from apps.admin.controller.c_ggh_bmy import CGghBmy
 from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_ggh_bmy import CGghBmy
 from apps.admin.controller.c_data_source import CDataSource
+from apps.admin.controller.c_bmy import CBmy
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
 MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
@@ -56,7 +57,8 @@ def temp_func():
     VaoTest.draw_b86_train_curve()
 
 def test_web_api():
-    CDataSource.import_data()
+    #CDataSource.import_data()
+    CBmy.find_bmy_id_by_name('密云_康居_2502')
 
 def main(args):
     print('细粒度图像识别系统')

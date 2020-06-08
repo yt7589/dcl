@@ -20,3 +20,24 @@ class CBmy(object):
             }
             MBmy.insert(bmy_vo)
         return bmy_vo['bmy_id']
+
+    @staticmethod
+    def get_bmy_by_name(bmy_name):
+        return MBmy.get_bmy_by_name(bmy_name)
+
+    @staticmethod
+    def find_bmy_id_by_name(bmy_name):
+        '''
+        如果t_bmy表中有相应记录，则不做任何处理；如果不存在，则
+        依次添加品牌、车型、年款到相应数据库表
+        参数：bmy_name 品牌车型年款名称
+        返回值：bmy_id
+        '''
+        bmy_vo = MBmy.get_bmy_by_name(bmy_name)
+        if bmy_vo is None:
+            brand_id = CBrand.add_brand(arrs1[3])
+            model_id = CModel.add_model(brand_id, model_name)
+            bmy_id = CBmy.add_bmy(brand_id, model_id, bmy_name)
+        else:
+            bmy_id = bmy_vo['bmy_id']
+        return bmy_id
