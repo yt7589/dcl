@@ -36,6 +36,7 @@ class CBrand(object):
                 bno = arrs0[0]
                 brand_name = arrs0[1][:-1]
                 must_brands.append(brand_name)
+        return must_brands
 
     
 
