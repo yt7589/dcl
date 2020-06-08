@@ -20,6 +20,14 @@ class MBrand(object):
             return True
 
     @staticmethod
+    def get_brand_by_name(brand_name):
+        if MBrand.db is None:
+            MBrand._initialize()
+        query_cond = {'brand_name': brand_name}
+        fields = {'brand_id': 1, 'brand_name': 1, 'brand_num': 1}
+        return MBrand.tbl.find_one(query_cond, fields)
+
+    @staticmethod
     def insert(brand_vo):
         if MBrand.db is None:
             MBrand._initialize()
