@@ -24,8 +24,12 @@ class CBrand(object):
     @staticmethod
     def get_unknown_brands():
         must_brands = CBrand.get_must_brands()
+        unknown_brands = []
         for brand in must_brands:
             print('### {0};'.format(brand))
+            if MBrand.get_brand_by_name(brand) is None:
+                unknown_brands.append(brand)
+        return unknown_brands
 
     @staticmethod
     def get_must_brands():
