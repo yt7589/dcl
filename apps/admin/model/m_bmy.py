@@ -26,4 +26,4 @@ class MBmy(object):
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MBmy.db = mongo_client['tcvdb']
-        MBmy.tbl = MBmy.db['t_model']
+        MBmy.tbl = MBmy.db['t_bmy']
