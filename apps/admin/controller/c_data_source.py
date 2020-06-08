@@ -23,8 +23,17 @@ class CDataSource(object):
                 img_file = arrs0[-1]
                 if img_file.startswith('白') or img_file.startswith('夜'):
                     print('处理测试数据集文件：{0};'.format(img_file))
+                    # 获取品牌车型年款
+                    arrs1 = img_file.split('_')
+                    bmy_name = '{0}_{1}_{2}'.format(arrs1[3], arrs1[4], arrs1[5])
+                    print('     品牌车型年款: {0};'.format(bmy_name))
                 else:
                     print('处理训练数据集文件：{0};'.format(img_file))
+                    # 获取公告号
+                    arrs2 = img_file.split('_')
+                    arrs3 = arrs2[0].split('#')
+                    ggh_code = arrs3[0]
+                    print('       公告号：{0};'.format(ggh_code))
                 if CDataSource.num > 30:
                     break
             CDataSource.num += 1
