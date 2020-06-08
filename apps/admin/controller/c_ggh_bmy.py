@@ -88,6 +88,10 @@ class CGghBmy(object):
                 ggh_to_bmy_dict[ggh_code] = bmy_name
         for k, v in ggh_to_bmy_dict.items():
             print('{0}:{1};'.format(k, v))
+        with open('./work/ggh_to_bmy_dict.txt', 'w+', encoding='utf-8') as fd2:
+            for k, v in ggh_to_bmy_dict.items():
+                print('{0}:{1};'.format(k, v))
+                fd2.write('{0}:{1}\n'.format(k, v))
 
 
 
