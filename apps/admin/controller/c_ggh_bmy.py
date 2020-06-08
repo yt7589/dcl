@@ -87,7 +87,7 @@ class CGghBmy(object):
                 bmy_vo = MBmy.get_bmy_by_name(bmy_name)
                 if bmy_vo is not None:
                     bmy_id = bmy_vo['bmy_id']
-                    print('{0}:{1}=>{2};'.format(ggh, bmy_name, bmy_id))
+                    print('{0}:{1}=>{2};'.format(ggh_code, bmy_name, bmy_id))
 
 
 
