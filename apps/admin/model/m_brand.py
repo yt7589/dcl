@@ -14,7 +14,7 @@ class MBrand(object):
             MBrand._initialize()
         query_cond = {'brand_name', brand_name}
         fields = {'brand_id': 1, 'brand_name': 1, 'brand_num': 1}
-        if len(MBrand.tbl.find(query_cond, fields)) < 1:
+        if MBrand.tbl.find_one(query_cond, fields) is None:
             return False
         else:
             return True
