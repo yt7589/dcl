@@ -58,7 +58,7 @@ def temp_func():
 
 def test_web_api():
     #CDataSource.import_data()
-    bmy_id = CGghBmy.get_bmy_id_by_ggh_code('BJ2020D4V')
+    bmy_id = CGghBmy.get_bmy_id_by_ggh_code('XXXXXXXXXXXX')
     print('bmy_id={0};'.format(bmy_id))
 
 def main(args):
