@@ -34,6 +34,7 @@ class CDataSource(object):
                     bmy_name = '{0}_{1}_{2}'.format(brand_name, model_name, bmy_name)
                     print('       品牌车型年款: {0};'.format(bmy_name))
                     # 如果没有品牌车型年款，则向mongodb添加品牌车型年款
+                    bmy_id = CBmy.find_bmy_id_by_name(bmy_name)
                     # 添加到t_vehicle_image表
                     # 添加到t_data_source表，其类型为测试数据集
                 else:

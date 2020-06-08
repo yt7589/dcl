@@ -82,6 +82,18 @@ class CGghBmy(object):
                 print('{0}:{1};'.format(k, v))
                 fd2.write('{0}:{1}\n'.format(k, v))
 
+    @staticmethod
+    def get_bmy_id_by_ggh_code(ggh_code):
+        '''
+        由公告号求出对应的品牌车型年款对应编号，如果没有则返回-1
+        '''
+        rec = MGghBmy.get_ggh_bmy_by_code(ggh_code)
+        if rec not is None:
+            return rec['bmy_id']
+        else:
+            return -1
+
+
 
 
 
