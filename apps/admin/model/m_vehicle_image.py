@@ -26,4 +26,4 @@ class MVehicleImage(object):
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MVehicleImage.db = mongo_client['tcvdb']
-        MVehicleImage.tbl = MBmy.db['t_vehicle_image']
+        MVehicleImage.tbl = MVehicleImage.db['t_vehicle_image']
