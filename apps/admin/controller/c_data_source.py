@@ -19,7 +19,12 @@ class CDataSource(object):
             if item_obj.is_dir():
                 CDataSource.import_folder_images(item_obj)
             elif item_str.endswith(('jpg','png','jpeg','bmp')):
-                print('导入图片：{0};'.format(item_str))
+                arrs0 = item_str.split('/')
+                img_file = arrs0[-1]
+                if img_file.startswith('白') or img_file.startswith('夜'):
+                    print('处理测试数据集文件：{0};'.format(img_file))
+                else:
+                    print('处理训练数据集文件：{0};'.format(img_file))
                 if CDataSource.num > 30:
                     break
             CDataSource.num += 1
