@@ -33,7 +33,7 @@ class CGghBmy(object):
             brand_set.add(arrs0[0])
             model_set.add(arrs0[1])
             bmy_set.add(arrs0[2])
-        print('### 公告号：{0}个；品牌：{1}个；车型：{2}个；年款：{3}个；'.format(len(brand_set), len(model_set), len(bmy_set)))
+        print('### 公告号：{0}个；品牌：{1}个；车型：{2}个；年款：{3}个；'.format(len(ggh_to_bmy_dict), len(brand_set), len(model_set), len(bmy_set)))
         '''
         brand_set = set()
         for k, v in ggh_to_bmy_dict.items():
