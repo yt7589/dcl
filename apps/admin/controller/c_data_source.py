@@ -92,9 +92,22 @@ class CDataSource(object):
     @staticmethod
     def generate_delta_ds():
         print('生成增量数据集')
+        pics_num = 100
         bmy_ids = CBmy.get_bmy_ids()
         for bmy_id in bmy_ids:
-            print(bmy_id)
+            raw_samples = CDataSource.get_bmy_raw_train_samples(bmy_id)
+            cnt = len(raw_samples)
+            for idx in range(pics_num):
+                if cnt <= 0:
+                    break
+                rn = random.randint(0, cnt-1)
+                sample = raw_samples[rn]
+                vehicle_image_id = sample['vehicle_image_id']
+                full_path = CVehicleImage.get_vehicle_image_full_path(vehicle_image_id)
+                print('{0}*{1};'.format(full_path, bmy_id-1))
+                CDataSource.update_state(sample['data_source_id'], 4)
+                del raw_samples[rn]
+                cnt = len(raw_samples)
 
     @staticmethod
     def generate_test_ds():
