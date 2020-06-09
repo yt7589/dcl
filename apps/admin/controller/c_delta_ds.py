@@ -23,13 +23,13 @@ class CDeltaDs(object):
         return delta_ds_id
 
     @staticmethod
-    def add_delta_ds_detl(delta_ds_id, data_source_id, vehicle_image_id, bmy_id):
+    def add_delta_ds_detl(delta_ds_id, data_source_id, image_full_path, bmy_id):
         delta_ds_detl_id = MPkGenerator.get_pk('delta_ds_detl')
         delta_ds_detl_vo = {
             'delta_ds_detl_id': delta_ds_detl_id,
             'delta_ds_id': delta_ds_id,
             'data_source_id': data_source_id,
-            'vehicle_image_id': vehicle_image_id,
+            'image_full_path': image_full_path,
             'bmy_id': bmy_id
         }
         MDeltaDsDetl.insert(delta_ds_detl_vo)
