@@ -110,7 +110,7 @@ class CDataSource(object):
                 vehicle_image_id = sample['vehicle_image_id']
                 print('    vehicle_image_id={0};'.format(vehicle_image_id))
                 full_path = CVehicleImage.get_vehicle_image_full_path(vehicle_image_id)
-                print('{0}*{1};'.format(full_path, bmy_id-1))
+                print('{0}*{1};'.format(full_path, bmy_id['bmy_id']-1))
                 CDataSource.update_state(sample['data_source_id'], 4)
                 del raw_samples[rn]
                 cnt = len(raw_samples)
