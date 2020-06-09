@@ -28,7 +28,7 @@ class MDataSource(object):
             MDataSource._initialize()
         query_cond = {'bmy_id': bmy_id}
         fields = {'data_source_id': 1, 'vehicle_image_id': 1}
-        return MDataSource.tbl.find_one(query_cond, fields)
+        return MDataSource.tbl.find(query_cond, fields)
 
     @staticmethod
     def _initialize():

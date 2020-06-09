@@ -62,7 +62,7 @@ def test_web_api():
     bmy_id = 2990
     recs = CDataSource.get_bmy_raw_train_samples(bmy_id)
     for rec in recs:
-        print('### {0};'.format(rec['vehicle_image_id']))
+        print('### {0};'.format(type(rec), rec))
 
 def main(args):
     print('细粒度图像识别系统')
