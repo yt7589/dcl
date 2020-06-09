@@ -16,6 +16,12 @@ class MDeltaDs(object):
         return MDeltaDs.tbl.insert_one(delta_ds_vo)
 
     @staticmethod
+    def delete_delta_ds(delta_ds_id):
+        if MDeltaDs.db is None:
+            MDeltaDs._initialize()
+        return MDeltaDs.tbl.delete_one({'delta_ds_id': delta_ds_id})
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MDeltaDs.db = mongo_client['tcvdb']

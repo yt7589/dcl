@@ -26,6 +26,12 @@ class MDeltaDsDetl(object):
         return MMongoDb.convert_recs(MDeltaDsDetl.tbl.find(query_cond, fields))
 
     @staticmethod
+    def delete_delta_ds_detls(delta_ds_id):
+        if MDeltaDsDetl.db is None:
+            MDeltaDsDetl._initialize()
+        return MDeltaDsDetl.tbl.delete_many({'delta_ds_id': delta_ds_id})
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MDeltaDsDetl.db = mongo_client['tcvdb']

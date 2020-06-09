@@ -48,3 +48,8 @@ class CDeltaDs(object):
         for rec in delta_ds_detls:
             MDataSource.update_state(rec['data_source_id'], int(rec['state']))
             print('更新{0}状态为{1};'.format(rec['data_source_id'], int(rec['state'])))
+
+    @staticmethod
+    def delete_delta_ds(delta_ds_id):
+        MDeltaDsDetl.delete_delta_ds_detls(delta_ds_id)
+        MDeltaDs.delete_delta_ds(delta_ds_id)
