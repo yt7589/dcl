@@ -95,14 +95,19 @@ class CDataSource(object):
         pics_num = 100
         bmy_ids = CBmy.get_bmy_ids()
         for bmy_id in bmy_ids:
+            print('Ln98: bmy_id={0};'.format(bmy_id))
             raw_samples = CDataSource.get_bmy_raw_train_samples(bmy_id)
             cnt = len(raw_samples)
+            print('bmy_id={0}: {1}个;'.format(bmy_id, cnt))
             for idx in range(pics_num):
+                print('    idx={0};'.format(idx))
                 if cnt <= 0:
                     break
-                rn = random.randint(0, cnt-1)
-                sample = raw_samples[rn]
+                rn = random.randint(1, cnt)
+                print('    rn={0};'.format(rn))
+                sample = raw_samples[rn - 1]
                 vehicle_image_id = sample['vehicle_image_id']
+                print('    vehicle_image_id={0};'.format(vehicle_image_id))
                 full_path = CVehicleImage.get_vehicle_image_full_path(vehicle_image_id)
                 print('{0}*{1};'.format(full_path, bmy_id-1))
                 CDataSource.update_state(sample['data_source_id'], 4)
