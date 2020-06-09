@@ -99,3 +99,10 @@ class CDataSource(object):
     @staticmethod
     def generate_test_ds():
         print('生成测试数据集')
+
+    @staticmethod
+    def get_bmy_raw_train_samples(bmy_id):
+        '''
+        求出在t_data_source表中，该品牌车型年款下所有未处理过state=0且type=1的记录
+        '''
+        return MDataSource.get_bmy_raw_train_samples(bmy_id)

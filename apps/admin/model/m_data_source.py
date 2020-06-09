@@ -23,6 +23,14 @@ class MDataSource(object):
         return MDataSource.tbl.insert_one(data_source_vo)
 
     @staticmethod
+    def get_bmy_raw_train_samples(bmy_id):
+        if MDataSource.db is None:
+            MDataSource._initialize()
+        query_cond = {'bmy_id': bmy_id}
+        fields = {'data_source_id': 1, 'vehicle_image_id': 1}
+        return MDataSource.tbl.find_one(query_cond, fields)
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MDataSource.db = mongo_client['tcvdb']
