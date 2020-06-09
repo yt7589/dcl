@@ -1,6 +1,7 @@
 # 增量数据集管理类
 from apps.admin.model.m_pk_generator import MPkGenerator
-from apps.admin.model.m_delta_ds import MDeltaDsDetl
+from apps.admin.model.m_delta_ds import MDeltaDs
+from apps.admin.model.m_delta_ds_detl import MDeltaDsDetl
 
 class CDeltaDs(object):
     def __init__(self):
