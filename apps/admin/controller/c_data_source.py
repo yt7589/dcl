@@ -88,3 +88,11 @@ class CDataSource(object):
         else:
             data_source_id = rec['data_source_id']
         return data_source_id
+
+    @staticmethod
+    def generate_delta_ds():
+        print('生成增量数据集')
+
+    @staticmethod
+    def generate_test_ds():
+        print('生成测试数据集')
