@@ -23,6 +23,13 @@ class MBmy(object):
         return MBmy.tbl.insert_one(bmy_vo)
 
     @staticmethod
+    def get_bmy_ids():
+        if MBmy.db is None:
+            MBmy._initialize()
+        fields = {'bmy_id': 1}
+        return MBmy.tbl.find({}, fields)
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MBmy.db = mongo_client['tcvdb']

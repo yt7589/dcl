@@ -92,6 +92,9 @@ class CDataSource(object):
     @staticmethod
     def generate_delta_ds():
         print('生成增量数据集')
+        bmy_ids = CBmy.get_bmy_ids()
+        for bmy_id in bmy_ids:
+            print(bmy_id)
 
     @staticmethod
     def generate_test_ds():

@@ -46,3 +46,7 @@ class CBmy(object):
         else:
             bmy_id = bmy_vo['bmy_id']
         return bmy_id
+
+    @staticmethod
+    def get_bmy_ids():
+        return MBmy.get_bmy_ids()
