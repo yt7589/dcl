@@ -1,5 +1,6 @@
 # 增量数据集管理类
 import time
+from apps.admin.controller.c_data_source import CDataSource
 from apps.admin.model.m_pk_generator import MPkGenerator
 from apps.admin.model.m_delta_ds import MDeltaDs
 from apps.admin.model.m_delta_ds_detl import MDeltaDsDetl
@@ -45,4 +46,5 @@ class CDeltaDs(object):
         '''
         delta_ds_detls = MDeltaDsDetl.get_delta_ds_detls(delta_ds_id)
         for rec in delta_ds_detls:
-            print(rec)
+            CDataSource.update_state(rec['data_source_id'], int(rec['state']))
+            print('更新{0}状态为{1};'.format(rec['data_source_id'], int(rec['state'])))
