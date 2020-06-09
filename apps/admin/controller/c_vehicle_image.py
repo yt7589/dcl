@@ -34,3 +34,10 @@ class CVehicleImage(object):
         else:
             vehicle_image_id = rec['vehicle_image_id']
         return vehicle_image_id
+
+    @staticmethod
+    def get_vehicle_image_full_path(vehicle_image_id):
+        '''
+        获取vehicle_image_id对应图片的全路径文件名
+        '''
+        return MVehicleImage.get_vehicle_image_full_path(vehicle_image_id)

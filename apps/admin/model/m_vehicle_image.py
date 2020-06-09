@@ -23,6 +23,17 @@ class MVehicleImage(object):
         return MVehicleImage.tbl.insert_one(vehicle_image_vo)
 
     @staticmethod
+    def get_vehicle_image_full_path(vehicle_image_id):
+        '''
+        获取vehicle_image_id对应图片的全路径文件名
+        '''
+        if MVehicleImage.db is None:
+            MVehicleImage._initialize()
+        query_cond = {'vehicle_image_id': vehicle_image_id}
+        fields = {'filename': 1, 'full_path': 1}
+        return MVehicleImage.tbl.find_one(query_cond, fields)
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MVehicleImage.db = mongo_client['tcvdb']
