@@ -59,12 +59,7 @@ def temp_func():
     VaoTest.draw_b86_train_curve()
 
 def test_web_api():
-    delta_ds_id = 1
-    data_source_id = 1
-    vehicle_image_id = 1
-    bmy_id = 1
-    delta_ds_detl_id = CDeltaDs.add_delta_ds_detl(delta_ds_id, data_source_id, vehicle_image_id, bmy_id)
-    print('delta_ds_detl_id={0};'.format(delta_ds_detl_id))
+    CDataSource.generate_delta_ds()
 
 def main(args):
     print('细粒度图像识别系统')
