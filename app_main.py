@@ -59,9 +59,7 @@ def temp_func():
     VaoTest.draw_b86_train_curve()
 
 def test_web_api():
-    delta_ds_id = 5
-    #CDeltaDs.save_to_dataset(delta_ds_id)
-    CDeltaDs.delete_delta_ds(delta_ds_id)
+    CDataSource.generate_delta_ds()
 
 def main(args):
     print('细粒度图像识别系统')
