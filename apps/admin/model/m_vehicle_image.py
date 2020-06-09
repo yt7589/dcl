@@ -1,5 +1,6 @@
 # 车辆图片文件模型类
 import pymongo
+from apps.admin.model.m_mongodb import MMongoDb
 
 class MVehicleImage(object):
     db = None
@@ -31,7 +32,7 @@ class MVehicleImage(object):
             MVehicleImage._initialize()
         query_cond = {'vehicle_image_id': vehicle_image_id}
         fields = {'filename': 1, 'full_path': 1}
-        return MVehicleImage.tbl.find_one(query_cond, fields)
+        return MMongoDb.convert_rec(MVehicleImage.tbl.find_one(query_cond, fields))
 
     @staticmethod
     def _initialize():

@@ -96,7 +96,7 @@ class CDataSource(object):
         bmy_ids = CBmy.get_bmy_ids()
         for bmy_id in bmy_ids:
             print('Ln98: bmy_id={0};'.format(bmy_id))
-            raw_samples = CDataSource.get_bmy_raw_train_samples(bmy_id)
+            raw_samples = CDataSource.get_bmy_raw_train_samples(bmy_id['bmy_id'])
             cnt = len(raw_samples)
             print('bmy_id={0}: {1}个;'.format(bmy_id, cnt))
             for idx in range(pics_num):
@@ -123,14 +123,7 @@ class CDataSource(object):
         '''
         求出在t_data_source表中，该品牌车型年款下所有未处理过state=0且type=1的记录
         '''
-        recs = MDataSource.get_bmy_raw_train_samples(bmy_id)
-        rst = []
-        for rec in recs:
-            item = {}
-            for k, v in rec.items():
-                item[k] = v
-            rst.append(item)
-        return rst
+        return MDataSource.get_bmy_raw_train_samples(bmy_id)
 
     @staticmethod
     def update_state(data_source_id, state):

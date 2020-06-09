@@ -1,5 +1,6 @@
 # 数据源模型类，用于管理训练和测试样本，生成训练和测试数据集
 import pymongo
+from apps.admin.model.m_mongodb import MMongoDb
 
 class MDataSource(object):
     db = None
@@ -28,7 +29,7 @@ class MDataSource(object):
             MDataSource._initialize()
         query_cond = {'bmy_id': bmy_id}
         fields = {'data_source_id': 1, 'vehicle_image_id': 1}
-        return MDataSource.tbl.find(query_cond, fields)
+        return MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields))
 
     @staticmethod
     def update_state(data_source_id, state):
