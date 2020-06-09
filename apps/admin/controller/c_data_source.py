@@ -106,3 +106,10 @@ class CDataSource(object):
         求出在t_data_source表中，该品牌车型年款下所有未处理过state=0且type=1的记录
         '''
         return MDataSource.get_bmy_raw_train_samples(bmy_id)
+
+    @staticmethod
+    def update_state(data_source_id, state):
+        '''
+        更新对应记录的state
+        '''
+        return MDataSource.update_state(data_source_id, state)

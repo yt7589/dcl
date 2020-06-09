@@ -59,9 +59,9 @@ def temp_func():
 
 def test_web_api():
     #CDataSource.generate_delta_ds()
-    vehicle_image_id = 1
-    rec = CVehicleImage.get_vehicle_image_full_path(vehicle_image_id)
-    print('full_path={0};'.format(rec['full_path']))
+    data_source_id = 1
+    state = 4
+    CDataSource.update_state(data_source_id, state)
 
 def main(args):
     print('细粒度图像识别系统')

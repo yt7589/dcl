@@ -31,6 +31,18 @@ class MDataSource(object):
         return MDataSource.tbl.find(query_cond, fields)
 
     @staticmethod
+    def update_state(data_source_id, state):
+        '''
+        更新对应记录的state
+        '''
+        if MDataSource.db is None:
+            MDataSource._initialize()
+        query_cond = {'data_source_id': data_source_id}
+        new_values = {"$set": {"state": state}}
+        MDataSource.tbl.update_one(query_cond, new_values)
+
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MDataSource.db = mongo_client['tcvdb']
