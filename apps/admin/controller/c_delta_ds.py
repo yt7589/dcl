@@ -37,3 +37,12 @@ class CDeltaDs(object):
         }
         MDeltaDsDetl.insert(delta_ds_detl_vo)
         return delta_ds_detl_id
+
+    @staticmethod
+    def save_to_dataset(delta_ds_id):
+        '''
+        将t_delta_ds_detl表中增量数据集中记录的状态更新到t_data_source表中
+        '''
+        delta_ds_detls = MDeltaDsDetl.get_delta_ds_detls(delta_ds_id)
+        for rec in delta_ds_detls:
+            print(rec)

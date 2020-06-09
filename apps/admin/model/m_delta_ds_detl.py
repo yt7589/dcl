@@ -16,6 +16,16 @@ class MDeltaDsDetl(object):
         return MDeltaDsDetl.tbl.insert_one(delta_ds_detl_vo)
 
     @staticmethod
+    def get_delta_ds_detls(delta_ds_id):
+        '''
+        '''
+        if MDeltaDsDetl.db is None:
+            MDeltaDsDetl._initialize()
+        query_cond = {'delta_ds_detl_id': {'$gt': 0}}
+        fields = {'data_source_id': 1, 'state': 1}
+        return MMongoDb.convert_recs(MDeltaDsDetl.tbl.find(query_cond, fields))
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MDeltaDsDetl.db = mongo_client['tcvdb']
