@@ -136,6 +136,8 @@ class CDataSource(object):
         生成DCL模型需要的训练集文本文件
         '''
         recs = MDataSource.get_all_data_sources()
-        for rec in recs:
-            full_path = CVehicleImage.get_vehicle_image_full_path(rec['vehicle_image_id'])
-            print('{0}*{1}'.format(full_path, rec['bmy_id']-1))
+        with open('./logs/fgvc_train_ds_v100.txt', 'w+', encoding='utf-8') as fd:
+            for rec in recs:
+                full_path = CVehicleImage.get_vehicle_image_full_path(rec['vehicle_image_id'])
+                print('{0}*{1}'.format(full_path, rec['bmy_id']-1))
+            fd.write('{0}*{1}\n'.format(full_path, rec['bmy_id']-1))
