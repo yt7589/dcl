@@ -1,5 +1,6 @@
 # 品牌车型年款模型类
 import pymongo
+from apps.admin.model.m_mongodb import MMongoDb
 
 class MBmy(object):
     db = None
@@ -27,7 +28,7 @@ class MBmy(object):
         if MBmy.db is None:
             MBmy._initialize()
         fields = {'bmy_id': 1}
-        return MBmy.tbl.find({}, fields)
+        return MMongoDb.convert_recs(MBmy.tbl.find({}, fields))
 
     @staticmethod
     def _initialize():

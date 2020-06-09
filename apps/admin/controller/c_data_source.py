@@ -1,4 +1,5 @@
 # 数据源控制器类
+import random
 from pathlib import Path
 from apps.admin.controller.c_bmy import CBmy
 from apps.admin.controller.c_brand import CBrand
