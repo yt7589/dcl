@@ -43,6 +43,7 @@ class CDataSource(object):
                     # 添加到t_vehicle_image表
                     vehicle_image_id = CVehicleImage.add_vehicle_image(item_str)
                     # 添加到t_data_source表，其类型为测试数据集
+                    CDataSource.add_data_source_sample(vehicle_image_id, bmy_id, 3) # 测试集
                 else:
                     print('处理训练数据集文件：{0};'.format(img_file))
                     # 获取公告号
@@ -59,6 +60,7 @@ class CDataSource(object):
                     # 添加到t_vehicle_image表
                     vehicle_image_id = CVehicleImage.add_vehicle_image(item_str)
                     # 添加到t_data_source表
+                    CDataSource.add_data_source_sample(vehicle_image_id, bmy_id) # 训练集
                 if CDataSource.num > 30:
                     break
             CDataSource.num += 1

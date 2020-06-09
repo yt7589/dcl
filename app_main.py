@@ -58,12 +58,7 @@ def temp_func():
     VaoTest.draw_b86_train_curve()
 
 def test_web_api():
-    #CDataSource.import_data()
-    vehicle_image_id = 1
-    bmy_id = 10
-    type = 1 # 训练数据集
-    data_source_id = CDataSource.add_data_source_sample(vehicle_image_id, bmy_id, type)
-    print('data_source_id={0};'.format(data_source_id))
+    CDataSource.import_data()
 
 def main(args):
     print('细粒度图像识别系统')
