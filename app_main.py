@@ -59,7 +59,7 @@ def temp_func():
 
 def test_web_api():
     #CDataSource.generate_delta_ds()
-    bmy_id = 8
+    bmy_id = 2990
     recs = CDataSource.get_bmy_raw_train_samples(bmy_id)
     for rec in recs:
         print('### {0};'.format(rec))
