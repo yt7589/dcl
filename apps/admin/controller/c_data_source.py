@@ -73,11 +73,8 @@ class CDataSource(object):
     @staticmethod
     def add_data_source_sample(vehicle_image_id, bmy_id, type):
         rec = MDataSource.get_data_source_by_vid(vehicle_image_id, bmy_id)
-        print('rec: {0};'.format(rec))
         if rec is None:
-            print('step 1')
             data_source_id = MPkGenerator.get_pk('data_source')
-            print('step 2')
             data_source_vo = {
                 'data_source_id': data_source_id,
                 'vehicle_image_id': vehicle_image_id,

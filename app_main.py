@@ -18,6 +18,7 @@ from apps.admin.controller.c_ggh_bmy import CGghBmy
 from apps.admin.controller.c_data_source import CDataSource
 from apps.admin.controller.c_bmy import CBmy
 from apps.admin.controller.c_vehicle_image import CVehicleImage
+from apps.admin.controller.c_delta_ds import CDeltaDs
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
 MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
@@ -58,7 +59,8 @@ def temp_func():
     VaoTest.draw_b86_train_curve()
 
 def test_web_api():
-    CDataSource.generate_delta_ds()
+    delta_ds_id = CDeltaDs.create_delta_ds()
+    print('delta_ds_id={0};'.format(delta_ds_id))
 
 def main(args):
     print('细粒度图像识别系统')
