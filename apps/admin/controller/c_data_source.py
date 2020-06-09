@@ -129,3 +129,12 @@ class CDataSource(object):
         更新对应记录的state
         '''
         return MDataSource.update_state(data_source_id, state)
+
+    @staticmethod
+    def create_dcl_ds():
+        '''
+        生成DCL模型需要的训练集文本文件
+        '''
+        recs = MDataSource.get_all_data_sources()
+        for rec in recs:
+            print(rec)

@@ -42,6 +42,14 @@ class MDataSource(object):
         new_values = {"$set": {"state": state}}
         MDataSource.tbl.update_one(query_cond, new_values)
 
+    @staticmethod
+    def get_all_data_sources():
+        if MDataSource.db is None:
+            MDataSource._initialize()
+        query_cond = {'data_source_id': {'$gt': 0}, 'state': 1}
+        fields = {'bmy_id': 1, 'vehicle_image_id': 1}
+        return MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields))
+
 
     @staticmethod
     def _initialize():
