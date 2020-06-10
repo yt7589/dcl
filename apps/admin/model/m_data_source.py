@@ -5,6 +5,10 @@ from apps.admin.model.m_mongodb import MMongoDb
 class MDataSource(object):
     db = None
     tbl = None
+    #
+    SAMPLE_TYPE_TRAIN = 1
+    SAMPLE_TYPE_VALIDATE = 2
+    SAMPLE_TYPE_TEST = 3
 
     def __init__(self):
         self.name = 'apps.admin.model.MDataSource'
@@ -28,9 +32,6 @@ class MDataSource(object):
         sample_type = MDataSource.SAMPLE_TYPE_TRAIN # 训练数据集
         return MDataSource.get_bmy_samples(bmy_id, sample_type)
 
-    SAMPLE_TYPE_TRAIN = 1
-    SAMPLE_TYPE_VALIDATE = 2
-    SAMPLE_TYPE_TEST = 3
     @staticmethod
     def get_bmy_test_samples(bmy_id):
         sample_type= MDataSource.SAMPLE_TYPE_TEST # 
@@ -56,10 +57,18 @@ class MDataSource(object):
         MDataSource.tbl.update_one(query_cond, new_values)
 
     @staticmethod
-    def get_all_data_sources():
+    def get_train_data_sources():
+        return MDataSource.get_all_data_sources(MDataSource.SAMPLE_TYPE_TRAIN)
+
+    @staticmethod
+    def get_test_data_sources():
+        return MDataSource.get_all_data_sources(MDataSource.SAMPLE_TYPE_TEST)
+
+    @staticmethod
+    def get_all_data_sources(sample_type):
         if MDataSource.db is None:
             MDataSource._initialize()
-        query_cond = {'data_source_id': {'$gt': 0}, 'state': 1}
+        query_cond = {'data_source_id': {'$gt': 0}, 'state': 1, 'type': sample_type}
         fields = {'bmy_id': 1, 'vehicle_image_id': 1}
         return MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields))
 
