@@ -65,6 +65,7 @@ class MDataSource(object):
         recs = CBmy.get_bmy_ids()
         for rec in recs:
             bmy_id = rec['bmy_id']
+            print('bmy_id={0};'.format(bmy_id))
             train_samples = MDataSource.get_bmy_samples(bmy_id, MDataSource.SAMPLE_TYPE_TRAIN)
             test_samples = []
             if len(train_samples) < 10:
