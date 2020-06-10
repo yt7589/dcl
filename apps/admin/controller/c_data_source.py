@@ -166,4 +166,7 @@ class CDataSource(object):
     def t001():
         bmy_id = 1
         sample_type = 1
-        MDataSource.get_bmy_samples(bmy_id, sample_type)
+        recs = MDataSource.get_bmy_samples(bmy_id, sample_type)
+        for rec in recs:
+            print(rec)
+        print('^_^')
