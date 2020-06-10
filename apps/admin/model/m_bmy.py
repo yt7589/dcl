@@ -28,7 +28,7 @@ class MBmy(object):
         if MBmy.db is None:
             MBmy._initialize()
         fields = {'bmy_id': 1}
-        return MMongoDb.convert_recs(MBmy.tbl.find({}, fields)).sort('bmy_id', 1)
+        return MMongoDb.convert_recs(MBmy.tbl.find({}, fields).sort('bmy_id', 1))
 
     @staticmethod
     def _initialize():
