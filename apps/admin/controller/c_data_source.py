@@ -144,11 +144,11 @@ class CDataSource(object):
 
     @staticmethod
     def create_dcl_train_ds():
-        CDataSource.create_dcl_train_ds(MDataSource.get_train_data_sources)
+        CDataSource.create_dcl_ds(MDataSource.get_train_data_sources)
 
     @staticmethod
     def create_dcl_test_ds():
-        CDataSource.create_dcl_test_ds(MDataSource.get_test_data_sources)
+        CDataSource.create_dcl_ds(MDataSource.get_test_data_sources)
 
     @staticmethod
     def create_dcl_ds(get_ds_fn):
