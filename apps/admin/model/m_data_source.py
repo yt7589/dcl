@@ -63,7 +63,6 @@ class MDataSource(object):
             MDataSource._initialize()
         all_samples = []
         recs = CBmy.get_bmy_ids()
-        print('recs={0};'.format(len(recs)))
         for rec in recs:
             bmy_id = rec['bmy_id']
             train_samples = MDataSource.get_bmy_samples(bmy_id, MDataSource.SAMPLE_TYPE_TRAIN)
