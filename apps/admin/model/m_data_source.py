@@ -1,6 +1,7 @@
 # 数据源模型类，用于管理训练和测试样本，生成训练和测试数据集
 import pymongo
 from apps.admin.model.m_mongodb import MMongoDb
+from apps.admin.controller.c_bmy import CBmy
 
 class MDataSource(object):
     db = None
@@ -58,17 +59,35 @@ class MDataSource(object):
 
     @staticmethod
     def get_train_data_sources():
-        return MDataSource.get_all_data_sources(MDataSource.SAMPLE_TYPE_TRAIN)
+        if MDataSource.db is None:
+            MDataSource._initialize()
+        all_samples = []
+        recs = CBmy.get_bmy_ids()
+        for rec in recs:
+            bmy_id = rec['bmy_id']
+            train_samples = MDataSource.get_bmy_samples(bmy_id, MDataSource.SAMPLE_TYPE_TRAIN)
+            test_samples = []
+            if len(train_samples) < 10:
+                # 取出Test中的样本
+                test_samples = MDataSource.get_bmy_samples(bmy_id, MDataSource.SAMPLE_TYPE_TEST)
+            all_samples = train_samples + test_samples
+        return all_samples
+        
+
+    @staticmethod
+    def get_bmy_samples(bmy_id, sample_type):
+        query_cond = {'data_source_id': {'$gt': 0}, 
+            'state': 1, 'type': sample_type,
+            'bmy_id': bmy_id
+        }
+        fields = {'bmy_id': 1, 'vehicle_image_id': 1}
+        return MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields))
 
     @staticmethod
     def get_test_data_sources():
-        return MDataSource.get_all_data_sources(MDataSource.SAMPLE_TYPE_TEST)
-
-    @staticmethod
-    def get_all_data_sources(sample_type):
         if MDataSource.db is None:
             MDataSource._initialize()
-        query_cond = {'data_source_id': {'$gt': 0}, 'state': 1, 'type': sample_type}
+        query_cond = {'data_source_id': {'$gt': 0}, 'state': 1, 'type': MDataSource.SAMPLE_TYPE_TEST}
         fields = {'bmy_id': 1, 'vehicle_image_id': 1}
         return MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields))
 
