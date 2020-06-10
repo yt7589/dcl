@@ -33,18 +33,19 @@ class MDataSource(object):
         print('step 1')
         sample_type = MDataSource.SAMPLE_TYPE_TRAIN # 训练数据集
         print('step 2 sample_type={0};'.format(sample_type))
-        return MDataSource.get_bmy_samples(bmy_id, sample_type)
+        return MDataSource.get_raw_bmy_samples(bmy_id, sample_type)
 
     @staticmethod
     def get_bmy_test_samples(bmy_id):
         sample_type= MDataSource.SAMPLE_TYPE_TEST # 
-        return MDataSource.get_bmy_samples(bmy_id, sample_type)
+        return MDataSource.get_raw_bmy_samples(bmy_id, sample_type)
 
     @staticmethod
-    def get_bmy_samples(bmy_id, sample_type):
+    def get_raw_bmy_samples(bmy_id, sample_type):
         if MDataSource.db is None:
             MDataSource._initialize()
-        query_cond = {'bmy_id': bmy_id, 'type': sample_type}
+        query_cond = {'bmy_id': bmy_id, 'type': sample_type, 
+                    'state': 0}
         print('query_cond: {0};'.format(query_cond))
         fields = {'data_source_id': 1, 'vehicle_image_id': 1}
         return MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields))
