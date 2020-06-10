@@ -118,7 +118,7 @@ class CDataSource(object):
         bmy_ids = CBmy.get_bmy_ids()
         delta_ds_id = CDeltaDs.create_delta_ds()
         for bmy_id in bmy_ids:
-            samples = CDataSource.get_bmy_test_samples(bmy_id['bmy_id'])
+            samples = MDataSource.get_bmy_test_samples(bmy_id['bmy_id'])
             for sample in samples:
                 vehicle_image_id = sample['vehicle_image_id']
                 full_path = CVehicleImage.get_vehicle_image_full_path(vehicle_image_id)
@@ -133,6 +133,7 @@ class CDataSource(object):
         求出在t_data_source表中，该品牌车型年款下所有未处理过state=0且type=1的记录
         '''
         return MDataSource.get_bmy_raw_train_samples(bmy_id)
+
 
     @staticmethod
     def update_state(data_source_id, state):
