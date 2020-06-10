@@ -164,7 +164,7 @@ class CDataSource(object):
 
     @staticmethod
     def t001():
-        bmy_id = 1
+        bmy_id = 1948
         sample_type = 1
         recs = MDataSource.get_bmy_samples(bmy_id, sample_type)
         for rec in recs:
