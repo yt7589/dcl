@@ -96,15 +96,12 @@ class CDataSource(object):
         delta_ds_id = CDeltaDs.create_delta_ds()
         for bmy_id in bmy_ids:
             raw_samples = CDataSource.get_bmy_raw_train_samples(bmy_id['bmy_id'])
-            print('bmy_id={0}: raw_samples={1};'.format(bmy_id['bmy_id'], raw_samples))
-            break
             cnt = len(raw_samples)
             for idx in range(pics_num):
-                print('bmy_id={0};  cnt={1};  idx={2};'.format(bmy_id['bmy_id'], cnt, idx))
+                print('##### bmy_id={0};  cnt={1};  idx={2};'.format(bmy_id['bmy_id'], cnt, idx))
                 if cnt <= 0:
                     break
                 rn = random.randint(1, cnt)
-                print('    rn={0};'.format(rn))
                 sample = raw_samples[rn - 1]
                 vehicle_image_id = sample['vehicle_image_id']
                 full_path = CVehicleImage.get_vehicle_image_full_path(vehicle_image_id)
