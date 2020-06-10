@@ -144,10 +144,18 @@ class CDataSource(object):
 
     @staticmethod
     def create_dcl_train_ds():
+        CDataSource.create_dcl_train_ds(MDataSource.get_train_data_sources)
+
+    @staticmethod
+    def create_dcl_test_ds():
+        CDataSource.create_dcl_test_ds(MDataSource.get_test_data_sources)
+
+    @staticmethod
+    def create_dcl_ds(get_ds_fn):
         '''
         生成DCL模型需要的训练集文本文件
         '''
-        recs = MDataSource.get_train_data_sources()
+        recs = get_ds_fn()
         with open('./logs/fgvc_train_ds_v100.txt', 'w+', encoding='utf-8') as fd:
             for rec in recs:
                 full_path = CVehicleImage.get_vehicle_image_full_path(rec['vehicle_image_id'])
