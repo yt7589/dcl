@@ -98,7 +98,7 @@ class CDataSource(object):
             raw_samples = CDataSource.get_bmy_raw_train_samples(bmy_id['bmy_id'])
             cnt = len(raw_samples)
             for idx in range(pics_num):
-                print('    idx={0};'.format(idx))
+                print('bmy_id={0};    idx={0};'.format(bmy_id['bmy_id'], idx))
                 if cnt <= 0:
                     break
                 rn = random.randint(1, cnt)
