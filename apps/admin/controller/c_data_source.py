@@ -115,6 +115,17 @@ class CDataSource(object):
     @staticmethod
     def generate_test_ds():
         print('生成测试数据集')
+        bmy_ids = CBmy.get_bmy_ids()
+        delta_ds_id = CDeltaDs.create_delta_ds()
+        for bmy_id in bmy_ids:
+            samples = CDataSource.get_bmy_test_samples(bmy_id['bmy_id'])
+            for sample in samples:
+                vehicle_image_id = sample['vehicle_image_id']
+                full_path = CVehicleImage.get_vehicle_image_full_path(vehicle_image_id)
+                print('{0}*{1};'.format(full_path, bmy_id['bmy_id']-1))
+                CDataSource.update_state(sample['data_source_id'], 4)
+                CDeltaDs.add_delta_ds_detl(delta_ds_id, sample['data_source_id'], full_path, bmy_id['bmy_id'])
+
 
     @staticmethod
     def get_bmy_raw_train_samples(bmy_id):
