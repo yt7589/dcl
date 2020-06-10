@@ -152,4 +152,4 @@ class CDataSource(object):
             for rec in recs:
                 full_path = CVehicleImage.get_vehicle_image_full_path(rec['vehicle_image_id'])
                 print('{0}*{1}'.format(full_path, rec['bmy_id']-1))
-            fd.write('{0}*{1}\n'.format(full_path, rec['bmy_id']-1))
+                fd.write('{0}*{1}\n'.format(full_path, rec['bmy_id']-1))
