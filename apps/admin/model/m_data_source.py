@@ -77,6 +77,8 @@ class MDataSource(object):
 
     @staticmethod
     def get_bmy_samples(bmy_id, sample_type):
+        if MDataSource.db is None:
+            MDataSource._initialize()
         query_cond = {'data_source_id': {'$gt': 0}, 
             'state': 1, 'type': sample_type,
             'bmy_id': bmy_id
