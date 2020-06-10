@@ -166,7 +166,7 @@ class CDataSource(object):
     def t001():
         bmy_id = 1948
         sample_type = 1
-        recs = MDataSource.get_bmy_samples(bmy_id, sample_type)
+        recs = MDataSource.get_train_data_sources()
         for rec in recs:
             print(rec)
         print('^_^')
