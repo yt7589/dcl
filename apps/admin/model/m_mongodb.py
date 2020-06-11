@@ -24,7 +24,6 @@ class MMongoDb(object):
         '''
         将只有一条的结果转为dict
         '''
-        print('rec: {0};'.format(rec))
         row = {}
         if rec is None:
             return row

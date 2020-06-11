@@ -80,7 +80,7 @@ class CBmy(object):
         if len(rec) < 1:
             return 0
         else:
-            return rec['vehicle_image_id']
+            return int(rec['vehicle_image_id'])
 
     @staticmethod
     def get_bmy_next_vehicle_image_id_api():
