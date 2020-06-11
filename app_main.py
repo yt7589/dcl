@@ -60,7 +60,7 @@ def temp_func():
 
 def test_web_api():
     bmy_id = 1
-    prev_vehicle_image_id = 51
+    vehicle_image_id = 51
     CBmy.set_bmy_example_vehicle_image_id(bmy_id, vehicle_image_id)
 
 def main(args):
