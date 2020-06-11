@@ -1,7 +1,7 @@
 # 数据源模型类，用于管理训练和测试样本，生成训练和测试数据集
 import pymongo
 from apps.admin.model.m_mongodb import MMongoDb
-from apps.admin.controller.c_bmy import CBmy
+from apps.admin.model.m_bmy import MBmy
 
 class MDataSource(object):
     db = None
@@ -63,7 +63,7 @@ class MDataSource(object):
         if MDataSource.db is None:
             MDataSource._initialize()
         all_samples = []
-        recs = CBmy.get_bmy_ids()
+        recs = MBmy.get_bmy_ids()
         for rec in recs:
             bmy_id = rec['bmy_id']
             train_samples = MDataSource.get_bmy_samples(bmy_id, MDataSource.SAMPLE_TYPE_TRAIN)
