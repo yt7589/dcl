@@ -90,6 +90,7 @@ class CBmy(object):
     def get_bmy_next_vehicle_image_id_api():
         bmy_id = request.args.get("bmyId")
         prev_vehicle_id = request.args.get("prevVehicleImageId")
+        print('bmy_id={0}; prev_vehicle_id={1};'.format(bmy_id, prev_vehicle_id))
         vehicle_image_id = CBmy.get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_id)
         resp_param = FlaskWeb.get_resp_param()
         resp_param['data'] = {
