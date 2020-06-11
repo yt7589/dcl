@@ -100,7 +100,7 @@ class MDataSource(object):
             MDataSource._initialize()
         query_cond = {'bmy_id': bmy_id, 'vehicle_image_id': {'$gt': prev_vehicle_image_id}}
         fields = {'vehicle_image_id': 1}
-        return MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields))
+        return MMongoDb.convert_recs(MDataSource.tbl.find_one(query_cond, fields))
 
 
     @staticmethod
