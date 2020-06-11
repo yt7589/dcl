@@ -13,7 +13,8 @@ class MMongoDb(object):
         for rec in recs:
             row = {}
             for k, v in rec.items():
-                row[k] = v
+                if k is not '_id':
+                    row[k] = v
             rows.append(row)
         return rows
 
