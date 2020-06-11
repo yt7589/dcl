@@ -86,6 +86,8 @@ def get_survey_data():
     return json.dumps(resp, ensure_ascii=False)
 
 def display_image_base(img_file):
+    if img_file == '':
+        return 
     with open(img_file, 'rb') as img_fd:
         image_data = img_fd.read()
     response = flask.make_response(image_data)

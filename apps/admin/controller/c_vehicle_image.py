@@ -41,4 +41,7 @@ class CVehicleImage(object):
         获取vehicle_image_id对应图片的全路径文件名
         '''
         rec = MVehicleImage.get_vehicle_image_full_path(vehicle_image_id)
-        return rec['full_path']
+        if len(rec) < 1:
+            return ''
+        else:
+            return rec['full_path']
