@@ -60,8 +60,7 @@ def temp_func():
 
 def test_web_api():
     bmy_id = 1
-    vehicle_image_id = 53
-    CBmy.set_bmy_example_vehicle_image_id(bmy_id, vehicle_image_id)
+    CBmy.get_bmy_example_vehicle_image_id(bmy_id)
 
 def main(args):
     print('细粒度图像识别系统')
