@@ -48,6 +48,8 @@ def display_vehicle_image(vehicleImageId):
     显示指定vehicleImageId的图片
     '''
     filename = CVehicleImage.get_vehicle_image_full_path(vehicleImageId)
+    if vehicleImageId < 1:
+        return
     if filename is None:
         return
     return display_image_base(filename)
