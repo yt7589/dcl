@@ -5,6 +5,7 @@ from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_model import CModel
 from apps.admin.model.m_pk_generator import MPkGenerator
 from apps.admin.model.m_bmy import MBmy
+from apps.admin.model.m_bmy_example import MBmyExample
 
 class CBmy(object):
     def __init__(self):
@@ -75,7 +76,11 @@ class CBmy(object):
 
     @staticmethod
     def get_bmy_example_vehicle_image_id(bmy_id):
-        return 0
+        rec = MBmyExample.get_bmy_example_vehicle_image_id(bmy_id)
+        if len(rec) < 1:
+            return 0
+        else:
+            return rec['vehicle_image_id']
 
     @staticmethod
     def get_bmy_next_vehicle_image_id_api():
