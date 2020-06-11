@@ -43,6 +43,7 @@ def get_known_brands():
 
     @app.route('/displayVehicleImage/<string:vehicleImageId>', methods=['GET'])
     def display_vehicle_image(vehicleImageId):
+        print('??????????????')
         filename = CVehicleImage.get_vehicle_image_full_path(vehicleImageId)
         if filename is None:
             return
