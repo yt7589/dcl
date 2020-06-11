@@ -11,6 +11,7 @@ from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_bmys import CBmys
 from apps.admin.controller.c_ggh_bmy import CGghBmy
 from apps.admin.controller.c_bmy import CBmy
+from apps.admin.controller.c_vehicle_image import CVehicleImage
 
 app = Flask(__name__)
 CORS(app)
@@ -47,10 +48,6 @@ def display_vehicle_image(vehicleImageId):
     if filename is None:
         return
     return display_image_base(filename)
-
-@app.route('/admin/gghToBmyDict', methods=['GET'])
-def t001():
-    return '?????'
 
 
 
