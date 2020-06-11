@@ -41,16 +41,16 @@ def get_known_brands():
     }
     return json.dumps(resp, ensure_ascii=False)
 
-    @app.route('/displayVehicleImage/<string:vehicleImageId>', methods=['GET'])
-    def display_vehicle_image(vehicleImageId):
-        filename = CVehicleImage.get_vehicle_image_full_path(vehicleImageId)
-        if filename is None:
-            return
-        return display_image_base(filename)
+@app.route('/displayVehicleImage/<string:vehicleImageId>', methods=['GET'])
+def display_vehicle_image(vehicleImageId):
+    filename = CVehicleImage.get_vehicle_image_full_path(vehicleImageId)
+    if filename is None:
+        return
+    return display_image_base(filename)
 
-    @app.route('/admin/gghToBmyDict', methods=['GET'])
-    def t001():
-        return '?????'
+@app.route('/admin/gghToBmyDict', methods=['GET'])
+def t001():
+    return '?????'
 
 
 
