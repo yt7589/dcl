@@ -87,19 +87,20 @@ class CBmy(object):
             return int(rec['vehicle_image_id'])
 
     @staticmethod
-    def get_bmy_next_vehicle_image_id_api():
+    def get_bmy_current_vehicle_image_id_api():
         bmy_id = int(request.args.get("bmyId"))
         prev_vehicle_id = int(request.args.get("prevVehicleImageId"))
+        mode = int(request.args.get('mode'))
         print('bmy_id={0}; prev_vehicle_id={1};'.format(bmy_id, prev_vehicle_id))
-        vehicle_image_id = CBmy.get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_id)
+        vehicle_image_id = CBmy.get_bmy_current_vehicle_image_id(bmy_id, prev_vehicle_id, mode)
         resp_param = FlaskWeb.get_resp_param()
         resp_param['data'] = {
             'vehicle_image_id': vehicle_image_id
         }
         return FlaskWeb.generate_response(resp_param)
     @staticmethod
-    def get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_id):
-        rec = MDataSource.get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_id)
+    def get_bmy_current_vehicle_image_id(bmy_id, prev_vehicle_id, mode):
+        rec = MDataSource.get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_id, mode)
         if len(rec) < 1:
             return 0
         else:

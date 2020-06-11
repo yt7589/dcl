@@ -58,9 +58,9 @@ def display_vehicle_image(vehicleImageId):
 def get_bmy_example_vehicle_image_id():
     return CBmy.get_bmy_example_vehicle_image_id_api()
 
-@app.route('/admin/getBmyNextVehicleImageId', methods=['GET'])
-def get_bmy_next_vehicle_image_id():
-    return CBmy.get_bmy_next_vehicle_image_id_api()
+@app.route('/admin/getBmyCurrentVehicleImageId', methods=['GET'])
+def get_bmy_current_vehicle_image_id():
+    return CBmy.get_bmy_current_vehicle_image_id_api()
 
 
 

@@ -95,10 +95,13 @@ class MDataSource(object):
         return MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields))
 
     @staticmethod
-    def get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_image_id):
+    def get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_image_id, mode):
         if MDataSource.db is None:
             MDataSource._initialize()
-        query_cond = {'bmy_id': bmy_id, 'vehicle_image_id': {'$gt': prev_vehicle_image_id}}
+        if mode == 1:
+            query_cond = {'bmy_id': bmy_id, 'vehicle_image_id': {'$gt': prev_vehicle_image_id}}
+        else:
+            query_cond = {'bmy_id': bmy_id, 'vehicle_image_id': {'$lt': prev_vehicle_image_id}}
         fields = {'vehicle_image_id': 1}
         return MMongoDb.convert_rec(MDataSource.tbl.find_one(query_cond, fields))
 
