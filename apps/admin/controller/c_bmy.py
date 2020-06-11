@@ -1,4 +1,5 @@
 # 品牌车型年款控制器类
+from flask import request
 from apps.admin.controller.flask_web import FlaskWeb
 from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_model import CModel
