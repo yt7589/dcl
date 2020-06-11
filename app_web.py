@@ -49,9 +49,9 @@ def display_vehicle_image(vehicleImageId):
     '''
     filename = CVehicleImage.get_vehicle_image_full_path(vehicleImageId)
     if vehicleImageId < 1:
-        return
+        filename = ''
     if filename is None:
-        return
+        filename = ''
     return display_image_base(filename)
 
 @app.route('/admin/getBmyExampleVehicleImageId', methods=['GET'])
