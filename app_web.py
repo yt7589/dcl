@@ -10,6 +10,7 @@ from apps.vbg.controller.c_vbg import CVbg
 from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_bmys import CBmys
 from apps.admin.controller.c_ggh_bmy import CGghBmy
+from apps.admin.controller.c_bmy import CBmy
 
 app = Flask(__name__)
 CORS(app)
@@ -23,7 +24,7 @@ def ggh_to_bmy_dict_api():
 # 获取品牌_车型_年款列表及每类中的图片数
 @app.route('/admin/getBmys', methods=['GET'])
 def get_bmys():
-    return CBmys.get_bmys_api()
+    return CBmy.get_bmys_api()
 
 @app.route('/admin/getKnownBrands', methods=['GET'])
 def get_known_brands():

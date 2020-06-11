@@ -31,6 +31,16 @@ class MBmy(object):
         return MMongoDb.convert_recs(MBmy.tbl.find({}, fields).sort('bmy_id', 1))
 
     @staticmethod
+    def get_bmys():
+        '''
+        获取品牌车型年款列表，返回值：[{'bmy_id': 1, 'bmy_name': '奔驰_S级_2012'}]
+        '''
+        if MBmy.db is None:
+            MBmy._initialize()
+        fields = {'bmy_id': 1, 'bmy_name': 1}
+        return MMongoDb.convert_recs(MBmy.tbl.find({}, fields).sort('bmy_id', 1))
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MBmy.db = mongo_client['tcvdb']

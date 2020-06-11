@@ -50,3 +50,13 @@ class CBmy(object):
     @staticmethod
     def get_bmy_ids():
         return MBmy.get_bmy_ids()
+
+    @staticmethod
+    def get_bmys_api():
+        bmys = MBmy.get_bmys()
+        resp_param = FlaskWeb.get_resp_param()
+        resp_param['data'] = {
+            'total': len(bmys),
+            'bmys': bmys
+        }
+        return FlaskWeb.generate_response(resp_param)
