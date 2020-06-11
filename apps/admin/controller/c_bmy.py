@@ -6,6 +6,7 @@ from apps.admin.controller.c_model import CModel
 from apps.admin.model.m_pk_generator import MPkGenerator
 from apps.admin.model.m_bmy import MBmy
 from apps.admin.model.m_bmy_example import MBmyExample
+from apps.admin.model.m_data_source import MDataSource
 
 class CBmy(object):
     def __init__(self):
@@ -66,6 +67,9 @@ class CBmy(object):
 
     @staticmethod
     def get_bmy_example_vehicle_image_id_api():
+        '''
+        获取指定品牌车型年款示例图像编号，如果没有返回0
+        '''
         bmy_id = request.args.get("bmyId")
         vehicle_image_id = CBmy.get_bmy_example_vehicle_image_id(bmy_id)
         resp_param = FlaskWeb.get_resp_param()
@@ -92,7 +96,7 @@ class CBmy(object):
             'vehicle_image_id': vehicle_image_id
         }
         return FlaskWeb.generate_response(resp_param)
-
     @staticmethod
     def get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_id):
+        rec = MDataSource.get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_id)
         return 5832
