@@ -87,7 +87,7 @@ def get_survey_data():
 
 def display_image_base(img_file):
     if img_file == '':
-        return ''
+        img_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/images/a2.png'
     with open(img_file, 'rb') as img_fd:
         image_data = img_fd.read()
     response = flask.make_response(image_data)
