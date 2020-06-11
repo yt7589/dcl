@@ -103,7 +103,12 @@ class MDataSource(object):
         else:
             query_cond = {'bmy_id': bmy_id, 'vehicle_image_id': {'$lt': prev_vehicle_image_id}}
         fields = {'vehicle_image_id': 1}
-        return MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields).sort('vehicle_image_id', 1).limit(1))
+        recs = MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields).sort('vehicle_image_id', 1))
+        print('######### recs: {0};'.format(recs))
+        if recs is not None:
+            return recs[0]
+        else:
+            return {'vehicle_image_id': 0}
 
 
     @staticmethod
