@@ -104,7 +104,6 @@ class MDataSource(object):
             query_cond = {'bmy_id': bmy_id, 'vehicle_image_id': {'$lt': prev_vehicle_image_id}}
         fields = {'vehicle_image_id': 1}
         recs = MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields).sort('vehicle_image_id', 1))
-        print('######### recs: {0};'.format(recs))
         if len(recs)>0:
             return recs[0]
         else:

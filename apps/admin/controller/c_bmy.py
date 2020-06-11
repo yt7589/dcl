@@ -81,7 +81,6 @@ class CBmy(object):
     @staticmethod
     def get_bmy_example_vehicle_image_id(bmy_id):
         rec = MBmyExample.get_bmy_example_vehicle_image_id(int(bmy_id))
-        print('##### rec:{0};'.format(rec))
         if len(rec) < 1:
             return 0
         else:
@@ -92,7 +91,6 @@ class CBmy(object):
         bmy_id = int(request.args.get("bmyId"))
         prev_vehicle_id = int(request.args.get("prevVehicleImageId"))
         mode = int(request.args.get('mode'))
-        print('bmy_id={0}; prev_vehicle_id={1};'.format(bmy_id, prev_vehicle_id))
         vehicle_image_id = CBmy.get_bmy_current_vehicle_image_id(bmy_id, prev_vehicle_id, mode)
         resp_param = FlaskWeb.get_resp_param()
         resp_param['data'] = {
