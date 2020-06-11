@@ -86,6 +86,7 @@ def get_survey_data():
     return json.dumps(resp, ensure_ascii=False)
 
 def display_image_base(img_file):
+    print('######### {0};'.format(img_file))
     if img_file == '':
         img_file = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/web_root/images/a2.png'
     with open(img_file, 'rb') as img_fd:
