@@ -105,3 +105,8 @@ class CBmy(object):
             return 0
         else:
             return int(rec['vehicle_image_id'])
+
+    @staticmethod
+    def set_bmy_example_vehicle_image_id(bmy_id, vehicle_image_id):
+        bmy_example_id = MPkGenerator.get_pk('bmy_example')
+        MBmyExample.set_bmy_example_vehicle_image_id(bmy_example_id, bmy_id, vehicle_image_id)

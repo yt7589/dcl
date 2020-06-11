@@ -18,6 +18,15 @@ class MBmyExample(object):
         return MMongoDb.convert_rec(MBmyExample.tbl.find_one(query_cond, fields))
 
     @staticmethod
+    def set_bmy_example_vehicle_image_id(bmy_example_id, bmy_id, vehicle_image_id):
+        if MBmyExample.db is None:
+            MBmyExample._initialize()
+        query_cond = {'bmy_id': bmy_id}
+        MBmyExample.tbl.delete_one(query_cond)
+        record = {'bmy_example_id': bmy_example_id, 'bmy_id': bmy_id, 'vehicle_image_id': vehicle_image_id}
+        MBmyExample.insert_one(record)
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MBmyExample.db = mongo_client['tcvdb']
