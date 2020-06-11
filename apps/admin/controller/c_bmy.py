@@ -81,6 +81,7 @@ class CBmy(object):
     @staticmethod
     def get_bmy_example_vehicle_image_id(bmy_id):
         rec = MBmyExample.get_bmy_example_vehicle_image_id(bmy_id)
+        print('##### rec:{0};'.format(rec))
         if len(rec) < 1:
             return 0
         else:
