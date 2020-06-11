@@ -24,7 +24,7 @@ class MBmyExample(object):
         query_cond = {'bmy_id': bmy_id}
         MBmyExample.tbl.delete_one(query_cond)
         record = {'bmy_example_id': bmy_example_id, 'bmy_id': bmy_id, 'vehicle_image_id': vehicle_image_id}
-        MBmyExample.insert_one(record)
+        MBmyExample.tbl.insert_one(record)
 
     @staticmethod
     def _initialize():
