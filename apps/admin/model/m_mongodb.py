@@ -24,6 +24,7 @@ class MMongoDb(object):
         '''
         将只有一条的结果转为dict
         '''
+        print('rec: {0};'.format(rec))
         row = {}
         for k, v in rec.items():
             row[k] = v

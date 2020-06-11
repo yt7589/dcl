@@ -30,6 +30,7 @@ class MVehicleImage(object):
         '''
         if MVehicleImage.db is None:
             MVehicleImage._initialize()
+        print('vehicle_image_id={0};'.format(vehicle_image_id))
         query_cond = {'vehicle_image_id': vehicle_image_id}
         fields = {'filename': 1, 'full_path': 1}
         return MMongoDb.convert_rec(MVehicleImage.tbl.find_one(query_cond, fields))
