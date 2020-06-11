@@ -26,6 +26,8 @@ class MMongoDb(object):
         '''
         print('rec: {0};'.format(rec))
         row = {}
+        if rec is None:
+            return row
         for k, v in rec.items():
             row[k] = v
         return row
