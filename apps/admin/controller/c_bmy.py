@@ -55,6 +55,7 @@ class CBmy(object):
     @staticmethod
     def get_bmys_api():
         bmys = MBmy.get_bmys()
+        print(bmys)
         resp_param = FlaskWeb.get_resp_param()
         resp_param['data'] = {
             'total': len(bmys),
