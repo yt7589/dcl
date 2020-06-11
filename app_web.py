@@ -44,10 +44,21 @@ def get_known_brands():
 
 @app.route('/displayVehicleImage/<int:vehicleImageId>', methods=['GET'])
 def display_vehicle_image(vehicleImageId):
+    '''
+    显示指定vehicleImageId的图片
+    '''
     filename = CVehicleImage.get_vehicle_image_full_path(vehicleImageId)
     if filename is None:
         return
     return display_image_base(filename)
+
+@app.route('/admin/getBmyExampleVehicleImageId', methods=['GET'])
+def get_bmy_example_vehicle_image_id():
+    return CBmy.get_bmy_example_vehicle_image_id_api()
+
+@app.route('/admin/getBmyNextVehicleImageId', methods=['GET'])
+def get_bmy_next_vehicle_image_id():
+    return CBmy.get_bmy_next_vehicle_image_id_api()
 
 
 

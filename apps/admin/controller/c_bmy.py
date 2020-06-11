@@ -55,10 +55,38 @@ class CBmy(object):
     @staticmethod
     def get_bmys_api():
         bmys = MBmy.get_bmys()
-        print(bmys)
         resp_param = FlaskWeb.get_resp_param()
         resp_param['data'] = {
             'total': len(bmys),
             'bmys': bmys
         }
         return FlaskWeb.generate_response(resp_param)
+
+    @staticmethod
+    def get_bmy_example_vehicle_image_id_api():
+        bmy_id = request.args.get("bmyId")
+        vehicle_image_id = CBmy.get_bmy_example_vehicle_image_id(bmy_id)
+        resp_param = FlaskWeb.get_resp_param()
+        resp_param['data'] = {
+            'vehicle_image_id': vehicle_image_id
+        }
+        return FlaskWeb.generate_response(resp_param)
+
+    @staticmethod
+    def get_bmy_example_vehicle_image_id(bmy_id):
+        return 0
+
+    @staticmethod
+    def get_bmy_next_vehicle_image_id_api():
+        bmy_id = request.args.get("bmyId")
+        prev_vehicle_id = request.args.get("prevVehicleImageId")
+        vehicle_image_id = CBmy.get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_id)
+        resp_param = FlaskWeb.get_resp_param()
+        resp_param['data'] = {
+            'vehicle_image_id': vehicle_image_id
+        }
+        return FlaskWeb.generate_response(resp_param)
+
+    @staticmethod
+    def get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_id):
+        return 5832
