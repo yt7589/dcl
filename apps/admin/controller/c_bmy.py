@@ -99,4 +99,7 @@ class CBmy(object):
     @staticmethod
     def get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_id):
         rec = MDataSource.get_bmy_next_vehicle_image_id(bmy_id, prev_vehicle_id)
-        return 5832
+        if len(rec) < 1:
+            return 0
+        else:
+            return int(rec['vehicle_image_id'])
