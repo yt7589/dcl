@@ -107,6 +107,17 @@ class CBmy(object):
             return int(rec['vehicle_image_id'])
 
     @staticmethod
+    def set_bmy_example_vehicle_image_id_api():
+        bmy_id = int(request.args.get("bmyId"))
+        vehicle_image_id = int(request.args.get("vehicleImageId"))
+        CBmy.set_bmy_example_vehicle_image_id(bmy_id, vehicle_image_id)
+        resp_param = FlaskWeb.get_resp_param()
+        resp_param['data'] = {
+            'result': 'Ok'
+        }
+        return FlaskWeb.generate_response(resp_param)
+
+    @staticmethod
     def set_bmy_example_vehicle_image_id(bmy_id, vehicle_image_id):
         bmy_example_id = MPkGenerator.get_pk('bmy_example')
         MBmyExample.set_bmy_example_vehicle_image_id(bmy_example_id, bmy_id, vehicle_image_id)
