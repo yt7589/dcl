@@ -58,6 +58,7 @@ class CDeltaDs(object):
     def get_worker_delta_ds_detls(worker_id):
         # 根据worker_id求出delta_ds_id
         rec = MDeltaDs.get_work_delta_ds_id(worker_id)
+        print('rec={0};'.format(rec))
         if len(rec) < 1:
             return []
         delta_ds_id = rec['delta_ds_id']
