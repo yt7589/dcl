@@ -22,7 +22,7 @@ class MDeltaDsDetl(object):
         if MDeltaDsDetl.db is None:
             MDeltaDsDetl._initialize()
         query_cond = {'delta_ds_detl_id': {'$gt': 0}}
-        fields = {'data_source_id': 1, 'state': 1}
+        fields = {'data_source_id': 1, 'state': 1, 'vehicle_image_id': 1, 'bmy_id': 1, 'delta_ds_detl_id': 1}
         return MMongoDb.convert_recs(MDeltaDsDetl.tbl.find(query_cond, fields))
 
     @staticmethod

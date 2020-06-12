@@ -4,6 +4,7 @@ from apps.admin.model.m_pk_generator import MPkGenerator
 from apps.admin.model.m_delta_ds import MDeltaDs
 from apps.admin.model.m_delta_ds_detl import MDeltaDsDetl
 from apps.admin.model.m_data_source import MDataSource
+from apps.admin.model.m_bmy import MBmy
 
 class CDeltaDs(object):
     def __init__(self):
@@ -58,10 +59,21 @@ class CDeltaDs(object):
     def get_worker_delta_ds_detls(worker_id):
         # 根据worker_id求出delta_ds_id
         rec = MDeltaDs.get_work_delta_ds_id(worker_id)
-        print('rec={0};'.format(rec))
         if len(rec) < 1:
             return []
         delta_ds_id = rec['delta_ds_id']
-        print('求出delta_ds_id={0};'.format(delta_ds_id))
+        delta_ds_detls = MDeltaDsDetl.get_delta_ds_detls(delta_ds_id)
+        bmys = MBmy.get_bmys()
+        rows = []
+        for ddd in delta_ds_detls:
+            bmy_id = ddd['bmy_id']
+            bmy_name = bmys[bmy_id]
+            rows.append({
+                'delta_ds_detl_id': ddd['delta_ds_detl_id']
+                'bmy_id': bmy_id,
+                'bmy_name': bmy_name,
+                'vehicle_image_id': vehicle_image_id
+            })
+        return rows
         # 求出delta_ds_detls
         # 加入bmy_name

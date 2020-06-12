@@ -59,7 +59,9 @@ def temp_func():
     VaoTest.draw_b86_train_curve()
 
 def test_web_api():
-    CDeltaDs.get_worker_delta_ds_detls('102')
+    rows = CDeltaDs.get_worker_delta_ds_detls('102')
+    for row in rows:
+        print('##### {0};'.format(row))
 
 def main(args):
     print('细粒度图像识别系统')
