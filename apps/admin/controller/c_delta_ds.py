@@ -1,5 +1,6 @@
 # 增量数据集管理类
 import time
+from flask import request
 from apps.admin.controller.flask_web import FlaskWeb
 from apps.admin.model.m_pk_generator import MPkGenerator
 from apps.admin.model.m_delta_ds import MDeltaDs
