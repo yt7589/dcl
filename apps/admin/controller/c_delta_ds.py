@@ -82,8 +82,9 @@ class CDeltaDs(object):
         if delta_ds_id < 1:
             return {}
         rec = MDeltaDsDetl.get_delta_ds_detl(delta_ds_id, delta_ds_detl_id, mode)
+        rec['data_source_id'] = int(rec['data_source_id'])
         bmys = MBmy.get_bmys()
         rec['bmy_name'] = bmys[rec['bmy_id']]['bmy_name']
-        delta_ds_vo = int(MDataSource.get_vo_by_data_source_id(rec['data_source_id']))
+        delta_ds_vo = MDataSource.get_vo_by_data_source_id(rec['data_source_id'])
         rec['vehicle_image_id'] = int(delta_ds_vo['vehicle_image_id'])
         return rec
