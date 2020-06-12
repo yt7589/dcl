@@ -28,5 +28,6 @@ class MMongoDb(object):
         if rec is None:
             return row
         for k, v in rec.items():
-            row[k] = v
+            if k != '_id':
+                row[k] = v
         return row
