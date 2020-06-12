@@ -69,7 +69,7 @@ class CDeltaDs(object):
             bmy_id = ddd['bmy_id']
             bmy_name = bmys[bmy_id]
             rows.append({
-                'delta_ds_detl_id': ddd['delta_ds_detl_id']
+                'delta_ds_detl_id': ddd['delta_ds_detl_id'],
                 'bmy_id': bmy_id,
                 'bmy_name': bmy_name,
                 'vehicle_image_id': vehicle_image_id
