@@ -59,7 +59,7 @@ def temp_func():
     VaoTest.draw_b86_train_curve()
 
 def test_web_api():
-    rec = CDeltaDs.get_worker_delta_ds_detls('102')
+    rec = CDeltaDs.get_worker_delta_ds_detl('102', 0, 0, 1)
     print('rec: {0};'.format(rec))
 
 def main(args):
