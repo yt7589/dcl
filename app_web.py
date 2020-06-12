@@ -76,6 +76,10 @@ def create_delta_ds():
 def get_worker_delta_ds_detl():
     return CDeltaDs.get_worker_delta_ds_detl_api()
 
+@app.route('/admin/setDeltaDsDetlState', methods=['GET'])
+def set_delta_ds_detl_state():
+    return CDeltaDs.set_delta_ds_detl_state_api()
+
 
 
 

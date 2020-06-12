@@ -90,6 +90,16 @@ class CDeltaDs(object):
         return rec
 
     @staticmethod
+    def set_delta_ds_detl_state_api():
+        delta_ds_detl_id = int(request.args.get('deltaDsDetlId'))
+        state = int(request.args.get('state'))
+        delta_ds_detl_vo = CDeltaDs.set_delta_ds_detl_state(delta_ds_detl_id, state)
+        resp_param = FlaskWeb.get_resp_param()
+        resp_param['data'] = {
+            'delta_ds_detl_vo': delta_ds_detl_vo
+        }
+        return FlaskWeb.generate_response(resp_param)
+    @staticmethod
     def set_delta_ds_detl_state(delta_ds_detl_id, state):
         '''
         设置增量数据集t_delta_ds_detl表中对应记录状态
