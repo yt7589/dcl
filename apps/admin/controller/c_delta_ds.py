@@ -66,6 +66,7 @@ class CDeltaDs(object):
         bmys = MBmy.get_bmys()
         rows = []
         for ddd in delta_ds_detls:
+            print('ddd: {0};'.format(ddd))
             bmy_id = ddd['bmy_id']
             bmy_name = bmys[bmy_id]
             rows.append({
