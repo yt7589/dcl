@@ -43,6 +43,14 @@ class MDeltaDsDetl(object):
         return MDeltaDsDetl.tbl.delete_many({'delta_ds_id': delta_ds_id})
 
     @staticmethod
+    def set_delta_ds_detl_state(delta_ds_detl_id, state):
+        if MDeltaDsDetl.db is None:
+            MDeltaDsDetl._initialize()
+        query_cond = {'delta_ds_detl_id': delta_ds_detl_id}
+        new_values = {'$set': {'state': state}}
+        MDeltaDsDetl.tbl.update_one(query_cond, new_values)
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MDeltaDsDetl.db = mongo_client['tcvdb']

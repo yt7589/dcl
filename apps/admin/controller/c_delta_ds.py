@@ -88,3 +88,10 @@ class CDeltaDs(object):
         delta_ds_vo = MDataSource.get_vo_by_data_source_id(rec['data_source_id'])
         rec['vehicle_image_id'] = int(delta_ds_vo['vehicle_image_id'])
         return rec
+
+    @staticmethod
+    def set_delta_ds_detl_state(delta_ds_detl_id, state):
+        '''
+        设置增量数据集t_delta_ds_detl表中对应记录状态
+        '''
+        MDeltaDsDetl.set_delta_ds_detl_state(delta_ds_detl_id, state)
