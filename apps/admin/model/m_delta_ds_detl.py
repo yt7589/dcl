@@ -1,4 +1,5 @@
 # 增量数据集明细表
+import time
 import pymongo
 from apps.admin.model.m_mongodb import MMongoDb
 
@@ -46,8 +47,9 @@ class MDeltaDsDetl(object):
     def set_delta_ds_detl_state(delta_ds_detl_id, state):
         if MDeltaDsDetl.db is None:
             MDeltaDsDetl._initialize()
+        last_date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         query_cond = {'delta_ds_detl_id': delta_ds_detl_id}
-        new_values = {'$set': {'state': state}}
+        new_values = {'$set': {'state': state, 'last_date': last_date}}
         MDeltaDsDetl.tbl.update_one(query_cond, new_values)
 
     @staticmethod
