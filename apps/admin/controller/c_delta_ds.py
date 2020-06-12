@@ -10,11 +10,10 @@ class CDeltaDs(object):
         self.name = 'apps.admin.controller.CDeltaDs'
 
     @staticmethod
-    def create_delta_ds():
+    def create_delta_ds(worker_id):
         '''
         在t_delta_ds表中生成新记录
         '''
-        worker_id = 1
         delta_ds_id = MPkGenerator.get_pk('delta_ds')
         delta_ds_vo = {
             'delta_ds_id': delta_ds_id,

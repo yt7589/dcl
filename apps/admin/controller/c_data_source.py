@@ -1,6 +1,8 @@
 # 数据源控制器类
 import random
 from pathlib import Path
+from flask import request
+from apps.admin.controller.flask_web import FlaskWeb
 from apps.admin.controller.c_bmy import CBmy
 from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_model import CModel
@@ -89,11 +91,21 @@ class CDataSource(object):
         return data_source_id
 
     @staticmethod
-    def generate_delta_ds():
+    def generate_delta_ds_api():
+        worker_id = request.args.get("workerId")
+        CDataSource.generate_delta_ds(worker_id)
+        resp_param = FlaskWeb.get_resp_param()
+        resp_param['data'] = {
+            'status': 'Ok'
+        }
+        return FlaskWeb.generate_response(resp_param)
+    
+    @staticmethod
+    def generate_delta_ds(worker_id):
         print('生成增量数据集')
         pics_num = 100
         bmy_ids = CBmy.get_bmy_ids()
-        delta_ds_id = CDeltaDs.create_delta_ds()
+        delta_ds_id = CDeltaDs.create_delta_ds(worker_id)
         for bmy_id in bmy_ids:
             raw_samples = CDataSource.get_bmy_raw_train_samples(bmy_id['bmy_id'])
             cnt = len(raw_samples)

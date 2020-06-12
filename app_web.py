@@ -12,6 +12,7 @@ from apps.admin.controller.c_bmys import CBmys
 from apps.admin.controller.c_ggh_bmy import CGghBmy
 from apps.admin.controller.c_bmy import CBmy
 from apps.admin.controller.c_vehicle_image import CVehicleImage
+from apps.admin.controller.c_data_source import CDataSource
 
 app = Flask(__name__)
 CORS(app)
@@ -65,6 +66,10 @@ def get_bmy_current_vehicle_image_id():
 @app.route('/admin/setBmyExampleVehicleImageId', methods=['GET'])
 def set_bmy_example_vehicle_image_id():
     return CBmy.set_bmy_example_vehicle_image_id_api()
+
+@app.route('/admin/createDeltaDs', methods=['GET'])
+def create_delta_ds():
+    return CDataSource.generate_delta_ds_api()
 
 
 
