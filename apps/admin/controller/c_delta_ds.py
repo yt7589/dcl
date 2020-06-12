@@ -57,6 +57,10 @@ class CDeltaDs(object):
     @staticmethod
     def get_worker_delta_ds_detls(worker_id):
         # 根据worker_id求出delta_ds_id
-        print('求出delta_ds_id')
+        rec = MDeltaDs.get_work_delta_ds_id(worker_id)
+        if len(rec) < 1:
+            return []
+        delta_ds_id = rec['delta_ds_id']
+        print('求出delta_ds_id={0};'.format(delta_ds_id))
         # 求出delta_ds_detls
         # 加入bmy_name
