@@ -53,3 +53,10 @@ class CDeltaDs(object):
     def delete_delta_ds(delta_ds_id):
         MDeltaDsDetl.delete_delta_ds_detls(delta_ds_id)
         MDeltaDs.delete_delta_ds(delta_ds_id)
+
+    @staticmethod
+    def get_worker_delta_ds_detls(worker_id):
+        # 根据worker_id求出delta_ds_id
+        print('求出delta_ds_id')
+        # 求出delta_ds_detls
+        # 加入bmy_name
