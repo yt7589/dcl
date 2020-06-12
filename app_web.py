@@ -72,7 +72,7 @@ def set_bmy_example_vehicle_image_id():
 def create_delta_ds():
     return CDataSource.generate_delta_ds_api()
 
-@app.route('/admin/getWorkerDeltaDsDeltl', methods=['GET'])
+@app.route('/admin/getWorkerDeltaDsDetl', methods=['GET'])
 def get_worker_delta_ds_detl():
     return CDeltaDs.get_worker_delta_ds_detl_api()
 
