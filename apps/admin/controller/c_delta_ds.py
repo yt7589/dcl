@@ -1,5 +1,6 @@
 # 增量数据集管理类
 import time
+from apps.admin.controller.flask_web import FlaskWeb
 from apps.admin.model.m_pk_generator import MPkGenerator
 from apps.admin.model.m_delta_ds import MDeltaDs
 from apps.admin.model.m_delta_ds_detl import MDeltaDsDetl
@@ -55,6 +56,18 @@ class CDeltaDs(object):
         MDeltaDsDetl.delete_delta_ds_detls(delta_ds_id)
         MDeltaDs.delete_delta_ds(delta_ds_id)
 
+    @staticmethod
+    def get_worker_delta_ds_detl_api():
+        worker_id = request.args.get('workerId')
+        delta_ds_id = int(request.args.get('deltaDsId'))
+        delta_ds_detl_id = int(request.args.get('deltaDsDetlId'))
+        mode = int(request.args.get('mode'))
+        delta_ds_detl_vo = CDeltaDs.get_worker_delta_ds_detl(worker_id, delta_ds_id, delta_ds_detl_id, mode)
+        resp_param = FlaskWeb.get_resp_param()
+        resp_param['data'] = {
+            'delta_ds_detl_vo': delta_ds_detl_vo
+        }
+        return FlaskWeb.generate_response(resp_param)
     @staticmethod
     def get_worker_delta_ds_detl(worker_id, delta_ds_id, delta_ds_detl_id, mode):
         '''
