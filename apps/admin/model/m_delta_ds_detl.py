@@ -22,8 +22,19 @@ class MDeltaDsDetl(object):
         if MDeltaDsDetl.db is None:
             MDeltaDsDetl._initialize()
         query_cond = {'delta_ds_detl_id': {'$gt': 0}}
-        fields = {'data_source_id': 1, 'state': 1, 'vehicle_image_id': 1, 'bmy_id': 1, 'delta_ds_detl_id': 1}
+        fields = {'data_source_id': 1, 'state': 1}
         return MMongoDb.convert_recs(MDeltaDsDetl.tbl.find(query_cond, fields))
+
+    @staticmethod
+    def get_delta_ds_detl(delta_ds_id, delta_ds_detl_id, mode):
+        if MDeltaDsDetl.db is None:
+            MDeltaDsDetl._initialize()
+        if mode == 1:
+            query_cond = {'delta_ds_id': delta_ds_id, 'delta_ds_detl_id': {'$gt': delta_ds_detl_id}}
+        else:
+            query_cond = {'delta_ds_id': delta_ds_id, 'delta_ds_detl_id': {'$lt': delta_ds_detl_id}}
+        fields = {'delta_ds_detl_id': 1, 'data_source_id': 1, 'bmy_id': 1}
+        return MMongoDb.convert_rec(MDeltaDsDetl.tbl.find_one(query_cond, fields))
 
     @staticmethod
     def delete_delta_ds_detls(delta_ds_id):

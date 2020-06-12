@@ -109,6 +109,13 @@ class MDataSource(object):
         else:
             return {'vehicle_image_id': 0}
 
+    @staticmethod
+    def get_vo_by_data_source_id(data_source_id):
+        if MDataSource.db is None:
+            MDataSource._initialize()
+        query_cond = {'data_source_id': data_source_id}
+        fields = {'vehicle_image_id': 1, 'bmy_id': 1, 'state': 1, 'type': 1}
+        return MMongoDb.convert_rec(MDataSource.tbl.find_one(query_cond, fields))
 
     @staticmethod
     def _initialize():

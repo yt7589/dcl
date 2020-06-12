@@ -56,25 +56,19 @@ class CDeltaDs(object):
         MDeltaDs.delete_delta_ds(delta_ds_id)
 
     @staticmethod
-    def get_worker_delta_ds_detls(worker_id):
+    def get_worker_delta_ds_detl(worker_id, delta_ds_id, delta_ds_detl_id, mode):
+        '''
+        '''
         # 根据worker_id求出delta_ds_id
-        rec = MDeltaDs.get_work_delta_ds_id(worker_id)
-        if len(rec) < 1:
-            return []
-        delta_ds_id = rec['delta_ds_id']
-        delta_ds_detls = MDeltaDsDetl.get_delta_ds_detls(delta_ds_id)
+        if delta_ds_id < 1:
+            rec = MDeltaDs.get_work_delta_ds_id(worker_id)
+            if len(rec) < 1:
+                return []
+            delta_ds_id = rec['delta_ds_id']
+        if delta_ds_id < 1:
+            return {}
+        rec = MDeltaDsDetl.get_delta_ds_detl(delta_ds_id, delta_ds_detl_id, mode)
         bmys = MBmy.get_bmys()
-        rows = []
-        for ddd in delta_ds_detls:
-            print('ddd: {0};'.format(ddd))
-            bmy_id = ddd['bmy_id']
-            bmy_name = bmys[bmy_id]
-            rows.append({
-                'delta_ds_detl_id': ddd['delta_ds_detl_id'],
-                'bmy_id': bmy_id,
-                'bmy_name': bmy_name,
-                'vehicle_image_id': 'xxx'
-            })
-        return rows
-        # 求出delta_ds_detls
-        # 加入bmy_name
+        rec['bmy_name'] = bmys[rec['bmy_id']]
+        rec['vehicle_image_id'] = MDataSource.get_vo_by_data_source_id(rec['data_source_id'])
+        return rec
