@@ -69,7 +69,7 @@ bool CarFeatureExtract::OnnxTRT::build(const std::string &engineFile) {
         sample::saveEngine(*mEngine.get(), engineFile, std::cerr);
         std::cout<<"src/OnnxTRT.cpp 8"<<std::endl;
     } else {
-        std::cout<<"src/OnnxTRT.cpp 9"<<std::endl;
+        std::cout<<"src/OnnxTRT.cpp 9 engineFile="<<engineFile<<";"<<std::endl;
         mEngine = std::shared_ptr<nvinfer1::ICudaEngine>(sample::loadEngine(engineFile, mParams.dlaCore, std::cerr),
                                                          samplesCommon::InferDeleter());
         std::cout<<"src/OnnxTRT.cpp 10"<<std::endl;
