@@ -73,7 +73,7 @@ class CDeltaDs(object):
                 'delta_ds_detl_id': ddd['delta_ds_detl_id'],
                 'bmy_id': bmy_id,
                 'bmy_name': bmy_name,
-                'vehicle_image_id': ddd['vehicle_image_id']
+                'vehicle_image_id': 'xxx'
             })
         return rows
         # 求出delta_ds_detls
