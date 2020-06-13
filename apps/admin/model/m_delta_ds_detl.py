@@ -58,7 +58,7 @@ class MDeltaDsDetl(object):
             MDeltaDsDetl._initialize()
         last_date = time.strftime("%Y-%m-%d", time.localtime())
         regex_cond = '^{0}'.format(last_date)
-        query_cond = {'delta_ds_id': delta_ds_id, 'last_date': {'$regex': regex_cond}}
+        query_cond = {'delta_ds_id': delta_ds_id, 'last_date': {'$regex': regex_cond}, 'state': 1}
         fields = {'delta_ds_detl_id': 1, 'data_source_id': 1, 'bmy_id': 1}
         return MMongoDb.convert_recs(MDeltaDsDetl.tbl.find(query_cond, fields))
 
