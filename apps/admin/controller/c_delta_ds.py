@@ -109,7 +109,15 @@ class CDeltaDs(object):
     @staticmethod
     def get_check_delta_ds_detls_api():
         worker_id = request.args.get('workerId')
-        recs = CDeltaDs.get_check_delta_ds_detls(worker_id)
+        rows = CDeltaDs.get_check_delta_ds_detls(worker_id)
+        recs []
+        for row in rows:
+            rec = {
+                'delta_ds_detl_id': row['delta_ds_detl_id'],
+                'bmy_id': row['bmy_id'],
+                'bmy_name': MBmy.get_bmy_name_by_id(row['bmy_id']),
+                'vehicle_image_id': 5832
+            }
         print('recs: {0};'.format(recs))
         resp_param = FlaskWeb.get_resp_param()
         resp_param['data'] = {
