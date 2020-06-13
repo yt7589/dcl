@@ -60,7 +60,9 @@ def temp_func():
 
 def test_web_api():
     worker_id = '102'
-    CDeltaDs.get_check_delta_ds_detls(worker_id)
+    recs = CDeltaDs.get_check_delta_ds_detls(worker_id)
+    for rec in recs:
+        print('#: {0};'.format(rec))
 
 def main(args):
     print('细粒度图像识别系统')
