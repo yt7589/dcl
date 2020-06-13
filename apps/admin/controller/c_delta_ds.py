@@ -115,7 +115,10 @@ class CDeltaDs(object):
         print('delta_ds_id={0};'.format(delta_ds_id))
         # 随机抽取当天state=1的记录
         sample_num = 3
-        recs = MDeltaDsDetl.get_worker_normal_delta_ds_detls(delta_ds_id, sample_num)
-        for rec in recs:
+        recs1 = MDeltaDsDetl.get_worker_normal_delta_ds_detls(delta_ds_id, sample_num)
+        for rec in recs1:
             print(rec)
         # 取所有state=2或3的记录
+        recs2 = MDeltaDsDetl.get_worker_abnormal_delta_ds_detls(delta_ds_id)
+        for rec in recs2:
+            print('##### {0};'.format(rec))
