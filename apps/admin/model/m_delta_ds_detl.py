@@ -1,5 +1,6 @@
 # 增量数据集明细表
 import time
+import random
 import pymongo
 from apps.admin.model.m_mongodb import MMongoDb
 
@@ -53,15 +54,22 @@ class MDeltaDsDetl(object):
         MDeltaDsDetl.tbl.update_one(query_cond, new_values)
 
     @staticmethod
-    def get_worker_normal_delta_ds_detls(delta_ds_id):
+    def get_worker_normal_delta_ds_detls(delta_ds_id, sample_num):
         if MDeltaDsDetl.db is None:
             MDeltaDsDetl._initialize()
         last_date = time.strftime("%Y-%m-%d", time.localtime())
         regex_cond = '^{0}'.format(last_date)
         query_cond = {'delta_ds_id': delta_ds_id, 'last_date': {'$regex': regex_cond}, 'state': 1}
         fields = {'delta_ds_detl_id': 1, 'data_source_id': 1, 'bmy_id': 1}
-        return MMongoDb.convert_recs(MDeltaDsDetl.tbl.find(query_cond, fields))
-
+        rows = MMongoDb.convert_recs(MDeltaDsDetl.tbl.find(query_cond, fields))
+        cnt = len(rows)
+        if cnt <= sample_num:
+            return rows
+        recs = []
+        for idx in range(sample_num):
+            random_num = random.randint(0, cnt-1)
+            recs.append(rows[idx])
+        return recs
 
     @staticmethod
     def _initialize():
