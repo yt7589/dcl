@@ -78,6 +78,8 @@ class MDeltaDsDetl(object):
     def get_worker_abnormal_delta_ds_detls(delta_ds_id):
         if MDeltaDsDetl.db is None:
             MDeltaDsDetl._initialize()
+        last_date = time.strftime("%Y-%m-%d", time.localtime())
+        regex_cond = '^{0}'.format(last_date)
         query_cond = {'delta_ds_id': delta_ds_id, 'last_date': 
                     {'$regex': regex_cond}, 
                     '$or': [{'state': 2}, {'state': 3}]}
