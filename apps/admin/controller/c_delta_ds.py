@@ -109,16 +109,7 @@ class CDeltaDs(object):
     @staticmethod
     def get_check_delta_ds_detls_api():
         worker_id = request.args.get('workerId')
-        rows = CDeltaDs.get_check_delta_ds_detls(worker_id)
-        recs = []
-        for row in rows:
-            rec = {
-                'delta_ds_detl_id': row['delta_ds_detl_id'],
-                'bmy_id': row['bmy_id'],
-                'bmy_name': MBmy.get_bmy_name_by_id(row['bmy_id']),
-                'vehicle_image_id': 5832
-            }
-            recs.append(rec)
+        recs = CDeltaDs.get_check_delta_ds_detls(worker_id)
         print('recs: {0};'.format(recs))
         resp_param = FlaskWeb.get_resp_param()
         resp_param['data'] = {
@@ -137,4 +128,14 @@ class CDeltaDs(object):
         recs1 = MDeltaDsDetl.get_worker_normal_delta_ds_detls(delta_ds_id, sample_num)
         # 取所有state=2或3的记录
         recs2 = MDeltaDsDetl.get_worker_abnormal_delta_ds_detls(delta_ds_id)
-        return recs1 + recs2
+        rows = recs1 + recs2
+        recs = []
+        for row in rows:
+            rec = {
+                'delta_ds_detl_id': row['delta_ds_detl_id'],
+                'bmy_id': row['bmy_id'],
+                'bmy_name': MBmy.get_bmy_name_by_id(row['bmy_id']),
+                'vehicle_image_id': 5832
+            }
+            recs.append(rec)
+        return recs
