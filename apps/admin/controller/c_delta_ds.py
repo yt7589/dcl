@@ -137,7 +137,7 @@ class CDeltaDs(object):
                 'delta_ds_detl_id': row['delta_ds_detl_id'],
                 'bmy_id': row['bmy_id'],
                 'bmy_name': bmy_rst['bmy_name'],
-                'vehicle_image_id': vi_rst['vehicle_image_id'],
+                'vehicle_image_id': int(vi_rst['vehicle_image_id']),
                 'state': row['state']
             }
             recs.append(rec)
