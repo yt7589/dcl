@@ -110,7 +110,7 @@ class CDeltaDs(object):
     def get_check_delta_ds_detls_api():
         worker_id = request.args.get('workerId')
         rows = CDeltaDs.get_check_delta_ds_detls(worker_id)
-        recs []
+        recs = []
         for row in rows:
             rec = {
                 'delta_ds_detl_id': row['delta_ds_detl_id'],
