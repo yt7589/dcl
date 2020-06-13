@@ -132,11 +132,10 @@ class CDeltaDs(object):
         recs = []
         for row in rows:
             rst = MBmy.get_bmy_name_by_id(row['bmy_id'])
-            print('bmy_name: {0};'.format(rst))
             rec = {
                 'delta_ds_detl_id': row['delta_ds_detl_id'],
                 'bmy_id': row['bmy_id'],
-                'bmy_name': 'xxx',
+                'bmy_name': rst['bmy_name'],
                 'vehicle_image_id': 5832
             }
             recs.append(rec)
