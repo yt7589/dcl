@@ -134,7 +134,7 @@ class CDeltaDs(object):
             rec = {
                 'delta_ds_detl_id': row['delta_ds_detl_id'],
                 'bmy_id': row['bmy_id'],
-                'bmy_name': MBmy.get_bmy_name_by_id(row['bmy_id']),
+                'bmy_name': MBmy.get_bmy_name_by_id(row['bmy_id'])['bmy_name'],
                 'vehicle_image_id': 5832
             }
             recs.append(rec)
