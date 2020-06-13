@@ -34,7 +34,7 @@ class MBmy(object):
     def get_bmy_name_by_id(bmy_id):
         if MBmy.db is None:
             MBmy._initialize()
-        query_cond = {"bmy_id", bmy_id}
+        query_cond = {"bmy_id": bmy_id}
         fields = {"bmy_name": 1}
         return MMongoDb.convert_rec(MBmy.tbl.find_one(query_cond, fields))
 
