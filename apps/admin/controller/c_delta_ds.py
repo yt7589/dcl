@@ -108,7 +108,7 @@ class CDeltaDs(object):
 
     @staticmethod
     def get_check_delta_ds_detls_api():
-        worker_id = int(request.args.get('workerId'))
+        worker_id = request.args.get('workerId')
         recs = CDeltaDs.get_check_delta_ds_detls(worker_id)
         print('recs: {0};'.format(recs))
         resp_param = FlaskWeb.get_resp_param()
