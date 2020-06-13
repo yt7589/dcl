@@ -80,6 +80,10 @@ def get_worker_delta_ds_detl():
 def set_delta_ds_detl_state():
     return CDeltaDs.set_delta_ds_detl_state_api()
 
+@app.route('/admin/getCheckDeltaDsDetls', methods=['GET'])
+def get_check_delta_ds_detls():
+    return CDeltaDs.get_check_delta_ds_detls_api()
+
 
 
 

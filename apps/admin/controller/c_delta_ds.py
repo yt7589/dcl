@@ -107,6 +107,15 @@ class CDeltaDs(object):
         MDeltaDsDetl.set_delta_ds_detl_state(delta_ds_detl_id, state)
 
     @staticmethod
+    def get_check_delta_ds_detls_api():
+        worker_id = int(request.args.get('workerId'))
+        recs = CDeltaDs.get_check_delta_ds_detls(worker_id)
+        resp_param = FlaskWeb.get_resp_param()
+        resp_param['data'] = {
+            'recs': recs
+        }
+        return FlaskWeb.generate_response(resp_param)
+    @staticmethod
     def get_check_delta_ds_detls(worker_id):
         rec = MDeltaDs.get_work_delta_ds_id(worker_id)
         if len(rec) < 1:
