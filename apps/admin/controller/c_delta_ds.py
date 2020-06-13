@@ -118,6 +118,7 @@ class CDeltaDs(object):
                 'bmy_name': MBmy.get_bmy_name_by_id(row['bmy_id']),
                 'vehicle_image_id': 5832
             }
+            recs.append(rec)
         print('recs: {0};'.format(recs))
         resp_param = FlaskWeb.get_resp_param()
         resp_param['data'] = {
