@@ -80,7 +80,7 @@ class MDeltaDsDetl(object):
             MDeltaDsDetl._initialize()
         query_cond = {'delta_ds_id': delta_ds_id, 'last_date': 
                     {'$regex': regex_cond}, 
-                    '$or': ['state': 2, 'state': 3]}
+                    '$or': [{'state': 2}, {'state': 3}]}
         fields = {'delta_ds_detl_id': 1, 'data_source_id': 1, 'bmy_id': 1}
         return MMongoDb.convert_recs(MDeltaDsDetl.tbl.find(query_cond, fields))
 
