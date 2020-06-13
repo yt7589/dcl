@@ -105,3 +105,13 @@ class CDeltaDs(object):
         设置增量数据集t_delta_ds_detl表中对应记录状态
         '''
         MDeltaDsDetl.set_delta_ds_detl_state(delta_ds_detl_id, state)
+
+    @staticmethod
+    def get_check_delta_ds_detls(worker_id):
+        rec = MDeltaDs.get_work_delta_ds_id(worker_id)
+        if len(rec) < 1:
+            return []
+        delta_ds_id = rec['delta_ds_id']
+        print('delta_ds_id={0};'.format(delta_ds_id))
+        # 随机抽取当天state=1的记录
+        # 取所有state=2或3的记录
