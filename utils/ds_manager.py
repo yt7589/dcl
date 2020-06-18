@@ -1023,3 +1023,11 @@ class DsManager(object):
     @staticmethod
     def process_formal_ggh_bmy():
         print('处理正式公告号')
+        row = 0
+        with open('./logs/formal_ggh_bmy.csv', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                arrs0 = line.split(',')
+                if row > 0:
+                    print('{0} {1} {2} {3};'.format(arrs0[2], arrs0[4], arrs0[6], arrs0[8]))
+                row += 1
+        print('row={0};'.format(row))
