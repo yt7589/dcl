@@ -43,13 +43,14 @@ class DsManager(object):
     RUN_MODE_PROCESS_WL_0604 = 1016 # 处理王力奔驰车数据
     RUN_MODE_PROCESS_UNKNOWN_GGH = 1017 # 处理未知公告号
     RUN_MODE_IMPORT_DOMESTIC_VEHICLES = 1018 # 将国产车图片移动到raw中并按品牌/车型/年款进行组织
+    RUN_MODE_FORMAL_GGH_BMY = 1019 # 最新正式公告号和品牌车型年款对应关系
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_IMPORT_DOMESTIC_VEHICLES
+        run_mode = DsManager.RUN_MODE_FORMAL_GGH_BMY
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -107,6 +108,8 @@ class DsManager(object):
             DsManager.process_unknown_ggh()
         elif DsManager.RUN_MODE_IMPORT_DOMESTIC_VEHICLES == run_mode:
             DsManager.import_domestic_vehicles()
+        elif DsManager.RUN_MODE_FORMAL_GGH_BMY == run_mode:
+            DsManager.process_formal_ggh_bmy()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -1017,3 +1020,6 @@ class DsManager(object):
                 print('移动文件：{0} => {1};'.format(file_obj, bmy))
                 shutil.move(file_obj, Path('{0}/{1}'.format(year_dir, file_name)))
 
+    @staticmethod
+    def process_formal_ggh_bmy():
+        print('处理正式公告号')
