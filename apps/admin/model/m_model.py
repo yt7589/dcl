@@ -41,9 +41,8 @@ class MModel(object):
         query_cond = {'model_id': model_id}
         arrs0 = raw_name.split('_')
         model_name = arrs0[1]
-        year_name = arrs0[2]
-        model_name = '{0}_{1}_{2}'.format(bn, model_name, year_name)
-        new_values = {'model_name': model_name}
+        bm_name = '{0}_{1}'.format(bn, model_name)
+        new_values = {'model_name': bm_name}
         print('query_cond: {0}; new_values: {1};'.format(query_cond, new_values))
 
     @staticmethod
