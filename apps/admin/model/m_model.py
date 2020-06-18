@@ -23,15 +23,15 @@ class MModel(object):
         return MModel.tbl.insert_one(model_vo)
 
     @staticmethod
-    def process_tesla_rename():
+    def process_brand_rename(old_brand_name, new_brand_name):
         if MModel.db is None:
             MModel._initialize()
-        query_cond = {'model_name': {'$regex': '^特斯拉'}}
+        query_cond = {'model_name': {'$regex': '^{0}'.format(old_brand_name)}}
         fields = {'model_id': 1, 'model_name': 1}
         recs = MModel.tbl.find(query_cond, fields)
         for rec in recs:
             print('### {0};'.format(rec))
-            MModel._update_model_name(rec['model_id'], rec['model_name'], 'Tesla')
+            MModel._update_model_name(rec['model_id'], rec['model_name'], new_brand_name)
         #new_values = {'$set': {'model_name': modelName}}
 
     @staticmethod

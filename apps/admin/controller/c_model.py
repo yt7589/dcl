@@ -21,5 +21,5 @@ class CModel(object):
         return model_vo['model_id']
 
     @staticmethod
-    def process_tesla_rename():
-        MModel.process_tesla_rename()
+    def process_brand_rename(old_brand_name, new_brand_name):
+        MModel.process_brand_rename(old_brand_name, new_brand_name)
