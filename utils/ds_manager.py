@@ -1024,14 +1024,22 @@ class DsManager(object):
     def process_formal_ggh_bmy():
         print('处理正式公告号')
         row = 0
+        brand_set = set()
+        bmy_set = set()
+        ggh_set = set()
         with open('./logs/formal_ggh_bmy.csv', 'r', encoding='utf-8') as fd:
             for line in fd:
                 arrs0 = line.split(',')
                 brand_name = arrs0[2]
+                brand_set.add(brand_name)
                 model_name = arrs0[4]
                 year_name = arrs0[6]
+                bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
+                bmy_set.add(bmy)
                 ggh_code = arrs0[8][:-1]
+                ggh_set.add(ggh_code)
                 if row > 0:
                     print('{0} {1} {2} {3};'.format(brand_name, model_name, year_name, ggh_code))
                 row += 1
         print('row={0};'.format(row))
+        print('品牌：{0}; 年款：{1}; 公告号：{2};'.format(len(brand_set), len(bmy_set), len(ggh_set)))
