@@ -1027,7 +1027,11 @@ class DsManager(object):
         with open('./logs/formal_ggh_bmy.csv', 'r', encoding='utf-8') as fd:
             for line in fd:
                 arrs0 = line.split(',')
+                brand_name = arrs0[2]
+                model_name = arrs0[4]
+                year_name = arrs0[6]
+                ggh_code = arrs0[8][:-1]
                 if row > 0:
-                    print('{0} {1} {2} {3};'.format(arrs0[2], arrs0[4], arrs0[6], arrs0[8]))
+                    print('{0} {1} {2} {3};'.format(brand_name, model_name, year_name, ggh_code))
                 row += 1
         print('row={0};'.format(row))
