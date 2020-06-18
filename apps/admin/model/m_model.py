@@ -42,8 +42,9 @@ class MModel(object):
         arrs0 = raw_name.split('_')
         model_name = arrs0[1]
         bm_name = '{0}_{1}'.format(bn, model_name)
-        new_values = {'model_name': bm_name}
+        new_values = {'$set': {'model_name': bm_name}}
         print('query_cond: {0}; new_values: {1};'.format(query_cond, new_values))
+        MModel.tbl.update_one(query_cond, new_values)
 
     @staticmethod
     def _initialize():
