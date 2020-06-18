@@ -13,6 +13,7 @@ import csv
 import shutil
 from pathlib import Path
 import random
+from apps.admin.controller.c_model import CModel
 
 class DsManager(object):
     _fgvc_id_bmy_dict = None # 细分类编号到品牌-车型-年款字典
@@ -1023,6 +1024,13 @@ class DsManager(object):
     @staticmethod
     def process_formal_ggh_bmy():
         print('处理正式公告号')
+        CModel.process_tesla_rename()
+
+        i_debug = 1
+        if 1 == i_debug:
+            return
+
+
         row = 0
         brand_set = set()
         bmy_set = set()

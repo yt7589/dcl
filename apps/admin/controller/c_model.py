@@ -19,3 +19,7 @@ class CModel(object):
             }
             MModel.insert(model_vo)
         return model_vo['model_id']
+
+    @staticmethod
+    def process_tesla_rename():
+        MModel.process_tesla_rename()

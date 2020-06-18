@@ -23,6 +23,17 @@ class MModel(object):
         return MModel.tbl.insert_one(model_vo)
 
     @staticmethod
+    def process_tesla_rename():
+        if MModel.db is None:
+            MModel._initialize()
+        query_cond = {'model_name': {'$regex': '^特斯拉'}}
+        fields = {'model_id': 1, 'model_name': 1}
+        recs = MModel.tbl.find(query_cond, fields)
+        for rec in recs:
+            print('### {0};'.format(rec))
+        #new_values = {'$set': {'model_name': modelName}}
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MModel.db = mongo_client['tcvdb']
