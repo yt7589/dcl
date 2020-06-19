@@ -1030,9 +1030,8 @@ class DsManager(object):
         #CBmy.process_brand_rename('JEEP', '吉普')
         #CBrand.add_brand_name_postfix()
         #CModel.add_model_brand_name_postfix()
-        CBmy.add_bmy_brand_name_postfix()
-
-        i_debug = 1
+        #CBmy.add_bmy_brand_name_postfix()
+        i_debug = 10
         if 1 == i_debug:
             return
 
