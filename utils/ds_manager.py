@@ -1024,7 +1024,7 @@ class DsManager(object):
 
     @staticmethod
     def process_formal_ggh_bmy():
-        print('处理正式公告号 北京汽车=》北京')
+        print('处理正式公告号 北京汽车=》北京...')
         #CModel.process_brand_rename('北京汽车', '北京')
         CBmy.process_brand_rename('北京汽车', '北京')
 
