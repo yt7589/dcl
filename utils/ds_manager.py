@@ -1023,10 +1023,10 @@ class DsManager(object):
 
     @staticmethod
     def process_formal_ggh_bmy():
-        print('处理正式公告号')
-        #CModel.process_brand_rename('JEEP', '吉普')
+        print('处理正式公告号 北京汽车=》北京')
+        CModel.process_brand_rename('北京汽车', '北京')
 
-        i_debug = 10
+        i_debug = 1
         if 1 == i_debug:
             return
 
