@@ -120,3 +120,7 @@ class CBmy(object):
     def set_bmy_example_vehicle_image_id(bmy_id, vehicle_image_id):
         bmy_example_id = MPkGenerator.get_pk('bmy_example')
         MBmyExample.set_bmy_example_vehicle_image_id(bmy_example_id, bmy_id, vehicle_image_id)
+
+    @staticmethod
+    def process_brand_rename(old_brand_name, new_brand_name):
+        MBmy.process_brand_rename(old_brand_name, new_brand_name)
