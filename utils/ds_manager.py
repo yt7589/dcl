@@ -1026,7 +1026,7 @@ class DsManager(object):
     def process_formal_ggh_bmy():
         print('处理正式公告号 北京汽车=》北京')
         #CModel.process_brand_rename('北京汽车', '北京')
-        CBmy.process_brand_rename('特斯拉', 'Tesla')
+        CBmy.process_brand_rename('北京汽车', '北京')
 
         i_debug = 1
         if 1 == i_debug:
