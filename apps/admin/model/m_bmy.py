@@ -60,11 +60,11 @@ class MBmy(object):
         recs = MBmy.tbl.find(query_cond, fields)
         for rec in recs:
             print('### {0};'.format(rec))
-            MBmy._update_bmy_name(rec['bmy_id'], rec['bmy_name'], new_brand_name)
+            MBmy._update_bmy_name_pai(rec['bmy_id'], rec['bmy_name'], new_brand_name)
         #new_values = {'$set': {'model_name': modelName}}
 
     @staticmethod
-    def _update_bmy_name(bmy_id, raw_name, bn):
+    def _update_bmy_name_pai(bmy_id, raw_name, bn):
         if MBmy.db is None:
             MBmy._initialize()
         query_cond = {'bmy_id': bmy_id}
@@ -75,6 +75,39 @@ class MBmy(object):
         new_values = {'$set': {'bmy_name': bmy_name}}
         print('query_cond: {0}; new_values: {1};'.format(query_cond, new_values))
         MBmy.tbl.update_one(query_cond, new_values)
+        
+    @staticmethod
+    def add_bmy_brand_name_postfix():
+        '''
+        在品牌车型年款名称的品牌名称后面加下牌
+        '''
+        if MBmy.db is None:
+            MBmy._initialize()
+        query_cond = {'bmy_id': {'$gt': 0}}
+        fields = {'bmy_id': 1, 'bmy_name': 1}
+        recs = MBmy.tbl.find(query_cond, fields)
+        for rec in recs:
+            arrs0 = rec['bmy_name'].split('_')
+            brand_name = arrs0[0]
+            model_name = arrs0[1]
+            year_name = arrs0[2]
+            bmy_name = '{0}牌_{1}_{2}'.format(brand_name, model_name, year_name)
+            MBmy._update_bmy_name(rec['bmy_id'], bmy_name)
+
+    @staticmethod
+    def _update_bmy_name(bmy_id, bmy_name):
+        if MBmy.db is None:
+            MBmy._initialize()
+        query_cond = {'bmy_id': bmy_id}
+        new_values = {'$set': {'bmy_name': bmy_name}}
+        print('query_cond: {0}; new_values: {1};'.format(query_cond, new_values))
+        MBmy.tbl.update_one(query_cond, new_values)
+
+
+
+
+
+
 
     @staticmethod
     def _initialize():

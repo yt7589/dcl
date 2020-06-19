@@ -1029,7 +1029,8 @@ class DsManager(object):
         #CModel.process_brand_rename('北京汽车', '北京')
         #CBmy.process_brand_rename('JEEP', '吉普')
         #CBrand.add_brand_name_postfix()
-        CModel.add_model_brand_name_postfix()
+        #CModel.add_model_brand_name_postfix()
+        CBmy.add_bmy_brand_name_postfix()
 
         i_debug = 1
         if 1 == i_debug:

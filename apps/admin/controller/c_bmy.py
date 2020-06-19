@@ -124,3 +124,11 @@ class CBmy(object):
     @staticmethod
     def process_brand_rename(old_brand_name, new_brand_name):
         MBmy.process_brand_rename(old_brand_name, new_brand_name)
+
+    @staticmethod
+    def add_bmy_brand_name_postfix():
+        '''
+        在品牌车型年款名称的品牌名称后面加下牌
+        '''
+        MBmy.add_bmy_brand_name_postfix()
+
