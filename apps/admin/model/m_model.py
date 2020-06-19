@@ -31,11 +31,11 @@ class MModel(object):
         recs = MModel.tbl.find(query_cond, fields)
         for rec in recs:
             print('### {0};'.format(rec))
-            MModel._update_model_name(rec['model_id'], rec['model_name'], new_brand_name)
+            MModel._update_model_name_pai(rec['model_id'], rec['model_name'], new_brand_name)
         #new_values = {'$set': {'model_name': modelName}}
 
     @staticmethod
-    def _update_model_name(model_id, raw_name, bn):
+    def _update_model_name_pai(model_id, raw_name, bn):
         if MModel.db is None:
             MModel._initialize()
         query_cond = {'model_id': model_id}
@@ -62,6 +62,16 @@ class MModel(object):
             model_name = arrs0[1]
             bm = '{0}牌_{1}'.format(brand_name, model_name)
             print('### {0}: {1} => {2};'.format(rec['model_id'], rec['model_name'], bm))
+            MModel._update_model_name(rec['model_id'], bm)
+
+    @staticmethod
+    def _update_model_name(model_id, model_name):
+        if MModel.db is None:
+            MModel._initialize()
+        query_cond = {'model_id': model_id}
+        new_values = {'$set': {'model_name': model_name}}
+        print('query_cond: {0}; new_values: {1};'.format(query_cond, new_values))
+        MModel.tbl.update_one(query_cond, new_values)
 
 
 
