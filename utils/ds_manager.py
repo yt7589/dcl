@@ -1028,7 +1028,8 @@ class DsManager(object):
         print('处理正式公告号 北京汽车=》北京...')
         #CModel.process_brand_rename('北京汽车', '北京')
         #CBmy.process_brand_rename('JEEP', '吉普')
-        CBrand.add_brand_name_postfix()
+        #CBrand.add_brand_name_postfix()
+        CModel.add_model_brand_name_postfix()
 
         i_debug = 1
         if 1 == i_debug:

@@ -23,3 +23,10 @@ class CModel(object):
     @staticmethod
     def process_brand_rename(old_brand_name, new_brand_name):
         MModel.process_brand_rename(old_brand_name, new_brand_name)
+
+    @staticmethod
+    def add_model_brand_name_postfix():
+        '''
+        品牌车型名称中，将品牌名称后面加上牌
+        '''
+        MModel.add_model_brand_name_postfix()

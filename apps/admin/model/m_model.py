@@ -47,6 +47,33 @@ class MModel(object):
         MModel.tbl.update_one(query_cond, new_values)
 
     @staticmethod
+    def add_model_brand_name_postfix():
+        '''
+        品牌车型名称中，将品牌名称后面加上牌
+        '''
+        if MModel.db is None:
+            MModel._initialize()
+        query_cond = {'model_id': {'$gt': 0}}
+        fields = {'model_id': 1, 'model_name': 1}
+        recs = MModel.tbl.find(query_cond, fields)
+        for rec in recs:
+            arrs0 = rec['model_name'].split('_')
+            brand_name = arrs0[0]
+            model_name = arrs0[1]
+            bm = '{0}牌_{1}'.format(brand_name, model_name)
+            print('### {0}: {1} => {2};'.format(rec['model_id'], rec['model_name'], bm))
+
+
+
+
+
+
+
+
+
+
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MModel.db = mongo_client['tcvdb']
