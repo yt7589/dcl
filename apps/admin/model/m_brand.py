@@ -57,11 +57,11 @@ class MBrand(object):
             MBrand._initialize()
         query_cond = {'brand_id': {'$gt': 0}}
         fields = {'brand_id': 1, 'brand_name': 1}
-        recs = MBrand.tbl.find(query_cond, fields)
+        recs = MBrand.tbl.find(query_cond, fields).sort('brand_id', 1)
         for rec in recs:
             old_brand_name = rec['brand_name']
             new_brand_name = '{0}牌'.format(old_brand_name)
-            print('编号{0}: 更新{1}为{2}'.format(rec['brand_id'], old_brand_name, new_brand_name))
+            print('编号{0}: {1} => {2}'.format(rec['brand_id'], old_brand_name, new_brand_name))
 
     @staticmethod
     def _initialize():
