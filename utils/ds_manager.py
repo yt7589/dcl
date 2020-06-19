@@ -14,6 +14,7 @@ import shutil
 from pathlib import Path
 import random
 from apps.admin.controller.c_model import CModel
+from apps.admin.controller.c_bmy import CBmy
 
 class DsManager(object):
     _fgvc_id_bmy_dict = None # 细分类编号到品牌-车型-年款字典
@@ -1024,7 +1025,8 @@ class DsManager(object):
     @staticmethod
     def process_formal_ggh_bmy():
         print('处理正式公告号 北京汽车=》北京')
-        CModel.process_brand_rename('北京汽车', '北京')
+        #CModel.process_brand_rename('北京汽车', '北京')
+        CBmy.process_brand_rename('特斯拉', 'Tesla')
 
         i_debug = 1
         if 1 == i_debug:
