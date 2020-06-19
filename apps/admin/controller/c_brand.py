@@ -41,6 +41,13 @@ class CBrand(object):
                 must_brands.append(brand_name)
         return must_brands
 
+    @staticmethod
+    def add_brand_name_postfix():
+        ''' 
+        在品牌名称后面加牌
+        '''
+        MBrand.add_brand_name_postfix()
+
     
 
 
