@@ -62,6 +62,15 @@ class MBrand(object):
             old_brand_name = rec['brand_name']
             new_brand_name = '{0}牌'.format(old_brand_name)
             print('编号{0}: {1} => {2}'.format(rec['brand_id'], old_brand_name, new_brand_name))
+            MBrand.update_brand_name(rec['brand_id'], new_brand_name)
+
+    @staticmethod
+    def update_brand_name(brand_id, brand_name):
+        if MBrand.db is None:
+            MBrand._initialize()
+        query_cond = {'brand_id': brand_id}
+        new_values = {'$set': {'brand_name': brand_name}}
+        MBrand.tbl.update_one(query_cond, new_values)
 
     @staticmethod
     def _initialize():
