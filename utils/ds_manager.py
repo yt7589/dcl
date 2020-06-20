@@ -1056,11 +1056,11 @@ class DsManager(object):
                 ggh_set.add(ggh_code)
                 if CGghBmy.is_ggh_exists(ggh_code):
                     new_ggh_set.add(ggh_code)
-                if row > 0:
-                    print('{0} {1} {2} {3};'.format(brand_name, model_name, year_name, ggh_code))
+                #if row > 0:
+                #    print('{0} {1} {2} {3};'.format(brand_name, model_name, year_name, ggh_code))
                 row += 1
         print('row={0};'.format(row))
         print('品牌：{0}; 年款：{1}; 公告号：{2};'.format(len(brand_set), len(bmy_set), len(ggh_set)))
-        print('新公告号：')
-        for ng in new_ggh_set:
-            print('##### {0};'.format(ng))
+        print('新公告号：{0};'.format(len(new_ggh_set)))
+        #for ng in new_ggh_set:
+        #    print('##### {0};'.format(ng))
