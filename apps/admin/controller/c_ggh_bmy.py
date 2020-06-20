@@ -93,6 +93,13 @@ class CGghBmy(object):
         else:
             return -1
 
+    @staticmethod
+    def is_ggh_exists(ggh_code):
+        '''
+        公告号本身存在，或者以其为前缀的公告号存在
+        '''
+        rst = MGghBmy.is_ggh_exists(ggh_code)
+
 
 
 

@@ -16,6 +16,7 @@ import random
 from apps.admin.controller.c_model import CModel
 from apps.admin.controller.c_bmy import CBmy
 from apps.admin.controller.c_brand import CBrand
+from apps.admin.controller.c_ggh_bmy import CGghBmy
 
 class DsManager(object):
     _fgvc_id_bmy_dict = None # 细分类编号到品牌-车型-年款字典
@@ -1031,6 +1032,8 @@ class DsManager(object):
         #CBrand.add_brand_name_postfix()
         #CModel.add_model_brand_name_postfix()
         #CBmy.add_bmy_brand_name_postfix()
+        rst = CGghBmy.is_ggh_exists('ZHWEC1Z')
+        print('rst: {0};'.format(rst))
         i_debug = 10
         if 1 == i_debug:
             return

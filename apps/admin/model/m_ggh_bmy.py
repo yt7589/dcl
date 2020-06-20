@@ -23,6 +23,22 @@ class MGghBmy(object):
         return MGghBmy.tbl.insert_one(ggh_bmy_vo)
 
     @staticmethod
+    def is_ggh_exists(ggh_code):
+        '''
+        公告号本身存在，或者以其为前缀的公告号存在
+        '''
+        if MGghBmy.db is None:
+            MGghBmy._initialize()
+        query_cond = {'ggh_code': {'$regex': '^{0}'.format(ggh_code)}}
+        fields = {'ggh_bmy_id': 1, 'bmy_id': 1}
+        recs = MGghBmy.tbl.find(query_cond, fields)
+        if len(recs) > 0:
+            return True
+        else:
+            return False
+
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MGghBmy.db = mongo_client['tcvdb']
