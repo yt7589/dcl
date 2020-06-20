@@ -43,7 +43,7 @@ class CGghBmy(object):
         '''
         公告号本身存在，或者以其为前缀的公告号存在
         '''
-        rst = MGghBmy.is_ggh_exists(ggh_code)
+        return MGghBmy.is_ggh_exists(ggh_code)
 
 
 
