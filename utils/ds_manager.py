@@ -1032,7 +1032,7 @@ class DsManager(object):
         #CBrand.add_brand_name_postfix()
         #CModel.add_model_brand_name_postfix()
         #CBmy.add_bmy_brand_name_postfix()
-        rst = CGghBmy.is_ggh_exists('ZHWEC1Z')
+        rst = CGghBmy.is_ggh_exists('AAAEC1Z')
         print('rst: {0};'.format(rst))
         i_debug = 1
         if 1 == i_debug:
