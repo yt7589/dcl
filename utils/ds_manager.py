@@ -1054,7 +1054,7 @@ class DsManager(object):
                 bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
                 bmy_set.add(bmy)
                 ggh_code = arrs0[8][:-1]
-                ggh_bmy_dict['ggh_code'] = bmy
+                ggh_bmy_dict[ggh_code] = bmy
                 ggh_set.add(ggh_code)
                 if CGghBmy.is_ggh_exists(ggh_code):
                     new_ggh_set.add(ggh_code)
