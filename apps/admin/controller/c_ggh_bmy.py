@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from flask import request
 from apps.admin.controller.flask_web import FlaskWeb
-from utils.ds_manager import DsManager
+#from utils.ds_manager import DsManager
 from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_model import CModel
 from apps.admin.controller.c_bmy import CBmy
@@ -17,7 +17,7 @@ class CGghBmy(object):
 
     @staticmethod
     def ggh_to_bmy_dict_api():
-        rst = CGghBmy.ggh_to_bmy_dict()
+        rst = None # CGghBmy.ggh_to_bmy_dict()
         resp_param = FlaskWeb.get_resp_param()
         resp_param['data'] = {
             'ggh_num': rst['ggh_num'],
@@ -26,61 +26,6 @@ class CGghBmy(object):
             'bmy_num': rst['bmy_num']
         }
         return FlaskWeb.generate_response(resp_param)
-    @staticmethod
-    def ggh_to_bmy_dict():
-        brand_set = set()
-        model_set = set()
-        bmy_set = set()
-        # 读出ggh_to_bmy_dict.txt内容
-        ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
-        for k, v in ggh_to_bmy_dict.items():
-            arrs0 = v.split('_')
-            brand_name = arrs0[0]
-            brand_id = CBrand.add_brand(brand_name)
-            brand_set.add(brand_name)
-            model_name = '{0}_{1}'.format(arrs0[0], arrs0[1])
-            model_set.add(model_name)
-            model_id = CModel.add_model(brand_id, model_name)
-            bmy_set.add(v)
-            bmy_id = CBmy.add_bmy(brand_id, model_id, v)
-            print('process：{0}...'.format(v))
-            ggh_bmy_vo = MGghBmy.get_ggh_bmy_by_code(k)
-            if ggh_bmy_vo is None:
-                ggh_bmy_id = MPkGenerator.get_pk('ggh_bmy')
-                ggh_bmy_vo = {
-                    'ggh_bmy_id': ggh_bmy_id,
-                    'ggh_code': k,
-                    'bmy_id': bmy_id
-                }
-                MGghBmy.insert(ggh_bmy_vo)
-        rst = {
-            'ggh_num': len(ggh_to_bmy_dict),
-            'brand_num': len(brand_set),
-            'model_num': len(model_set),
-            'bmy_num': len(bmy_set)
-        }
-        return rst
-
-    @staticmethod
-    def process_error_ggh_bmys():
-        ''' 
-        处理冲突的公告号和品牌车型年款对应关系，由品牌_车型_年款
-        从t_bmy表中求出bmy_id，然后以ggh_code为条件更新t_ggh_bmy
-        中记录的bmy_id
-        '''
-        ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
-        with open('./logs/error_ggh1.txt', 'r', encoding='utf-8') as gb_fd:
-            for line in gb_fd:
-                arrs0 = line.split(':')
-                ggh_code = arrs0[0]
-                bmy_name = arrs0[1][:-1]
-                ggh_to_bmy_dict[ggh_code] = bmy_name
-        for k, v in ggh_to_bmy_dict.items():
-            print('{0}:{1};'.format(k, v))
-        with open('./work/ggh_to_bmy_dict.txt', 'w+', encoding='utf-8') as fd2:
-            for k, v in ggh_to_bmy_dict.items():
-                print('{0}:{1};'.format(k, v))
-                fd2.write('{0}:{1}\n'.format(k, v))
 
     @staticmethod
     def get_bmy_id_by_ggh_code(ggh_code):
@@ -155,4 +100,70 @@ class CGghBmy(object):
                 e_fd.write('{0}:{1}\n'.format(k, v))
         print('共有{0}条公告号记录，冲突记录{1}条！'.format(len(ggh_to_bmy_dict), len(error_set)))
         return ggh_to_bmy_dict
+
+
+        
+    @staticmethod
+    def ggh_to_bmy_dict():
+        '''
+        brand_set = set()
+        model_set = set()
+        bmy_set = set()
+        # 读出ggh_to_bmy_dict.txt内容
+        ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
+        for k, v in ggh_to_bmy_dict.items():
+            arrs0 = v.split('_')
+            brand_name = arrs0[0]
+            brand_id = CBrand.add_brand(brand_name)
+            brand_set.add(brand_name)
+            model_name = '{0}_{1}'.format(arrs0[0], arrs0[1])
+            model_set.add(model_name)
+            model_id = CModel.add_model(brand_id, model_name)
+            bmy_set.add(v)
+            bmy_id = CBmy.add_bmy(brand_id, model_id, v)
+            print('process：{0}...'.format(v))
+            ggh_bmy_vo = MGghBmy.get_ggh_bmy_by_code(k)
+            if ggh_bmy_vo is None:
+                ggh_bmy_id = MPkGenerator.get_pk('ggh_bmy')
+                ggh_bmy_vo = {
+                    'ggh_bmy_id': ggh_bmy_id,
+                    'ggh_code': k,
+                    'bmy_id': bmy_id
+                }
+                MGghBmy.insert(ggh_bmy_vo)
+        rst = {
+            'ggh_num': len(ggh_to_bmy_dict),
+            'brand_num': len(brand_set),
+            'model_num': len(model_set),
+            'bmy_num': len(bmy_set)
+        }
+        return rst
+        '''
+        return None
+
+    @staticmethod
+    def process_error_ggh_bmys():
+        pass
+        ''' 
+        处理冲突的公告号和品牌车型年款对应关系，由品牌_车型_年款
+        从t_bmy表中求出bmy_id，然后以ggh_code为条件更新t_ggh_bmy
+        中记录的bmy_id
+        '''
+        '''
+        ggh_to_bmy_dict = DsManager.get_ggh_to_bmy_dict()
+        with open('./logs/error_ggh1.txt', 'r', encoding='utf-8') as gb_fd:
+            for line in gb_fd:
+                arrs0 = line.split(':')
+                ggh_code = arrs0[0]
+                bmy_name = arrs0[1][:-1]
+                ggh_to_bmy_dict[ggh_code] = bmy_name
+        for k, v in ggh_to_bmy_dict.items():
+            print('{0}:{1};'.format(k, v))
+        with open('./work/ggh_to_bmy_dict.txt', 'w+', encoding='utf-8') as fd2:
+            for k, v in ggh_to_bmy_dict.items():
+                print('{0}:{1};'.format(k, v))
+                fd2.write('{0}:{1}\n'.format(k, v))
+        '''
+
+
         
