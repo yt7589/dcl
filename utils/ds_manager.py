@@ -1042,6 +1042,7 @@ class DsManager(object):
         brand_set = set()
         bmy_set = set()
         ggh_set = set()
+        ggh_bmy_dict = {}
         new_ggh_set = set()
         with open('./logs/formal_ggh_bmy.csv', 'r', encoding='utf-8') as fd:
             for line in fd:
@@ -1053,14 +1054,17 @@ class DsManager(object):
                 bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
                 bmy_set.add(bmy)
                 ggh_code = arrs0[8][:-1]
+                ggh_bmy_dict['ggh_code'] = bmy
                 ggh_set.add(ggh_code)
                 if CGghBmy.is_ggh_exists(ggh_code):
                     new_ggh_set.add(ggh_code)
-                #if row > 0:
-                #    print('{0} {1} {2} {3};'.format(brand_name, model_name, year_name, ggh_code))
+                if row > 0:
+                    print('# {0} {1} {2} {3};'.format(brand_name, model_name, year_name, ggh_code))
                 row += 1
+        with open('./logs/new_ggh_formal.txt', 'w+', encoding='utf-8') as fd2:
+            for ng in new_ggh_set:
+                fd2.write('{0}:{1}\n'.format(ng, ggh_bmy_dict[ng]))
+                print('### {0}:{1}\n'.format(ng, ggh_bmy_dict[ng]))
         print('row={0};'.format(row))
         print('品牌：{0}; 年款：{1}; 公告号：{2};'.format(len(brand_set), len(bmy_set), len(ggh_set)))
         print('新公告号：{0};'.format(len(new_ggh_set)))
-        #for ng in new_ggh_set:
-        #    print('##### {0};'.format(ng))
