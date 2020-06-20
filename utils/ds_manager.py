@@ -1032,9 +1032,9 @@ class DsManager(object):
         #CBrand.add_brand_name_postfix()
         #CModel.add_model_brand_name_postfix()
         #CBmy.add_bmy_brand_name_postfix()
-        rst = CGghBmy.is_ggh_exists('ZHWEC1ZD')
+        #rst = CGghBmy.is_ggh_exists('ZHWEC1ZD')
         print('rst: {0};'.format(rst))
-        i_debug = 1
+        i_debug = 10
         if 1 == i_debug:
             return
 
@@ -1043,6 +1043,7 @@ class DsManager(object):
         brand_set = set()
         bmy_set = set()
         ggh_set = set()
+        new_ggh_set = set()
         with open('./logs/formal_ggh_bmy.csv', 'r', encoding='utf-8') as fd:
             for line in fd:
                 arrs0 = line.split(',')
@@ -1054,8 +1055,13 @@ class DsManager(object):
                 bmy_set.add(bmy)
                 ggh_code = arrs0[8][:-1]
                 ggh_set.add(ggh_code)
+                if CGghBmy.is_ggh_exists(ggh_code):
+                    new_ggh_set.add(ggh_code)
                 if row > 0:
                     print('{0} {1} {2} {3};'.format(brand_name, model_name, year_name, ggh_code))
                 row += 1
         print('row={0};'.format(row))
         print('品牌：{0}; 年款：{1}; 公告号：{2};'.format(len(brand_set), len(bmy_set), len(ggh_set)))
+        print('新公告号：')
+        for ng in new_ggh_set:
+            print('##### {0};'.format(ng))
