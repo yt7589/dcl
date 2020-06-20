@@ -31,8 +31,8 @@ class MGghBmy(object):
             MGghBmy._initialize()
         query_cond = {'ggh_code': {'$regex': '^{0}'.format(ggh_code)}}
         fields = {'ggh_bmy_id': 1, 'bmy_id': 1}
-        recs = MGghBmy.tbl.find(query_cond, fields)
-        if len(recs) > 0:
+        cnt = MGghBmy.tbl.find(query_cond, fields).count()
+        if cnt > 0:
             return True
         else:
             return False
