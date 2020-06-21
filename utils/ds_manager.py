@@ -1078,9 +1078,4 @@ class DsManager(object):
     @staticmethod
     def import_data():
         print('导入数据...')
-        #CDataSource.import_data()
-        bmy_id = 82
-        vehicle_image_id = CBmy.get_bmy_example_vehicle_image_id(bmy_id)
-        print('vehicle_image_id: {0};'.format(vehicle_image_id))
-        cvi = CBmy.get_bmy_current_vehicle_image_id(bmy_id, 0, 1)
-        print('current: {0};'.format(cvi))
+        CDataSource.import_data()
