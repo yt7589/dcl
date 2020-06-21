@@ -19,7 +19,7 @@ class CDataSource(object):
     @staticmethod
     def import_data():
         # 处理单个目录
-        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/final/rew_1')
         CDataSource.import_folder_images(base_path)
 
     num = 0

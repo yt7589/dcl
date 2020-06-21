@@ -1078,3 +1078,4 @@ class DsManager(object):
     @staticmethod
     def import_data():
         print('导入数据...')
+        CDataSource.import_data()
