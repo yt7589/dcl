@@ -1078,4 +1078,7 @@ class DsManager(object):
     @staticmethod
     def import_data():
         print('导入数据...')
-        CDataSource.import_data()
+        #CDataSource.import_data()
+        bmys = CBmy.get_bmys()
+        for bmy in bmys:
+            print(bmy)

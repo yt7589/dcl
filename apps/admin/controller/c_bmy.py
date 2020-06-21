@@ -64,6 +64,9 @@ class CBmy(object):
             'bmys': bmys
         }
         return FlaskWeb.generate_response(resp_param)
+    @staticmethod
+    def get_bmys():
+        return MBmy.get_bmys()
 
     @staticmethod
     def get_bmy_example_vehicle_image_id_api():
