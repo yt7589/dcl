@@ -74,7 +74,7 @@ class CDataSource(object):
                     ug_fd.write('{0}\n'.format(g))
 
     @staticmethod
-    def add_data_source_sample(vehicle_image_id, bmy_id, type):
+    def add_data_source_sample(vehicle_image_id, bmy_id, sample_type):
         rec = MDataSource.get_data_source_by_vid(vehicle_image_id, bmy_id)
         if rec is None:
             data_source_id = MPkGenerator.get_pk('data_source')
@@ -83,7 +83,7 @@ class CDataSource(object):
                 'vehicle_image_id': vehicle_image_id,
                 'bmy_id': bmy_id,
                 'state': 0,
-                'type': type
+                'type': sample_type
             }
             MDataSource.insert(data_source_vo)
         else:
