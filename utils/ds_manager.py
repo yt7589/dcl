@@ -1079,6 +1079,6 @@ class DsManager(object):
     def import_data():
         print('导入数据...')
         #CDataSource.import_data()
-        bmys = CBmy.get_bmys()
-        for bmy in bmys:
-            print(bmy)
+        bmy_id = 82
+        vehicle_image_id = CBmy.get_bmy_example_vehicle_image_id(bmy_id)
+        print('vehicle_image_id: {0};'.format(vehicle_image_id))
