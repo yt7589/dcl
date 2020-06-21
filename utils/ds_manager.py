@@ -17,6 +17,7 @@ from apps.admin.controller.c_model import CModel
 from apps.admin.controller.c_bmy import CBmy
 from apps.admin.controller.c_brand import CBrand
 from apps.admin.controller.c_ggh_bmy import CGghBmy
+from apps.admin.controller.c_data_source import CDataSource
 
 class DsManager(object):
     _fgvc_id_bmy_dict = None # 细分类编号到品牌-车型-年款字典
@@ -48,13 +49,15 @@ class DsManager(object):
     RUN_MODE_PROCESS_UNKNOWN_GGH = 1017 # 处理未知公告号
     RUN_MODE_IMPORT_DOMESTIC_VEHICLES = 1018 # 将国产车图片移动到raw中并按品牌/车型/年款进行组织
     RUN_MODE_FORMAL_GGH_BMY = 1019 # 最新正式公告号和品牌车型年款对应关系
+    # ***********************
+    RUN_MODE_IMPORT_DATA = 1020 # 从目录中导入图片文件到t_data_source表中
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_FORMAL_GGH_BMY
+        run_mode = DsManager.RUN_MODE_IMPORT_DATA
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -114,6 +117,8 @@ class DsManager(object):
             DsManager.import_domestic_vehicles()
         elif DsManager.RUN_MODE_FORMAL_GGH_BMY == run_mode:
             DsManager.process_formal_ggh_bmy()
+        elif DsManager.RUN_MODE_IMPORT_DATA == run_mode:
+            DsManager.import_data()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -1068,3 +1073,8 @@ class DsManager(object):
         print('row={0};'.format(row))
         print('品牌：{0}; 年款：{1}; 公告号：{2};'.format(len(brand_set), len(bmy_set), len(ggh_set)))
         print('新公告号：{0};'.format(len(new_ggh_set)))
+
+
+    @staticmethod
+    def import_data():
+        print('导入数据...')
