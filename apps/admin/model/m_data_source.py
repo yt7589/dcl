@@ -98,12 +98,15 @@ class MDataSource(object):
     def get_bmy_current_vehicle_image_id(bmy_id, prev_vehicle_image_id, mode):
         if MDataSource.db is None:
             MDataSource._initialize()
+        sort_mode = 1
         if mode == 1:
             query_cond = {'bmy_id': bmy_id, 'vehicle_image_id': {'$gt': prev_vehicle_image_id}}
+            sort_mode = 1
         else:
             query_cond = {'bmy_id': bmy_id, 'vehicle_image_id': {'$lt': prev_vehicle_image_id}}
+            sort_mode = 0
         fields = {'vehicle_image_id': 1}
-        recs = MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields).sort('vehicle_image_id', 1))
+        recs = MMongoDb.convert_recs(MDataSource.tbl.find(query_cond, fields).sort('vehicle_image_id', sort_mode))
         if len(recs)>0:
             return recs[0]
         else:
