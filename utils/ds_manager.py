@@ -1087,3 +1087,21 @@ class DsManager(object):
     @staticmethod
     def compare_excel_image_vins():
         print('比较车辆公告号...')
+        vins = set()
+        # 求出进口车公告号
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw/DS')
+        DsManager._get_folder_vins(vins, base_path)
+
+    @staticmethod
+    def _get_folder_vins(vins, base_path):
+        for path_obj in base_path.iterdir():
+            if path_obj.is_dir():
+                DsManager._get_folder_vins(vins, path_obj)
+            else:
+                path_str = str(path_obj)
+                arrs0 = path_str.split('/')
+                arrs1 = arrs0[-1].splist('_')
+                arrs2 = arrs1[0].split('#')
+                vin = arrs2[0]
+                vins.add(vin)
+
