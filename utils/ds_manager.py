@@ -1089,7 +1089,7 @@ class DsManager(object):
         print('比较车辆公告号...')
         vins = set()
         # 求出进口车公告号
-        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw/DS')
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
         DsManager._get_folder_vins(vins, base_path)
         print('共有{0}个公告号'.format(len(vins)))
 
