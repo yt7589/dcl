@@ -1091,6 +1091,12 @@ class DsManager(object):
         # 求出进口车公告号
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
         DsManager._get_folder_vins(vins, base_path)
+        # 求出guochanche_all公告号
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_all')
+        DsManager._get_folder_vins(vins, base_path)
+        # 求出guochanche_2公告号
+        base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_2')
+        DsManager._get_folder_vins(vins, base_path)
         print('共有{0}个公告号'.format(len(vins)))
 
     @staticmethod
