@@ -52,7 +52,7 @@ class DsManager(object):
     # ***********************
     RUN_MODE_IMPORT_DATA = 1020 # 从目录中导入图片文件到t_data_source表中
     #
-    RUN_MODE_COMPARE_VINS = 1021 # 找出所有车辆的识别码，与Excel进行比较，找到确实没有的公告号
+    RUN_MODE_COMPARE_EXCEL_IMAGE_VINS = 1021 # 找出所有车辆的识别码，与Excel进行比较，找到确实没有的公告号
 
     def __init__(self):
         self.name = 'utils.DsManager'
