@@ -1110,8 +1110,10 @@ class DsManager(object):
                     break
             if is_unknown:
                 unknown_vins.add(rv)
-        for uv in unknown_vins:
-            print('unknown: {0};'.format(uv))
+        with open('./logs/unknown_vins.txt', 'w+', encoding='utf-8') as wfd:
+            for uv in unknown_vins:
+                print('unknown: {0};'.format(uv))
+                wfd.write('{0}\n'.format(uv))
         print('有{0}条未知车辆识别号！'.format(len(unknown_vins)))
 
     @staticmethod
