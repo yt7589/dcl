@@ -1100,7 +1100,7 @@ class DsManager(object):
             else:
                 path_str = str(path_obj)
                 arrs0 = path_str.split('/')
-                arrs1 = arrs0[-1].splist('_')
+                arrs1 = arrs0[-1].split('_')
                 arrs2 = arrs1[0].split('#')
                 vin = arrs2[0]
                 vins.add(vin)
