@@ -1092,8 +1092,14 @@ class DsManager(object):
         with open('./logs/our_all_ggh.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 vins.add(line[:-1])
-                print('#####: {0};'.format(line[:-1]))
-        print('共有{0}个车辆识别码;'.format(len(vins)))
+        raw_vins = set()
+        with open('./logs/formal_ggh_bmy.csv', 'r', encoding='utf-8') as ug_fd:
+            ug_rdr = csv.reader(ug_fd, delimiter=',')
+            header = next(ug_rdr)
+            for row in ug_rdr:
+                vin = row[8]
+                raw_vins.add(vin)
+        print('有{0}条待处理'.format(len(raw_vins)))
 
     @staticmethod
     def _prepare_our_vins():
