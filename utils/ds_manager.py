@@ -1104,5 +1104,6 @@ class DsManager(object):
                 arrs1 = arrs0[-1].split('_')
                 arrs2 = arrs1[0].split('#')
                 vin = arrs2[0]
+                print('get vin: {0};'.format(vin))
                 vins.add(vin)
 
