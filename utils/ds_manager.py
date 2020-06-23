@@ -10,6 +10,7 @@
 # bmy: 品牌-车型-年款
 import os
 import csv
+import re # 正则表达式
 import shutil
 from pathlib import Path
 import random
@@ -1093,6 +1094,7 @@ class DsManager(object):
             for line in fd:
                 vins.add(line[:-1])
         raw_vins = set()
+        unknown_vins = set()
         with open('./logs/formal_ggh_bmy.csv', 'r', encoding='utf-8') as ug_fd:
             ug_rdr = csv.reader(ug_fd, delimiter=',')
             header = next(ug_rdr)
@@ -1100,8 +1102,16 @@ class DsManager(object):
                 vin = row[8]
                 raw_vins.add(vin)
         for rv in raw_vins:
-            print(rv)
-        print('有{0}条待处理'.format(len(raw_vins)))
+            is_unknown = True
+            for v in vins:
+                if re.match(rv, v):
+                    is_unknown = False
+                    break
+            if is_unknown:
+                unknown_vins.add(rv)
+        for uv in unknown_vins:
+            print('unknown: {0};'.format(uv))
+        print('有{0}条未知车辆识别号！'.format(len(unknown_vins)))
 
     @staticmethod
     def _prepare_our_vins():
