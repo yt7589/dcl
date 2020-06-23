@@ -1104,6 +1104,7 @@ class DsManager(object):
         for rv in raw_vins:
             is_unknown = True
             for v in vins:
+                print('rv: {0}; v: {1};'.format(rv, v))
                 if re.match(rv, v):
                     is_unknown = False
                     break
