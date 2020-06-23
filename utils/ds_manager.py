@@ -1087,6 +1087,16 @@ class DsManager(object):
     @staticmethod
     def compare_excel_image_vins():
         print('比较车辆公告号...')
+        # 读出所有图片的公告号
+        vins = set()
+        with open('./logs/our_all_ggh.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                vins.add(line[:-1])
+                print('#####: {0};'.format(line[:-1]))
+        print('共有{0}个车辆识别码;'.format(len(vins)))
+
+    @staticmethod
+    def _prepare_our_vins():
         vins = set()
         # 求出进口车公告号
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/raw')
@@ -1108,11 +1118,14 @@ class DsManager(object):
             if path_obj.is_dir():
                 DsManager._get_folder_vins(vins, path_obj)
             else:
-                path_str = str(path_obj)
-                arrs0 = path_str.split('/')
-                arrs1 = arrs0[-1].split('_')
-                arrs2 = arrs1[0].split('#')
-                vin = arrs2[0]
-                print('get vin: {0}: {1};'.format(path_str, vin))
-                vins.add(vin)
+                # 忽略非图片文件
+                if full_name.endswith(
+                        ('jpg','png','jpeg','bmp')):
+                    path_str = str(path_obj)
+                    arrs0 = path_str.split('/')
+                    arrs1 = arrs0[-1].split('_')
+                    arrs2 = arrs1[0].split('#')
+                    vin = arrs2[0]
+                    print('get vin: {0}: {1};'.format(path_str, vin))
+                    vins.add(vin)
 
