@@ -1099,6 +1099,8 @@ class DsManager(object):
             for row in ug_rdr:
                 vin = row[8]
                 raw_vins.add(vin)
+        for rv in raw_vins:
+            print(rv)
         print('有{0}条待处理'.format(len(raw_vins)))
 
     @staticmethod
