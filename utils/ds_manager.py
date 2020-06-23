@@ -1098,6 +1098,9 @@ class DsManager(object):
         base_path = Path('/media/zjkj/35196947-b671-441e-9631-6245942d671b/guochanche_2')
         DsManager._get_folder_vins(vins, base_path)
         print('共有{0}个公告号'.format(len(vins)))
+        with open('./logs/our_all_ggh.txt', 'w+', encoding='utf-8') as fd:
+            for vin in vins:
+                fd.write('{0}\n'.format(vin))
 
     @staticmethod
     def _get_folder_vins(vins, base_path):
