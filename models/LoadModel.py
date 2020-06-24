@@ -23,6 +23,7 @@ class MainModel(nn.Module):
         self.use_Asoftmax = config.use_Asoftmax
         self.run_mode = MainModel.RUN_MODE_NORMAL # 1-正常运行；2-输出最后一层的特征；
         print(self.backbone_arch)
+        self.fc_size = {'resnet50': 2048, 'resnet18': 512}
 
         if self.backbone_arch in dir(models):
             self.model = getattr(models, self.backbone_arch)()
@@ -49,18 +50,18 @@ class MainModel(nn.Module):
         if self.backbone_arch == 'se_resnet101':
             self.model = nn.Sequential(*list(self.model.children())[:-2])
         self.avgpool = nn.AdaptiveAvgPool2d(output_size=1)
-        self.classifier = nn.Linear(2048, self.num_classes, bias=False)
+        self.classifier = nn.Linear(self.fc_size[self.backbone_arch], self.num_classes, bias=False)
 
         if self.use_dcl:
             if config.cls_2:
-                self.classifier_swap = nn.Linear(2048, 2, bias=False)
+                self.classifier_swap = nn.Linear(self.fc_size[self.backbone_arch], 2, bias=False)
             if config.cls_2xmul:
-                self.classifier_swap = nn.Linear(2048, 2*self.num_classes, bias=False)
-            self.Convmask = nn.Conv2d(2048, 1, 1, stride=1, padding=0, bias=True)
+                self.classifier_swap = nn.Linear(self.fc_size[self.backbone_arch], 2*self.num_classes, bias=False)
+            self.Convmask = nn.Conv2d(self.fc_size[self.backbone_arch], 1, 1, stride=1, padding=0, bias=True)
             self.avgpool2 = nn.AvgPool2d(2, stride=2)
 
         if self.use_Asoftmax:
-            self.Aclassifier = AngleLinear(2048, self.num_classes, bias=False)
+            self.Aclassifier = AngleLinear(self.fc_size[self.backbone_arch], self.num_classes, bias=False)
 
     def forward(self, x, last_cont=None, run_mode=RUN_MODE_NORMAL):
         x = self.model(x)
