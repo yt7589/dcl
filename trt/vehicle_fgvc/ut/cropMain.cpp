@@ -85,12 +85,15 @@ void *mythread(void *threadid)
     ReleaseVehicleFgvcInstance(hand);
 }
 
-int FBLOCK_MAX_BYTES = 10*1024*1024;
+int FBLOCK_MAX_BYTES = 1024;
 char szBuf[FBLOCK_MAX_BYTES];
 int test001()
 {
     cout<<"test001 is running..."<<endl;
     
+    std::string strFileUTF8 = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/datasets/CUB_200_2011/anno/test_ds_v4.txt";
+    std::string strFileName = strFileUTF8;
+    char szBuf[FBLOCK_MAX_BYTES];
     memset(szBuf, 0, sizeof(char) * FBLOCK_MAX_BYTES);
     std::string strMessage;
     FILE * fp = NULL;
