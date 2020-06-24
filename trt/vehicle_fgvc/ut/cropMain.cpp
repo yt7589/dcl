@@ -87,6 +87,18 @@ void *mythread(void *threadid)
 int test001()
 {
     cout<<"test001 is running..."<<endl;
+    std::ifstream ifs(L"/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/datasets/CUB_200_2011/anno/test_ds_v4.txt");
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
+    while (!ifs.eof()) 
+    {
+        string line;
+        getline(ifs, line);
+        wstring wb = conv.from_bytes(line);
+        wcout.imbue(locale("chs"));
+        wcout << wb << endl;
+    }
+    cout<<"Bye! ^_^"<<endl;
+    return 0;
 }
 
 int main()
