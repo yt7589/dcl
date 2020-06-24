@@ -92,7 +92,8 @@ int test001()
     cout<<"test001 is running..."<<endl;
     
     szBuf = (char*)malloc(FBLOCK_MAX_BYTES * sizeof(char));
-    std::string strFileUTF8 = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/datasets/CUB_200_2011/anno/test_ds_v4.txt";
+    cout<<"step 1"<<endl;
+    /*std::string strFileUTF8 = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/datasets/CUB_200_2011/anno/test_ds_v4.txt";
     std::string strFileName = strFileUTF8;
     char szBuf[FBLOCK_MAX_BYTES];
     memset(szBuf, 0, sizeof(char) * FBLOCK_MAX_BYTES);
@@ -109,7 +110,7 @@ int test001()
         }
     }
     std::cout << strMessage << std::endl;
-    fclose(fp);
+    fclose(fp);*/
     
 
     cout<<"Bye! ^_^"<<endl;
