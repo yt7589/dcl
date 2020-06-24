@@ -85,19 +85,29 @@ void *mythread(void *threadid)
     ReleaseVehicleFgvcInstance(hand);
 }
 
+int FBLOCK_MAX_BYTES = 10*1024*1024;
+char szBuf[FBLOCK_MAX_BYTES];
 int test001()
 {
     cout<<"test001 is running..."<<endl;
-    std::ifstream ifs(L"/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/datasets/CUB_200_2011/anno/test_ds_v4.txt");
-    std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
-    while (!ifs.eof()) 
+    
+    memset(szBuf, 0, sizeof(char) * FBLOCK_MAX_BYTES);
+    std::string strMessage;
+    FILE * fp = NULL;
+    fp = fopen(strFileName.c_str(), "rb");
+    if (fp != NULL)
     {
-        string line;
-        getline(ifs, line);
-        wstring wb = conv.from_bytes(line);
-        wcout.imbue(locale("chs"));
-        wcout << wb << endl;
+        fseek(fp, sizeof(char) * 3, 0);
+        while(fread(szBuf, sizeof(char), FBLOCK_MAX_BYTES, fp) > 0)
+        {
+            strMessage += szBuf;
+            memset(szBuf, 0, sizeof(char) * FBLOCK_MAX_BYTES);
+        }
     }
+    std::cout << strMessage << std::endl;
+    fclose(fp);
+    
+
     cout<<"Bye! ^_^"<<endl;
     return 0;
 }
