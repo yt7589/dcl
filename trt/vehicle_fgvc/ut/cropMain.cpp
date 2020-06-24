@@ -93,12 +93,11 @@ int test001()
     
     szBuf = (char*)malloc(FBLOCK_MAX_BYTES * sizeof(char));
     cout<<"step 1"<<endl;
-    /*std::string strFileUTF8 = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/datasets/CUB_200_2011/anno/test_ds_v4.txt";
+    std::string strFileUTF8 = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d/datasets/CUB_200_2011/anno/test_ds_v4.txt";
     std::string strFileName = strFileUTF8;
-    char szBuf[FBLOCK_MAX_BYTES];
     memset(szBuf, 0, sizeof(char) * FBLOCK_MAX_BYTES);
     std::string strMessage;
-    FILE * fp = NULL;
+    /*FILE * fp = NULL;
     fp = fopen(strFileName.c_str(), "rb");
     if (fp != NULL)
     {
