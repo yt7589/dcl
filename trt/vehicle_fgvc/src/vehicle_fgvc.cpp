@@ -24,25 +24,6 @@ public:
 std::map<void *, PredictorAPI *> G_SOURCE;
 std::map<void *, GInfo> G_GInfo;
 
-/**
- * 从onnx文件生成量化过的trt文件用于模型推理 
-*/
-void CreateTrtFromOnnx(string modelPath, int cardNum) {
-    samplesCommon::OnnxSampleParams params;
-    params.onnxFileName = modelPath + "dcl_v005_sim.onnx";
-    params.inputTensorNames.emplace_back("data");
-    params.batchSize = max_batch_size;
-    params.outputTensorNames.emplace_back("output");
-    params.gpuId = cardNum;
-    params.engineFileName =modelPath+ "dcl_v005_sim.trt";
-    params.dataDirs.emplace_back("");
-    params.dataFile = "/home/test1/calib_images_all.txt";
-    params.int8 = true;
-    cudaSetDevice(cardNum);
-    auto builder = OnnxTRT::OnnxUniquePtr<nvinfer1::IBuilder>(nvinfer1::createInferBuilder(gLogger.getTRTLogger()));
-    std::cout<<"生成TRT："<<modelPath<<std::endl;
-}
-
 /*void *CarHeadAndTailInstance(string modelpath,
                              int cardnum, int max_batch_size,
                              int max_big_pic,
