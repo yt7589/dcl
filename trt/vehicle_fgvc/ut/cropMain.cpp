@@ -101,13 +101,14 @@ int test001()
     fp = fopen(strFileName.c_str(), "rb");
     if (fp != NULL)
     {
+        std::cout<<"step 2"<<endl;
         // fseek(fp, sizeof(char) * 3, 0);
-        while(fread(szBuf, sizeof(char), FBLOCK_MAX_BYTES, fp) > 0)
+        /*while(fread(szBuf, sizeof(char), FBLOCK_MAX_BYTES, fp) > 0)
         {
-            szBuf[FBLOCK_MAX_BYTES - 1] = '\0';
+            szBuf[FBLOCK_MAX_BYTES] = '\0';
             strMessage += szBuf;
             memset(szBuf, 0, sizeof(char) * FBLOCK_MAX_BYTES);
-        }
+        }*/
     }
     std::cout << strMessage << std::endl;
     fclose(fp);
