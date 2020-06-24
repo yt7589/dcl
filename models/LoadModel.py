@@ -38,6 +38,8 @@ class MainModel(nn.Module):
             else:
                 self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=478)
 
+        if self.backbone_arch == 'resnet18':
+            self.model = nn.Sequential(*list(self.model.children())[:-2])
         if self.backbone_arch == 'resnet50' or self.backbone_arch == 'se_resnet50':
             self.model = nn.Sequential(*list(self.model.children())[:-2])
         if self.backbone_arch == 'senet154':
