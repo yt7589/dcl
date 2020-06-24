@@ -64,6 +64,7 @@ class MainModel(nn.Module):
 
     def forward(self, x, last_cont=None, run_mode=RUN_MODE_NORMAL):
         x = self.model(x)
+        print('x.shape: {0};'.format(x.shape))
         if self.use_dcl:
             mask = self.Convmask(x)
             mask = self.avgpool2(mask)
