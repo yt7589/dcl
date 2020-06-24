@@ -14,6 +14,7 @@
 #include "vehicle_fgvc.h"
 #include <cuda_runtime.h>
 #include <iostream>
+#include <codecvt>
 #define NUM_THREADS 1
 
 const int IMG_W = 224;
