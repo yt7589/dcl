@@ -11,7 +11,6 @@ std::mutex my_lock;
 #include "nvHTCropAndResize.h"
 #include <map>
 #include <time.h>
-#include "OnnxTRT.h"
 
 class GInfo
 {
