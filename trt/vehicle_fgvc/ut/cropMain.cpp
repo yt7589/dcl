@@ -84,8 +84,19 @@ void *mythread(void *threadid)
     ReleaseVehicleFgvcInstance(hand);
 }
 
+int test001()
+{
+    cout<<"test001 is running..."<<endl;
+}
+
 int main()
 {
+    int iDebug = 1;
+    if (1==iDebug) 
+    {
+        test001();
+        return 0;
+    }
     clock_t start, end;
     pthread_t threads[NUM_THREADS];
     int indexes[NUM_THREADS]; // 用数组来保存i的值
