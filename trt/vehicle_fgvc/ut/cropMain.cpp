@@ -59,13 +59,13 @@ void *mythread(void *threadid)
     std::vector<int> srcWidth(batchSize);
     std::vector<int> srcHeight(batchSize);
     std::vector<ITS_Vehicle_Result_Detect> cpuDetect(cudaSrc.size());
-    cv::Mat img  = cv::imread("../ut/1.jpg");
+    cv::Mat img = cv::imread("../ut/1.jpg");
     size_t imgSize = img.step[0]*img.rows;
     for (int t = 0; t < cudaSrc.size(); ++ t)
     {
-        img = cv::imread(samples[t][0]);
-        std::cout<<"img: "<<samples[t][0]<<"; classId: "<<samples[t][1]<<"; !!!!"<<std::endl;
-        imgSize = img.step[0] * img.rows;
+        //img = cv::imread(samples[t][0]);
+        //std::cout<<"img: "<<samples[t][0]<<"; classId: "<<samples[t][1]<<"; !!!!"<<std::endl;
+        //imgSize = img.step[0] * img.rows;
         cudaMalloc((void**)&(cudaSrc[t]), imgSize);
         cudaMemcpy(cudaSrc[t],img.data,imgSize,cudaMemcpyHostToDevice);
         srcWidth[t] = (img.cols);
