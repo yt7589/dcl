@@ -121,10 +121,10 @@ int test001()
         items.push_back(item);
         //std::cout<<"##### pic: "<<item[0]<<"; classId: "<<item[1]<<std::endl;
     }
-    for (iter=items.begin(); iter!=items.end(); iter++)
+    size_t items_num = items.size();
+    for (size_t i=0; i<items_num; i++)
     {
-        item = iter;
-        std::cout<<"@@@@@ pic: "<<item[0]<<"; classId: "<<item[1]<<"!!!!!!"<<std::endl;
+        std::cout<<"@@@@@ pic: "<<items[i][0]<<"; classId: "<<items[i][1]<<"!!!!!!"<<std::endl;
     }
     return 0;
 }
