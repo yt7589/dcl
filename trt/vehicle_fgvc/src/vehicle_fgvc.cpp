@@ -195,7 +195,7 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
         predictor->second->forward(cudaCropImages + i*max_batch_size*imgSize,
                 max_batch_size, out_results);
         item_end = clock();
-        std::cout<<"处理单个样本时间："<<((double)(item_end - item_start))/CLOCKS_PER_SEC*1000.0<<"毫秒;"<<std::endl;
+        std::cout<<"yt处理单个样本时间："<<((double)(item_end - item_start))/CLOCKS_PER_SEC*1000.0<<"毫秒;"<<std::endl;
         for(int n = 0; n < max_batch_size; ++n){
             if(curCarNum == cpuDet[batchId].CarNum) {
                 batchId++;
