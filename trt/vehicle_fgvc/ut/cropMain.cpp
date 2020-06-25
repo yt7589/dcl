@@ -123,7 +123,7 @@ int test001()
     }
     for (iter=items.begin(); iter!=items.end(); iter++)
     {
-        item = *iter;
+        item = iter;
         std::cout<<"@@@@@ pic: "<<item[0]<<"; classId: "<<item[1]<<"!!!!!!"<<std::endl;
     }
     return 0;
