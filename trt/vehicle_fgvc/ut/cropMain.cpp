@@ -87,20 +87,16 @@ void *mythread(void *threadid)
 
 int FBLOCK_MAX_BYTES = 1024;
 char *szBuf;
+void Split(const std::string& src, const std::string& separator, std::vector<std::string>& dest);
 int test001()
 {
-    cout<<"test001 is running..."<<endl;
-    
     szBuf = (char*)malloc(FBLOCK_MAX_BYTES * sizeof(char) + 1);
-    cout<<"step 100"<<endl;
     std::string strFileUTF8 = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/datasets/CUB_200_2011/anno/test_ds_v4.txt";
     std::string strFileName = strFileUTF8;
     memset(szBuf, 0, sizeof(char) * FBLOCK_MAX_BYTES);
     std::string strMessage;
     FILE * fp = NULL;
-cout<<"step 2"<<strFileName.c_str()<<endl;
     fp = fopen(strFileName.c_str(), "rb");
-cout<<"step 3"<<fp<<endl;
     if (fp != NULL)
     {
         // fseek(fp, sizeof(char) * 3, 0);
@@ -113,10 +109,43 @@ cout<<"step 3"<<fp<<endl;
     }
     std::cout << strMessage << std::endl;
     fclose(fp);
-    
-
-    cout<<"Bye! ^_^"<<endl;
+    vector<string> lines;
+    split(strMessage, "\n", lines);
+    vector<string>::iterator iter;
+    string line;
+    for (iter=lines.begin();iter!=lines.end();iter++)
+    {
+        line = *iter;
+        std::cout<<line<<"!"<<std::endl;
+    }
     return 0;
+}
+
+void Split(const std::string& src, const std::string& separator, std::vector<std::string>& dest) //字符串分割到数组
+{
+ 
+        //参数1：要分割的字符串；参数2：作为分隔符的字符；参数3：存放分割后的字符串的vector向量
+ 
+	string str = src;
+	string substring;
+	string::size_type start = 0, index;
+	dest.clear();
+	index = str.find_first_of(separator,start);
+	do
+	{
+		if (index != string::npos)
+		{    
+			substring = str.substr(start,index-start );
+			dest.push_back(substring);
+			start =index+separator.size();
+			index = str.find(separator,start);
+			if (start == string::npos) break;
+		}
+	}while(index != string::npos);
+ 
+	//the last part
+	substring = str.substr(start);
+	dest.push_back(substring);
 }
 
 int main()
