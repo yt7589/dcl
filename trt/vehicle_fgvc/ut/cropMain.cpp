@@ -107,16 +107,15 @@ int test001()
             memset(szBuf, 0, sizeof(char) * FBLOCK_MAX_BYTES);
         }
     }
-    std::cout << strMessage << std::endl;
     fclose(fp);
     vector<string> lines;
-    split(strMessage, "\n", lines);
+    Split(strMessage, "\n", lines);
     vector<string>::iterator iter;
     string line;
     for (iter=lines.begin();iter!=lines.end();iter++)
     {
         line = *iter;
-        std::cout<<line<<"!"<<std::endl;
+        std::cout<<line<<"!!!!!!#####!!!!!"<<std::endl;
     }
     return 0;
 }
