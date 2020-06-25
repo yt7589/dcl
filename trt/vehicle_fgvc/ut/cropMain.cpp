@@ -49,6 +49,8 @@ void *mythread(void *threadid)
                             "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v005_q.trt";
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);
+    // 获取测试数据集上样本
+    vector<vector<string>> samples = GetTestDsSamples();
 
     // Call other DCL interface
     std::cout << "GPU_DETECT_INPUT: " << std::endl;
@@ -61,6 +63,9 @@ void *mythread(void *threadid)
     size_t imgSize = img.step[0]*img.rows;
     for (int t = 0; t < cudaSrc.size(); ++ t)
     {
+        img = cv::imread(samples[t][0]);
+        std::cout<<"img: "<<samples[t][0]<<"; classId: "<<samples[t][1]<<"; !!!!"<<std::endl;
+        imgSize = img.step[0] * img.rows;
         cudaMalloc((void**)&(cudaSrc[t]), imgSize);
         cudaMemcpy(cudaSrc[t],img.data,imgSize,cudaMemcpyHostToDevice);
         srcWidth[t] = (img.cols);
@@ -93,17 +98,6 @@ void *mythread(void *threadid)
 
 int main()
 {
-    int iDebug = 1;
-    if (1==iDebug) 
-    {
-        vector<vector<string>> samples = GetTestDsSamples();
-        size_t num = samples.size();
-        for (size_t i=0; i<num; i++)
-        {
-            std::cout<<"@#@#@# pic: "<<samples[i][0]<<"; classId: "<<samples[i][1]<<"!!!!!"<<std::endl;
-        }
-        return 0;
-    }
     clock_t start, end;
     pthread_t threads[NUM_THREADS];
     int indexes[NUM_THREADS]; // 用数组来保存i的值
