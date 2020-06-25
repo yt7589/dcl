@@ -117,9 +117,10 @@ int test001()
     for (iter=lines.begin();iter!=lines.end();iter++)
     {
         line = *iter;
-        Split(line, "*", item);
-        items.push_back(item);
-        //std::cout<<"##### pic: "<<item[0]<<"; classId: "<<item[1]<<std::endl;
+        if (line.length > 10) {
+            Split(line, "*", item);
+            items.push_back(item);
+        }
     }
     size_t items_num = items.size();
     for (size_t i=0; i<items_num; i++)
