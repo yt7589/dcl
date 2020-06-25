@@ -117,7 +117,7 @@ int test001()
     for (iter=lines.begin();iter!=lines.end();iter++)
     {
         line = *iter;
-        if (line.length > 10) {
+        if (line.length() > 10) {
             Split(line, "*", item);
             items.push_back(item);
         }
