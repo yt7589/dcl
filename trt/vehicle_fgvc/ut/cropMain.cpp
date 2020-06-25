@@ -110,6 +110,7 @@ int test001()
     fclose(fp);
     vector<string> lines;
     vector<string> item;
+    vector<vector<string>> items;
     Split(strMessage, "\n", lines);
     vector<string>::iterator iter;
     string line;
@@ -117,7 +118,13 @@ int test001()
     {
         line = *iter;
         Split(line, "*", item);
-        std::cout<<"##### pic: "<<item[0]<<"; classId: "<<item[1]<<std::endl;
+        items.push_back(item);
+        //std::cout<<"##### pic: "<<item[0]<<"; classId: "<<item[1]<<std::endl;
+    }
+    for (iter=items.begin(); iter!=items.end(); iter++)
+    {
+        item = *iter;
+        std::cout<<"@@@@@ pic: "<<item[0]<<"; classId: "<<item[1]<<"!!!!!!"<<std::endl;
     }
     return 0;
 }
