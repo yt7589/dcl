@@ -1156,4 +1156,9 @@ class DsManager(object):
     @staticmethod
     def remove_test_sample():
         print('remove test sample...')
+        with open('./datasets/CUB_200_2011/anno/train_ds_v4n.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./datasets/CUB_200_2011/anno/train_ds_v4.txt', 'r', encoding='utf-8') as rfd:
+                for line in rfd:
+                    if not ('白#' in line or '夜#' in line):
+                        wfd.write('{0}\n'.format(line[:-1]))
 
