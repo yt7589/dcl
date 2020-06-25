@@ -88,7 +88,7 @@ void *mythread(void *threadid)
 int FBLOCK_MAX_BYTES = 1024;
 char *szBuf;
 void Split(const std::string& src, const std::string& separator, std::vector<std::string>& dest);
-int test001()
+vector<vector<string>> GetTestDsSamples()
 {
     szBuf = (char*)malloc(FBLOCK_MAX_BYTES * sizeof(char) + 1);
     std::string strFileUTF8 = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/datasets/CUB_200_2011/anno/test_ds_v4.txt";
@@ -109,25 +109,20 @@ int test001()
     }
     fclose(fp);
     vector<string> lines;
-    vector<string> item;
-    vector<vector<string>> items;
+    vector<string> sample;
+    vector<vector<string>> samples;
     Split(strMessage, "\n", lines);
     vector<string>::iterator iter;
     string line;
-    for (iter=lines.begin();iter!=lines.end();iter++)
+    for (iter=lines.begin(); iter!=lines.end(); iter++)
     {
         line = *iter;
         if (line.length() > 10) {
-            Split(line, "*", item);
-            items.push_back(item);
+            Split(line, "*", sample);
+            samples.push_back(sample);
         }
     }
-    size_t items_num = items.size();
-    for (size_t i=0; i<items_num; i++)
-    {
-        std::cout<<"@@@@@ pic: "<<items[i][0]<<"; classId: "<<items[i][1]<<"!!!!!!"<<std::endl;
-    }
-    return 0;
+    return samples;
 }
 
 void Split(const std::string& src, const std::string& separator, std::vector<std::string>& dest) //字符串分割到数组
@@ -162,7 +157,12 @@ int main()
     int iDebug = 1;
     if (1==iDebug) 
     {
-        test001();
+        vector<vector<string>> samples = GetTestDsSamples();
+        size_t num = samples.size();
+        for (size_t i=0; i<num; i++)
+        {
+            std::cout<<"@#@#@# pic: "<<samples[i][0]<<"; classId: "<<samples[i][1]<<"!!!!!"<<std::endl;
+        }
         return 0;
     }
     clock_t start, end;
