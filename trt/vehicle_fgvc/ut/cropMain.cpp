@@ -82,6 +82,7 @@ void *mythread(void *threadid)
     for (int u = 0; u < all_results.size(); ++u)
     {
         auto &RE = all_results[u];
+        std::cout<<RE.tempResult[0].tempVehicleType<<"; classId="<<RE.tempResult[0].iVehicleSubModel<<std::endl;
         /*for (int i = 0; i < RE.iNum; ++i)
         {
 
