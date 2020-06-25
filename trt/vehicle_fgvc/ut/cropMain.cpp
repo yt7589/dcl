@@ -117,7 +117,7 @@ int test001()
     {
         line = *iter;
         Split(line, "*", item);
-        std::count<<"##### pic: "<<item[0]<<"; classId: "<<item[1]<<std::endl;
+        std::cout<<"##### pic: "<<item[0]<<"; classId: "<<item[1]<<std::endl;
     }
     return 0;
 }
