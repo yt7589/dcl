@@ -23,6 +23,12 @@ int big_batchsize = 8;
 int small_batchsize = 8;
 const bool GPU_INPUT = true;
 const bool GPU_DETECT_INPUT = true;
+
+int FBLOCK_MAX_BYTES = 1024;
+char *szBuf;
+void Split(const std::string& src, const std::string& separator, std::vector<std::string>& dest);
+vector<vector<string>> GetTestDsSamples();
+
 void  initDet(ITS_Vehicle_Result_Detect &det,const int detNum){
     det.CarNum = detNum;
     for(int i=0; i< detNum; ++i) {
@@ -85,9 +91,43 @@ void *mythread(void *threadid)
     ReleaseVehicleFgvcInstance(hand);
 }
 
-int FBLOCK_MAX_BYTES = 1024;
-char *szBuf;
-void Split(const std::string& src, const std::string& separator, std::vector<std::string>& dest);
+int main()
+{
+    int iDebug = 1;
+    if (1==iDebug) 
+    {
+        vector<vector<string>> samples = GetTestDsSamples();
+        size_t num = samples.size();
+        for (size_t i=0; i<num; i++)
+        {
+            std::cout<<"@#@#@# pic: "<<samples[i][0]<<"; classId: "<<samples[i][1]<<"!!!!!"<<std::endl;
+        }
+        return 0;
+    }
+    clock_t start, end;
+    pthread_t threads[NUM_THREADS];
+    int indexes[NUM_THREADS]; // 用数组来保存i的值
+    for (int i = 0; i < NUM_THREADS; i++)
+    {
+        indexes[i] = i; //先保存i的值
+        // 传入的时候必须强制转换为void* 类型，即无类型指针
+        int rc = pthread_create(&threads[i], NULL, mythread, (void *)&(indexes[i]));
+        if (rc)
+        {
+            std::cout << "Error:无法创建线程," << rc << std::endl;
+            exit(-1);
+        }
+    }
+    for (int i = 0; i < NUM_THREADS; i++)
+    {
+        pthread_join(threads[i], NULL);
+        //cout << "right:创建线程," << i << endl;
+    }
+    printf("end\n");
+    //ITS_VehicleRecRelease(pInstance0);
+    return 0;
+}
+
 vector<vector<string>> GetTestDsSamples()
 {
     szBuf = (char*)malloc(FBLOCK_MAX_BYTES * sizeof(char) + 1);
@@ -150,41 +190,4 @@ void Split(const std::string& src, const std::string& separator, std::vector<std
 	//the last part
 	substring = str.substr(start);
 	dest.push_back(substring);
-}
-
-int main()
-{
-    int iDebug = 1;
-    if (1==iDebug) 
-    {
-        vector<vector<string>> samples = GetTestDsSamples();
-        size_t num = samples.size();
-        for (size_t i=0; i<num; i++)
-        {
-            std::cout<<"@#@#@# pic: "<<samples[i][0]<<"; classId: "<<samples[i][1]<<"!!!!!"<<std::endl;
-        }
-        return 0;
-    }
-    clock_t start, end;
-    pthread_t threads[NUM_THREADS];
-    int indexes[NUM_THREADS]; // 用数组来保存i的值
-    for (int i = 0; i < NUM_THREADS; i++)
-    {
-        indexes[i] = i; //先保存i的值
-        // 传入的时候必须强制转换为void* 类型，即无类型指针
-        int rc = pthread_create(&threads[i], NULL, mythread, (void *)&(indexes[i]));
-        if (rc)
-        {
-            std::cout << "Error:无法创建线程," << rc << std::endl;
-            exit(-1);
-        }
-    }
-    for (int i = 0; i < NUM_THREADS; i++)
-    {
-        pthread_join(threads[i], NULL);
-        //cout << "right:创建线程," << i << endl;
-    }
-    printf("end\n");
-    //ITS_VehicleRecRelease(pInstance0);
-    return 0;
 }
