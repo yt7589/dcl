@@ -109,13 +109,15 @@ int test001()
     }
     fclose(fp);
     vector<string> lines;
+    vector<string> item;
     Split(strMessage, "\n", lines);
     vector<string>::iterator iter;
     string line;
     for (iter=lines.begin();iter!=lines.end();iter++)
     {
         line = *iter;
-        std::cout<<line<<"!!!!!!#####!!!!!"<<std::endl;
+        Split(line, "*", item);
+        std::count<<"##### pic: "<<item[0]<<"; classId: "<<item[1]<<std::endl;
     }
     return 0;
 }
