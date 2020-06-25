@@ -63,8 +63,8 @@ void *mythread(void *threadid)
     size_t imgSize; // = img.step[0]*img.rows;
     for (int t = 0; t < cudaSrc.size(); ++ t)
     {
-        img = cv::imread(samples[t][0]);
-        std::cout<<"img: "<<samples[t][0]<<"; classId: "<<samples[t][1]<<"; !!!!"<<std::endl;
+        img = cv::imread(samples[0][0]);
+        std::cout<<"img: "<<samples[0][0]<<"; classId: "<<samples[0][1]<<"; !!!!"<<std::endl;
         imgSize = img.step[0] * img.rows;
         cudaMalloc((void**)&(cudaSrc[t]), imgSize);
         cudaMemcpy(cudaSrc[t],img.data,imgSize,cudaMemcpyHostToDevice);
