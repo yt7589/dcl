@@ -134,7 +134,7 @@ if __name__ == '__main__':
                         train = True)
 
     trainval_set = dataset(Config = Config,\
-                        anno = Config.train_anno,\
+                        anno = Config.val_anno,\
                         common_aug = transformers["None"],\
                         swap = transformers["None"],\
                         swap_size=args.swap_num, \
@@ -143,7 +143,7 @@ if __name__ == '__main__':
                         train_val = True)
 
     val_set = dataset(Config = Config,\
-                      anno = Config.val_anno,\
+                      anno = Config.test_anno,\
                       common_aug = transformers["None"],\
                       swap = transformers["None"],\
                         swap_size=args.swap_num, \
@@ -296,6 +296,6 @@ if __name__ == '__main__':
     elif 4 == mode:
         log_file = open('./logs/a1.log', 'w+', encoding='utf-8')
         # predict_main(Config, model, data_loader['val'], 'val', 0, log_file)
-        predict_main(Config, model, dataloader['trainval'], 'trainval', 0, log_file)
+        predict_main(Config, model, dataloader['trainval'], 'val', 0, log_file)
 
 
