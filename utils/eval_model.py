@@ -160,7 +160,7 @@ def predict_main(Config, model):
             arrs0 = line[:-1].split('*')
             img_file = arrs0[0]
             cls_id = arrs0[1]
-            predict_cls_id, conf = predict_image(model, img_file)
+            predict_cls_id, conf = predict_image(Config, model, img_file)
             print('{0}: {1} ? {2};'.format(img_file, cls_id, predict_cls_id))
             if cls_id == predict_cls_id:
                 correct_num += 1
