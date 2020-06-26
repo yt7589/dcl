@@ -298,6 +298,6 @@ if __name__ == '__main__':
         # predict_main(Config, model, data_loader['val'], 'val', 0, log_file)
         predict_main(Config, model, dataloader['trainval'], 'val', 0, log_file)
         for p in trainval_set.paths:
-            print('##### {p};'.format(p))
+            print('##### {0};'.format(p))
 
 
