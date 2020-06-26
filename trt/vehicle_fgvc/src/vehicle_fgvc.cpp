@@ -204,6 +204,7 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
             }
             float conf=out_results[0][n];
             int clsId= (reinterpret_cast<int*>(out_results[1].data()))[n];
+            std::cout<<"##### "<<out_results[0][n]<<", "<<out_result[1][n]<<";"<<std::endl;
             result[batchId].iNum=curCarNum+1;
             result[batchId].tempResult[curCarNum].fConfdence = conf;
             result[batchId].tempResult[curCarNum].iVehicleSubModel = clsId;
