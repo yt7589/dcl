@@ -160,6 +160,7 @@ def predict_image(model):
             with Image.open(f) as img:
                 img = img.convert('RGB')
     sample = totensor(img)
+    sample = sample.view(1, sample.shape[0], sample.shape[1], sample.shape[2])
     inputs = Variable(sample.cuda())
     outputs = model(inputs)
     outputs_pred = outputs[0]
