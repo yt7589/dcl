@@ -166,6 +166,6 @@ def predict_image(model):
     outputs_pred = outputs[0]
     top3_val, top3_pos = torch.topk(outputs_pred, 3)
     print('top3_val: {0}; top3_pos: {1};'.format(top3_val.shape, top3_pos.shape))
-    print('clsId: {0}; posibility: {1};'.format(top3_val[0][0], top3_pos[0][0]))
+    print('val: {0}; pos: {1};'.format(top3_val, top3_pos))
     print('^_^')
 
