@@ -207,12 +207,12 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
         val_acc1 = val_corrects1 / item_count
         brand_acc = brand_correct / item_count
 
-        log_file.write(val_version  + '\t' +str(val_loss_recorder.get_val())+'\t' + str(val_celoss_recorder.get_val()) + '\t' + str(val_acc1) + '\t' + str(val_acc3) + '\n')
+        #log_file.write(val_version  + '\t' +str(val_loss_recorder.get_val())+'\t' + str(val_celoss_recorder.get_val()) + '\t' + str(val_acc1) + '\t' + str(val_acc3) + '\n')
 
 
         t1 = time.time()
         since = t1-t0
-        print('top1: %.4f %s-acc@2: %.4f brand:%.4f' % (val_acc1, brand_acc), flush=True)
+        print('top1: %.4f brand:%.4f' % (val_acc1, brand_acc), flush=True)
 
     return val_acc1, val_acc2, val_acc3
 
