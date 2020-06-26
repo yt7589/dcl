@@ -153,6 +153,20 @@ def filter_samples(Config, model, data_loader):
 
 def predict_main(model):
     print('预测图像数据...')
+    correct_num = 0
+    total_num = 0
+    with open('./datasets/CUB_200_2011/anno/test_ds_v4.txt', 'r', encoding='utf-8') as fd:
+        for line in fd:
+            arrs0 = line[:-1].split('*')
+            img_file = arrs0[0]
+            cls_id = arrs0[1]
+            predict_cls_id, conf = predict_image(model, img_file)
+            print('{0}: {1} ? {2};'.format(img_file, cls_id, predict_cls_id))
+            if cls_id == predict_cls_id:
+                correct_num += 1
+            total_num += 1
+    print('acc: {0};'.format(correct_num / total_num))
+    '''
     imgpath1 = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/中通/中通/车型02/夜#01_豫E77983_999_中通_中通_车型02_610500200970659398_0.jpg'
     cls_id, conf = predict_image(model, imgpath1)
     imgpath2 = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/中通/中通/车型02/白#01_陕B33783_999_中通_中通_车型02_610500200969343138_1.jpg'
@@ -169,6 +183,7 @@ def predict_main(model):
     cls_id, conf = predict_image(model, imgpath7)
     imgpath8 = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/夜#02_陕AY02V3_006_宾利_欧陆_2007-2009_610500200973261517_0.jpg'
     cls_id, conf = predict_image(model, imgpath8)
+    '''
     
 
 def predict_image(model, imgpath):
