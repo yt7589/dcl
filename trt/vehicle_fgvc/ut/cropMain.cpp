@@ -50,7 +50,7 @@ void  initDet(ITS_Vehicle_Result_Detect &det,const int detNum){
 /**
  * 
  */
-std::vector<cv::Mat> GetInputImg(vector<vector<string>> samples, int num)
+std::vector<cv::Mat> GetInputImage(vector<vector<string>> samples, int num)
 {
     cv::Mat img;
     size_t imgSize;
@@ -120,7 +120,7 @@ void *mythread(void *threadid)
     std::cout << "GPU_DETECT_INPUT: " << std::endl;
     int batchSize = 8;
 
-    auto inputs = GetInputImage(samples, batchsize);
+    auto inputs = GetInputImage(samples, batchSize);
     std::vector<float> input_src = PreProcess(inputs);
     float *pGpu;
     void* deviceMem;
