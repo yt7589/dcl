@@ -185,7 +185,7 @@ def predict_image(model, imgpath):
     outputs_pred = outputs[0]
     top3_val, top3_pos = torch.topk(outputs_pred, 1)
     arrs0 = imgpath.split('/')
-    img = arrs0[-1, :-1]
+    img = arrs0[-1][:-1]
     print('cls_id: {0}; conf: {1};  {2};'.format(top3_pos[0][0], top3_val[0][0], img))
     return top3_pos[0][0], top3_val[0][0]
 
