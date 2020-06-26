@@ -175,6 +175,7 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
     int carNum = nvHTCropAndReizeLaunch(cudaCropImages, cudaSrc, cpuDet,
             tempCudaDet, srcWidth, srcHeight,
             mean, std, batchsize, maxOutWidth, maxOutHeight);
+    std::cout<<"###### carNum="<<carNum<<"!!!!!!!"<<std::endl;
 
     int batchTimes = carNum / max_batch_size;
     int lastPic = carNum % max_batch_size;
@@ -204,7 +205,7 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
             }
             float conf=out_results[0][n];
             int clsId= (reinterpret_cast<int*>(out_results[1].data()))[n];
-            std::cout<<"##### "<<out_results[0][n]<<", "<<out_results[1][n]<<";"<<std::endl;
+            std::cout<<i<<":##### "<<out_results[0][n]<<", "<<out_results[1][n]<<";"<<std::endl;
             result[batchId].iNum=curCarNum+1;
             result[batchId].tempResult[curCarNum].fConfdence = conf;
             result[batchId].tempResult[curCarNum].iVehicleSubModel = clsId;
