@@ -57,7 +57,7 @@ std::vector<cv::Mat> GetInputImage(vector<vector<string>> samples, int num)
     std::vector<cv::Mat> inputs;
     for (int t = 0; t < num; ++ t)
     {
-        img = cv::imread(samples[0][0]);
+        img = cv::imread(samples[t][0]);
         std::cout<<"img: "<<samples[t][0]<<"; classId: "<<samples[t][1]<<"; !!!!"<<std::endl;
         cv::Mat resized;
         cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0);
