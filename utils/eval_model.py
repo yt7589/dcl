@@ -155,7 +155,7 @@ def predict_image(model):
     print('预测图像数据...')
     transformers = load_data_transformers(224, 224, [3, 3])
     totensor = transformers['test_totensor']
-    imgpath = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/中通/中通/车型02/夜#01_豫E77983_999_中通_中通_车型02_610500200970659398_0.jpg'
+    imgpath = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/中通/中通/车型02/白#01_陕B33783_999_中通_中通_车型02_610500200969343138_1.jpg'
     with open(imgpath, 'rb') as f:
             with Image.open(f) as img:
                 img = img.convert('RGB')
