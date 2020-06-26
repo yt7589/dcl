@@ -296,6 +296,6 @@ if __name__ == '__main__':
     elif 4 == mode:
         log_file = open('./logs/a1.log', 'w+', encoding='utf-8')
         # predict_main(Config, model, data_loader['val'], 'val', 0, log_file)
-        predict_main(Config, model, dataloader['val'], 'val', 0, log_file)
+        predict_main(Config, model, dataloader['trainval'], 'trainval', 0, log_file)
 
 
