@@ -175,7 +175,6 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
                 outputs_pred = outputs[0]
             top3_val, top3_pos = torch.topk(outputs_pred, 1)
             print('    top3_val: {0}; \ntop3_pos: {1};'.format(top3_val, top3_pos))
-            print('{:s} eval_batch: {:-6d} / {:d} loss: {:8.4f}'.format(val_version, batch_cnt_val, val_epoch_step, loss), flush=True)
             val_corrects1 = torch.sum((top3_pos[:, 0] == labels)).data.item()
             # 求出品牌精度
             pred_size = top3_pos[:, 0].shape[0]
