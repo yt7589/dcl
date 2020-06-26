@@ -143,7 +143,7 @@ if __name__ == '__main__':
                         train_val = True)
 
     val_set = dataset(Config = Config,\
-                      anno = Config.test_anno,\
+                      anno = Config.val_anno,\
                       common_aug = transformers["None"],\
                       swap = transformers["None"],\
                         swap_size=args.swap_num, \
