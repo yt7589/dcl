@@ -14,7 +14,9 @@ from utils.utils import LossRecord
 
 import pdb
 
+import PIL.Image as Image
 from utils.ds_manager import DsManager
+from config import load_data_transformers
 
 def dt():
     return datetime.datetime.now().strftime("%Y-%m-%d-%H_%M_%S")
@@ -150,4 +152,16 @@ def filter_samples(Config, model, data_loader):
 
 def predict_image(model):
     print('预测图像数据...')
+    transformers = load_data_transformers(224, 224, [3, 3])
+    totensor = transformers['test_totensor']
+    imgpath = ''
+    with open(imgpath, 'rb') as f:
+            with Image.open(f) as img:
+                return img.convert('RGB')
+    sample = totensor(img)
+    Variable(sample.cuda())
+    outputs = model(inputs)
+    outputs_pred = outputs[0]
+    top3_val, top3_pos = torch.topk(outputs_pred, 3)
+    print('^_^')
 
