@@ -22,7 +22,7 @@ from torch.onnx import OperatorExportTypes
 from transforms import transforms
 from utils.train_model import train, prepare_cluster_data
 from utils.train_model import log_progress
-from utils.eval_model import filter_samples, predict_image
+from utils.eval_model import filter_samples, predict_main
 from models.LoadModel import MainModel
 from config import LoadConfig, load_data_transformers
 import utils.dataset_DCL as dclds
@@ -294,6 +294,6 @@ if __name__ == '__main__':
     elif 3 == mode:
         filter_samples(Config, model, dataloader['val'])
     elif 4 == mode:
-        predict_image(model)
+        predict_main(model)
 
 
