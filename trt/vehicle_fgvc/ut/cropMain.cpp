@@ -40,10 +40,10 @@ vector<vector<string>> GetTestDsSamples();
 void  initDet(ITS_Vehicle_Result_Detect &det,const int detNum){
     det.CarNum = detNum;
     for(int i=0; i< detNum; ++i) {
-        det.iLeft[i] =100;
-        det.iTop[i] = 100;
-        det.iRight[i] = 800; // 224
-        det.iBottom[i] = 800; //224
+        det.iLeft[i] =0;
+        det.iTop[i] = 0;
+        det.iRight[i] = IMG_W; // 224
+        det.iBottom[i] = IMG_H; //224
     }
 }
 
@@ -151,7 +151,7 @@ void *mythread(void *threadid)
         cudaMemcpy(pgpu,img.data,imgSize,cudaMemcpyHostToDevice);
         srcWidth.push_back(img.cols);
         srcHeight.push_back(img.rows);
-        initDet(cpuDetect[t],5);
+        initDet(cpuDetect[t], 1);
     }
 
 
