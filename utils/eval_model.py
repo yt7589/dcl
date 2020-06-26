@@ -189,7 +189,7 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
             else:
                 outputs_pred = outputs[0]
             top3_val, top3_pos = torch.topk(outputs_pred, 3)
-            print('    top3_val: {0}; top3_pos: {1};'.format(top3_val.shape, top3_pos.shape))
+            print('    top3_val: {0}; \ntop3_pos: {1};'.format(top3_val, top3_pos))
             print('{:s} eval_batch: {:-6d} / {:d} loss: {:8.4f}'.format(val_version, batch_cnt_val, val_epoch_step, loss), flush=True)
             batch_corrects1 = torch.sum((top3_pos[:, 0] == labels)).data.item()
             val_corrects1 += batch_corrects1
