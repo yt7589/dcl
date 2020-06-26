@@ -154,21 +154,14 @@ def filter_samples(Config, model, data_loader):
 def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
     model.train(False)
     val_corrects1 = 0
-    val_corrects2 = 0
-    val_corrects3 = 0
     brand_correct = 0
     val_size = data_loader.__len__()
     item_count = data_loader.total_item_len
     t0 = time.time()
-    get_l1_loss = nn.L1Loss()
-    get_ce_loss = nn.CrossEntropyLoss()
 
     val_batch_size = data_loader.batch_size
     val_epoch_step = data_loader.__len__()
     num_cls = data_loader.num_cls
-
-    val_loss_recorder = LossRecord(val_batch_size)
-    val_celoss_recorder = LossRecord(val_batch_size)
     print('evaluating %s ...'%val_version, flush=True)
     _, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
     with torch.no_grad():
@@ -176,14 +169,6 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
             inputs = Variable(data_val[0].cuda())
             labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
             outputs = model(inputs)
-            loss = 0
-
-            ce_loss = get_ce_loss(outputs[0], labels).item()
-            loss += ce_loss
-
-            val_loss_recorder.update(loss)
-            val_celoss_recorder.update(ce_loss)
-
             if Config.use_dcl and Config.cls_2xmul:
                 outputs_pred = outputs[0] + outputs[1][:,0:num_cls] + outputs[1][:,num_cls:2*num_cls]
             else:
@@ -203,18 +188,11 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
                 if pred_brand == gt_brand:
                     batch_brand_correct += 1
             brand_correct += batch_brand_correct
-
         val_acc1 = val_corrects1 / item_count
         brand_acc = brand_correct / item_count
-
-        #log_file.write(val_version  + '\t' +str(val_loss_recorder.get_val())+'\t' + str(val_celoss_recorder.get_val()) + '\t' + str(val_acc1) + '\t' + str(val_acc3) + '\n')
-
-
         t1 = time.time()
         since = t1-t0
         print('top1: %.4f brand:%.4f' % (val_acc1, brand_acc), flush=True)
-
-    return val_acc1, val_acc2, val_acc3
 
 def predict_main_mine(Config, model):
     print('预测图像数据...')
