@@ -294,6 +294,8 @@ if __name__ == '__main__':
     elif 3 == mode:
         filter_samples(Config, model, dataloader['val'])
     elif 4 == mode:
-        predict_main(Config, model)
+        log_file = open('./logs/a1.log', 'w+', encoding='utf-8')
+        # predict_main(Config, model, data_loader['val'], 'val', 0, log_file)
+        eval_turn(Config, model, data_loader['val'], 'val', 0, log_file)
 
 
