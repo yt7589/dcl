@@ -22,7 +22,7 @@ from torch.onnx import OperatorExportTypes
 from transforms import transforms
 from utils.train_model import train, prepare_cluster_data
 from utils.train_model import log_progress
-from utils.eval_model import filter_samples
+from utils.eval_model import filter_samples, predict_image
 from models.LoadModel import MainModel
 from config import LoadConfig, load_data_transformers
 import utils.dataset_DCL as dclds
@@ -216,7 +216,7 @@ if __name__ == '__main__':
         os.makedirs(save_dir)
     model.cuda()
     #summary(model, (3, 224, 224))
-    if 1>0:
+    if 1>10:
         print('准备保存模型到onnx文件')
         example = torch.rand(1, 3, 224, 224).cuda()
         print(example.shape)
@@ -264,7 +264,7 @@ if __name__ == '__main__':
 
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
 
-    mode = 1 # 1-train; 2-prepare_cluster_data；3-筛查有问题样本数据
+    mode = 4 # 1-train; 2-prepare_cluster_data；3-筛查有问题样本数据
     # train entry
     if 1 == mode:
         train(Config,
@@ -293,5 +293,7 @@ if __name__ == '__main__':
             checkpoint=args.check_point)
     elif 3 == mode:
         filter_samples(Config, model, dataloader['val'])
+    elif 4 == mode:
+        predict_image(model)
 
 

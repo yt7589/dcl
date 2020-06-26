@@ -148,3 +148,6 @@ def filter_samples(Config, model, data_loader):
                 fd.write('{0}\n'.format(es))
     return val_acc1
 
+def predict_image(model):
+    print('预测图像数据...')
+
