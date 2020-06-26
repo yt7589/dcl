@@ -137,10 +137,9 @@ void *mythread(void *threadid)
     std::vector<ITS_Vehicle_Result_Detect> cpuDetect(inputs.size());
     for (int t = 0; t < inputs.size(); ++ t)
     {
-        cv::Mat m = cv::Mat::zeros(549, 549, CV_8UC3);
-        //cv::Rect rect(0, 0, 224, 224);  
-        cv::Rect rect(0, 0, IMG_W, IMG_H);  
-        //cv::Rect rect2(224, 224, 224, 224);  
+        //cv::Mat m = cv::Mat::zeros(549, 549, CV_8UC3);
+        cv::Mat m = cv::Mat::zeros(IMG_W, IMG_H, CV_8UC3);
+        cv::Rect rect(0, 0, IMG_W, IMG_H);
         cv::Rect rect2(IMG_W, IMG_H, IMG_W, IMG_H);  
         inputs[t].copyTo(m(rect));
         inputs[t].copyTo(m(rect2));
