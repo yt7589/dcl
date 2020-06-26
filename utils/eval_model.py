@@ -153,28 +153,27 @@ def filter_samples(Config, model, data_loader):
 
 def predict_main(model):
     print('预测图像数据...')
-    imgpath = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/中通/中通/车型02/夜#01_豫E77983_999_中通_中通_车型02_610500200970659398_0.jpg'
-    cls_id, conf = predict_image(model, imgpath)
-    imgpath = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/中通/中通/车型02/白#01_陕B33783_999_中通_中通_车型02_610500200969343138_1.jpg'
-    cls_id, conf = predict_image(model, imgpath)
-    imgpath = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/白#02_陕VAB888_006_宾利_欧陆_2007-2009_610500200969676828_0.jpg'
-    cls_id, conf = predict_image(model, imgpath)
-    imgpath = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/白#02_陕A83CN2_006_宾利_欧陆_2007-2009_610500200988158378_0.jpg'
-    cls_id, conf = predict_image(model, imgpath)
-    imgpath = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/白#02_京PR9N09_006_宾利_欧陆_2007-2009_610500200972748870_0.jpg'
-    cls_id, conf = predict_image(model, imgpath)
-    imgpath = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/白#02_陕A83CN2_006_宾利_欧陆_2007-2009_610500200988093497_0.jpg'
-    cls_id, conf = predict_image(model, imgpath)
-    imgpath = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/白#02_豫MQ0888_006_宾利_欧陆_2007-2009_610500200972940875_0.jpg'
-    cls_id, conf = predict_image(model, imgpath)
-    imgpath = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/夜#02_陕AY02V3_006_宾利_欧陆_2007-2009_610500200973261517_0.jpg'
-    cls_id, conf = predict_image(model, imgpath)
+    imgpath1 = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/中通/中通/车型02/夜#01_豫E77983_999_中通_中通_车型02_610500200970659398_0.jpg'
+    cls_id, conf = predict_image(model, imgpath1)
+    imgpath2 = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/中通/中通/车型02/白#01_陕B33783_999_中通_中通_车型02_610500200969343138_1.jpg'
+    cls_id, conf = predict_image(model, imgpath2)
+    imgpath3 = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/白#02_陕VAB888_006_宾利_欧陆_2007-2009_610500200969676828_0.jpg'
+    cls_id, conf = predict_image(model, imgpath3)
+    imgpath4 = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/白#02_陕A83CN2_006_宾利_欧陆_2007-2009_610500200988158378_0.jpg'
+    cls_id, conf = predict_image(model, imgpath4)
+    imgpath5 = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/白#02_京PR9N09_006_宾利_欧陆_2007-2009_610500200972748870_0.jpg'
+    cls_id, conf = predict_image(model, imgpath5)
+    imgpath6 = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/白#02_陕A83CN2_006_宾利_欧陆_2007-2009_610500200988093497_0.jpg'
+    cls_id, conf = predict_image(model, imgpath6)
+    imgpath7 = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/白#02_豫MQ0888_006_宾利_欧陆_2007-2009_610500200972940875_0.jpg'
+    cls_id, conf = predict_image(model, imgpath7)
+    imgpath8 = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/宾利/欧陆/2007-2009/夜#02_陕AY02V3_006_宾利_欧陆_2007-2009_610500200973261517_0.jpg'
+    cls_id, conf = predict_image(model, imgpath8)
     
 
 def predict_image(model, imgpath):
     transformers = load_data_transformers(224, 224, [3, 3])
     totensor = transformers['test_totensor']
-    imgpath = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/fgvc_dataset/test/中通/中通/车型02/白#01_陕B33783_999_中通_中通_车型02_610500200969343138_1.jpg'
     with open(imgpath, 'rb') as f:
             with Image.open(f) as img:
                 img = img.convert('RGB')
