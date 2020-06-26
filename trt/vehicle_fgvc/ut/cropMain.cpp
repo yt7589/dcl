@@ -17,12 +17,20 @@
 #include <codecvt>
 #define NUM_THREADS 1
 
+const int DEPTH = 3;
 const int IMG_W = 224;
 const int IMG_H = 224;
 int big_batchsize = 8;
 int small_batchsize = 8;
 const bool GPU_INPUT = true;
 const bool GPU_DETECT_INPUT = true;
+// 图片预处理相关，定义见config.py第17行
+const float MEAN_R = 0.485 * 255;
+const float MEAN_G = 0.456 * 255;
+const float MEAN_B = 0.406 * 255;
+const float XFACTOR_R = 1 / (0.229 * 255);
+const float XFACTOR_G = 1 / (0.224 * 255);
+const float XFACTOR_B = 1 / (0.225 * 255);
 
 int FBLOCK_MAX_BYTES = 1024;
 char *szBuf;
@@ -38,6 +46,62 @@ void  initDet(ITS_Vehicle_Result_Detect &det,const int detNum){
         det.iBottom[i] = 800; //224
     }
 }
+
+/**
+ * 
+ */
+std::vector<cv::Mat> GetInputImg(vector<vector<string>> samples, int num)
+{
+    cv::Mat img;
+    size_t imgSize;
+    std::vector<cv::Mat> inputs;
+    for (int t = 0; t < num; ++ t)
+    {
+        img = cv::imread(samples[t][0]);
+        std::cout<<"img: "<<samples[t][0]<<"; classId: "<<samples[t][1]<<"; !!!!"<<std::endl;
+        cv::Mat resized;
+        cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0);
+        inputs.push_back(resized.clone());
+    }
+    return inputs;
+}
+
+std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
+{
+    auto batch = images.size(); //_config.inputShape[0];
+    //assert(batch <= conf.inputShape[0]);
+    auto depth = DEPTH;
+    auto height = IMG_H; //224;
+    auto width = IMG_W; //224;
+    // 批处理识别
+    std::vector<cv::Mat> split_mats;
+    std::vector<float> dataVec(batch * height * width * depth);
+    //std::cout <<batch<<"batch"<<conf.inputShape[0]<<std::endl;
+    float *dataPtr = dataVec.data();
+    for (const auto &image : images)
+    {
+        assert(image.rows == height);
+        assert(image.cols == width);
+        assert(image.type() == CV_8UC3 || image.type() == CV_32FC3);
+        //image.convertTo(tmp, CV_32FC3);
+        //image = tmp-cv::Scalar(meanb,meang,meanr)
+        std::vector<cv::Mat> channels;
+        split(image, channels);
+        cv::Mat imageBlue(height, width, CV_32FC1, dataPtr);
+        dataPtr += height * width;
+        cv::Mat imageGreen(height, width, CV_32FC1, dataPtr);
+        dataPtr += height * width;
+        cv::Mat imageRed(height, width, CV_32FC1, dataPtr);
+        dataPtr += height * width;
+        channels.at(0).convertTo(imageBlue, CV_32FC1, xfactorb, -meanb * xfactorb);
+        channels.at(1).convertTo(imageGreen, CV_32FC1, xfactorg, -meang * xfactorg);
+        channels.at(2).convertTo(imageRed, CV_32FC1, xfactorr, -meanr * xfactorr);
+    }
+    return dataVec;
+}
+
+
+
 static int init_num = 0;
 void *mythread(void *threadid)
 {
@@ -55,23 +119,45 @@ void *mythread(void *threadid)
     // Call other DCL interface
     std::cout << "GPU_DETECT_INPUT: " << std::endl;
     int batchSize = 8;
-    std::vector<unsigned char*> cudaSrc(batchSize);
-    std::vector<int> srcWidth(batchSize);
-    std::vector<int> srcHeight(batchSize);
-    std::vector<ITS_Vehicle_Result_Detect> cpuDetect(cudaSrc.size());
-    cv::Mat img; // = cv::imread("../ut/1.jpg");
-    size_t imgSize; // = img.step[0]*img.rows;
-    for (int t = 0; t < cudaSrc.size(); ++ t)
+
+    auto inputs = GetInputImage(samples, batchsize);
+    std::vector<float> input_src = PreProcess(inputs);
+    float *pGpu;
+    void* deviceMem;
+    cudaMalloc(&deviceMem, input_src.size() * sizeof(float));
+    pGpu = (float*)deviceMem;
+    cudaMemcpy(pGpu, input_src.data(),
+                   input_src.size() * sizeof(float), cudaMemcpyHostToDevice);
+
+
+    std::vector<cv::Mat> gpu_img ;
+    std::vector<unsigned char*> cudaSrc;
+    std::vector<int> srcWidth;
+    std::vector<int> srcHeight;
+    std::vector<ITS_Vehicle_Result_Detect> cpuDetect(inputs.size());
+    for (int t = 0; t < inputs.size(); ++ t)
     {
-        img = cv::imread(samples[t][0]);
-        std::cout<<"img: "<<samples[t][0]<<"; classId: "<<samples[t][1]<<"; !!!!"<<std::endl;
-        imgSize = img.step[0] * img.rows;
-        cudaMalloc((void**)&(cudaSrc[t]), imgSize);
-        cudaMemcpy(cudaSrc[t],img.data,imgSize,cudaMemcpyHostToDevice);
-        srcWidth[t] = (img.cols);
-        srcHeight[t] = (img.rows);
-        initDet(cpuDetect[t],7);
+        cv::Mat m = cv::Mat::zeros(549, 549, CV_8UC3);
+        //cv::Rect rect(0, 0, 224, 224);  
+        cv::Rect rect(0, 0, IMG_W, IMG_H);  
+        //cv::Rect rect2(224, 224, 224, 224);  
+        cv::Rect rect2(IMG_W, IMG_H, IMG_W, IMG_H);  
+        inputs[t].copyTo(m(rect));
+        inputs[t].copyTo(m(rect2));
+        int imgSize = m.step[0]*m.rows;
+        auto & img = m;
+        assert(imgSize = 3*img.cols*img.rows);
+        void*pgpu;
+        cudaMalloc((void**)&pgpu, imgSize);
+        cudaSrc.push_back((unsigned char *)pgpu);
+        cudaMemcpy(pgpu,img.data,imgSize,cudaMemcpyHostToDevice);
+        srcWidth.push_back(img.cols);
+        srcHeight.push_back(img.rows);
+        initDet(cpuDetect[t],5);
     }
+
+
+
     clock_t classify_start, classify_end;
     classify_start = clock();
     auto all_results = ClassifyVehicleFgvcFromDetectGPU(hand,
