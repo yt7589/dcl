@@ -159,7 +159,7 @@ def predict_image(model):
             with Image.open(f) as img:
                 img = img.convert('RGB')
     sample = totensor(img)
-    Variable(sample.cuda())
+    inputs = Variable(sample.cuda())
     outputs = model(inputs)
     outputs_pred = outputs[0]
     top3_val, top3_pos = torch.topk(outputs_pred, 3)
