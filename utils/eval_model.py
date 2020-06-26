@@ -151,7 +151,7 @@ def filter_samples(Config, model, data_loader):
                 fd.write('{0}\n'.format(es))
     return val_acc1
 
-def predict_main(model):
+def predict_main(Config, model):
     print('预测图像数据...')
     correct_num = 0
     total_num = 0
@@ -186,7 +186,7 @@ def predict_main(model):
     '''
     
 
-def predict_image(model, imgpath):
+def predict_image(Config, model, imgpath):
     transformers = load_data_transformers(224, 224, [3, 3])
     totensor = transformers['test_totensor']
     with open(imgpath, 'rb') as f:
@@ -196,7 +196,16 @@ def predict_image(model, imgpath):
     sample = sample.view(1, sample.shape[0], sample.shape[1], sample.shape[2])
     inputs = Variable(sample.cuda())
     outputs = model(inputs)
-    outputs_pred = outputs[0]
+
+
+
+    if Config.use_dcl and Config.cls_2xmul:
+        outputs_pred = outputs[0] + outputs[1][:,0:num_cls] + outputs[1][:,num_cls:2*num_cls]
+    else:
+        outputs_pred = outputs[0]
+
+
+
     top3_val, top3_pos = torch.topk(outputs_pred, 1)
     arrs0 = imgpath.split('/')
     img = arrs0[-1]

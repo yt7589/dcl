@@ -294,6 +294,6 @@ if __name__ == '__main__':
     elif 3 == mode:
         filter_samples(Config, model, dataloader['val'])
     elif 4 == mode:
-        predict_main(model)
+        predict_main(Config, model)
 
 
