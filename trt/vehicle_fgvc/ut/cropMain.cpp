@@ -180,7 +180,8 @@ int ProcessBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::ve
     std::vector<ITS_Vehicle_Result_Detect> cpuDetect(inputs.size());
     for (int t = 0; t < inputs.size(); ++ t)
     {
-        cv::Mat m = cv::Mat::zeros(549, 549, CV_8UC3);
+        //cv::Mat m = cv::Mat::zeros(549, 549, CV_8UC3);
+        cv::Mat m = cv::Mat::zeros(2*IMG_W, 2*IMG_H, CV_8UC3);
         cv::Rect rect(0, 0, IMG_W, IMG_H);
         cv::Rect rect2(IMG_W, IMG_H, IMG_W, IMG_H);  
         inputs[t].copyTo(m(rect));
