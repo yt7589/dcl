@@ -36,28 +36,44 @@ int FBLOCK_MAX_BYTES = 1024;
 char *szBuf;
 void Split(const std::string& src, const std::string& separator, std::vector<std::string>& dest);
 vector<vector<string>> GetTestDsSamples();
+void* processBatchImages(std::vector<float> input_src);
 
+/**
+ * 初始化检测模块，由于是单元测试，这里取每张图片中仅检出一辆车，而
+ * 且该车为整张图片
+ * 参数：
+ *      det：车辆检测结果，其由iLeft,iTop, iRight, iBottom数组组成
+ *          代表检测到车辆的位置
+ *      detNum：检测到车辆的数量
+ */
 void  initDet(ITS_Vehicle_Result_Detect &det,const int detNum){
     det.CarNum = detNum;
     for(int i=0; i< detNum; ++i) {
         det.iLeft[i] =0;
         det.iTop[i] = 0;
-        det.iRight[i] = IMG_W; // 224
-        det.iBottom[i] = IMG_H; //224
+        det.iRight[i] = IMG_W;
+        det.iBottom[i] = IMG_H;
     }
 }
 
 /**
- * 
+ * 从指定位置一次取批次大小（8）张图片
+ * 参数：
+ *      samples：二维数组，第一维是图片序号，第二维分别为图片文件
+ *          路径和编号，例如：sample[i][0]代表第i张图片的文件路
+ *          径，samples[i][1]为该图的类别编号
+ *      startPos：开始位置，从0开始，第二次取时从8开始
+ *      batchSize：批次大小，一次取图片数
+ * 返回值：将图片缩小为224*224的图片列表（直接缩放未保持纵横比）
  */
-std::vector<cv::Mat> GetInputImage(vector<vector<string>> samples, int num)
+std::vector<cv::Mat> GetInputImage(vector<vector<string>> samples, int startPos, int batchSize)
 {
     cv::Mat img;
     size_t imgSize;
     std::vector<cv::Mat> inputs;
-    for (int t = 0; t < num; ++ t)
+    for (int t = 0; t < batchSize; ++t)
     {
-        img = cv::imread(samples[t][0]);
+        img = cv::imread(samples[startPos + t][0]);
         std::cout<<"img: "<<samples[t][0]<<"; classId: "<<samples[t][1]<<"; !!!!"<<std::endl;
         cv::Mat resized;
         cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0);
@@ -66,25 +82,27 @@ std::vector<cv::Mat> GetInputImage(vector<vector<string>> samples, int num)
     return inputs;
 }
 
+/**
+ * 由于在DCL训练中采用的是RGB格式图片，而在OpenCV中是BGR，所以需要做
+ * 一下颜色通道顺序转换，同时在DCL中数值为0~1，这里需要还原为0~255
+ * 参数：
+ *      images：一个批次的8张图片
+ */
 std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
 {
-    auto batch = images.size(); //_config.inputShape[0];
-    //assert(batch <= conf.inputShape[0]);
+    auto batch = images.size();
     auto depth = DEPTH;
-    auto height = IMG_H; //224;
-    auto width = IMG_W; //224;
+    auto height = IMG_H;
+    auto width = IMG_W;
     // 批处理识别
     std::vector<cv::Mat> split_mats;
     std::vector<float> dataVec(batch * height * width * depth);
-    //std::cout <<batch<<"batch"<<conf.inputShape[0]<<std::endl;
     float *dataPtr = dataVec.data();
     for (const auto &image : images)
     {
         assert(image.rows == height);
         assert(image.cols == width);
         assert(image.type() == CV_8UC3 || image.type() == CV_32FC3);
-        //image.convertTo(tmp, CV_32FC3);
-        //image = tmp-cv::Scalar(meanb,meang,meanr)
         std::vector<cv::Mat> channels;
         split(image, channels);
         cv::Mat imageBlue(height, width, CV_32FC1, dataPtr);
@@ -106,22 +124,26 @@ static int init_num = 0;
 void *mythread(void *threadid)
 {
     int tid = *((int *)threadid);
-    struct timeval start1;
-    struct timeval end1;
-    unsigned long timer;
     std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
                             "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v009.trt";
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);
     // 获取测试数据集上样本
     vector<vector<string>> samples = GetTestDsSamples();
-
     // Call other DCL interface
-    std::cout << "GPU_DETECT_INPUT: " << std::endl;
     int batchSize = 8;
-
     auto inputs = GetInputImage(samples, batchSize);
     std::vector<float> input_src = PreProcess(inputs);
+    processBatchImages(hand, input_src);
+    ReleaseVehicleFgvcInstance(hand);
+    return NULL;
+}
+
+void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src)
+{
+    struct timeval start1;
+    struct timeval end1;
+    unsigned long timer;
     float *pGpu;
     void* deviceMem;
     cudaMalloc(&deviceMem, input_src.size() * sizeof(float));
@@ -178,7 +200,6 @@ void *mythread(void *threadid)
         }
         std::cout <<std::endl;*/
     }
-    ReleaseVehicleFgvcInstance(hand);
 }
 
 int main()
