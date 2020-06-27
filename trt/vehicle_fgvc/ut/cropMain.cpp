@@ -42,7 +42,7 @@ int FBLOCK_MAX_BYTES = 1024;
 char *szBuf;
 void Split(const std::string& src, const std::string& separator, std::vector<std::string>& dest);
 vector<vector<string>> GetTestDsSamples();
-int processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::vector<cv::Mat> inputs, (std::vector<int>)results);
+int ProcessBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::vector<cv::Mat> inputs, std::vector<int> results);
 
 /**
  * 初始化检测模块，由于是单元测试，这里取每张图片中仅检出一辆车，而
@@ -151,7 +151,7 @@ void *mythread(void *threadid)
         auto inputs = std::get<0>(rst);
         auto targets = std::get<1>(rst);
         std::vector<float> input_src = PreProcess(inputs);
-        correctNum += processBatchImages((PredictorAPI*)hand, input_src, (std::vector<cv::Mat>)inputs, (std::vector<int>)targets);
+        correctNum += ProcessBatchImages((PredictorAPI*)hand, input_src, (std::vector<cv::Mat>)inputs, (std::vector<int>)targets);
     }
     ReleaseVehicleFgvcInstance(hand);
     double ms_per_run = g_total_run_time / g_total_operation;
@@ -160,7 +160,7 @@ void *mythread(void *threadid)
     return NULL;
 }
 
-int processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::vector<cv::Mat> inputs, (std::vector<int>)targets)
+int ProcessBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::vector<cv::Mat> inputs, std::vector<int> targets)
 {
     struct timeval start1;
     struct timeval end1;
