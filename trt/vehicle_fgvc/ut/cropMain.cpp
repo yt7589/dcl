@@ -147,8 +147,8 @@ void *mythread(void *threadid)
     {
         std::tuple<std::vector<cv::Mat>, std::vector<int>> rst = 
                     GetInputImage(samples, startPos, batchSize);
-        auto inputs = rst.get(0);
-        auto results = rst.get(1);
+        auto inputs = std::get<0>(rst);
+        auto results = std::get<1>(rst);
         std::vector<float> input_src = PreProcess(inputs);
         processBatchImages((PredictorAPI*)hand, input_src, (std::vector<cv::Mat>)inputs);
     }
