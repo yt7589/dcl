@@ -16,6 +16,7 @@
 #include <cuda_runtime.h>
 #include <iostream>
 #include <codecvt>
+#include <tuple>
 #define NUM_THREADS 1
 
 const int DEPTH = 3;
@@ -71,11 +72,12 @@ void  initDet(ITS_Vehicle_Result_Detect &det,const int detNum){
  *      batchSize：批次大小，一次取图片数
  * 返回值：将图片缩小为224*224的图片列表（直接缩放未保持纵横比）
  */
-std::vector<cv::Mat> GetInputImage(vector<vector<string>> samples, int startPos, int batchSize)
+std::tuple<std::vector<cv::Mat>, std::vector<int>> GetInputImage(vector<vector<string>> samples, int startPos, int batchSize)
 {
     cv::Mat img;
     size_t imgSize;
     std::vector<cv::Mat> inputs;
+    std::vector<int> results;
     for (int t = 0; t < batchSize; ++t)
     {
         img = cv::imread(samples[startPos + t][0]);
@@ -83,8 +85,11 @@ std::vector<cv::Mat> GetInputImage(vector<vector<string>> samples, int startPos,
         cv::Mat resized;
         cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0);
         inputs.push_back(resized.clone());
+        results.push_back(samples[startPos + t][1]);
     }
-    return inputs;
+    std::tuple<std::vector<cv::Mat>, std::vector<int>> rst = 
+            std::make_tuple(inputs, results);
+    return rst;
 }
 
 /**
@@ -140,7 +145,10 @@ void *mythread(void *threadid)
     int startPos = 0;
     for (startPos=0; startPos<TEST_DS_NUM; startPos+=8)
     {
-        auto inputs = GetInputImage(samples, startPos, batchSize);
+        std::tuple<std::vector<cv::Mat>, std::vector<int>> rst = 
+                    GetInputImage(samples, startPos, batchSize);
+        auto inputs = rst.get(0);
+        auto results = rst.get(1);
         std::vector<float> input_src = PreProcess(inputs);
         processBatchImages((PredictorAPI*)hand, input_src, (std::vector<cv::Mat>)inputs);
     }
