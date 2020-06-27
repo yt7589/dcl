@@ -36,7 +36,7 @@ int FBLOCK_MAX_BYTES = 1024;
 char *szBuf;
 void Split(const std::string& src, const std::string& separator, std::vector<std::string>& dest);
 vector<vector<string>> GetTestDsSamples();
-void* processBatchImages(std::vector<float> input_src);
+void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src);
 
 /**
  * 初始化检测模块，由于是单元测试，这里取每张图片中仅检出一辆车，而
@@ -132,7 +132,8 @@ void *mythread(void *threadid)
     vector<vector<string>> samples = GetTestDsSamples();
     // Call other DCL interface
     int batchSize = 8;
-    auto inputs = GetInputImage(samples, batchSize);
+    int startPos = 0;
+    auto inputs = GetInputImage(samples, startPos, batchSize);
     std::vector<float> input_src = PreProcess(inputs);
     processBatchImages(hand, input_src);
     ReleaseVehicleFgvcInstance(hand);
