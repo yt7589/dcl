@@ -22,6 +22,9 @@ public:
 };
 std::map<void *, PredictorAPI *> G_SOURCE;
 std::map<void *, GInfo> G_GInfo;
+// 颜色均值和方差，需要与config.py中的定义一致
+std::vector<float> g_rgb_mean = {0.485, 0.456, 0.406};
+std::vector<float> g_rgb_std = {0.229, 0.224, 0.225};
 
 /*void *CarHeadAndTailInstance(string modelpath,
                              int cardnum, int max_batch_size,
@@ -169,12 +172,9 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
     assert(batchsize == srcWidth.size());
     assert(batchsize == srcHeight.size());
 
-    std::vector<float> g_mean = {0.485, 0.485, 0.485};
-    std::vector<float> g_std = {0.225, 0.225, 0.225};
-
     int carNum = nvHTCropAndReizeLaunch(cudaCropImages, cudaSrc, cpuDet,
             tempCudaDet, srcWidth, srcHeight,
-            mean, std, batchsize, maxOutWidth, maxOutHeight);
+            g_rgb_mean, g_rgb_std, batchsize, maxOutWidth, maxOutHeight);
     std::cout<<"###### carNum="<<carNum<<"!!!!!!!"<<std::endl;
 
     int batchTimes = carNum / max_batch_size;

@@ -26,12 +26,14 @@ int small_batchsize = 8;
 const bool GPU_INPUT = true;
 const bool GPU_DETECT_INPUT = true;
 // 图片预处理相关，定义见config.py第17行
-const float MEAN_R = 0.485 * 255;
-const float MEAN_G = 0.456 * 255;
-const float MEAN_B = 0.406 * 255;
-const float XFACTOR_R = 1 / (0.229 * 255);
-const float XFACTOR_G = 1 / (0.224 * 255);
-const float XFACTOR_B = 1 / (0.225 * 255);
+extern std::vector<float> g_rgb_mean; // = {0.485, 0.456, 0.406};
+extern std::vector<float> g_rgb_std; // = {0.229, 0.224, 0.225};
+const float MEAN_R = g_rgb_mean[0] * 255;
+const float MEAN_G = g_rgb_mean[1] * 255;
+const float MEAN_B = g_rgb_mean[2] * 255;
+const float XFACTOR_R = 1 / (g_rgb_std[0] * 255);
+const float XFACTOR_G = 1 / (g_rgb_std[1] * 255);
+const float XFACTOR_B = 1 / (g_rgb_std[2] * 255);
 
 int FBLOCK_MAX_BYTES = 1024;
 char *szBuf;
