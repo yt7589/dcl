@@ -136,12 +136,12 @@ void *mythread(void *threadid)
     int startPos = 0;
     auto inputs = GetInputImage(samples, startPos, batchSize);
     std::vector<float> input_src = PreProcess(inputs);
-    processBatchImages(hand, input_src);
+    processBatchImages((PredictorAPI*)hand, (std::vector<cv::Mat>)input_src);
     ReleaseVehicleFgvcInstance(hand);
     return NULL;
 }
 
-void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src)
+void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::vector<cv::Mat> inputs)
 {
     struct timeval start1;
     struct timeval end1;
