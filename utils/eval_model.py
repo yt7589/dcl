@@ -106,8 +106,6 @@ def filter_samples(Config, model, data_loader):
     '''
     error_samples = []
     model.train(False)
-  
-
     val_corrects1 = 0
     brand_correct = 0
     val_size = data_loader.__len__()
@@ -173,10 +171,10 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
             outputs = model(inputs)
             if Config.use_dcl and Config.cls_2xmul:
                 outputs_pred = outputs[0] + outputs[1][:,0:num_cls] + outputs[1][:,num_cls:2*num_cls]
-
             else:
                 outputs_pred = outputs[0]
             top3_val, top3_pos = torch.topk(outputs_pred, 1)
+            print('    label: {0};'.format(labels))
             print('    top3_val: {0}; \ntop3_pos: {1};'.format(top3_val, top3_pos))
             val_corrects1 = torch.sum((top3_pos[:, 0] == labels)).data.item()
             # 求出品牌精度
