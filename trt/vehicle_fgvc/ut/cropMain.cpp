@@ -115,18 +115,24 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         assert(image.type() == CV_8UC3 || image.type() == CV_32FC3);
         std::vector<cv::Mat> channels;
         split(image, channels);
-        cv::Mat imageBlue(height, width, CV_32FC1, dataPtr);
+        /*cv::Mat imageBlue(height, width, CV_32FC1, dataPtr);
         dataPtr += height * width;
         cv::Mat imageGreen(height, width, CV_32FC1, dataPtr);
         dataPtr += height * width;
         cv::Mat imageRed(height, width, CV_32FC1, dataPtr);
         dataPtr += height * width;
-        /*channels.at(0).convertTo(imageBlue, CV_32FC1, XFACTOR_B, -MEAN_B * XFACTOR_B);
+        channels.at(0).convertTo(imageBlue, CV_32FC1, XFACTOR_B, -MEAN_B * XFACTOR_B);
         channels.at(1).convertTo(imageGreen, CV_32FC1, XFACTOR_G, -MEAN_G * XFACTOR_G);
         channels.at(2).convertTo(imageRed, CV_32FC1, XFACTOR_R, -MEAN_R * XFACTOR_R);*/
-        channels.at(0).convertTo(imageBlue, CV_32FC1, 1.0, -1.0);
-        channels.at(1).convertTo(imageGreen, CV_32FC1, 1.0, -1.0);
-        channels.at(2).convertTo(imageRed, CV_32FC1, 1.0, -1.0);
+        cv::Mat imageRed(height, width, CV_32FC1, dataPtr);
+        dataPtr += height * width;
+        cv::Mat imageGreen(height, width, CV_32FC1, dataPtr);
+        dataPtr += height * width;
+        cv::Mat imageBlue(height, width, CV_32FC1, dataPtr);
+        dataPtr += height * width;
+        channels.at(0).convertTo(imageBlue, CV_32FC1, 1.0, -0.0);
+        channels.at(1).convertTo(imageGreen, CV_32FC1, 1.0, -0.0);
+        channels.at(2).convertTo(imageRed, CV_32FC1, 1.0, -0.0);
     }
     return dataVec;
 }
