@@ -12,6 +12,7 @@
 
 //#include "aes_api.hpp"
 #include "vehicle_fgvc.h"
+#include "predictor_api.hpp"
 #include <cuda_runtime.h>
 #include <iostream>
 #include <codecvt>
