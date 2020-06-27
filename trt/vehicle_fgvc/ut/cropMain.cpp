@@ -77,7 +77,7 @@ std::vector<cv::Mat> GetInputImage(vector<vector<string>> samples, int startPos,
     for (int t = 0; t < batchSize; ++t)
     {
         img = cv::imread(samples[startPos + t][0]);
-        std::cout<<"img: "<<samples[startPos + t][0]<<"; classId: "<<samples[startPos + t][1]<<"; !!!!"<<std::endl;
+        // std::cout<<"img: "<<samples[startPos + t][0]<<"; classId: "<<samples[startPos + t][1]<<"; !!!!"<<std::endl;
         cv::Mat resized;
         cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0);
         inputs.push_back(resized.clone());
@@ -157,8 +157,6 @@ void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::
     pGpu = (float*)deviceMem;
     cudaMemcpy(pGpu, input_src.data(),
                    input_src.size() * sizeof(float), cudaMemcpyHostToDevice);
-
-
     std::vector<cv::Mat> gpu_img ;
     std::vector<unsigned char*> cudaSrc;
     std::vector<int> srcWidth;
@@ -182,9 +180,6 @@ void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::
         srcHeight.push_back(img.rows);
         initDet(cpuDetect[t], 1);
     }
-
-
-
     clock_t classify_start, classify_end;
     classify_start = clock();
     auto all_results = ClassifyVehicleFgvcFromDetectGPU(hand,

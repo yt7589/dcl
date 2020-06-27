@@ -25,6 +25,9 @@ std::map<void *, GInfo> G_GInfo;
 // 颜色均值和方差，需要与config.py中的定义一致
 std::vector<float> g_rgb_mean = {0.485, 0.456, 0.406};
 std::vector<float> g_rgb_std = {0.229, 0.224, 0.225};
+// 性能测试相关全局变量定义
+double total_run_time = 0.0;
+int total_operation = 0;
 
 /*void *CarHeadAndTailInstance(string modelpath,
                              int cardnum, int max_batch_size,
@@ -175,7 +178,6 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
     int carNum = nvHTCropAndReizeLaunch(cudaCropImages, cudaSrc, cpuDet,
             tempCudaDet, srcWidth, srcHeight,
             g_rgb_mean, g_rgb_std, batchsize, maxOutWidth, maxOutHeight);
-    std::cout<<"###### carNum="<<carNum<<"!!!!!!!"<<std::endl;
 
     int batchTimes = carNum / max_batch_size;
     int lastPic = carNum % max_batch_size;
@@ -195,7 +197,6 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
         item_start = clock();
         predictor->second->forward(cudaCropImages + i*max_batch_size*imgSize,
                 max_batch_size, out_results);
-        std::cout<<"       s1="<<out_results.size()<<"; s2="<<out_results[0].size()<<"!"<<std::endl;
         item_end = clock();
         std::cout<<"yt处理单个样本时间："<<((double)(item_end - item_start))/CLOCKS_PER_SEC*1000.0<<"毫秒;"<<std::endl;
         for(int n = 0; n < max_batch_size; ++n){
@@ -205,7 +206,6 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
             }
             float conf=out_results[0][n];
             int clsId= (reinterpret_cast<int*>(out_results[1].data()))[n];
-            std::cout<<i<<":##### "<<out_results[0][n]<<", "<<out_results[1][n]<<";"<<std::endl;
             result[batchId].iNum=curCarNum+1;
             result[batchId].tempResult[curCarNum].fConfdence = conf;
             result[batchId].tempResult[curCarNum].iVehicleSubModel = clsId;
