@@ -144,6 +144,7 @@ void *mythread(void *threadid)
     int batchSize = 8;
     int startPos = 0;
     int correctNum = 0;
+    int totalRecords = 0;
     for (startPos=8; startPos<TEST_DS_NUM; startPos+=8)
     {
         std::tuple<std::vector<cv::Mat>, std::vector<int>> rst = 
@@ -152,6 +153,7 @@ void *mythread(void *threadid)
         auto targets = std::get<1>(rst);
         std::vector<float> input_src = PreProcess(inputs);
         correctNum += ProcessBatchImages((PredictorAPI*)hand, input_src, (std::vector<cv::Mat>)inputs, (std::vector<int>)targets);
+        totalRecords += 8;
     }
     ReleaseVehicleFgvcInstance(hand);
     double ms_per_run = g_total_run_time / g_total_operation;
