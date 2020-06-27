@@ -152,6 +152,7 @@ void *mythread(void *threadid)
         auto inputs = std::get<0>(rst);
         auto targets = std::get<1>(rst);
         std::vector<float> input_src = PreProcess(inputs);
+        std::cout<<"input_src: "<<input_src[0]<<", "<<input_src[1]<<", "<<input_src[2]<<"!"<<std::endl;
         correctNum += ProcessBatchImages((PredictorAPI*)hand, input_src, (std::vector<cv::Mat>)inputs, (std::vector<int>)targets);
         totalRecords += 8;
     }
