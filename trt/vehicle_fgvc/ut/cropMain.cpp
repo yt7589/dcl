@@ -37,7 +37,7 @@ int FBLOCK_MAX_BYTES = 1024;
 char *szBuf;
 void Split(const std::string& src, const std::string& separator, std::vector<std::string>& dest);
 vector<vector<string>> GetTestDsSamples();
-void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src);
+void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::vector<cv::Mat> inputs);
 
 /**
  * 初始化检测模块，由于是单元测试，这里取每张图片中仅检出一辆车，而
