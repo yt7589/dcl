@@ -205,7 +205,7 @@ int ProcessBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::ve
     for (int u = 0; u < all_results.size(); ++u)
     {
         auto &RE = all_results[u];
-        std::cout<<RE.tempResult[0].tempVehicleType<<"; classId="<<RE.tempResult[0].iVehicleSubModel<<std::endl;
+        std::cout<<RE.tempResult[0].tempVehicleType<<"; classId="<<RE.tempResult[0].iVehicleSubModel<<"; target="<<targets[u]<<"!"<<std::endl;
         if (RE.tempResult[0].iVehicleSubModel == targets[u])
         {
             correctNum++;
