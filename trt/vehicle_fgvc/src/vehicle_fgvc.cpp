@@ -169,8 +169,8 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
     assert(batchsize == srcWidth.size());
     assert(batchsize == srcHeight.size());
 
-    std::vector<float> mean = {0.485, 0.485, 0.485};
-    std::vector<float> std = {0.225, 0.225, 0.225};
+    std::vector<float> g_mean = {0.485, 0.485, 0.485};
+    std::vector<float> g_std = {0.225, 0.225, 0.225};
 
     int carNum = nvHTCropAndReizeLaunch(cudaCropImages, cudaSrc, cpuDet,
             tempCudaDet, srcWidth, srcHeight,
