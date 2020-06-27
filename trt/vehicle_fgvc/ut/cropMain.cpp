@@ -134,10 +134,11 @@ static int init_num = 0;
 void *mythread(void *threadid)
 {
     int tid = *((int *)threadid);
+    int cardNum = 4; // 通过 nvidia-smi 命令获取到
     std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
                             "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v009.trt";
     auto hand = VehicleFgvcInstance(modelfile,
-            tid % 4, small_batchsize, big_batchsize);
+            cardNum, small_batchsize, big_batchsize);
     // 获取测试数据集上样本
     vector<vector<string>> samples = GetTestDsSamples();
     // Call other DCL interface
