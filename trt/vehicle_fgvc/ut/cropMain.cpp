@@ -122,7 +122,7 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
 }
 
 
-const int TEST_DS_NUM = 8; // 测试数据集记录数，必须能被8整除
+const int TEST_DS_NUM = 5664; // 测试数据集记录数，必须能被8整除
 static int init_num = 0;
 void *mythread(void *threadid)
 {
