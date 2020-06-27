@@ -42,7 +42,7 @@ int FBLOCK_MAX_BYTES = 1024;
 char *szBuf;
 void Split(const std::string& src, const std::string& separator, std::vector<std::string>& dest);
 vector<vector<string>> GetTestDsSamples();
-void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::vector<cv::Mat> inputs);
+int processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::vector<cv::Mat> inputs, (std::vector<int>)results);
 
 /**
  * 初始化检测模块，由于是单元测试，这里取每张图片中仅检出一辆车，而
@@ -143,22 +143,24 @@ void *mythread(void *threadid)
     // Call other DCL interface
     int batchSize = 8;
     int startPos = 0;
+    int correctNum = 0;
     for (startPos=0; startPos<TEST_DS_NUM; startPos+=8)
     {
         std::tuple<std::vector<cv::Mat>, std::vector<int>> rst = 
                     GetInputImage(samples, startPos, batchSize);
         auto inputs = std::get<0>(rst);
-        auto results = std::get<1>(rst);
+        auto targets = std::get<1>(rst);
         std::vector<float> input_src = PreProcess(inputs);
-        processBatchImages((PredictorAPI*)hand, input_src, (std::vector<cv::Mat>)inputs);
+        correctNum += processBatchImages((PredictorAPI*)hand, input_src, (std::vector<cv::Mat>)inputs, (std::vector<int>)targets);
     }
     ReleaseVehicleFgvcInstance(hand);
     double ms_per_run = g_total_run_time / g_total_operation;
     std::cout<<"平均运行时间："<<ms_per_run<<"毫秒"<<std::endl;
+    std::cout<<"准确率："<<(correctNum / TEST_DS_NUM)<<std::endl;
     return NULL;
 }
 
-void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::vector<cv::Mat> inputs)
+int processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::vector<cv::Mat> inputs, (std::vector<int>)targets)
 {
     struct timeval start1;
     struct timeval end1;
@@ -199,21 +201,17 @@ void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::
                                 cpuDetect);
     classify_end = clock();
     //std::cout<<"程序运行时间："<<((double)(classify_end - classify_start))/CLOCKS_PER_SEC*1000.0<<"毫秒;"<<std::endl;
+    int correctNum = 0;
     for (int u = 0; u < all_results.size(); ++u)
     {
         auto &RE = all_results[u];
         std::cout<<RE.tempResult[0].tempVehicleType<<"; classId="<<RE.tempResult[0].iVehicleSubModel<<std::endl;
-        /*for (int i = 0; i < RE.iNum; ++i)
+        if (RE.tempResult[0].iVehicleSubModel == targets[u])
         {
-
-            std::cout << " batch: " << u
-                        << " car: "<< i
-                        <<" conf :" <<RE.tempResult[i].fConfdence
-                        <<" clsID :" <<RE.tempResult[i].iVehicleSubModel
-                        << " " << std::endl;
+            correctNum++;
         }
-        std::cout <<std::endl;*/
     }
+    return correctNum;
 }
 
 /**
