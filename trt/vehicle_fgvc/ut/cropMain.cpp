@@ -122,7 +122,7 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
 }
 
 
-
+const int TEST_DS_NUM = 8; // 测试数据集记录数，必须能被8整除
 static int init_num = 0;
 void *mythread(void *threadid)
 {
@@ -136,9 +136,12 @@ void *mythread(void *threadid)
     // Call other DCL interface
     int batchSize = 8;
     int startPos = 0;
-    auto inputs = GetInputImage(samples, startPos, batchSize);
-    std::vector<float> input_src = PreProcess(inputs);
-    processBatchImages((PredictorAPI*)hand, input_src, (std::vector<cv::Mat>)inputs);
+    for (startPos=0; startPos<TEST_DS_NUM; startPos+=8)
+    {
+        auto inputs = GetInputImage(samples, startPos, batchSize);
+        std::vector<float> input_src = PreProcess(inputs);
+        processBatchImages((PredictorAPI*)hand, input_src, (std::vector<cv::Mat>)inputs);
+    }
     ReleaseVehicleFgvcInstance(hand);
     return NULL;
 }
@@ -206,6 +209,10 @@ void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::
     }
 }
 
+/**
+ * 单元测试程序入口，需要保证用于测试的测试数据集文件记录数能为8
+ * 整除，如果不可以后面补足为8整除记录数
+ */
 int main()
 {
     clock_t start, end;
