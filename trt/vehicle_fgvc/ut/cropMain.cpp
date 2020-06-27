@@ -28,6 +28,8 @@ const bool GPU_DETECT_INPUT = true;
 // 图片预处理相关，定义见config.py第17行
 extern std::vector<float> g_rgb_mean; // = {0.485, 0.456, 0.406};
 extern std::vector<float> g_rgb_std; // = {0.229, 0.224, 0.225};
+extern double g_total_run_time;
+extern int g_total_operation;
 const float MEAN_R = g_rgb_mean[0] * 255;
 const float MEAN_G = g_rgb_mean[1] * 255;
 const float MEAN_B = g_rgb_mean[2] * 255;
@@ -143,6 +145,8 @@ void *mythread(void *threadid)
         processBatchImages((PredictorAPI*)hand, input_src, (std::vector<cv::Mat>)inputs);
     }
     ReleaseVehicleFgvcInstance(hand);
+    double ms_per_run = g_total_run_time / g_total_operation;
+    std::cout<<"平均运行时间："<<ms_per_run<<"毫秒"<<std::endl;
     return NULL;
 }
 
@@ -186,7 +190,7 @@ void* processBatchImages(PredictorAPI* hand, std::vector<float> input_src, std::
                                 cudaSrc,srcWidth, srcHeight,
                                 cpuDetect);
     classify_end = clock();
-    std::cout<<"程序运行时间："<<((double)(classify_end - classify_start))/CLOCKS_PER_SEC*1000.0<<"毫秒;"<<std::endl;
+    //std::cout<<"程序运行时间："<<((double)(classify_end - classify_start))/CLOCKS_PER_SEC*1000.0<<"毫秒;"<<std::endl;
     for (int u = 0; u < all_results.size(); ++u)
     {
         auto &RE = all_results[u];
