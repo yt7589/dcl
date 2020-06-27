@@ -121,9 +121,9 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         dataPtr += height * width;
         cv::Mat imageRed(height, width, CV_32FC1, dataPtr);
         dataPtr += height * width;
-        channels.at(0).convertTo(imageBlue, CV_32FC1, XFACTOR_B, -MEAN_B * XFACTOR_B);
+        channels.at(0).convertTo(imageRed, CV_32FC1, XFACTOR_R, -MEAN_R * XFACTOR_R);
         channels.at(1).convertTo(imageGreen, CV_32FC1, XFACTOR_G, -MEAN_G * XFACTOR_G);
-        channels.at(2).convertTo(imageRed, CV_32FC1, XFACTOR_R, -MEAN_R * XFACTOR_R);
+        channels.at(2).convertTo(imageBlue, CV_32FC1, XFACTOR_B, -MEAN_B * XFACTOR_B);
     }
     return dataVec;
 }
@@ -135,7 +135,7 @@ void *mythread(void *threadid)
 {
     int tid = *((int *)threadid);
     std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
-                            "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v009.trt";
+                            "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v009_cao.trt";
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);
     // 获取测试数据集上样本
