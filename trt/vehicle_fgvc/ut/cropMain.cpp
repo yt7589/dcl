@@ -144,7 +144,7 @@ void *mythread(void *threadid)
     int batchSize = 8;
     int startPos = 0;
     int correctNum = 0;
-    for (startPos=0; startPos<TEST_DS_NUM; startPos+=8)
+    for (startPos=8; startPos<TEST_DS_NUM; startPos+=8)
     {
         std::tuple<std::vector<cv::Mat>, std::vector<int>> rst = 
                     GetInputImage(samples, startPos, batchSize);
