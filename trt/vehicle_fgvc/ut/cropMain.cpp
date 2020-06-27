@@ -156,7 +156,7 @@ void *mythread(void *threadid)
     ReleaseVehicleFgvcInstance(hand);
     double ms_per_run = g_total_run_time / g_total_operation;
     std::cout<<"平均运行时间："<<ms_per_run<<"毫秒"<<std::endl;
-    std::cout<<"准确率："<<(correctNum / TEST_DS_NUM)<<std::endl;
+    std::cout<<"准确率："<<(correctNum*1.0 / TEST_DS_NUM)<<std::endl;
     return NULL;
 }
 
