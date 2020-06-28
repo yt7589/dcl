@@ -123,7 +123,7 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         }
         std::vector<cv::Mat> channels;
         split(image, channels);
-        std::cout<<"channels[0]: rows="<<channels[0].rows<<"; cols="<<channels[0].cols<<std::endl;
+        std::cout<<"channels[0]: rows="<<channels[0].rows<<"; cols="<<channels[0].cols<<"; v="<<channels[0][0]<<std::endl;
         /*cv::Mat imageBlue(height, width, CV_32FC1, dataPtr);
         dataPtr += height * width;
         cv::Mat imageGreen(height, width, CV_32FC1, dataPtr);
