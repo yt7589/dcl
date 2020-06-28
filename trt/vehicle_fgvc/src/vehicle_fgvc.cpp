@@ -175,9 +175,9 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
     assert(batchsize == srcWidth.size());
     assert(batchsize == srcHeight.size());
 
-    int carNum = 8; /*nvHTCropAndReizeLaunch(cudaCropImages, cudaSrc, cpuDet,
+    int carNum = nvHTCropAndReizeLaunch(cudaCropImages, cudaSrc, cpuDet,
             tempCudaDet, srcWidth, srcHeight,
-            g_rgb_mean, g_rgb_std, batchsize, maxOutWidth, maxOutHeight);*/
+            g_rgb_mean, g_rgb_std, batchsize, maxOutWidth, maxOutHeight);
 
     int batchTimes = carNum / max_batch_size;
     int lastPic = carNum % max_batch_size;
