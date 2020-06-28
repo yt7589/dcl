@@ -115,6 +115,7 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         assert(image.type() == CV_8UC3 || image.type() == CV_32FC3);
         std::vector<cv::Mat> channels;
         split(image, channels);
+        std::cout<<"channels[0]:"<<std::endl<<channels[0]<<"!!!"<<std::endl;
         /*cv::Mat imageBlue(height, width, CV_32FC1, dataPtr);
         dataPtr += height * width;
         cv::Mat imageGreen(height, width, CV_32FC1, dataPtr);
