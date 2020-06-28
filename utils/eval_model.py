@@ -170,7 +170,7 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
             #print('inputs: {0};'.format(inputs[0]))
             img01 = inputs[0].cpu().numpy()
             print('inputs[0]: {0}; np: {1};'.format(inputs[0].shape, img01.shape))
-            print('img01[0]: {0};'.format(img01.shape))
+            print('img01[0]: {0};'.format(img01[0].shape))
             np.savetxt('./logs/image00.txt', img01[0], delimiter=',')
             np.savetxt('./logs/image01.txt', img01[1], delimiter=',')
             np.savetxt('./logs/image02.txt', img01[2], delimiter=',')
