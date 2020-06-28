@@ -195,8 +195,6 @@ std::vector<Type_Vehicle_Result> ClassifyVehicleFgvcFromDetectGPU(void *iInstanc
         std::vector<std::vector<float>> out_results;
         clock_t item_start, item_end;
         item_start = clock();
-        float* ptr1 = cudaCropImages + i*max_batch_size*imgSize;
-        std::cout<<"final data: "<<ptr1[0]<<", "<<ptr1[1]<<", "<<ptr1[2]<<";"<<std::endl;
         predictor->second->forward(cudaCropImages + i*max_batch_size*imgSize,
                 max_batch_size, out_results);
         item_end = clock();
