@@ -139,9 +139,11 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         dataPtr += height * width;
         cv::Mat imageBlue(height, width, CV_32FC1, dataPtr);
         dataPtr += height * width;
-        channels.at(0).convertTo(imageBlue, CV_32FC1, XFACTOR_B, -MEAN_B * XFACTOR_B);
-        channels.at(1).convertTo(imageGreen, CV_32FC1, XFACTOR_G, -MEAN_G * XFACTOR_G);
-        channels.at(2).convertTo(imageRed, CV_32FC1, XFACTOR_R, -MEAN_R * XFACTOR_R);
+        float scale = 1.0 / 255.0;
+        float bias = 0.0;
+        channels.at(0).convertTo(imageBlue, CV_32FC1, scale, bias);
+        channels.at(1).convertTo(imageGreen, CV_32FC1, scale, bias);
+        channels.at(2).convertTo(imageRed, CV_32FC1, scale, bias);
     }
     return dataVec;
 }
