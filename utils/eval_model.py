@@ -168,7 +168,7 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
         for batch_cnt_val, data_val in enumerate(data_loader):
             inputs = Variable(data_val[0].cuda())
             #print('inputs: {0};'.format(inputs[0]))
-            np.savetxt('./logs/image01.txt', inputs[0], delimiter=',')
+            np.savetxt('./logs/image01.txt', inputs[0].cpu().numpy(), delimiter=',')
             labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
             outputs = model(inputs)
             if Config.use_dcl and Config.cls_2xmul:
