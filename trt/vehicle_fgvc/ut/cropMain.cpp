@@ -132,8 +132,12 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         channels.at(0).convertTo(imageBlue, CV_32FC1, XFACTOR_B, -MEAN_B);
         channels.at(1).convertTo(imageGreen, CV_32FC1, XFACTOR_G, -MEAN_G);
         channels.at(2).convertTo(imageRed, CV_32FC1, XFACTOR_R, -MEAN_R);
-        std::cout<<"dataVec_row:"<<dataVec[0]<<", "<<dataVec[1]<<", "<<dataVec[2]<<std::endl;
-        std::cout<<"dataVec_col:"<<dataVec[0]<<", "<<dataVec[224]<<", "<<dataVec[448]<<std::endl;
+        int basePos = 0;
+        std::cout<<"dataVec_R: row: "<<dataVec[basePos]<<", "<<dataVec[basePos+1]<<", "<<dataVec[basePos+2]<<";col: "<<dataVec[basePos]<<", "<<dataVec[basePos+224]<<", "<<dataVec[basePos + 448]<<std::endl;
+        basePos += height * width;
+        std::cout<<"dataVec_R: row: "<<dataVec[basePos]<<", "<<dataVec[basePos+1]<<", "<<dataVec[basePos+2]<<";col: "<<dataVec[basePos]<<", "<<dataVec[basePos+224]<<", "<<dataVec[basePos + 448]<<std::endl;
+        basePos += height * width;
+        std::cout<<"dataVec_R: row: "<<dataVec[basePos]<<", "<<dataVec[basePos+1]<<", "<<dataVec[basePos+2]<<";col: "<<dataVec[basePos]<<", "<<dataVec[basePos+224]<<", "<<dataVec[basePos + 448]<<std::endl;
     }
     return dataVec;
 }
