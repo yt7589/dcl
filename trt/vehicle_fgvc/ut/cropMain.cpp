@@ -3,6 +3,7 @@
 //#include <sys/time.h>
 #include <time.h>
 #include <unistd.h>
+#include<vector>
 //common
 #include "file_util.hpp"
 #include "opencv2/opencv.hpp"
