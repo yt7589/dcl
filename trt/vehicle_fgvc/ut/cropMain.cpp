@@ -102,6 +102,13 @@ std::tuple<std::vector<cv::Mat>, std::vector<int>> GetInputImage(vector<vector<s
 
         cv::Mat resized;
         cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0, cv::INTER_LINEAR);
+
+        for (int ii=0; ii<6; ii++)
+        {
+            cv::Vec3b pt = resized.at<cv::Vec3b>(0, ii);
+            std::cout<<"  ("<<+static_cast<uint8_t>(pt[2])<<")  ";
+        }
+        std::cout<<std::endl;
         
         std::cout<<std::endl;
         inputs.push_back(resized.clone());
