@@ -189,7 +189,7 @@ class Resize(object):
             PIL Image: Rescaled image.
         """
         resized = F.resize(img, self.size, self.interpolation)
-        print('resized: {0}; {1} {2} {3} {4} {5} {6};'.format(resized.shape))
+        print('resized: {0};'.format(resized.size))
         return resized
         #return F.resize(img, self.size, self.interpolation)
 
