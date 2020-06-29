@@ -81,7 +81,7 @@ std::tuple<std::vector<cv::Mat>, std::vector<int>> GetInputImage(vector<vector<s
     std::vector<int> results;
     for (int t = 0; t < batchSize; ++t)
     {
-        img = cv::imread(samples[startPos + t][0]);
+        img = cv::imread(samples[startPos + t][0], IMREAD_COLOR);
         std::cout<<"img: "<<samples[startPos + t][0]<<"; classId: "<<samples[startPos + t][1]<<"; !!!!"<<std::endl;
         cv::Mat resized;
         cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0);
