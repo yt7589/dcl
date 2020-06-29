@@ -103,22 +103,6 @@ class dataset(data.Dataset):
             swap_law2 = [(i-(swap_range//2))/swap_range for i in range(swap_range)]
             label_swap = label
             img_unswap = self.totensor(img_unswap)
-
-            print('img_unswap_R: {0}; row: {1} {2} {3}; col: {4} {5} {6};'.format(img_unswap.shape,
-                img_unswap[0][0][0], img_unswap[0][0][1], img_unswap[0][0][2],
-                img_unswap[0][0][0], img_unswap[0][1][0], img_unswap[0][2][0]
-            ))
-            print('img_unswap_G: {0}; row: {1} {2} {3}; col: {4} {5} {6};'.format(img_unswap.shape,
-                img_unswap[1][0][0], img_unswap[1][0][1], img_unswap[1][0][2],
-                img_unswap[1][0][0], img_unswap[1][1][0], img_unswap[1][2][0]
-            ))
-            print('img_unswap_B: {0}; row: {1} {2} {3}; col: {4} {5} {6};'.format(img_unswap.shape,
-                img_unswap[2][0][0], img_unswap[2][0][1], img_unswap[2][0][2],
-                img_unswap[2][0][0], img_unswap[2][1][0], img_unswap[2][2][0]
-            ))
-
-
-
             return img_unswap, label, label_swap, swap_law1, swap_law2, self.paths[item]
 
     def pil_loader(self,imgpath):

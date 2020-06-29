@@ -135,9 +135,9 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         int basePos = 0;
         std::cout<<"dataVec_R: row: "<<dataVec[basePos]<<", "<<dataVec[basePos+1]<<", "<<dataVec[basePos+2]<<";col: "<<dataVec[basePos]<<", "<<dataVec[basePos+224]<<", "<<dataVec[basePos + 448]<<std::endl;
         basePos += height * width;
-        std::cout<<"dataVec_R: row: "<<dataVec[basePos]<<", "<<dataVec[basePos+1]<<", "<<dataVec[basePos+2]<<";col: "<<dataVec[basePos]<<", "<<dataVec[basePos+224]<<", "<<dataVec[basePos + 448]<<std::endl;
+        std::cout<<"dataVec_G: row: "<<dataVec[basePos]<<", "<<dataVec[basePos+1]<<", "<<dataVec[basePos+2]<<";col: "<<dataVec[basePos]<<", "<<dataVec[basePos+224]<<", "<<dataVec[basePos + 448]<<std::endl;
         basePos += height * width;
-        std::cout<<"dataVec_R: row: "<<dataVec[basePos]<<", "<<dataVec[basePos+1]<<", "<<dataVec[basePos+2]<<";col: "<<dataVec[basePos]<<", "<<dataVec[basePos+224]<<", "<<dataVec[basePos + 448]<<std::endl;
+        std::cout<<"dataVec_B: row: "<<dataVec[basePos]<<", "<<dataVec[basePos+1]<<", "<<dataVec[basePos+2]<<";col: "<<dataVec[basePos]<<", "<<dataVec[basePos+224]<<", "<<dataVec[basePos + 448]<<std::endl;
     }
     return dataVec;
 }
