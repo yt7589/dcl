@@ -140,6 +140,7 @@ if __name__ == '__main__':
                         swap_size=args.swap_num, \
                         totensor = transformers["val_totensor"],\
                         train = False,
+                        test = True,
                         train_val = True)
 
     val_set = dataset(Config = Config,\
@@ -297,7 +298,6 @@ if __name__ == '__main__':
         log_file = open('./logs/a1.log', 'w+', encoding='utf-8')
         # predict_main(Config, model, data_loader['val'], 'val', 0, log_file)
         predict_main(Config, model, dataloader['trainval'], 'val', 0, log_file)
-        trainval_set.test = True
         cnt = len(trainval_set.paths)
         for idx in range(cnt):
             print('#: {0} = {1};'.format(trainval_set.paths[idx], trainval_set.labels[idx]))
