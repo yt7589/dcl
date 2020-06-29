@@ -140,7 +140,6 @@ if __name__ == '__main__':
                         swap_size=args.swap_num, \
                         totensor = transformers["val_totensor"],\
                         train = False,
-                        test = True,
                         train_val = True)
 
     val_set = dataset(Config = Config,\

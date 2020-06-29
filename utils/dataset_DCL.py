@@ -69,17 +69,6 @@ class dataset(data.Dataset):
         img = self.pil_loader(img_path)
         if self.test:
             img = self.totensor(img)
-
-
-            print('img: {0}; {1} {2} {3} === {4} {5} {6};'.format(img.shape, 
-                img[0][0][0], img[0][1][0], img[0][2][0],
-                img[0][0][0], img[0][0][1], img[0][0][2]
-            ))
-
-
-
-
-
             label = self.labels[item]
             return img, label, self.paths[item]
         img_unswap = self.common_aug(img) if not self.common_aug is None else img
@@ -114,6 +103,14 @@ class dataset(data.Dataset):
             swap_law2 = [(i-(swap_range//2))/swap_range for i in range(swap_range)]
             label_swap = label
             img_unswap = self.totensor(img_unswap)
+
+            print('img_unswap: {0}; row: {1} {2} {3}; col: {4} {5} {6};'.format(img_unswap,
+                img_unswap[0][0][0], img_unswap[0][0][1], img_unswap[0][0][2],
+                img_unswap[0][0][0], img_unswap[0][1][0], img_unswap[0][2][0]
+            ))
+
+
+
             return img_unswap, label, label_swap, swap_law1, swap_law2, self.paths[item]
 
     def pil_loader(self,imgpath):
