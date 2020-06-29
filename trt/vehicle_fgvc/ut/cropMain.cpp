@@ -88,13 +88,13 @@ std::tuple<std::vector<cv::Mat>, std::vector<int>> GetInputImage(vector<vector<s
         std::cout<<"### rows="<<img.rows<<"; cols="<<img.cols<<";"<<std::endl;
         for (int ii=0; ii<6; ii++)
         {
-            cv::Vec3b pt = resized.at<cv::Vec3b>(0, ii);
+            cv::Vec3b pt = img.at<cv::Vec3b>(0, ii);
             std::cout<<"  "<<+static_cast<uint8_t>(pt[2])<<"  ";
         }
         std::cout<<std::endl;
         for (int ii=0; ii<6; ii++)
         {
-            cv::Vec3b pt = resized.at<cv::Vec3b>(ii, 0);
+            cv::Vec3b pt = img.at<cv::Vec3b>(ii, 0);
             std::cout<<"  *"<<+static_cast<uint8_t>(pt[2])<<"*  ";
         }
 
