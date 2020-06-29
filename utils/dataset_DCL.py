@@ -81,6 +81,10 @@ class dataset(data.Dataset):
             img = self.totensor(img)
             label = self.labels[item]
             return img, label, self.paths[item]
+        
+        r1 = not self.common_aug is None
+        print('##### r1={0};'.format(r1))
+
         img_unswap = self.common_aug(img) if not self.common_aug is None else img
         image_unswap_list = self.crop_image(img_unswap, self.swap_size)
 
