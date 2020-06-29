@@ -124,9 +124,14 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         std::vector<cv::Mat> channels;
         split(image, channels);
         std::cout<<"v001 channels[0]: rows="<<channels[0].rows<<"; cols="<<channels[0].cols<<std::endl;
-        for (int ii=0; ii<10; ii++)
+        for (int ii=0; ii<3; ii++)
         {
             std::cout<<+static_cast<uint8_t>(channels[0].at<uint8_t>(0, ii))<<"  ";
+        }
+        std::cout<<std::endl;
+        for (int jj=0; jj<3; jj++)
+        {
+            std::cout<<+static_cast<uint8_t>(channels[0].at<uint8_t>(jj, 0))<<"  ";
         }
         std::cout<<std::endl;
         /*cv::Mat imageBlue(height, width, CV_32FC1, dataPtr);
