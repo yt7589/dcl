@@ -123,26 +123,6 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         }
         std::vector<cv::Mat> channels;
         split(image, channels);
-        std::cout<<"v001 channels[0]: rows="<<channels[0].rows<<"; cols="<<channels[0].cols<<std::endl;
-        for (int ii=0; ii<3; ii++)
-        {
-            std::cout<<+static_cast<uint8_t>(channels[0].at<uint8_t>(0, ii))<<"  ";
-        }
-        std::cout<<std::endl;
-        for (int jj=0; jj<3; jj++)
-        {
-            std::cout<<+static_cast<uint8_t>(channels[0].at<uint8_t>(jj, 0))<<"  ";
-        }
-        std::cout<<std::endl;
-        /*cv::Mat imageBlue(height, width, CV_32FC1, dataPtr);
-        dataPtr += height * width;
-        cv::Mat imageGreen(height, width, CV_32FC1, dataPtr);
-        dataPtr += height * width;
-        cv::Mat imageRed(height, width, CV_32FC1, dataPtr);
-        dataPtr += height * width;
-        channels.at(0).convertTo(imageBlue, CV_32FC1, XFACTOR_B, -MEAN_B * XFACTOR_B);
-        channels.at(1).convertTo(imageGreen, CV_32FC1, XFACTOR_G, -MEAN_G * XFACTOR_G);
-        channels.at(2).convertTo(imageRed, CV_32FC1, XFACTOR_R, -MEAN_R * XFACTOR_R);*/
         cv::Mat imageRed(height, width, CV_32FC1, dataPtr);
         dataPtr += height * width;
         cv::Mat imageGreen(height, width, CV_32FC1, dataPtr);
@@ -152,8 +132,8 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         channels.at(0).convertTo(imageBlue, CV_32FC1, XFACTOR_B, -MEAN_B);
         channels.at(1).convertTo(imageGreen, CV_32FC1, XFACTOR_G, -MEAN_G);
         channels.at(2).convertTo(imageRed, CV_32FC1, XFACTOR_R, -MEAN_R);
-
-        std::cout<<dataVec[0]<<", "<<dataVec[1]<<", "<<dataVec[2]<<std::endl;
+        std::cout<<"dataVec_row:"<<dataVec[0]<<", "<<dataVec[1]<<", "<<dataVec[2]<<std::endl;
+        std::cout<<"dataVec_col:"<<dataVec[0]<<", "<<dataVec[224]<<", "<<dataVec[448]<<std::endl;
     }
     return dataVec;
 }
