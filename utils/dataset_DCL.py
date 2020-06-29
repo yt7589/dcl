@@ -68,10 +68,10 @@ class dataset(data.Dataset):
         img_path = self.paths[item]
         img = self.pil_loader(img_path)
         rw, gw, bw = img.split()
-        img_data = list(img.getdata())
+        img_data = list(rw.getdata())
         print('@@@@@ raw_img: {0}, {1}, {2}, {3}, {4}, {5};'.format(
-            rw[0], rw[1], rw[2], 
-            rw[3], rw[4], rw[5]
+            img_data[0], img_data[1], img_data[2], 
+            img_data[3], img_data[4], img_data[5]
         ))
         if self.test:
             img = self.totensor(img)
