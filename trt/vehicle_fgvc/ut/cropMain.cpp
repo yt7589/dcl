@@ -83,10 +83,9 @@ std::tuple<std::vector<cv::Mat>, std::vector<int>> GetInputImage(vector<vector<s
     {
         img = cv::imread(samples[startPos + t][0], cv::IMREAD_COLOR);
         std::cout<<"img: "<<samples[startPos + t][0]<<"; classId: "<<samples[startPos + t][1]<<"; !!!!"<<std::endl;
-        cv::Mat resized;
-        cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0);
-        std::cout<<"### rows="<<resized.rows<<"; cols="<<resized.cols<<";"<<std::endl;
+
         
+        std::cout<<"### rows="<<img.rows<<"; cols="<<img.cols<<";"<<std::endl;
         for (int ii=0; ii<6; ii++)
         {
             cv::Vec3b pt = resized.at<cv::Vec3b>(0, ii);
@@ -98,6 +97,12 @@ std::tuple<std::vector<cv::Mat>, std::vector<int>> GetInputImage(vector<vector<s
             cv::Vec3b pt = resized.at<cv::Vec3b>(ii, 0);
             std::cout<<"  *"<<+static_cast<uint8_t>(pt[2])<<"*  ";
         }
+
+
+
+        cv::Mat resized;
+        cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0);
+        
         std::cout<<std::endl;
         inputs.push_back(resized.clone());
         results.push_back(std::stoi(samples[startPos + t][1]));
