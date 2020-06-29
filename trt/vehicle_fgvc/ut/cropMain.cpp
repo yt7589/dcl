@@ -128,6 +128,7 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         {
             std::cout<<+static_cast<uint8_t>(channels[0].at<uint8_t>(0, ii))<<"  ";
         }
+        std::cout<<std::endl;
         /*cv::Mat imageBlue(height, width, CV_32FC1, dataPtr);
         dataPtr += height * width;
         cv::Mat imageGreen(height, width, CV_32FC1, dataPtr);

@@ -67,6 +67,12 @@ class dataset(data.Dataset):
         #img_path = os.path.join(self.root_path, self.paths[item])
         img_path = self.paths[item]
         img = self.pil_loader(img_path)
+        print('img.shape: {0};'.format(img.shape))
+        print('img: {0} {1} {2} {3} {4} {5} {6} {7} {8};'.format(
+            img[0][0][0], img[0][1][0], img[0][2][0],
+            img[0][3][0], img[0][4][0], img[0][5][0],
+            img[0][6][0], img[0][7][0], img[0][8][0]
+        )
         if self.test:
             img = self.totensor(img)
             label = self.labels[item]
