@@ -70,9 +70,11 @@ class dataset(data.Dataset):
         rw, gw, bw = img.split()
         img_data = list(rw.getdata())
         print('image: {0};'.format(img_path))
-        print('@@@@@ raw_img.red: {0}, {1}, {2}, {3}, {4}, {5};'.format(
+        print('@@@@@ raw_img.red: {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}'.format(
             img_data[0], img_data[1], img_data[2], 
-            img_data[3], img_data[4], img_data[5]
+            img_data[3], img_data[4], img_data[5], 
+            img_data[6], img_data[7], img_data[8], 
+            img_data[9], img_data[10], img_data[11]
         ))
         if self.test:
             img = self.totensor(img)
