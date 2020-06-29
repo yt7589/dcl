@@ -69,7 +69,8 @@ class dataset(data.Dataset):
         img = self.pil_loader(img_path)
         rw, gw, bw = img.split()
         img_data = list(rw.getdata())
-        print('@@@@@ raw_img: {0}, {1}, {2}, {3}, {4}, {5};'.format(
+        print('image: {0};'.format(img_path))
+        print('@@@@@ raw_img.red: {0}, {1}, {2}, {3}, {4}, {5};'.format(
             img_data[0], img_data[1], img_data[2], 
             img_data[3], img_data[4], img_data[5]
         ))
