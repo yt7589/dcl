@@ -101,7 +101,7 @@ std::tuple<std::vector<cv::Mat>, std::vector<int>> GetInputImage(vector<vector<s
 
 
         cv::Mat resized;
-        cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0);
+        cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0, cv::INTER_LINEAR);
         
         std::cout<<std::endl;
         inputs.push_back(resized.clone());
