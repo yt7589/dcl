@@ -152,6 +152,8 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         channels.at(0).convertTo(imageBlue, CV_32FC1, XFACTOR_B, -MEAN_B);
         channels.at(1).convertTo(imageGreen, CV_32FC1, XFACTOR_G, -MEAN_G);
         channels.at(2).convertTo(imageRed, CV_32FC1, XFACTOR_R, -MEAN_R);
+
+        std::cout<<dataVec[0]<<", "<<dataVec[1]<<", "<<dataVec[2]<<std::endl;
     }
     return dataVec;
 }
