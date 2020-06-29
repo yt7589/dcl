@@ -90,7 +90,7 @@ std::tuple<std::vector<cv::Mat>, std::vector<int>> GetInputImage(vector<vector<s
         for (int ii=0; ii<6; ii++)
         {
             cv::Vec3b pt = resized.at<cv::Vec3b>(ii);
-            std::cout<<"  "<<pt[2]<<"  ";
+            std::cout<<"  "<<+static_cast<uint8_t>pt[2]<<"  ";
         }
         std::cout<<std::endl;
         inputs.push_back(resized.clone());
