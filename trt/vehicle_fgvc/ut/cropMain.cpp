@@ -84,6 +84,7 @@ std::tuple<std::vector<cv::Mat>, std::vector<int>> GetInputImage(vector<vector<s
         std::cout<<"img: "<<samples[startPos + t][0]<<"; classId: "<<samples[startPos + t][1]<<"; !!!!"<<std::endl;
         cv::Mat resized;
         cv::resize(img, resized, cv::Size(IMG_W, IMG_H), 0, 0);
+        std::cout<<"################"<<+static_cast<uint8_t>(resized.at<uint8_t>(0, 0))<<";"<<std::endl;
         inputs.push_back(resized.clone());
         results.push_back(std::stoi(samples[startPos + t][1]));
     }
