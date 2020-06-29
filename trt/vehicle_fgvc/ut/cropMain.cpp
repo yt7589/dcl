@@ -31,12 +31,12 @@ extern std::vector<float> g_rgb_mean; // = {0.485, 0.456, 0.406};
 extern std::vector<float> g_rgb_std; // = {0.229, 0.224, 0.225};
 extern double g_total_run_time;
 extern int g_total_operation;
-const float MEAN_R = g_rgb_mean[0] * 255;
-const float MEAN_G = g_rgb_mean[1] * 255;
-const float MEAN_B = g_rgb_mean[2] * 255;
-const float XFACTOR_R = 1.0 / 255.0 * (1.0 / g_rgb_std[0]); // (g_rgb_std[0] * 255);
-const float XFACTOR_G = 1.0 / 255.0 * (1.0 / g_rgb_std[0]); // 1 / (g_rgb_std[1] * 255);
-const float XFACTOR_B = 1.0 / 255.0 * (1.0 / g_rgb_std[0]); // 1 / (g_rgb_std[2] * 255);
+const float MEAN_R = g_rgb_mean[0] / g_rgb_std[0];
+const float MEAN_G = g_rgb_mean[1] / g_rgb_std[1];
+const float MEAN_B = g_rgb_mean[2] / g_rgb_std[2];
+const float XFACTOR_R = 1.0 / (255.0 *  g_rgb_std[0]); // (g_rgb_std[0] * 255);
+const float XFACTOR_G = 1.0 / (255.0 * g_rgb_std[0]); // 1 / (g_rgb_std[1] * 255);
+const float XFACTOR_B = 1.0 / (255.0 * g_rgb_std[0]); // 1 / (g_rgb_std[2] * 255);
 
 int FBLOCK_MAX_BYTES = 1024;
 char *szBuf;
@@ -139,11 +139,9 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
         dataPtr += height * width;
         cv::Mat imageBlue(height, width, CV_32FC1, dataPtr);
         dataPtr += height * width;
-        float scale = 1.0 / (255.0*0.229);
-        float beta = 0.485 / 0.229;
-        channels.at(0).convertTo(imageBlue, CV_32FC1, scale, -beta);
-        channels.at(1).convertTo(imageGreen, CV_32FC1, scale, -beta);
-        channels.at(2).convertTo(imageRed, CV_32FC1, scale, -beta);
+        channels.at(0).convertTo(imageBlue, CV_32FC1, XFACTOR_B, -MEAN_B);
+        channels.at(1).convertTo(imageGreen, CV_32FC1, XFACTOR_G, -MEAN_G);
+        channels.at(2).convertTo(imageRed, CV_32FC1, XFACTOR_R, -MEAN_R);
     }
     return dataVec;
 }
