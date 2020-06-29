@@ -104,7 +104,7 @@ class dataset(data.Dataset):
             label_swap = label
             img_unswap = self.totensor(img_unswap)
 
-            print('img_unswap: {0}; row: {1} {2} {3}; col: {4} {5} {6};'.format(img_unswap,
+            print('img_unswap: {0}; row: {1} {2} {3}; col: {4} {5} {6};'.format(img_unswap.shape,
                 img_unswap[0][0][0], img_unswap[0][0][1], img_unswap[0][0][2],
                 img_unswap[0][0][0], img_unswap[0][1][0], img_unswap[0][2][0]
             ))
