@@ -72,7 +72,7 @@ class dataset(data.Dataset):
             img[0][0][0], img[0][1][0], img[0][2][0],
             img[0][3][0], img[0][4][0], img[0][5][0],
             img[0][6][0], img[0][7][0], img[0][8][0]
-        )
+        ))
         if self.test:
             img = self.totensor(img)
             label = self.labels[item]
