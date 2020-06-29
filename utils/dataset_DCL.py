@@ -76,6 +76,7 @@ class dataset(data.Dataset):
             img_data[6], img_data[7], img_data[8], 
             img_data[9], img_data[10], img_data[11]
         ))
+
         if self.test:
             img = self.totensor(img)
             label = self.labels[item]
@@ -112,6 +113,15 @@ class dataset(data.Dataset):
             swap_law2 = [(i-(swap_range//2))/swap_range for i in range(swap_range)]
             label_swap = label
             img_unswap = self.totensor(img_unswap)
+
+
+            print('### img_unswap: {0}; {1} {2} {3} {4} {5} {6};'.format(img_unswap.shape,
+                img_unswap[0][0][0], img_unswap[0][0][1], img_unswap[0][0][2],
+                img_unswap[0][0][3], img_unswap[0][0][4], img_unswap[0][0][5]
+            ))
+
+
+
             return img_unswap, label, label_swap, swap_law1, swap_law2, self.paths[item]
 
     def pil_loader(self,imgpath):
