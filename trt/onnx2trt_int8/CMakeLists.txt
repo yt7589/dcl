@@ -39,7 +39,6 @@ target_link_libraries(carFeature
         opencv_imgproc
         opencv_highgui
         nvonnxparser
-        nvonnxparser_runtime
         nvinfer
         nvinfer_plugin
         nvparsers
