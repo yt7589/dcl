@@ -202,7 +202,7 @@ void runTensorRT()
     std::cout<<"parser created"<<std::endl;
     std::string onnx_filename = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
                             "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011.onnx";
-    bool rst = parser->parseFromFile(onnx_filename.c_str(), nvinfer1::ILogger::Severity::kWARNING);
+    bool rst = parser->parseFromFile(onnx_filename.c_str(), static_cast<int>(gLogger.getReportableSeverity()));
 	/*for (int i = 0; i < parser.getNbErrors(); ++i)
 	{
 		std::cout << parser->getError(i)->desc() << std::endl;
