@@ -20,6 +20,17 @@
 #include <tuple>
 #define NUM_THREADS 1
 
+
+class Logger : public ILogger           
+ {
+     void log(Severity severity, const char* msg) override
+     {
+         // suppress info-level messages
+         if (severity != Severity::kINFO)
+             std::cout << msg << std::endl;
+     }
+ } gLogger;
+
 const int DEPTH = 3;
 const int IMG_W = 224;
 const int IMG_H = 224;
