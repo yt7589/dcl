@@ -196,17 +196,17 @@ void runTensorRT()
 {
     std::cout<<"Hello TensorRT! v0.0.3"<<std::endl;
     nvinfer1::IBuilder* builder = nvinfer1::createInferBuilder(gLogger);
-    const auto explicitBatch = 1U << static_cast<uint32_t>(NetworkDefinitionCreationFlag::kEXPLICIT_BATCH);  
+    const auto explicitBatch = 1U << static_cast<uint32_t>nvinfer1::(NetworkDefinitionCreationFlag::kEXPLICIT_BATCH);  
     nvinfer1::INetworkDefinition* network = builder->createNetworkV2(explicitBatch);
     auto parser = nvonnxparser::createParser(*network, gLogger);
     std::cout<<"parser created"<<std::endl;
     std::string onnx_filename = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
                             "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011.onnx";
-    parser->parseFromFile(onnx_filename.c_str(), nvinfer1::ILogger::Severity::kWARNING);
-	for (int i = 0; i < parser.getNbErrors(); ++i)
+    bool rst = parser->parseFromFile(onnx_filename.c_str(), nvinfer1::ILogger::Severity::kWARNING);
+	/*for (int i = 0; i < parser.getNbErrors(); ++i)
 	{
 		std::cout << parser->getError(i)->desc() << std::endl;
-	}
+	}*/
     std::cout<<"^_^ TensorRT ^_^"<<std::endl;
 }
 
