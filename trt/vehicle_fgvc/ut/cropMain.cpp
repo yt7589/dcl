@@ -22,6 +22,17 @@
 #define NUM_THREADS 1
 
 
+#include <parserOnnxConfig.h>
+
+#include <NvInfer.h>
+#include <cuda_runtime_api.h>
+
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
+
 class Logger : public nvinfer1::ILogger           
  {
      void log(nvinfer1::ILogger::Severity severity, const char* msg) override
