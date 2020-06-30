@@ -175,7 +175,6 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
                 img01[0][0][0], img01[0][1][0], img01[0][2][0]
             ))
 
-            sys.exit(0)
 
 
 
@@ -183,6 +182,9 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
 
             labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
             outputs = model(inputs)
+
+            sys.exit(0)
+            
             if Config.use_dcl and Config.cls_2xmul:
                 outputs_pred = outputs[0] + outputs[1][:,0:num_cls] + outputs[1][:,num_cls:2*num_cls]
             else:
