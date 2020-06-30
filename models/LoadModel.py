@@ -76,7 +76,6 @@ class MainModel(nn.Module):
         #x = x.view(x.size(0), -1)
         #x = x.view(x.size(0), x.size(1))
         x = torch.flatten(x, start_dim=1, end_dim=-1)
-        print('flatten x.shape: {0};'.format(x.shape))
         out = []
         out.append(self.classifier(x))
 
