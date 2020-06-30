@@ -85,7 +85,7 @@ target_link_libraries(tinytrt_v2  nvonnxparser)
 cuda_add_executable(cropMain ut/cropMain.cpp)
 target_link_libraries(cropMain pthread vehicle_fgvc_v1 tinytrt_v2)
 
-install(TARGETS vehicle_fgvc_v1 tinytrt_v2 test_vehicle_fgvc
+install(TARGETS vehicle_fgvc_v1 tinytrt_v2 cropMain
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib/static)
