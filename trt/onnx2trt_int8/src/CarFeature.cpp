@@ -34,12 +34,12 @@
 JNADLL void *VehicleFeatureInstance(const string &modelPath, int cardNum,int max_batch_size)//端口初始化
 {
     samplesCommon::OnnxSampleParams params;
-    params.onnxFileName = modelPath + "dcl_v009_sim.onnx";
+    params.onnxFileName = modelPath + "dcl_v011.onnx";
     params.inputTensorNames.emplace_back("data");
     params.batchSize = max_batch_size;
     params.outputTensorNames.emplace_back("output");
     params.gpuId = cardNum;
-    params.engineFileName =modelPath+ "dcl_v005_q.trt";
+    params.engineFileName =modelPath+ "dcl_v011_q.trt";
     params.dataDirs.emplace_back("");
     params.dataFile = "../models/calib_images_all.txt";
     params.int8 = true;
