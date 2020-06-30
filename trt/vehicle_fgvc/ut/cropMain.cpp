@@ -183,7 +183,8 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
 
 void runTensorRT()
 {
-    std::cout<<"Hello TensorRT!"<<std::endl;
+    std::cout<<"Hello TensorRT! v0.0.1"<<std::endl;
+    nvinfer1::IBuilder* builder = nvinfer1::createInferBuilder(gLogger);
 }
 
 const int TEST_DS_NUM = 16; //5664; // 测试数据集记录数，必须能被8整除
