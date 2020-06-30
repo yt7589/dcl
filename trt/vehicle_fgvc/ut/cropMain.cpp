@@ -181,11 +181,21 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
     return dataVec;
 }
 
+void runTensorRT()
+{
+    std::cout<<"Hello TensorRT!"<<std::endl;
+}
 
 const int TEST_DS_NUM = 16; //5664; // 测试数据集记录数，必须能被8整除
 static int init_num = 0;
 void *mythread(void *threadid)
 {
+    int iDebug = 1;
+    if (1 == iDebug)
+    {
+        runTensorRT();
+        return NULL;
+    }
     int tid = *((int *)threadid);
     std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
                             "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011_fp16.trt";
