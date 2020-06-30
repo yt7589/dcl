@@ -79,8 +79,8 @@ target_link_libraries(tinytrt_v2  nvonnxparser)
 
 # nvjpeg nppig nppc culibos nvjpeg nppisu
 
-cuda_add_executable(test_vehicle_fgvc ut/main.cpp)
-target_link_libraries(test_vehicle_fgvc pthread vehicle_fgvc_v1 tinytrt_v2)
+#cuda_add_executable(test_vehicle_fgvc ut/main.cpp)
+#target_link_libraries(test_vehicle_fgvc pthread vehicle_fgvc_v1 tinytrt_v2)
 
 cuda_add_executable(cropMain ut/cropMain.cpp)
 target_link_libraries(cropMain pthread vehicle_fgvc_v1 tinytrt_v2)
