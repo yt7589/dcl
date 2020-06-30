@@ -16,8 +16,8 @@ find_package(CUDA REQUIRED)
 set(OpenCV_INCLUDE_DIRS ../thirdparty/opencv-3.4.7/include)
 set(OpenCV_LIBRARIES_DIRS ../thirdparty/opencv-3.4.7/build/lib)
 
-set(TENSORRT_INCLUDE_DIRS ../thirdparty/TensorRT-7.1.3.4/include)
-set(TENSORRT_LIBRARY_DIRS ../thirdparty/TensorRT-7.1.3.4/lib)
+set(TENSORRT_INCLUDE_DIRS ../thirdparty/TensorRT-6.0.1.5/include)
+set(TENSORRT_LIBRARY_DIRS ../thirdparty/TensorRT-6.0.1.5/lib)
 
 link_directories(${OpenCV_LIBRARIES_DIRS}
                  ${TENSORRT_LIBRARY_DIRS})
@@ -39,6 +39,7 @@ target_link_libraries(carFeature
         opencv_imgproc
         opencv_highgui
         nvonnxparser
+        nvonnxparser_runtime
         nvinfer
         nvinfer_plugin
         nvparsers
