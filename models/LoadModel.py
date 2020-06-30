@@ -74,10 +74,9 @@ class MainModel(nn.Module):
         if MainModel.RUN_MODE_FEATURE_EXTRACT == run_mode:
             return x
         #x = x.view(x.size(0), -1)
-        print('before x.shape: {0};'.format(x.shape))
         #x = x.view(x.size(0), x.size(1))
         x = torch.flatten(x, start_dim=1, end_dim=-1)
-        print('after x.shape: {0};'.format(x.shape))
+        print('flatten x.shape: {0};'.format(x.shape))
         out = []
         out.append(self.classifier(x))
 
