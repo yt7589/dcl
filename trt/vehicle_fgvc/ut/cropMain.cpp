@@ -176,7 +176,7 @@ void *mythread(void *threadid)
 {
     int tid = *((int *)threadid);
     std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
-                            "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v009_fp32.trt";
+                            "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011_fp16.trt";
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);
     // 获取测试数据集上样本
