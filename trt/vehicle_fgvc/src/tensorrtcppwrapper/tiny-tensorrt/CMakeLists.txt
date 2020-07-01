@@ -1,13 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
 
-
 project(tinytrt)
-
-
 
 set(CMAKE_BUILD_TYPE "Debug")
 #set(CMAKE_BUILD_TYPE release)
-
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -fpermissive -fpic")
 
@@ -36,8 +32,7 @@ set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} ${CUDA_gencode_flags}")
 
 include_directories(spdlog)
 include_directories(./)
-include_directories(/home/zhangsy/tensorrt7/tiny_tensorrt_vtn/include
-				/home/zhangsy/tensorrt7/TensorRT-7.0.0.11/include
+include_directories(../../../../thirdparty/TensorRT-7.1.3.4/include
 						${TENSORRT_INCLUDE_DIR})
 						
 include_directories(${TENSORRT_INCLUDE_DIR})						
