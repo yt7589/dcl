@@ -223,8 +223,16 @@ void runTensorRT()
     std::cout<<"create build config is OK"<<std::endl;
     config->setMaxWorkspaceSize(1 << 20);
     std::cout<<"setMaxWorkSpaceSize is OK"<<std::endl;
+    auto profile = builder->create_optimization_profile();
+    profile->set_shape("foo", (1, 3, 224, 224), (1, 3, 224, 224), (1, 3, 224, 224));
+    config->add_optimization_profile(profile)
     nvinfer1::ICudaEngine* engine = builder->buildEngineWithConfig(*network, *config);
     std::cout<<"buildEngineWithConfig is OK"<<std::endl;
+
+    parser->destroy();
+    network->destroy();
+    config->destroy();
+    builder->destroy();
     std::cout<<"^_^ TensorRT ^_^"<<std::endl;
 }
 
