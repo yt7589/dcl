@@ -246,6 +246,10 @@ void runTensorRT()
     nvinfer1::IHostMemory *serializedModel = engine->serialize();
     std::cout<<"serialization of the engine! :"<<serializedModel<<"!"<<std::endl;
 
+    std::ofstream ofs("serialized_engine.trt", std::ios::out | std::ios::binary);
+    ofs.write((char*)(serializedModel->data()), serializedModel->size());
+    ofs.close();
+
     serializedModel->destroy();
     parser->destroy();
     network->destroy();
