@@ -15,23 +15,28 @@
 //extern thread_local std::function<std::vector<float>(int)> g_calib;
 bool PredictorAPI::init(std::vector<std::string> model_path, const InputConfig& iconfig) // 初始化
 {	 
+	std::cout<<"PredictorAPI::init Ln18 1"<<std::endl;
 	set(_pPredictor);
     //_pPredictor->init, _pPredictor, 
     auto a = _pPredictor.get();
 	if (iconfig.modelInputType == 2)
 	{
+		std::cout<<"PredictorAPI::init 2"<<std::endl;
 		assert(!_calibImages.empty());
 		if (_calibImages.empty())
 		{
 			return false;
 		}
+		std::cout<<"PredictorAPI::init 3"<<std::endl;
 		a->_calib = [this](int batchsize){return this->calib(batchsize);};
 	}
 	else
 	{
+		std::cout<<"PredictorAPI::init 4"<<std::endl;
 		assert(iconfig.modelInputType != 1);
 		//iconfig.modelInputType = 0;
 	}
+	std::cout<<"PredictorAPI::init 5"<<std::endl;
     auto result = pool->enqueue([&model_path, &iconfig,a]\
             (){return a->init(model_path,iconfig ); });
           

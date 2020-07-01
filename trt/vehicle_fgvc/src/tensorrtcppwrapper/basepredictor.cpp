@@ -261,7 +261,7 @@ virtual  std::vector<float> BasePredictor::preProcess(const std::vector<cv::Mat>
 
 bool BasePredictor::init(std::vector<std::string> model_path, const InputConfig& iconfig)
 {
-	
+	std::cout<<"BasePredictor::init Ln264 1"<<std::endl;
 //	g_calib = _calib;
 	assert (!model_path.empty());
 	std::vector<std::vector<char>> bytes(model_path.size());
@@ -269,6 +269,7 @@ bool BasePredictor::init(std::vector<std::string> model_path, const InputConfig&
     {
         if (model_path[i].size() < 2048)
         {
+			std::cout<<"BasePredictor::init 2"<<std::endl;
             //std::cout << model_path[i];exit(0);
             auto status_load = readdata(model_path[i], bytes[i]);
 			//std::cout << bytes[i].size();exit(0);
@@ -278,11 +279,13 @@ bool BasePredictor::init(std::vector<std::string> model_path, const InputConfig&
                 return false;
             }
         } else{
+			std::cout<<"BasePredictor::init Ln264 3"<<std::endl;
             bytes[i].resize(model_path[i].size());
             bytes[i].assign(model_path[i].begin(), model_path[i].end());
         }
 
     }
+	std::cout<<"BasePredictor::init Ln264 4"<<std::endl;
 	
 	//std::vector<char>tmp (model_path.begin(), model_path.end());
 	//bytes[0]=tmp;
