@@ -210,6 +210,9 @@ void runTensorRT()
     int maxBatchSize = 8;
     builder->setMaxBatchSize(maxBatchSize);
     std::cout<<"setMaxBatchSize is OK!"<<std::endl;
+
+
+    
     nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
     if (builder->platformHasFastInt8()) 
     {
@@ -223,9 +226,14 @@ void runTensorRT()
     std::cout<<"create build config is OK"<<std::endl;
     config->setMaxWorkspaceSize(1 << 20);
     std::cout<<"setMaxWorkSpaceSize is OK"<<std::endl;
-    //auto profile = builder->createOptimizationProfile();
+
+    //nvinfer1::IOptimizationProfile* profile = builder.createOptimizationProfile();
+    auto profile = builder->createOptimizationProfile();
+    profile->setDimensions("data", OptProfileSelector::kMIN, Dims3(3,224,224);
+    profile->setDimensions("data", OptProfileSelector::kOPT, Dims3(3,224,224);
+    profile->setDimensions("data", OptProfileSelector::kMAX, Dims3(3,224,224);
     // profile->setShape("foo", (1, 3, 224, 224), (1, 3, 224, 224), (1, 3, 224, 224));
-    //config->addOptimizationProfile(profile);
+    config->addOptimizationProfile(profile);
     nvinfer1::ICudaEngine* engine = builder->buildEngineWithConfig(*network, *config);
     std::cout<<"buildEngineWithConfig is OK"<<std::endl;
 
