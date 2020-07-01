@@ -38,7 +38,7 @@ include_directories(
         ${CUDNN_INCLUDE_DIRS}
 )
 
-set(CUDA_LIBRARY_DIRS /usr/local/cuda-10.1/lib64/)
+set(CUDA_LIBRARY_DIRS /usr/local/cuda-10.2/lib64/)
 link_directories(${OpenCV_LIBRARIES_DIRS}
                  ${TENSORRT_LIBRARY_DIRS}
                  ${CUDA_LIBRARY_DIRS}
