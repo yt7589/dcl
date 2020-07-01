@@ -31,6 +31,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include "entropyCalibrator.h"
 
 
 class Logger : public nvinfer1::ILogger           
@@ -214,7 +215,9 @@ void runTensorRT()
 
     
     nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
-    nvinfer1::Int8EntropyCalibrator* calib = new nvinfer1::Int8EntropyCalibrator(8, "../models/calib_images.txt", "../models/images", "cartyperec");
+    nvinfer1::Int8EntropyCalibrator* calib = new Int8EntropyCalibrator(
+        8, "../models/calib_images.txt", "../models/images", "cartyperec"
+    );
     config->setInt8Calibrator(calib);
     if (builder->platformHasFastInt8()) 
     {
