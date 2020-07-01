@@ -214,8 +214,8 @@ void runTensorRT()
 
     
     nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
-    config->setInt8Calibrator(
-                new nvinfer1::Int8EntropyCalibrator(8, "../models/calib_images.txt", "../models/images", "cartyperec"));
+    nvinfer1::Int8EntropyCalibrator* calib = new nvinfer1::Int8EntropyCalibrator(8, "../models/calib_images.txt", "../models/images", "cartyperec");
+    config->setInt8Calibrator(calib);
     if (builder->platformHasFastInt8()) 
     {
         config->setFlag(nvinfer1::BuilderFlag::kINT8);
