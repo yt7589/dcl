@@ -276,6 +276,7 @@ void *mythread(void *threadid)
                             "yantao/fgvc/dcl/trt/vehicle_fgvc/build/serialized_engine.trt";
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);
+    std::cout<<"cropMain.mythread 1"<<std::endl;
     // 获取测试数据集上样本
     vector<vector<string>> samples = GetTestDsSamples();
     // Call other DCL interface
