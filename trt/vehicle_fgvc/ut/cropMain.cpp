@@ -193,30 +193,30 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
     return dataVec;
 }
 
-void runTensorRT()
+/**
+ * 将onnx文件转为TensorRT模型文件，支持int8量化
+ * 参数：
+ *      onnx_filename：onnx文件全路径文件名
+ *      calibFilesTxt：用于int8量化标定的图像文件列表
+ *      calibFilesPath：用于int8量化标定的图像文件目录
+ *      trtFile：TensorRT模型文件
+ * 使用示例见下面的call_convertOnnxToTrt
+ */
+void convertOnnxToTrt(const char* onnx_filename, const char* calibFilesTxt, 
+            const char* calibFilesPath, const char* trtFile)
 {
-    std::cout<<"Hello TensorRT! v0.0.3"<<std::endl;
     nvinfer1::IBuilder* builder = nvinfer1::createInferBuilder(gLogger);
     const auto explicitBatch = 1U << static_cast<uint32_t>(nvinfer1::NetworkDefinitionCreationFlag::kEXPLICIT_BATCH);  
     nvinfer1::INetworkDefinition* network = builder->createNetworkV2(explicitBatch);
     auto parser = nvonnxparser::createParser(*network, gLogger);
     std::cout<<"parser created"<<std::endl;
-    std::string onnx_filename = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
-                            "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011.onnx";
     bool rst = parser->parseFromFile(onnx_filename.c_str(), 0);
-	/*for (int i = 0; i < parser.getNbErrors(); ++i)
-	{
-		std::cout << parser->getError(i)->desc() << std::endl;
-	}*/
     int maxBatchSize = 8;
     builder->setMaxBatchSize(maxBatchSize);
     std::cout<<"setMaxBatchSize is OK!"<<std::endl;
-
-
-    
     nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
     nvinfer1::Int8EntropyCalibrator* calib = new nvinfer1::Int8EntropyCalibrator(
-        8, "../models/calib_images.txt", "../models/images", "cartyperec"
+        maxBatchSize, calibFilesTxt, calibFilesPath, "cartyperec"
     );
     config->setInt8Calibrator(calib);
     if (builder->platformHasFastInt8()) 
@@ -231,31 +231,34 @@ void runTensorRT()
     std::cout<<"create build config is OK"<<std::endl;
     config->setMaxWorkspaceSize(1 << 20);
     std::cout<<"setMaxWorkSpaceSize is OK"<<std::endl;
-
-    //nvinfer1::IOptimizationProfile* profile = builder.createOptimizationProfile();
     auto profile = builder->createOptimizationProfile();
     profile->setDimensions("data", nvinfer1::OptProfileSelector::kMIN, nvinfer1::Dims4(1, 3,224,224));
     profile->setDimensions("data", nvinfer1::OptProfileSelector::kOPT, nvinfer1::Dims4(4, 3,224,224));
     profile->setDimensions("data", nvinfer1::OptProfileSelector::kMAX, nvinfer1::Dims4(8, 3,224,224));
-    // profile->setShape("foo", (1, 3, 224, 224), (1, 3, 224, 224), (1, 3, 224, 224));
     config->addOptimizationProfile(profile);
-
     nvinfer1::ICudaEngine* engine = builder->buildEngineWithConfig(*network, *config);
     std::cout<<"buildEngineWithConfig is OK"<<std::endl;
-
     nvinfer1::IHostMemory *serializedModel = engine->serialize();
     std::cout<<"serialization of the engine! :"<<serializedModel<<"!"<<std::endl;
-
-    std::ofstream ofs("serialized_engine.trt", std::ios::out | std::ios::binary);
+    std::ofstream ofs(trtFile, std::ios::out | std::ios::binary);
     ofs.write((char*)(serializedModel->data()), serializedModel->size());
     ofs.close();
-
     serializedModel->destroy();
     parser->destroy();
     network->destroy();
     config->destroy();
     builder->destroy();
     std::cout<<"^_^ TensorRT ^_^"<<std::endl;
+}
+void call_convertOnnxToTrt()
+{
+    std::cout<<"将onnx模型转化为int8量化的trt文件 v0.0.1"<<std::endl;
+    char* onnx_filename = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
+                            "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011.onnx";
+    char* calibFilesTxt = "../models/calib_images.txt";
+    char* calibFilesPath = "../models/images";
+    char* trtFile = "../models/dcl_v011_int8_yt.trt"
+    convertOnnxToTrt(onnx_filename, calibFilesTxt, calibFilesPath, trtFile);
 }
 
 void loadTrtFile()
@@ -304,8 +307,8 @@ void *mythread(void *threadid)
     int iDebug = 1;
     if (1 == iDebug)
     {
-        //runTensorRT();
-        loadTrtFile();
+        call_convertOnnxToTrt();
+        //loadTrtFile();
         return NULL;
     }
     int tid = *((int *)threadid);
