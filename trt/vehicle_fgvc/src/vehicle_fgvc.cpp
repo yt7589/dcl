@@ -39,12 +39,15 @@ void *VehicleFgvcInstance(string modelpath,
                              int max_big_pic,
                              string businessType) //端口初始化
 {
+    std::cout<<"VehicleFgvcInstance::VehicleFgvcInstance 1"<<std::endl;
     //assert(max_batch_size == 32);
     std::lock_guard<std::mutex> lock(my_lock);
     auto eng =  (PredictorAPI*)(Reflector::Instance().
             CreateObject(businessType));//new VTNPredictorAPI();
+    std::cout<<"VehicleFgvcInstance::VehicleFgvcInstance 2"<<std::endl;
     InputConfig iconfig;
     iconfig.devices.push_back(cardnum);
+    std::cout<<"VehicleFgvcInstance::VehicleFgvcInstance 3"<<std::endl;
     if (modelpath.find("engine") != modelpath.npos)
         iconfig.modelType = "engine";
     else if (modelpath.find("onnx") != modelpath.npos)
@@ -56,26 +59,31 @@ void *VehicleFgvcInstance(string modelpath,
     {
         iconfig.modelType = "engine";
     }
+    std::cout<<"VehicleFgvcInstance::VehicleFgvcInstance 4"<<std::endl;
 
     iconfig.maxBatchSize = max_batch_size;
 
     if (eng->init(std::vector<std::string> {modelpath},
                   iconfig))
     {
-
+        std::cout<<"VehicleFgvcInstance::VehicleFgvcInstance 5"<<std::endl;
         G_SOURCE[(void *)eng] = eng; //todo CHECK EXIST
         GInfo tmp;
         tmp.cardnum = cardnum;
         tmp.max_batch_size = max_batch_size;
+        std::cout<<"VehicleFgvcInstance::VehicleFgvcInstance 6"<<std::endl;
         tmp.tempCudaDet = initTempCudaDet(cardnum, max_batch_size);
+        std::cout<<"VehicleFgvcInstance::VehicleFgvcInstance 7"<<std::endl;
         tmp.cudaCropImages = initCropAndResizeImages(cardnum,
                 max_batch_size, MAX_CAR_NUM, 224, 224);
+                std::cout<<"VehicleFgvcInstance::VehicleFgvcInstance 9"<<std::endl;
         //max_big_pic+1  zuihou yige yongyu qianxiang shuru zhongzhuan
         G_GInfo[(void *)eng] = tmp;
         return (void *)eng;
     }
     else
         delete eng;
+    std::cout<<"VehicleFgvcInstance::VehicleFgvcInstance 10"<<std::endl;
     return nullptr;
 }
 
