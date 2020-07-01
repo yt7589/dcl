@@ -278,7 +278,7 @@ void loadTrtFile()
         file.read(trtModelStreamfromFile.data(), size);
         file.close();
         std::cout<<"loadTrtFile 4"<<std::endl;
-        nvinfer1::IRuntime* runtime = createInferRuntime(gLogger.getTRTLogger());
+        nvinfer1::IRuntime* runtime = createInferRuntime(gLogger);
         std::cout<<"loadTrtFile 5"<<std::endl;
         nvinfer1::ICudaEngine* mEngine = runtime->deserializeCudaEngine(trtModelStreamfromFile.data(), size, nullptr);
         std::cout<<"loadTrtFile 6"<<std::endl;
@@ -286,7 +286,6 @@ void loadTrtFile()
         if (!mEngine)
         {
             std::cout<<"loadTrtFile 8"<<std::endl;
-            gLogInfo << "false engine..?" << std::endl;
         }
     }
 }
