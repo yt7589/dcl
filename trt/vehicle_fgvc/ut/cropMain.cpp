@@ -261,14 +261,12 @@ void call_convertOnnxToTrt()
     convertOnnxToTrt(onnx_filename, calibFilesTxt, calibFilesPath, trtFile);
 }
 
-void loadTrtFile()
+void runTrtInfer(const char* modelfile)
 {
     std::cout<<"loadTrtFile 1"<<std::endl;
-    std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
-                            "yantao/fgvc/dcl/trt/vehicle_fgvc/build/serialized_engine.trt";
     std::vector<char> trtModelStreamfromFile;
     size_t size{ 0 };
-    std::ifstream file(modelfile.c_str(), std::ios::binary);
+    std::ifstream file(modelfile, std::ios::binary);
     std::cout<<"loadTrtFile 2"<<std::endl;
 
     if (file.good())
@@ -297,7 +295,14 @@ void loadTrtFile()
         void* buffers[2];
         //buffers[inputIndex] = inputbuffer;
         //buffers[outputIndex] = outputBuffer;
+        std::cout<<"推理过程成功！"<<std::endl;
     }
+}
+void call_runTrtInfer()
+{
+    char* modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
+                            "yantao/fgvc/dcl/trt/vehicle_fgvc/build/serialized_engine.trt";
+    runTrtInfer(modelfile);
 }
 
 const int TEST_DS_NUM = 16; //5664; // 测试数据集记录数，必须能被8整除
@@ -307,8 +312,8 @@ void *mythread(void *threadid)
     int iDebug = 1;
     if (1 == iDebug)
     {
-        call_convertOnnxToTrt();
-        //loadTrtFile();
+        //call_convertOnnxToTrt();
+        call_runTrtInfer();
         return NULL;
     }
     int tid = *((int *)threadid);
