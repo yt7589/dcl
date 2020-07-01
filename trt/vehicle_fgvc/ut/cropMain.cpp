@@ -210,7 +210,7 @@ void convertOnnxToTrt(const char* onnx_filename, const char* calibFilesTxt,
     nvinfer1::INetworkDefinition* network = builder->createNetworkV2(explicitBatch);
     auto parser = nvonnxparser::createParser(*network, gLogger);
     std::cout<<"parser created"<<std::endl;
-    bool rst = parser->parseFromFile(onnx_filename.c_str(), 0);
+    bool rst = parser->parseFromFile(onnx_filename, 0);
     int maxBatchSize = 8;
     builder->setMaxBatchSize(maxBatchSize);
     std::cout<<"setMaxBatchSize is OK!"<<std::endl;
