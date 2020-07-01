@@ -30,6 +30,8 @@ set(TENSORRT_LIBRARY_DIRS ../thirdparty/TensorRT-7.1.3.4/lib)
 
 set(CUDA_INCLUDE_DIRS /usr/local/cuda/include)
 
+set(CUDNN_LIBRARY_DIRS /usr/lib/x86_64-linux-gnu/)
+
 
 include_directories(
         ${OpenCV_INCLUDE_DIRS}
@@ -42,7 +44,8 @@ set(CUDA_LIBRARY_DIRS /usr/local/cuda-10.2/lib64/)
 link_directories(${OpenCV_LIBRARIES_DIRS}
                  ${TENSORRT_LIBRARY_DIRS}
                  ${CUDA_LIBRARY_DIRS}
-                 ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+                 ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+                 ${CUDNN_LIBRARY_DIRS})
 include_directories(include
         ../decode/include
         ../common
