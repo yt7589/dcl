@@ -67,16 +67,6 @@ class dataset(data.Dataset):
         #img_path = os.path.join(self.root_path, self.paths[item])
         img_path = self.paths[item]
         img = self.pil_loader(img_path)
-        rw, gw, bw = img.split()
-        img_data = list(rw.getdata())
-        print('image: {0};'.format(img_path))
-        print('@@@@@ raw_img.red: {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}'.format(
-            img_data[0], img_data[1], img_data[2], 
-            img_data[3], img_data[4], img_data[5], 
-            img_data[6], img_data[7], img_data[8], 
-            img_data[9], img_data[10], img_data[11]
-        ))
-
         if self.test:
             img = self.totensor(img)
             label = self.labels[item]
@@ -113,22 +103,6 @@ class dataset(data.Dataset):
             swap_law2 = [(i-(swap_range//2))/swap_range for i in range(swap_range)]
             label_swap = label
             img_unswap = self.totensor(img_unswap)
-
-            print('$$$ img_unswap: {0}; {1} {2} {3} {4} {5} {6};'.format(img_unswap.shape,
-                img_unswap[0][0][0], img_unswap[0][0][1], img_unswap[0][0][2], 
-                img_unswap[0][0][3], img_unswap[0][0][4], img_unswap[0][0][5]
-            ))
-            print('### img_unswap: {0}; {1} {2} {3} {4} {5} {6};'.format(img_unswap.shape,
-                (img_unswap[0][0][0]*0.229 + 0.485)*255.0, 
-                (img_unswap[0][0][1]*0.229 + 0.485)*255.0, 
-                (img_unswap[0][0][2]*0.229 + 0.485)*255.0, 
-                (img_unswap[0][0][3]*0.229 + 0.485)*255.0, 
-                (img_unswap[0][0][4]*0.229 + 0.485)*255.0, 
-                (img_unswap[0][0][5]*0.229 + 0.485)*255.0, 
-            ))
-
-
-
             return img_unswap, label, label_swap, swap_law1, swap_law2, self.paths[item]
 
     def pil_loader(self,imgpath):

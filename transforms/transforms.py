@@ -188,15 +188,7 @@ class Resize(object):
         Returns:
             PIL Image: Rescaled image.
         """
-        resized = F.resize(img, self.size, self.interpolation)
-        rd, gd, bd = resized.split()
-        img_data = list(rd.getdata())
-        print('resized: {0};  {1}, {2}, {3}, {4}, {5}, {6};'.format(resized.size,
-            img_data[0], img_data[1], img_data[2], 
-            img_data[3], img_data[4], img_data[5]
-        ))
-        return resized
-        #return F.resize(img, self.size, self.interpolation)
+        return F.resize(img, self.size, self.interpolation)
 
     def __repr__(self):
         interpolate_str = _pil_interpolation_to_str[self.interpolation]
