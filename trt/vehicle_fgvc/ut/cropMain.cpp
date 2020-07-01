@@ -290,13 +290,13 @@ void loadTrtFile()
         {
             std::cout<<"loadTrtFile 8"<<std::endl;
         }
-        IExecutionContext *context = engine->createExecutionContext();
+        nvinfer1::IExecutionContext *context = engine->createExecutionContext();
         std::cout<<"create execution context is OK"<<std::endl;
         int inputIndex = engine->getBindingIndex("data");
         int outputIndex = engine->getBindingIndex("output");
         void* buffers[2];
-        buffers[inputIndex] = inputbuffer;
-        buffers[outputIndex] = outputBuffer;
+        //buffers[inputIndex] = inputbuffer;
+        //buffers[outputIndex] = outputBuffer;
     }
 }
 
