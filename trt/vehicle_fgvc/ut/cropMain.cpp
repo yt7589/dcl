@@ -211,6 +211,15 @@ void runTensorRT()
     builder->setMaxBatchSize(maxBatchSize);
     std::cout<<"setMaxBatchSize is OK!"<<std::endl;
     nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
+    if (builder->platformHasFastInt8()) 
+    {
+        config->setFlag(nvinfer1::BuilderFlag::kINT8);
+    }
+    else
+    {
+        config->setFlag(nvinfer1::BuilderFlag::kFP16);
+    }
+    
     std::cout<<"create build config is OK"<<std::endl;
     config->setMaxWorkspaceSize(1 << 20);
     std::cout<<"setMaxWorkSpaceSize is OK"<<std::endl;
