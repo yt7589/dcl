@@ -301,7 +301,7 @@ void runTrtInfer(const char* modelfile)
 void call_runTrtInfer()
 {
     char* modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
-                            "yantao/fgvc/dcl/trt/vehicle_fgvc/build/serialized_engine.trt";
+                            "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011_int8_yt.trt";
     runTrtInfer(modelfile);
 }
 
