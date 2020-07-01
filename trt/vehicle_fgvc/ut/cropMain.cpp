@@ -257,7 +257,7 @@ void call_convertOnnxToTrt()
                             "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011.onnx";
     char* calibFilesTxt = "../models/calib_images.txt";
     char* calibFilesPath = "../models/images";
-    char* trtFile = "../models/dcl_v011_int8_yt.trt"
+    char* trtFile = "../models/dcl_v011_int8_yt.trt";
     convertOnnxToTrt(onnx_filename, calibFilesTxt, calibFilesPath, trtFile);
 }
 
@@ -290,10 +290,10 @@ void loadTrtFile()
         {
             std::cout<<"loadTrtFile 8"<<std::endl;
         }
-        nvinfer1::IExecutionContext *context = engine->createExecutionContext();
+        nvinfer1::IExecutionContext *context = mEngine->createExecutionContext();
         std::cout<<"create execution context is OK"<<std::endl;
-        int inputIndex = engine->getBindingIndex("data");
-        int outputIndex = engine->getBindingIndex("output");
+        int inputIndex = mEngine->getBindingIndex("data");
+        int outputIndex = mEngine->getBindingIndex("output");
         void* buffers[2];
         //buffers[inputIndex] = inputbuffer;
         //buffers[outputIndex] = outputBuffer;
