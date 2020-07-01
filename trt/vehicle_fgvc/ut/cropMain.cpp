@@ -215,7 +215,7 @@ void runTensorRT()
 
     
     nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
-    nvinfer1::Int8EntropyCalibrator* calib = new Int8EntropyCalibrator(
+    nvinfer1::Int8EntropyCalibrator* calib = new nvinfer1::Int8EntropyCalibrator(
         8, "../models/calib_images.txt", "../models/images", "cartyperec"
     );
     config->setInt8Calibrator(calib);
