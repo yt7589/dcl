@@ -282,12 +282,12 @@ void loadTrtFile()
         std::cout<<"loadTrtFile 5"<<std::endl;
         ICudaEngine* mEngine = runtime->deserializeCudaEngine(trtModelStreamfromFile.data(), size, nullptr);
         std::cout<<"loadTrtFile 6"<<std::endl;
-    }
-    std::cout<<"loadTrtFile 7"<<std::endl;
-    if (!mEngine)
-    {
-        std::cout<<"loadTrtFile 8"<<std::endl;
-        gLogInfo << "false engine..?" << std::endl;
+        std::cout<<"loadTrtFile 7"<<std::endl;
+        if (!mEngine)
+        {
+            std::cout<<"loadTrtFile 8"<<std::endl;
+            gLogInfo << "false engine..?" << std::endl;
+        }
     }
 }
 
