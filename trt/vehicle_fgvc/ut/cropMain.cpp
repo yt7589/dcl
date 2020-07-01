@@ -270,10 +270,10 @@ void *mythread(void *threadid)
     }
     int tid = *((int *)threadid);
     std::cout<<"TensorRT new int8 engine file test..."<<std::endl;
-    std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
-                            "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011_fp16.trt";
     /*std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
-                            "yantao/fgvc/dcl/trt/vehicle_fgvc/build/serialized_engine.trt";*/
+                            "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011_fp16.trt";*/
+    std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
+                            "yantao/fgvc/dcl/trt/vehicle_fgvc/build/serialized_engine.trt";
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);
     // 获取测试数据集上样本
