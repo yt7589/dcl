@@ -237,10 +237,8 @@ void runTensorRT()
     nvinfer1::ICudaEngine* engine = builder->buildEngineWithConfig(*network, *config);
     std::cout<<"buildEngineWithConfig is OK"<<std::endl;
 
-    nvinfer1::IExecutionContext *context = engine->createExecutionContext();
-    context->setOptimizationProfile(0);
-
     nvinfer1::IHostMemory *serializedModel = engine->serialize();
+    std::cout<<"serialization of the engine! :"<<serializedModel<<"!"<<std::endl;
 
     serializedModel->destroy();
     parser->destroy();
