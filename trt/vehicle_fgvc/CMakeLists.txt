@@ -22,11 +22,11 @@ find_package(CUDA REQUIRED)
 #find_package(OpenCV REQUIRED)
 
 #thirdparty
-set(OpenCV_INCLUDE_DIRS ../thirdparty/opencv-3.4.7/include)
-set(OpenCV_LIBRARIES_DIRS ../thirdparty/opencv-3.4.7/build/lib)
+set(OpenCV_INCLUDE_DIRS ../../thirdparty/opencv-3.4.7/include)
+set(OpenCV_LIBRARIES_DIRS ../../thirdparty/opencv-3.4.7/build/lib)
 
-set(TENSORRT_INCLUDE_DIRS ../thirdparty/TensorRT-7.1.3.4/include)
-set(TENSORRT_LIBRARY_DIRS ../thirdparty/TensorRT-7.1.3.4/lib)
+set(TENSORRT_INCLUDE_DIRS ../../thirdparty/TensorRT-7.1.3.4/include)
+set(TENSORRT_LIBRARY_DIRS ../../thirdparty/TensorRT-7.1.3.4/lib)
 
 set(CUDA_INCLUDE_DIRS /usr/local/cuda/include)
 
