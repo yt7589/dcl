@@ -207,6 +207,15 @@ void runTensorRT()
 	{
 		std::cout << parser->getError(i)->desc() << std::endl;
 	}*/
+    int maxBatchSize = 8;
+    builder->setMaxBatchSize(maxBatchSize);
+    std::cout<<"setMaxBatchSize is OK!"<<std::endl;
+    nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
+    std::cout<<"create build config is OK"<<std::endl;
+    config->setMaxWorkspaceSize(1 << 20);
+    std::cout<<"setMaxWorkSpaceSize is OK"<<std::endl;
+    nvinfer1::ICudaEngine* engine = builder->buildEngineWithConfig(*network, *config);
+    std::cout<<"buildEngineWithConfig is OK"<<std::endl;
     std::cout<<"^_^ TensorRT ^_^"<<std::endl;
 }
 
