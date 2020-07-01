@@ -423,33 +423,43 @@ bool Trt::DeserializeEngineData(const T& enginedata) {
 	}
 
 	 */
-	 
+	std::cout<<"Trt::DeserializeEngineData Ln426 1"<<std::endl;
 	size_t bufCount = enginedata.size();
 
 	initLibNvInferPlugins(&mLogger, "");
+    std::cout<<"Trt::DeserializeEngineData 2"<<std::endl;
 	mRuntime = nvinfer1::createInferRuntime(mLogger);
+    std::cout<<"Trt::DeserializeEngineData 3"<<std::endl;
 	mEngine = mRuntime->deserializeCudaEngine(const_cast<char*>(enginedata.data()), bufCount, nullptr);
+    std::cout<<"Trt::DeserializeEngineData 4"<<std::endl;
 	assert(mEngine != nullptr);
 	//mBatchSize = mEngine->getMaxBatchSize();
+    std::cout<<"Trt::DeserializeEngineData 5"<<std::endl;
 	mRuntime->destroy();
 	return true;
     
 }
 
 bool Trt::DeserializeEngine(const std::string& engineFile) {
+    std::cout<<"Trt::DeserializeEngine Ln440 1"<<std::endl;
     std::ifstream in(engineFile.c_str(), std::ifstream::binary);
+    std::cout<<"Trt::DeserializeEngine 2"<<std::endl;
     if(in.is_open()) {
+        std::cout<<"Trt::DeserializeEngine 3"<<std::endl;
         auto const start_pos = in.tellg();
         in.ignore(std::numeric_limits<std::streamsize>::max());
         size_t bufCount = in.gcount();
         in.seekg(start_pos);
+        std::cout<<"Trt::DeserializeEngine 4"<<std::endl;
         //std::unique_ptr<char[]> engineBuf(new char[bufCount]);
 		std::vector<char> engineBuf(bufCount);
         in.read(engineBuf.data(), bufCount);
+        std::cout<<"Trt::DeserializeEngine 5"<<std::endl;
         return DeserializeEngineData(engineBuf);
     }
 	else if (engineFile.size() > 2048)
 	{
+        std::cout<<"Trt::DeserializeEngine 6"<<std::endl;
 		return DeserializeEngineData(engineFile);
 	}
     std::cout <<engineFile<<std::endl;
