@@ -229,9 +229,9 @@ void runTensorRT()
 
     //nvinfer1::IOptimizationProfile* profile = builder.createOptimizationProfile();
     auto profile = builder->createOptimizationProfile();
-    profile->setDimensions("data", nvinfer1::OptProfileSelector::kMIN, nvinfer1::Dims3(3,224,224));
-    profile->setDimensions("data", nvinfer1::OptProfileSelector::kOPT, nvinfer1::Dims3(3,224,224));
-    profile->setDimensions("data", nvinfer1::OptProfileSelector::kMAX, nvinfer1::Dims3(3,224,224));
+    profile->setDimensions("data", nvinfer1::OptProfileSelector::kMIN, nvinfer1::Dims3(-1, 3,224,224));
+    profile->setDimensions("data", nvinfer1::OptProfileSelector::kOPT, nvinfer1::Dims3(-1, 3,224,224));
+    profile->setDimensions("data", nvinfer1::OptProfileSelector::kMAX, nvinfer1::Dims3(-1, 3,224,224));
     // profile->setShape("foo", (1, 3, 224, 224), (1, 3, 224, 224), (1, 3, 224, 224));
     config->addOptimizationProfile(profile);
     nvinfer1::ICudaEngine* engine = builder->buildEngineWithConfig(*network, *config);
