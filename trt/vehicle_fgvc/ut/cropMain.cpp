@@ -214,6 +214,8 @@ void runTensorRT()
 
     
     nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
+    config->setInt8Calibrator(
+                new Int8EntropyCalibrator(8, "../models/calib_images.txt", "../models/images", "cartyperec"));
     if (builder->platformHasFastInt8()) 
     {
         config->setFlag(nvinfer1::BuilderFlag::kINT8);
@@ -234,6 +236,7 @@ void runTensorRT()
     profile->setDimensions("data", nvinfer1::OptProfileSelector::kMAX, nvinfer1::Dims4(8, 3,224,224));
     // profile->setShape("foo", (1, 3, 224, 224), (1, 3, 224, 224), (1, 3, 224, 224));
     config->addOptimizationProfile(profile);
+
     nvinfer1::ICudaEngine* engine = builder->buildEngineWithConfig(*network, *config);
     std::cout<<"buildEngineWithConfig is OK"<<std::endl;
 
