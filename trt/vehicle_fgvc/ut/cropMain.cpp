@@ -230,7 +230,7 @@ void runTensorRT()
     std::cout<<"buildEngineWithConfig is OK"<<std::endl;
 
     nvinfer1::IExecutionContext *context = engine->createExecutionContext();
-    context->setOptimizationProfile();
+    context->setOptimizationProfile(0);
 
     nvinfer1::IHostMemory *serializedModel = engine->serialize();
 
