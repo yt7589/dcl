@@ -258,6 +258,33 @@ void runTensorRT()
     std::cout<<"^_^ TensorRT ^_^"<<std::endl;
 }
 
+void loadTrtFile()
+{
+    std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
+                            "yantao/fgvc/dcl/trt/vehicle_fgvc/build/serialized_engine.trt";
+    std::vector<char> trtModelStreamfromFile;
+    size_t size{ 0 };
+    std::ifstream file(modelfile.c_str(), std::ios::binary);
+
+    if (file.good())
+    {
+        file.seekg(0, file.end);
+        size = file.tellg();
+        file.seekg(0, file.beg);
+        trtModelStreamfromFile.resize(size);
+        file.read(trtModelStreamfromFile.data(), size);
+        file.close();
+        IRuntime* runtime = createInferRuntime(gLogger.getTRTLogger());
+        ICudaEngine* mEngine = runtime->deserializeCudaEngine(trtModelStreamfromFile.data(), size, nullptr);
+    }
+
+    if (!mEngine)
+    {
+        gLogInfo << "false engine..?" << std::endl;
+        return false;
+    }
+}
+
 const int TEST_DS_NUM = 16; //5664; // 测试数据集记录数，必须能被8整除
 static int init_num = 0;
 void *mythread(void *threadid)
@@ -265,7 +292,8 @@ void *mythread(void *threadid)
     int iDebug = 10;
     if (1 == iDebug)
     {
-        runTensorRT();
+        //runTensorRT();
+        loadTrtFile();
         return NULL;
     }
     int tid = *((int *)threadid);
