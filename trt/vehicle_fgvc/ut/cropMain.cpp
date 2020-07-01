@@ -225,7 +225,7 @@ void runTensorRT()
     std::cout<<"setMaxWorkSpaceSize is OK"<<std::endl;
     auto profile = builder->createOptimizationProfile();
     // profile->setShape("foo", (1, 3, 224, 224), (1, 3, 224, 224), (1, 3, 224, 224));
-    config->addOptimizationProfile(profile)
+    config->addOptimizationProfile(profile);
     nvinfer1::ICudaEngine* engine = builder->buildEngineWithConfig(*network, *config);
     std::cout<<"buildEngineWithConfig is OK"<<std::endl;
     engine->setOptimizationProfile();
