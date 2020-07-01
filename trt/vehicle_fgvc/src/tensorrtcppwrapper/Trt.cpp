@@ -436,6 +436,7 @@ bool Trt::DeserializeEngineData(const T& enginedata) {
 	//mBatchSize = mEngine->getMaxBatchSize();
     std::cout<<"Trt::DeserializeEngineData 5"<<std::endl;
 	mRuntime->destroy();
+    std::cout<<"Trt::DeserializeEngineData 6"<<std::endl;
 	return true;
     
 }
