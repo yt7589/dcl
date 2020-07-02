@@ -55,13 +55,14 @@ class DsManager(object):
     #
     RUN_MODE_COMPARE_EXCEL_IMAGE_VINS = 1021 # 找出所有车辆的识别码，与Excel进行比较，找到确实没有的公告号
     RUN_MODE_REMOVE_TEST_SAMPLE = 1022 # 
+    RUN_MODE_COPY_DS_IMAGES = 1023
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_REMOVE_TEST_SAMPLE
+        run_mode = DsManager.RUN_MODE_COPY_DS_IMAGES
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -127,6 +128,8 @@ class DsManager(object):
             DsManager.compare_excel_image_vins()
         elif DsManager.RUN_MODE_REMOVE_TEST_SAMPLE == run_mode:
             DsManager.remove_test_sample()
+        elif DsManager.RUN_MODE_COPY_DS_IMAGES == run_mode:
+            DsManager.copy_ds_images()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -1161,4 +1164,8 @@ class DsManager(object):
                 for line in rfd:
                     if not ('白#' in line or '夜#' in line):
                         wfd.write('{0}\n'.format(line[:-1]))
+
+    @staticmethod
+    def copy_ds_images():
+        print('生成测试数据集图片目录')
 
