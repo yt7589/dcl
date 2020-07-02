@@ -150,6 +150,8 @@ if __name__ == '__main__':
                       totensor = transformers["test_totensor"],\
                       test=True)
 
+    args.train_num_workers = 0
+    args.val_num_workers = 0
     dataloader = {}
     dataloader['train'] = torch.utils.data.DataLoader(train_set,\
                                                 batch_size=args.train_batch,\
