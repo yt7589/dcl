@@ -1169,17 +1169,17 @@ class DsManager(object):
     def copy_ds_images():
         print('生成测试数据集图片目录')
         seq = 0
-        with open('./logs/train_ds_v4.txt', 'w+', encoding='utf-8') as wfd:
-            with open('./datasets/CUB_200_2011/anno/train_ds_v4.txt') as tfd:
+        with open('./logs/test_ds_v4.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./datasets/CUB_200_2011/anno/test_ds_v4.txt') as tfd:
                 for line in tfd:
                     row = line.strip()
                     arrs0 = row.split('*')
                     src_file = arrs0[0]
                     fgvc_id = arrs0[1]
                     sample_file = '/hd10t/yantao/fgvc_ds/train/i{0:05d}.jpg'.format(seq)
-                    dst_file = './logs/images/i{0:05d}.jpg'.format(seq)
+                    dst_file = './logs/test/i{0:05d}.jpg'.format(seq)
                     seq += 1
                     shutil.copy(src_file, dst_file)
-                    #print('{0}*{1}'.format(dst_file, fgvc_id))
+                    print('{0}*{1}\n'.format(sample_file, fgvc_id))
                     wfd.write('{0}*{1}\n'.format(sample_file, fgvc_id))
 
