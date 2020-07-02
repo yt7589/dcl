@@ -1177,5 +1177,6 @@ class DsManager(object):
                 fgvc_id = arrs0[1]
                 dst_file = './logs/images/i{0:03d}.jpg'.format(seq)
                 seq += 1
-                print('cp {0} {1};'.format(src_file, dst_file))
+                shutil.copy(src_file, dst_file)
+                print('{0}*{1}'.format(dst_file, fgvc_id))
 
