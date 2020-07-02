@@ -1176,7 +1176,7 @@ class DsManager(object):
                     arrs0 = row.split('*')
                     src_file = arrs0[0]
                     fgvc_id = arrs0[1]
-                    sample_file = '/hd10t/yantao/fgvc_ds/train/i{0:05d}.jpg'.format(seq)
+                    sample_file = '/hd10t/yantao/fgvc_ds/test/i{0:05d}.jpg'.format(seq)
                     dst_file = './logs/test/i{0:05d}.jpg'.format(seq)
                     seq += 1
                     shutil.copy(src_file, dst_file)
