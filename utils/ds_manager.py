@@ -1168,8 +1168,14 @@ class DsManager(object):
     @staticmethod
     def copy_ds_images():
         print('生成测试数据集图片目录')
+        seq = 0
         with open('./datasets/CUB_200_2011/anno/train_ds_v4.txt') as tfd:
             for line in tfd:
                 row = line.strip()
-                print('row: {0};'.format(row))
+                arrs0 = row.split('*')
+                src_file = arrs0[0]
+                fgvc_id = arrs0[1]
+                dst_file = './logs/images/i{0:03d}.jpg'.format(seq)
+                seq += 1
+                print('cp {0} {1};'.format(src_file, dst_file))
 
