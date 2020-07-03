@@ -1208,4 +1208,21 @@ class DsManager(object):
     @staticmethod
     def know_init_status():
         print('掌握当前情况')
+        brand_set = set()
+        bmy_set = set()
+        ggh_set = set()
+        with open('./work/ggh_to_bmy_dict.txt', 'r', encoding='utf-8') as gfd:
+            for line in gfd:
+                row = line.strip()
+                arrs0 = row.split(':')
+                ggh_code = arrs0[0]
+                ggh_set.add(ggh_code)
+                bmy = arrs0[1]
+                bmy_set.add(bmy)
+                arrs1 = arrs0[1].split('_')
+                brand_name = arrs1[0]
+                brand_set.add(brand_name)
+                model_name = arrs1[1]
+                year_name = arrs1[2]
+        print('公告号：{0}个；品牌：{1}个；年款：{2}个；'.format(len(ggh_set), len(brand_set), len(bmy_set)))
 
