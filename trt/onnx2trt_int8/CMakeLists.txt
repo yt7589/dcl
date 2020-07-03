@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.15)
 project(feature_extraction)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -12,22 +12,38 @@ set(CUDA_NVCC_FLAGS
 set(CUDA_VERBOSE_BUILD ON CACHE BOOL "nvcc verbose" FORCE)
 find_package(CUDA REQUIRED)
 
-#thirdparty
-set(OpenCV_INCLUDE_DIRS ../thirdparty/opencv-3.4.7/include)
-set(OpenCV_LIBRARIES_DIRS ../thirdparty/opencv-3.4.7/build/lib)
+#opencv
+find_package(OpenCV REQUIRED)
 
-set(TENSORRT_INCLUDE_DIRS ../thirdparty/TensorRT-6.0.1.5/include)
-set(TENSORRT_LIBRARY_DIRS ../thirdparty/TensorRT-6.0.1.5/lib)
+#tensorrt
+set(TENSORRT_ROOT /home/TensorRT-6.0.1.5/)
+find_path(TENSORRT_INCLUDE_DIR NvInfer.h
+        HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+        PATH_SUFFIXES include)
+find_path(TENSORRT_INFER libnvinfer.so
+        HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+        PATH_SUFFIXES lib lib64 lib/x64)
+find_path(TENSORRT_INFER_PLUGIN libnvinfer_plugin.so
+        HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+        PATH_SUFFIXES lib lib64 lib/x64)
 
-link_directories(${OpenCV_LIBRARIES_DIRS}
-                 ${TENSORRT_LIBRARY_DIRS})
+#link_directories(${OpenCV_LIBRARIES_DIRS}
+ #                ${TENSORRT_LIBRARY_DIRS})
+link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+        ${JSON_LIBRARY_DIRS}
+	#${CUDA_LIBRARY_DIRS}
+	${OpenCV_LIBRARIES_DIRS}
+	${TENSORRT_INFER}
+        ${TENSORRT_INFER_PLUGIN}
+        )
+
 
 include_directories(include
         ../common
         ${OpenCV_INCLUDE_DIRS}
-        ${CUDA_INCLUDE_DIRS}
-        ${CUDNN_INCLUDE_DIR}
-	${TENSORRT_INCLUDE_DIRS})
+	#${CUDA_INCLUDE_DIRS}
+	#${CUDNN_INCLUDE_DIR}
+	${TENSORRT_INCLUDE_DIR})
 
 file(GLOB CPP_SRC src/*.cpp)
 file(GLOB CU_SRC src/*.cu)

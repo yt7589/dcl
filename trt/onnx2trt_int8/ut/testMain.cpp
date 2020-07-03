@@ -68,7 +68,7 @@ void *mythread(void *threadid) {
     int batchSize = 1;
     int gpus{0};
     cudaGetDeviceCount(&gpus);
-    void *handler = VehicleFeatureInstance("../models/", tid % gpus, 8);
+    void *handler = VehicleFeatureInstance("/hd10t/yantao/dcl/trt/onnx2trt_int8/models/", tid % gpus, 8);
     int iDebug = 1;
     if (1 == iDebug) 
     {

@@ -31,15 +31,79 @@
 #include "OnnxTRT.h"
 #include "nvCropAndResizeNovio.h"
 
+void convertOnnxToTrt(const char* onnx_filename, const char* calibFilesTxt, 
+            const char* calibFilesPath, const char* trtFile)
+{
+    nvinfer1::IBuilder* builder = nvinfer1::createInferBuilder(gLogger);
+    const auto explicitBatch = 1U << static_cast<uint32_t>(nvinfer1::NetworkDefinitionCreationFlag::kEXPLICIT_BATCH);  
+    nvinfer1::INetworkDefinition* network = builder->createNetworkV2(explicitBatch);
+    auto parser = nvonnxparser::createParser(*network, gLogger);
+    std::cout<<"parser created"<<std::endl;
+    bool rst = parser->parseFromFile(onnx_filename, 0);
+    int maxBatchSize = 8;
+    builder->setMaxBatchSize(maxBatchSize);
+    std::cout<<"setMaxBatchSize is OK!"<<std::endl;
+    nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
+    nvinfer1::Int8EntropyCalibrator* calib = new nvinfer1::Int8EntropyCalibrator(
+        maxBatchSize, calibFilesTxt, calibFilesPath, "cartyperec"
+    );
+    config->setInt8Calibrator(calib);
+    if (builder->platformHasFastInt8()) 
+    {
+        config->setFlag(nvinfer1::BuilderFlag::kINT8);
+    }
+    else
+    {
+        config->setFlag(nvinfer1::BuilderFlag::kFP16);
+    }
+    
+    std::cout<<"create build config is OK"<<std::endl;
+    config->setMaxWorkspaceSize(1 << 20);
+    std::cout<<"setMaxWorkSpaceSize is OK"<<std::endl;
+    auto profile = builder->createOptimizationProfile();
+    profile->setDimensions("data", nvinfer1::OptProfileSelector::kMIN, nvinfer1::Dims4(1, 3,224,224));
+    profile->setDimensions("data", nvinfer1::OptProfileSelector::kOPT, nvinfer1::Dims4(4, 3,224,224));
+    profile->setDimensions("data", nvinfer1::OptProfileSelector::kMAX, nvinfer1::Dims4(8, 3,224,224));
+    config->addOptimizationProfile(profile);
+    nvinfer1::ICudaEngine* engine = builder->buildEngineWithConfig(*network, *config);
+    std::cout<<"buildEngineWithConfig is OK"<<std::endl;
+    nvinfer1::IHostMemory *serializedModel = engine->serialize();
+    std::cout<<"serialization of the engine! :"<<serializedModel<<"!"<<std::endl;
+    std::ofstream ofs(trtFile, std::ios::out | std::ios::binary);
+    ofs.write((char*)(serializedModel->data()), serializedModel->size());
+    ofs.close();
+    serializedModel->destroy();
+    parser->destroy();
+    network->destroy();
+    config->destroy();
+    builder->destroy();
+    std::cout<<"^_^ TensorRT ^_^"<<std::endl;
+}
+void call_convertOnnxToTrt()
+{
+    std::cout<<"将onnx模型转化为int8量化的trt文件 v0.0.1"<<std::endl;
+    char* onnx_filename = "/hd10t/yantao/dcl/trt/onnx2trt_int8/models/dcl_v020.onnx";
+    char* calibFilesTxt = "/hd10t/yantao/dcl/trt/vehicle_fgvc/models/calib_images.txt";
+    char* calibFilesPath = "/hd10t/yantao/dcl/trt/vehicle_fgvc/models/images";
+    char* trtFile = "/hd10t/yantao/dcl/trt/onnx2trt_int8/models/dcl_v011_int8_yt.trt";
+    convertOnnxToTrt(onnx_filename, calibFilesTxt, calibFilesPath, trtFile);
+}
+
 JNADLL void *VehicleFeatureInstance(const string &modelPath, int cardNum,int max_batch_size)//端口初始化
 {
+    int iDebug = 10;
+    if (1 == iDebug) 
+    {
+        call_convertOnnxToTrt();
+        return NULL;
+    }
     samplesCommon::OnnxSampleParams params;
-    params.onnxFileName = modelPath + "dcl_v012.onnx";
+    params.onnxFileName = modelPath + "dcl_v020.onnx";
     params.inputTensorNames.emplace_back("data");
     params.batchSize = max_batch_size;
     params.outputTensorNames.emplace_back("output");
     params.gpuId = cardNum;
-    params.engineFileName =modelPath+ "dcl_v012_q.trt";
+    params.engineFileName =modelPath+ "dcl_v020_q.trt";
     params.dataDirs.emplace_back("");
     params.dataFile = "../models/calib_images_all.txt";
     params.int8 = true;
