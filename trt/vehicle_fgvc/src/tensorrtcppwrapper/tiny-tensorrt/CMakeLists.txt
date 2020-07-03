@@ -34,6 +34,8 @@ include_directories(spdlog)
 include_directories(./)
 #include_directories(../../../../thirdparty/TensorRT-7.1.3.4/include
 #						${TENSORRT_INCLUDE_DIR})
+include_directories(/home/TensorRT-6.0.1.5/include
+						${TENSORRT_INCLUDE_DIR})
 
 set(TENSORRT_ROOT /home/TensorRT-6.0.1.5/)
 find_path(TENSORRT_INCLUDE_DIR NvInfer.h
@@ -56,10 +58,6 @@ MESSAGE(STATUS "Found TensorRT headers at ${TENSORRT_INCLUDE_DIR}")
 
 list(APPEND CUDA_NVCC_FLAGS "-Xcompiler -fPIC --expt-extended-lambda")
 
-link_directories(${TENSORRT_LIBRARY_DIRS}
-                 ${CUDA_LIBRARY_DIRS}
-                 ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
-                 ${CUDNN_LIBRARY_DIRS})
 
 
 file(GLOB_RECURSE trt_source
@@ -72,6 +70,12 @@ file(GLOB_RECURSE trt_source
 	 ./tensorrtwrapper.cpp
      )
 cuda_add_library(tinytrt SHARED ${trt_source})
+set(CUDA_LIBRARY_DIRS /usr/local/cuda/lib64/)
+link_directories(${TENSORRT_LIBRARY_DIRS}
+	         ${TENSORRT_ROOT}/lib 
+                 ${CUDA_LIBRARY_DIRS}
+                 ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+                 ${CUDNN_LIBRARY_DIRS})
 target_compile_options(tinytrt PUBLIC -std=c++11 -Wall -fpic -Wfloat-conversion)
 set_target_properties(tinytrt PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
