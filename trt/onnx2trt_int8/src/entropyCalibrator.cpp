@@ -25,8 +25,8 @@ namespace nvinfer1 {
                                             calibrationTable(std::move(calibrationTable)),
                                             imageIndex(0) {
         int inputChannel = 3;
-        int inputH = 384;
-        int inputW = 384;
+        int inputH = 224;
+        int inputW = 224;
         inputCount = batchSize * inputChannel * inputH * inputW;
         std::fstream f(dataFile);
         if (f.is_open()) {
@@ -38,7 +38,7 @@ namespace nvinfer1 {
                 while (getline(s, word, ',')) {
                     rowValue.push_back(word);
                 }
-                imgPaths.emplace_back(imgFolder + '/' + rowValue[0]);
+                imgPaths.emplace_back('/' + rowValue[0]);
                 if(imgPaths.size()>950){break;}
 
             }
@@ -65,16 +65,17 @@ namespace nvinfer1 {
         //float stds[] = {0.225f, 0.224f, 0.229f};
 	float means[] = {0.485f, 0.485f, 0.485f};
 	float stds[] = {0.225f, 0.225f, 0.225f};
-        int perChannelPixels = 384 * 384; // feature extractor is 384
+        int perChannelPixels = 224 * 224; // feature extractor is 384
         int perImagePixels = perChannelPixels * 3; 
         std::vector<cv::Mat> bgrImages{};
         int startIndex = 0;
         for (size_t j = imageIndex; j < imageIndex + batchSize; ++j) {
             bgrImages.clear();
             auto img = cv::imread(imgPaths[j]);
+	    //auto img = cv::imread("/hd10t/yantao/dcl/trt/onnx2trt_int8/models/images/img_00001.jpg");
             std::cout << imgPaths[j] << std::endl;
             cv::Mat img_dst;
-            cv::resize(img, img_dst, cv::Size(384, 384)); // feature extractor is 384
+            cv::resize(img, img_dst, cv::Size(224, 224)); // feature extractor is 384
             cv::split(img_dst, bgrImages);
 	    /*
             for (int k = 0; k < 3; ++k) {
