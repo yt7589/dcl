@@ -193,6 +193,7 @@ std::vector<float> PreProcess(const std::vector<cv::Mat> &images)
     return dataVec;
 }
 
+#if 0
 /**
  * 将onnx文件转为TensorRT模型文件，支持int8量化
  * 参数：
@@ -304,6 +305,7 @@ void call_runTrtInfer()
                             "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011_int8_yt.trt";
     runTrtInfer(modelfile);
 }
+#endif
 
 const int TEST_DS_NUM = 16; //5664; // 测试数据集记录数，必须能被8整除
 static int init_num = 0;
@@ -313,7 +315,7 @@ void *mythread(void *threadid)
     if (1 == iDebug)
     {
         //call_convertOnnxToTrt();
-        call_runTrtInfer();
+        //call_runTrtInfer();
         return NULL;
     }
     int tid = *((int *)threadid);
