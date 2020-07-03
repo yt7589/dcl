@@ -309,7 +309,7 @@ const int TEST_DS_NUM = 16; //5664; // 测试数据集记录数，必须能被8�
 static int init_num = 0;
 void *mythread(void *threadid)
 {
-    int iDebug = 1;
+    int iDebug = 10;
     if (1 == iDebug)
     {
         //call_convertOnnxToTrt();
@@ -320,8 +320,7 @@ void *mythread(void *threadid)
     std::cout<<"TensorRT new int8 engine file test..."<<std::endl;
     /*std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
                             "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011_fp16.trt";*/
-    std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
-                            "yantao/fgvc/dcl/trt/vehicle_fgvc/build/serialized_engine.trt";
+    std::string modelfile = "/hd10t/yantao/dcl/trt/onnx2trt_int8/models/dcl_pt12.trt";
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);
     std::cout<<"cropMain.mythread 1"<<std::endl;
@@ -438,7 +437,7 @@ int main()
 vector<vector<string>> GetTestDsSamples()
 {
     szBuf = (char*)malloc(FBLOCK_MAX_BYTES * sizeof(char) + 1);
-    std::string strFileUTF8 = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/yantao/fgvc/dcl/datasets/CUB_200_2011/anno/test_ds_v4.txt";
+    std::string strFileUTF8 = "/hd10t/yantao/dcl/datasets/CUB_200_2011/anno/test_ds_v4.txt";
     std::string strFileName = strFileUTF8;
     memset(szBuf, 0, sizeof(char) * FBLOCK_MAX_BYTES);
     std::string strMessage;

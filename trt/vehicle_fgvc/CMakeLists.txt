@@ -19,14 +19,19 @@ set(CUDA_VERBOSE_BUILD ON CACHE BOOL "nvcc verbose" FORCE)
 list(APPEND CUDA_NVCC_FLAGS "-std=c++11")
 
 find_package(CUDA REQUIRED)
-#find_package(OpenCV REQUIRED)
+find_package(OpenCV REQUIRED)
 
-#thirdparty
-set(OpenCV_INCLUDE_DIRS ../thirdparty/opencv-3.4.7/include)
-set(OpenCV_LIBRARIES_DIRS ../thirdparty/opencv-3.4.7/build/lib)
-
-set(TENSORRT_INCLUDE_DIRS ../thirdparty/TensorRT-7.1.3.4/include)
-set(TENSORRT_LIBRARY_DIRS ../thirdparty/TensorRT-7.1.3.4/lib)
+#tensorrt
+set(TENSORRT_ROOT /home/TensorRT-6.0.1.5/)
+find_path(TENSORRT_INCLUDE_DIR NvInfer.h
+        HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+        PATH_SUFFIXES include)
+find_path(TENSORRT_INFER libnvinfer.so
+        HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+        PATH_SUFFIXES lib lib64 lib/x64)
+find_path(TENSORRT_INFER_PLUGIN libnvinfer_plugin.so
+        HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+        PATH_SUFFIXES lib lib64 lib/x64)
 
 set(CUDA_INCLUDE_DIRS /usr/local/cuda/include)
 
@@ -36,11 +41,11 @@ set(CUDNN_LIBRARY_DIRS /usr/lib/x86_64-linux-gnu/)
 include_directories(
         ${OpenCV_INCLUDE_DIRS}
         ${CUDA_INCLUDE_DIRS}
-        ${TENSORRT_INCLUDE_DIRS}
-        ${CUDNN_INCLUDE_DIRS}
+        ${TENSORRT_INCLUDE_DIR}
+        ${CUDNN_INCLUDE_DIR}
 )
 
-set(CUDA_LIBRARY_DIRS /usr/local/cuda-10.2/lib64/)
+set(CUDA_LIBRARY_DIRS /usr/local/cuda/lib64/)
 link_directories(${OpenCV_LIBRARIES_DIRS}
                  ${TENSORRT_LIBRARY_DIRS}
                  ${CUDA_LIBRARY_DIRS}
