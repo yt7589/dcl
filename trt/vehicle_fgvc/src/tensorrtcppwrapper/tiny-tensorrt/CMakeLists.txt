@@ -32,8 +32,19 @@ set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} ${CUDA_gencode_flags}")
 
 include_directories(spdlog)
 include_directories(./)
-include_directories(../../../../thirdparty/TensorRT-7.1.3.4/include
-						${TENSORRT_INCLUDE_DIR})
+#include_directories(../../../../thirdparty/TensorRT-7.1.3.4/include
+#						${TENSORRT_INCLUDE_DIR})
+
+set(TENSORRT_ROOT /home/TensorRT-6.0.1.5/)
+find_path(TENSORRT_INCLUDE_DIR NvInfer.h
+        HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+        PATH_SUFFIXES include)
+find_path(TENSORRT_INFER libnvinfer.so
+        HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+        PATH_SUFFIXES lib lib64 lib/x64)
+find_path(TENSORRT_INFER_PLUGIN libnvinfer_plugin.so
+        HINTS ${TENSORRT_ROOT} ${CUDA_TOOLKIT_ROOT_DIR}
+        PATH_SUFFIXES lib lib64 lib/x64)
 						
 include_directories(${TENSORRT_INCLUDE_DIR})						
 
