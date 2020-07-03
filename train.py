@@ -222,7 +222,7 @@ if __name__ == '__main__':
     model.cuda()
     #summary(model, (3, 224, 224))
     if 1>0:
-        print('准备保存模型到onnx文件')
+        print('prepare for storing the onnx file')
         example = torch.rand(1, 3, 224, 224).cuda()
         print(example.shape)
         model.train(False)
