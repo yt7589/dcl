@@ -56,13 +56,17 @@ class DsManager(object):
     RUN_MODE_COMPARE_EXCEL_IMAGE_VINS = 1021 # 找出所有车辆的识别码，与Excel进行比较，找到确实没有的公告号
     RUN_MODE_REMOVE_TEST_SAMPLE = 1022 # 
     RUN_MODE_COPY_DS_IMAGES = 1023
+    # **************************************************************************************
+    # 2020.07.08 招标相关
+    # **************************************************************************************
+    RUN_MODE_KNOW_INIT_STATUS = 2001
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_COPY_DS_IMAGES
+        run_mode = DsManager.RUN_MODE_KNOW_INIT_STATUS
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -130,6 +134,8 @@ class DsManager(object):
             DsManager.remove_test_sample()
         elif DsManager.RUN_MODE_COPY_DS_IMAGES == run_mode:
             DsManager.copy_ds_images()
+        elif DsManager.RUN_MODE_KNOW_INIT_STATUS == run_mode:
+            DsManager.know_init_status()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -1198,4 +1204,8 @@ class DsManager(object):
                     shutil.copy(src_file, dst_file)
                     print('{0}*{1}\n'.format(sample_file, fgvc_id))
                     wfd.write('{0}*{1}\n'.format(sample_file, fgvc_id))
+
+    @staticmethod
+    def know_init_status():
+        print('掌握当前情况')
 
