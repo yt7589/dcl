@@ -116,6 +116,13 @@ if __name__ == '__main__':
         sys.exit(0)
     
     args = parse_args()
+
+    
+    args.train_num_workers = 0
+    args.val_num_workers = 0
+    reload(sys)
+    sys.setdefaultencoding('utf8')
+
     print(args, flush=True)
     Config = LoadConfig(args, 'train')
     Config.cls_2 = args.cls_2
@@ -150,8 +157,6 @@ if __name__ == '__main__':
                       totensor = transformers["test_totensor"],\
                       test=True)
 
-    args.train_num_workers = 0
-    args.val_num_workers = 0
     dataloader = {}
     dataloader['train'] = torch.utils.data.DataLoader(train_set,\
                                                 batch_size=args.train_batch,\
