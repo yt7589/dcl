@@ -22,7 +22,7 @@
 #define NUM_THREADS 1
 
 
-#include "parserOnnxConfig.h"
+//#include "parserOnnxConfig.h"
 
 #include "NvInfer.h"
 #include <cuda_runtime_api.h>
