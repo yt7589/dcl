@@ -1248,6 +1248,7 @@ class DsManager(object):
                     bmy_set.add(bmy)
                     ggh_code = arrs0[8]
                     ggh_set.add(ggh_code)
+                seq += 1
         print('招标文件 公告号：{0}个；品牌：{1}个；年款：{2}个；'.format(len(ggh_set), len(brand_set), len(bmy_set)))
 
 
