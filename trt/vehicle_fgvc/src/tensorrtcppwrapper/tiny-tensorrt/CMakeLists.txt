@@ -56,6 +56,11 @@ MESSAGE(STATUS "Found TensorRT headers at ${TENSORRT_INCLUDE_DIR}")
 
 list(APPEND CUDA_NVCC_FLAGS "-Xcompiler -fPIC --expt-extended-lambda")
 
+link_directories(${TENSORRT_LIBRARY_DIRS}
+                 ${CUDA_LIBRARY_DIRS}
+                 ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+                 ${CUDNN_LIBRARY_DIRS})
+
 
 file(GLOB_RECURSE trt_source
      Trt.cpp
