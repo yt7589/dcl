@@ -120,8 +120,6 @@ if __name__ == '__main__':
     
     args.train_num_workers = 0
     args.val_num_workers = 0
-    reload(sys)
-    sys.setdefaultencoding('utf8')
 
     print(args, flush=True)
     Config = LoadConfig(args, 'train')
