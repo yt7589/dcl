@@ -48,6 +48,7 @@ include_directories(
 set(CUDA_LIBRARY_DIRS /usr/local/cuda/lib64/)
 link_directories(${OpenCV_LIBRARIES_DIRS}
                  ${TENSORRT_LIBRARY_DIRS}
+                 ${TENSORRT_ROOT}/lib
                  ${CUDA_LIBRARY_DIRS}
                  ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
                  ${CUDNN_LIBRARY_DIRS})
