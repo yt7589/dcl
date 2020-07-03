@@ -1207,6 +1207,9 @@ class DsManager(object):
 
     @staticmethod
     def know_init_status():
+        DsManager._get_bid_info()
+    @staticmethod
+    def _get_our_info():
         print('掌握当前情况')
         brand_set = set()
         bmy_set = set()
