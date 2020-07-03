@@ -41,6 +41,7 @@ set(CUDNN_LIBRARY_DIRS /usr/lib/x86_64-linux-gnu/)
 include_directories(
         ${OpenCV_INCLUDE_DIRS}
         ${CUDA_INCLUDE_DIRS}
+        ${TENSORRT_ROOT}/include 
         ${TENSORRT_INCLUDE_DIR}
         ${CUDNN_INCLUDE_DIR}
 )
