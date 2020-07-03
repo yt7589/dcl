@@ -1177,7 +1177,7 @@ class DsManager(object):
                     wfd.write('/hd10t/yantao/dcl/trt/onnx2trt_int8/models/images/img_{0:05d}.jpg\n'.format(seq))
                     print('/hd10t/yantao/dcl/trt/onnx2trt_int8/models/images/{0}'.format(row))
                     src_file = 'e:/temp/a001/images_old/{0}'.format(row)
-                    dst_file = 'e:/temp/a001/images/{0:05d}.jpg'.format(seq)
+                    dst_file = 'e:/temp/a001/images/img_{0:05d}.jpg'.format(seq)
                     shutil.copy(src_file, dst_file)
                     seq += 1
 
