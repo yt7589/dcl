@@ -322,7 +322,7 @@ void *mythread(void *threadid)
     std::cout<<"TensorRT new int8 engine file test..."<<std::endl;
     /*std::string modelfile = "/media/zjkj/35196947-b671-441e-9631-6245942d671b/"
                             "yantao/fgvc/dcl/trt/vehicle_fgvc/models/dcl_v011_fp16.trt";*/
-    std::string modelfile = "/hd10t/yantao/dcl/trt/onnx2trt_int8/models/dcl_pt12.trt";
+    std::string modelfile = "/hd10t/yantao/dcl/trt/onnx2trt_int8/models/dcl_pt12_q.trt";
     auto hand = VehicleFgvcInstance(modelfile,
             tid % 4, small_batchsize, big_batchsize);
     std::cout<<"cropMain.mythread 1"<<std::endl;
