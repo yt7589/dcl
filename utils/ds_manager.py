@@ -1168,6 +1168,22 @@ class DsManager(object):
     @staticmethod
     def copy_ds_images():
         print('生成测试数据集图片目录')
+
+        seq = 1
+        with open('e:/temp/a001/calib_images.txt', 'w+', encoding='utf-8') as wfd:
+            with open('e:/temp/a001/calib_images_old.txt', 'r', encoding='utf-8') as rfd:
+                for line in rfd:
+                    row = line.strip()
+                    wfd.write('/hd10t/yantao/dcl/trt/onnx2trt_int8/models/images/img_{0:05d}.jpg\n'.format(seq))
+                    print('/hd10t/yantao/dcl/trt/onnx2trt_int8/models/images/{0}'.format(row))
+                    src_file = 'e:/temp/a001/images_old/{0}'.format(row)
+                    dst_file = 'e:/temp/a001/images/{0:05d}.jpg'.format(seq)
+                    shutil.copy(src_file, dst_file)
+                    seq += 1
+
+        i_debug = 1
+        if 1 == i_debug:
+            return
         seq = 0
         with open('./logs/test_ds_v4.txt', 'w+', encoding='utf-8') as wfd:
             with open('./datasets/CUB_200_2011/anno/test_ds_v4.txt') as tfd:
