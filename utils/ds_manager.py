@@ -1225,4 +1225,25 @@ class DsManager(object):
                 model_name = arrs1[1]
                 year_name = arrs1[2]
         print('公告号：{0}个；品牌：{1}个；年款：{2}个；'.format(len(ggh_set), len(brand_set), len(bmy_set)))
+    @staticmethod
+    def _get_bid_info():
+        brand_set = set()
+        bmy_set = set()
+        ggh_set = set()
+        seq = 0
+        with open('./logs/bid_20200708.csv', 'r', encoding='utf-8') as cfd:
+            for line in cfd:
+                row = line.strip()
+                arrs0 = row.split(',')
+                if seq > 0:
+                    brand_name = arrs0[2]
+                    brand_set.add(brand_name)
+                    model_name = arrs0[4]
+                    year_name = arrs0[6]
+                    bmy = '{0}_{1}_{2}'.format(brand_name, model_name, year_name)
+                    bmy_set.add(bmy)
+                    ggh_code = arrs0[8]
+                    ggh_set.add(ggh_code)
+        print('招标文件 公告号：{0}个；品牌：{1}个；年款：{2}个；'.format(len(ggh_set), len(brand_set), len(bmy_set)))
+
 
