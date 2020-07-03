@@ -1237,6 +1237,7 @@ class DsManager(object):
         with open('./logs/bid_20200708.csv', 'r', encoding='utf-8') as cfd:
             for line in cfd:
                 row = line.strip()
+                print(row)
                 arrs0 = row.split(',')
                 if seq > 0:
                     brand_name = arrs0[2]
