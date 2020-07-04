@@ -9,7 +9,7 @@ class WxsApp(object):
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        i_debug = 1
+        i_debug = 10
         if 1 == i_debug:
             self.exp()
             return

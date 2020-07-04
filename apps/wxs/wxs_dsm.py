@@ -1,23 +1,13 @@
 # 数据集管理类，负责生成数据描述文件
 from apps.wxs.controller.c_brand import CBrand
+from apps.wxs.controller.c_model import CModel
 
 class WxsDsm(object):
     def __init__(self):
         self.name = 'apps.wxs.WxsDsm'
 
     @staticmethod
-    def test_func():
-        CBrand.add_brand('奔驰', '1001')
-        CBrand.add_brand('奔驰', '1001')
-        CBrand.add_brand('宝马', '1001')
-
-    @staticmethod
     def know_init_status():
-        i_debug = 1
-        WxsDsm.test_func()
-        if 1 == i_debug:
-            return
-
         bid_brand_set, bid_model_set, bid_bmy_set, bid_vin_set, _, _, _ = WxsDsm._get_bid_info()
         print('标书要求：车辆识别码：{0}个；品牌：{1}个；年款：{2}个；'.format(
             len(bid_vin_set), len(bid_brand_set), len(bid_bmy_set)
@@ -164,8 +154,14 @@ class WxsDsm(object):
             brand_name = arrs0[0]
             model_name_postfix = arrs0[1]
             brand_vo = CBrand.get_brand_by_name(brand_name)
-            brand_id = int(brand_vo['brand_id'])
-            brand_name = brand_vo['brand_name']
+            if model_name in model_code_dict:
+                model_code = model_code_dict[model_name]
+                source_type = 1
+            else:
+                model_code = 'x{0}'.format(num)
+                source_type = 2
+            num += 1
+            CModel.add_model(model_name, model_code, brand_vo, source_type)
 
 
     
