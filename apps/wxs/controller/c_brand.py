@@ -6,7 +6,7 @@ class CBrand(object):
     def __init__(self):
         self.name = 'apps.wxs.controller.CBrand'
 
-    def add_brand(brand_name, brand_code):
+    def add_brand(brand_name, brand_code, source_type):
         if MBrand.is_brand_exists(brand_name):
             return
         brand_id = MPkGenerator.get_pk('brand_id')
@@ -14,6 +14,7 @@ class CBrand(object):
             'brand_id': brand_id,
             'brand_name': brand_name,
             'brand_code': brand_code,
+            'source_type': source_type,
             'brand_num': 1
         }
         rst = MBrand.insert(brand_vo)

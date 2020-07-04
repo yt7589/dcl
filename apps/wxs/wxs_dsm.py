@@ -141,10 +141,12 @@ class WxsDsm(object):
         num = 1
         for brand_name in brands:
             if brand_name in brand_code_dict:
+                source_type = 1
                 brand_code = brand_code_dict[brand_name]
             else:
+                source_type = 2
                 brand_code = 'x{0:04d}'.format(num)
-            CBrand.add_brand(brand_name, brand_code)
+            CBrand.add_brand(brand_name, brand_code, source_type)
             num += 1
 
 
