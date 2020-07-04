@@ -26,7 +26,7 @@ class WxsDsm(object):
         print('我们有标书没有年款：{0}个'.format(len(oh_bmy_set)))
         bh_bmy_set = bid_bmy_set - our_bmy_set
         print('标书有我们没有年款：{0}个'.format(len(bh_bmy_set)))
-        all_bmy_set = our_bmy_set + bid_bmy_set
+        all_bmy_set = our_bmy_set | bid_bmy_set
         print('共有年款：{0}个'.format(len(all_bmy_set)))
         # 统计车辆识别码情况
         oh_vin_set = our_ggh_set - bid_ggh_set
