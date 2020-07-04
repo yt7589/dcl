@@ -33,7 +33,7 @@ class WxsDsm(object):
                 bmy_set.add(bmy)
                 arrs1 = arrs0[1].split('_')
                 brand_name = arrs1[0]
-                brand_set.add(brand_name)
+                brand_set.add('{0}牌'.format(brand_name))
                 model_name = arrs1[1]
                 year_name = arrs1[2]
         return brand_set, bmy_set, ggh_set
