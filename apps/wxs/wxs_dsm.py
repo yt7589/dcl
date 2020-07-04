@@ -8,6 +8,9 @@ class WxsDsm(object):
     @staticmethod
     def test_func():
         CBrand.add_brand('奔驰', '1001')
+        CBrand.add_brand('奔驰', '1001')
+        CBrand.add_brand('宝马', '1001')
+
     @staticmethod
     def know_init_status():
         i_debug = 1
