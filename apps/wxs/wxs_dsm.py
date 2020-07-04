@@ -12,7 +12,7 @@ class WxsDsm(object):
 
     @staticmethod
     def know_init_status():
-        i_debug = 10
+        i_debug = 1
         WxsDsm.test_get_pk()
         if 1 == i_debug:
             return
