@@ -1,19 +1,17 @@
 # 数据集管理类，负责生成数据描述文件
-from apps.wxs.model.m_pk_generator import MPkGenerator
+from apps.wxs.controller.c_brand import CBrand
 
 class WxsDsm(object):
     def __init__(self):
         self.name = 'apps.wxs.WxsDsm'
 
     @staticmethod
-    def test_get_pk():
-        brand_id = MPkGenerator.get_pk('brand_id')
-        print('brand_id={0};'.format(brand_id))
-
+    def test_func():
+        CBrand.add_brand('奔驰', '1001')
     @staticmethod
     def know_init_status():
         i_debug = 1
-        WxsDsm.test_get_pk()
+        WxsDsm.test_func()
         if 1 == i_debug:
             return
 
