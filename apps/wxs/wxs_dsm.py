@@ -21,6 +21,20 @@ class WxsDsm(object):
         print('标书有我们没有的品牌：{0}个'.format(len(bh_brand_set)))
         all_brand_set = our_brand_set | bid_brand_set
         print('共有品牌：{0}个'.format(len(all_brand_set)))
+        # 统计年款情况
+        oh_bmy_set = our_bmy_set - bid_bmy_set
+        print('我们有标书没有年款：{0}个'.format(len(oh_bmy_set)))
+        bh_bmy_set = bid_bmy_set - our_bmy_set
+        print('标书有我们没有年款：{0}个'.format(len(bh_bmy_set)))
+        all_bmy_set = our_bmy_set + bid_bmy_set
+        print('共有年款：{0}个'.format(len(all_bmy_set)))
+        # 统计车辆识别码情况
+        oh_vin_set = our_ggh_set - bid_ggh_set
+        print('我们有标书没有车辆识别码：{0}个'.format(len(oh_vin_set)))
+        bh_vin_set = bid_ggh_set - our_ggh_set
+        print('标书有我们没有车辆识别码：{0}个'.format(len(bh_vin_set)))
+        all_vin_set = our_ggh_set | bid_ggh_set
+        print('共有车辆识别码：{0}个'.format(len(all_vin_set)))
     @staticmethod
     def _get_our_info():
         print('掌握当前情况')
@@ -50,7 +64,6 @@ class WxsDsm(object):
         with open('./logs/bid_20200708.csv', 'r', encoding='utf-8') as cfd:
             for line in cfd:
                 row = line.strip()
-                print(row)
                 arrs0 = row.split(',')
                 if seq > 0:
                     brand_name = arrs0[2]
