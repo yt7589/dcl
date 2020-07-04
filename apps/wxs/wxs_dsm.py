@@ -127,10 +127,10 @@ class WxsDsm(object):
     
     @staticmethod
     def initialize_db():
-        bid_brand_set, bid_model_set, bid_bmy_set, bid_vin_set, 
-                    brand_code_dict, model_code_dict, 
+        bid_brand_set, bid_model_set, bid_bmy_set, bid_vin_set, \
+                    brand_code_dict, model_code_dict, \
                     bmy_code_dict = WxsDsm._get_bid_info()
-        our_brand_set, our_model_set, our_bmy_set, our_vin_set 
+        our_brand_set, our_model_set, our_bmy_set, our_vin_set \
                     = WxsDsm._get_our_info()
         brands = our_brand_set | bid_brand_set
         # 保存品牌信息
