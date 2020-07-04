@@ -36,8 +36,10 @@ class WxsDsm(object):
         print('我们和标书公共年款：{0}个'.format(len(common_bmy_set)))
         oh_bmy_set = our_bmy_set - bid_bmy_set
         print('我们有标书没有年款：{0}个'.format(len(oh_bmy_set)))
+        WxsDsm.write_set_to_file(oh_bmy_set, './logs/we_had_bmy.txt')
         bh_bmy_set = bid_bmy_set - our_bmy_set
         print('标书有我们没有年款：{0}个'.format(len(bh_bmy_set)))
+        WxsDsm.write_set_to_file(bh_bmy_set, './logs/bid_had_bmy.txt')
         all_bmy_set = our_bmy_set | bid_bmy_set
         print('共有年款：{0}个'.format(len(all_bmy_set)))
         print('******************************************************')
@@ -46,8 +48,10 @@ class WxsDsm(object):
         print('我们和标书共有车辆识别码：{0}个'.format(len(common_vin_set)))
         oh_vin_set = our_vin_set - bid_vin_set
         print('我们有标书没有车辆识别码：{0}个'.format(len(oh_vin_set)))
+        WxsDsm.write_set_to_file(oh_vin_set, './logs/we_had_vin.txt')
         bh_vin_set = bid_vin_set - our_vin_set
         print('标书有我们没有车辆识别码：{0}个'.format(len(bh_vin_set)))
+        WxsDsm.write_set_to_file(bh_vin_set, './logs/bid_had_vin.txt')
         all_vin_set = our_vin_set | bid_vin_set
         print('共有车辆识别码：{0}个'.format(len(all_vin_set)))
     @staticmethod
