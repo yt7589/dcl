@@ -6,6 +6,12 @@ class WxsDsm(object):
 
     @staticmethod
     def know_init_status():
+        i_debug = 1
+        set_obj = {'f', 'b', 'a', 'c', 'e', 'd'}
+        WxsDsm.write_set_to_file(set_obj, './logs/temp01.txt')
+        if 1 == i_debug:
+            return
+
         bid_brand_set, bid_bmy_set, bid_vin_set = WxsDsm._get_bid_info()
         print('标书要求：车辆识别码：{0}个；品牌：{1}个；年款：{2}个；'.format(
             len(bid_vin_set), len(bid_brand_set), len(bid_bmy_set)
@@ -14,6 +20,7 @@ class WxsDsm(object):
         print('自有情况：车辆识别码：{0}个；品牌：{1}个；年款：{2}个；'.format(
             len(our_vin_set), len(our_brand_set), len(our_bmy_set)
         ))
+        print('******************************************************')
         # 统计品牌情况
         common_brand_set = our_brand_set & bid_brand_set
         print('我们和标书公共品牌：{0}个'.format(len(common_brand_set)))
@@ -84,5 +91,13 @@ class WxsDsm(object):
                     vin_set.add(vin_code)
                 seq += 1
         return brand_set, bmy_set, vin_set
+
+    @staticmethod
+    def write_set_to_file(set_obj, filename):
+        ''' 将集合内容写到文件中，写入前先对集合内容进行排序 '''
+        lst = list(set_obj)
+        lst.sort()
+        for item in lst:
+            print(item)
 
     
