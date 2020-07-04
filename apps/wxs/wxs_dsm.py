@@ -6,7 +6,7 @@ class WxsDsm(object):
 
     @staticmethod
     def know_init_status():
-        i_debug = 1
+        i_debug = 10
         if 1 == i_debug:
             return
 
