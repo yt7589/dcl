@@ -66,7 +66,9 @@ class WxsDsm(object):
                 arrs0 = row.split(':')
                 vin_code = arrs0[0]
                 vin_set.add(vin_code)
-                bmy = arrs0[1]
+                raw_bmy = arrs0[1]
+                arrs1 = raw_bmy.split('_')
+                bmy = '{0}牌_{1}_{2}'.format(arrs1[0], arrs1[1], arrs1[2])
                 bmy_set.add(bmy)
                 arrs1 = arrs0[1].split('_')
                 brand_name = arrs1[0]
