@@ -1,5 +1,5 @@
 # 数据集管理类，负责生成数据描述文件
-from apps.wxs.model.m_pk_generator as MPkGenerator
+from apps.wxs.model.m_pk_generator import MPkGenerator
 
 class WxsDsm(object):
     def __init__(self):
