@@ -7,8 +7,6 @@ class WxsDsm(object):
     @staticmethod
     def know_init_status():
         i_debug = 1
-        set_obj = {'f', 'b', 'a', 'c', 'e', 'd'}
-        WxsDsm.write_set_to_file(set_obj, './logs/temp01.txt')
         if 1 == i_debug:
             return
 
@@ -26,8 +24,10 @@ class WxsDsm(object):
         print('我们和标书公共品牌：{0}个'.format(len(common_brand_set)))
         oh_brand_set = our_brand_set - bid_brand_set
         print('我们有标书没有品牌：{0}个；'.format(len(oh_brand_set)))
+        WxsDsm.write_set_to_file(oh_brand_set, './logs/we_had_brand.txt')
         bh_brand_set = bid_brand_set - our_brand_set
         print('标书有我们没有的品牌：{0}个'.format(len(bh_brand_set)))
+        WxsDsm.write_set_to_file(bh_brand_set, './logs/bid_had_brand.txt')
         all_brand_set = our_brand_set | bid_brand_set
         print('共有品牌：{0}个'.format(len(all_brand_set)))
         print('******************************************************')
@@ -97,7 +97,9 @@ class WxsDsm(object):
         ''' 将集合内容写到文件中，写入前先对集合内容进行排序 '''
         lst = list(set_obj)
         lst.sort()
-        for item in lst:
-            print(item)
+        with open(filename, 'w+', encoding='utf-8') as wfd:
+            for item in lst:
+                print(item)
+                wfd.write('{0}\n'.format(item))
 
     
