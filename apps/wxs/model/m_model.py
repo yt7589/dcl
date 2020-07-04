@@ -46,4 +46,4 @@ class MModel(object):
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MModel.db = mongo_client['stpdb']
-        MModel.tbl = MModel.db['t_brand']
+        MModel.tbl = MModel.db['t_model']
