@@ -1207,7 +1207,13 @@ class DsManager(object):
 
     @staticmethod
     def know_init_status():
-        DsManager._get_bid_info()
+        bid_brand_set, bid_bmy_set, bid_ggh_set = DsManager._get_bid_info()
+        print('自有情况：车辆识别码：{0}个；品牌：{1}个；年款：{2}个；'.format(
+            len(ggh_set), len(brand_set), len(bmy_set)
+        ))
+        our_brand_set, our_bmy_set, our_ggh_set = DsManager._get_our_info()
+        # 所里有但是我们没有
+        oh_brand_set = our_brand_set - bid_brand_set
     @staticmethod
     def _get_our_info():
         print('掌握当前情况')
@@ -1227,7 +1233,7 @@ class DsManager(object):
                 brand_set.add(brand_name)
                 model_name = arrs1[1]
                 year_name = arrs1[2]
-        print('公告号：{0}个；品牌：{1}个；年款：{2}个；'.format(len(ggh_set), len(brand_set), len(bmy_set)))
+        return brand_set, bmy_set, ggh_set
     @staticmethod
     def _get_bid_info():
         brand_set = set()
@@ -1250,5 +1256,6 @@ class DsManager(object):
                     ggh_set.add(ggh_code)
                 seq += 1
         print('招标文件 公告号：{0}个；品牌：{1}个；年款：{2}个；'.format(len(ggh_set), len(brand_set), len(bmy_set)))
+        return brand_set, bmy_set, ggh_set
 
 
