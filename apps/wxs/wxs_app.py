@@ -1,4 +1,5 @@
 #
+import sys
 
 class WxsApp(object):
     def __init__(self):
