@@ -132,9 +132,12 @@ class WxsDsm(object):
                     bmy_code_dict = WxsDsm._get_bid_info()
         our_brand_set, our_model_set, our_bmy_set, our_vin_set \
                     = WxsDsm._get_our_info()
-        brands = our_brand_set | bid_brand_set
         # 保存品牌信息
+        brands = our_brand_set | bid_brand_set
         WxsDsm.store_brands_to_db(brands, brand_code_dict)
+        # 保存车型信息
+        models = our_model_set | bid_model_set
+        WxsDsm.store_models_to_db(models, model_code_dict)
 
     @staticmethod
     def store_brands_to_db(brands, brand_code_dict):
@@ -150,6 +153,19 @@ class WxsDsm(object):
                 brand_code = 'x{0:04d}'.format(num)
             CBrand.add_brand(brand_name, brand_code, source_type)
             num += 1
+
+    @staticmethod
+    def store_models_to_db(models, model_code_dict):
+        models = list(models)
+        models.sort()
+        num = 1
+        for model_name in models:
+            arrs0 = model_name.split('_')
+            brand_name = arrs0[0]
+            model_name_postfix = arrs0[1]
+            brand_vo = CBrand.get_brand_by_name(brand_name)
+            brand_id = int(brand_vo['brand_id'])
+            brand_name = brand_vo['brand_name']
 
 
     

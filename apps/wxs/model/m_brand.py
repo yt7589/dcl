@@ -29,56 +29,20 @@ class MBrand(object):
             MBrand._initialize()
         return MBrand.tbl.insert_one(brand_vo)
 
-
-
-
-
     @staticmethod
     def get_brand_by_name(brand_name):
-        if MBrand.db is None:
-            MBrand._initialize()
-        query_cond = {'brand_name': brand_name}
-        fields = {'brand_id': 1, 'brand_name': 1, 'brand_num': 1}
-        return MBrand.tbl.find_one(query_cond, fields)
-
-    @staticmethod
-    def query_brands(start_idx=1, amount=-1, sort_id=1,
-                 sort_type=1):
-        if MBrand.db is None:
-            MBrand._initialize()
-        query_cond = {}
-        fields = {'brand_id': 1, 'brand_name': 1, 'brand_num': 1}
-        return MBrand.tbl.find(query_cond, fields)
-
-    @staticmethod
-    def clear_brands():
-        if MBrand.db is None:
-            MBrand._initialize()
-        MBrand.tbl.delete_many({})
-
-    @staticmethod
-    def add_brand_name_postfix():
-        ''' 
-        在品牌名称后面加牌
+        '''
+        根据品牌名称求出品牌详细信息
         '''
         if MBrand.db is None:
             MBrand._initialize()
-        query_cond = {'brand_id': {'$gt': 0}}
-        fields = {'brand_id': 1, 'brand_name': 1}
-        recs = MBrand.tbl.find(query_cond, fields).sort('brand_id', 1)
-        for rec in recs:
-            old_brand_name = rec['brand_name']
-            new_brand_name = '{0}牌'.format(old_brand_name)
-            print('编号{0}: {1} => {2}'.format(rec['brand_id'], old_brand_name, new_brand_name))
-            MBrand.update_brand_name(rec['brand_id'], new_brand_name)
+        query_cond = {'brand_name': brand_name}
+        fields = {'brand_id': 1, 'brand_name': 1, 'brand_code': 1, 
+                    'source_type': 1, 'brand_num': 1}
+        return MBrand.tbl.find_one(query_cond, fields)
 
-    @staticmethod
-    def update_brand_name(brand_id, brand_name):
-        if MBrand.db is None:
-            MBrand._initialize()
-        query_cond = {'brand_id': brand_id}
-        new_values = {'$set': {'brand_name': brand_name}}
-        MBrand.tbl.update_one(query_cond, new_values)
+
+
 
     @staticmethod
     def _initialize():

@@ -6,6 +6,7 @@ class CBrand(object):
     def __init__(self):
         self.name = 'apps.wxs.controller.CBrand'
 
+    @staticmethod
     def add_brand(brand_name, brand_code, source_type):
         if MBrand.is_brand_exists(brand_name):
             return
@@ -19,3 +20,10 @@ class CBrand(object):
         }
         rst = MBrand.insert(brand_vo)
         return True
+
+    @staticmethod
+    def get_brand_by_name(brand_name):
+        '''
+        根据品牌名称求出品牌详细信息
+        '''
+        return MBrand.get_brand_by_name(brand_name)
