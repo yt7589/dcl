@@ -7,7 +7,7 @@ class WxsDsm(object):
 
     @staticmethod
     def test_get_pk():
-        brand_id = MPkGenerator.get_pk()
+        brand_id = MPkGenerator.get_pk('brand_id')
         print('brand_id={0};'.format(brand_id))
 
     @staticmethod
