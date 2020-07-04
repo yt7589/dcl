@@ -1,5 +1,6 @@
 #
 import sys
+from apps.wxs.wxs_dsm import WxsDsm
 
 class WxsApp(object):
     def __init__(self):
@@ -7,3 +8,4 @@ class WxsApp(object):
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
+        WxsDsm.know_init_status()
