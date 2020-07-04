@@ -14,9 +14,13 @@ class WxsDsm(object):
         print('自有情况：车辆识别码：{0}个；品牌：{1}个；年款：{2}个；'.format(
             len(our_ggh_set), len(our_brand_set), len(our_bmy_set)
         ))
-        # 所里有但是我们没有
+        # 统计品牌情况
         oh_brand_set = our_brand_set - bid_brand_set
         print('我们有所里没有品牌：{0}个；'.format(len(oh_brand_set)))
+        bh_brand_set = bid_brand_set - our_brand_set
+        print('标书有我们没有的品牌：{0}个'.format(len(bh_brand_set)))
+        all_brand_set = our_brand_set | bid_brand_set
+        print('共有品牌：{0}个'.format(len(all_brand_set)))
     @staticmethod
     def _get_our_info():
         print('掌握当前情况')
