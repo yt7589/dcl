@@ -138,6 +138,7 @@ class WxsDsm(object):
 
     @staticmethod
     def store_brands_to_db(brands, brand_code_dict):
+        brands = list(brands).sort()
         num = 1
         for brand_name in brands:
             if brand_name in brand_code_dict:
