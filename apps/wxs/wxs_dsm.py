@@ -140,7 +140,7 @@ class WxsDsm(object):
     def store_brands_to_db(brands, brand_code_dict):
         num = 1
         for brand_name in brands:
-            if brand in brand_code_dict:
+            if brand_name in brand_code_dict:
                 brand_code = brand_code_dict[brand_name]
             else:
                 brand_code = 'x{0:04d}'.format(num)
