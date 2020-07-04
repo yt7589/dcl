@@ -27,7 +27,7 @@ class MBrand(object):
         '''
         if MBrand.db is None:
             MBrand._initialize()
-        rst = MBrand.tbl.insert_one(brand_vo)
+        return MBrand.tbl.insert_one(brand_vo)
 
 
 
