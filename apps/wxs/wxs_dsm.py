@@ -105,7 +105,6 @@ class WxsDsm(object):
         lst.sort()
         with open(filename, 'w+', encoding='utf-8') as wfd:
             for item in lst:
-                print(item)
                 wfd.write('{0}\n'.format(item))
 
     
