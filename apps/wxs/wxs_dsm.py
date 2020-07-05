@@ -75,9 +75,9 @@ class WxsDsm(object):
                 model_name = '{0}_{1}'.format(brand_name, model_name_postfix)
                 model_set.add(model_name)
                 year_name = arrs1[2]
-                bmy = '{0}_{1}_{2}'.format(brand_name, model_name_postfix, year_name)
-                bmy_set.add(bmy)
-                vin_bmy_dict[vin_code] = bmy
+                bmy_name = '{0}_{1}_{2}'.format(brand_name, model_name_postfix, year_name)
+                bmy_set.add(bmy_name)
+                vin_bmy_dict[vin_code] = bmy_name
         return brand_set, model_set, bmy_set, vin_set, vin_bmy_dict
     @staticmethod
     def _get_bid_info():
@@ -103,12 +103,13 @@ class WxsDsm(object):
                     model_set.add(model_name)
                     model_code_dict[model_name] = arrs0[3]
                     year_name = arrs0[6]
-                    bmy = '{0}_{1}_{2}'.format(brand_name, model_name_postfix, year_name)
-                    bmy_set.add(bmy)
-                    bmy_code_dict[bmy] = arrs0[5]
+                    bmy_name = '{0}_{1}_{2}'.format(brand_name, model_name_postfix, year_name)
+                    bmy_set.add(bmy_name)
+                    bmy_code_dict[bmy_name] = arrs0[5]
                     vin_code = arrs0[8]
                     vin_set.add(vin_code)
-                    vin_bmy_dict[vin_code] = bmy
+                    is_imported_vehicle = arrs0[7]
+                    vin_bmy_dict[vin_code] = bmy_name
                 seq += 1
         return brand_set, model_set, bmy_set, vin_set, brand_code_dict, model_code_dict, bmy_code_dict, vin_bmy_dict
 
@@ -178,15 +179,20 @@ class WxsDsm(object):
         print('处理年款和车辆识别码 ^_^')
         vins = list(vins)
         vins.sort()
+        num = 1
         for vin in vins:
             if vin in bid_vin_bmy_dict:
-                bmy = bid_vin_bmy_dict[vin]
-                WxsDsm._process_vin_bmy(vin, bmy)
+                raw_name = bid_vin_bmy_dict[vin]
+                arrs0 = raw_name.split('*')
+                bmy_name = arrs0[0]
+                bmy_code = arrs0[1]
+                WxsDsm._process_vin_bmy(vin, bmy_name, bmy_code)
             elif vin in our_vin_bmy_dict:
-                bmy = our_vin_bmy_dict[vin]
-                WxsDsm._process_vin_bmy(vin, bmy)
+                bmy_name = our_vin_bmy_dict[vin]
+                WxsDsm._process_vin_bmy(vin, bmy_name, 'b{0:05d}'.format(num))
             else:
                 print('异常vin：{0};'.format(vin))
+            num += 1
 
     @staticmethod
     def _process_vin_bmy(vin, bmy_name, bmy_code):

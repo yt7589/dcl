@@ -72,7 +72,7 @@ class LoadConfig(object):
             self.numcls = 2019
         elif args.dataset == 'CUB':
             self.dataset = args.dataset
-            self.rawdata_root = '/media/zjkj/35196947-b671-441e-9631-6245942d671b/vehicle_type_v2d/vehicle_type_v2d'
+            self.rawdata_root = '/media/zjkj/work/vehicle_type_v2d/vehicle_type_v2d'
             self.anno_root = './datasets/CUB_200_2011/anno'
             #self.numcls = 478
             self.numcls = 2827 #414
