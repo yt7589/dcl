@@ -20,4 +20,8 @@ class CModel(object):
         }
         rst = MModel.insert(model_vo)
         return True
+
+    @staticmethod
+    def get_model_by_name(model_name):
+        return MModel.get_model_by_name(model_name)
         

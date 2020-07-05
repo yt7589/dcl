@@ -193,6 +193,10 @@ class WxsDsm(object):
         # 将bmy保存到t_bmy中并获取bmy_id（重复的bmy不重复加入）
         # 将vin和bmy_id保存到t_vin表中
         print('处理：{0} <=> {1};'.format(vin, bmy))
+        arrs0 = bmy.split('_')
+        brand_name = arrs0[0]
+        brand_vo = CBrand.get_brand_by_name(brand_name)
+        model_name = '{0}_{1}'.format(arrs0[0], arrs0[1])
 
 
 
