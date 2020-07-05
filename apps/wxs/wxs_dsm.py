@@ -190,9 +190,6 @@ class WxsDsm(object):
         for vin in vins:
             if vin in bid_vin_bmy_dict:
                 bmy_obj = bid_vin_bmy_dict[vin]
-                arrs0 = raw_name.split('*')
-                bmy_name = arrs0[0]
-                bmy_code = arrs0[1]
                 WxsDsm._process_vin_bmy(vin, bmy_obj['bmy_name'], bmy_obj['bmy_code'], bmy_obj['is_imported_vehicle'])
             elif vin in our_vin_bmy_dict:
                 bmy_name = our_vin_bmy_dict[vin]
