@@ -77,7 +77,10 @@ class WxsDsm(object):
                 year_name = arrs1[2]
                 bmy_name = '{0}_{1}_{2}'.format(brand_name, model_name_postfix, year_name)
                 bmy_set.add(bmy_name)
-                vin_bmy_dict[vin_code] = bmy_name
+                vin_bmy_dict[vin_code] = {
+                    'bmy_name': bmy_name,
+                    'is_imported_vehicle': 0
+                }
         return brand_set, model_set, bmy_set, vin_set, vin_bmy_dict
     @staticmethod
     def _get_bid_info():
@@ -109,7 +112,11 @@ class WxsDsm(object):
                     vin_code = arrs0[8]
                     vin_set.add(vin_code)
                     is_imported_vehicle = arrs0[7]
-                    vin_bmy_dict[vin_code] = bmy_name
+                    vin_bmy_dict[vin_code] = {
+                        'bmy_name': bmy_name,
+                        'bmy_code': arrs0[5],
+                        'is_imported_vehicle': 0
+                    }
                 seq += 1
         return brand_set, model_set, bmy_set, vin_set, brand_code_dict, model_code_dict, bmy_code_dict, vin_bmy_dict
 
@@ -182,20 +189,20 @@ class WxsDsm(object):
         num = 1
         for vin in vins:
             if vin in bid_vin_bmy_dict:
-                raw_name = bid_vin_bmy_dict[vin]
+                bmy_obj = bid_vin_bmy_dict[vin]
                 arrs0 = raw_name.split('*')
                 bmy_name = arrs0[0]
                 bmy_code = arrs0[1]
-                WxsDsm._process_vin_bmy(vin, bmy_name, bmy_code)
+                WxsDsm._process_vin_bmy(vin, bmy_obj['bmy_name'], bmy_obj['bmy_code'], bmy_obj['is_imported_vehicle'])
             elif vin in our_vin_bmy_dict:
                 bmy_name = our_vin_bmy_dict[vin]
-                WxsDsm._process_vin_bmy(vin, bmy_name, 'b{0:05d}'.format(num))
+                WxsDsm._process_vin_bmy(vin, bmy_name, 'b{0:05d}'.format(num), 0)
             else:
                 print('异常vin：{0};'.format(vin))
             num += 1
 
     @staticmethod
-    def _process_vin_bmy(vin, bmy_name, bmy_code):
+    def _process_vin_bmy(vin, bmy_name, bmy_code, is_imported_vehicle):
         # 求出brand_id和brand_code
         # 求出model_id和model_code
         # 将bmy保存到t_bmy中并获取bmy_id（重复的bmy不重复加入）
