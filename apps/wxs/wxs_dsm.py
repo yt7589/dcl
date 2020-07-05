@@ -1,6 +1,8 @@
 # 数据集管理类，负责生成数据描述文件
+import sys
 from apps.wxs.controller.c_brand import CBrand
 from apps.wxs.controller.c_model import CModel
+from apps.wxs.controller.c_bmy import CBmy
 
 class WxsDsm(object):
     def __init__(self):
@@ -187,7 +189,7 @@ class WxsDsm(object):
                 print('异常vin：{0};'.format(vin))
 
     @staticmethod
-    def _process_vin_bmy(vin, bmy):
+    def _process_vin_bmy(vin, bmy_name, bmy_code):
         # 求出brand_id和brand_code
         # 求出model_id和model_code
         # 将bmy保存到t_bmy中并获取bmy_id（重复的bmy不重复加入）
@@ -196,7 +198,17 @@ class WxsDsm(object):
         arrs0 = bmy.split('_')
         brand_name = arrs0[0]
         brand_vo = CBrand.get_brand_by_name(brand_name)
+        if brand_vo is None:
+            print('找不到品牌：{0};'.format(brand_name))
+            sys.exit(0)
         model_name = '{0}_{1}'.format(arrs0[0], arrs0[1])
+        model_vo = CModel.get_model_by_name(model_name)
+        if model_vo is None:
+            print('找不到车型：{0}；'.format(model_name))
+        bmy_id = CBmy.add_bmy(bmy_name, bmy_code, 
+            brand_vo['brand_id'], brand_vo['brand_code'],
+            model_vo['model_id'], model_vo['model_code']
+        )
 
 
 
