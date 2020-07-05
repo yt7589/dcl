@@ -158,7 +158,7 @@ class WxsDsm(object):
                 model_code = model_code_dict[model_name]
                 source_type = 1
             else:
-                model_code = 'x{0}'.format(num)
+                model_code = 'x{0:05d}'.format(num)
                 source_type = 2
             num += 1
             CModel.add_model(model_name, model_code, brand_vo, source_type)
