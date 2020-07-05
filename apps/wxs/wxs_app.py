@@ -25,7 +25,7 @@ class WxsApp(object):
 
     def _t1(self, ds_file):
         with open(ds_file, 'r', encoding='utf-8') as nfd:
-            maxfgvc_id = 0
+            max_fgvc_id = 0
             for line in nfd:
                 row = line.strip()
                 arrs0 = row.split('*')
