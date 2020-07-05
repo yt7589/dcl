@@ -134,8 +134,7 @@ class WxsDsm(object):
         WxsDsm.store_models_to_db(models, model_code_dict)
         # 保存年款和车辆识别码信息
         vins = our_vin_set | bid_vin_set
-        bmys = our_bmy_set | bid_bmy_set
-        WxsDsm.store_vin_bmy_to_db(vins, bmys, bid_vin_bmy_dict, our_vin_bmy_dict)
+        WxsDsm.store_vin_bmy_to_db(vins, bid_vin_bmy_dict, our_vin_bmy_dict)
 
 
     @staticmethod
@@ -173,8 +172,28 @@ class WxsDsm(object):
             CModel.add_model(model_name, model_code, brand_vo, source_type)
 
     @staticmethod
-    def store_vin_bmy_to_db(vins, bmys, bid_vin_bmy_dict, our_vin_bmy_dict):
+    def store_vin_bmy_to_db(vins, bid_vin_bmy_dict, our_vin_bmy_dict):
         print('处理年款和车辆识别码 ^_^')
+        vins = list(vins)
+        vins.sort()
+        for vin in vins:
+            if vin in bid_vin_bmy_dict:
+                bmy = bid_vin_bmy_dict[vin]
+                WxsDsm._process_vin_bmy(vin, bmy)
+            elif vin in our_vin_bmy_dict:
+                bmy = our_vin_bmy_dict[vin]
+                WxsDsm._process_vin_bmy(vin, bmy)
+            else:
+                print('异常vin：{0};'.format(vin))
+
+    @staticmethod
+    def _process_vin_bmy(vin, bmy):
+        # 求出brand_id和brand_code
+        # 求出model_id和model_code
+        # 将bmy保存到t_bmy中并获取bmy_id（重复的bmy不重复加入）
+        # 将vin和bmy_id保存到t_vin表中
+        print('处理：{0} <=> {1};'.format(vin, bmy))
+
 
 
     
