@@ -8,11 +8,11 @@ class WxsDsm(object):
 
     @staticmethod
     def know_init_status():
-        bid_brand_set, bid_model_set, bid_bmy_set, bid_vin_set, _, _, _ = WxsDsm._get_bid_info()
+        bid_brand_set, bid_model_set, bid_bmy_set, bid_vin_set, _, _, _, _ = WxsDsm._get_bid_info()
         print('标书要求：车辆识别码：{0}个；品牌：{1}个；年款：{2}个；'.format(
             len(bid_vin_set), len(bid_brand_set), len(bid_bmy_set)
         ))
-        our_brand_set, our_model_set, our_bmy_set, our_vin_set = WxsDsm._get_our_info()
+        our_brand_set, our_model_set, our_bmy_set, our_vin_set, _ = WxsDsm._get_our_info()
         print('自有情况：车辆识别码：{0}个；品牌：{1}个；年款：{2}个；'.format(
             len(our_vin_set), len(our_brand_set), len(our_bmy_set)
         ))
@@ -59,6 +59,7 @@ class WxsDsm(object):
         model_set = set()
         bmy_set = set()
         vin_set = set()
+        vin_bmy_dict = {}
         with open('./work/ggh_to_bmy_dict.txt', 'r', encoding='utf-8') as gfd:
             for line in gfd:
                 row = line.strip()
@@ -74,7 +75,8 @@ class WxsDsm(object):
                 year_name = arrs1[2]
                 bmy = '{0}_{1}_{2}'.format(brand_name, model_name_postfix, year_name)
                 bmy_set.add(bmy)
-        return brand_set, model_set, bmy_set, vin_set
+                vin_bmy_dict[vin_code] = bmy
+        return brand_set, model_set, bmy_set, vin_set, vin_bmy_dict
     @staticmethod
     def _get_bid_info():
         brand_set = set()
@@ -84,6 +86,7 @@ class WxsDsm(object):
         bmy_set = set()
         bmy_code_dict = {}
         vin_set = set()
+        vin_bmy_dict = {}
         seq = 0
         with open('./logs/bid_20200708.csv', 'r', encoding='utf-8') as cfd:
             for line in cfd:
@@ -103,8 +106,9 @@ class WxsDsm(object):
                     bmy_code_dict[bmy] = arrs0[5]
                     vin_code = arrs0[8]
                     vin_set.add(vin_code)
+                    vin_bmy_dict[vin_code] = bmy
                 seq += 1
-        return brand_set, model_set, bmy_set, vin_set, brand_code_dict, model_code_dict, bmy_code_dict
+        return brand_set, model_set, bmy_set, vin_set, brand_code_dict, model_code_dict, bmy_code_dict, vin_bmy_dict
 
     @staticmethod
     def write_set_to_file(set_obj, filename):
@@ -119,15 +123,20 @@ class WxsDsm(object):
     def initialize_db():
         bid_brand_set, bid_model_set, bid_bmy_set, bid_vin_set, \
                     brand_code_dict, model_code_dict, \
-                    bmy_code_dict = WxsDsm._get_bid_info()
-        our_brand_set, our_model_set, our_bmy_set, our_vin_set \
-                    = WxsDsm._get_our_info()
+                    bmy_code_dict, bid_vin_bmy_dict = WxsDsm._get_bid_info()
+        our_brand_set, our_model_set, our_bmy_set, our_vin_set, \
+                    our_vin_bmy_dict = WxsDsm._get_our_info()
         # 保存品牌信息
         brands = our_brand_set | bid_brand_set
         WxsDsm.store_brands_to_db(brands, brand_code_dict)
         # 保存车型信息
         models = our_model_set | bid_model_set
         WxsDsm.store_models_to_db(models, model_code_dict)
+        # 保存年款和车辆识别码信息
+        vins = our_vin_set | bid_vin_set
+        bmys = our_bmy_set | bid_bmy_set
+        WxsDsm.store_vin_bmy_to_db(vins, bmys, bid_vin_bmy_dict, our_vin_bmy_dict)
+
 
     @staticmethod
     def store_brands_to_db(brands, brand_code_dict):
@@ -162,6 +171,10 @@ class WxsDsm(object):
                 source_type = 2
             num += 1
             CModel.add_model(model_name, model_code, brand_vo, source_type)
+
+    @staticmethod
+    def store_vin_bmy_to_db(vins, bmys, bid_vin_bmy_dict, our_vin_bmy_dict):
+        print('处理年款和车辆识别码 ^_^')
 
 
     
