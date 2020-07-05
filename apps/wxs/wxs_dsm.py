@@ -111,11 +111,10 @@ class WxsDsm(object):
                     bmy_code_dict[bmy_name] = arrs0[5]
                     vin_code = arrs0[8]
                     vin_set.add(vin_code)
-                    is_imported_vehicle = arrs0[7]
                     vin_bmy_dict[vin_code] = {
                         'bmy_name': bmy_name,
                         'bmy_code': arrs0[5],
-                        'is_imported_vehicle': 0
+                        'is_imported_vehicle': arrs0[7]
                     }
                 seq += 1
         return brand_set, model_set, bmy_set, vin_set, brand_code_dict, model_code_dict, bmy_code_dict, vin_bmy_dict
@@ -192,8 +191,8 @@ class WxsDsm(object):
                 bmy_obj = bid_vin_bmy_dict[vin]
                 WxsDsm._process_vin_bmy(vin, bmy_obj['bmy_name'], bmy_obj['bmy_code'], bmy_obj['is_imported_vehicle'])
             elif vin in our_vin_bmy_dict:
-                bmy_name = our_vin_bmy_dict[vin]
-                WxsDsm._process_vin_bmy(vin, bmy_name, 'b{0:05d}'.format(num), 0)
+                bmy_obj = our_vin_bmy_dict[vin]
+                WxsDsm._process_vin_bmy(vin, bmy_obj['bmy_name'], 'b{0:05d}'.format(num), bmy_obj['is_imported_vehicle'])
             else:
                 print('异常vin：{0};'.format(vin))
             num += 1
