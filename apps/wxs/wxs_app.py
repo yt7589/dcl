@@ -17,4 +17,18 @@ class WxsApp(object):
         WxsDsm.initialize_db()
 
     def exp(self):
-        pass
+        ds_file = './datasets/CUB_200_2011/anno/train_ds_v4.txt'
+        train_id = self._t1(ds_file)
+        ds_file = './datasets/CUB_200_2011/anno/test_ds_v4.txt'
+        test_id = self._t1(ds_file)
+        print('{0} vs {1};'.format(train_id, test_id))
+
+    def _t1(self, ds_file):
+        with open(ds_file, 'r', encoding='utf-8') as nfd:
+            maxfgvc_id = 0
+            for line in nfd:
+                row = line.strip()
+                arrs0 = row.split('*')
+                fgvc_id = int(arrs0[1])
+                if fgvc_id > max_fgvc_id:
+                    max_fgvc_id = fgvc_id
