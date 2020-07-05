@@ -35,7 +35,7 @@ class MModel(object):
         if MModel.db is None:
             MModel._initialize()
         query_cond = {'model_name': model_name}
-        fields = {'model_id': 1, 'model_name': 1, 'brand_code': 1, 'model_num': 1}
+        fields = {'model_id': 1, 'model_name': 1, 'model_code': 1, 'model_num': 1}
         return MModel.tbl.find_one(query_cond, fields)
 
     @staticmethod
