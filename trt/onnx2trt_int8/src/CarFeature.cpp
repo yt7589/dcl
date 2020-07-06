@@ -98,12 +98,12 @@ JNADLL void *VehicleFeatureInstance(const string &modelPath, int cardNum,int max
         return NULL;
     }
     samplesCommon::OnnxSampleParams params;
-    params.onnxFileName = modelPath + "dcl_pt12.onnx";
+    params.onnxFileName = modelPath + "dcl_pt12_v1.onnx";
     params.inputTensorNames.emplace_back("data");
     params.batchSize = max_batch_size;
     params.outputTensorNames.emplace_back("output");
     params.gpuId = cardNum;
-    params.engineFileName =modelPath+ "dcl_pt12_q.trt";
+    params.engineFileName =modelPath+ "dcl_pt12_q1.trt";
     params.dataDirs.emplace_back("");
     params.dataFile = "../models/calib_images.txt";
     params.int8 = true;
