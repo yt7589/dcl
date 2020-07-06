@@ -9,6 +9,36 @@ class MVin(object):
         self.name = 'apps.wxs.model.MVin'
 
     @staticmethod
+    def is_vin_exists(vin_code):
+        if MVin.db is None:
+            MVin._initialize()
+        query_cond = {'vin_code': vin_code}
+        fields = {'vin_id': 1, 'bmy_id': 1}
+        if MVin.tbl.find_one(query_cond, fields) is None:
+            return False
+        else:
+            return True
+
+    @staticmethod
+    def get_vin_by_code(vin_code):
+        if MVin.db is None:
+            MVin._initialize()
+        query_cond = {'vin_code': vin_code}
+        fields = {'vin_id': 1, 'vin_code': 1, 'bmy_id': 1, 
+                    'source_type': 1}
+        return MVin.tbl.find_one(query_cond, fields)
+
+    @staticmethod
+    def insert(vin_vo):
+        '''
+        向t_vin表中添加记录，vin_vo中包括：
+            vin_id, vin_code, bmy_id, source_type
+        '''
+        if MVin.db is None:
+            MVin._initialize()
+        return MVin.tbl.insert_one(vin_vo)
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MVin.db = mongo_client['stpdb']

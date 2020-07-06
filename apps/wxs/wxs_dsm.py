@@ -180,6 +180,8 @@ class WxsDsm(object):
             num += 1
             CModel.add_model(model_name, model_code, brand_vo, source_type)
 
+    SOURCE_TYPE_BID = 1
+    SOURCE_TYPE_OUR = 2
     @staticmethod
     def store_vin_bmy_to_db(vins, bid_vin_bmy_dict, our_vin_bmy_dict):
         print('处理年款和车辆识别码 ^_^')
@@ -189,16 +191,18 @@ class WxsDsm(object):
         for vin in vins:
             if vin in bid_vin_bmy_dict:
                 bmy_obj = bid_vin_bmy_dict[vin]
-                WxsDsm._process_vin_bmy(vin, bmy_obj['bmy_name'], bmy_obj['bmy_code'], bmy_obj['is_imported_vehicle'])
+                bmy_id = WxsDsm._process_bmy(bmy_obj['bmy_name'], bmy_obj['bmy_code'], bmy_obj['is_imported_vehicle'])
+                WxsDsm._process_vin(vin, bmy_id, WxsDsm.SOURCE_TYPE_BID)
             elif vin in our_vin_bmy_dict:
                 bmy_obj = our_vin_bmy_dict[vin]
-                WxsDsm._process_vin_bmy(vin, bmy_obj['bmy_name'], 'b{0:05d}'.format(num), bmy_obj['is_imported_vehicle'])
+                bmy_id = WxsDsm._process_bmy(bmy_obj['bmy_name'], 'b{0:05d}'.format(num), bmy_obj['is_imported_vehicle'])
+                WxsDsm._process_vin(vin, bmy_id, WxsDsm.SOURCE_TYPE_OUR)
             else:
                 print('异常vin：{0};'.format(vin))
             num += 1
 
     @staticmethod
-    def _process_vin_bmy(vin, bmy_name, bmy_code, is_imported_vehicle):
+    def _process_bmy(bmy_name, bmy_code, is_imported_vehicle):
         # 求出brand_id和brand_code
         # 求出model_id和model_code
         # 将bmy保存到t_bmy中并获取bmy_id（重复的bmy不重复加入）
@@ -218,6 +222,11 @@ class WxsDsm(object):
             brand_vo['brand_id'], brand_vo['brand_code'],
             model_vo['model_id'], model_vo['model_code']
         )
+        return bmy_id
+
+    @staticmethod
+    def _process_vin(vin_code, bmy_id, source_type):
+        CBmy.add_vin(vin_code, bmy_id, source_type)
 
 
 

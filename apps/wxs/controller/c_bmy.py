@@ -1,6 +1,7 @@
 #
 from apps.wxs.model.m_pk_generator import MPkGenerator
 from apps.wxs.model.m_bmy import MBmy
+from apps.wxs.model.m_vin import MVin
 
 class CBmy(object):
     def __init__(self):
@@ -28,5 +29,24 @@ class CBmy(object):
         }
         rst = MBmy.insert(bmy_vo)
         return bmy_id
+
+    @staticmethod
+    def is_vin_exists(vin_code):
+        return MVin.is_vin_exists(vin_code)
+
+    @staticmethod
+    def add_vin(vin_code, bmy_id, source_type):
+        if MVin.is_vin_exists(vin_code):
+            vin_vo = MVin.get_vin_by_code(vin_code)
+            return int(vin_vo['vin_id'])
+        vin_id = MPkGenerator.get_pk('vin_id')
+        vin_vo = {
+            'vin_id': vin_id,
+            'vin_code': vin_code,
+            'bmy_id': bmy_id,
+            'source_type': source_type
+        }
+        rst = MVin.insert(vin_vo)
+        return vin_id
 
     
