@@ -1290,7 +1290,7 @@ class DsManager(object):
                             raw_str[4:6]
                         )
                         shutil.copy(str(file_obj), dst_file)
-                        arrs0 = str(file_obj).split('\\')
+                        arrs0 = str(file_obj).split('/')
                         print('{0}*{1}'.format(dst_file, test_ds_dict[arrs0[-1]]))
                         samples.append('{0}*{1}'.format(dst_file, test_ds_dict[arrs0[-1]]))
         samples.sort()
