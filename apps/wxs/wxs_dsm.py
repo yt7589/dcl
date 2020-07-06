@@ -68,14 +68,14 @@ class WxsDsm(object):
                 arrs0 = row.split(':')
                 vin_code = arrs0[0]
                 vin_set.add(vin_code)
-                arrs1 = arrs0[1].split('_')
+                arrs1 = arrs0[1].split('-')
                 brand_name = '{0}牌'.format(arrs1[0])
                 brand_set.add(brand_name)
                 model_name_postfix = arrs1[1]
-                model_name = '{0}_{1}'.format(brand_name, model_name_postfix)
+                model_name = '{0}-{1}'.format(brand_name, model_name_postfix)
                 model_set.add(model_name)
                 year_name = arrs1[2]
-                bmy_name = '{0}_{1}_{2}'.format(brand_name, model_name_postfix, year_name)
+                bmy_name = '{0}-{1}-{2}'.format(brand_name, model_name_postfix, year_name)
                 bmy_set.add(bmy_name)
                 vin_bmy_dict[vin_code] = {
                     'bmy_name': bmy_name,
@@ -102,11 +102,11 @@ class WxsDsm(object):
                     brand_set.add(brand_name)
                     brand_code_dict[brand_name] = arrs0[1]
                     model_name_postfix = arrs0[4]
-                    model_name = '{0}_{1}'.format(brand_name, model_name_postfix)
+                    model_name = '{0}-{1}'.format(brand_name, model_name_postfix)
                     model_set.add(model_name)
                     model_code_dict[model_name] = arrs0[3]
                     year_name = arrs0[6]
-                    bmy_name = '{0}_{1}_{2}'.format(brand_name, model_name_postfix, year_name)
+                    bmy_name = '{0}-{1}-{2}'.format(brand_name, model_name_postfix, year_name)
                     bmy_set.add(bmy_name)
                     bmy_code_dict[bmy_name] = arrs0[5]
                     vin_code = arrs0[8]
@@ -167,7 +167,7 @@ class WxsDsm(object):
         models.sort()
         num = 1
         for model_name in models:
-            arrs0 = model_name.split('_')
+            arrs0 = model_name.split('-')
             brand_name = arrs0[0]
             model_name_postfix = arrs0[1]
             brand_vo = CBrand.get_brand_by_name(brand_name)
@@ -204,13 +204,13 @@ class WxsDsm(object):
         # 将bmy保存到t_bmy中并获取bmy_id（重复的bmy不重复加入）
         # 将vin和bmy_id保存到t_vin表中
         print('处理：{0} <=> {1};'.format(vin, bmy_name))
-        arrs0 = bmy_name.split('_')
+        arrs0 = bmy_name.split('-')
         brand_name = arrs0[0]
         brand_vo = CBrand.get_brand_by_name(brand_name)
         if brand_vo is None:
             print('找不到品牌：{0};'.format(brand_name))
             sys.exit(0)
-        model_name = '{0}_{1}'.format(arrs0[0], arrs0[1])
+        model_name = '{0}-{1}'.format(arrs0[0], arrs0[1])
         model_vo = CModel.get_model_by_name(model_name)
         if model_vo is None:
             print('找不到车型：{0}；'.format(model_name))
