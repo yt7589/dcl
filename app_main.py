@@ -66,7 +66,7 @@ def test_web_api():
         print('#: {0};'.format(rec))
 
 def main(args):
-    ii = 1
+    ii = 10
     if 1 == ii:
         app = WxsApp()
         app.startup(args)

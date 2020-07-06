@@ -60,13 +60,14 @@ class DsManager(object):
     # 2020.07.08 招标相关
     # **************************************************************************************
     RUN_MODE_KNOW_INIT_STATUS = 2001
+    RUN_MODE_FLATTEN_IMG_FILES = 2002
 
     def __init__(self):
         self.name = 'utils.DsManager'
 
     @staticmethod
     def startup():
-        run_mode = DsManager.RUN_MODE_KNOW_INIT_STATUS
+        run_mode = DsManager.RUN_MODE_FLATTEN_IMG_FILES
         DsManager.run(run_mode, {})
 
     @staticmethod
@@ -136,6 +137,8 @@ class DsManager(object):
             DsManager.copy_ds_images()
         elif DsManager.RUN_MODE_KNOW_INIT_STATUS == run_mode:
             DsManager.know_init_status()
+        elif DsManager.RUN_MODE_FLATTEN_IMG_FILES == run_mode:
+            DsManager.flatten_img_files()
 
     @staticmethod
     def sample_imported_vehicle_data():
@@ -1257,5 +1260,54 @@ class DsManager(object):
                 seq += 1
         print('招标文件 公告号：{0}个；品牌：{1}个；年款：{2}个；'.format(len(ggh_set), len(brand_set), len(bmy_set)))
         return brand_set, bmy_set, ggh_set
+
+    @staticmethod
+    def flatten_img_files():
+        test_ds_dict = DsManager.get_test_ds_dict()
+        samples = []
+        num = 1
+        base_path = Path('e:/work/test')
+        dst_base_path = 'e:/work/tt'
+        for brand_path in base_path.iterdir():
+            for model_path in brand_path.iterdir():
+                for year_path in model_path.iterdir():
+                    for file_obj in year_path.iterdir():
+                        print(file_obj)
+                        raw_str = '{0:06d}'.format(num)
+                        num += 1
+                        dir1 = '{0}/{1}/'.format(
+                            dst_base_path, raw_str[0:2]
+                        )
+                        if not os.path.exists(dir1):
+                            os.mkdir(dir1)
+                        dir2 = '{0}/{1}/{2}'.format(
+                            dst_base_path, raw_str[0:2], raw_str[2:4]
+                        )
+                        if not os.path.exists(dir2):
+                            os.mkdir(dir2)
+                        dst_file = '{0}/{1}/{2}/{3}.jpg'.format(
+                            dst_base_path, raw_str[0:2], raw_str[2:4],
+                            raw_str[4:6]
+                        )
+                        shutil.copy(str(file_obj), dst_file)
+                        arrs0 = str(file_obj).split('\\')
+                        print('{0}*{1}'.format(dst_file, test_ds_dict[arrs0[-1]]))
+                        samples.append('{0}*{1}'.format(dst_file, test_ds_dict[arrs0[-1]]))
+        samples.sort()
+        with open('e:/work/new_ds.txt', 'w+', encoding='utf-8') as wfd:
+            for sample in samples:
+                wfd.write('{0}'.format(sample))
+
+    @staticmethod
+    def get_test_ds_dict():
+        test_ds_dict = {}
+        with open('e:/work/test_ds_v4.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line.strip()
+                arrs0 = line.split('*')
+                arrs1 = arrs0[0].split('/')
+                test_ds_dict[arrs1[-1]] = arrs0[1]
+        return test_ds_dict
+
 
 
