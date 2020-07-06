@@ -1266,8 +1266,8 @@ class DsManager(object):
         test_ds_dict = DsManager.get_test_ds_dict()
         samples = []
         num = 1
-        base_path = Path('e:/work/test')
-        dst_base_path = 'e:/work/tt'
+        base_path = Path('/media/zjkj/work/fgvc_dataset/test')
+        dst_base_path = '/media/zjkj/work/fgvc_dataset/cambricon'
         for brand_path in base_path.iterdir():
             for model_path in brand_path.iterdir():
                 for year_path in model_path.iterdir():
@@ -1294,14 +1294,14 @@ class DsManager(object):
                         print('{0}*{1}'.format(dst_file, test_ds_dict[arrs0[-1]]))
                         samples.append('{0}*{1}'.format(dst_file, test_ds_dict[arrs0[-1]]))
         samples.sort()
-        with open('e:/work/new_ds.txt', 'w+', encoding='utf-8') as wfd:
+        with open('/media/zjkj/work/fgvc_dataset/cambricon/new_ds.txt', 'w+', encoding='utf-8') as wfd:
             for sample in samples:
                 wfd.write('{0}'.format(sample))
 
     @staticmethod
     def get_test_ds_dict():
         test_ds_dict = {}
-        with open('e:/work/test_ds_v4.txt', 'r', encoding='utf-8') as fd:
+        with open('/media/zjkj/work/yantao/fgvc/dcl/datasets/CUB_200_2011/anno/test_ds_v4.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line.strip()
                 arrs0 = line.split('*')
