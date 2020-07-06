@@ -74,6 +74,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             # 求出品牌精度
             pred_size = top3_pos[:, 0].shape[0]
             batch_brand_correct = 0
+            '''
             for idx in range(pred_size):
                 pred_bmy = fgvc_id_to_bmy_dict['{0}'.format(top3_pos[idx][0])]
                 pred_brand = pred_bmy.split('_')[0]
@@ -81,12 +82,13 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
                 gt_brand = gt_bmy.split('_')[0]
                 if pred_brand == gt_brand:
                     batch_brand_correct += 1
+            '''
             brand_correct += batch_brand_correct
 
         val_acc1 = val_corrects1 / item_count
         val_acc2 = val_corrects2 / item_count
         val_acc3 = val_corrects3 / item_count
-        brand_acc = brand_correct / item_count
+        brand_acc = 0.0 #brand_correct / item_count
 
         log_file.write(val_version  + '\t' +str(val_loss_recorder.get_val())+'\t' + str(val_celoss_recorder.get_val()) + '\t' + str(val_acc1) + '\t' + str(val_acc3) + '\n')
 
