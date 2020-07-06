@@ -159,8 +159,6 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
     brand_correct = 0
     val_size = data_loader.__len__()
     item_count = data_loader.total_item_len
-    t0 = time.time()
-
     val_batch_size = data_loader.batch_size
     val_epoch_step = data_loader.__len__()
     num_cls = data_loader.num_cls
@@ -169,24 +167,8 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
     with torch.no_grad():
         for batch_cnt_val, data_val in enumerate(data_loader):
             inputs = Variable(data_val[0].cuda())
-            #print('inputs: {0};'.format(inputs[0]))
-            img01 = inputs[0].cpu().numpy()
-            print('inputs[0]: {0}; np: {1};'.format(inputs[0].shape, img01.shape))
-            print('img01: {0}; {1} {2} {3}; {4} {5} {6};'.format(img01.shape,
-                img01[0][0][0], img01[0][0][1], img01[0][0][2], 
-                img01[0][0][0], img01[0][1][0], img01[0][2][0]
-            ))
-
-
-
-
-
-
             labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
             outputs = model(inputs)
-
-            sys.exit(0)
-            
             if Config.use_dcl and Config.cls_2xmul:
                 outputs_pred = outputs[0] + outputs[1][:,0:num_cls] + outputs[1][:,num_cls:2*num_cls]
             else:
@@ -196,6 +178,7 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
             val_corrects1 = torch.sum((top3_pos[:, 0] == labels)).data.item()
             # 求出品牌精度
             pred_size = top3_pos[:, 0].shape[0]
+            '''
             batch_brand_correct = 0
             for idx in range(pred_size):
                 pred_bmy = fgvc_id_to_bmy_dict['{0}'.format(top3_pos[idx][0])]
@@ -205,10 +188,9 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
                 if pred_brand == gt_brand:
                     batch_brand_correct += 1
             brand_correct += batch_brand_correct
+            '''
         val_acc1 = val_corrects1 / item_count
-        brand_acc = brand_correct / item_count
-        t1 = time.time()
-        since = t1-t0
+        brand_acc = 0.0 #brand_correct / item_count
         print('top1: %.4f brand:%.4f' % (val_acc1, brand_acc), flush=True)
 
 def predict_main_mine(Config, model):

@@ -300,10 +300,6 @@ if __name__ == '__main__':
         filter_samples(Config, model, dataloader['val'])
     elif 4 == mode:
         log_file = open('./logs/a1.log', 'w+', encoding='utf-8')
-        # predict_main(Config, model, data_loader['val'], 'val', 0, log_file)
         predict_main(Config, model, dataloader['trainval'], 'val', 0, log_file)
-        cnt = len(trainval_set.paths)
-        for idx in range(cnt):
-            print('#: {0} = {1};'.format(trainval_set.paths[idx], trainval_set.labels[idx]))
 
 
