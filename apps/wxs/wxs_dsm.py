@@ -189,6 +189,7 @@ class WxsDsm(object):
         vins.sort()
         num = 1
         for vin in vins:
+            print('处理车辆识别码：{0}...'.format(vin))
             if vin in bid_vin_bmy_dict:
                 bmy_obj = bid_vin_bmy_dict[vin]
                 bmy_id = WxsDsm._process_bmy(bmy_obj['bmy_name'], bmy_obj['bmy_code'], bmy_obj['is_imported_vehicle'])
@@ -207,7 +208,6 @@ class WxsDsm(object):
         # 求出model_id和model_code
         # 将bmy保存到t_bmy中并获取bmy_id（重复的bmy不重复加入）
         # 将vin和bmy_id保存到t_vin表中
-        print('处理：{0} <=> {1};'.format(vin, bmy_name))
         arrs0 = bmy_name.split('-')
         brand_name = arrs0[0]
         brand_vo = CBrand.get_brand_by_name(brand_name)
