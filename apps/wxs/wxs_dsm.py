@@ -234,7 +234,7 @@ class WxsDsm(object):
     def generate_samples():
         folder_name = '/media/zjkj/work/fgvc_dataset/raw'
         base_path = Path(folder_name)
-        WxsDsm.generate_samples(base_path)
+        WxsDsm.generate_samples_from_path(base_path)
 
     @staticmethod
     def generate_samples_from_path(path_obj):
