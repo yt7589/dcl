@@ -248,9 +248,10 @@ class WxsDsm(object):
 
     @staticmethod
     def exp001():
-        vin_id = 1
-        bmy_id = 2
-        img_file = 'a.jpg'
-        CSample.add_sample(img_file, vin_id, bmy_id)
+        vin_id = 11
+        bmy_id = 21
+        img_file = 'b.jpg'
+        sample_id = CSample.add_sample(img_file, vin_id, bmy_id)
+        print('sample_id={0};'.format(sample_id))
 
     
