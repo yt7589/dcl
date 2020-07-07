@@ -228,6 +228,20 @@ class WxsDsm(object):
     def _process_vin(vin_code, bmy_id, source_type):
         CBmy.add_vin(vin_code, bmy_id, source_type)
 
+    @staticmethod
+    def generate_samples():
+        folder_name = ''
+        base_path = Path(folder_name)
+        WxsDsm.generate_samples(base_path)
+
+    @staticmethod
+    def generate_samples_from_path(path_obj):
+        for sub_obj in path_obj.iterdir():
+            sub_file = str(sub_obj)
+            if sub_obj.is_dir():
+                WxsDsm.generate_samples_from_path(sub_obj)
+            elif sub_file.endswith(('jpg','png','jpeg','bmp')):
+                print('处理文件：{0};'.format(sub_obj))
 
 
     
