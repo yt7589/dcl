@@ -261,6 +261,10 @@ class WxsDsm(object):
                         wfd.write('{0}\n'.format(vin_code))
 
     @staticmethod
+    def generate_dataset():
+        print('生成数据集...')
+
+    @staticmethod
     def exp001():
         vin_id = 11
         bmy_id = 21
