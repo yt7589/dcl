@@ -7,6 +7,7 @@ from apps.wxs.controller.c_brand import CBrand
 from apps.wxs.controller.c_model import CModel
 from apps.wxs.controller.c_bmy import CBmy
 from apps.wxs.controller.c_sample import CSample
+from apps.wxs.controller.c_dataset import CDataset
 
 class WxsDsm(object):
     def __init__(self):
@@ -338,10 +339,11 @@ class WxsDsm(object):
 
     @staticmethod
     def exp001():
-        vin_id = 33162
-        raw_samples = CSample.get_vin_samples(vin_id)
-        samples = raw_samples[:8]
-        WxsDsm.process_lt_10_samples(samples)
+        dataset_id = 1
+        sample_id = 2
+        sample_type = 1
+        dataset_sample_id = CDataset.add_dataset_sample(dataset_id, sample_id, sample_type)
+        print('dataset_sample_id={0};'.format(dataset_sample_id))
 
 
     
