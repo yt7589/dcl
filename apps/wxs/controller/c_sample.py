@@ -20,3 +20,7 @@ class CSample(object):
         }
         rst = MSample.insert(sample_vo)
         return sample_id
+
+    @staticmethod
+    def get_vin_samples(vin_id):
+        return MSample.get_vin_samples(vin_id)

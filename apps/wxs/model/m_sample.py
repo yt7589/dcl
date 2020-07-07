@@ -39,6 +39,14 @@ class MSample(object):
         return MSample.tbl.insert_one(sample_vo)
 
     @staticmethod
+    def get_vin_samples(vin_id):
+        if MSample.db is None:
+            MSample._initialize()
+        query_cond = {'vin_id': vin_id}
+        fields = {"img_file": 1, "bmy_id": 1}
+        return MMongoDb.convert_recs(MSample.tbl.find(query_cond, fields).sort([('img_file', 1)]))
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MSample.db = mongo_client['stpdb']

@@ -263,11 +263,19 @@ class WxsDsm(object):
     @staticmethod
     def generate_dataset():
         print('生成数据集...')
-
-    @staticmethod
-    def exp001():
         vins = CBmy.get_vin_codes()
         for vin in vins:
             print('{0} <=> {1};'.format(vin['vin_id'], vin['vin_code']))
+
+    @staticmethod
+    def get_vin_samples(vin_id):
+
+
+    @staticmethod
+    def exp001():
+        vin_id = 33162
+        recs = CSample.get_vin_samples(vin_id)
+        for rec in recs:
+            print(rec)
 
     
