@@ -245,6 +245,16 @@ class WxsDsm(object):
                 WxsDsm.generate_samples_from_path(sub_obj)
             elif sub_file.endswith(('jpg','png','jpeg','bmp')):
                 print('处理文件：{0};'.format(sub_obj))
+                arrs0 = sub_file.split('/')
+                filename = arrs0[-1]
+                arrs1 = filename.split('_')
+                raw_vin_code = arrs1[0]
+                arrs2 = raw_vin_code.split('#')
+                vin_code = arrs2[0]
+                bmy_id, vin_id = CBmy.get_bmy_id_by_vin_code(vin_code)
+                if bmy_id < 0:
+                    bmy_id, vin_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
+                CSample.add_sample(sub_file, vin_id, bmy_id)
 
     @staticmethod
     def exp001():

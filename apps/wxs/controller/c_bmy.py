@@ -53,20 +53,20 @@ class CBmy(object):
     def get_bmy_id_by_vin_code(vin_code):
         rec = MVin.get_bmy_id_by_vin_code(vin_code)
         if rec:
-            return int(rec['bmy_id'])
+            return int(rec['bmy_id']), int(rec['vin_id'])
         else: 
-            return -1
+            return -1, -1
 
     @staticmethod
     def get_bmy_id_by_prefix_vin_code(vin_code):
         prefix_vin_code = vin_code[:8]
         recs = MVin.get_bmy_ids_by_vin_code(prefix_vin_code)
         if not recs:
-            return -1
+            return -1, -1
         elif len(recs)>1:
-            return -2
+            return -2, -2
         else:
-            return recs[0]
+            return int(recs[0]['bmy_id']), int(recs[0]['vin_id'])
 
 
     
