@@ -1,6 +1,7 @@
 # 数据集管理类，负责生成数据描述文件
 import sys
 import shutil
+import random
 from pathlib import Path
 from apps.wxs.controller.c_brand import CBrand
 from apps.wxs.controller.c_model import CModel
@@ -266,16 +267,51 @@ class WxsDsm(object):
         vins = CBmy.get_vin_codes()
         for vin in vins:
             print('{0} <=> {1};'.format(vin['vin_id'], vin['vin_code']))
+            samples = CSample.get_vin_samples(vin['vin_id'])
+            samples_num = len(samples)
+            if samples_num >= 1000:
+                WxsDsm.process_bt_1000_samples(samples)
+            elif samples_num >= 100 and samples_num < 1000:
+                WxsDsm.process_100_to_1000_samples(samples)
+            elif samples_num >= 10 and samples_num < 100:
+                WxsDsm.process_10_to_100_samples(samples)
+            elif samples_num >= 1 and samples_num < 10:
+                WxsDsm.process_lt_10_samples(samples)
+            else:
+                print('该车辆识别码{0}没有样本记录...'.format(vin['vin_code']))
 
     @staticmethod
-    def get_vin_samples(vin_id):
-        samples = CSample.get_vin_samples(vin_id)
+    def process_bt_1000_samples(samples):
+        pass
+
+    @staticmethod
+    def process_100_to_1000_samples(samples):
+        '''
+        随机则取10张作为测试数据集，其余作为训练数据集
+        '''
+        data = list(range(len(samples)))
+        test_idxs = data[:10]
+        print('测试数据集：')
+        for idx in test_idxs:
+            print('@ {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+        train_idx = data[10:]
+        print('训练数据集：')
+        for idx in train_idxs:
+            print('# {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+
+    @staticmethod
+    def process_10_to_100_samples(samples):
+        pass
+
+    @staticmethod
+    def process_lt_10_samples(samples):
+        pass
 
     @staticmethod
     def exp001():
         vin_id = 33162
-        recs = CSample.get_vin_samples(vin_id)
-        for rec in recs:
-            print(rec)
+        samples = CSample.get_vin_samples(vin_id)
+        WxsDsm.process_100_to_1000_samples(samples)
+
 
     
