@@ -282,7 +282,18 @@ class WxsDsm(object):
 
     @staticmethod
     def process_bt_1000_samples(samples):
-        pass
+        '''
+        随机则取10张作为测试数据集，其余作为训练数据集
+        '''
+        data = list(range(len(samples)))
+        test_idxs = data[:10]
+        print('测试数据集：')
+        for idx in test_idxs:
+            print('@ {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+        train_idxs = data[10:1011]
+        print('训练数据集：')
+        for idx in train_idxs:
+            print('# {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
 
     @staticmethod
     def process_100_to_1000_samples(samples):
