@@ -269,7 +269,7 @@ class WxsDsm(object):
 
     @staticmethod
     def get_vin_samples(vin_id):
-
+        samples = CSample.get_vin_samples(vin_id)
 
     @staticmethod
     def exp001():
