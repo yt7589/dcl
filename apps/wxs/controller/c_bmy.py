@@ -49,4 +49,10 @@ class CBmy(object):
         rst = MVin.insert(vin_vo)
         return vin_id
 
+    @staticmethod
+    def get_bmy_id_by_vin_code(vin_code):
+        rec = MVin.get_bmy_id_by_vin_code(vin_code)
+        print(rec)
+
+
     

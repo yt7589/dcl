@@ -1,5 +1,6 @@
 # 
 import pymongo
+from apps.wxs.model.m_mongodb import MMongoDb
 
 class MVin(object):
     db = None
@@ -37,6 +38,14 @@ class MVin(object):
         if MVin.db is None:
             MVin._initialize()
         return MVin.tbl.insert_one(vin_vo)
+
+    @staticmethod
+    def get_bmy_id_by_vin_code(vin_code):
+        if MVin.db is None:
+            MVin._initialize()
+        query_cond = {"vin_code": vin_code}
+        fields = {"vin_id": 1, "bmy_id": 1}
+        return MMongoDb.convert_rec(MVin.tbl.find_one(query_cond, fields))
 
     @staticmethod
     def _initialize():

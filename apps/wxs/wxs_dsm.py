@@ -245,5 +245,8 @@ class WxsDsm(object):
             elif sub_file.endswith(('jpg','png','jpeg','bmp')):
                 print('处理文件：{0};'.format(sub_obj))
 
-
+    @staticmethod
+    def exp001():
+        vin_code = '19UYA426'
+        CBmy.get_bmy_id_by_vin_code(vin_code)
     
