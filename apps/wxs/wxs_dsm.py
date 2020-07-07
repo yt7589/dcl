@@ -230,7 +230,7 @@ class WxsDsm(object):
 
     @staticmethod
     def generate_samples():
-        folder_name = ''
+        folder_name = '/media/zjkj/work/fgvc_dataset/raw'
         base_path = Path(folder_name)
         WxsDsm.generate_samples(base_path)
 

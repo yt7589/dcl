@@ -14,7 +14,8 @@ class WxsApp(object):
         if 1 == i_debug:
             self.exp()
             return
-        WxsDsm.initialize_db()
+        #WxsDsm.initialize_db()
+        WxsDsm.generate_samples()
 
     def exp(self):
         ds_file = './datasets/CUB_200_2011/anno/train_ds_v4.txt'
