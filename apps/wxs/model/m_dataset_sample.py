@@ -42,4 +42,4 @@ class MDatasetSample(object):
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MDatasetSample.db = mongo_client['stpdb']
-        MDatasetSample.tbl = MBmy.db['t_dataset_sample']
+        MDatasetSample.tbl = MDatasetSample.db['t_dataset_sample']
