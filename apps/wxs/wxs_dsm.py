@@ -239,22 +239,26 @@ class WxsDsm(object):
 
     @staticmethod
     def generate_samples_from_path(path_obj):
-        for sub_obj in path_obj.iterdir():
-            sub_file = str(sub_obj)
-            if sub_obj.is_dir():
-                WxsDsm.generate_samples_from_path(sub_obj)
-            elif sub_file.endswith(('jpg','png','jpeg','bmp')):
-                print('处理文件：{0};'.format(sub_obj))
-                arrs0 = sub_file.split('/')
-                filename = arrs0[-1]
-                arrs1 = filename.split('_')
-                raw_vin_code = arrs1[0]
-                arrs2 = raw_vin_code.split('#')
-                vin_code = arrs2[0]
-                bmy_id, vin_id = CBmy.get_bmy_id_by_vin_code(vin_code)
-                if bmy_id < 0:
-                    bmy_id, vin_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
-                CSample.add_sample(sub_file, vin_id, bmy_id)
+        with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
+            for sub_obj in path_obj.iterdir():
+                sub_file = str(sub_obj)
+                if sub_obj.is_dir():
+                    WxsDsm.generate_samples_from_path(sub_obj)
+                elif sub_file.endswith(('jpg','png','jpeg','bmp')):
+                    print('处理文件：{0};'.format(sub_obj))
+                    arrs0 = sub_file.split('/')
+                    filename = arrs0[-1]
+                    arrs1 = filename.split('_')
+                    raw_vin_code = arrs1[0]
+                    arrs2 = raw_vin_code.split('#')
+                    vin_code = arrs2[0]
+                    bmy_id, vin_id = CBmy.get_bmy_id_by_vin_code(vin_code)
+                    if bmy_id < 0:
+                        bmy_id, vin_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
+                    if bmy_id > 0:
+                        CSample.add_sample(sub_file, vin_id, bmy_id)
+                    else:
+                        wfd.write('{0}\n'.format(vin_code))
 
     @staticmethod
     def exp001():
