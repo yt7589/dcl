@@ -247,7 +247,7 @@ class WxsDsm(object):
 
     @staticmethod
     def exp001():
-        vin_code = '19UYA426'
-        bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)
-        print('bmy_id={0};'.format(bmy_id))
+        vin_code = '19UYA426xxxxxxxx'
+        bmy_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
+        print('bmy_id: {0};'.format(bmy_id))
     

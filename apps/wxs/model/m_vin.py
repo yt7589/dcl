@@ -48,6 +48,14 @@ class MVin(object):
         return MMongoDb.convert_rec(MVin.tbl.find_one(query_cond, fields))
 
     @staticmethod
+    def get_bmy_ids_by_vin_code(prefix_vin_code):
+        if MVin.db is None:
+            MVin._initialize()
+        query_cond = {"vin_code": prefix_vin_code}
+        fields = {"vin_id": 1, "bmy_id": 1}
+        return MMongoDb.convert_recs(MVin.tbl.find(query_cond, fields))
+
+    @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
         MVin.db = mongo_client['stpdb']

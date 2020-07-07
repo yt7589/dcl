@@ -57,5 +57,16 @@ class CBmy(object):
         else: 
             return -1
 
+    @staticmethod
+    def get_bmy_id_by_prefix_vin_code(vin_code):
+        sub_vin_code = vin_code[:8]
+        recs = MVin.get_bmy_ids_by_vin_code(prefix_vin_code)
+        if not recs:
+            return -1
+        elif len(recs)>1:
+            return -2
+        else:
+            return recs[0]
+
 
     
