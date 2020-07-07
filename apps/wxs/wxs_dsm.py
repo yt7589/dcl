@@ -316,14 +316,21 @@ class WxsDsm(object):
 
     @staticmethod
     def process_lt_10_samples(samples):
-        pass
+        test_idxs = samples
+        print('测试数据集：')
+        for idx in test_idxs:
+            print('@4 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+        train_idxs = samples
+        print('训练数据集：')
+        for idx in train_idxs:
+            print('#4 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
 
     @staticmethod
     def exp001():
         vin_id = 33162
         raw_samples = CSample.get_vin_samples(vin_id)
-        samples = raw_samples[:20]
-        WxsDsm.process_10_to_100_samples(samples)
+        samples = raw_samples[:8]
+        WxsDsm.process_lt_10_samples(samples)
 
 
     
