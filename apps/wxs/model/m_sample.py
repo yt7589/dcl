@@ -41,5 +41,5 @@ class MSample(object):
     @staticmethod
     def _initialize():
         mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
-        MVin.db = mongo_client['stpdb']
-        MVin.tbl = MVin.db['t_sample']
+        MSample.db = mongo_client['stpdb']
+        MSample.tbl = MSample.db['t_sample']
