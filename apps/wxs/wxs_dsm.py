@@ -294,7 +294,7 @@ class WxsDsm(object):
         print('测试数据集：')
         for idx in test_idxs:
             print('@ {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
-        train_idx = data[10:]
+        train_idxs = data[10:]
         print('训练数据集：')
         for idx in train_idxs:
             print('# {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
