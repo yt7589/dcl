@@ -1,5 +1,7 @@
 # 数据集管理类，负责生成数据描述文件
 import sys
+import shutil
+from pathlib import Path
 from apps.wxs.controller.c_brand import CBrand
 from apps.wxs.controller.c_model import CModel
 from apps.wxs.controller.c_bmy import CBmy
