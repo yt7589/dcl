@@ -11,8 +11,8 @@ class MDatasetSample(object):
 
     @staticmethod
     def is_dataset_sample_exists(dataset_id, sample_id, sample_type):
-        if MBmy.db is None:
-            MBmy._initialize()
+        if MDatasetSample.db is None:
+            MDatasetSample._initialize()
         query_cond = {'dataset_id': dataset_id, 'sample_id': sample_id, 'sample_type': sample_type}
         fields = {'dataset_sample_id': 1}
         if MDatasetSample.tbl.find_one(query_cond, fields) is None:
@@ -22,8 +22,8 @@ class MDatasetSample(object):
 
     @staticmethod
     def get_dataset_sample_by_infos(dataset_id, sample_id, sample_type):
-        if MBmy.db is None:
-            MBmy._initialize()
+        if MDatasetSample.db is None:
+            MDatasetSample._initialize()
         query_cond = {'dataset_id': dataset_id, 'sample_id': sample_id, 'sample_type': sample_type}
         fields = {'dataset_sample_id': 1, 'dataset_id': 1, 'sample_id': 1, 'sample_type': 1}
         return MMongoDb.convert_rec(MDatasetSample.tbl.find_one(query_cond, fields))
