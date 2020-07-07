@@ -68,5 +68,9 @@ class CBmy(object):
         else:
             return int(recs[0]['bmy_id']), int(recs[0]['vin_id'])
 
+    @staticmethod
+    def get_vin_codes():
+        return MVin.get_vin_codes()
+
 
     

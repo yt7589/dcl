@@ -266,10 +266,8 @@ class WxsDsm(object):
 
     @staticmethod
     def exp001():
-        vin_id = 11
-        bmy_id = 21
-        img_file = 'b.jpg'
-        sample_id = CSample.add_sample(img_file, vin_id, bmy_id)
-        print('sample_id={0};'.format(sample_id))
+        vins = CBmy.get_vin_codes()
+        for vin in vins:
+            print('{0} <=> {1};'.format(vin['vin_id'], vin['vin_code']))
 
     
