@@ -5,6 +5,7 @@ from pathlib import Path
 from apps.wxs.controller.c_brand import CBrand
 from apps.wxs.controller.c_model import CModel
 from apps.wxs.controller.c_bmy import CBmy
+from apps.wxs.controller.c_sample import CSample
 
 class WxsDsm(object):
     def __init__(self):
@@ -247,7 +248,9 @@ class WxsDsm(object):
 
     @staticmethod
     def exp001():
-        vin_code = 'A19UYA426xxxxxxxx'
-        bmy_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
-        print('bmy_id: {0};'.format(bmy_id))
+        vin_id = 1
+        bmy_id = 2
+        img_file = 'a.jpg'
+        CSample.add_sample(img_file, vin_id, bmy_id)
+
     
