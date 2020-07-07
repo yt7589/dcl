@@ -25,7 +25,7 @@ class MDatasetSample(object):
         if MBmy.db is None:
             MBmy._initialize()
         query_cond = {'dataset_id': dataset_id, 'sample_id': sample_id, 'sample_type': sample_type}
-        fields = {'dataset_sample_id': 1, {'dataset_id': 1, 'sample_id': 1, 'sample_type': 1}
+        fields = {'dataset_sample_id': 1, 'dataset_id': 1, 'sample_id': 1, 'sample_type': 1}
         return MMongoDb.convert_rec(MDatasetSample.tbl.find_one(query_cond, fields))
 
     @staticmethod
