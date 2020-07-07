@@ -52,7 +52,10 @@ class CBmy(object):
     @staticmethod
     def get_bmy_id_by_vin_code(vin_code):
         rec = MVin.get_bmy_id_by_vin_code(vin_code)
-        print(rec)
+        if rec:
+            return int(rec['bmy_id'])
+        else: 
+            return -1
 
 
     
