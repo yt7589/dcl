@@ -316,11 +316,11 @@ class WxsDsm(object):
 
     @staticmethod
     def process_lt_10_samples(samples):
-        test_idxs = samples
+        test_idxs = list(range(len(samples)))
         print('测试数据集：')
         for idx in test_idxs:
             print('@4 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
-        train_idxs = samples
+        train_idxs = test_idxs
         print('训练数据集：')
         for idx in train_idxs:
             print('#4 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
