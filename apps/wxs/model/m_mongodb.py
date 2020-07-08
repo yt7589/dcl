@@ -13,7 +13,6 @@ class MMongoDb(object):
         '''
         将具有多条记录的cursor转为list[dict]
         '''
-        print('recs: {0};'.format(recs))
         rows = []
         for rec in recs:
             row = {}
