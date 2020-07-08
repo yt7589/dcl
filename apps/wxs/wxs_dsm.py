@@ -2,6 +2,7 @@
 import sys
 import shutil
 import random
+import datetime
 from pathlib import Path
 from apps.wxs.controller.c_brand import CBrand
 from apps.wxs.controller.c_model import CModel
@@ -247,7 +248,8 @@ class WxsDsm(object):
                 if sub_obj.is_dir():
                     WxsDsm.generate_samples_from_path(sub_obj)
                 elif sub_file.endswith(('jpg','png','jpeg','bmp')):
-                    print('处理文件：{0};'.format(sub_obj))
+                    #print('处理文件：{0};'.format(sub_obj))
+                    start_time = datetime.datetime.now()
                     arrs0 = sub_file.split('/')
                     filename = arrs0[-1]
                     arrs1 = filename.split('_')
@@ -261,6 +263,8 @@ class WxsDsm(object):
                         CSample.add_sample(sub_file, vin_id, bmy_id)
                     else:
                         wfd.write('{0}\n'.format(vin_code))
+                    end_time = datetime.datetime.now()
+                    print('单位耗时：{0};'.format(end_time - start_time))
 
     @staticmethod
     def generate_dataset():
