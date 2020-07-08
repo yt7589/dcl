@@ -310,7 +310,7 @@ class WxsDsm(object):
             for line in sfd:
                 line.strip()
                 arrs = line.split('*')
-                bmy_id = arrs[1][:-1]
+                bmy_id = int(arrs[1][:-1])
                 print('bmy_id={0};'.format(bmy_id))
                 if bmy_id in bmy_id_vin_dict:
                     print('?????????????')
