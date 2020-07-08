@@ -297,7 +297,7 @@ class WxsDsm(object):
         vins = CBmy.get_vin_codes()
         vin_samples_dict = WxsDsm.get_vin_samples_dict()
         with open('./logs/bid_train_ds.txt', 'w+', encoding='utf-8') as train_fd:
-            with open('./logs/bin_test_ds.txt', 'w+', encoding='utf-8') as test_fd:
+            with open('./logs/bid_test_ds.txt', 'w+', encoding='utf-8') as test_fd:
                 for vin in vins:
                     print('处理：{0} <=> {1};'.format(vin['vin_id'], vin['vin_code']))
                     if vin['vin_code'] in vin_samples_dict:
