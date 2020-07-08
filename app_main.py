@@ -71,7 +71,7 @@ def main(args):
     MMongoDb._initialize()
     ii = 1
     if 1 == ii:
-        rst = MMongoDb.db.t_sample.create_index([('vin_id', pymongo.ASCENDING, 'img_file', pymongo.ASCENDING)], unique=True)
+        rst = MMongoDb.db.t_sample.create_index([('vin_id', pymongo.ASCENDING), ('img_file', pymongo.ASCENDING)], unique=True)
         print('index rst: {0};'.format(rst))
         #app = WxsApp()
         #app.startup(args)
