@@ -281,6 +281,8 @@ class WxsDsm(object):
         print('生成数据集...')
         vins = CBmy.get_vin_codes()
         vin_samples_dict = WxsDsm.get_vin_samples_dict()
+        for k, v in vin_samples_dict.items():
+            print('##### {0}: {1};'.format(k, len(v)))
         for vin in vins:
             print('处理：{0} <=> {1};'.format(vin['vin_id'], vin['vin_code']))
             if vin['vin_code'] in vin_samples_dict:
