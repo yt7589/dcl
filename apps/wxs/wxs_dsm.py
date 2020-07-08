@@ -251,7 +251,8 @@ class WxsDsm(object):
     def generate_samples_from_path_domestic(vin_bmy_id_dict, path_obj, sfd, efd):
         for branch_obj in path_obj.iterdir():
             for vin_obj in branch_obj.iterdir():
-                WxsDsm.process_one_img_file(vin_bmy_id_dict, vin_obj, sfd, efd)
+                for file_obj in vin_obj.iterdir():
+                    WxsDsm.process_one_img_file(vin_bmy_id_dict, file_obj, sfd, efd)
 
     @staticmethod
     def process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd):
