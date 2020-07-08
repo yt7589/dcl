@@ -302,8 +302,6 @@ class WxsDsm(object):
     @staticmethod
     def get_vin_samples_dict():
         bmy_id_vin_dict = CBmy.get_bmy_id_vin_dict()
-        for k, v in bmy_id_vin_dict.items():
-            print('@@@ {0}:{1}; .......{2}'.format(k, v, type(k)))
         vin_samples_dict = {}
         samples = []
         with open('./logs/samples.txt', 'r', encoding='utf-8') as sfd:
@@ -311,11 +309,8 @@ class WxsDsm(object):
                 line.strip()
                 arrs = line.split('*')
                 bmy_id = int(arrs[1][:-1])
-                print('bmy_id={0};'.format(bmy_id))
                 if bmy_id in bmy_id_vin_dict:
-                    print('?????????????')
                     vin_code = bmy_id_vin_dict[bmy_id]
-                    print('vin_code: {0};'.format(vin_code))
                     if vin_code not in vin_samples_dict:
                         vin_samples_dict[vin_code] = [{'img_file': arrs[0], 'bmy_id': arrs[1]}]
                     else:
