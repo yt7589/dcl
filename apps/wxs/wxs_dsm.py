@@ -244,6 +244,16 @@ class WxsDsm(object):
     @staticmethod
     def generate_samples_from_path(path_obj):
         batch_run_time = 0
+        start_time = None
+        end_time = None
+        sub_file = ''
+        arrs0 = []
+        filename = ''
+        arrs1 = []
+        raw_vin_code = ''
+        arrs2 = []
+        bmy_id = 0
+        vin_id = 0
         with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
             for brand_obj in path_obj.iterdir():
                 for model_obj in brand_obj.iterdir():
@@ -266,7 +276,7 @@ class WxsDsm(object):
                             else:
                                 wfd.write('############## {0}\n'.format(vin_code))
                             end_time = datetime.datetime.now()
-                            batch_run_time += (end_time - start_time).microseconds
+                            batch_run_time += (end_time - start_time).total_seconds()
                             WxsDsm.opr_num += 1
                             if WxsDsm.opr_num % 100 == 0:
                                 print('处理{0}条记录；运行时间：{1}毫秒...'.format(WxsDsm.opr_num, batch_run_time))
