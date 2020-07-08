@@ -258,6 +258,7 @@ class WxsDsm(object):
         n2 = 0
         n3 = 0
         error_vins = []
+        one_time = 0.0
         #with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
         for brand_obj in path_obj.iterdir():
             for model_obj in brand_obj.iterdir():
@@ -278,7 +279,10 @@ class WxsDsm(object):
                             bmy_id, vin_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
                         if bmy_id > 0:
                             n2 += 1
+                            s1 = datetime.datetime.now()
                             rst = CSample.add_sample(sub_file, vin_id, bmy_id)
+                            s2 = datetime.datetime.now()
+                            one_time = (s2 - s1).total_seconds()
                         else:
                             n3 += 1
                             #wfd.write('############## {0}\n'.format(vin_code))
@@ -287,7 +291,8 @@ class WxsDsm(object):
                         batch_run_time += (end_time - start_time).total_seconds()
                         WxsDsm.opr_num += 1
                         if WxsDsm.opr_num % 100 == 0:
-                            print('处理{0}条记录；运行时间{1}秒：n1={2}；n2={3}; n3={4}...'.format(WxsDsm.opr_num, batch_run_time, n1, n2, n3))
+                            print('处理{0}条记录；运行时间{1}秒：n1={2}；n2={3}; n3={4}...{5}'.format(
+                                WxsDsm.opr_num, batch_run_time, n1, n2, n3, one_time))
                             batch_run_time = 0.0
                             n1, n2, n3 = 0, 0, 0
 

@@ -9,8 +9,8 @@ class CSample(object):
     @staticmethod
     def add_sample(img_file, vin_id, bmy_id):
         if MSample.is_sample_exists(img_file):
-            #rec = MSample.get_sample_by_img_file(img_file)
-            return 0 # rec['sample_id']
+            rec = MSample.get_sample_by_img_file(img_file)
+            return rec['sample_id']
         print('#####################################################################')
         sample_id = MPkGenerator.get_pk('sample_id')
         sample_vo = {

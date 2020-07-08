@@ -1,5 +1,4 @@
 # 样本集模型类
-import datetime
 import pymongo
 from apps.wxs.model.m_mongodb import MMongoDb
 
@@ -11,10 +10,7 @@ class MSample(object):
     def is_sample_exists(img_file):
         query_cond = {'img_file': img_file}
         fields = {'sample_id': 1, 'bmy_id': 1}
-        start_time = datetime.datetime.now()
         rec = MMongoDb.convert_rec(MMongoDb.db['t_sample'].find_one(query_cond, fields))
-        end_time = datetime.datetime.now()
-        print('################    数据库操作时间：{0};'.format((end_time - start_time).total_seconds()))
         if rec is None:
             return False
         else:
