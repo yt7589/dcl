@@ -302,6 +302,8 @@ class WxsDsm(object):
     @staticmethod
     def get_vin_samples_dict():
         bmy_id_vin_dict = CBmy.get_bmy_id_vin_dict()
+        for k, v in bmy_id_vin_dict.items():
+            print('@@@ {0}:{1}; .......{2}'.format(k, v, type(k)))
         vin_samples_dict = {}
         samples = []
         with open('./logs/samples.txt', 'r', encoding='utf-8') as sfd:
