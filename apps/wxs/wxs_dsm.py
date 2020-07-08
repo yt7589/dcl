@@ -240,9 +240,9 @@ class WxsDsm(object):
         base_path = Path(folder_name)
         WxsDsm.generate_samples_from_path(base_path)
 
+    opr_num = 1
     @staticmethod
     def generate_samples_from_path(path_obj):
-        num = 1
         with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
             for sub_obj in path_obj.iterdir():
                 sub_file = str(sub_obj)
@@ -263,9 +263,9 @@ class WxsDsm(object):
                         CSample.add_sample(sub_file, vin_id, bmy_id)
                     else:
                         wfd.write('{0}\n'.format(vin_code))
-                    num += 1
-                    if num % 100 == 0:
-                        print('处理{0}条记录...'.format(num))
+                    WxsDsm.opr_num += 1
+                    if WxsDsm.opr_num % 100 == 0:
+                        print('处理{0}条记录...'.format(WxsDsm.opr_num))
 
     @staticmethod
     def generate_dataset():
