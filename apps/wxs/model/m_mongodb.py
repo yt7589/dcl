@@ -37,5 +37,7 @@ class MMongoDb(object):
 
     @staticmethod
     def _initialize():
-        mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
-        MMongoDb.db = mongo_client['stpdb']
+        #mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
+        #MMongoDb.db = mongo_client['stpdb']
+        conn = pymongo.Connection('localhost', 27017)
+        MMongoDb.db = conn['stpdb']
