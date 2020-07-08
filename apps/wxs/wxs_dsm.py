@@ -300,8 +300,8 @@ class WxsDsm(object):
                         batch_run_time += (end_time - start_time).total_seconds()
                         WxsDsm.opr_num += 1
                         if WxsDsm.opr_num % 100 == 0:
-                            print('处理{0}条记录；运行时间{1}秒：n1={2}；n2={3}; n3={4}...{5}'.format(
-                                WxsDsm.opr_num, batch_run_time, n1, n2, n3, (t1)*100))
+                            print('处理{0}条记录；运行时间{1}秒：n1={2}；n2={3}; n3={4}...{5} {6} {7}'.format(
+                                WxsDsm.opr_num, batch_run_time, n1, n2, n3, t1*100, t2*100, t3*100))
                             batch_run_time = 0.0
                             n1, n2, n3 = 0, 0, 0
 
