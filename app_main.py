@@ -71,8 +71,10 @@ def main(args):
     MMongoDb._initialize()
     ii = 1
     if 1 == ii:
-        app = WxsApp()
-        app.startup(args)
+        rst = MMongoDb.db.t_sample.create_index([('vin_id', pymongo.ASCENDING, 'img_file', pymongo.ASCENDING)], unique=True)
+        print('index rst: {0};'.format(rst))
+        #app = WxsApp()
+        #app.startup(args)
         return
     print('细粒度图像识别系统')
     mode = MODE_DS_MANAGER #MODE_TRAIN_MONITOR
