@@ -242,6 +242,7 @@ class WxsDsm(object):
 
     @staticmethod
     def generate_samples_from_path(path_obj):
+        num = 1
         with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
             for sub_obj in path_obj.iterdir():
                 sub_file = str(sub_obj)
@@ -249,7 +250,6 @@ class WxsDsm(object):
                     WxsDsm.generate_samples_from_path(sub_obj)
                 elif sub_file.endswith(('jpg','png','jpeg','bmp')):
                     #print('处理文件：{0};'.format(sub_obj))
-                    start_time = datetime.datetime.now()
                     arrs0 = sub_file.split('/')
                     filename = arrs0[-1]
                     arrs1 = filename.split('_')
@@ -263,8 +263,9 @@ class WxsDsm(object):
                         CSample.add_sample(sub_file, vin_id, bmy_id)
                     else:
                         wfd.write('{0}\n'.format(vin_code))
-                    end_time = datetime.datetime.now()
-                    print('单位耗时：{0};'.format(end_time - start_time))
+                    num += 1
+                    if num % 100 == 0:
+                        print('处理{0}条记录...'.format(num))
 
     @staticmethod
     def generate_dataset():
