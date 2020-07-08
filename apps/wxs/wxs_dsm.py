@@ -278,7 +278,7 @@ class WxsDsm(object):
                             bmy_id, vin_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
                         if bmy_id > 0:
                             n2 += 1
-                            CSample.add_sample(sub_file, vin_id, bmy_id)
+                            #CSample.add_sample(sub_file, vin_id, bmy_id)
                         else:
                             n3 += 1
                             #wfd.write('############## {0}\n'.format(vin_code))
