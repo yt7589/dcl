@@ -309,9 +309,12 @@ class WxsDsm(object):
                 line.strip()
                 arrs = line.split('*')
                 bmy_id = arrs[1]
+                print('bmy_id={0};'.format(bmy_id))
                 if bmy_id in bmy_id_vin_dict:
+                    print('?????????????')
                     vin_code = bmy_id_vin_dict[bmy_id]
-                    if vin_code in vin_samples_dict:
+                    print('vin_code: {0};'.format(vin_code))
+                    if vin_code not in vin_samples_dict:
                         vin_samples_dict[vin_code] = [{'img_file': arrs[0], 'bmy_id': arrs[1]}]
                     else:
                         vin_samples_dict[vin_code].append({'img_file': arrs[0], 'bmy_id': arrs[1]})
