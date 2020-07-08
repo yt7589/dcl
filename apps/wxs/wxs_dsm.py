@@ -243,31 +243,17 @@ class WxsDsm(object):
     opr_num = 1
     @staticmethod
     def generate_samples_from_path(path_obj):
-        batch_run_time = 0.0
-        start_time = None
-        end_time = None
-        sub_file = ''
-        arrs0 = []
-        filename = ''
-        arrs1 = []
-        raw_vin_code = ''
-        arrs2 = []
-        bmy_id = 0
-        vin_id = 0
-        n1 = 0
-        n2 = 0
-        n3 = 0
-        error_vins = []
-        one_time = 0.0
-        t1 = 0.0
-        t2 = 0.0
-        t3 = 0.0
+        i_debug = 1
+        vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
+        for k, v in vin_bmy_id_dict.items():
+            print('### {0}:{1};'.format(k, v))
+        if 1 == i_debug:
+            return
         #with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
         for brand_obj in path_obj.iterdir():
             for model_obj in brand_obj.iterdir():
                 for year_obj in model_obj.iterdir():
                     for sub_obj in year_obj.iterdir():
-                        start_time = datetime.datetime.now()
                         sub_file = str(sub_obj)
                         #print('处理文件：{0};'.format(sub_obj))
                         arrs0 = sub_file.split('/')
@@ -276,34 +262,18 @@ class WxsDsm(object):
                         raw_vin_code = arrs1[0]
                         arrs2 = raw_vin_code.split('#')
                         vin_code = arrs2[0]
-                        s1 = datetime.datetime.now()
                         bmy_id, vin_id = CBmy.get_bmy_id_by_vin_code(vin_code)
-                        s2 = datetime.datetime.now()
-                        t1 = (s2 - s1).total_seconds()
                         if bmy_id < 0:
-                            n1 += 1
-                            s1 = datetime.datetime.now()
                             bmy_id, vin_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
-                            s2 = datetime.datetime.now()
-                            t2 = (s2 - s1).total_seconds()
                         if bmy_id > 0:
-                            n2 += 1
-                            s1 = datetime.datetime.now()
                             rst = CSample.add_sample(sub_file, vin_id, bmy_id)
-                            s2 = datetime.datetime.now()
-                            t3 = (s2 - s1).total_seconds()
                         else:
-                            n3 += 1
                             #wfd.write('############## {0}\n'.format(vin_code))
                             error_vins.append(vin_code)
-                        end_time = datetime.datetime.now()
-                        batch_run_time += (end_time - start_time).total_seconds()
                         WxsDsm.opr_num += 1
                         if WxsDsm.opr_num % 100 == 0:
-                            print('处理{0}条记录；运行时间{1}秒：n1={2}；n2={3}; n3={4}...{5} {6} {7}'.format(
-                                WxsDsm.opr_num, batch_run_time, n1, n2, n3, t1*100, t2*100, t3*100))
-                            batch_run_time = 0.0
-                            n1, n2, n3 = 0, 0, 0
+                            print('处理{0}条记录...'.format(
+                                WxsDsm.opr_num))
 
     @staticmethod
     def generate_dataset():
