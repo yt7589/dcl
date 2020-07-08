@@ -348,7 +348,7 @@ class WxsDsm(object):
     @staticmethod
     def exp001():
         dataset_id = 1
-        sample_id = 2
+        sample_id = 3
         sample_type = 1
         dataset_sample_id = CDataset.add_dataset_sample(dataset_id, sample_id, sample_type)
         print('dataset_sample_id={0};'.format(dataset_sample_id))
