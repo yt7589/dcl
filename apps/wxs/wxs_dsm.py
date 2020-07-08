@@ -302,7 +302,8 @@ class WxsDsm(object):
             for line in sfd:
                 line.strip()
                 arrs = line.split('*')
-                samples.append({arrs[0], arrs[1]})
+                if arrs[0] == vin_code:
+                    samples.append({'img_file': arrs[0], 'bmy_id': arrs[1]})
         return samples
 
     @staticmethod
