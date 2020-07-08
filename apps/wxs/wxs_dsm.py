@@ -280,31 +280,40 @@ class WxsDsm(object):
     def generate_dataset():
         print('生成数据集...')
         vins = CBmy.get_vin_codes()
+        vin_samples_dict = get_vin_samples_dict()
         for vin in vins:
             print('处理：{0} <=> {1};'.format(vin['vin_id'], vin['vin_code']))
-            samples = WxsDsm.get_vin_samples(vin['vin_id'])
-            samples_num = len(samples)
-            if samples_num >= 1000:
-                WxsDsm.process_bt_1000_samples(samples)
-            elif samples_num >= 100 and samples_num < 1000:
-                WxsDsm.process_100_to_1000_samples(samples)
-            elif samples_num >= 10 and samples_num < 100:
-                WxsDsm.process_10_to_100_samples(samples)
-            elif samples_num >= 1 and samples_num < 10:
-                WxsDsm.process_lt_10_samples(samples)
-            else:
-                print('该车辆识别码{0}没有样本记录...'.format(vin['vin_code']))
+            if vin['vin_code'] in vin_samples_dict:
+                samples = vin_samples_dict[vin['vin_code']]
+                samples_num = len(samples)
+                if samples_num >= 1000:
+                    WxsDsm.process_bt_1000_samples(samples)
+                elif samples_num >= 100 and samples_num < 1000:
+                    WxsDsm.process_100_to_1000_samples(samples)
+                elif samples_num >= 10 and samples_num < 100:
+                    WxsDsm.process_10_to_100_samples(samples)
+                elif samples_num >= 1 and samples_num < 10:
+                    WxsDsm.process_lt_10_samples(samples)
+                else:
+                    print('该车辆识别码{0}没有样本记录...'.format(vin['vin_code']))
 
     @staticmethod
-    def get_vin_samples(vin_code):
+    def get_vin_samples_dict():
+        bmy_id_vin_dict = CBmy.get_bmy_id_vin_dict()
+        vin_samples_dict = {}
         samples = []
         with open('./logs/samples.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line.strip()
                 arrs = line.split('*')
-                if arrs[0] == vin_code:
-                    samples.append({'img_file': arrs[0], 'bmy_id': arrs[1]})
-        return samples
+                bmy_id = arrs[1]
+                if bmy_id in bmy_id_vin_dict:
+                    vin_code = bmy_id_vin_dict[bmy_id]
+                    if vin_code in vin_samples_dict:
+                        vin_samples_dict[vin_code] = [{'img_file': arrs[0], 'bmy_id': arrs[1]}]
+                    else:
+                        vin_samples_dict[vin_code].append({'img_file': arrs[0], 'bmy_id': arrs[1]})
+        return vin_samples_dict
 
     @staticmethod
     def process_bt_1000_samples(samples):
