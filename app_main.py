@@ -21,6 +21,7 @@ from apps.admin.controller.c_vehicle_image import CVehicleImage
 from apps.admin.controller.c_delta_ds import CDeltaDs
 from apps.wxs.wxs_app import WxsApp
 from apps.wxs.model.m_mongodb import MMongoDb
+import pymongo
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
 MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
