@@ -243,7 +243,7 @@ class WxsDsm(object):
     opr_num = 1
     @staticmethod
     def generate_samples_from_path(path_obj):
-        batch_run_time = 0
+        batch_run_time = 0.0
         start_time = None
         end_time = None
         sub_file = ''
@@ -288,7 +288,7 @@ class WxsDsm(object):
                         WxsDsm.opr_num += 1
                         if WxsDsm.opr_num % 100 == 0:
                             print('处理{0}条记录；运行时间{1}秒：n1={2}；n2={3}; n3={4}...'.format(WxsDsm.opr_num, batch_run_time, n1, n2, n3))
-                            batch_run_time = 0
+                            batch_run_time = 0.0
                             n1, n2, n3 = 0, 0, 0
 
     @staticmethod
