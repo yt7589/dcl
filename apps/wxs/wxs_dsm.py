@@ -243,32 +243,34 @@ class WxsDsm(object):
     opr_num = 1
     @staticmethod
     def generate_samples_from_path(path_obj):
+        batch_run_time = 0
         with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
             for brand_obj in path_obj.iterdir():
                 for model_obj in brand_obj.iterdir():
                     for year_obj in model_obj.iterdir():
                         for sub_obj in year_obj.iterdir():
+                            start_time = datetime.datetime.now()
                             sub_file = str(sub_obj)
-                            if sub_obj.is_dir():
-                                WxsDsm.generate_samples_from_path(sub_obj)
-                            elif sub_file.endswith(('jpg','png','jpeg','bmp')):
-                                #print('处理文件：{0};'.format(sub_obj))
-                                arrs0 = sub_file.split('/')
-                                filename = arrs0[-1]
-                                arrs1 = filename.split('_')
-                                raw_vin_code = arrs1[0]
-                                arrs2 = raw_vin_code.split('#')
-                                vin_code = arrs2[0]
-                                bmy_id, vin_id = CBmy.get_bmy_id_by_vin_code(vin_code)
-                                if bmy_id < 0:
-                                    bmy_id, vin_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
-                                if bmy_id > 0:
-                                    CSample.add_sample(sub_file, vin_id, bmy_id)
-                                else:
-                                    wfd.write('############## {0}\n'.format(vin_code))
-                                WxsDsm.opr_num += 1
-                                if WxsDsm.opr_num % 100 == 0:
-                                    print('处理{0}条记录...'.format(WxsDsm.opr_num))
+                            #print('处理文件：{0};'.format(sub_obj))
+                            arrs0 = sub_file.split('/')
+                            filename = arrs0[-1]
+                            arrs1 = filename.split('_')
+                            raw_vin_code = arrs1[0]
+                            arrs2 = raw_vin_code.split('#')
+                            vin_code = arrs2[0]
+                            bmy_id, vin_id = CBmy.get_bmy_id_by_vin_code(vin_code)
+                            if bmy_id < 0:
+                                bmy_id, vin_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
+                            if bmy_id > 0:
+                                CSample.add_sample(sub_file, vin_id, bmy_id)
+                            else:
+                                wfd.write('############## {0}\n'.format(vin_code))
+                            end_time = datetime.datetime.now()
+                            batch_run_time += (end_time - start_time).microseconds
+                            WxsDsm.opr_num += 1
+                            if WxsDsm.opr_num % 100 == 0:
+                                print('处理{0}条记录；运行时间：{1}毫秒...'.format(WxsDsm.opr_num, batch_run_time))
+                                batch_run_time = 0
 
     @staticmethod
     def generate_dataset():
