@@ -71,10 +71,8 @@ def main(args):
     MMongoDb._initialize()
     ii = 1
     if 1 == ii:
-        rst = MMongoDb.db.t_vin.create_index([('vin_code', pymongo.ASCENDING)], unique=True)
-        print('index rst: {0};'.format(rst))
-        #app = WxsApp()
-        #app.startup(args)
+        app = WxsApp()
+        app.startup(args)
         return
     print('细粒度图像识别系统')
     mode = MODE_DS_MANAGER #MODE_TRAIN_MONITOR
