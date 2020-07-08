@@ -337,7 +337,7 @@ class WxsDsm(object):
             train_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
 
     @staticmethod
-    def process_100_to_1000_samples(samples):
+    def process_100_to_1000_samples(samples, train_fd, test_fd):
         '''
         随机则取10张作为测试数据集，其余作为训练数据集
         '''
@@ -356,7 +356,7 @@ class WxsDsm(object):
             train_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
 
     @staticmethod
-    def process_10_to_100_samples(samples):
+    def process_10_to_100_samples(samples, train_fd, test_fd):
         '''
         随机取10张作为测试数据集，取全部图片作为训练数据集
         '''
@@ -375,7 +375,7 @@ class WxsDsm(object):
             train_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
 
     @staticmethod
-    def process_lt_10_samples(samples):
+    def process_lt_10_samples(samples, train_fd, test_fd):
         test_idxs = list(range(len(samples)))
         print('测试数据集：')
         for idx in test_idxs:
