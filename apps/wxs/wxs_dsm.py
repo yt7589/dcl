@@ -243,26 +243,40 @@ class WxsDsm(object):
     opr_num = 1
     @staticmethod
     def generate_samples_from_path(path_obj):
-        i_debug = 1
+        error_vins = []
         vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
-        for k, v in vin_bmy_id_dict.items():
-            print('### {0}:{1};'.format(k, v))
-        print('数量：{0};'.format(len(vin_bmy_id_dict)))
-        if 1 == i_debug:
-            return
-        #with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
-        for brand_obj in path_obj.iterdir():
-            for model_obj in brand_obj.iterdir():
-                for year_obj in model_obj.iterdir():
-                    for sub_obj in year_obj.iterdir():
-                        sub_file = str(sub_obj)
-                        #print('处理文件：{0};'.format(sub_obj))
-                        arrs0 = sub_file.split('/')
-                        filename = arrs0[-1]
-                        arrs1 = filename.split('_')
-                        raw_vin_code = arrs1[0]
-                        arrs2 = raw_vin_code.split('#')
-                        vin_code = arrs2[0]
+        with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
+            for brand_obj in path_obj.iterdir():
+                for model_obj in brand_obj.iterdir():
+                    for year_obj in model_obj.iterdir():
+                        for sub_obj in year_obj.iterdir():
+                            sub_file = str(sub_obj)
+                            #print('处理文件：{0};'.format(sub_obj))
+                            arrs0 = sub_file.split('/')
+                            filename = arrs0[-1]
+                            arrs1 = filename.split('_')
+                            raw_vin_code = arrs1[0]
+                            arrs2 = raw_vin_code.split('#')
+                            vin_code = arrs2[0]
+                            if vin_code in vin_bmy_id_dict:
+                                bmy_id = vin_bmy_id_dict[vin_code]
+                            elif vin_code[:8] in vin_bmy_id_dict:
+                                bmy_id = vin_bmy_id_dict[vin_code[:8]]
+                            else:
+                                #wfd.write('############## {0}\n'.format(vin_code))
+                                bmy_id = -1
+                                error_vins.append(vin_code)
+                            if bmy_id > 0:
+                                sfd.write('{0}*{1}\n').format(sub_file, bmy_id)
+                            WxsDsm.opr_num += 1
+                            if WxsDsm.opr_num % 1000 == 0:
+                                print('处理{0}条记录...'.format(
+                                    WxsDsm.opr_num))
+        with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
+            for vin in error_vins:
+                wfd.write('{0}\n'.format(vin))
+
+                        '''
                         bmy_id, vin_id = CBmy.get_bmy_id_by_vin_code(vin_code)
                         if bmy_id < 0:
                             bmy_id, vin_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
@@ -271,10 +285,7 @@ class WxsDsm(object):
                         else:
                             #wfd.write('############## {0}\n'.format(vin_code))
                             error_vins.append(vin_code)
-                        WxsDsm.opr_num += 1
-                        if WxsDsm.opr_num % 100 == 0:
-                            print('处理{0}条记录...'.format(
-                                WxsDsm.opr_num))
+                        '''
 
     @staticmethod
     def generate_dataset():
