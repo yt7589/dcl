@@ -275,17 +275,16 @@ class WxsDsm(object):
         with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
             for vin in error_vins:
                 wfd.write('{0}\n'.format(vin))
-
-                        '''
-                        bmy_id, vin_id = CBmy.get_bmy_id_by_vin_code(vin_code)
-                        if bmy_id < 0:
-                            bmy_id, vin_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
-                        if bmy_id > 0:
-                            rst = CSample.add_sample(sub_file, vin_id, bmy_id)
-                        else:
-                            #wfd.write('############## {0}\n'.format(vin_code))
-                            error_vins.append(vin_code)
-                        '''
+                '''
+                bmy_id, vin_id = CBmy.get_bmy_id_by_vin_code(vin_code)
+                if bmy_id < 0:
+                    bmy_id, vin_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
+                if bmy_id > 0:
+                    rst = CSample.add_sample(sub_file, vin_id, bmy_id)
+                else:
+                    #wfd.write('############## {0}\n'.format(vin_code))
+                    error_vins.append(vin_code)
+                '''
 
     @staticmethod
     def generate_dataset():
