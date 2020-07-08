@@ -247,6 +247,7 @@ class WxsDsm(object):
         vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
         for k, v in vin_bmy_id_dict.items():
             print('### {0}:{1};'.format(k, v))
+        print('数量：{0};'.format(len(vin_bmy_id_dict)))
         if 1 == i_debug:
             return
         #with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
