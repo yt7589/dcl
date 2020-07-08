@@ -10,13 +10,10 @@ class MSample(object):
     def is_sample_exists(img_file):
         query_cond = {'img_file': img_file}
         fields = {'sample_id': 1, 'bmy_id': 1}
-        return True
-        '''
         if MMongoDb.db['t_sample'].find_one(query_cond, fields) is None:
             return False
         else:
             return True
-        '''
 
     @staticmethod
     def get_sample_by_img_file(img_file):
