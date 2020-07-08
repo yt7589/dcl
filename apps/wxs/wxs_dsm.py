@@ -280,7 +280,7 @@ class WxsDsm(object):
     def generate_dataset():
         print('生成数据集...')
         vins = CBmy.get_vin_codes()
-        vin_samples_dict = get_vin_samples_dict()
+        vin_samples_dict = WxsDsm.get_vin_samples_dict()
         for vin in vins:
             print('处理：{0} <=> {1};'.format(vin['vin_id'], vin['vin_code']))
             if vin['vin_code'] in vin_samples_dict:
