@@ -236,42 +236,57 @@ class WxsDsm(object):
 
     @staticmethod
     def generate_samples():
-        folder_name = '/media/zjkj/work/fgvc_dataset/raw'
-        base_path = Path(folder_name)
-        WxsDsm.generate_samples_from_path(base_path)
+        with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
+            # 进口车目录
+            folder_name = '/media/zjkj/work/fgvc_dataset/raw'
+            base_path = Path(folder_name)
+            WxsDsm.generate_samples_from_path(base_path, sfd)
+            # 国产车已处理
+            domestic1_path = Path('/media/zjkj/work/guochanchezuowan-all')
+            WxsDsm.generate_samples_from_path_domestic(domestic1_path)
+
+    @staticmethod
+    def generate_samples_from_path_domestic(path_obj, sfd):
+        for branch_obj in path_obj.iterdir():
+            for vin_obj in branch_obj.iterdir():
+                WxsDsm.process_one_img_file(vin_obj, sfd)
+
+    @staticmethod
+    def process_one_img_file(sub_obj, sfd):
+        sub_file = str(sub_obj)
+        #print('处理文件：{0};'.format(sub_obj))
+        arrs0 = sub_file.split('/')
+        filename = arrs0[-1]
+        arrs1 = filename.split('_')
+        raw_vin_code = arrs1[0]
+        arrs2 = raw_vin_code.split('#')
+        vin_code = arrs2[0]
+        if vin_code in vin_bmy_id_dict:
+            bmy_id = vin_bmy_id_dict[vin_code]
+        elif vin_code[:8] in vin_bmy_id_dict:
+            bmy_id = vin_bmy_id_dict[vin_code[:8]]
+        else:
+            #wfd.write('############## {0}\n'.format(vin_code))
+            bmy_id = -1
+            error_vins.append(vin_code)
+        if bmy_id > 0:
+            sfd.write('{0}*{1}\n'.format(sub_file, bmy_id))
+        WxsDsm.opr_num += 1
+        if WxsDsm.opr_num % 1000 == 0:
+            print('处理{0}条记录...'.format(
+                WxsDsm.opr_num))
 
     opr_num = 1
     @staticmethod
-    def generate_samples_from_path(path_obj):
+    def generate_samples_from_path(path_obj, sfd):
         error_vins = []
         vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
-        with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
-            for brand_obj in path_obj.iterdir():
-                for model_obj in brand_obj.iterdir():
-                    for year_obj in model_obj.iterdir():
-                        for sub_obj in year_obj.iterdir():
-                            sub_file = str(sub_obj)
-                            #print('处理文件：{0};'.format(sub_obj))
-                            arrs0 = sub_file.split('/')
-                            filename = arrs0[-1]
-                            arrs1 = filename.split('_')
-                            raw_vin_code = arrs1[0]
-                            arrs2 = raw_vin_code.split('#')
-                            vin_code = arrs2[0]
-                            if vin_code in vin_bmy_id_dict:
-                                bmy_id = vin_bmy_id_dict[vin_code]
-                            elif vin_code[:8] in vin_bmy_id_dict:
-                                bmy_id = vin_bmy_id_dict[vin_code[:8]]
-                            else:
-                                #wfd.write('############## {0}\n'.format(vin_code))
-                                bmy_id = -1
-                                error_vins.append(vin_code)
-                            if bmy_id > 0:
-                                sfd.write('{0}*{1}\n'.format(sub_file, bmy_id))
-                            WxsDsm.opr_num += 1
-                            if WxsDsm.opr_num % 1000 == 0:
-                                print('处理{0}条记录...'.format(
-                                    WxsDsm.opr_num))
+        #with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
+        for brand_obj in path_obj.iterdir():
+            for model_obj in brand_obj.iterdir():
+                for year_obj in model_obj.iterdir():
+                    for sub_obj in year_obj.iterdir():
+                        WxsDsm.process_one_img_file(sub_obj, sfd)
         with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
             for vin in error_vins:
                 wfd.write('{0}\n'.format(vin))
