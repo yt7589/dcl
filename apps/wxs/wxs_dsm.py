@@ -252,7 +252,7 @@ class WxsDsm(object):
                 WxsDsm.process_one_img_file(vin_obj, sfd)
 
     @staticmethod
-    def process_one_img_file(sub_obj, sfd):
+    def process_one_img_file(vin_bmy_id_dict, sub_obj, sfd):
         sub_file = str(sub_obj)
         #print('处理文件：{0};'.format(sub_obj))
         arrs0 = sub_file.split('/')
