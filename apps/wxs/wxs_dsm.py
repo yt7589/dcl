@@ -302,7 +302,7 @@ class WxsDsm(object):
             for line in sfd:
                 line.strip()
                 arrs = line.split('*')
-                samples.append(arrs[0], arrs[1])
+                samples.append({arrs[0], arrs[1]})
         return samples
 
     @staticmethod
