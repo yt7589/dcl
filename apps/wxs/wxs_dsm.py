@@ -273,7 +273,6 @@ class WxsDsm(object):
                         arrs2 = raw_vin_code.split('#')
                         vin_code = arrs2[0]
                         bmy_id, vin_id = CBmy.get_bmy_id_by_vin_code(vin_code)
-                        '''
                         if bmy_id < 0:
                             n1 += 1
                             bmy_id, vin_id = CBmy.get_bmy_id_by_prefix_vin_code(vin_code)
@@ -284,7 +283,6 @@ class WxsDsm(object):
                             n3 += 1
                             #wfd.write('############## {0}\n'.format(vin_code))
                             error_vins.append(vin_code)
-                        '''
                         end_time = datetime.datetime.now()
                         batch_run_time += (end_time - start_time).total_seconds()
                         WxsDsm.opr_num += 1
