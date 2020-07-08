@@ -83,9 +83,9 @@ class CBmy(object):
     @staticmethod
     def get_bmy_id_vin_dict():
         recs = MVin.get_vin_bmy_id_dict()
-        vin_bmy_id_dict = {}
+        bmy_id_vin_dict = {}
         for rec in recs:
-            vin_bmy_id_dict[rec['bmy_id']] = rec['vin_code']
+            bmy_id_vin_dict[rec['bmy_id']] = rec['vin_code']
         return bmy_id_vin_dict
 
 
