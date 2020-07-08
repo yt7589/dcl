@@ -236,20 +236,21 @@ class WxsDsm(object):
 
     @staticmethod
     def generate_samples():
+        vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
         with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
             # 进口车目录
             folder_name = '/media/zjkj/work/fgvc_dataset/raw'
             base_path = Path(folder_name)
-            WxsDsm.generate_samples_from_path(base_path, sfd)
+            WxsDsm.generate_samples_from_path(vin_bmy_id_dict, base_path, sfd)
             # 国产车已处理
             domestic1_path = Path('/media/zjkj/work/guochanchezuowan-all')
-            WxsDsm.generate_samples_from_path_domestic(domestic1_path)
+            WxsDsm.generate_samples_from_path_domestic(vin_bmy_id_dict, domestic1_path, sfd)
 
     @staticmethod
-    def generate_samples_from_path_domestic(path_obj, sfd):
+    def generate_samples_from_path_domestic(vin_bmy_id_dict, path_obj, sfd):
         for branch_obj in path_obj.iterdir():
             for vin_obj in branch_obj.iterdir():
-                WxsDsm.process_one_img_file(vin_obj, sfd)
+                WxsDsm.process_one_img_file(vin_bmy_id_dict, vin_obj, sfd)
 
     @staticmethod
     def process_one_img_file(vin_bmy_id_dict, sub_obj, sfd):
@@ -278,15 +279,14 @@ class WxsDsm(object):
 
     opr_num = 1
     @staticmethod
-    def generate_samples_from_path(path_obj, sfd):
+    def generate_samples_from_path(vin_bmy_id_dict, path_obj, sfd):
         error_vins = []
-        vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
         #with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
         for brand_obj in path_obj.iterdir():
             for model_obj in brand_obj.iterdir():
                 for year_obj in model_obj.iterdir():
                     for sub_obj in year_obj.iterdir():
-                        WxsDsm.process_one_img_file(sub_obj, sfd)
+                        WxsDsm.process_one_img_file(vin_bmy_id_dict, sub_obj, sfd)
         with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as wfd:
             for vin in error_vins:
                 wfd.write('{0}\n'.format(vin))
