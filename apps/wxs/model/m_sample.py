@@ -10,7 +10,7 @@ class MSample(object):
     def is_sample_exists(img_file):
         query_cond = {'img_file': img_file}
         fields = {'sample_id': 1, 'bmy_id': 1}
-        rec = MMongoDb.db['t_sample'].find_one(query_cond, fields)
+        rec = MMongoDb.convert_rec(MMongoDb.db['t_sample'].find_one(query_cond, fields))
         if rec is None:
             return False
         else:
