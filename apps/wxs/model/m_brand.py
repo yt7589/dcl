@@ -1,20 +1,17 @@
 # 
 import pymongo
+from apps.wxs.model.m_mongodb import MMongoDb
 
 class MBrand(object):
-    db = None
-    tbl = None
-
     def __init__(self):
         self.name = 'apps.wxs.model.MBrand'
 
     @staticmethod
     def is_brand_exists(brand_name):
-        if MBrand.db is None:
-            MBrand._initialize()
+        tbl = MMongoDb.db['t_brand']
         query_cond = {'brand_name': brand_name}
         fields = {'brand_id': 1, 'brand_name': 1, 'brand_num': 1}
-        if MBrand.tbl.find_one(query_cond, fields) is None:
+        if tbl.find_one(query_cond, fields) is None:
             return False
         else:
             return True
@@ -25,27 +22,15 @@ class MBrand(object):
         向t_brand表中添加记录，brand_vo中包括：
             brand_id, brand_name, brand_code, brand_num=1
         '''
-        if MBrand.db is None:
-            MBrand._initialize()
-        return MBrand.tbl.insert_one(brand_vo)
+        return MMongoDb.db['t_brand'].insert_one(brand_vo)
 
     @staticmethod
     def get_brand_by_name(brand_name):
         '''
         根据品牌名称求出品牌详细信息
         '''
-        if MBrand.db is None:
-            MBrand._initialize()
+        tbl = MMongoDb.db['t_brand']
         query_cond = {'brand_name': brand_name}
         fields = {'brand_id': 1, 'brand_name': 1, 'brand_code': 1, 
                     'source_type': 1, 'brand_num': 1}
-        return MBrand.tbl.find_one(query_cond, fields)
-
-
-
-
-    @staticmethod
-    def _initialize():
-        mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
-        MBrand.db = mongo_client['stpdb']
-        MBrand.tbl = MBrand.db['t_brand']
+        return tbl.find_one(query_cond, fields)

@@ -20,6 +20,7 @@ from apps.admin.controller.c_bmy import CBmy
 from apps.admin.controller.c_vehicle_image import CVehicleImage
 from apps.admin.controller.c_delta_ds import CDeltaDs
 from apps.wxs.wxs_app import WxsApp
+from apps.wxs.model.m_mongodb import MMongoDb
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
 MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
@@ -66,6 +67,7 @@ def test_web_api():
         print('#: {0};'.format(rec))
 
 def main(args):
+    MMongoDb._initialize()
     ii = 1
     if 1 == ii:
         app = WxsApp()

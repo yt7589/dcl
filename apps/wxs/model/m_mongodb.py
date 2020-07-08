@@ -1,6 +1,10 @@
 # MongoDB的公共类
+import pymongo
 
 class MMongoDb(object):
+    db = None
+    tbl = None
+
     def __init__(self):
         self.name = 'apps.wxs.model.MMongoDb'
 
@@ -31,3 +35,8 @@ class MMongoDb(object):
             if k != '_id':
                 row[k] = v
         return row
+
+    @staticmethod
+    def _initialize():
+        mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
+        MMongoDb.db = mongo_client['stpdb']
