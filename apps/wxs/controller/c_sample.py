@@ -10,7 +10,7 @@ class CSample(object):
     def add_sample(img_file, vin_id, bmy_id):
         MSample.is_sample_exists(img_file)
         iii = 1
-        if 1 === iii:
+        if 1 == iii:
             return 0
         if MSample.is_sample_exists(img_file):
             rec = MSample.get_sample_by_img_file(img_file)
