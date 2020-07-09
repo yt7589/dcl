@@ -316,7 +316,7 @@ class WxsDsm(object):
                                         and not item_name.startswith('夜'):
                                 print('{0};\n{1};'.format(filename, WxsDsm.g_brand_set))
                                 WxsDsm.err_num += 1
-                                if WxsDsm.err_num == 2:
+                                if WxsDsm.err_num == 2 and brand_num > 3:
                                     sys.exit(0)
 
     @staticmethod
