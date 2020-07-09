@@ -320,7 +320,6 @@ class WxsDsm(object):
                                 vin_code = arrs1[0]
                                 bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)[0]
                                 bmy_vo = CBmy.get_bmy_by_id(bmy_id)
-                                print('目录品牌数：{0}; 统计品牌数：{1};'.format(brand_num, len(WxsDsm.g_brand_set)))
                                 WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}\n'.format(filename, bmy_vo['bmy_name']))
                                 WxsDsm.err_num += 1
 
