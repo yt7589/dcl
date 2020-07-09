@@ -413,29 +413,27 @@ class WxsDsm(object):
         列出数据集中品牌数和品牌列表，年款数和年款列表，当前未覆盖
         品牌数和品牌列表，未覆盖年款数和年款列表
         '''
-        WxsDsm.get_had_brands()
-        
-    @staticmethod
-    def get_had_brands():
-        '''
-        求出当前已有品牌数和品牌列表
-        '''
         with open('./logs/samples.txt', 'r', encoding='utf-8') as sfd:
             bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
             brand_set = set()
+            bmy_set = set()
             for line in sfd:
                 line = line.strip()
                 arrs0 = line.split('*')
                 bmy_id = int(arrs0[1]) - 1
                 bmy_name = bmy_id_bmy_name_dict[bmy_id]
+                bmy_set.add(bmy_name)
                 arrs1 = bmy_name.split('-')
                 brand_name = arrs1[0]
                 print('已有品牌：{0};'.format(brand_name))
                 brand_set.add(brand_name)
-            print('当前覆盖品牌数：{0};'.format(len(brand_set)))
+            print('当前覆盖品牌数：{0}; 覆盖年款数：{1};'.format(len(brand_set), len(bmy_set)))
             with open('./logs/had_brands.txt', 'w+', encoding='utf-8') as wfd:
                 for brand_name in brand_set:
                     wfd.write('{0}\n'.format(brand_name))
+            with open('./logs/had_bmys.txt', 'w+', encoding='utf-8') as yfd:
+                for bmy_name in bmy_set:
+                    yfd.write('{0}\n'.format(bmy_name))
 
     @staticmethod
     def exp001():
