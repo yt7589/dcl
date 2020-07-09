@@ -299,7 +299,9 @@ class WxsDsm(object):
     @staticmethod
     def generate_samples_from_path(vin_bmy_id_dict, path_obj, sfd, efd):
         #with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
+        brand_num = 0
         for brand_obj in path_obj.iterdir():
+            brand_num += 1
             for model_obj in brand_obj.iterdir():
                 for year_obj in model_obj.iterdir():
                     for sub_obj in year_obj.iterdir():
@@ -307,6 +309,10 @@ class WxsDsm(object):
                         if not sub_obj.is_dir() and filename.endswith(
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
                             WxsDsm.process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd)
+                            print('目录品牌数：{0}; 统计品牌数：{1};'.format(brand_num, len(WxsDsm.g_brand_set)))
+                            if brand_num != len(WxsDsm.g_brand_set):
+                                print('{0};'.format(str(sub_obj)))
+                                sys.exit(0)
 
     @staticmethod
     def generate_dataset():
