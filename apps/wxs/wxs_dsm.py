@@ -310,8 +310,9 @@ class WxsDsm(object):
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
                             WxsDsm.process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd)
                             print('目录品牌数：{0}; 统计品牌数：{1};'.format(brand_num, len(WxsDsm.g_brand_set)))
-                            if brand_num != len(WxsDsm.g_brand_set):
-                                print('{0};'.format(str(sub_obj)))
+                            if brand_num != len(WxsDsm.g_brand_set) and not filename.startswith('白') 
+                                        and not filename.startswith('夜'):
+                                print('{0};'.format(filename))
                                 sys.exit(0)
 
     @staticmethod
