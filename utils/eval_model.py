@@ -178,7 +178,9 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
             # 求出品牌精度
             pred_size = top3_pos[:, 0].shape[0]
 
-            print('{0};'.format(len(data_val[4])))
+            print('data_val[2]:{0};'.format(len(data_val[2])))
+            print('data_val[3]:{0};'.format(len(data_val[3])))
+            print('data_val[4]:{0};'.format(len(data_val[4])))
             for idx in range(pred_size):
                 print('预测结果：{0} : {1} : {2};'.format(idx, top3_val[idx][0], top3_pos[idx][0]))
             sys.exit(0)
