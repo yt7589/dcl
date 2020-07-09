@@ -63,11 +63,6 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
                 outputs_pred = outputs[0]
             top3_val, top3_pos = torch.topk(outputs_pred, 3)
 
-            print('data_val: {0};'.format(data_val.shape))
-            cnt1 = len(top3_val)
-            for idx1 in range(cnt1):
-                print('### {1} : {2};'.format(top3_val[idx1], top3_pos[idx1]))
-
             print('{:s} eval_batch: {:-6d} / {:d} loss: {:8.4f}'.format(val_version, batch_cnt_val, val_epoch_step, loss), flush=True)
 
             batch_corrects1 = torch.sum((top3_pos[:, 0] == labels)).data.item()
@@ -183,6 +178,12 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
             val_corrects1 = torch.sum((top3_pos[:, 0] == labels)).data.item()
             # 求出品牌精度
             pred_size = top3_pos[:, 0].shape[0]
+
+            print(data_val)
+            for idx in range(pred_size):
+                print('预测结果：{0} : {1};'.format(top3_val[idx][0], top3_pos[idx][0]))
+            sys.exit(0)
+
             '''
             batch_brand_correct = 0
             for idx in range(pred_size):
