@@ -289,7 +289,8 @@ class WxsDsm(object):
             for model_obj in brand_obj.iterdir():
                 for year_obj in model_obj.iterdir():
                     for sub_obj in year_obj.iterdir():
-                        WxsDsm.process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd)
+                        if not sub_obj.is_dir(): # 忽略其下目录
+                            WxsDsm.process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd)
         for vin in error_vins:
             efd.write('{0}\n'.format(vin))
 
