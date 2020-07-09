@@ -315,8 +315,8 @@ class WxsDsm(object):
                             if brand_num != len(WxsDsm.g_brand_set) and not item_name.startswith('白') \
                                         and not item_name.startswith('夜'):
                                 print('{0};\n{1};'.format(filename, WxsDsm.g_brand_set))
-                                err_num += 1
-                                if err_num == 2:
+                                WxsDsm.err_num += 1
+                                if WxsDsm.err_num == 2:
                                     sys.exit(0)
 
     @staticmethod
