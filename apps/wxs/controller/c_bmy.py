@@ -94,9 +94,11 @@ class CBmy(object):
 
     @staticmethod
     def get_bmy_id_bmy_name_dict():
+        bmy_id_bmy_name_dict = {}
         recs = MBmy.get_bmy_id_bmy_names()
         for rec in recs:
             bmy_id_bmy_name_dict[int(rec['bmy_id'])] = rec['bmy_name']
+        return bmy_id_bmy_name_dict
 
 
     
