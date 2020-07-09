@@ -319,8 +319,11 @@ class WxsDsm(object):
                                 arrs0 = item_name.split('_')
                                 arrs1 = arrs0[0].split('#')
                                 vin_code = arrs1[0]
+                                print('vin_code={0};'.format(vin_code))
                                 bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)
+                                print('bmy_id={0};'.format(bmy_id))
                                 bmy_vo = CBmy.get_bmy_by_id(bmy_id)
+                                print('bmy_vo: {0};'.format(bmy_vo))
                                 WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}\n'.format(filename, bmy_vo['bmy_name']))
                                 WxsDsm.err_num += 1
 
