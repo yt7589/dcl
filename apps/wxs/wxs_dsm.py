@@ -234,11 +234,16 @@ class WxsDsm(object):
     def _process_vin(vin_code, bmy_id, source_type):
         CBmy.add_vin(vin_code, bmy_id, source_type)
 
+    g_bmy_id_bmy_name_dict = None 
+    g_vin_bmy_id_dict = None
+    g_brand_set = None
+    g_error_num = 0
     g_cfd = None
     @staticmethod
     def generate_samples():
         vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
         WxsDsm.g_bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
+        WxsDsm.g_vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
         WxsDsm.g_brand_set = set()
         with open('./logs/conflicts.txt', 'w+', encoding='utf-8') as WxsDsm.g_cfd:
             with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
@@ -262,9 +267,6 @@ class WxsDsm(object):
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
                         WxsDsm.process_one_img_file(vin_bmy_id_dict, file_obj, sfd, efd)
 
-    g_bmy_id_bmy_name_dict = None 
-    g_brand_set = None
-    g_error_num = 0
     @staticmethod
     def process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd):
         sub_file = str(sub_obj)
@@ -299,6 +301,8 @@ class WxsDsm(object):
 
     opr_num = 1
     err_num = 0
+    g_bmy_id_bmy_name_dict = None 
+    g_vin_bmy_id_dict = None
     @staticmethod
     def generate_samples_from_path(vin_bmy_id_dict, path_obj, sfd, efd):
         #with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
@@ -318,9 +322,11 @@ class WxsDsm(object):
                                 arrs0 = item_name.split('_')
                                 arrs1 = arrs0[0].split('#')
                                 vin_code = arrs1[0]
-                                bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)[0]
-                                bmy_vo = CBmy.get_bmy_by_id(bmy_id)
-                                WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}\n'.format(filename, bmy_vo['bmy_name']))
+                                bmy_id = WxsDsm.g_vin_bmy_id_dict[vin_code]
+                                #bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)[0]
+                                #bmy_vo = CBmy.get_bmy_by_id(bmy_id)
+                                bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
+                                WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}\n'.format(filename, bmy_name))
                                 WxsDsm.err_num += 1
 
     @staticmethod
