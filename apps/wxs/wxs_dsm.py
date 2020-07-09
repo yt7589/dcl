@@ -407,12 +407,29 @@ class WxsDsm(object):
             train_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
 
     @staticmethod
+    def report_current_status():
+        '''
+        列出数据集中品牌数和品牌列表，年款数和年款列表，当前未覆盖
+        品牌数和品牌列表，未覆盖年款数和年款列表
+        '''
+        WxsDsm.get_had_brands()
+        
+    @staticmethod
+    def get_had_brands():
+        '''
+        求出当前已有品牌数和品牌列表
+        '''
+        with open('./logs/samples.txt', 'r', encoding='utf-8') as sfd:
+            for line in sfd:
+                line = line.strip()
+                arrs0 = line.split('*')
+                bmy_id = int(arrs0[1]) - 1
+
+    @staticmethod
     def exp001():
-        dataset_id = 1
-        sample_id = 3
-        sample_type = 1
-        dataset_sample_id = CDataset.add_dataset_sample(dataset_id, sample_id, sample_type)
-        print('dataset_sample_id={0};'.format(dataset_sample_id))
+        bmy_id = 8
+        bmy_vo = CBmy.get_bmy_by_id(bmy_id)
+        print('bmy_vo:{0}; {1}'.format(type(bmy_vo), bmy_vo))
 
 
     

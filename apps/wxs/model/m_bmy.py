@@ -34,3 +34,12 @@ class MBmy(object):
             model_id, model_code, is_imported_vehicle, model_num=1
         '''
         return MMongoDb.db['t_bmy'].insert_one(bmy_vo)
+
+    @staticmethod
+    def get_bmy_by_id(bmy_id):
+        query_cond = {'bmy_id': bmy_id}
+        fields = {'bmy_id': 1, 'bmy_name': 1, 'bmy_code': 1, 
+                    'brand_id': 1, 'brand_code': 1,
+                    'model_id': 1, 'model_code': 1,
+                    'model_num': 1}
+        return MMongoDb.db['t_bmy'].find_one(query_cond, fields)
