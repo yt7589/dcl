@@ -255,7 +255,10 @@ class WxsDsm(object):
         for branch_obj in path_obj.iterdir():
             for vin_obj in branch_obj.iterdir():
                 for file_obj in vin_obj.iterdir():
-                    WxsDsm.process_one_img_file(vin_bmy_id_dict, file_obj, sfd, efd)
+                    filename = str(file_obj)
+                    if not file_obj.is_dir() and filename.endswith(
+                                    ('jpg','png','jpeg','bmp')): # 忽略其下目录
+                        WxsDsm.process_one_img_file(vin_bmy_id_dict, file_obj, sfd, efd)
 
     g_bmy_id_bmy_name_dict = None 
     g_brand_set = None
@@ -277,9 +280,10 @@ class WxsDsm(object):
         else:
             #wfd.write('############## {0}\n'.format(vin_code))
             bmy_id = -1
-            efd.write('{0}\n'.format(vin_code))
-            WxsDsm.g_error_num += 1
-            print('##### error={0} ##### {1};'.format(WxsDsm.g_error_num, sub_file))
+            if vin_code != '白' and vin_code != '夜':
+                efd.write('{0}\n'.format(vin_code))
+                WxsDsm.g_error_num += 1
+                print('##### error={0} ##### {1};'.format(WxsDsm.g_error_num, sub_file))
         if bmy_id > 0:
             sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
             bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
@@ -299,7 +303,9 @@ class WxsDsm(object):
             for model_obj in brand_obj.iterdir():
                 for year_obj in model_obj.iterdir():
                     for sub_obj in year_obj.iterdir():
-                        if not sub_obj.is_dir(): # 忽略其下目录
+                        filename = str(sub_obj)
+                        if not sub_obj.is_dir() and filename.endswith(
+                                    ('jpg','png','jpeg','bmp')): # 忽略其下目录
                             WxsDsm.process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd)
 
     @staticmethod
