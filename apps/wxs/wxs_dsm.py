@@ -326,7 +326,7 @@ class WxsDsm(object):
                                 #bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)[0]
                                 #bmy_vo = CBmy.get_bmy_by_id(bmy_id)
                                 bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
-                                WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}\n'.format(filename, bmy_name))
+                                WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}；目录品牌数：{2}；汇总品牌数：{3}\n'.format(filename, bmy_name, brand_num, len(WxsDsm.g_brand_set)))
                                 WxsDsm.err_num += 1
 
     @staticmethod
