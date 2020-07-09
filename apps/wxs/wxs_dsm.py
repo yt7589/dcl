@@ -234,20 +234,22 @@ class WxsDsm(object):
     def _process_vin(vin_code, bmy_id, source_type):
         CBmy.add_vin(vin_code, bmy_id, source_type)
 
+    g_cfd = None
     @staticmethod
     def generate_samples():
         vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
         WxsDsm.g_bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         WxsDsm.g_brand_set = set()
-        with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
-            with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as efd:
-                # 进口车目录
-                folder_name = '/media/zjkj/work/fgvc_dataset/raw'
-                base_path = Path(folder_name)
-                WxsDsm.generate_samples_from_path(vin_bmy_id_dict, base_path, sfd, efd)
-                # 国产车已处理
-                domestic1_path = Path('/media/zjkj/work/guochanchezuowan-all')
-                WxsDsm.generate_samples_from_path_domestic(vin_bmy_id_dict, domestic1_path, sfd, efd)
+        with open('./logs/conflicts.txt', 'w+', encoding='utf-8') as WxsDsm.g_cfd:
+            with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
+                with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as efd:
+                    # 进口车目录
+                    folder_name = '/media/zjkj/work/fgvc_dataset/raw'
+                    base_path = Path(folder_name)
+                    WxsDsm.generate_samples_from_path(vin_bmy_id_dict, base_path, sfd, efd)
+                    # 国产车已处理
+                    domestic1_path = Path('/media/zjkj/work/guochanchezuowan-all')
+                    WxsDsm.generate_samples_from_path_domestic(vin_bmy_id_dict, domestic1_path, sfd, efd)
         print('已经处理品牌数：{0};'.format(len(WxsDsm.g_brand_set)))
 
     @staticmethod
@@ -314,10 +316,13 @@ class WxsDsm(object):
                             item_name = filename.split('/')[-1]
                             if brand_num != len(WxsDsm.g_brand_set) and not item_name.startswith('白') \
                                         and not item_name.startswith('夜'):
-                                print('{0};\n{1};'.format(filename, WxsDsm.g_brand_set))
+                                arrs0 = item_name.split('_')
+                                arrs1 = arrs0[0].split('#')
+                                vin_code = arrs1[0]
+                                bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)
+                                bmy_vo = CBmy.get_bmy_by_id(bmy_id)
+                                WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}\n'.format(filename, bmy_vo['bmy_name']))
                                 WxsDsm.err_num += 1
-                                if WxsDsm.err_num == 2 and brand_num > 3:
-                                    sys.exit(0)
 
     @staticmethod
     def generate_dataset():
