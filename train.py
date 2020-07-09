@@ -269,7 +269,7 @@ if __name__ == '__main__':
 
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
 
-    mode = 4 # 1-train; 2-prepare_cluster_data；3-筛查有问题样本数据
+    mode = 1 # 1-train; 2-prepare_cluster_data；3-筛查有问题样本数据
     # train entry
     if 1 == mode:
         train(Config,
