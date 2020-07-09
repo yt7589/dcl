@@ -429,6 +429,7 @@ class WxsDsm(object):
                 bmy_vo = CBmy.get_bmy_by_id(bmy_id)
                 arrs1 = bmy_vo['bmy_name'].split('-')
                 brand_name = arrs1[0]
+                print('已有品牌：{0};'.format(brand_name))
                 brand_set.add(brand_name)
             print('当前覆盖品牌数：{0};'.format(len(brand_set)))
             with open('./logs/had_brands.txt', 'w+', encoding='utf-8') as wfd:
