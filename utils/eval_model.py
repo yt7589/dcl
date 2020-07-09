@@ -174,14 +174,13 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
             else:
                 outputs_pred = outputs[0]
             top3_val, top3_pos = torch.topk(outputs_pred, 1)
-            print('    top3_val: {0}; \ntop3_pos: {1};'.format(top3_val, top3_pos))
             val_corrects1 = torch.sum((top3_pos[:, 0] == labels)).data.item()
             # 求出品牌精度
             pred_size = top3_pos[:, 0].shape[0]
 
-            print(data_val)
+            print('len={0};'.format(len(data_val)))
             for idx in range(pred_size):
-                print('预测结果：{0} : {1};'.format(top3_val[idx][0], top3_pos[idx][0]))
+                print('预测结果：{0} : {1} : {2};'.format(idx, top3_val[idx][0], top3_pos[idx][0]))
             sys.exit(0)
 
             '''
