@@ -261,7 +261,6 @@ class WxsDsm(object):
     g_brand_set = None
     @staticmethod
     def process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd):
-        error_vins = []
         sub_file = str(sub_obj)
         #print('处理文件：{0};'.format(sub_obj))
         arrs0 = sub_file.split('/')
@@ -278,6 +277,7 @@ class WxsDsm(object):
             #wfd.write('############## {0}\n'.format(vin_code))
             bmy_id = -1
             error_vins.append(vin_code)
+            efd.write('{0}\n'.format(vin_code))
         if bmy_id > 0:
             sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
             bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
@@ -292,7 +292,6 @@ class WxsDsm(object):
     opr_num = 1
     @staticmethod
     def generate_samples_from_path(vin_bmy_id_dict, path_obj, sfd, efd):
-        error_vins = []
         #with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
         for brand_obj in path_obj.iterdir():
             for model_obj in brand_obj.iterdir():
@@ -300,8 +299,6 @@ class WxsDsm(object):
                     for sub_obj in year_obj.iterdir():
                         if not sub_obj.is_dir(): # 忽略其下目录
                             WxsDsm.process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd)
-        for vin in error_vins:
-            efd.write('{0}\n'.format(vin))
 
     @staticmethod
     def generate_dataset():
