@@ -259,6 +259,7 @@ class WxsDsm(object):
 
     g_bmy_id_bmy_name_dict = None 
     g_brand_set = None
+    g_error_num = 0
     @staticmethod
     def process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd):
         sub_file = str(sub_obj)
@@ -277,6 +278,8 @@ class WxsDsm(object):
             #wfd.write('############## {0}\n'.format(vin_code))
             bmy_id = -1
             efd.write('{0}\n'.format(vin_code))
+            WxsDsm.g_error_num += 1
+            print('##### error={0} ##### {1};'.format(WxsDsm.g_error_num, sub_file))
         if bmy_id > 0:
             sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
             bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
