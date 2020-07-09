@@ -17,7 +17,8 @@ class WxsApp(object):
         #WxsDsm.initialize_db()
         #WxsDsm.generate_samples()
         #WxsDsm.generate_dataset()
-        WxsDsm.exp001()
+        WxsDsm.report_current_status()
+        #WxsDsm.exp001()
 
     def exp(self):
         ds_file = './datasets/CUB_200_2011/anno/train_ds_v4.txt'

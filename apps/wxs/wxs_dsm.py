@@ -420,10 +420,19 @@ class WxsDsm(object):
         求出当前已有品牌数和品牌列表
         '''
         with open('./logs/samples.txt', 'r', encoding='utf-8') as sfd:
+            brand_set = set()
             for line in sfd:
                 line = line.strip()
                 arrs0 = line.split('*')
                 bmy_id = int(arrs0[1]) - 1
+                bmy_vo = CBmy.get_bmy_by_id(bmy_id)
+                arrs1 = bmy_vo['bmy_name'].split('-')
+                brand_name = arrs1[0]
+                brand_set.add(brand_name)
+            print('当前覆盖品牌数：{0};'.format(len(brand_set)))
+            with open('./logs/had_brands.txt', 'w+', encoding='utf-8') as wfd:
+                for brand_name in brand_set:
+                    wfd.write('{0}\n'.format(brand_name))
 
     @staticmethod
     def exp001():
