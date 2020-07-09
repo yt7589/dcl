@@ -296,6 +296,7 @@ class WxsDsm(object):
                 WxsDsm.opr_num))
 
     opr_num = 1
+    err_num = 0
     @staticmethod
     def generate_samples_from_path(vin_bmy_id_dict, path_obj, sfd, efd):
         #with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
@@ -314,7 +315,9 @@ class WxsDsm(object):
                             if brand_num != len(WxsDsm.g_brand_set) and not item_name.startswith('白') \
                                         and not item_name.startswith('夜'):
                                 print('{0};\n{1};'.format(filename, WxsDsm.g_brand_set))
-                                sys.exit(0)
+                                err_num += 1
+                                if err_num == 2:
+                                    sys.exit(0)
 
     @staticmethod
     def generate_dataset():
