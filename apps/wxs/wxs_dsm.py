@@ -276,7 +276,6 @@ class WxsDsm(object):
         else:
             #wfd.write('############## {0}\n'.format(vin_code))
             bmy_id = -1
-            error_vins.append(vin_code)
             efd.write('{0}\n'.format(vin_code))
         if bmy_id > 0:
             sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
