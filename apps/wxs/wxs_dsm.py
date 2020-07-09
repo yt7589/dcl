@@ -301,8 +301,7 @@ class WxsDsm(object):
 
     opr_num = 1
     err_num = 0
-    g_bmy_id_bmy_name_dict = None 
-    g_vin_bmy_id_dict = None
+    g_dif = 0
     @staticmethod
     def generate_samples_from_path(vin_bmy_id_dict, path_obj, sfd, efd):
         #with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
@@ -317,8 +316,9 @@ class WxsDsm(object):
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
                             WxsDsm.process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd)
                             item_name = filename.split('/')[-1]
-                            if brand_num != len(WxsDsm.g_brand_set) and not item_name.startswith('白') \
+                            if (WxsDsm.g_dif != brand_num - len(WxsDsm.g_brand_set)) and not item_name.startswith('白') \
                                         and not item_name.startswith('夜'):
+                                WxsDsm.g_dif = brand_num - len(WxsDsm.g_brand_set)
                                 arrs0 = item_name.split('_')
                                 arrs1 = arrs0[0].split('#')
                                 vin_code = arrs1[0]
