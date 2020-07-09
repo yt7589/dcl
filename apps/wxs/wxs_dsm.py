@@ -237,8 +237,8 @@ class WxsDsm(object):
     @staticmethod
     def generate_samples():
         vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
-        g_bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
-        g_brand_set = set()
+        WxsDsm.g_bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
+        WxsDsm.g_brand_set = set()
         with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
             with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as efd:
                 # 进口车目录
@@ -280,10 +280,10 @@ class WxsDsm(object):
             error_vins.append(vin_code)
         if bmy_id > 0:
             sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
-            bmy_name = g_bmy_id_bmy_name_dict[bmy_id]
+            bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
             arrsn = bmy_name.split('-')
             brand_name = arrsn[0]
-            g_brand_set.add(brand_name)
+            WxsDsm.g_brand_set.add(brand_name)
         WxsDsm.opr_num += 1
         if WxsDsm.opr_num % 1000 == 0:
             print('处理{0}条记录...'.format(
