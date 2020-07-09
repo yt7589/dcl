@@ -313,7 +313,7 @@ class WxsDsm(object):
                             item_name = filename.split('/')[-1]
                             if brand_num != len(WxsDsm.g_brand_set) and not item_name.startswith('白') \
                                         and not item_name.startswith('夜'):
-                                print('{0};'.format(filename))
+                                print('{0};\n{1};'.format(filename, WxsDsm.g_brand_set))
                                 sys.exit(0)
 
     @staticmethod
