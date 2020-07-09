@@ -15,8 +15,8 @@ class WxsApp(object):
             self.exp()
             return
         #WxsDsm.initialize_db()
-        WxsDsm.generate_samples()
-        #WxsDsm.generate_dataset()
+        #WxsDsm.generate_samples()
+        WxsDsm.generate_dataset()
         #WxsDsm.report_current_status()
         #WxsDsm.exp001()
 
