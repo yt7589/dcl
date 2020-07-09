@@ -248,7 +248,7 @@ class WxsDsm(object):
                 # 国产车已处理
                 domestic1_path = Path('/media/zjkj/work/guochanchezuowan-all')
                 WxsDsm.generate_samples_from_path_domestic(vin_bmy_id_dict, domestic1_path, sfd, efd)
-        print('已经处理品牌数：{0};'.format(len(g_brand_set)))
+        print('已经处理品牌数：{0};'.format(len(WxsDsm.g_brand_set)))
 
     @staticmethod
     def generate_samples_from_path_domestic(vin_bmy_id_dict, path_obj, sfd, efd):
