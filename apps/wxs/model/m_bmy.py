@@ -43,3 +43,9 @@ class MBmy(object):
                     'model_id': 1, 'model_code': 1,
                     'model_num': 1}
         return MMongoDb.db['t_bmy'].find_one(query_cond, fields)
+
+    @staticmethod
+    def get_bmy_id_bmy_names():
+        query_cond = {}
+        fields = {'bmy_id': 1, 'bmy_name': 1}
+        return MMongoDb.convert_recs(MMongoDb.db['t_bmy'].find(query_cond, fields))

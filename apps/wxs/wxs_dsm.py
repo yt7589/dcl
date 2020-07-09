@@ -421,13 +421,14 @@ class WxsDsm(object):
         求出当前已有品牌数和品牌列表
         '''
         with open('./logs/samples.txt', 'r', encoding='utf-8') as sfd:
+            bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
             brand_set = set()
             for line in sfd:
                 line = line.strip()
                 arrs0 = line.split('*')
                 bmy_id = int(arrs0[1]) - 1
-                bmy_vo = CBmy.get_bmy_by_id(bmy_id)
-                arrs1 = bmy_vo['bmy_name'].split('-')
+                bmy_name = bmy_id_bmy_name_dict[bmy_id]
+                arrs1 = bmy_name.split('-')
                 brand_name = arrs1[0]
                 print('已有品牌：{0};'.format(brand_name))
                 brand_set.add(brand_name)
