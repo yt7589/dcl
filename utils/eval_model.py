@@ -63,6 +63,10 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
                 outputs_pred = outputs[0]
             top3_val, top3_pos = torch.topk(outputs_pred, 3)
 
+            cnt1 = len(top3_val)
+            for idx1 in range(cnt1):
+                print('### {0} : {1} : {2};'.format(data_val[5][idx1], top3_val[idx1], top3_pos[idx1]))
+
             print('{:s} eval_batch: {:-6d} / {:d} loss: {:8.4f}'.format(val_version, batch_cnt_val, val_epoch_step, loss), flush=True)
 
             batch_corrects1 = torch.sum((top3_pos[:, 0] == labels)).data.item()

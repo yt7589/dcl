@@ -274,7 +274,7 @@ class WxsDsm(object):
             bmy_id = -1
             error_vins.append(vin_code)
         if bmy_id > 0:
-            sfd.write('{0}*{1}\n'.format(sub_file, bmy_id))
+            sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
         WxsDsm.opr_num += 1
         if WxsDsm.opr_num % 1000 == 0:
             print('处理{0}条记录...'.format(
