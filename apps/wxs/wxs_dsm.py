@@ -334,8 +334,12 @@ class WxsDsm(object):
             arrs0 = str(brand_obj).split('/')
             brand_name = '{0}牌'.format(arrs0[-1])
             folder_brand_set.add(brand_name)
-        print('我们有标书没有品牌：{0};'.format(WxsDsm.g_brand_set - folder_brand_set))
-        print('标书有我们没有品牌：{0};'.format(folder_brand_set - WxsDsm.g_brand_set))
+        bid_had_we_no = WxsDsm.g_brand_set - folder_brand_set
+        print('标书书我们没有品牌：共{0}个，分别为：{1};'.format(len(bid_had_we_no), bid_had_we_no))
+        print('******************************************************')
+        we_had_bid_no = folder_brand_set - WxsDsm.g_brand_set
+        print('我们有标书没有品牌：共{0}个，分别为：{1};'.format(len(we_had_bid_no), we_had_bid_no))
+        sys.exit(0)
 
     @staticmethod
     def generate_dataset():
