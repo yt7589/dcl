@@ -548,6 +548,7 @@ class WxsDsm(object):
     @staticmethod
     def exp001():
         base_path = Path('/media/zjkj/work/guochanchezuowan-all')
+        num = 0
         for num_obj in base_path.iterdir():
             for vph_obj in num_obj.iterdir():
                 print('current dir: {0};'.format(str(vph_obj)))
@@ -561,6 +562,9 @@ class WxsDsm(object):
                             with open(img_path, 'rb') as f:
                                 with Image.open(f) as img:
                                     img.convert('RGB')
+                            num += 1
+                            if num % 100:
+                                print('已经处理图片：{0};'.format(num))
                         except OSError as ex:
                             print('{0}: {1};'.format(img_path, ex))
                             is_break = True
