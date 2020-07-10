@@ -540,7 +540,7 @@ class WxsDsm(object):
         for k, v in wb_brand_dict.items():
             print('### {0}: {1};'.format(k, v))
         print('共有{0}个；'.format(len(wb_brand_dict)))
-        diff_set = wb_brand_dict - done_brand
+        diff_set = we_had_bid_no - done_brand
         print('未找到匹配关系的品牌：{0}个；如下所示：'.format(len(diff_set)))
         for bn in diff_set:
             print('### {0};'.format(bn))
