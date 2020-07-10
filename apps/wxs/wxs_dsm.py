@@ -550,6 +550,7 @@ class WxsDsm(object):
         base_path = Path('/media/zjkj/work/guochanchezuowan-all')
         for num_obj in base_path.iterdir():
             for vph_obj in num_obj.iterdir():
+                print('current dir: {0};'.format(str(vph_obj)))
                 is_break = False
                 for item_obj in vph_obj.iterdir():
                     item_name = str(item_obj)
