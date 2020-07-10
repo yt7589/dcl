@@ -339,7 +339,7 @@ class WxsDsm(object):
         print('******************************************************')
         we_had_bid_no = folder_brand_set - WxsDsm.g_brand_set
         wb_brand_dict = {}
-        for brand_name = in we_had_bid_no:
+        for brand_name in we_had_bid_no:
             base_path = Path('/media/zjkj/work/fgvc_dataset/raw/{0}'.format(brand_name))
             for model_obj in base_path.iterdir():
                 for year_obj in model_obj.iterdir():
