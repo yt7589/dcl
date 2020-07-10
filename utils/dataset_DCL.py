@@ -67,7 +67,11 @@ class dataset(data.Dataset):
         #img_path = os.path.join(self.root_path, self.paths[item])
         img_path = self.paths[item]
         #print('pil_lod: {0};'.format(img_path))
-        img = self.pil_loader(img_path)
+        try:
+            img = self.pil_loader(img_path)
+        except OSError as ex:
+            print('{0}: {1};'.format(img_path, ex))
+            sys.exit(0)
         if self.test:
             img = self.totensor(img)
             label = self.labels[item]
