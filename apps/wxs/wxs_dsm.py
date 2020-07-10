@@ -328,6 +328,7 @@ class WxsDsm(object):
                                 bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
                                 WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}；目录品牌数：{2}；汇总品牌数：{3}\n'.format(filename, bmy_name, brand_num, len(WxsDsm.g_brand_set)))
                                 WxsDsm.err_num += 1
+        '''
         folder_brand_set = set()
         db_brand_set = set()
         for brand_obj in path_obj.iterdir():
@@ -341,12 +342,9 @@ class WxsDsm(object):
         with open('./logs/wb_brand.txt', 'w+', encoding='utf-8') as wb_fd:
             for brand_name in we_had_bid_no:
                 wb_fd.write('{0}\n'.format(brand_name))
-
-
-
-
         print('我们有标书没有品牌：共{0}个，分别为：{1};'.format(len(we_had_bid_no), we_had_bid_no))
         sys.exit(0)
+        '''
 
     @staticmethod
     def generate_dataset():
