@@ -352,20 +352,19 @@ class WxsDsm(object):
                             arrs0 = item_name.split('/')
                             arrs1 = arrs0[-1].split('#')
                             vin_code = arrs1[0]
-                            bmy_id = -1
-                            while bmy_id <= 0:
-                                if vin_code in vin_bmy_id_dict:
-                                    bmy_id = vin_bmy_id_dict[vin_code]
-                                elif vin_code[:8] in vin_bmy_id_dict:
-                                    bmy_id = vin_bmy_id_dict[vin_code[:8]]
-                                else:
-                                    #wfd.write('############## {0}\n'.format(vin_code))
-                                    bmy_id = -1
-                            bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
-                            arrsn = bmy_name.split('-')
-                            brand_name1 = arrsn[0]
-                            wb_brand_dict[brand_name] = brand_name1
-                            is_break = True
+                            if vin_code in vin_bmy_id_dict:
+                                bmy_id = vin_bmy_id_dict[vin_code]
+                            elif vin_code[:8] in vin_bmy_id_dict:
+                                bmy_id = vin_bmy_id_dict[vin_code[:8]]
+                            else:
+                                #wfd.write('############## {0}\n'.format(vin_code))
+                                bmy_id = -1
+                            if bmy_id > 0:
+                                bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
+                                arrsn = bmy_name.split('-')
+                                brand_name1 = arrsn[0]
+                                wb_brand_dict[brand_name] = brand_name1
+                                is_break = True
                     if is_break:
                         break
                 if is_break:
