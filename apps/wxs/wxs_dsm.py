@@ -507,7 +507,7 @@ class WxsDsm(object):
                 for year_obj in model_obj.iterdir():
                     for item_obj in year_obj.iterdir():
                         item_name = str(item_obj)
-                        if not sub_obj.is_dir() and filename.endswith(
+                        if not item_obj.is_dir() and filename.endswith(
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
                             arrs0 = item_name.split('/')
                             arrs1 = arrs0[-1].split('#')
