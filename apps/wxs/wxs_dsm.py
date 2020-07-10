@@ -547,6 +547,7 @@ class WxsDsm(object):
 
     @staticmethod
     def exp001():
+        bad_files = []
         base_path = Path('/media/zjkj/work/guochanchezuowan-all')
         num = 0
         for num_obj in base_path.iterdir():
@@ -567,8 +568,12 @@ class WxsDsm(object):
                                 print('已经处理图片：{0};'.format(num))
                         except OSError as ex:
                             print('{0}: {1};'.format(img_path, ex))
+                            bad_files.append(img_path)
                             is_break = True
                             break
                 if is_break:
                     break
+        with open('./logs/bad_images.txt', 'w+', encoding='utf-8') as bfd:
+            for img in bad_files:
+                bfd.write('{0}\n'.format(img))
                 
