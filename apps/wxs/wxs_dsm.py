@@ -340,15 +340,17 @@ class WxsDsm(object):
         we_had_bid_no = folder_brand_set - WxsDsm.g_brand_set
         wb_brand_dict = {}
         is_break = False
+        done_brand = set()
         for brand_name in we_had_bid_no:
             base_path = Path('/media/zjkj/work/fgvc_dataset/raw/{0}'.format(brand_name[:-1]))
             is_break = False
             for model_obj in base_path.iterdir():
                 for year_obj in model_obj.iterdir():
                     for item_obj in year_obj.iterdir():
+                        item_name = str(item_obj)
+                        print('正在处理：{0};'.format(item_name))
                         if not sub_obj.is_dir() and filename.endswith(
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
-                            item_name = str(item_obj)
                             arrs0 = item_name.split('/')
                             arrs1 = arrs0[-1].split('#')
                             vin_code = arrs1[0]
@@ -363,7 +365,9 @@ class WxsDsm(object):
                                 bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
                                 arrsn = bmy_name.split('-')
                                 brand_name1 = arrsn[0]
-                                wb_brand_dict[brand_name] = brand_name1
+                                if brand_name not in done_brand:
+                                    wb_brand_dict[brand_name] = brand_name1
+                                    done_brand.add(brand_name)
                                 is_break = True
                     if is_break:
                         break
