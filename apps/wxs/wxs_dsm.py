@@ -563,7 +563,7 @@ class WxsDsm(object):
                                 with Image.open(f) as img:
                                     img.convert('RGB')
                             num += 1
-                            if num % 100:
+                            if num % 100 == 0:
                                 print('已经处理图片：{0};'.format(num))
                         except OSError as ex:
                             print('{0}: {1};'.format(img_path, ex))
