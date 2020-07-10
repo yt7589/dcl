@@ -371,8 +371,8 @@ class WxsDsm(object):
                         break
                 if is_break:
                     break
-            for k, v in wb_brand_dict.items():
-                print('### {0}: {1};'.format(k, v))
+        for k, v in wb_brand_dict.items():
+            print('### {0}: {1};'.format(k, v))
 
         print('我们有标书没有品牌：共{0}个，分别为：{1};'.format(len(we_had_bid_no), we_had_bid_no))
         sys.exit(0)
