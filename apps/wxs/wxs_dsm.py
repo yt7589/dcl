@@ -328,6 +328,12 @@ class WxsDsm(object):
                                 bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
                                 WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}；目录品牌数：{2}；汇总品牌数：{3}\n'.format(filename, bmy_name, brand_num, len(WxsDsm.g_brand_set)))
                                 WxsDsm.err_num += 1
+        folder_brand_set = set()
+        db_brand_set = set()
+        for brand_obj in path_obj.iterdir():
+            folder_brand_set.add(str(brand_obj))
+        print('我们有标书没有品牌：{0};'.format(WxsDsm.g_brand_set - folder_brand_set))
+        print('标书有我们没有品牌：{0};'.format(folder_brand_set - WxsDsm.g_brand_set))
 
     @staticmethod
     def generate_dataset():
