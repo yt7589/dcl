@@ -512,8 +512,9 @@ class WxsDsm(object):
                         if not item_obj.is_dir() and item_name.endswith(
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
                             arrs0 = item_name.split('/')
-                            arrs1 = arrs0[-1].split('#')
-                            vin_code = arrs1[0]
+                            arrs1 = arrs0[-1].split('_')
+                            arrs2 = arrs1[0].split('#')
+                            vin_code = arrs2[0]
                             if vin_code in vin_bmy_id_dict:
                                 bmy_id = vin_bmy_id_dict[vin_code]
                             elif vin_code[:8] in vin_bmy_id_dict:
