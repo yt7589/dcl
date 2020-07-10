@@ -563,7 +563,7 @@ class WxsDsm(object):
                             print('process image: {0};'.format(img_path))
                             with open(img_path, 'rb') as f:
                                 with Image.open(f) as img:
-                                    return img.convert('RGB')
+                                    img.convert('RGB')
                         except OSError as ex:
                             print('{0}: {1};'.format(img_path, ex))
                             is_break = True
