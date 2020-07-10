@@ -339,8 +339,10 @@ class WxsDsm(object):
         print('******************************************************')
         we_had_bid_no = folder_brand_set - WxsDsm.g_brand_set
         wb_brand_dict = {}
+        is_break = False
         for brand_name in we_had_bid_no:
             base_path = Path('/media/zjkj/work/fgvc_dataset/raw/{0}'.format(brand_name[:-1]))
+            is_break = False
             for model_obj in base_path.iterdir():
                 for year_obj in model_obj.iterdir():
                     for item_obj in year_obj.iterdir():
@@ -363,6 +365,11 @@ class WxsDsm(object):
                             arrsn = bmy_name.split('-')
                             brand_name1 = arrsn[0]
                             wb_brand_dict[brand_name] = brand_name1
+                            is_break = True
+                    if is_break:
+                        break
+                if is_break:
+                    break
             for k, v in wb_brand_dict.items():
                 print('### {0}: {1};'.format(k, v))
 
