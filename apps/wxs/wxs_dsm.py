@@ -495,11 +495,12 @@ class WxsDsm(object):
         WxsDsm.g_bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         WxsDsm.g_vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
         wb_brand_dict = {}
-        we_had_bid_no = []
+        we_had_bid_no = set()
+        done_brand = set()
         with open('./logs/wb_brand.txt', 'r', encoding='utf-8') as wb_fd:
             for line in wb_fd:
                 line = line.strip()
-                we_had_bid_no.append(line)
+                we_had_bid_no.add(line)
         for brand_name in we_had_bid_no:
             base_path = Path('/media/zjkj/work/fgvc_dataset/raw/{0}'.format(brand_name[:-1]))
             is_break = False
@@ -529,6 +530,7 @@ class WxsDsm(object):
                                 brand_name1 = arrsn[0]
                                 if brand_name not in wb_brand_dict:
                                     wb_brand_dict[brand_name] = brand_name1
+                                    done_brand.add(brand_name)
                                 is_break = True
                                 break # break item
                     if is_break:
@@ -538,6 +540,10 @@ class WxsDsm(object):
         for k, v in wb_brand_dict.items():
             print('### {0}: {1};'.format(k, v))
         print('共有{0}个；'.format(len(wb_brand_dict)))
+        diff_set = wb_brand_dict - done_brand
+        print('未找到匹配关系的品牌：{0}个；如下所示：'.format(len(diff_set)))
+        for bn in diff_set:
+            print('### {0};'.format(bn))
         '''
         
         is_break = False
