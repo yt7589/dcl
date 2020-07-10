@@ -9,6 +9,8 @@ from apps.wxs.controller.c_model import CModel
 from apps.wxs.controller.c_bmy import CBmy
 from apps.wxs.controller.c_sample import CSample
 from apps.wxs.controller.c_dataset import CDataset
+import PIL.Image as Image
+from PIL import ImageStat
 
 class WxsDsm(object):
     def __init__(self):
@@ -488,7 +490,7 @@ class WxsDsm(object):
                 yfd.write('{0}\n'.format(bmy_name))
 
     @staticmethod
-    def exp001():
+    def compare_our_brands_and_bid_brands():
         vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
         WxsDsm.g_bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         WxsDsm.g_vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
@@ -542,44 +544,19 @@ class WxsDsm(object):
         print('未找到匹配关系的品牌：{0}个；如下所示：'.format(len(diff_set)))
         for bn in diff_set:
             print('### {0};'.format(bn))
-        '''
-        
-        is_break = False
-        for brand_name in we_had_bid_no:
-            
-            is_break = False
-            for model_obj in base_path.iterdir():
-                for year_obj in model_obj.iterdir():
-                    for item_obj in year_obj.iterdir():
-                        item_name = str(item_obj)
-                        if not sub_obj.is_dir() and filename.endswith(
+
+    @staticmethod
+    def exp001():
+        base_path = Path('/media/zjkj/work/guochanchezuowan-all')
+        for num_obj in base_path.iterdir():
+            for vph_obj in num_obj.iterdir():
+                for item_obj in vph_obj.iterdir():
+                    if not item_obj.is_dir() and item_name.endswith(
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
-                            arrs0 = item_name.split('/')
-                            arrs1 = arrs0[-1].split('#')
-                            vin_code = arrs1[0]
-                            if vin_code in vin_bmy_id_dict:
-                                bmy_id = vin_bmy_id_dict[vin_code]
-                            elif vin_code[:8] in vin_bmy_id_dict:
-                                bmy_id = vin_bmy_id_dict[vin_code[:8]]
-                            else:
-                                #wfd.write('############## {0}\n'.format(vin_code))
-                                bmy_id = -1
-                            print('正在处理：{0};  {1}'.format(item_name, bmy_id))
-                            if bmy_id > 0:
-                                bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
-                                arrsn = bmy_name.split('-')
-                                brand_name1 = arrsn[0]
-                                if brand_name not in wb_brand_dict:
-                                    wb_brand_dict[brand_name] = brand_name1
-                                is_break = True
-                                break
-                    if is_break:
-                        break
-                if is_break:
-                    break
-        for k, v in wb_brand_dict.items():
-            print('### {0}: {1};'.format(k, v))
-        '''
-
-
-    
+                        try:
+                            img_path = str(item_obj)
+                            with open(img_path, 'rb') as f:
+                                with Image.open(f) as img:
+                                    return img.convert('RGB')
+                        except OSError as ex:
+                            print('{0}: {1};'.format(img_path, ex))
