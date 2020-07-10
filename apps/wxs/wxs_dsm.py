@@ -491,9 +491,16 @@ class WxsDsm(object):
 
     @staticmethod
     def exp001():
-        pass
-        '''
         wb_brand_dict = {}
+        we_had_bid_no = []
+        with open('./logs/wb_brand.txt', 'r', encoding='utf-8') as wb_fd:
+            for line in wb_fd:
+                line = line.strip()
+                we_had_bid_no.append(line)
+        for brand_name in we_had_bid_no:
+            print(brand_name)
+        '''
+        
         is_break = False
         for brand_name in we_had_bid_no:
             base_path = Path('/media/zjkj/work/fgvc_dataset/raw/{0}'.format(brand_name[:-1]))
