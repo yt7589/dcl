@@ -550,6 +550,7 @@ class WxsDsm(object):
         base_path = Path('/media/zjkj/work/guochanchezuowan-all')
         for num_obj in base_path.iterdir():
             for vph_obj in num_obj.iterdir():
+                is_break = False
                 for item_obj in vph_obj.iterdir():
                     if not item_obj.is_dir() and item_name.endswith(
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
@@ -560,3 +561,8 @@ class WxsDsm(object):
                                     return img.convert('RGB')
                         except OSError as ex:
                             print('{0}: {1};'.format(img_path, ex))
+                            is_break = True
+                            break
+                if is_break:
+                    break
+                
