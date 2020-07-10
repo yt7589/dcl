@@ -503,6 +503,7 @@ class WxsDsm(object):
         for brand_name in we_had_bid_no:
             base_path = Path('/media/zjkj/work/fgvc_dataset/raw/{0}'.format(brand_name[:-1]))
             is_break = False
+            print('品牌名称：{0}:'.format(brand_name))
             for model_obj in base_path.iterdir():
                 for year_obj in model_obj.iterdir():
                     for item_obj in year_obj.iterdir():
@@ -519,8 +520,8 @@ class WxsDsm(object):
                             else:
                                 #wfd.write('############## {0}\n'.format(vin_code))
                                 bmy_id = -1
-                            print('正在处理：{0};  {1}'.format(item_name, bmy_id))
                             if bmy_id > 0:
+                                print('      正常品牌：bmy_id={1};'.format(bmy_id))
                                 bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
                                 arrsn = bmy_name.split('-')
                                 brand_name1 = arrsn[0]
