@@ -553,14 +553,11 @@ class WxsDsm(object):
                 print('current dir: {0};'.format(str(vph_obj)))
                 is_break = False
                 for item_obj in vph_obj.iterdir():
-                    print('step 2 item_obj: {0};'.format(item_obj))
                     item_name = str(item_obj)
                     if not item_obj.is_dir() and item_name.endswith(
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
-                        print('step 2.1')
                         try:
                             img_path = str(item_obj)
-                            print('process image: {0};'.format(img_path))
                             with open(img_path, 'rb') as f:
                                 with Image.open(f) as img:
                                     img.convert('RGB')
@@ -568,7 +565,6 @@ class WxsDsm(object):
                             print('{0}: {1};'.format(img_path, ex))
                             is_break = True
                             break
-                print('step 3')
                 if is_break:
                     break
                 
