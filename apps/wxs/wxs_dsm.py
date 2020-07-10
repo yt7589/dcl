@@ -552,6 +552,7 @@ class WxsDsm(object):
             for vph_obj in num_obj.iterdir():
                 is_break = False
                 for item_obj in vph_obj.iterdir():
+                    item_name = str(item_obj)
                     if not item_obj.is_dir() and item_name.endswith(
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
                         try:
