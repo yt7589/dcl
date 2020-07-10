@@ -521,7 +521,7 @@ class WxsDsm(object):
                                 #wfd.write('############## {0}\n'.format(vin_code))
                                 bmy_id = -1
                             if bmy_id > 0:
-                                print('      正常品牌：bmy_id={1};'.format(bmy_id))
+                                print('      正常品牌：bmy_id={0};'.format(bmy_id))
                                 bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
                                 arrsn = bmy_name.split('-')
                                 brand_name1 = arrsn[0]
