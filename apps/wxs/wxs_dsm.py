@@ -509,7 +509,6 @@ class WxsDsm(object):
                 for year_obj in model_obj.iterdir():
                     for item_obj in year_obj.iterdir():
                         item_name = str(item_obj)
-                        print('正在处理：{0};'.format(item_name))
                         if not item_obj.is_dir() and item_name.endswith(
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
                             arrs0 = item_name.split('/')
@@ -522,6 +521,7 @@ class WxsDsm(object):
                             else:
                                 #wfd.write('############## {0}\n'.format(vin_code))
                                 bmy_id = -1
+                            print('正在处理：{0}; vin_code={1}; bmy_id={2};'.format(item_name, vin_code, bmy_id))
                             if bmy_id > 0:
                                 print('      正常品牌：bmy_id={0};'.format(bmy_id))
                                 bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
