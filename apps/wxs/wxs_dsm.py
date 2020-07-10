@@ -500,6 +500,7 @@ class WxsDsm(object):
             for line in wb_fd:
                 line = line.strip()
                 we_had_bid_no.append(line)
+        we_had_bid_no = ['全球鹰牌']
         for brand_name in we_had_bid_no:
             base_path = Path('/media/zjkj/work/fgvc_dataset/raw/{0}'.format(brand_name[:-1]))
             is_break = False
