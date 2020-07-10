@@ -338,42 +338,12 @@ class WxsDsm(object):
         print('标书书我们没有品牌：共{0}个，分别为：{1};'.format(len(bid_had_we_no), bid_had_we_no))
         print('******************************************************')
         we_had_bid_no = folder_brand_set - WxsDsm.g_brand_set
-        wb_brand_dict = {}
-        is_break = False
-        for brand_name in we_had_bid_no:
-            base_path = Path('/media/zjkj/work/fgvc_dataset/raw/{0}'.format(brand_name[:-1]))
-            is_break = False
-            for model_obj in base_path.iterdir():
-                for year_obj in model_obj.iterdir():
-                    for item_obj in year_obj.iterdir():
-                        item_name = str(item_obj)
-                        if not sub_obj.is_dir() and filename.endswith(
-                                    ('jpg','png','jpeg','bmp')): # 忽略其下目录
-                            arrs0 = item_name.split('/')
-                            arrs1 = arrs0[-1].split('#')
-                            vin_code = arrs1[0]
-                            if vin_code in vin_bmy_id_dict:
-                                bmy_id = vin_bmy_id_dict[vin_code]
-                            elif vin_code[:8] in vin_bmy_id_dict:
-                                bmy_id = vin_bmy_id_dict[vin_code[:8]]
-                            else:
-                                #wfd.write('############## {0}\n'.format(vin_code))
-                                bmy_id = -1
-                            print('正在处理：{0};  {1}'.format(item_name, bmy_id))
-                            if bmy_id > 0:
-                                bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
-                                arrsn = bmy_name.split('-')
-                                brand_name1 = arrsn[0]
-                                if brand_name not in wb_brand_dict:
-                                    wb_brand_dict[brand_name] = brand_name1
-                                is_break = True
-                                break
-                    if is_break:
-                        break
-                if is_break:
-                    break
-        for k, v in wb_brand_dict.items():
-            print('### {0}: {1};'.format(k, v))
+        with open('./logs/wb_brand.txt', 'w+', encoding='utf-8') as wb_fd:
+            for brand_name in we_had_bid_no:
+                wb_fd.write('{0}\n'.format(brand_name))
+
+
+
 
         print('我们有标书没有品牌：共{0}个，分别为：{1};'.format(len(we_had_bid_no), we_had_bid_no))
         sys.exit(0)
@@ -521,9 +491,45 @@ class WxsDsm(object):
 
     @staticmethod
     def exp001():
-        bmy_id = 8
-        bmy_vo = CBmy.get_bmy_by_id(bmy_id)
-        print('bmy_vo:{0}; {1}'.format(type(bmy_vo), bmy_vo))
+        pass
+        '''
+        wb_brand_dict = {}
+        is_break = False
+        for brand_name in we_had_bid_no:
+            base_path = Path('/media/zjkj/work/fgvc_dataset/raw/{0}'.format(brand_name[:-1]))
+            is_break = False
+            for model_obj in base_path.iterdir():
+                for year_obj in model_obj.iterdir():
+                    for item_obj in year_obj.iterdir():
+                        item_name = str(item_obj)
+                        if not sub_obj.is_dir() and filename.endswith(
+                                    ('jpg','png','jpeg','bmp')): # 忽略其下目录
+                            arrs0 = item_name.split('/')
+                            arrs1 = arrs0[-1].split('#')
+                            vin_code = arrs1[0]
+                            if vin_code in vin_bmy_id_dict:
+                                bmy_id = vin_bmy_id_dict[vin_code]
+                            elif vin_code[:8] in vin_bmy_id_dict:
+                                bmy_id = vin_bmy_id_dict[vin_code[:8]]
+                            else:
+                                #wfd.write('############## {0}\n'.format(vin_code))
+                                bmy_id = -1
+                            print('正在处理：{0};  {1}'.format(item_name, bmy_id))
+                            if bmy_id > 0:
+                                bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
+                                arrsn = bmy_name.split('-')
+                                brand_name1 = arrsn[0]
+                                if brand_name not in wb_brand_dict:
+                                    wb_brand_dict[brand_name] = brand_name1
+                                is_break = True
+                                break
+                    if is_break:
+                        break
+                if is_break:
+                    break
+        for k, v in wb_brand_dict.items():
+            print('### {0}: {1};'.format(k, v))
+        '''
 
 
     
