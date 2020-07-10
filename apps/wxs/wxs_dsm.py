@@ -537,6 +537,7 @@ class WxsDsm(object):
                     break # break model
         for k, v in wb_brand_dict.items():
             print('### {0}: {1};'.format(k, v))
+        print('共有{0}个；'.format(len(wb_brand_dict)))
         '''
         
         is_break = False
