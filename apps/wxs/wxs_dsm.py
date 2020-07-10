@@ -331,7 +331,9 @@ class WxsDsm(object):
         folder_brand_set = set()
         db_brand_set = set()
         for brand_obj in path_obj.iterdir():
-            folder_brand_set.add(str(brand_obj))
+            arrs0 = str(brand_obj).split('/')
+            brand_name = '{0}牌'.format(arrs0[-1])
+            folder_brand_set.add(brand_name)
         print('我们有标书没有品牌：{0};'.format(WxsDsm.g_brand_set - folder_brand_set))
         print('标书有我们没有品牌：{0};'.format(folder_brand_set - WxsDsm.g_brand_set))
 
