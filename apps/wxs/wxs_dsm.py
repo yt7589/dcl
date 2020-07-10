@@ -338,6 +338,34 @@ class WxsDsm(object):
         print('标书书我们没有品牌：共{0}个，分别为：{1};'.format(len(bid_had_we_no), bid_had_we_no))
         print('******************************************************')
         we_had_bid_no = folder_brand_set - WxsDsm.g_brand_set
+        wb_brand_dict = {}
+        for brand_name = in we_had_bid_no:
+            base_path = Path('/media/zjkj/work/fgvc_dataset/raw/{0}'.format(brand_name))
+            for model_obj in base_path.iterdir():
+                for year_obj in model_obj.iterdir():
+                    for item_obj in year_obj.iterdir():
+                        if not sub_obj.is_dir() and filename.endswith(
+                                    ('jpg','png','jpeg','bmp')): # 忽略其下目录
+                            item_name = str(item_obj)
+                            arrs0 = item_name.split('/')
+                            arrs1 = arrs0[-1].split('#')
+                            vin_code = arrs1[0]
+                            bmy_id = -1
+                            while bmy_id <= 0:
+                                if vin_code in vin_bmy_id_dict:
+                                    bmy_id = vin_bmy_id_dict[vin_code]
+                                elif vin_code[:8] in vin_bmy_id_dict:
+                                    bmy_id = vin_bmy_id_dict[vin_code[:8]]
+                                else:
+                                    #wfd.write('############## {0}\n'.format(vin_code))
+                                    bmy_id = -1
+                            bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
+                            arrsn = bmy_name.split('-')
+                            brand_name1 = arrsn[0]
+                            wb_brand_dict[brand_name] = brand_name1
+            for k, v in wb_brand_dict.items():
+                print('### {0}: {1};'.format(k, v))
+
         print('我们有标书没有品牌：共{0}个，分别为：{1};'.format(len(we_had_bid_no), we_had_bid_no))
         sys.exit(0)
 
