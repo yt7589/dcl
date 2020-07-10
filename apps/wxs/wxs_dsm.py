@@ -340,7 +340,6 @@ class WxsDsm(object):
         we_had_bid_no = folder_brand_set - WxsDsm.g_brand_set
         wb_brand_dict = {}
         is_break = False
-        done_brand = set()
         for brand_name in we_had_bid_no:
             base_path = Path('/media/zjkj/work/fgvc_dataset/raw/{0}'.format(brand_name[:-1]))
             is_break = False
@@ -365,9 +364,8 @@ class WxsDsm(object):
                                 bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
                                 arrsn = bmy_name.split('-')
                                 brand_name1 = arrsn[0]
-                                if brand_name not in done_brand:
+                                if brand_name not in wb_brand_dict:
                                     wb_brand_dict[brand_name] = brand_name1
-                                    done_brand.add(brand_name)
                                 is_break = True
                     if is_break:
                         break
