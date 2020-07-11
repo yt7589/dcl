@@ -1,4 +1,5 @@
 # 数据集管理类，负责生成数据描述文件
+import os
 import sys
 import shutil
 import random
@@ -581,13 +582,34 @@ class WxsDsm(object):
     def exp001():
         print('拷贝没有处理过的车辆识别码文件夹')
         src_dir = '/media/zjkj/work/guochanche_2'
-        dst_dir = ''
+        dst_base = '/media/zjkj/work/guochanche_2n'
         src_path = Path(src_dir)
-        dst_path = Path(dst_dir)
         leaf_folder_set = set()
         WxsDsm.get_leaf_folders(src_path, leaf_folder_set)
         for folder in leaf_folder_set:
             print(folder)
+        '''
+        leaf_folder_set.add('')
+        for folder in leaf_folder_set:
+            current_path = Path(folder)
+            for item_obj in current_path.iterdir():
+                item_str = str(item_obj)
+                if item_str.endswith(('jpg','png','jpeg','bmp')):
+                    print('处理图形文件')
+                    arrs0 = item_str.split('/')
+                    filename = arrs0[-1]
+                    arrs1 = arrs0[-1].split('_')
+                    arrs2 = arrs1[0].split('#')
+                    vin_code = arrs2[0]
+                    dst_folder = '{0}/{1}'.format(dst_base, vin_code)
+                    if not os.path.exists(dst_folder):
+                        os.mkdir(dst_folder)
+                    dst_file = '{0}/{1}'.format(dst_folder, filename)
+                    #shutil.move(item_str, dst_file)
+                    shutil.copy(item_str, dst_file)
+        '''
+                        
+
 
     @staticmethod
     def get_leaf_folders(base_path, leaf_folder_set):
@@ -599,7 +621,7 @@ class WxsDsm(object):
                 item_str = str(item_obj)
                 print('parent: {0}\n    child: {1}'.format(item_obj.parent, item_str))
                 if item_obj.parent in leaf_folder_set:
-                    leaf_folder_set.remove(item_obj.parent)
+                    leaf_folder_set.remove(str(item_obj.parent))
                 leaf_folder_set.add(item_str)
                 WxsDsm.get_leaf_folders(item_obj, leaf_folder_set)
 
