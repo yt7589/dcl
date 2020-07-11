@@ -581,19 +581,15 @@ class WxsDsm(object):
 
     @staticmethod
     def exp001():
-        WxsDsm.process_g2_folder('/media/zjkj/work/guochanche_2/国产/客车切图/191/20191016/201910169', '/media/zjkj/work/guochanche_2n')
+        WxsDsm.process_g2_folder_main()
 
     @staticmethod
-    def get_leaf_folders_main():
-        print('拷贝没有处理过的车辆识别码文件夹')
-        src_dir = '/media/zjkj/work/guochanche_2'
-        dst_base = '/media/zjkj/work/guochanche_2n'
-        src_path = Path(src_dir)
-        leaf_folder_set = set()
-        WxsDsm.get_leaf_folders(src_path, leaf_folder_set)
-        print('共有{0}个文件；'.format(WxsDsm.total_files))
-        for folder in leaf_folder_set:
-            print(folder)
+    def process_g2_folder_main():
+        dst_base_folder = '/media/zjkj/work/guochanche_2n'
+        with open('./logs/g2.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line = line.strip()
+                WxsDsm.process_g2_folder(line, dst_base_folder)
 
     @staticmethod
     def process_g2_folder(folder, dst_base_folder):
@@ -622,9 +618,29 @@ class WxsDsm(object):
                 shutil.move(item_str, dst_file)
                         
 
+    @staticmethod
+    def get_leaf_folders_main():
+        '''
+        求出guochanche_2下所有最底层子目录并打印
+        '''
+        src_dir = '/media/zjkj/work/guochanche_2'
+        src_path = Path(src_dir)
+        leaf_folder_set = set()
+        WxsDsm.get_leaf_folders(src_path, leaf_folder_set)
+        print('共有{0}个文件；'.format(WxsDsm.total_files))
+        for folder in leaf_folder_set:
+            print(folder)
+
     total_files = 0
     @staticmethod
     def get_leaf_folders(base_path, leaf_folder_set):
+        '''
+        采用递归方式求出guochanche_2下所有最底层子目录，添加到
+        leaf_foler_set集合中
+        参数：
+            base_path：父目录Path对象
+            leaf_folder_set：底层目录集合
+        '''
         if not base_path.is_dir():
             return
         # 列出所有最子一级目录
