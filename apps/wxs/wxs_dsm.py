@@ -595,11 +595,12 @@ class WxsDsm(object):
             return
         # 列出所有最子一级目录
         for item_obj in base_path.iterdir():
-            item_str = str(item_obj)
-            print('parent: {0}\n    child: {1}'.format(item_obj.parent, item_str))
-            if item_obj.parent in leaf_folder_set:
-                leaf_folder_set.remove(item_obj.parent)
-            leaf_folder_set.add(item_str)
-            WxsDsm.get_leaf_folders(item_obj, leaf_folder_set)
+            if item_obj.is_dir():
+                item_str = str(item_obj)
+                print('parent: {0}\n    child: {1}'.format(item_obj.parent, item_str))
+                if item_obj.parent in leaf_folder_set:
+                    leaf_folder_set.remove(item_obj.parent)
+                leaf_folder_set.add(item_str)
+                WxsDsm.get_leaf_folders(item_obj, leaf_folder_set)
 
                 
