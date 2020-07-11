@@ -596,7 +596,7 @@ class WxsDsm(object):
             print(folder)
 
     @staticmethod
-    def process_g2_folder(folder, dst_folder):
+    def process_g2_folder(folder, dst_base_folder):
         '''
         处理guochanche_2目录下一个最底层目录，将其中图片文件拷贝到
         guochanche_2n目录下，以车辆识别码为目录名，将同样车辆识
@@ -615,7 +615,7 @@ class WxsDsm(object):
                 arrs1 = arrs0[-1].split('_')
                 arrs2 = arrs1[0].split('#')
                 vin_code = arrs2[0]
-                dst_folder = '{0}/{1}'.format(dst_folder, vin_code)
+                dst_folder = '{0}/{1}'.format(dst_base_folder, vin_code)
                 if not os.path.exists(dst_folder):
                     os.mkdir(dst_folder)
                 dst_file = '{0}/{1}'.format(dst_folder, filename)
