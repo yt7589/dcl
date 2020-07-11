@@ -586,6 +586,7 @@ class WxsDsm(object):
         src_path = Path(src_dir)
         leaf_folder_set = set()
         WxsDsm.get_leaf_folders(src_path, leaf_folder_set)
+        print('共有{0}个文件；'.format(WxsDsm.total_files))
         for folder in leaf_folder_set:
             print(folder)
         '''
@@ -610,19 +611,20 @@ class WxsDsm(object):
         '''
                         
 
-
+    total_files = 0
     @staticmethod
     def get_leaf_folders(base_path, leaf_folder_set):
         if not base_path.is_dir():
             return
         # 列出所有最子一级目录
         for item_obj in base_path.iterdir():
+            item_str = str(item_obj)
             if item_obj.is_dir():
-                item_str = str(item_obj)
-                print('parent: {0}\n    child: {1}'.format(item_obj.parent, item_str))
+                print('parent: {0}；当前文件数：{2};\n    child: {1}'.format(item_obj.parent, item_str, WxsDsm.total_files))
                 if item_obj.parent in leaf_folder_set:
                     leaf_folder_set.remove(str(item_obj.parent))
                 leaf_folder_set.add(item_str)
                 WxsDsm.get_leaf_folders(item_obj, leaf_folder_set)
-
-                
+            else:
+                if item_str.endswith(('jpg','png','jpeg','bmp')):
+                    WxsDsm.total_files += 1
