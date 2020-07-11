@@ -600,5 +600,6 @@ class WxsDsm(object):
             if item_obj.parent in leaf_folder_set:
                 leaf_folder_set.remove(item_obj.parent)
             leaf_folder_set.add(item_str)
+            WxsDsm.get_leaf_folders(item_obj, leaf_folder_set)
 
                 
