@@ -584,9 +584,21 @@ class WxsDsm(object):
         dst_dir = ''
         src_path = Path(src_dir)
         dst_path = Path(dst_dir)
+        leaf_folder_set = set()
+        WxsDsm.get_leaf_folders(src_path, leaf_forlder_set)
+        for folder in leaf_folder_set:
+            print(folder)
+
+    @staticmethod
+    def get_leaf_folders(base_path, leaf_folder_set):
+        if not base_path.is_dir():
+            return
         # 列出所有最子一级目录
-        for item_obj in src_path.iterdir():
+        for item_obj in base_path.iterdir():
             item_str = str(item_obj)
             print('parent: {0}\n    child: {1}'.format(item_obj.parent, item_str))
+            if item_obj.parent in leaf_folder_set:
+                leaf_folder_set.remove(item_obj.parent)
+            leaf_folder_set.add(item_str)
 
                 
