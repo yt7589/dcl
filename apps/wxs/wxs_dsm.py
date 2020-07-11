@@ -585,7 +585,7 @@ class WxsDsm(object):
         src_path = Path(src_dir)
         dst_path = Path(dst_dir)
         leaf_folder_set = set()
-        WxsDsm.get_leaf_folders(src_path, leaf_forlder_set)
+        WxsDsm.get_leaf_folders(src_path, leaf_folder_set)
         for folder in leaf_folder_set:
             print(folder)
 
