@@ -587,6 +587,6 @@ class WxsDsm(object):
         # 列出所有最子一级目录
         for item_obj in src_path.iterdir():
             item_str = str(item_obj)
-            print(item_str)
+            print('parent: {0}\n    child: {1}'.format(item_obj.parent, item_str))
 
                 
