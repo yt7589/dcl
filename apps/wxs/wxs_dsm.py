@@ -1,5 +1,6 @@
 # 数据集管理类，负责生成数据描述文件
 import os
+from os import stat
 import sys
 import shutil
 import random
@@ -580,6 +581,10 @@ class WxsDsm(object):
 
     @staticmethod
     def exp001():
+        WxsDsm.process_g2_folder('/media/zjkj/work/guochanche_2/国产/客车切图/191/20191016/201910169', '/media/zjkj/work/guochanche_2n')
+
+    @staticmethod
+    def get_leaf_folders_main():
         print('拷贝没有处理过的车辆识别码文件夹')
         src_dir = '/media/zjkj/work/guochanche_2'
         dst_base = '/media/zjkj/work/guochanche_2n'
@@ -589,26 +594,32 @@ class WxsDsm(object):
         print('共有{0}个文件；'.format(WxsDsm.total_files))
         for folder in leaf_folder_set:
             print(folder)
+
+    @staticmethod
+    def process_g2_folder(folder, dst_folder):
         '''
-        leaf_folder_set.add('')
-        for folder in leaf_folder_set:
-            current_path = Path(folder)
-            for item_obj in current_path.iterdir():
-                item_str = str(item_obj)
-                if item_str.endswith(('jpg','png','jpeg','bmp')):
-                    print('处理图形文件')
-                    arrs0 = item_str.split('/')
-                    filename = arrs0[-1]
-                    arrs1 = arrs0[-1].split('_')
-                    arrs2 = arrs1[0].split('#')
-                    vin_code = arrs2[0]
-                    dst_folder = '{0}/{1}'.format(dst_base, vin_code)
-                    if not os.path.exists(dst_folder):
-                        os.mkdir(dst_folder)
-                    dst_file = '{0}/{1}'.format(dst_folder, filename)
-                    #shutil.move(item_str, dst_file)
-                    shutil.copy(item_str, dst_file)
+        处理guochanche_2目录下一个最底层目录，将其中图片文件拷贝到
+        guochanche_2n目录下，以车辆识别码为目录名，将同样车辆识
+        别码的图片放到该目录下
+        参数：
+            folder：guochanche_2下面最底层目录，字符串类型
+            dst_folder：guochanche_2n目录，字符串
         '''
+        base_path = Path(folder)
+        for item_obj in base_path.iterdir():
+            item_str = str(item_obj)
+            if item_str.endswith(('jpg','png','jpeg','bmp')):
+                print('处理图形文件：{0}...'.format(item_str))
+                arrs0 = item_str.split('/')
+                filename = arrs0[-1]
+                arrs1 = arrs0[-1].split('_')
+                arrs2 = arrs1[0].split('#')
+                vin_code = arrs2[0]
+                dst_folder = '{0}/{1}'.format(dst_folder, vin_code)
+                if not os.path.exists(dst_folder):
+                    os.mkdir(dst_folder)
+                dst_file = '{0}/{1}'.format(dst_folder, filename)
+                shutil.move(item_str, dst_file)
                         
 
     total_files = 0
