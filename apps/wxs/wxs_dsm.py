@@ -546,7 +546,7 @@ class WxsDsm(object):
             print('### {0};'.format(bn))
 
     @staticmethod
-    def exp001():
+    def find_bad_images():
         bad_files = []
         base_path = Path('/media/zjkj/work/guochanchezuowan-all')
         num = 0
@@ -576,4 +576,17 @@ class WxsDsm(object):
         with open('./logs/bad_images.txt', 'w+', encoding='utf-8') as bfd:
             for img in bad_files:
                 bfd.write('{0}\n'.format(img))
+
+    @staticmethod
+    def exp001():
+        print('拷贝没有处理过的车辆识别码文件夹')
+        src_dir = '/media/zjkj/work/guochanche_2'
+        dst_dir = ''
+        src_path = Path(src_dir)
+        dst_path = Path(dst_dir)
+        # 列出所有最子一级目录
+        for item_obj in src_path.iterdir():
+            item_str = str(item_obj)
+            print(item_str)
+
                 
