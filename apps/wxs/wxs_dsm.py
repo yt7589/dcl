@@ -20,6 +20,10 @@ class WxsDsm(object):
 
     @staticmethod
     def know_init_status():
+        '''
+        统计当前信息，主要是所里标书中的品牌车型年款和我们的品牌车型
+        年款之间的差异
+        '''
         bid_brand_set, bid_model_set, bid_bmy_set, bid_vin_set, _, _, _, _ = WxsDsm._get_bid_info()
         print('标书要求：车辆识别码：{0}个；品牌：{1}个；年款：{2}个；'.format(
             len(bid_vin_set), len(bid_brand_set), len(bid_bmy_set)
@@ -580,10 +584,6 @@ class WxsDsm(object):
                 bfd.write('{0}\n'.format(img))
 
     @staticmethod
-    def exp001():
-        WxsDsm.process_g2_folder_main()
-
-    @staticmethod
     def process_g2_folder_main():
         dst_base_folder = '/media/zjkj/work/guochanche_2n'
         with open('./logs/g2.txt', 'r', encoding='utf-8') as fd:
@@ -655,3 +655,11 @@ class WxsDsm(object):
             else:
                 if item_str.endswith(('jpg','png','jpeg','bmp')):
                     WxsDsm.total_files += 1
+
+    @staticmethod
+    def get_simplified_bmys():
+        print('求出简化版品牌车型年款对照表...')
+
+    @staticmethod
+    def exp001():
+        WxsDsm.get_simplified_bmys()
