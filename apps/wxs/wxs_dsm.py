@@ -684,12 +684,16 @@ class WxsDsm(object):
                     org_bmy_id = int(arrs0[1]) + 1
                     img_file = arrs0[0]
                     bmy_id = org_sim_dict[org_bmy_id]
+                    if bmy_id == 2305:
+                        print('############ {0}*{1}\n'.format(img_file, bmy_id))
                     new_train_fd.write('{0}*{1}\n'.format(img_file, bmy_id))
                     temp_set.add('{0}<=>{1}'.format(bmy_id, org_bmy_id))
+        '''
         l001 = list(temp_set)
         l001.sort()
         for item in l001:
             print(item)
+        '''
         # 生成新的测试数据集
         # 生成新寒武纪需要的标签文件
 
