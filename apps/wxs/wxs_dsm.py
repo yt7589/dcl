@@ -663,6 +663,14 @@ class WxsDsm(object):
         with open('./datasets/CUB_200_2011/anno/bid_train_ds.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
+                arrs0 = line.split('*')
+                bmy_id = int(arrs0[1]) + 1
+                bmy_set.add(bmy_id)
+        print('共有{0}个年款！'.format(len(bmy_set)))
+        lst = list(bmy_set)
+        lst.sort()
+        for idx, bmy_id in lst.items():
+            print('### {0} => {1}'.format(idx, bmy_id))
 
     @staticmethod
     def exp001():
