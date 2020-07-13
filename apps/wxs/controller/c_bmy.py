@@ -115,7 +115,7 @@ class CBmy(object):
                 'brand_id': int(rec['brand_id']),
                 'brand_code': rec['brand_code'],
                 'model_id': int(rec['model_id']),
-                'model_name': rec['model_name']
+                'model_code': rec['model_code']
             }
         return bmy_id_bmy_vo_dict
 
