@@ -669,7 +669,7 @@ class WxsDsm(object):
         print('共有{0}个年款！'.format(len(bmy_set)))
         lst = list(bmy_set)
         lst.sort()
-        for idx, bmy_id in lst.items():
+        for idx, bmy_id in enumerate(lst):
             print('### {0} => {1}'.format(idx, bmy_id))
 
     @staticmethod
