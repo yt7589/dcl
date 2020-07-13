@@ -100,5 +100,24 @@ class CBmy(object):
             bmy_id_bmy_name_dict[int(rec['bmy_id'])] = rec['bmy_name']
         return bmy_id_bmy_name_dict
 
+    @staticmethod
+    def get_bmy_id_bmy_vo_dict():
+        '''
+        求出t_bmy表的以bmy_id为键，以bmy_vo为值
+        '''
+        bmy_id_bmy_vo_dict = {}
+        recs = MBmy.get_bmy_id_bmy_vos()
+        for rec in recs:
+            bmy_id_bmy_vo_dict[int(rec['bmy_id'])] = {
+                'bmy_id': int(rec['bmy_id']),
+                'bmy_name': rec['bmy_name'],
+                'bmy_code': rec['bmy_code'],
+                'brand_id': int(rec['brand_id']),
+                'brand_code': rec['brand_code'],
+                'model_id': int(rec['model_id']),
+                'model_name': rec['model_name']
+            }
+        return bmy_id_bmy_vo_dict
+
 
     

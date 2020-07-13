@@ -359,8 +359,8 @@ class WxsDsm(object):
         print('生成数据集...')
         vins = CBmy.get_vin_codes()
         vin_samples_dict = WxsDsm.get_vin_samples_dict()
-        with open('./logs/bid_train_ds.txt', 'w+', encoding='utf-8') as train_fd:
-            with open('./logs/bid_test_ds.txt', 'w+', encoding='utf-8') as test_fd:
+        with open('./logs/raw_bid_train_ds.txt', 'w+', encoding='utf-8') as train_fd:
+            with open('./logs/raw_bid_test_ds.txt', 'w+', encoding='utf-8') as test_fd:
                 for vin in vins:
                     print('处理：{0} <=> {1};'.format(vin['vin_id'], vin['vin_code']))
                     if vin['vin_code'] in vin_samples_dict:
@@ -675,13 +675,19 @@ class WxsDsm(object):
             sim_org_dict[idx] = bmy_id
             org_sim_dict[bmy_id] = idx
         # 生成新的训练数据集
-        WxsDsm.simplify_bid_ds(org_sim_dict, './logs/new_train_ds.txt', './logs/bid_train_ds.txt')
+        #WxsDsm.simplify_bid_ds(org_sim_dict, './logs/bid_train_ds.txt', './logs/raw_bid_train_ds.txt')
         # 生成新的测试数据集
-        WxsDsm.simplify_bid_ds(org_sim_dict, './logs/new_test_ds.txt', './logs/bid_test_ds.txt')
+        #WxsDsm.simplify_bid_ds(org_sim_dict, './logs/bid_test_ds.txt', './logs/raw_bid_test_ds.txt')
         # 生成新寒武纪需要的标签文件
+        WxsDsm.generate_cambricon_labels(sim_org_dict)
     
     @staticmethod
     def simplify_bid_ds(org_sim_dict, new_ds_file, org_ds_file):
+        '''
+        统计出数据集文件中不重复的bmy_id，然后重新从0开始递增编号作为新的
+        bmy_id，并且维护两个bmy_id之间的对应关系，将旧的数据集文件中旧的
+        bmy_id换为新的bmy_id
+        '''
         with open(new_ds_file, 'w+', encoding='utf-8') as new_ds_fd:
             with open(org_ds_file, 'r', encoding='utf-8') as org_ds_fd:
                 for line in org_ds_fd:
@@ -691,6 +697,27 @@ class WxsDsm(object):
                     img_file = arrs0[0]
                     bmy_id = org_sim_dict[org_bmy_id]
                     new_ds_fd.write('{0}*{1}\n'.format(img_file, bmy_id))
+
+    @staticmethod
+    def generate_cambricon_labels(sim_org_dict):
+        '''
+        由新的bmy_id求出老的bmy_id，然后求出品牌车型年款并用逗号分隔，生成一个txt文件
+        '''
+        bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
+        for sim_bmy_id in range(len(sim_org_dict)):
+            bmy_id = sim_org_dict[sim_bmy_id]
+            bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
+            bmy_name = bmy_vo['bmy_name']
+            arrs0 = bmy_name.split('-')
+            brand_name = arrs0[0]
+            model_name = arrs0[1]
+            year_name = arrs0[2]
+            print('{0},{1},{2},{3},{4},{5}'.format(
+                brand_name, model_name, year_name,
+                bmy_vo['brand_code'],
+                bmy_vo['model_code'],
+                bmy_vo['bmy_code']
+            ))
 
     @staticmethod
     def exp001():
