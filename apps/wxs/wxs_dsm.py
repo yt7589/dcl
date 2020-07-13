@@ -704,20 +704,27 @@ class WxsDsm(object):
         由新的bmy_id求出老的bmy_id，然后求出品牌车型年款并用逗号分隔，生成一个txt文件
         '''
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
-        for sim_bmy_id in range(len(sim_org_dict)):
-            bmy_id = sim_org_dict[sim_bmy_id]
-            bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
-            bmy_name = bmy_vo['bmy_name']
-            arrs0 = bmy_name.split('-')
-            brand_name = arrs0[0]
-            model_name = arrs0[1]
-            year_name = arrs0[2]
-            print('{0},{1},{2},{3},{4},{5}'.format(
-                brand_name, model_name, year_name,
-                bmy_vo['brand_code'],
-                bmy_vo['model_code'],
-                bmy_vo['bmy_code']
-            ))
+        with open('./logs/cambricon_vehicle_label.txt', 'w+', encoding='utf-8') as fd:
+            for sim_bmy_id in range(len(sim_org_dict)):
+                bmy_id = sim_org_dict[sim_bmy_id]
+                bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
+                bmy_name = bmy_vo['bmy_name']
+                arrs0 = bmy_name.split('-')
+                brand_name = arrs0[0]
+                model_name = arrs0[1]
+                year_name = arrs0[2]
+                print('{0},{1},{2},{3},{4},{5}'.format(
+                    brand_name, model_name, year_name,
+                    bmy_vo['brand_code'],
+                    bmy_vo['model_code'],
+                    bmy_vo['bmy_code']
+                ))
+                fd.write('{0},{1},{2},{3},{4},{5}\n'.format(
+                    brand_name, model_name, year_name,
+                    bmy_vo['brand_code'],
+                    bmy_vo['model_code'],
+                    bmy_vo['bmy_code']
+                ))
 
     @staticmethod
     def exp001():
