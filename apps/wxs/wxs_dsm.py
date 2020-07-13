@@ -660,6 +660,8 @@ class WxsDsm(object):
     def get_simplified_bmys():
         print('求出简化版品牌车型年款对照表...')
         bmy_set = set()
+        sim_org_dict = {}
+        org_sim_dict = {}
         with open('./datasets/CUB_200_2011/anno/bid_train_ds.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
@@ -671,6 +673,20 @@ class WxsDsm(object):
         lst.sort()
         for idx, bmy_id in enumerate(lst):
             print('### {0} => {1}'.format(idx, bmy_id))
+            sim_org_dict[idx] = bmy_id
+            org_sim_dict[bmy_id] = idx
+        # 生成新的训练数据集
+        with open('./logs/new_train_ds.txt', 'w+', encoding='utf-8') as new_train_fd:
+            with open('./logs/bid_train_ds.txt', 'r', encoding='utf-8') as train_fd:
+                for line in train_fd:
+                    line = line.strip()
+                    arrs0 = line.split('*')
+                    org_bmy_id = int(arrs0[1])
+                    img_file = arrs0[0]
+                    bmy_id = org_sim_dict[org_bmy_id]
+                    new_train_fd.write('{0}*{1}\n'.format(img_file, bmy_id))
+        # 生成新的测试数据集
+        # 生成新寒武纪需要的标签文件
 
     @staticmethod
     def exp001():
