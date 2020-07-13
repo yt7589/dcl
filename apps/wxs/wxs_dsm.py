@@ -404,15 +404,15 @@ class WxsDsm(object):
         test_idxs = data[:10]
         print('测试数据集：')
         for idx in test_idxs:
-            print('@1 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            print('@1 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
             #CDataset.add_dataset_sample(1, samples[idx]['sample_id'], 3)
-            test_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            test_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
         train_idxs = data[10:1011]
         print('训练数据集：')
         for idx in train_idxs:
-            print('#1 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            print('#1 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
             #CDataset.add_dataset_sample(1, samples[idx]['sample_id'], 1)
-            train_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            train_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
 
     @staticmethod
     def process_100_to_1000_samples(samples, train_fd, test_fd):
@@ -423,15 +423,15 @@ class WxsDsm(object):
         test_idxs = data[:10]
         print('测试数据集：')
         for idx in test_idxs:
-            print('@2 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            print('@2 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
             #CDataset.add_dataset_sample(1, samples[idx]['sample_id'], 3)
-            test_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            test_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
         train_idxs = data[10:]
         print('训练数据集：')
         for idx in train_idxs:
-            print('#2 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            print('#2 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
             #CDataset.add_dataset_sample(1, samples[idx]['sample_id'], 1)
-            train_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            train_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
 
     @staticmethod
     def process_10_to_100_samples(samples, train_fd, test_fd):
@@ -442,30 +442,30 @@ class WxsDsm(object):
         test_idxs = data[:10]
         print('测试数据集：')
         for idx in test_idxs:
-            print('@3 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            print('@3 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
             #CDataset.add_dataset_sample(1, samples[idx]['sample_id'], 3)
-            test_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            test_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
         train_idxs = data
         print('训练数据集：')
         for idx in train_idxs:
-            print('#3 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            print('#3 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
             #CDataset.add_dataset_sample(1, samples[idx]['sample_id'], 1)
-            train_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            train_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
 
     @staticmethod
     def process_lt_10_samples(samples, train_fd, test_fd):
         test_idxs = list(range(len(samples)))
         print('测试数据集：')
         for idx in test_idxs:
-            print('@4 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            print('@4 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
             #CDataset.add_dataset_sample(1, samples[idx]['sample_id'], 3)
-            test_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            test_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
         train_idxs = test_idxs
         print('训练数据集：')
         for idx in train_idxs:
-            print('#4 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            print('#4 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
             #CDataset.add_dataset_sample(1, samples[idx]['sample_id'], 1)
-            train_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])-1))
+            train_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
 
     @staticmethod
     def report_current_status():
@@ -659,6 +659,10 @@ class WxsDsm(object):
     @staticmethod
     def get_simplified_bmys():
         print('求出简化版品牌车型年款对照表...')
+        bmy_set = set()
+        with open('./datasets/CUB_200_2011/anno/bid_train_ds.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line = line.strip()
 
     @staticmethod
     def exp001():
