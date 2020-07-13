@@ -681,7 +681,7 @@ class WxsDsm(object):
                 for line in train_fd:
                     line = line.strip()
                     arrs0 = line.split('*')
-                    org_bmy_id = int(arrs0[1])
+                    org_bmy_id = int(arrs0[1]) + 1
                     print('org_bmy_id={0};'.format(org_bmy_id))
                     img_file = arrs0[0]
                     bmy_id = org_sim_dict[org_bmy_id]
