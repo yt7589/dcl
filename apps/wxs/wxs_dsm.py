@@ -682,6 +682,7 @@ class WxsDsm(object):
                     line = line.strip()
                     arrs0 = line.split('*')
                     org_bmy_id = int(arrs0[1])
+                    print('org_bmy_id={0};'.format(org_bmy_id))
                     img_file = arrs0[0]
                     bmy_id = org_sim_dict[org_bmy_id]
                     new_train_fd.write('{0}*{1}\n'.format(img_file, bmy_id))
