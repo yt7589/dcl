@@ -675,27 +675,22 @@ class WxsDsm(object):
             sim_org_dict[idx] = bmy_id
             org_sim_dict[bmy_id] = idx
         # 生成新的训练数据集
-        temp_set = set()
-        with open('./logs/new_train_ds.txt', 'w+', encoding='utf-8') as new_train_fd:
-            with open('./logs/bid_train_ds.txt', 'r', encoding='utf-8') as train_fd:
-                for line in train_fd:
+        WxsDsm.simplify_bid_ds(org_sim_dict, './logs/new_train_ds.txt', './logs/bid_train_ds.txt')
+        # 生成新的测试数据集
+        WxsDsm.simplify_bid_ds(org_sim_dict, './logs/new_test_ds.txt', './logs/bid_test_ds.txt')
+        # 生成新寒武纪需要的标签文件
+    
+    @staticmethod
+    def simplify_bid_ds(org_sim_dict, new_ds_file, org_ds_file):
+        with open(new_ds_file, 'w+', encoding='utf-8') as new_ds_fd:
+            with open(org_ds_file, 'r', encoding='utf-8') as org_ds_fd:
+                for line in org_ds_fd:
                     line = line.strip()
                     arrs0 = line.split('*')
                     org_bmy_id = int(arrs0[1]) + 1
                     img_file = arrs0[0]
                     bmy_id = org_sim_dict[org_bmy_id]
-                    if bmy_id == 2305:
-                        print('############ {0}*{1}\n'.format(img_file, bmy_id))
-                    new_train_fd.write('{0}*{1}\n'.format(img_file, bmy_id))
-                    temp_set.add('{0}<=>{1}'.format(bmy_id, org_bmy_id))
-        '''
-        l001 = list(temp_set)
-        l001.sort()
-        for item in l001:
-            print(item)
-        '''
-        # 生成新的测试数据集
-        # 生成新寒武纪需要的标签文件
+                    new_ds_fd.write('{0}*{1}\n'.format(img_file, bmy_id))
 
     @staticmethod
     def exp001():
