@@ -76,6 +76,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             pred_size = top3_pos[:, 0].shape[0]
             batch_brand_correct = 0
             for idx in range(pred_size):
+                print('top3_pos[idx][0] = {0}; labels[idx]={1};'.format(top3_pos[idx][0], labels[idx]))
                 pred_brand = fgvc_id_brand_dict[top3_pos[idx][0]]
                 gt_brand = fgvc_id_brand_dict[labels[idx]]
                 if pred_brand == gt_brand:
