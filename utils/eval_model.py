@@ -17,6 +17,7 @@ import pdb
 import PIL.Image as Image
 from utils.ds_manager import DsManager
 from config import load_data_transformers
+from apps.wxs.wxs_dsm import WxsDsm
 
 def dt():
     return datetime.datetime.now().strftime("%Y-%m-%d-%H_%M_%S")
@@ -42,7 +43,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
     val_loss_recorder = LossRecord(val_batch_size)
     val_celoss_recorder = LossRecord(val_batch_size)
     print('evaluating %s ...'%val_version, flush=True)
-    _, fgvc_id_to_bmy_dict = DsManager.get_bmy_and_fgvc_id_dicts()
+    fgvc_id_brand_dict = WxsDsm.get_fgvc_id_brand_dict()
     with torch.no_grad():
         for batch_cnt_val, data_val in enumerate(data_loader):
             inputs = Variable(data_val[0].cuda())
@@ -74,21 +75,17 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             # 求出品牌精度
             pred_size = top3_pos[:, 0].shape[0]
             batch_brand_correct = 0
-            '''
             for idx in range(pred_size):
-                pred_bmy = fgvc_id_to_bmy_dict['{0}'.format(top3_pos[idx][0])]
-                pred_brand = pred_bmy.split('_')[0]
-                gt_bmy = fgvc_id_to_bmy_dict['{0}'.format(labels[idx])]
-                gt_brand = gt_bmy.split('_')[0]
+                pred_brand = fgvc_id_brand_dict[top3_pos[idx][0]]
+                gt_brand = fgvc_id_brand_dict[labels[idx]]
                 if pred_brand == gt_brand:
                     batch_brand_correct += 1
-            '''
             brand_correct += batch_brand_correct
 
         val_acc1 = val_corrects1 / item_count
         val_acc2 = val_corrects2 / item_count
         val_acc3 = val_corrects3 / item_count
-        brand_acc = 0.0 #brand_correct / item_count
+        brand_acc = brand_correct / item_count
 
         log_file.write(val_version  + '\t' +str(val_loss_recorder.get_val())+'\t' + str(val_celoss_recorder.get_val()) + '\t' + str(val_acc1) + '\t' + str(val_acc3) + '\n')
 
