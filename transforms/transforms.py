@@ -188,7 +188,6 @@ class Resize(object):
         Returns:
             PIL Image: Rescaled image.
         """
-        print('transform.Resize: {0}; ***********************'.format(self.size))
         return F.resize(img, self.size, self.interpolation)
 
     def pre_process(self, image, scale, meta=None):
