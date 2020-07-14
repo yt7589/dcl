@@ -727,5 +727,26 @@ class WxsDsm(object):
                 ))
 
     @staticmethod
+    def get_fgvc_id_brand_dict():
+        '''
+        从logs/cambricon_vehicle_label.txt文件中，读出分类编号与
+        品牌名称的对应关系，在求精度时，网络输出的fgvc_id求出品牌
+        名称1，由正确答案fgvc_id求出品牌名称2，如果二者相等，则认
+        为品牌预测正确，目前要求品牌识别正确率大于90%
+        '''
+        fgvc_id_brand_dict = {}
+        fgvc_id = 0
+        with open('./logs/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line = line.strip()
+                arrs0 = line.split(',')
+                brand_name = arrs0[0]
+                fgvc_id_brand_dict[fgvc_id] = brand_name
+                fgvc_id += 1
+        for k, v in fgvc_id_brand_dict.items():
+            print('### {0}:{1};'.format(k, v))
+
+    @staticmethod
     def exp001():
-        WxsDsm.get_simplified_bmys()
+        #WxsDsm.get_simplified_bmys()
+        WxsDsm.get_fgvc_id_brand_dict()
