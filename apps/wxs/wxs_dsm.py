@@ -743,8 +743,7 @@ class WxsDsm(object):
                 brand_name = arrs0[0]
                 fgvc_id_brand_dict[fgvc_id] = brand_name
                 fgvc_id += 1
-        for k, v in fgvc_id_brand_dict.items():
-            print('### {0}:{1};'.format(k, v))
+        return fgvc_id_brand_dict
 
     @staticmethod
     def exp001():
