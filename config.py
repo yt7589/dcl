@@ -113,10 +113,10 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'label'])
             '''
-            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_test_ds.txt'),\
+            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'label'])
+                                           names=['ImageName', 'label', 'brand_label'])
 
         if 'test' in get_list:
             '''
@@ -125,10 +125,10 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'label'])
             '''
-            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_test_ds.txt'),\
+            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'label'])
+                                           names=['ImageName', 'label', 'brand_label'])
 
         self.swap_num = args.swap_num
 
