@@ -758,26 +758,31 @@ class WxsDsm(object):
         brand_name_brand_id_dict = {}
         brand_set = set()
         idx = 0
-        with open('./logs/bid_train_ds.txt', 'r', encoding='utf-8') as yfd:
-            for line in yfd:
-                line = line.strip()
-                arrs0 = line.split('*')
-                img_file = arrs0[0]
-                bmy_id = int(arrs0[1]) + 1
-                bmy_name = bmy_id_bmy_name_dict[bmy_id]
-                arrs1= bmy_name.split('-')
-                brand_name = arrs1[0]
-                if not (brand_name in brand_set):
-                    brand_set.add(brand_name)
-                    brand_id_brand_name_dict[idx] = brand_name
-                    brand_name_brand_id_dict[brand_name] = idx
-                    idx += 1
-                brand_id = brand_name_brand_id_dict[brand_name]
-                print('{0}*{1}'.format(img_file, brand_id))
+        with open(brand_ds_file, 'w+', encoding='utf-8') as bfd:
+            with open(bmy_ds_file, 'r', encoding='utf-8') as yfd:
+                for line in yfd:
+                    line = line.strip()
+                    arrs0 = line.split('*')
+                    img_file = arrs0[0]
+                    bmy_id = int(arrs0[1]) + 1
+                    bmy_name = bmy_id_bmy_name_dict[bmy_id]
+                    arrs1= bmy_name.split('-')
+                    brand_name = arrs1[0]
+                    if not (brand_name in brand_set):
+                        brand_set.add(brand_name)
+                        brand_id_brand_name_dict[idx] = brand_name
+                        brand_name_brand_id_dict[brand_name] = idx
+                        idx += 1
+                    brand_id = brand_name_brand_id_dict[brand_name]
+                    bfd.write('{0}*{1}\n'.format(img_file, brand_id))
+        with open('./logs/bid_brands_dict.txt', 'w+', encoding='utf-8') as fd:
+            for k, v in brand_id_brand_name_dict.items():
+                fd.write('{0}:{1}\n'.format(k, v))
         return len(brand_set)
 
     @staticmethod
     def exp001():
         #WxsDsm.get_simplified_bmys()
         #WxsDsm.get_fgvc_id_brand_dict()
-        WxsDsm.convert_to_brand_ds('./logs/bid_train_ds.txt', './logs/bid_brand_train_ds.txt')
+        brand_num = WxsDsm.convert_to_brand_ds('./logs/bid_train_ds.txt', './logs/bid_brand_train_ds.txt')
+        print('品牌种类：{0};'.format(brand_num))
