@@ -49,6 +49,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             inputs = Variable(data_val[0].cuda())
             print('eval_model.eval_turn inputs: {0};'.format(inputs.shape))
             labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
+            brand_labels = Variable(torch.from_numpy(np.array(data_val[-1])).long().cuda())
             outputs = model(inputs)
             loss = 0
 
@@ -73,13 +74,9 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             batch_corrects3 = torch.sum((top3_pos[:, 2] == labels)).data.item()
             val_corrects3 += (batch_corrects3 + batch_corrects2 + batch_corrects1)
             # 求出品牌精度
-            pred_size = top3_pos[:, 0].shape[0]
-            batch_brand_correct = 0
-            for idx in range(pred_size):
-                pred_brand = fgvc_id_brand_dict[top3_pos[idx][0].item()]
-                gt_brand = fgvc_id_brand_dict[labels[idx].item()]
-                if pred_brand == gt_brand:
-                    batch_brand_correct += 1
+            outputs_brand = outputs[-1]
+            brand_top5_val, brand_top5_pos = torch.topk(outputs_brand, 5)
+            batch_brand_correct = torch.sum((brand_top5_pos[:, 0] == brand_labels)).data.item()
             brand_correct += batch_brand_correct
 
         val_acc1 = val_corrects1 / item_count

@@ -101,7 +101,6 @@ def train(Config,
             else:
                 ce_loss_bmy = get_ce_loss(outputs[0], labels)
                 ce_loss_brand = get_ce_loss(outputs[-1], brand_labels)
-            print('ce_loss_bmy: {0}; ce_loss_brand: {1};'.format(ce_loss_bmy.shape, ce_loss_brand.shape))
             ce_loss = ce_loss_bmy + ce_loss_brand
 
             if Config.use_Asoftmax:
