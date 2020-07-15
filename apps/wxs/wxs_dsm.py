@@ -265,6 +265,36 @@ class WxsDsm(object):
                     WxsDsm.generate_samples_from_path_domestic(vin_bmy_id_dict, domestic1_path, sfd, efd)
         print('已经处理品牌数：{0};'.format(len(WxsDsm.g_brand_set)))
 
+    opr_num = 1
+    err_num = 0
+    g_dif = 0
+    @staticmethod
+    def generate_samples_from_path(vin_bmy_id_dict, path_obj, sfd, efd):
+        #with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
+        brand_num = 0
+        for brand_obj in path_obj.iterdir():
+            brand_num += 1
+            for model_obj in brand_obj.iterdir():
+                for year_obj in model_obj.iterdir():
+                    for sub_obj in year_obj.iterdir():
+                        filename = str(sub_obj)
+                        if not sub_obj.is_dir() and filename.endswith(
+                                    ('jpg','png','jpeg','bmp')): # 忽略其下目录
+                            WxsDsm.process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd)
+                            item_name = filename.split('/')[-1]
+                            if (WxsDsm.g_dif != brand_num - len(WxsDsm.g_brand_set)) and not item_name.startswith('白') \
+                                        and not item_name.startswith('夜'):
+                                WxsDsm.g_dif = brand_num - len(WxsDsm.g_brand_set)
+                                arrs0 = item_name.split('_')
+                                arrs1 = arrs0[0].split('#')
+                                vin_code = arrs1[0]
+                                bmy_id = WxsDsm.g_vin_bmy_id_dict[vin_code]
+                                #bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)[0]
+                                #bmy_vo = CBmy.get_bmy_by_id(bmy_id)
+                                bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
+                                WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}；目录品牌数：{2}；汇总品牌数：{3}\n'.format(filename, bmy_name, brand_num, len(WxsDsm.g_brand_set)))
+                                WxsDsm.err_num += 1
+
     @staticmethod
     def generate_samples_from_path_domestic(vin_bmy_id_dict, path_obj, sfd, efd):
         for branch_obj in path_obj.iterdir():
@@ -307,53 +337,6 @@ class WxsDsm(object):
             print('处理{0}条记录...'.format(
                 WxsDsm.opr_num))
 
-    opr_num = 1
-    err_num = 0
-    g_dif = 0
-    @staticmethod
-    def generate_samples_from_path(vin_bmy_id_dict, path_obj, sfd, efd):
-        #with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
-        brand_num = 0
-        for brand_obj in path_obj.iterdir():
-            brand_num += 1
-            for model_obj in brand_obj.iterdir():
-                for year_obj in model_obj.iterdir():
-                    for sub_obj in year_obj.iterdir():
-                        filename = str(sub_obj)
-                        if not sub_obj.is_dir() and filename.endswith(
-                                    ('jpg','png','jpeg','bmp')): # 忽略其下目录
-                            WxsDsm.process_one_img_file(vin_bmy_id_dict, sub_obj, sfd, efd)
-                            item_name = filename.split('/')[-1]
-                            if (WxsDsm.g_dif != brand_num - len(WxsDsm.g_brand_set)) and not item_name.startswith('白') \
-                                        and not item_name.startswith('夜'):
-                                WxsDsm.g_dif = brand_num - len(WxsDsm.g_brand_set)
-                                arrs0 = item_name.split('_')
-                                arrs1 = arrs0[0].split('#')
-                                vin_code = arrs1[0]
-                                bmy_id = WxsDsm.g_vin_bmy_id_dict[vin_code]
-                                #bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)[0]
-                                #bmy_vo = CBmy.get_bmy_by_id(bmy_id)
-                                bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
-                                WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}；目录品牌数：{2}；汇总品牌数：{3}\n'.format(filename, bmy_name, brand_num, len(WxsDsm.g_brand_set)))
-                                WxsDsm.err_num += 1
-        '''
-        folder_brand_set = set()
-        db_brand_set = set()
-        for brand_obj in path_obj.iterdir():
-            arrs0 = str(brand_obj).split('/')
-            brand_name = '{0}牌'.format(arrs0[-1])
-            folder_brand_set.add(brand_name)
-        bid_had_we_no = WxsDsm.g_brand_set - folder_brand_set
-        print('标书书我们没有品牌：共{0}个，分别为：{1};'.format(len(bid_had_we_no), bid_had_we_no))
-        print('******************************************************')
-        we_had_bid_no = folder_brand_set - WxsDsm.g_brand_set
-        with open('./logs/wb_brand.txt', 'w+', encoding='utf-8') as wb_fd:
-            for brand_name in we_had_bid_no:
-                wb_fd.write('{0}\n'.format(brand_name))
-        print('我们有标书没有品牌：共{0}个，分别为：{1};'.format(len(we_had_bid_no), we_had_bid_no))
-        sys.exit(0)
-        '''
-
     @staticmethod
     def generate_dataset():
         print('生成数据集...')
@@ -390,9 +373,9 @@ class WxsDsm(object):
                 if bmy_id in bmy_id_vin_dict:
                     vin_code = bmy_id_vin_dict[bmy_id]
                     if vin_code not in vin_samples_dict:
-                        vin_samples_dict[vin_code] = [{'img_file': arrs[0], 'bmy_id': arrs[1]}]
+                        vin_samples_dict[vin_code] = [{'img_file': arrs[0], 'bmy_id': bmy_id}]
                     else:
-                        vin_samples_dict[vin_code].append({'img_file': arrs[0], 'bmy_id': arrs[1]})
+                        vin_samples_dict[vin_code].append({'img_file': arrs[0], 'bmy_id': bmy_id})
         return vin_samples_dict
 
     @staticmethod
@@ -675,9 +658,9 @@ class WxsDsm(object):
             sim_org_dict[idx] = bmy_id
             org_sim_dict[bmy_id] = idx
         # 生成新的训练数据集
-        #WxsDsm.simplify_bid_ds(org_sim_dict, './logs/bid_train_ds.txt', './logs/raw_bid_train_ds.txt')
+        WxsDsm.simplify_bid_ds(org_sim_dict, './logs/bid_train_ds.txt', './logs/raw_bid_train_ds.txt')
         # 生成新的测试数据集
-        #WxsDsm.simplify_bid_ds(org_sim_dict, './logs/bid_test_ds.txt', './logs/raw_bid_test_ds.txt')
+        WxsDsm.simplify_bid_ds(org_sim_dict, './logs/bid_test_ds.txt', './logs/raw_bid_test_ds.txt')
         # 生成新寒武纪需要的标签文件
         WxsDsm.generate_cambricon_labels(sim_org_dict)
     
