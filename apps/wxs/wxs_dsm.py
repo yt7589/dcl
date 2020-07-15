@@ -654,7 +654,7 @@ class WxsDsm(object):
             for line in fd:
                 line = line.strip()
                 arrs0 = line.split('*')
-                bmy_id = int(arrs0[1]) + 1
+                bmy_id = int(arrs0[1])
                 bmy_set.add(bmy_id)
         print('共有{0}个年款！'.format(len(bmy_set)))
         lst = list(bmy_set)
