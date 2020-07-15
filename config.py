@@ -100,10 +100,10 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'label'])
             '''
-            self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_train_ds.txt'),\
+            self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_train_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'label'])
+                                           names=['ImageName', 'label', 'brand_label'])
             print('train_anno: {0};'.format(self.train_anno))
 
         if 'val' in get_list:
