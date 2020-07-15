@@ -104,7 +104,6 @@ class LoadConfig(object):
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'label', 'brand_label'])
-            print('train_anno: {0};'.format(self.train_anno))
 
         if 'val' in get_list:
             '''
