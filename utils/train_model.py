@@ -74,12 +74,12 @@ def train(Config,
             loss = 0
             model.train(True)
             if Config.use_backbone:
-                inputs, labels, img_names = data
+                inputs, labels, img_names, brand_labels = data
                 inputs = Variable(inputs.cuda())
                 labels = Variable(torch.from_numpy(np.array(labels)).cuda())
 
             if Config.use_dcl:
-                inputs, labels, labels_swap, swap_law, img_names = data
+                inputs, labels, labels_swap, swap_law, img_names, brand_labels = data
                 org_labels = labels
                 inputs = Variable(inputs.cuda())
                 labels = Variable(torch.from_numpy(np.array(labels)).cuda())
