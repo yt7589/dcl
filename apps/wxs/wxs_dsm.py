@@ -768,6 +768,10 @@ class WxsDsm(object):
     def exp001():
         #WxsDsm.get_simplified_bmys()
         #WxsDsm.get_fgvc_id_brand_dict()
+        pass
+
+    @staticmethod
+    def convert_to_brand_ds_main():
         brand_num = WxsDsm.convert_to_brand_ds('./logs/bid_train_ds.txt', 
                     './logs/bid_brand_train_ds.txt', 
                     is_create_brands_dict=True)
