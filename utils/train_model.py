@@ -94,9 +94,13 @@ def train(Config,
                 outputs = model(inputs, None)
 
             if Config.use_focal_loss:
-                ce_loss = get_focal_loss(outputs[0], labels)
+                ce_loss_bmy = get_focal_loss(outputs[0], labels)
+                ce_loss_brand = get_focal_loss(outputs[-1], brand_labels)
             else:
-                ce_loss = get_ce_loss(outputs[0], labels)
+                ce_loss_bmy = get_ce_loss(outputs[0], labels)
+                ce_loss_brand = get_ce_loss(outputs[-1], brand_labels)
+            print('ce_loss_bmy: {0}; ce_loss_brand: {1};'.format(ce_loss_bmy.shape, ce_loss_brand.shape))
+            ce_loss = ce_loss_bmy + ce_loss_brand
 
             if Config.use_Asoftmax:
                 fetch_batch = labels.size(0)
