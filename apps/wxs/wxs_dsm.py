@@ -384,6 +384,7 @@ class WxsDsm(object):
         随机则取10张作为测试数据集，其余作为训练数据集
         '''
         data = list(range(len(samples)))
+        random.shuffle(data)
         test_idxs = data[:10]
         print('测试数据集：')
         for idx in test_idxs:
@@ -403,6 +404,7 @@ class WxsDsm(object):
         随机则取10张作为测试数据集，其余作为训练数据集
         '''
         data = list(range(len(samples)))
+        random.shuffle(data)
         test_idxs = data[:10]
         print('测试数据集：')
         for idx in test_idxs:
@@ -422,6 +424,7 @@ class WxsDsm(object):
         随机取10张作为测试数据集，取全部图片作为训练数据集
         '''
         data = list(range(len(samples)))
+        random.shuffle(data)
         test_idxs = data[:10]
         print('测试数据集：')
         for idx in test_idxs:
@@ -437,13 +440,15 @@ class WxsDsm(object):
 
     @staticmethod
     def process_lt_10_samples(samples, train_fd, test_fd):
-        test_idxs = list(range(len(samples)))
+        data = list(range(len(samples)))
+        random.shuffle(data)
+        test_idxs = data
         print('测试数据集：')
         for idx in test_idxs:
             print('@4 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
             #CDataset.add_dataset_sample(1, samples[idx]['sample_id'], 3)
             test_fd.write('{0}*{1}\n'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
-        train_idxs = test_idxs
+        train_idxs = data
         print('训练数据集：')
         for idx in train_idxs:
             print('#4 {0}*{1};'.format(samples[idx]['img_file'], int(samples[idx]['bmy_id'])))
