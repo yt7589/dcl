@@ -662,6 +662,7 @@ class WxsDsm(object):
         for idx, bmy_id in enumerate(lst):
             sim_org_dict[idx] = bmy_id
             org_sim_dict[bmy_id] = idx
+            print('idx={0}:{1};'.format(idx, bmy_id))
         # 生成新的训练数据集
         WxsDsm.simplify_bid_ds(org_sim_dict, './logs/bid_train_ds.txt', './logs/raw_bid_train_ds.txt')
         # 生成新的测试数据集
