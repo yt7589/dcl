@@ -746,7 +746,7 @@ class WxsDsm(object):
         return fgvc_id_brand_dict
 
     @staticmethod
-    def convert_to_brand_ds(bmy_ds_file, brand_ds_file, mode=0):
+    def convert_to_brand_ds(bmy_ds_file, brand_ds_file, is_create_brands_dict=False):
         '''
         将年款数据集转换为品牌数据集
         参数：
@@ -774,8 +774,8 @@ class WxsDsm(object):
                         brand_name_brand_id_dict[brand_name] = idx
                         idx += 1
                     brand_id = brand_name_brand_id_dict[brand_name]
-                    bfd.write('{0}*{1}\n'.format(img_file, brand_id))
-        if 1 == mode:
+                    bfd.write('{0}*{1}*{2}\n'.format(img_file, bmy_id-1, brand_id))
+        if is_create_brands_dict:
             with open('./logs/bid_brands_dict.txt', 'w+', encoding='utf-8') as fd:
                 for k, v in brand_id_brand_name_dict.items():
                     fd.write('{0}:{1}\n'.format(k, v))
@@ -785,5 +785,10 @@ class WxsDsm(object):
     def exp001():
         #WxsDsm.get_simplified_bmys()
         #WxsDsm.get_fgvc_id_brand_dict()
-        brand_num = WxsDsm.convert_to_brand_ds('./logs/bid_test_ds.txt', './logs/bid_brand_test_ds.txt', mode=1)
+        brand_num = WxsDsm.convert_to_brand_ds('./logs/bid_train_ds.txt', 
+                    './logs/bid_brand_train_ds.txt', 
+                    is_create_brands_dict=True)
+        brand_num = WxsDsm.convert_to_brand_ds('./logs/bid_test_ds.txt', 
+                    './logs/bid_brand_test_ds.txt', 
+                    is_create_brands_dict=False)
         print('品牌种类：{0};'.format(brand_num))
