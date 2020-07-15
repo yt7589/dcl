@@ -681,7 +681,7 @@ class WxsDsm(object):
                 for line in org_ds_fd:
                     line = line.strip()
                     arrs0 = line.split('*')
-                    org_bmy_id = int(arrs0[1]) + 1
+                    org_bmy_id = int(arrs0[1])
                     img_file = arrs0[0]
                     bmy_id = org_sim_dict[org_bmy_id]
                     new_ds_fd.write('{0}*{1}\n'.format(img_file, bmy_id))
@@ -701,12 +701,6 @@ class WxsDsm(object):
                 brand_name = arrs0[0]
                 model_name = arrs0[1]
                 year_name = arrs0[2]
-                print('{0},{1},{2},{3},{4},{5}'.format(
-                    brand_name, model_name, year_name,
-                    bmy_vo['brand_code'],
-                    bmy_vo['model_code'],
-                    bmy_vo['bmy_code']
-                ))
                 fd.write('{0},{1},{2},{3},{4},{5}\n'.format(
                     brand_name, model_name, year_name,
                     bmy_vo['brand_code'],
