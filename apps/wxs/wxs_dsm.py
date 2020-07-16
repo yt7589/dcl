@@ -816,8 +816,47 @@ class WxsDsm(object):
         for k, v in bmy_id_img_num_dict.items():
             lst.append((k, v))
         lst.sort(key=lambda x:x[1], reverse=False)
+        let_5 = 0
+        bmy_5 = []
+        let_10 = 0
+        bmy_10 = []
+        let_100 = 0
+        bmy_100 = []
+        let_1000 = 0
+        bt_1000 = 0
         for item in lst:
             print('@ {0}: {1};'.format(item[0], item[1]))
+            if item[1]<=5:
+                let_5 += 1
+                bmy_5.append(item[0])
+            elif 5<item[1]<=10:
+                let_10 += 1
+                bmy_10.append(item[0])
+            elif 10<item[1]<=100:
+                let_100 += 1
+                bmy_100.append(item[0])
+            elif 100<item<=1000:
+                let_1000 += 1
+            else:
+                bt_1000 += 1
+        bmy_img_let_5_file = './logs/bmy_img_let_5.txt'
+        print('共有{0}个年款小于5张图片；见文件：{1};'.format(let_5, bmy_img_let_5_file))
+        WxsDsm.write_list_to_file(bmy_img_let_5_file, bmy_5)
+        bmy_img_let_10_file = './logs/bmy_img_let_10.txt'
+        print('共有{0}个年款小于10张图片；见文件：{1}'.format(let_10, bmy_img_let_10_file))
+        WxsDsm.write_list_to_file(bmy_img_let_10_file, let_10)
+        bmy_img_let_100_file = './logs/bmy_img_let_100.txt'
+        print('共有{0}个年款小于100张图片；见文件：{1}'.format(let_100, bmy_img_let_100_file))
+        WxsDsm.write_list_to_file(bmy_img_let_100_file, let_100)
+        print('共有{0}个年款小于1000张图片;'.format(let_1000))
+        print('共有{0}个年款大于1000张图片;'.format(bt_1000))
+
+
+    @staticmethod
+    def write_list_to_file(filename, lst):
+        with open(filename, 'w+', encoding='utf-8') as wfd:
+            for item in lst:
+                wfd.write('{0}\n'.format(item))
         
     @staticmethod
     def exp001():
