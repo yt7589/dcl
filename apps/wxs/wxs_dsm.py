@@ -765,12 +765,6 @@ class WxsDsm(object):
         return len(brand_set)
 
     @staticmethod
-    def exp001():
-        #WxsDsm.get_simplified_bmys()
-        #WxsDsm.get_fgvc_id_brand_dict()
-        pass
-
-    @staticmethod
     def convert_to_brand_ds_main():
         brand_num = WxsDsm.convert_to_brand_ds('./logs/bid_train_ds.txt', 
                     './logs/bid_brand_train_ds.txt', 
@@ -779,3 +773,31 @@ class WxsDsm(object):
                     './logs/bid_brand_test_ds.txt', 
                     is_create_brands_dict=False)
         print('品牌种类：{0};'.format(brand_num))
+
+    @staticmethod
+    def get_brand_bmy_num_from_ds():
+        '''
+        从训练数据集和测试数据集中求出品牌和年款数量
+        '''
+        bmy_set = set()
+        brand_set = set()
+        with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds.txt', 'r', encoding='utf-8') as rfd:
+            for line in rfd:
+                line = line.strip()
+                arrs0 = line.split('*')
+                bmy_id = int(arrs0[1])
+                bmy_set.add(bmy_id)
+                brand_id = int(arrs0[2])
+                brand_set.add(brand_id)
+        print('品牌数量：{0};'.format(len(brand_set)))
+        for brand in brand_set:
+            print('### {0};'.format(brand))
+        print('年款数量：{0};'.format(len(bmy_set)))
+        for bmy in bmy_set:
+            print('@@@ {0};'.format(bmy))
+        
+    @staticmethod
+    def exp001():
+        #WxsDsm.get_simplified_bmys()
+        #WxsDsm.get_fgvc_id_brand_dict()
+        WxsDsm.get_brand_bmy_num_from_ds()
