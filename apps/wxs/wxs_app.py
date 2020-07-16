@@ -16,8 +16,8 @@ class WxsApp(object):
             return
         #WxsDsm.initialize_db()
         #WxsDsm.generate_samples()
-        WxsDsm.generate_dataset()
-        #WxsDsm.get_simplified_bmys()
+        #WxsDsm.generate_dataset()
+        WxsDsm.get_simplified_bmys()
         #WxsDsm.convert_to_brand_ds_main()
         #WxsDsm.find_bad_images()
         #WxsDsm.report_current_status()
