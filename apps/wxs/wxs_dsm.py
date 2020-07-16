@@ -835,7 +835,7 @@ class WxsDsm(object):
             elif 10<item[1]<=100:
                 let_100 += 1
                 bmy_100.append(item[0])
-            elif 100<item<=1000:
+            elif 100<item[1]<=1000:
                 let_1000 += 1
             else:
                 bt_1000 += 1
