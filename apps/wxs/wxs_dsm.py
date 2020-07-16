@@ -802,6 +802,7 @@ class WxsDsm(object):
         由samples.txt文件中，求出每个年款的图片数，并按图片数由
         少到多排序，并统计出不足100张图片的年款数
         '''
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         bmy_id_img_num_dict = {}
         with open('./logs/samples.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
@@ -825,7 +826,7 @@ class WxsDsm(object):
         let_1000 = 0
         bt_1000 = 0
         for item in lst:
-            print('@ {0}: {1};'.format(item[0], item[1]))
+            print('@ {0}[{1}]: {2};'.format(bmy_id_bmy_name_dict[item[0]], item[0], item[1]))
             if item[1]<=5:
                 let_5 += 1
                 bmy_5.append(item[0])
@@ -841,20 +842,19 @@ class WxsDsm(object):
                 bt_1000 += 1
         bmy_img_let_5_file = './logs/bmy_img_let_5.txt'
         print('共有{0}个年款小于5张图片；见文件：{1};'.format(let_5, bmy_img_let_5_file))
-        WxsDsm.write_list_to_file(bmy_img_let_5_file, bmy_5)
+        WxsDsm.write_list_to_file(bmy_id_bmy_name_dict, bmy_img_let_5_file, bmy_5)
         bmy_img_let_10_file = './logs/bmy_img_let_10.txt'
         print('共有{0}个年款小于10张图片；见文件：{1}'.format(let_10, bmy_img_let_10_file))
-        WxsDsm.write_list_to_file(bmy_img_let_10_file, bmy_10)
+        WxsDsm.write_list_to_file(bmy_id_bmy_name_dict, bmy_img_let_10_file, bmy_10)
         bmy_img_let_100_file = './logs/bmy_img_let_100.txt'
         print('共有{0}个年款小于100张图片；见文件：{1}'.format(let_100, bmy_img_let_100_file))
-        WxsDsm.write_list_to_file(bmy_img_let_100_file, bmy_100)
+        WxsDsm.write_list_to_file(bmy_id_bmy_name_dict, bmy_img_let_100_file, bmy_100)
         print('共有{0}个年款小于1000张图片;'.format(let_1000))
         print('共有{0}个年款大于1000张图片;'.format(bt_1000))
 
 
     @staticmethod
-    def write_list_to_file(filename, lst):
-        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
+    def write_list_to_file(bmy_id_bmy_name_dict, filename, lst):
         with open(filename, 'w+', encoding='utf-8') as wfd:
             for item in lst:
                 bmy_name = bmy_id_bmy_name_dict[int(item)]
