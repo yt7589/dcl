@@ -795,9 +795,17 @@ class WxsDsm(object):
         print('年款数量：{0};'.format(len(bmy_set)))
         for bmy in bmy_set:
             print('@@@ {0};'.format(bmy))
+
+    @staticmethod
+    def get_bmy_id_img_num():
+        '''
+        由samples.txt文件中，求出每个年款的图片数，并按图片数由
+        少到多排序，并统计出不足100张图片的年款数
+        '''
+        print('求年款图片数')
         
     @staticmethod
     def exp001():
         #WxsDsm.get_simplified_bmys()
         #WxsDsm.get_fgvc_id_brand_dict()
-        WxsDsm.get_brand_bmy_num_from_ds()
+        WxsDsm.get_bmy_id_img_num()
