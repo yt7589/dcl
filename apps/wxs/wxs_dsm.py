@@ -815,6 +815,7 @@ class WxsDsm(object):
         lst = []
         for k, v in bmy_id_img_num_dict.items():
             lst.append((k, v))
+        lst.sort(key=lambda x:x[1], reverse=False)
         for item in lst:
             print('@ {0}: {1};'.format(item[0], item[1]))
         
