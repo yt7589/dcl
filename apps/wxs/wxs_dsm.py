@@ -854,9 +854,11 @@ class WxsDsm(object):
 
     @staticmethod
     def write_list_to_file(filename, lst):
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         with open(filename, 'w+', encoding='utf-8') as wfd:
             for item in lst:
-                wfd.write('{0}\n'.format(item))
+                bmy_name = bmy_id_bmy_name_dict[int(item)]
+                wfd.write('{0}: {1}\n'.format(item, bmy_name))
         
     @staticmethod
     def exp001():
