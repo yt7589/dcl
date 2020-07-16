@@ -812,8 +812,11 @@ class WxsDsm(object):
                     bmy_id_img_num_dict[bmy_id] = 1
                 else:
                     bmy_id_img_num_dict[bmy_id] += 1
+        lst = []
         for k, v in bmy_id_img_num_dict.items():
-            print('# {0}: {1};'.format(k, v))
+            lst.append((k, v))
+        for item in lst:
+            print('@ {0}: {1};'.format(item[0], item[1]))
         
     @staticmethod
     def exp001():
