@@ -844,10 +844,10 @@ class WxsDsm(object):
         WxsDsm.write_list_to_file(bmy_img_let_5_file, bmy_5)
         bmy_img_let_10_file = './logs/bmy_img_let_10.txt'
         print('共有{0}个年款小于10张图片；见文件：{1}'.format(let_10, bmy_img_let_10_file))
-        WxsDsm.write_list_to_file(bmy_img_let_10_file, let_10)
+        WxsDsm.write_list_to_file(bmy_img_let_10_file, bmy_10)
         bmy_img_let_100_file = './logs/bmy_img_let_100.txt'
         print('共有{0}个年款小于100张图片；见文件：{1}'.format(let_100, bmy_img_let_100_file))
-        WxsDsm.write_list_to_file(bmy_img_let_100_file, let_100)
+        WxsDsm.write_list_to_file(bmy_img_let_100_file, bmy_100)
         print('共有{0}个年款小于1000张图片;'.format(let_1000))
         print('共有{0}个年款大于1000张图片;'.format(bt_1000))
 
