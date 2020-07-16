@@ -802,7 +802,18 @@ class WxsDsm(object):
         由samples.txt文件中，求出每个年款的图片数，并按图片数由
         少到多排序，并统计出不足100张图片的年款数
         '''
-        print('求年款图片数')
+        bmy_id_img_num_dict = {}
+        with open('./logs/samples.txt', 'r', encoding='utf-8') as sfd:
+            for line in sfd:
+                line = line.strip()
+                arrs0 = line.split('*')
+                bmy_id = int(arrs0[-1])+1
+                if bmy_id not in bmy_id_img_num_dict:
+                    bmy_id_img_num_dict[bmy_id] = 1
+                else:
+                    bmy_id_img_num_dict[bmy_id] += 1
+        for k, v in bmy_id_img_num_dict.items():
+            print('# {0}: {1};'.format(k, v))
         
     @staticmethod
     def exp001():
