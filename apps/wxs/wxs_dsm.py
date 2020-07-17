@@ -547,29 +547,28 @@ class WxsDsm(object):
         bad_files = []
         base_path = Path('/media/zjkj/work/guochanchezuowan-all/{0}'.format(sub_dir))
         num = 0
-        for num_obj in base_path.iterdir():
-            for vph_obj in num_obj.iterdir():
-                print('current dir: {0};'.format(str(vph_obj)))
-                is_break = False
-                for item_obj in vph_obj.iterdir():
-                    item_name = str(item_obj)
-                    if not item_obj.is_dir() and item_name.endswith(
-                                    ('jpg','png','jpeg','bmp')): # 忽略其下目录
-                        try:
-                            img_path = str(item_obj)
-                            with open(img_path, 'rb') as f:
-                                with Image.open(f) as img:
-                                    img.convert('RGB')
-                            num += 1
-                            if num % 100 == 0:
-                                print('已经处理图片：{0};'.format(num))
-                        except OSError as ex:
-                            print('{0}: {1};'.format(img_path, ex))
-                            bad_files.append(img_path)
-                            is_break = True
-                            break
-                if is_break:
-                    break
+        for vph_obj in base_path.iterdir():
+            print('current dir: {0};'.format(str(vph_obj)))
+            is_break = False
+            for item_obj in vph_obj.iterdir():
+                item_name = str(item_obj)
+                if not item_obj.is_dir() and item_name.endswith(
+                                ('jpg','png','jpeg','bmp')): # 忽略其下目录
+                    img_path = str(item_obj)
+                    try:
+                        with open(img_path, 'rb') as f:
+                            with Image.open(f) as img:
+                                img.convert('RGB')
+                        num += 1
+                        if num % 100 == 0:
+                            print('已经处理图片：{0};'.format(num))
+                    except OSError as ex:
+                        print('{0}: {1};'.format(img_path, ex))
+                        bad_files.append(img_path)
+                        is_break = True
+                        break
+            if is_break:
+                break
         with open('./logs/bad_images.txt', 'w+', encoding='utf-8') as bfd:
             for img in bad_files:
                 bfd.write('{0}\n'.format(img))
