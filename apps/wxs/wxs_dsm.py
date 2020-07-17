@@ -540,9 +540,12 @@ class WxsDsm(object):
             print('### {0};'.format(bn))
 
     @staticmethod
-    def find_bad_images():
+    def find_bad_images(sub_dir):
+        '''
+        检查某个子目录下图片是否有破损情况
+        '''
         bad_files = []
-        base_path = Path('/media/zjkj/work/guochanchezuowan-all')
+        base_path = Path('/media/zjkj/work/guochanchezuowan-all/{0}'.format(sub_dir))
         num = 0
         for num_obj in base_path.iterdir():
             for vph_obj in num_obj.iterdir():
@@ -864,4 +867,5 @@ class WxsDsm(object):
     def exp001():
         #WxsDsm.get_simplified_bmys()
         #WxsDsm.get_fgvc_id_brand_dict()
-        WxsDsm.get_bmy_id_img_num()
+        #WxsDsm.get_bmy_id_img_num()
+        WxsDsm.find_bad_images('37')
