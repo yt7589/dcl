@@ -855,10 +855,19 @@ class WxsDsm(object):
             for item in lst:
                 bmy_name = bmy_id_bmy_name_dict[int(item)]
                 wfd.write('{0}: {1}\n'.format(item, bmy_name))
+
+    @staticmethod
+    def get_current_state():
+        print('获取所里标书信息...')
+        bid_brand_set, bid_model_set, bid_bmy_set, bid_vin_set, _, _, _, _ = WxsDsm._get_bid_info()
+        print('标书要求：车辆识别码：{0}个；品牌：{1}个；年款：{2}个；'.format(
+            len(bid_vin_set), len(bid_brand_set), len(bid_bmy_set)
+        ))
         
     @staticmethod
     def exp001():
         #WxsDsm.get_simplified_bmys()
         #WxsDsm.get_fgvc_id_brand_dict()
         #WxsDsm.get_bmy_id_img_num()
-        WxsDsm.find_bad_images('37')
+        #WxsDsm.find_bad_images('37')
+        WxsDsm.get_current_state()
