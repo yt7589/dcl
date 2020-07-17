@@ -82,7 +82,7 @@ class MainModel(nn.Module):
         x = torch.flatten(x, start_dim=1, end_dim=-1)
         out = []
         out.append(self.classifier(x))
-        y_brand = self.brand_clfr(x)
+        #y_brand = self.brand_clfr(x)
 
         if self.use_dcl:
             out.append(self.classifier_swap(x))
@@ -97,6 +97,6 @@ class MainModel(nn.Module):
                 last_x = self.avgpool(last_x)
                 last_x = last_x.view(last_x.size(0), -1)
                 out.append(self.Aclassifier(last_x))
-        out.append(y_brand)
+        #out.append(y_brand)
         return out
 

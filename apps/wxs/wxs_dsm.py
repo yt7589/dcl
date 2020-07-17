@@ -548,8 +548,6 @@ class WxsDsm(object):
         base_path = Path('/media/zjkj/work/guochanchezuowan-all/{0}'.format(sub_dir))
         num = 0
         for vph_obj in base_path.iterdir():
-            print('current dir: {0};'.format(str(vph_obj)))
-            is_break = False
             for item_obj in vph_obj.iterdir():
                 item_name = str(item_obj)
                 if not item_obj.is_dir() and item_name.endswith(
@@ -565,10 +563,6 @@ class WxsDsm(object):
                     except OSError as ex:
                         print('{0}: {1};'.format(img_path, ex))
                         bad_files.append(img_path)
-                        is_break = True
-                        break
-            if is_break:
-                break
         with open('./logs/bad_images.txt', 'w+', encoding='utf-8') as bfd:
             for img in bad_files:
                 bfd.write('{0}\n'.format(img))
