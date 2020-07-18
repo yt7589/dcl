@@ -897,8 +897,8 @@ class WxsDsm(object):
         num = 0
         num_new_vc = 0
         num_new_bmy = 0
-        new_bmy_set = {}
-        new_brand_set = {}
+        new_bmy_set = set()
+        new_brand_set = set()
         for vc in base_path.iterdir():
             vc_str = str(vc)
             arrs0 = vc_str.split('/')
