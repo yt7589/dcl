@@ -898,13 +898,14 @@ class WxsDsm(object):
         num_new_vc = 0
         num_new_bmy = 0
         for vc in base_path.iterdir():
-            print('vin_code: {0};'.format(vc))
             vc_str = str(vc)
             arrs0 = vc_str.split('/')
             vin_code = arrs0[-1]
+            print('vin_code: {0};'.format(vin_code))
             if vin_code not in vin_code_bmy_id_dict:
                 vin_codes.append(vin_code)
                 num_new_vc += 1
+                print('   add case 1: {0};'.format(vin_code))
             else:
                 bmy_id = vin_code_bmy_id_dict[vin_code]
                 bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
@@ -912,6 +913,7 @@ class WxsDsm(object):
                 if bmy_name not in curr_bmy_set:
                     vin_codes.append(vin_code)
                     num_new_bmy += 1
+                    print('   add case 2: {0};'.format(vin_code))
             num += 1
             if num > 10:
                 break
