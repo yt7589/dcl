@@ -900,7 +900,7 @@ class WxsDsm(object):
             else:
                 task = tbp_lst[idx*173:(idx+1)*173]
             for ti in task:
-                src_path = Path('/media/zjkj/work/guochanche_2/{0}'.format(ti))
+                src_path = Path('/media/zjkj/work/guochanche_2n/{0}'.format(ti))
                 dst_folder = '/media/zjkj/work/abc/g2n/task{0}/{1}'.format(idx+1, ti)
                 os.mkdir(dst_folder)
                 for fi in src_path.iterdir():
