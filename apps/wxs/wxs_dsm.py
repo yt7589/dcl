@@ -890,10 +890,11 @@ class WxsDsm(object):
         '''
         num = 0
         for dmb in delta_bmy:
+            print('dmb: {0};'.format(dmb))
             for dmbi in dmb:
                 to_be_processed_vins.add(dmbi)
                 num += 1
-                print('添加：{0}; 个数：{1};'.format(dmbi, num))
+                print('      添加：{0}; 个数：{1};'.format(dmbi, num))
         print('需要添加的车辆识别码数量为{0};'.format(len(to_be_processed_vins)))
 
     @staticmethod
