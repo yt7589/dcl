@@ -895,18 +895,23 @@ class WxsDsm(object):
         base_path = Path('//media/zjkj/work/guochanche_2n')
         vin_codes = []
         num = 0
+        num_new_vc = 0
+        num_new_bmy = 0
         for vc in base_path.iterdir():
             if vc not in vin_code_bmy_id_dict:
                 vin_codes.append(vc)
+                num_new_vc += 1
             else:
                 bmy_id = vin_code_bmy_id_dict[vc]
                 bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
                 bmy_name = bmy_vo['bmy_name']
                 if bmy_name not in curr_bmy_set:
                     vin_codes.append(vc)
+                    num_new_bmy += 1
             num += 1
             if num % 100 == 0:
                 print('已处理：{0}个...'.format(num))
+        print('新车辆识别码{0}个，新年款{1}个;'.format(num_new_vc, num_new_bmy))
         return vin_codes
         
     @staticmethod
@@ -919,6 +924,4 @@ class WxsDsm(object):
         #WxsDsm.get_current_state()
         curr_brand_set, curr_bmy_set = WxsDsm.get_current_info()
         vin_codes = WxsDsm.get_g2n_vin_codes(curr_bmy_set)
-        for vc in vin_codes:
-            print('##### {0};'.format(vc))
         print('缺失{0}个：'.format(len(vin_codes)))
