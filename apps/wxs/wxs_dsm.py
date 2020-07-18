@@ -871,7 +871,7 @@ class WxsDsm(object):
             print('# {0};'.format(brand))
         print('缺失年款数量为{0};'.format(len(delta_bmy)))
         #
-        new_brand_set, new_bmy_set, brand_vins_dict, bmy_vins_dict \
+        unknown_vin_codes, new_brand_set, new_bmy_set, brand_vins_dict, bmy_vins_dict \
                     = WxsDsm.get_g2n_vin_codes(
                         bid_brand_set, bid_bmy_set, 
                         curr_brand_set, curr_bmy_set
@@ -890,6 +890,15 @@ class WxsDsm(object):
             for mvc in bmy_vins_dict[dmi]:
                 to_be_processed_vins.add(mvc)
         print('需要添加的车辆识别码数量为{0};'.format(len(to_be_processed_vins)))
+        with open('./logs/vins_to_be_processed.txt', 'w+', encoding='utf-8') as vfd:
+            for vcv in to_be_processed_vins:
+                vfd.write('{0}\n'.format(vcv))
+        with open('./logs/new_added_brand.txt', 'w+', encoding='utf-8') as bfd:
+            for bn in delta_brand:
+                bfd.write('{0}\n'.format(bfd))
+        with open('./logs/unknown_vins_20200718.txt', 'w+', encoding='utf-8') as ufd:
+            for uv in unknown_vin_codes:
+                ufd.write('{0}\n'.format(uv))
 
     @staticmethod
     def get_current_info():
@@ -957,7 +966,7 @@ class WxsDsm(object):
                 print('已处理：{0}个...'.format(num))
         print('v1 新车辆识别码{0}个，新年款{1}个;'.format(num_new_vc, num_new_bmy))
         print('v1 增加的品牌数{0}个；新增加的年款数：{1}个;'.format(len(new_brand_set), len(new_bmy_set)))
-        return new_brand_set, new_bmy_set, brand_vins_dict, bmy_vins_dict
+        return unknown_vin_codes, new_brand_set, new_bmy_set, brand_vins_dict, bmy_vins_dict
         
     @staticmethod
     def exp001():
