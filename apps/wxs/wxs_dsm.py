@@ -883,18 +883,12 @@ class WxsDsm(object):
         delta_bmy = delta_bmy0 & bid_bmy_set
         print('需处理年款数量为{0}个;'.format(len(delta_bmy)))
         to_be_processed_vins = set()
-        '''
-        for dbb in delta_brand:
-            for dbbi in dbb:
-                to_be_processed_vins.add(dbbi)
-        '''
-        num = 0
+        for dbk in brand_vins_dict.keys():
+            for dbi in brand_vins_dict[dbk]:
+                to_be_processed_vins.add(dbi)
         for dmk in bmy_vins_dict.keys():
-            print('dmb: {0};'.format(dmk))
             for dmi in bmy_vins_dict[dmk]:
                 to_be_processed_vins.add(dmi)
-                num += 1
-                print('      添加：{0}; 个数：{1};'.format(dmi, num))
         print('需要添加的车辆识别码数量为{0};'.format(len(to_be_processed_vins)))
 
     @staticmethod
