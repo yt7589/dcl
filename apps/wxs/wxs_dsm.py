@@ -921,4 +921,4 @@ class WxsDsm(object):
         vin_codes = WxsDsm.get_g2n_vin_codes(curr_bmy_set)
         for vc in vin_codes:
             print('##### {0};'.format(vc))
-        print('缺失{0}个：')
+        print('缺失{0}个：'.format(len(vin_codes)))
