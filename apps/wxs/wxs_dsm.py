@@ -893,16 +893,19 @@ class WxsDsm(object):
         tbp_lst = list(to_be_processed_vins)
         tbp_lst.sort()
         for idx in range(9):
+            print('idx={0};'.format(idx))
             dst_base_folder = '/media/zjkj/work/abc/g2n/task{0}'.format(idx+1)
             os.mkdir(dst_base_folder)
             if (idx+1)*173 > len(tbp_lst):
                 task = tbp_lst[idx*173:]
             else:
                 task = tbp_lst[idx*173:(idx+1)*173]
+            print('task.len={0};'.format(len(task)))
             for ti in task:
                 src_path = Path('/media/zjkj/work/guochanche_2n/{0}'.format(ti))
                 dst_folder = '/media/zjkj/work/abc/g2n/task{0}/{1}'.format(idx+1, ti)
                 os.mkdir(dst_folder)
+                print('dst_folder:{0};'.format(dst_folder))
                 for fi in src_path.iterdir():
                     fi_str = str(fi)
                     arrs0 = fi_str.split('/')
