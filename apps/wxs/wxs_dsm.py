@@ -889,12 +889,12 @@ class WxsDsm(object):
                 to_be_processed_vins.add(dbbi)
         '''
         num = 0
-        for dmb in delta_bmy:
-            print('dmb: {0};'.format(dmb))
-            for dmbi in dmb:
-                to_be_processed_vins.add(dmbi)
+        for dmk in bmy_vins_dict.keys():
+            print('dmb: {0};'.format(dmk))
+            for dmi in bmy_vins_dict[dmk]:
+                to_be_processed_vins.add(dmi)
                 num += 1
-                print('      添加：{0}; 个数：{1};'.format(dmbi, num))
+                print('      添加：{0}; 个数：{1};'.format(dmi, num))
         print('需要添加的车辆识别码数量为{0};'.format(len(to_be_processed_vins)))
 
     @staticmethod
