@@ -915,8 +915,6 @@ class WxsDsm(object):
                     num_new_bmy += 1
                     print('   add case 2: {0};'.format(vin_code))
             num += 1
-            if num > 10:
-                break
             if num % 100 == 0:
                 print('已处理：{0}个...'.format(num))
         print('新车辆识别码{0}个，新年款{1}个;'.format(num_new_vc, num_new_bmy))
