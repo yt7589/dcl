@@ -880,7 +880,7 @@ class WxsDsm(object):
             for line in fd:
                 line = line.strip()
                 arrs0 = line.split('*')
-                bmy_id = int(arrs0[0]) + 1
+                bmy_id = int(arrs0[1]) + 1
                 bmy_name = bmy_id_bmy_name_dict[bmy_id]
                 bmy_set.add(bmy_name)
                 arrs1 = bmy_name.split('-')
