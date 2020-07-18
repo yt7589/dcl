@@ -889,13 +889,21 @@ class WxsDsm(object):
         return brand_set, bmy_set
 
     @staticmethod
-    def get_g2n_vin_codes():
+    def get_g2n_vin_codes(curr_bmy_set):
+        vin_code_bmy_id_dict = CBmy.get_vin_code_bmy_id_dict()
+        bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         base_path = Path('//media/zjkj/work/guochanche_2n')
         vin_codes = []
         for vc in base_path.iterdir():
-            print('# {0};'.format(vc))
-            vin_codes.append(vc)
-        print('共有{0}个车辆识别码;'.format(len(vin_codes)))
+            if vc not in vin_code_bmy_id_dict:
+                vin_codes.append(vc)
+            else:
+                bmy_id = vin_code_bmy_id_dict[vc]
+                bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
+                bmy_name = bmy_vo['bmy_name']
+                if bmy_name not in curr_bmy_set:
+                    vin_codes.append(vc)
+        return vin_codes
         
     @staticmethod
     def exp001():
@@ -905,4 +913,8 @@ class WxsDsm(object):
         #WxsDsm.find_bad_images('37')
 
         #WxsDsm.get_current_state()
-        WxsDsm.get_g2n_vin_codes()
+        curr_brand_set, curr_bmy_set = WxsDsm.get_current_info()
+        vin_codes = WxsDsm.get_g2n_vin_codes(curr_bmy_set)
+        print('缺失{0}个：')
+        for vc in vin_codes:
+            print('##### {0};'.format(vc))

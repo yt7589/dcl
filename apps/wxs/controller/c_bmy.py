@@ -119,5 +119,8 @@ class CBmy(object):
             }
         return bmy_id_bmy_vo_dict
 
+    @staticmethod
+    def get_vin_code_bmy_id_dict():
+        return MVin.get_vin_code_bmy_id_dict()
 
     
