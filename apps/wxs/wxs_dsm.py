@@ -863,6 +863,30 @@ class WxsDsm(object):
         print('标书要求：车辆识别码：{0}个；品牌：{1}个；年款：{2}个；'.format(
             len(bid_vin_set), len(bid_brand_set), len(bid_bmy_set)
         ))
+        curr_brand_set, curr_bmy_set = WxsDsm.get_current_info()
+        delta_brand = bid_brand_set - curr_brand_set
+        delta_bmy = bid_bmy_set - curr_bmy_set
+        print('缺失品牌数量为{0}个，分别为：'.format(len(delta_brand)))
+        for brand in delta_brand:
+            print('# {0};'.format(brand))
+        print('缺失年款数量为{0};'.format(len(delta_bmy)))
+
+    @staticmethod
+    def get_current_info():
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
+        brand_set = set()
+        bmy_set = set()
+        with open('./logs/samples.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line = line.strip()
+                arrs0 = line.split('*')
+                bmy_id = int(arrs0[0]) + 1
+                bmy_name = bmy_id_bmy_name_dict[bmy_id]
+                bmy_set.add(bmy_name)
+                arrs1 = bmy_name.split('-')
+                brand_name = arrs1[0]
+                brand_set.add(brand_name)
+        return brand_set, bmy_set
         
     @staticmethod
     def exp001():
