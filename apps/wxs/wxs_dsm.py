@@ -887,6 +887,15 @@ class WxsDsm(object):
                 brand_name = arrs1[0]
                 brand_set.add(brand_name)
         return brand_set, bmy_set
+
+    @staticmethod
+    def get_g2n_vin_codes():
+        base_path = Path('//media/zjkj/work/guochanche_2n')
+        vin_codes = []
+        for vc in base_path.iterdir():
+            print('# {0};'.format(vc))
+            vin_codes.append(vc)
+        print('共有{0}个车辆识别码;'.format(len(vin_codes)))
         
     @staticmethod
     def exp001():
@@ -894,4 +903,6 @@ class WxsDsm(object):
         #WxsDsm.get_fgvc_id_brand_dict()
         #WxsDsm.get_bmy_id_img_num()
         #WxsDsm.find_bad_images('37')
-        WxsDsm.get_current_state()
+
+        #WxsDsm.get_current_state()
+        WxsDsm.get_g2n_vin_codes()
