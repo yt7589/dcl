@@ -858,11 +858,11 @@ class WxsDsm(object):
 
     @staticmethod
     def get_current_state():
-        print('获取所里标书信息...')
         bid_brand_set, bid_model_set, bid_bmy_set, bid_vin_set, _, _, _, _ = WxsDsm._get_bid_info()
         print('标书要求：车辆识别码：{0}个；品牌：{1}个；年款：{2}个；'.format(
             len(bid_vin_set), len(bid_brand_set), len(bid_bmy_set)
         ))
+        # 统计当前情况
         curr_brand_set, curr_bmy_set = WxsDsm.get_current_info()
         delta_brand = bid_brand_set - curr_brand_set
         delta_bmy = bid_bmy_set - curr_bmy_set
@@ -870,6 +870,8 @@ class WxsDsm(object):
         for brand in delta_brand:
             print('# {0};'.format(brand))
         print('缺失年款数量为{0};'.format(len(delta_bmy)))
+        #
+        WxsDsm.get_g2n_vin_codes(bid_brand_set, bid_bmy_set, curr_brand_set, curr_bmy_set)
 
     @staticmethod
     def get_current_info():
@@ -889,7 +891,7 @@ class WxsDsm(object):
         return brand_set, bmy_set
 
     @staticmethod
-    def get_g2n_vin_codes(curr_bmy_set):
+    def get_g2n_vin_codes(bid_brand_set, bid_bmy_set, curr_brand_set, curr_bmy_set):
         vin_code_bmy_id_dict = CBmy.get_vin_code_bmy_id_dict()
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         base_path = Path('//media/zjkj/work/guochanche_2n')
@@ -923,8 +925,8 @@ class WxsDsm(object):
             num += 1
             if num % 100 == 0:
                 print('已处理：{0}个...'.format(num))
-        print('新车辆识别码{0}个，新年款{1}个;'.format(num_new_vc, num_new_bmy))
-        print('增加的品牌数{0}个；新增加的年款数：{1}个;'.format(len(new_brand_set), len(new_bmy_set)))
+        print('v1 新车辆识别码{0}个，新年款{1}个;'.format(num_new_vc, num_new_bmy))
+        print('v1 增加的品牌数{0}个；新增加的年款数：{1}个;'.format(len(new_brand_set), len(new_bmy_set)))
         return vin_codes
         
     @staticmethod
@@ -934,11 +936,4 @@ class WxsDsm(object):
         #WxsDsm.get_bmy_id_img_num()
         #WxsDsm.find_bad_images('37')
 
-        #WxsDsm.get_current_state()
-        curr_brand_set, curr_bmy_set = WxsDsm.get_current_info()
-        vin_codes = WxsDsm.get_g2n_vin_codes(curr_bmy_set)
-        '''
-        for vc in vin_codes:
-            print('### {0};'.format(vc))
-        '''
-        print('缺失{0}个：'.format(len(vin_codes)))
+        WxsDsm.get_current_state()
