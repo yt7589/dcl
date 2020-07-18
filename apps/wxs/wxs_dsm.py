@@ -895,7 +895,7 @@ class WxsDsm(object):
                 vfd.write('{0}\n'.format(vcv))
         with open('./logs/new_added_brand.txt', 'w+', encoding='utf-8') as bfd:
             for bn in delta_brand:
-                bfd.write('{0}\n'.format(bfd))
+                bfd.write('{0}\n'.format(bn))
         with open('./logs/unknown_vins_20200718.txt', 'w+', encoding='utf-8') as ufd:
             for uv in unknown_vin_codes:
                 ufd.write('{0}\n'.format(uv))
