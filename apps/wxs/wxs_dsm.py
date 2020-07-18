@@ -956,9 +956,8 @@ class WxsDsm(object):
                         brand_vins_dict[brand_name].append(vin_code)
                     #
                     if bmy_name not in bmy_vins_dict:
-                        bmy_vins_dict[bmy_name] = [vin_code]
-                    else:
-                        bmy_vins_dict[bmy_name].append(vin_code)
+                        bmy_vins_dict[bmy_name] = []
+                    bmy_vins_dict[bmy_name].append(vin_code)
             num += 1
             if num % 100 == 0:
                 print('已处理：{0}个...'.format(num))
