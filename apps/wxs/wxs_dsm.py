@@ -871,7 +871,17 @@ class WxsDsm(object):
             print('# {0};'.format(brand))
         print('缺失年款数量为{0};'.format(len(delta_bmy)))
         #
-        WxsDsm.get_g2n_vin_codes(bid_brand_set, bid_bmy_set, curr_brand_set, curr_bmy_set)
+        new_brand_set, new_bmy_set, brand_vins_dict, bmy_vins_dict \
+                    = WxsDsm.get_g2n_vin_codes(
+                        bid_brand_set, bid_bmy_set, 
+                        curr_brand_set, curr_bmy_set
+                    )
+        delta_brand0 = new_brand_set - curr_brand_set
+        delta_brand =  delta_brand0 & bid_brand_set
+        print('需处理品牌数量为{0}个;'.format(len(delta_brand)))
+        delta_bmy0 = new_bmy_set - curr_bmy_set
+        delta_bmy = delta_bmy0 & bid_bmy_set
+        print('需处理年款数量为{0}个;'.format(len(delta_bmy)))
 
     @staticmethod
     def get_current_info():
@@ -895,19 +905,22 @@ class WxsDsm(object):
         vin_code_bmy_id_dict = CBmy.get_vin_code_bmy_id_dict()
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         base_path = Path('//media/zjkj/work/guochanche_2n')
+        unknown_vin_codes = []
         vin_codes = []
         num = 0
         num_new_vc = 0
         num_new_bmy = 0
         new_bmy_set = set()
         new_brand_set = set()
+        brand_vins_dict = {}
+        bmy_vins_dict = {}
         for vc in base_path.iterdir():
             vc_str = str(vc)
             arrs0 = vc_str.split('/')
             vin_code = arrs0[-1]
-            print('vin_code: {0};'.format(vin_code))
             if vin_code not in vin_code_bmy_id_dict:
-                vin_codes.append(vin_code)
+                #vin_codes.append(vin_code)
+                unknown_vin_codes.append(vin_code)
                 num_new_vc += 1
                 print('   add case 1: {0};'.format(vin_code))
             else:
@@ -922,12 +935,22 @@ class WxsDsm(object):
                     new_brand_set.add(brand_name)
                     new_bmy_set.add(bmy_name)
                     print('   add case 2: {0};'.format(vin_code))
+                    #
+                    if brand_name not in brand_vins_dict:
+                        brand_vins_dict[brand_name] = [vin_code]
+                    else:
+                        brand_vins_dict[brand_name].append(vin_code)
+                    #
+                    if bmy_name not in bmy_vins_dict:
+                        bmy_vins_dict[bmy_name] = [vin_code]
+                    else:
+                        bmy_vins_dict[bmy_name].append(vin_code)
             num += 1
             if num % 100 == 0:
                 print('已处理：{0}个...'.format(num))
         print('v1 新车辆识别码{0}个，新年款{1}个;'.format(num_new_vc, num_new_bmy))
         print('v1 增加的品牌数{0}个；新增加的年款数：{1}个;'.format(len(new_brand_set), len(new_bmy_set)))
-        return vin_codes
+        return new_brand_set, new_bmy_set, brand_vins_dict, bmy_vins_dict
         
     @staticmethod
     def exp001():
