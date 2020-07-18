@@ -905,7 +905,7 @@ class WxsDsm(object):
                 if bmy_name not in curr_bmy_set:
                     vin_codes.append(vc)
             num += 1
-            if num % 100:
+            if num % 100 == 0:
                 print('已处理：{0}个...'.format(num))
         return vin_codes
         
