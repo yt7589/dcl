@@ -897,6 +897,8 @@ class WxsDsm(object):
         num = 0
         num_new_vc = 0
         num_new_bmy = 0
+        new_bmy_set = {}
+        new_brand_set = {}
         for vc in base_path.iterdir():
             vc_str = str(vc)
             arrs0 = vc_str.split('/')
@@ -913,11 +915,16 @@ class WxsDsm(object):
                 if bmy_name not in curr_bmy_set:
                     vin_codes.append(vin_code)
                     num_new_bmy += 1
+                    arrs2 = bmy_name.split('-')
+                    brand_name = arrs2[0]
+                    new_brand_set.add(brand_name)
+                    new_bmy_set.add(bmy_name)
                     print('   add case 2: {0};'.format(vin_code))
             num += 1
             if num % 100 == 0:
                 print('已处理：{0}个...'.format(num))
         print('新车辆识别码{0}个，新年款{1}个;'.format(num_new_vc, num_new_bmy))
+        print('增加的品牌数{0}个；新增加的年款数：{1}个;'.format(len(new_brand_set), len(new_bmy_set)))
         return vin_codes
         
     @staticmethod
