@@ -893,13 +893,21 @@ class WxsDsm(object):
         tbp_lst = list(to_be_processed_vins)
         tbp_lst.sort()
         for idx in range(9):
+            dst_base_folder = '/media/zjkj/work/abc/g2n/task{0}'.format(idx+1)
+            os.mkdir(dst_base_folder)
             if (idx+1)*173 > len(tbp_lst):
                 task = tbp_lst[idx*173:]
             else:
                 task = tbp_lst[idx*173:(idx+1)*173]
-            with open('./logs/task{0}.txt'.format(idx+1), 'w+', encoding='utf-8') as tfd:
-                for ti in task:
-                    tfd.write('{0}\n'.format(ti))
+            for ti in task:
+                src_path = Path('/media/zjkj/work/guochanche_2/{0}'.format(ti))
+                dst_folder = '/media/zjkj/work/abc/g2n/task{0}/{1}'.format(idx+1, ti)
+                os.mkdir(dst_folder)
+                for fi in src_path.iterdir():
+                    fi_str = str(fi)
+                    arrs0 = fi_str.split('/')
+                    filename = arrs0[-1]
+                    shutil.copy(fi_str, '{0}/{1}'.format(dst_folder, filename))
         with open('./logs/vins_to_be_processed.txt', 'w+', encoding='utf-8') as vfd:
             for vcv in to_be_processed_vins:
                 vfd.write('{0}\n'.format(vcv))
