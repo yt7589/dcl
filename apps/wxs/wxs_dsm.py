@@ -891,11 +891,6 @@ class WxsDsm(object):
     @staticmethod
     def get_g2n_vin_codes(curr_bmy_set):
         vin_code_bmy_id_dict = CBmy.get_vin_code_bmy_id_dict()
-        if 'AH5259GJB2L4B' in vin_code_bmy_id_dict:
-            print('ok')
-        else: 
-            print('error')
-        '''
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         base_path = Path('//media/zjkj/work/guochanche_2n')
         vin_codes = []
@@ -918,8 +913,6 @@ class WxsDsm(object):
                 print('已处理：{0}个...'.format(num))
         print('新车辆识别码{0}个，新年款{1}个;'.format(num_new_vc, num_new_bmy))
         return vin_codes
-        '''
-        return None
         
     @staticmethod
     def exp001():
@@ -934,5 +927,5 @@ class WxsDsm(object):
         '''
         for vc in vin_codes:
             print('### {0};'.format(vc))
-        print('缺失{0}个：'.format(len(vin_codes)))
         '''
+        print('缺失{0}个：'.format(len(vin_codes)))
