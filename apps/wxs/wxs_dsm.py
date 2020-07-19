@@ -890,6 +890,7 @@ class WxsDsm(object):
             for mvc in bmy_vins_dict[dmi]:
                 to_be_processed_vins.add(mvc)
         print('需要添加的车辆识别码数量为{0};'.format(len(to_be_processed_vins)))
+        '''
         tbp_lst = list(to_be_processed_vins)
         tbp_lst.sort()
         for idx in range(9):
@@ -911,6 +912,7 @@ class WxsDsm(object):
                     arrs0 = fi_str.split('/')
                     filename = arrs0[-1]
                     shutil.copy(fi_str, '{0}/{1}'.format(dst_folder, filename))
+        '''
         with open('./logs/vins_to_be_processed.txt', 'w+', encoding='utf-8') as vfd:
             for vcv in to_be_processed_vins:
                 vfd.write('{0}\n'.format(vcv))
