@@ -920,6 +920,20 @@ class WxsDsm(object):
         with open('./logs/unknown_vins_20200718.txt', 'w+', encoding='utf-8') as ufd:
             for uv in unknown_vin_codes:
                 ufd.write('{0}\n'.format(uv))
+        now_brand = curr_brand_set | delta_brand
+        now_lack_brand = bid_brand_set - now_brand
+        now_lack_brand_txt = './logs/now_lack_brand.txt'
+        print('现在缺少品牌数量为：{0}个；见{1};'.format(len(now_lack_brand), now_lack_brand_txt))
+        with open(now_lack_brand_txt, 'w+', encoding='utf-8') as fd1:
+            for nlb in now_lack_brand:
+                fd1.write('{0}\n'.format(nlb))
+        now_bmy = curr_bmy_set | delta_bmy
+        now_lack_bmy = bid_bmy_set - now_bmy
+        now_lack_bmy_txt = './logs/now_lack_bmy.txt'
+        print('现在缺少年款数量为：{0}个，见{1};'.format(len(now_lack_bmy), now_lack_bmy_txt))
+        with open(now_lack_bmy_txt, 'w+', encoding='utf-8') as fd2:
+            for nlm in now_lack_bmy:
+                fd2.write('{0}\n'.format(nlm))
 
     @staticmethod
     def get_current_info():
