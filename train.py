@@ -239,7 +239,7 @@ if __name__ == '__main__':
         print('保存成功')
         sys.exit(0)
     # 留下一个GPU用于模型开发调试
-    os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(map(str, [0,1,2,3]))
+    os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(map(str, [0,1]))
     model = nn.DataParallel(model)
 
 
