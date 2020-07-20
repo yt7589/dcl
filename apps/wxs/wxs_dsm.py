@@ -779,11 +779,11 @@ class WxsDsm(object):
 
     @staticmethod
     def convert_to_brand_ds_main():
-        brand_num = WxsDsm.convert_to_brand_ds('./logs/bid_train_ds.txt', 
-                    './logs/bid_brand_train_ds.txt', 
+        brand_num = WxsDsm.convert_to_brand_ds('../../w1/bid_train_ds.txt', 
+                    '../../w1/bid_brand_train_ds.txt', 
                     is_create_brands_dict=True)
-        brand_num = WxsDsm.convert_to_brand_ds('./logs/bid_test_ds.txt', 
-                    './logs/bid_brand_test_ds.txt', 
+        brand_num = WxsDsm.convert_to_brand_ds('../../w1/bid_test_ds.txt', 
+                    '../../w1/bid_brand_test_ds.txt', 
                     is_create_brands_dict=False)
         print('品牌种类：{0};'.format(brand_num))
 
