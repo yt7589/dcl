@@ -770,7 +770,7 @@ class WxsDsm(object):
                         brand_name_brand_id_dict[brand_name] = idx
                         idx += 1
                     brand_id = brand_name_brand_id_dict[brand_name]
-                    bfd.write('{0}*{1}*{2}\n'.format(img_file, bmy_id-1, brand_id))
+                    bfd.write('{0}*{1}*{2}\n'.format(img_file, sim_bmy_id, brand_id))
         if is_create_brands_dict:
             with open('../../w1/bid_brands_dict.txt', 'w+', encoding='utf-8') as fd:
                 for k, v in brand_id_brand_name_dict.items():
