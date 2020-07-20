@@ -697,7 +697,7 @@ class WxsDsm(object):
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         with open('../../w1/cambricon_vehicle_label.txt', 'w+', encoding='utf-8') as fd:
             for sim_bmy_id in range(len(sim_org_dict)):
-                bmy_id = sim_org_dict[sim_bmy_id]
+                bmy_id = sim_org_dict[sim_bmy_id] + 1
                 bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
                 bmy_name = bmy_vo['bmy_name']
                 arrs0 = bmy_name.split('-')
