@@ -659,6 +659,12 @@ class WxsDsm(object):
             sim_org_dict[idx] = bmy_id
             org_sim_dict[bmy_id] = idx
             print('idx={0}:{1};'.format(idx, bmy_id))
+        with open('../../w1/bmy_sim_org_dict.txt', 'w+', encoding='utf-8') as sofd:
+            for kso, vso in sim_org_dict.items():
+                sofd.write('{0}:{1}\n'.format(kso, vso))
+        with open('../../w1/bmy_org_sim_dict.txt', 'w+', encoding='utf-8') as osfd:
+            for kos, vos in org_sim_dict.items():
+                osfd.write('{0}:{1}\n'.format(kos, vos))
         # 生成新的训练数据集
         WxsDsm.simplify_bid_ds(org_sim_dict, './logs/bid_train_ds.txt', './logs/raw_bid_train_ds.txt')
         # 生成新的测试数据集
