@@ -254,8 +254,8 @@ class WxsDsm(object):
         WxsDsm.g_vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
         WxsDsm.g_brand_set = set()
         with open('./logs/conflicts.txt', 'w+', encoding='utf-8') as WxsDsm.g_cfd:
-            with open('./logs/samples.txt', 'w+', encoding='utf-8') as sfd:
-                with open('./logs/error_vins.txt', 'w+', encoding='utf-8') as efd:
+            with open('../../w1/samples.txt', 'w+', encoding='utf-8') as sfd:
+                with open('../../w1/error_vins.txt', 'w+', encoding='utf-8') as efd:
                     # 进口车目录
                     folder_name = '/media/zjkj/work/fgvc_dataset/raw'
                     base_path = Path(folder_name)
