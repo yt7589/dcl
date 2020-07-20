@@ -695,7 +695,7 @@ class WxsDsm(object):
         由新的bmy_id求出老的bmy_id，然后求出品牌车型年款并用逗号分隔，生成一个txt文件
         '''
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
-        with open('./logs/cambricon_vehicle_label.txt', 'w+', encoding='utf-8') as fd:
+        with open('../../w1/cambricon_vehicle_label.txt', 'w+', encoding='utf-8') as fd:
             for sim_bmy_id in range(len(sim_org_dict)):
                 bmy_id = sim_org_dict[sim_bmy_id]
                 bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
@@ -743,13 +743,24 @@ class WxsDsm(object):
         brand_name_brand_id_dict = {}
         brand_set = set()
         idx = 0
+        # 从精简bmy_id到原始bmy_id
+        bmy_sim_org_dict = {}
+        with open('../../w1/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as sofd:
+            for line in sofd:
+                line = line.strip()
+                arrs0 = line.split(':')
+                bmy_sim_org_dict[int(arrs0[0])] = int(arrs0[1])
         with open(brand_ds_file, 'w+', encoding='utf-8') as bfd:
             with open(bmy_ds_file, 'r', encoding='utf-8') as yfd:
                 for line in yfd:
                     line = line.strip()
                     arrs0 = line.split('*')
                     img_file = arrs0[0]
-                    bmy_id = int(arrs0[1]) + 1
+
+                    sim_bmy_id = int(arrs0[1])
+                    #bmy_id = int(arrs0[1]) + 1
+                    bmy_id = bmy_sim_org_dict[sim_bmy_id] + 1
+
                     bmy_name = bmy_id_bmy_name_dict[bmy_id]
                     arrs1= bmy_name.split('-')
                     brand_name = arrs1[0]
@@ -761,7 +772,7 @@ class WxsDsm(object):
                     brand_id = brand_name_brand_id_dict[brand_name]
                     bfd.write('{0}*{1}*{2}\n'.format(img_file, bmy_id-1, brand_id))
         if is_create_brands_dict:
-            with open('./logs/bid_brands_dict.txt', 'w+', encoding='utf-8') as fd:
+            with open('../../w1/bid_brands_dict.txt', 'w+', encoding='utf-8') as fd:
                 for k, v in brand_id_brand_name_dict.items():
                     fd.write('{0}:{1}\n'.format(k, v))
         return len(brand_set)
