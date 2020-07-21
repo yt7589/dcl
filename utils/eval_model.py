@@ -237,7 +237,7 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
                         'gt_label': labels[idx].item(),
                         'net_label': top3_pos[idx][0].item()
                     }
-                    print('error_sample: {0};'.format(error_sample))
+                    error_samples.append(error_sample)
         val_acc1 = val_corrects1 / item_count
         val_acc2 = val_corrects2 / item_count
         val_acc3 = val_corrects3 / item_count
@@ -251,6 +251,8 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
         print('--'*30, flush=True)
         print('% 3d %s %s %s-loss: %.4f ||%s-acc@1: %.4f %s-acc@2: %.4f %s-acc@3: %.4f; brand:%.4f ||time: %d' % (epoch_num, val_version, dt(), val_version, val_loss_recorder.get_val(init=True), val_version, val_acc1,val_version, val_acc2, val_version, val_acc3, brand_acc, since), flush=True)
         print('--' * 30, flush=True)
+        for es in error_samples:
+            print('### {0};'.format(es))
 
     return val_acc1, val_acc2, val_acc3
 
