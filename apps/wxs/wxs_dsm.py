@@ -1023,6 +1023,45 @@ class WxsDsm(object):
         return unknown_vin_codes, new_brand_set, new_bmy_set, brand_vins_dict, bmy_vins_dict
         
     @staticmethod
+    def generate_zjkj_cambricon_labels():
+        '''
+        将品牌车型年款信息由Cambricon格式标签文件改为公司要求格式：
+        "品牌-车型-年款-品牌编号-车型编号-年款编号","...",
+        "...","...",
+        ......
+        每行有两个元素
+        '''
+        row = 0
+        row_num = 0
+        with open('../../w1/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
+            for line in cfd:
+                row_num += 1
+        item_sep = ','
+        with open('../../w1/zjkj_label.txt', 'w+', encoding='utf-8') as zfd:
+            with open('../../w1/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
+                for line in cfd:
+                    line = line.strip()
+                    arrs0 = line.split(',')
+                    brand_name = arrs0[0]
+                    model_name = arrs0[1]
+                    year_name = arrs0[2]
+                    brand_code = arrs0[3]
+                    model_code = arrs0[4]
+                    year_code = arrs0[5]
+                    line_break = ''
+                    if row % 2 != 0:
+                        line_break = '\n'
+                    row += 1
+                    if row == row_num:
+                        item_sep = ''
+                    zfd.write('"{0}-{1}-{2}-{3}-{4}-{5}"{6}{7}'.format(
+                        brand_name, model_name, year_name,
+                        brand_code, model_code, year_code,
+                        item_sep, line_break
+                    ))
+                
+
+    @staticmethod
     def exp001():
         #WxsDsm.get_simplified_bmys()
         #WxsDsm.get_fgvc_id_brand_dict()
