@@ -1068,4 +1068,5 @@ class WxsDsm(object):
         #WxsDsm.get_bmy_id_img_num()
         #WxsDsm.find_bad_images('37')
 
-        WxsDsm.get_current_state()
+        #WxsDsm.get_current_state()
+        WxsDsm.generate_zjkj_cambricon_labels()
