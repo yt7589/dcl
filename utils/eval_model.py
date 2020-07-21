@@ -232,12 +232,12 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
             # 找出出错样本
             for idx in range(top3_pos.shape[0]):
                 if top3_pos[idx][0] != labels[idx]:
-                    error_smaple = {
+                    error_sample = {
                         'img_file': img_files[idx],
                         'gt_label': labels[idx],
                         'net_label': top3_pos[idx][0]
                     }
-
+                    print('error_sample: {0};'.format(error_sample))
         val_acc1 = val_corrects1 / item_count
         val_acc2 = val_corrects2 / item_count
         val_acc3 = val_corrects3 / item_count

@@ -302,6 +302,6 @@ if __name__ == '__main__':
         filter_samples(Config, model, dataloader['val'])
     elif 4 == mode:
         log_file = open('./logs/a1.log', 'w+', encoding='utf-8')
-        predict_main(Config, model, dataloader['trainval'], 'val', 0, log_file)
+        predict_main(Config, model, dataloader['val'], 'val', 0, log_file)
 
 
