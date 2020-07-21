@@ -234,8 +234,8 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
                 if top3_pos[idx][0] != labels[idx]:
                     error_sample = {
                         'img_file': img_files[idx],
-                        'gt_label': labels[idx],
-                        'net_label': top3_pos[idx][0]
+                        'gt_label': labels[idx].item(),
+                        'net_label': top3_pos[idx][0].item()
                     }
                     print('error_sample: {0};'.format(error_sample))
         val_acc1 = val_corrects1 / item_count
