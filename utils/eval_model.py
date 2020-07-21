@@ -44,12 +44,20 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
     val_celoss_recorder = LossRecord(val_batch_size)
     print('evaluating %s ...'%val_version, flush=True)
     fgvc_id_brand_dict = WxsDsm.get_fgvc_id_brand_dict()
+    # 分类错误的样本列表，格式为：
+    # {
+    #   'image': '/full_path/the_image.jpg', 
+    #   'gt_label': '奔驰-S级-2018', 
+    #   'net_label': '三菱-ASX炫酷-2016'
+    # }
+    error_samples = [] 
     with torch.no_grad():
         for batch_cnt_val, data_val in enumerate(data_loader):
             inputs = Variable(data_val[0].cuda())
             print('eval_model.eval_turn inputs: {0};'.format(inputs.shape))
             labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
             brand_labels = Variable(torch.from_numpy(np.array(data_val[-1])).long().cuda())
+            img_files  = data_val[-2]
             outputs = model(inputs)
             loss = 0
 
@@ -89,6 +97,14 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
                     batch_brand_correct += 1
             '''
             brand_correct += batch_brand_correct
+            # 找出出错样本
+            for idx in range(top3_pos.shape[0]):
+                if top3_pos[idx][0] != labels[idx]:
+                    error_smaple = {
+                        'img_file': img_files[idx],
+                        'gt_label': labels[idx],
+                        'net_label': top3_pos[idx][0]
+                    }
 
         val_acc1 = val_corrects1 / item_count
         val_acc2 = val_corrects2 / item_count
