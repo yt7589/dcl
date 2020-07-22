@@ -1089,11 +1089,12 @@ class WxsDsm(object):
             model_name = arrs0[-3].replace('-', '_')
             brand_name = '{0}牌'.format(arrs0[-4])
             bmy_name = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
+            print('### {0};'.format(bmy_name))
             if bmy_name in bmy_name_bmy_id_dict:
                 bmy_id = bmy_name_bmy_id_dict[bmy_name]
             else:
                 bmy_id = 0
-            print('{0}*{1}'.format(tf, bmy_id-1))
+            #print('{0}*{1}'.format(tf, bmy_id-1))
         print('共有{0}个测试集文件！'.format(len(test_files)))
 
     @staticmethod
