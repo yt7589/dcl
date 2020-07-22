@@ -1067,6 +1067,7 @@ class WxsDsm(object):
         '''
         num = 0
         base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
+        test_files = []
         for brand_path in base_path.iterdir():
             for model_path in brand_path.iterdir():
                 for year_path in model_path.iterdir():
@@ -1075,11 +1076,14 @@ class WxsDsm(object):
                         arrs0 = file_str.split('/')
                         file_name = arrs0[-1]
                         num += 1
-                        if num % 100 == 0:
+                        if num % 1000 == 0:
                             print('处理完成{0}个文件！'.format(num))
                         if not file_path.is_dir() and file_name.endswith(('jpg', 'png', 'bmp', 'jpeg')) \
                                     and (file_name.startswith('白') or file_name.startswith('夜')):
-                            print('测试集文件：{0};'.format(file_name))
+                            test_files.append(file_str)
+        for tf in test_files:
+            print(tf)
+        print('共有{0}个测试集文件！'.format(len(test_files)))
 
     @staticmethod
     def exp001():
