@@ -1067,6 +1067,7 @@ class WxsDsm(object):
         '''
         num = 0
         base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
+        dst_folder = '/media/zjkj/work/fgvc_dataset/wxs/tds'
         test_files = []
         for brand_path in base_path.iterdir():
             for model_path in brand_path.iterdir():
@@ -1082,19 +1083,30 @@ class WxsDsm(object):
                                     and (file_name.startswith('白') or file_name.startswith('夜')):
                             test_files.append(file_str)
         bmy_name_bmy_id_dict = CBmy.get_bmy_name_bmy_id_dict()
-        for tf in test_files:
-            arrs0 = tf.split('/')
-            file_name = arrs0[-1]
-            year_name = arrs0[-2].replace('-', '_')
-            model_name = arrs0[-3].replace('-', '_')
-            brand_name = '{0}牌'.format(arrs0[-4])
-            bmy_name = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
-            print('### {0};'.format(bmy_name))
-            if bmy_name in bmy_name_bmy_id_dict:
-                bmy_id = bmy_name_bmy_id_dict[bmy_name]
-            else:
-                bmy_id = 0
-            #print('{0}*{1}'.format(tf, bmy_id-1))
+        with open('./logs/wxs_tds.txt', 'w+', encoding='utf-8') as tfd:
+            for tf in test_files:
+                arrs0 = tf.split('/')
+                file_name = arrs0[-1]
+                year_name = arrs0[-2].replace('-', '_')
+                model_name = arrs0[-3].replace('-', '_')
+                brand_name = '{0}牌'.format(arrs0[-4])
+                brand_folder = '{0}/{1}'.format(dst_folder, brand_name)
+                if not os.path.exists(brand_folder):
+                    os.mkdir(brand_folder)
+                model_folder = '{0}/{1}'.format(brand_folder, model_name)
+                if not os.path.exists(model_folder):
+                    os.mkdir(model_folder)
+                year_folder = '{0}/{1}'.format(model_folder, year_name)
+                if not os.path.exists(year_folder):
+                    os.mkdir(year_folder)
+                shutil.copy(tf, '{0}/{1}'.format(year_folder, file_name))
+                bmy_name = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
+                if bmy_name in bmy_name_bmy_id_dict:
+                    bmy_id = bmy_name_bmy_id_dict[bmy_name]
+                else:
+                    bmy_id = 0
+                print('{0}*{1}'.format(tf, bmy_id-1))
+                tfd.write('{0}*{1}\n'.format(tf, bmy_id-1))
         print('共有{0}个测试集文件！'.format(len(test_files)))
 
     @staticmethod
