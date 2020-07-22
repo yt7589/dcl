@@ -1066,18 +1066,20 @@ class WxsDsm(object):
         获取所里筛查正确的数据集
         '''
         num = 0
-        base_path = Path('/media/zjkj/work/fgvc_dataset/test')
+        base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
         for brand_path in base_path.iterdir():
             for model_path in brand_path.iterdir():
                 for year_path in model_path.iterdir():
                     for file_path in year_path.iterdir():
                         file_str = str(file_path)
+                        arrs0 = file_str.split('/')
+                        file_name = arrs0[-1]
                         num += 1
                         if num % 100 == 0:
                             print('处理完成{0}个文件！'.format(num))
-                        if not file_path.is_dir() and file_str.endswith(('jpg', 'png', 'bmp', 'jpeg')) \
-                                    and (file_str.startswith('白') or file_str.startswith('夜')):
-                            print('测试集文件：{0};'.format(file_str))
+                        if not file_path.is_dir() and file_name.endswith(('jpg', 'png', 'bmp', 'jpeg')) \
+                                    and (file_name.startswith('白') or file_name.startswith('夜')):
+                            print('测试集文件：{0};'.format(file_name))
 
     @staticmethod
     def exp001():
