@@ -1144,7 +1144,12 @@ let images = [
                     img_file = arrs0[0]
                     gt_label = arrs0[1]
                     net_label = arrs0[2]
-                    hfd.write('{ imgFile: "{0}", \ngtLabel: "{1}", \nnetLabel: "{2}"\n},'.format(img_file, gt_label, net_label))
+                    item = {
+                        'imgFile': img_file,
+                        'gtLabel': gt_label,
+                        'netLabel': net_label
+                    }
+                    hfd.write('{0},'.format(item))
             # 写下后面的代码
             hfd.write("""
 ]
