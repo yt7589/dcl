@@ -251,8 +251,9 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
         print('--'*30, flush=True)
         print('% 3d %s %s %s-loss: %.4f ||%s-acc@1: %.4f %s-acc@2: %.4f %s-acc@3: %.4f; brand:%.4f ||time: %d' % (epoch_num, val_version, dt(), val_version, val_loss_recorder.get_val(init=True), val_version, val_acc1,val_version, val_acc2, val_version, val_acc3, brand_acc, since), flush=True)
         print('--' * 30, flush=True)
-        for es in error_samples:
-            print('### {0};'.format(es))
+        with open('./logs/top1_error_samples.txt', 'w+', encoding='utf-8') as efd:
+            for es in error_samples:
+                print('{0}*{1}*{2}\n'.format(es['img_file'], es['gt_label'], es['net_label']))
 
     return val_acc1, val_acc2, val_acc3
 
