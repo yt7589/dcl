@@ -1060,6 +1060,20 @@ class WxsDsm(object):
                         item_sep, line_break
                     ))
                 
+    @staticmethod
+    def get_fine_wxs_dataset():
+        '''
+        获取所里筛查正确的数据集
+        '''
+        base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
+        for brand_path in base_path.iterdir():
+            for model_path in brand_path.iterdir():
+                for year_path in model_path.iterdir():
+                    for file_path in year_path.iterdir():
+                        file_str = str(file_path)
+                        if not file_path.is_dir() and file_str.endswith(('jpg', 'png', 'bmp', 'jpeg')) \
+                                    and (file_str.startswith('白') or file_str.startswith('夜')):
+                            print('测试集文件：{0};'.format(file_str))
 
     @staticmethod
     def exp001():
