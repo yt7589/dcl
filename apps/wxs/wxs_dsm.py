@@ -1141,11 +1141,15 @@ let images = [
                     line = line.strip()
                     print('error:   {0};'.format(line))
                     arrs0 = line.split('*')
-                    img_file = arrs0[0]
+                    full_file = arrs0[0]
+                    arrs1 = full_file.split('/')
+                    img_file = arrs1[-1]
+                    dst_img_file = 'images/{0}'.format(img_file)
+                    shutil.copy(full_file, '/media/zjkj/work/yantao/w1/es/images/{0}'.format(img_file))
                     gt_label = arrs0[1]
                     net_label = arrs0[2]
                     item = {
-                        'imgFile': img_file,
+                        'imgFile': dst_img_file,
                         'gtLabel': gt_label,
                         'netLabel': net_label
                     }
