@@ -253,7 +253,7 @@ def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
         print('--' * 30, flush=True)
         with open('./logs/top1_error_samples.txt', 'w+', encoding='utf-8') as efd:
             for es in error_samples:
-                print('{0}*{1}*{2}\n'.format(es['img_file'], es['gt_label'], es['net_label']))
+                efd.write('{0}*{1}*{2}\n'.format(es['img_file'], es['gt_label'], es['net_label']))
 
     return val_acc1, val_acc2, val_acc3
 
