@@ -1127,10 +1127,83 @@ class WxsDsm(object):
         images/
         index.html
         '''
-        with open('./logs/top1_error_samples.txt', 'r', encoding='utf-8') as sfd:
-            for line in sfd:
-                line = line.strip()
-                print('error:   {0};'.format(line))
+        with open('./logs/index.html', 'w+', encoding='utf-8') as hfd:
+            hfd.write("""<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>错误分类结果分析页面</title>
+<script type="text/javascript">
+let images = [
+""")
+            with open('./logs/top1_error_samples.txt', 'r', encoding='utf-8') as sfd:
+                for line in sfd:
+                    line = line.strip()
+                    print('error:   {0};'.format(line))
+                    arrs0 = line.split('*')
+                    img_file = arrs0[0]
+                    gt_label = arrs0[1]
+                    net_label = arrs0[2]
+                    hfd.write('{ imgFile: "{0}", \ngtLabel: "{1}", \nnetLabel: "{2}"\n},'.format(img_file, gt_label, net_label))
+            # 写下后面的代码
+            hfd.write("""
+]
+let g_idx = 0
+
+function showPage() {
+	let vehicleImg = document.getElementById("vehicleImg")
+	vehicleImg.src = images[g_idx].imgFile
+	let gtLabel = document.getElementById("gtLabel")
+	gtLabel.innerText = images[g_idx].gtLabel
+	let netLabel = document.getElementById("netLabel")
+	netLabel.innerText = images[g_idx].netLabel
+	let currPage = document.getElementById("currPage")
+	currPage.value = "" + (g_idx + 1)
+}
+
+function prevImg() {
+	g_idx--
+	if (g_idx <= 0) {
+		g_idx = 0
+	}
+	showPage()
+}
+
+function goPage() {
+	let currPage = document.getElementById("currPage")
+	let pageNum = parseInt(currPage.value) - 1
+	if (pageNum <= 0) {
+		g_idx = 0
+	} else if (pageNum >= images.length-1) {
+		g_idx = images.length-1
+	} else {
+		g_idx = pageNum
+	}
+	showPage()
+}
+
+function nextImg() {
+	g_idx++
+	if (g_idx >= images.length-1) {
+		g_idx = images.length-1
+	}
+	showPage()
+}
+</script>
+</head>
+ 
+<body onLoad="showPage()">
+<img id="vehicleImg" src="images/000001.jpg" style="height: 300px;" /><br />
+正确结果：<span id="gtLabel"></span><br />
+预测结果：<span id="netLabel"></span><br />
+<input type="button" value="上一张" onClick="prevImg()" />
+<input type="text" id="currPage" value="1" />
+<input type="button" value="跳转" onClick="goPage()" />
+<input type="button" value="下一张" onClick="nextImg()" />
+</body>
+ 
+</html>
+""")
     
     @staticmethod
     def exp001():
