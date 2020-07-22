@@ -1110,6 +1110,16 @@ class WxsDsm(object):
         print('共有{0}个测试集文件！'.format(len(test_files)))
 
     @staticmethod
+    def generate_wxs_bmy_csv():
+        recs = CBmy.get_bmys()
+        with open('./logs/wxs_bmy_csv.csv', 'w+', encoding='utf-8') as cfd:
+            for rec in recs:
+                bmy_type = '所里'
+                if rec['bmy_code'].startswith('b'):
+                    bmy_type = '我们'
+                cfd.write('{0},{1}, {2}\n'.format(rec['bmy_id'], rec['bmy_name'], bmy_type))
+
+    @staticmethod
     def exp001():
         #WxsDsm.get_simplified_bmys()
         #WxsDsm.get_fgvc_id_brand_dict()

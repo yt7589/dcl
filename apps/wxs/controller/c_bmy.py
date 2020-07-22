@@ -135,4 +135,8 @@ class CBmy(object):
             vin_code_bmy_id_dict[rec['vin_code']] = int(rec['bmy_id'])
         return vin_code_bmy_id_dict
 
+    @staticmethod
+    def get_bmys():
+        return MBmy.get_bmys()
+
     
