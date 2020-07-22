@@ -99,6 +99,14 @@ class CBmy(object):
         for rec in recs:
             bmy_id_bmy_name_dict[int(rec['bmy_id'])] = rec['bmy_name']
         return bmy_id_bmy_name_dict
+        
+    @staticmethod
+    def get_bmy_name_bmy_id_dict():
+        bmy_name_bmy_id_dict = {}
+        recs = MBmy.get_bmy_id_bmy_names()
+        for rec in recs:
+            bmy_name_bmy_id_dict[rec['bmy_name']] = int(rec['bmy_id'])
+        return bmy_name_bmy_id_dict
 
     @staticmethod
     def get_bmy_id_bmy_vo_dict():

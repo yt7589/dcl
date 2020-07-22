@@ -1081,8 +1081,19 @@ class WxsDsm(object):
                         if not file_path.is_dir() and file_name.endswith(('jpg', 'png', 'bmp', 'jpeg')) \
                                     and (file_name.startswith('白') or file_name.startswith('夜')):
                             test_files.append(file_str)
+        bmy_name_bmy_id_dict = CBmy.get_bmy_name_bmy_id_dict()
         for tf in test_files:
-            print(tf)
+            arrs0 = tf.split('/')
+            file_name = arrs0[-1]
+            year_name = arrs0[-2].replace('-', '_')
+            model_name = arrs0[-3].replace('-', '_')
+            brand_name = '{0}牌'.format(arrs0[-4])
+            bmy_name = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
+            if bmy_name in bmy_name_bmy_id_dict:
+                bmy_id = bmy_name_bmy_id_dict[bmy_name]
+            else:
+                bmy_id = 0
+            print('{0}*{1}'.format(tf, bmy_id-1))
         print('共有{0}个测试集文件！'.format(len(test_files)))
 
     @staticmethod
