@@ -1083,7 +1083,7 @@ class WxsDsm(object):
                                     and (file_name.startswith('白') or file_name.startswith('夜')):
                             test_files.append(file_str)
         bmy_name_bmy_id_dict = CBmy.get_bmy_name_bmy_id_dict()
-        with open('./logs/wxs_tds.txt', 'w+', encoding='utf-8') as tfd:
+        with open('./logs/wxs_tds.csv', 'w+', encoding='utf-8') as tfd:
             for tf in test_files:
                 arrs0 = tf.split('/')
                 file_name = arrs0[-1]
@@ -1106,7 +1106,7 @@ class WxsDsm(object):
                 else:
                     bmy_id = 0
                 print('{0}*{1}'.format(tf, bmy_id-1))
-                tfd.write('{0}*{1}\n'.format(tf, bmy_id-1))
+                tfd.write('{0}/{1}/{2}/{3}/{4},{5}\n'.format(dst_folder, brand_name, model_name, year_name, file_name, bmy_id-1))
         print('共有{0}个测试集文件！'.format(len(test_files)))
 
     @staticmethod

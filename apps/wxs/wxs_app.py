@@ -22,8 +22,8 @@ class WxsApp(object):
         #WxsDsm.find_bad_images()
         #WxsDsm.report_current_status()
         #WxsDsm.exp001()
-        #WxsDsm.get_fine_wxs_dataset()
-        WxsDsm.generate_wxs_bmy_csv()
+        WxsDsm.get_fine_wxs_dataset()
+        #WxsDsm.generate_wxs_bmy_csv()
 
     def exp(self):
         ds_file = './datasets/CUB_200_2011/anno/train_ds_v4.txt'
