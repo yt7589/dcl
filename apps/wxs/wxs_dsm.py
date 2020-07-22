@@ -1127,6 +1127,8 @@ class WxsDsm(object):
         images/
         index.html
         '''
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
+        num = 1
         with open('../../w1/es/index.html', 'w+', encoding='utf-8') as hfd:
             hfd.write("""<!DOCTYPE html>
 <html>
@@ -1144,10 +1146,11 @@ let images = [
                     full_file = arrs0[0]
                     arrs1 = full_file.split('/')
                     img_file = arrs1[-1]
-                    dst_img_file = 'images/{0}'.format(img_file)
-                    shutil.copy(full_file, '/media/zjkj/work/yantao/w1/es/images/{0}'.format(img_file))
-                    gt_label = arrs0[1]
-                    net_label = arrs0[2]
+                    dst_img_file = 'images/{0:05d}.jpg'.format(num)
+                    shutil.copy(full_file, '/media/zjkj/work/yantao/w1/es/images/{0:05d}.jpg'.format(num))
+                    num += 1
+                    gt_label = bmy_id_bmy_name_dict[int(arrs0[1])+1]
+                    net_label = bmy_id_bmy_name_dict[int(arrs0[2])+1]
                     item = {
                         'imgFile': dst_img_file,
                         'gtLabel': gt_label,
