@@ -1141,13 +1141,14 @@ let images = [
             with open('./logs/top1_error_samples.txt', 'r', encoding='utf-8') as sfd:
                 for line in sfd:
                     line = line.strip()
-                    print('error:   {0};'.format(line))
                     arrs0 = line.split('*')
                     full_file = arrs0[0]
                     arrs1 = full_file.split('/')
                     img_file = arrs1[-1]
                     dst_img_file = 'images/{0:05d}.jpg'.format(num)
-                    shutil.copy(full_file, '/media/zjkj/work/yantao/w1/es/images/{0:05d}.jpg'.format(num))
+                    dst_full_file = '/media/zjkj/work/yantao/w1/es/images/{0:05d}.jpg'.format(num)
+                    print('拷贝文件：{0};'.format(dst_full_file))
+                    shutil.copy(full_file, dst_full_file)
                     num += 1
                     gt_label = bmy_id_bmy_name_dict[int(arrs0[1])+1]
                     net_label = bmy_id_bmy_name_dict[int(arrs0[2])+1]
