@@ -1120,11 +1120,18 @@ class WxsDsm(object):
                 cfd.write('{0},{1}, {2}\n'.format(rec['bmy_id'], rec['bmy_name'], bmy_type))
 
     @staticmethod
+    def generate_error_samples_html():
+        '''
+        将验证模型时找出预测错误的样本文件，转为HTML文件，可以依次
+        浏览图片文件，查看正确结果和网络输出，便于分析出错原因
+        images/
+        index.html
+        '''
+        with open('./logs/top1_error_samples.txt', 'r', encoding='utf-8') as sfd:
+            for line in sfd:
+                line = line.strip()
+                print('error:   {0};'.format(line))
+    
+    @staticmethod
     def exp001():
-        #WxsDsm.get_simplified_bmys()
-        #WxsDsm.get_fgvc_id_brand_dict()
-        #WxsDsm.get_bmy_id_img_num()
-        #WxsDsm.find_bad_images('37')
-
-        #WxsDsm.get_current_state()
-        WxsDsm.generate_zjkj_cambricon_labels()
+        WxsDsm.generate_error_samples_html()

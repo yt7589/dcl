@@ -21,8 +21,8 @@ class WxsApp(object):
         #WxsDsm.convert_to_brand_ds_main()
         #WxsDsm.find_bad_images()
         #WxsDsm.report_current_status()
-        #WxsDsm.exp001()
-        WxsDsm.get_fine_wxs_dataset()
+        WxsDsm.exp001()
+        #WxsDsm.get_fine_wxs_dataset()
         #WxsDsm.generate_wxs_bmy_csv()
 
     def exp(self):
