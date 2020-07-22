@@ -1127,7 +1127,7 @@ class WxsDsm(object):
         images/
         index.html
         '''
-        with open('./logs/index.html', 'w+', encoding='utf-8') as hfd:
+        with open('../../w1/es/index.html', 'w+', encoding='utf-8') as hfd:
             hfd.write("""<!DOCTYPE html>
 <html>
 <head>
