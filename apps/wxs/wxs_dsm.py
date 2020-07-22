@@ -1206,7 +1206,7 @@ function nextImg() {
 </head>
  
 <body onLoad="showPage()">
-<img id="vehicleImg" src="images/000001.jpg" style="height: 300px;" /><br />
+<img id="vehicleImg" src="images/000001.jpg" style="height: 500px;" /><br />
 正确结果：<span id="gtLabel"></span><br />
 预测结果：<span id="netLabel"></span><br />
 <input type="button" value="上一张" onClick="prevImg()" />
