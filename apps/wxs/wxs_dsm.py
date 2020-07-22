@@ -1153,6 +1153,7 @@ let images = [
                     gt_label = bmy_id_bmy_name_dict[int(arrs0[1])+1]
                     net_label = bmy_id_bmy_name_dict[int(arrs0[2])+1]
                     item = {
+                        'orgFile': full_file,
                         'imgFile': dst_img_file,
                         'gtLabel': gt_label,
                         'netLabel': net_label
@@ -1164,6 +1165,8 @@ let images = [
 let g_idx = 0
 
 function showPage() {
+    let orgFile = document.getElementById("orgFile")
+    orgFile.innerText = images[g_idx].orgFile
 	let vehicleImg = document.getElementById("vehicleImg")
 	vehicleImg.src = images[g_idx].imgFile
 	let gtLabel = document.getElementById("gtLabel")
@@ -1206,6 +1209,7 @@ function nextImg() {
 </head>
  
 <body onLoad="showPage()">
+原始文件：<span id="orgFile"></span><br />
 <img id="vehicleImg" src="images/000001.jpg" style="height: 500px;" /><br />
 正确结果：<span id="gtLabel"></span><br />
 预测结果：<span id="netLabel"></span><br />
