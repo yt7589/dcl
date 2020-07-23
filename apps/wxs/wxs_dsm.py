@@ -1053,7 +1053,7 @@ class WxsDsm(object):
                     row += 1
                     if row == row_num:
                         item_sep = ''
-                    zfd.write('{"{0}", "{1}", "{2}", "{3}-{4}-{5}"}{6}{7}'.format(
+                    zfd.write('\{"{0}", "{1}", "{2}", "{3}-{4}-{5}"\}{6}{7}'.format(
                         brand_code, model_code, year_code,
                         brand_name, model_name, year_name,
                         item_sep, line_break
