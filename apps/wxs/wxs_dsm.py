@@ -1026,8 +1026,7 @@ class WxsDsm(object):
     def generate_zjkj_cambricon_labels():
         '''
         将品牌车型年款信息由Cambricon格式标签文件改为公司要求格式：
-        "品牌-车型-年款-品牌编号-车型编号-年款编号","...",
-        "...","...",
+        {"品牌编号", "车型编号", "年款编号", "品牌-车型-年款"},{......},
         ......
         每行有两个元素
         '''
@@ -1037,7 +1036,7 @@ class WxsDsm(object):
             for line in cfd:
                 row_num += 1
         item_sep = ','
-        with open('../../w1/zjkj_label.txt', 'w+', encoding='utf-8') as zfd:
+        with open('../../w1/zjkj_label_v1.txt', 'w+', encoding='utf-8') as zfd:
             with open('../../w1/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
                 for line in cfd:
                     line = line.strip()
@@ -1054,9 +1053,9 @@ class WxsDsm(object):
                     row += 1
                     if row == row_num:
                         item_sep = ''
-                    zfd.write('"{0}-{1}-{2}-{3}-{4}-{5}"{6}{7}'.format(
-                        brand_name, model_name, year_name,
+                    zfd.write('{"{0}", "{1}", "{2}", "{3}-{4}-{5}"}{6}{7}'.format(
                         brand_code, model_code, year_code,
+                        brand_name, model_name, year_name,
                         item_sep, line_break
                     ))
                 
