@@ -1289,16 +1289,18 @@ function nextImg() {
     @staticmethod
     def integrate_wxs_test_ds():
         num = 0
-        with open('./logs/wxs_tds_v1.csv', 'r', encoding='utf-8') as tfd:
-            for line in tfd:
-                line = line.strip()
-                arrs0 = line.split(',')
-                file_str = arrs0[0]
-                bmy_id = int(arrs0[1]) + 1
-                if bmy_id <= 0:
-                    num += 1
-                else:
-                    print('{0}*{1}'.format(file_str, (bmy_id - 1)))
+        with open('./logs/wxs_test_ds.txt', 'w+', encoding='utf-8') as dfd:
+            with open('./logs/wxs_tds_v1.csv', 'r', encoding='utf-8') as tfd:
+                for line in tfd:
+                    line = line.strip()
+                    arrs0 = line.split(',')
+                    file_str = arrs0[0]
+                    bmy_id = int(arrs0[1]) + 1
+                    if bmy_id <= 0:
+                        num += 1
+                    else:
+                        print('{0}*{1}'.format(file_str, (bmy_id - 1)))
+                        dfd.write('{0}*{1}\n'.format(file_str, (bmy_id - 1)))
         print('缺失年款数：{0};'.format(num))
 
     
