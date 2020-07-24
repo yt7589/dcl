@@ -1287,5 +1287,19 @@ function nextImg() {
                 print('copy{0}: {1} => {2};'.format(idx, src_file, '{0}/{1}'.format(folder1, img_file)))
     
     @staticmethod
+    def integrate_wxs_test_ds():
+        num = 0
+        with open('./logs/wxs_tds_v1.csv', 'r', encoding='utf-8') as tfd:
+            for line in tfd:
+                line = line.strip()
+                arrs0 = line.split(',')
+                file_str = arrs0[0]
+                bmy_id = int(arrs0[1]) + 1
+                if bmy_id <= 0:
+                    num += 1
+                print('{0}*{1}'.format(file_str, (bmy_id - 1)))
+
+    
+    @staticmethod
     def exp001():
         WxsDsm.generate_error_samples_html()

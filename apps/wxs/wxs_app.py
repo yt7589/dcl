@@ -18,7 +18,7 @@ class WxsApp(object):
         ''' 
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
         '''
-        WxsDsm.generate_samples()
+        #WxsDsm.generate_samples()
         '''
         生成原始数据集，采用稀疏品牌车型年款编号
         '''
@@ -44,6 +44,10 @@ class WxsApp(object):
         #WxsDsm.generate_test_ds_bmy_csv()
         ''' 生成Pipeline测试评价数据，将测试集中的图片文件拷贝到指定目录下 '''
         #WxsDsm.copy_test_ds_images_for_cnstream()
+        '''
+        集成无锡所测试集数据
+        '''
+        WxsDsm.integrate_wxs_test_ds()
 
     def exp(self):
         ds_file = './datasets/CUB_200_2011/anno/train_ds_v4.txt'
