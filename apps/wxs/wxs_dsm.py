@@ -1235,35 +1235,35 @@ function nextImg() {
     def generate_test_ds_bmy_csv():
         bmy_name_bmy_id_dict = CBmy.get_bmy_name_bmy_id_dict()
         dst_folder = '/media/zjkj/work/fgvc_dataset/wxs/fine'
-        with open('./datasets/CUB_200_2011/anno/test_ds_v4.txt', 'r', encoding='utf-8') as tfd:
-            for line in tfd:
-                line = line.strip()
-                arrs = line.split('*')
-                tf = arrs[0]
-
-                arrs0 = tf.split('/')
-                file_name = arrs0[-1]
-                year_name = arrs0[-2].replace('-', '_')
-                model_name = arrs0[-3].replace('-', '_')
-                brand_name = '{0}牌'.format(arrs0[-4])
-                brand_folder = '{0}/{1}'.format(dst_folder, brand_name)
-                if not os.path.exists(brand_folder):
-                    os.mkdir(brand_folder)
-                model_folder = '{0}/{1}'.format(brand_folder, model_name)
-                if not os.path.exists(model_folder):
-                    os.mkdir(model_folder)
-                year_folder = '{0}/{1}'.format(model_folder, year_name)
-                if not os.path.exists(year_folder):
-                    os.mkdir(year_folder)
-                shutil.copy(tf, '{0}/{1}'.format(year_folder, file_name))
-                bmy_name = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
-                if bmy_name in bmy_name_bmy_id_dict:
-                    bmy_id = bmy_name_bmy_id_dict[bmy_name]
-                else:
-                    bmy_id = 0
-                print('{0}*{1}'.format(tf, bmy_id-1))
-                tfd.write('{0}/{1}/{2}/{3}/{4},{5}\n'.format(dst_folder, brand_name, model_name, year_name, file_name, bmy_id-1))
-    
+        with open('./logs/wxs_tsd_v2.csv', 'w+', encoding='utf-8') as tfd:
+            with open('./datasets/CUB_200_2011/anno/test_ds_v4.txt', 'r', encoding='utf-8') as rfd:
+                for line in rfd:
+                    line = line.strip()
+                    arrs = line.split('*')
+                    tf = arrs[0]
+                    arrs0 = tf.split('/')
+                    file_name = arrs0[-1]
+                    year_name = arrs0[-2].replace('-', '_')
+                    model_name = arrs0[-3].replace('-', '_')
+                    brand_name = '{0}牌'.format(arrs0[-4])
+                    brand_folder = '{0}/{1}'.format(dst_folder, brand_name)
+                    if not os.path.exists(brand_folder):
+                        os.mkdir(brand_folder)
+                    model_folder = '{0}/{1}'.format(brand_folder, model_name)
+                    if not os.path.exists(model_folder):
+                        os.mkdir(model_folder)
+                    year_folder = '{0}/{1}'.format(model_folder, year_name)
+                    if not os.path.exists(year_folder):
+                        os.mkdir(year_folder)
+                    shutil.copy(tf, '{0}/{1}'.format(year_folder, file_name))
+                    bmy_name = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
+                    if bmy_name in bmy_name_bmy_id_dict:
+                        bmy_id = bmy_name_bmy_id_dict[bmy_name]
+                    else:
+                        bmy_id = 0
+                    print('{0}*{1}'.format(tf, bmy_id-1))
+                    tfd.write('{0}/{1}/{2}/{3}/{4},{5}\n'.format(dst_folder, brand_name, model_name, year_name, file_name, bmy_id-1))
+        
     @staticmethod
     def exp001():
         WxsDsm.generate_error_samples_html()
