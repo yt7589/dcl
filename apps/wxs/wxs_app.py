@@ -22,11 +22,11 @@ class WxsApp(object):
         '''
         生成原始数据集，采用稀疏品牌车型年款编号
         '''
-        WxsDsm.generate_dataset()
+        #WxsDsm.generate_dataset()
         '''
         将品牌车型年款变为0开始递增的序号
         '''
-        #WxsDsm.get_simplified_bmys()
+        WxsDsm.get_simplified_bmys()
         '''
         向数据集中加入品牌信息
         '''
