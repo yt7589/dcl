@@ -1283,11 +1283,8 @@ function nextImg() {
                 folder1 = '{0}/{1}'.format(folder0, full_str[2:4])
                 if not os.path.exists(folder1):
                     os.mkdir(folder1)
-                folder2 = '{0}/{1}'.format(folder1, full_str[4:])
-                if not os.path.exists(folder2):
-                    os.mkdir(folder2)
-                shutil.copy(src_file, '{0}/{1}'.format(folder2, img_file))
-                print('copy{0}: {1} => {2};'.format(idx, src_file, '{0}/{1}'.format(folder2, img_file)))
+                shutil.copy(src_file, '{0}/{1}'.format(folder1, img_file))
+                print('copy{0}: {1} => {2};'.format(idx, src_file, '{0}/{1}'.format(folder1, img_file)))
     
     @staticmethod
     def exp001():
