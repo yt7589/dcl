@@ -18,11 +18,11 @@ class WxsApp(object):
         ''' 
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
         '''
-        WxsDsm.generate_samples()
+        #WxsDsm.generate_samples()
         '''
         生成原始数据集，采用稀疏品牌车型年款编号
         '''
-        #WxsDsm.generate_dataset()
+        WxsDsm.generate_dataset()
         '''
         将品牌车型年款变为0开始递增的序号
         '''
