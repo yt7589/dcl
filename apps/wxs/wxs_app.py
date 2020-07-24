@@ -15,10 +15,25 @@ class WxsApp(object):
             self.exp()
             return
         #WxsDsm.initialize_db()
-        #WxsDsm.generate_samples()
+        ''' 
+        从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
+        '''
+        WxsDsm.generate_samples()
+        '''
+        生成原始数据集，采用稀疏品牌车型年款编号
+        '''
         #WxsDsm.generate_dataset()
+        '''
+        将品牌车型年款变为0开始递增的序号
+        '''
         #WxsDsm.get_simplified_bmys()
+        '''
+        向数据集中加入品牌信息
+        '''
         #WxsDsm.convert_to_brand_ds_main()
+        '''
+        找出损坏的图片文件
+        '''
         #WxsDsm.find_bad_images()
         #WxsDsm.report_current_status()
         #WxsDsm.exp001()
@@ -28,7 +43,7 @@ class WxsApp(object):
         ''' 根据正确的测试集图片文件名，查出当前的品牌车型年款编号，没有的用-1表示，形成CSV文件 '''
         #WxsDsm.generate_test_ds_bmy_csv()
         ''' 生成Pipeline测试评价数据，将测试集中的图片文件拷贝到指定目录下 '''
-        WxsDsm.copy_test_ds_images_for_cnstream()
+        #WxsDsm.copy_test_ds_images_for_cnstream()
 
     def exp(self):
         ds_file = './datasets/CUB_200_2011/anno/train_ds_v4.txt'
