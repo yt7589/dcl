@@ -1265,5 +1265,30 @@ function nextImg() {
                     tfd.write('{0}/{1}/{2}/{3}/{4},{5}\n'.format(dst_folder, brand_name, model_name, year_name, file_name, bmy_id-1))
         
     @staticmethod
+    def copy_test_ds_images_for_cnstream():
+        dst_folder = '/media/zjkj/work/repository/cnstream/images'
+        idx = 0
+        with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tsfd:
+            for line in tsfd:
+                line = line.strip()
+                arrs0 = line.split('*')
+                src_file = arrs0[0]
+                arrs1 = src_file.split('/')
+                img_file = arrs1[-1]
+                idx += 1
+                full_str = '{0:06d}'.format(idx)
+                folder0 = '{0}/{1}'.format(dst_folder, full_str[:2])
+                if not os.path.exists(folder0):
+                    os.mkdir(folder0)
+                folder1 = '{0}/{1}'.format(folder0, full_str[2:4])
+                if not os.path.exists(folder1):
+                    os.mkdir(folder1)
+                folder2 = '{0}/{1}'.format(folder1, full_str[4:])
+                if not os.path.exists(folder2):
+                    os.mkdir(folder2)
+                shutil.copy(src_file, '{0}/{1}'.format(folder2, img_file))
+                print('copy{0}: {1};'.format(idx, src_file))
+    
+    @staticmethod
     def exp001():
         WxsDsm.generate_error_samples_html()
