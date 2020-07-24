@@ -646,7 +646,7 @@ class WxsDsm(object):
         bmy_set = set()
         sim_org_dict = {}
         org_sim_dict = {}
-        with open('./logs/raw_bid_train_ds.txt', 'r', encoding='utf-8') as fd:
+        with open('../../w1/raw_bid_train_ds.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
                 arrs0 = line.split('*')
