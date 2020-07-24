@@ -1297,7 +1297,9 @@ function nextImg() {
                 bmy_id = int(arrs0[1]) + 1
                 if bmy_id <= 0:
                     num += 1
-                print('{0}*{1}'.format(file_str, (bmy_id - 1)))
+                else:
+                    print('{0}*{1}'.format(file_str, (bmy_id - 1)))
+        print('缺失年款数：{0};'.format(num))
 
     
     @staticmethod
