@@ -26,7 +26,9 @@ class WxsApp(object):
         #WxsDsm.generate_wxs_bmy_csv()
         #WxsDsm.generate_zjkj_cambricon_labels()
         ''' 根据正确的测试集图片文件名，查出当前的品牌车型年款编号，没有的用-1表示，形成CSV文件 '''
-        WxsDsm.generate_test_ds_bmy_csv()
+        #WxsDsm.generate_test_ds_bmy_csv()
+        ''' 生成Pipeline测试评价数据，将测试集中的图片文件拷贝到指定目录下 '''
+        WxsDsm.copy_test_ds_images_for_cnstream()
 
     def exp(self):
         ds_file = './datasets/CUB_200_2011/anno/train_ds_v4.txt'
