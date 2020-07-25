@@ -721,7 +721,7 @@ class WxsDsm(object):
         '''
         fgvc_id_brand_dict = {}
         fgvc_id = 0
-        with open('./logs/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as fd:
+        with open('../../w1/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
                 arrs0 = line.split(',')
