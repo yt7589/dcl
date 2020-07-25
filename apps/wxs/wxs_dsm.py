@@ -1324,13 +1324,13 @@ function nextImg() {
     
     @staticmethod
     def exp001():
-        pass
+        WxsDsm.exp001_1()
 
     @staticmethod
     def exp001_1():
         bmy_set = set()
         num = 0
-        with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:
+        with open('../../w1/raw_bid_train_ds.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
                 arrs0 = line.split('*')
