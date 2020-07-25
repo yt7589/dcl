@@ -1359,5 +1359,18 @@ function nextImg() {
         print('共有{0}品牌'.format(len(brand_set)))
         blst = list(brand_set)
         blst.sort()
-        for idx, bl in enumerate(blst):
-            print('{0}: {1};'.format(idx, bl))
+        with open('../../w1/b1.txt', 'w+', encoding='utf-8') as b1fd:
+            for idx, bl in enumerate(blst):
+                print('{0}: {1};'.format(idx, bl))
+                b1fd.write('{0}: {1}\n'.format(idx, bl))
+        b2 = []
+        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as fd1:
+            for line in fd1:
+                line = line.strip()
+                arrs0 = line.split(':')
+                b2.append(arrs0[1])
+        b2.sort()
+        with open('../../w1/b2.txt', 'w+', encoding='utf-8') as b2fd:
+            for idx, b2i in enumerate(b2):
+                print('### {0}: {1};'.format(idx, b2i))
+                b2fd.write('{0}: {1}\n'.format(idx, b2i))
