@@ -365,7 +365,7 @@ class WxsDsm(object):
         bmy_id_vin_dict = CBmy.get_bmy_id_vin_dict()
         vin_samples_dict = {}
         samples = []
-        with open('./logs/samples.txt', 'r', encoding='utf-8') as sfd:
+        with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line.strip()
                 arrs = line.split('*')
@@ -1324,6 +1324,10 @@ function nextImg() {
     
     @staticmethod
     def exp001():
+        pass
+
+    @staticmethod
+    def exp001_1():
         bmy_set = set()
         num = 0
         with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:

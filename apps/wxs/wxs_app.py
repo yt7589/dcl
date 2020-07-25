@@ -14,7 +14,7 @@ class WxsApp(object):
         if 1 == i_debug:
             self.exp()
             return
-        WxsDsm.exp001()
+        #WxsDsm.exp001()
         #WxsDsm.initialize_db()
         ''' 
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -23,7 +23,7 @@ class WxsApp(object):
         '''
         生成原始数据集，采用稀疏品牌车型年款编号
         '''
-        #WxsDsm.generate_dataset()
+        WxsDsm.generate_dataset()
         '''
         将品牌车型年款变为0开始递增的序号
         '''
