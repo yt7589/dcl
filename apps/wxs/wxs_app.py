@@ -14,7 +14,7 @@ class WxsApp(object):
         if 1 == i_debug:
             self.exp()
             return
-        #WxsDsm.exp001()
+        WxsDsm.exp001()
         #WxsDsm.initialize_db()
         ''' 
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -31,7 +31,7 @@ class WxsApp(object):
         '''
         向数据集中加入品牌信息
         '''
-        WxsDsm.convert_to_brand_ds_main()
+        #WxsDsm.convert_to_brand_ds_main()
         '''
         找出损坏的图片文件
         '''

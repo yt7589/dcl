@@ -1348,8 +1348,12 @@ function nextImg() {
                 arrs0 = line.split(':')
                 bmy_sim_org_dict[int(arrs0[0])] = int(arrs0[1])
         brand_set = set()
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         for bi in bmy_set:
             bmy_id = bmy_sim_org_dict[bi]
-            brand_id = bmy_id_brand_id_dict[bmy_id]
-            brand_set.add(brand_id)
+            bmy_name = bmy_id_brand_id_dict[bmy_id]
+            arrs0 = bmy_name.split('-')
+            brand_name = arrs0[0]
+            #brand_id = bmy_id_brand_id_dict[bmy_id]
+            brand_set.add(brand_name)
         print('共有{0}品牌'.format(len(brand_set)))
