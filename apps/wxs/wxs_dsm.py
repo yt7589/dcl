@@ -743,6 +743,7 @@ class WxsDsm(object):
         brand_name_brand_id_dict = {}
         brand_set = set()
         if not is_create_brands_dict:
+            print('read brand file')
             with open('../../w1/bid_brands_dict.txt', 'w+', encoding='utf-8') as rfd:
                 for line in rfd:
                     line = line.strip()
@@ -774,7 +775,9 @@ class WxsDsm(object):
                     bmy_name = bmy_id_bmy_name_dict[bmy_id]
                     arrs1= bmy_name.split('-')
                     brand_name = arrs1[0]
+                    print('brand_name: {0};'.format(brand_name))
                     if not (brand_name in brand_set):
+                        print('Error !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
                         brand_set.add(brand_name)
                         brand_id_brand_name_dict[idx] = brand_name
                         brand_name_brand_id_dict[brand_name] = idx
@@ -789,9 +792,11 @@ class WxsDsm(object):
 
     @staticmethod
     def convert_to_brand_ds_main():
+        '''
         brand_num = WxsDsm.convert_to_brand_ds('../../w1/bid_train_ds.txt', 
                     '../../w1/bid_brand_train_ds.txt', 
                     is_create_brands_dict=True)
+        '''
         brand_num = WxsDsm.convert_to_brand_ds('../../w1/bid_test_ds.txt', 
                     '../../w1/bid_brand_test_ds.txt', 
                     is_create_brands_dict=False)
