@@ -30,6 +30,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
     val_corrects2 = 0
     val_corrects3 = 0
     brand_correct = 0
+    bb_correct = 0 # 通过bmy求出的品牌精度
     val_size = data_loader.__len__()
     item_count = data_loader.total_item_len
     t0 = time.time()
@@ -78,22 +79,24 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             outputs_brand = outputs[-1]
             brand_top5_val, brand_top5_pos = torch.topk(outputs_brand, 5)
             batch_brand_correct = torch.sum((brand_top5_pos[:, 0] == brand_labels)).data.item()
-            '''
+            brand_correct += batch_brand_correct
+            # 
             pred_size = top3_pos[:, 0].shape[0]
-            batch_brand_correct = 0
+            batch_bb_correct = 0
             for idx in range(pred_size):
                 pred_bmy = fgvc_id_brand_dict[int(top3_pos[idx][0])]
                 pred_brand = pred_bmy.split('_')[0]
                 gt_bmy = fgvc_id_brand_dict[int(labels[idx])]
                 gt_brand = gt_bmy.split('_')[0]
                 if pred_brand == gt_brand:
-                    batch_brand_correct += 1
-            '''
+                    batch_bb_correct += 1
+            bb_correct += batch_bb_correct
 
         val_acc1 = val_corrects1 / item_count
         val_acc2 = val_corrects2 / item_count
         val_acc3 = val_corrects3 / item_count
         brand_acc = brand_correct / item_count
+        bb_acc = bb_correct / item_count
 
         log_file.write(val_version  + '\t' +str(val_loss_recorder.get_val())+'\t' + str(val_celoss_recorder.get_val()) + '\t' + str(val_acc1) + '\t' + str(val_acc3) + '\n')
 
@@ -101,7 +104,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
         t1 = time.time()
         since = t1-t0
         print('--'*30, flush=True)
-        print('% 3d %s %s %s-loss: %.4f ||%s-acc@1: %.4f %s-acc@2: %.4f %s-acc@3: %.4f; brand:%.4f ||time: %d' % (epoch_num, val_version, dt(), val_version, val_loss_recorder.get_val(init=True), val_version, val_acc1,val_version, val_acc2, val_version, val_acc3, brand_acc, since), flush=True)
+        print('% 3d %s %s %s-loss: %.4f ||%s-acc@1: %.4f %s-acc@2: %.4f %s-acc@3: %.4f; brand:%.4f; bmy_brand:%.4f; ||time: %d' % (epoch_num, val_version, dt(), val_version, val_loss_recorder.get_val(init=True), val_version, val_acc1,val_version, val_acc2, val_version, val_acc3, brand_acc, bb_acc, since), flush=True)
         print('--' * 30, flush=True)
 
     return val_acc1, val_acc2, val_acc3
