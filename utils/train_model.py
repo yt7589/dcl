@@ -140,13 +140,14 @@ def train(Config,
                             fd.write('{0} <=> {1};\r\n'.format(org_labels[i*2], img_names[i]))
                 print('epoch{}: step: {:-8d} / {:d} loss=ce_loss+'
                             'swap_loss+law_loss: {:6.4f} = {:6.4f} '
-                            '+ {:6.4f} + {:6.4f} '.format(
+                            '+ {:6.4f} + {:6.4f} brand_loss: {:6.4f}'.format(
                                 epoch, step % train_epoch_step, 
                                 train_epoch_step, 
                                 loss.detach().item(), 
                                 ce_loss_val, 
                                 swap_loss.detach().item(), 
-                                law_loss.detach().item()), flush=True
+                                law_loss.detach().item(),
+                                ce_loss_brand.detach().item()), flush=True
                             )
                 
             if Config.use_backbone:
