@@ -1314,6 +1314,7 @@ function nextImg() {
         rows = []
         source_type = ''
         for rec in recs:
+            print('    process: {0};'.format(rec))
             bmy_id = int(rec['bmy_id'])
             bmy_vo = CBmy.get_bmy_by_id(bmy_id)
             if rec['source_type'] == '1':
