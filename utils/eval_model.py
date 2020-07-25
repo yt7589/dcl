@@ -78,8 +78,6 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             # 求出品牌精度
             outputs_brand = outputs[-1]
             brand_top5_val, brand_top5_pos = torch.topk(outputs_brand, 5)
-            print('brand_top5_pos: {0}; {1};'.format(brand_top5_pos.shape, brand_top5_pos[:, 0]))
-            print('brand_labels: {0};'.format(brand_labels))
             batch_brand_correct = torch.sum((brand_top5_pos[:, 0] == brand_labels)).data.item()
             brand_correct += batch_brand_correct
             print('batch_brand_correct={0}; brand_correct={1};'.format(batch_brand_correct, brand_correct))
