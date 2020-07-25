@@ -1330,7 +1330,7 @@ function nextImg() {
     def exp001_1():
         bmy_set = set()
         num = 0
-        with open('../../w1/raw_bid_train_ds.txt', 'r', encoding='utf-8') as sfd:
+        with open('../../w1/bid_train_ds.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
                 arrs0 = line.split('*')
@@ -1341,8 +1341,15 @@ function nextImg() {
                     print('处理{0}条记录;'.format(num))
         print('共有{0}个年款'.format(len(bmy_set)))
         bmy_id_brand_id_dict = CBmy.get_bmy_id_brand_id_dict()
+        bmy_sim_org_dict = {}
+        with open('../../w1/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as sofd:
+            for line in sofd:
+                line = line.strip()
+                arrs0 = line.split(':')
+                bmy_sim_org_dict[int(arrs0[0])] = int(arrs0[1])
         brand_set = set()
         for bi in bmy_set:
-            brand_id = bmy_id_brand_id_dict[bi]
+            bmy_id = bmy_sim_org_dict[bi]
+            brand_id = bmy_id_brand_id_dict[bmy_id]
             brand_set.add(brand_id)
         print('共有{0}品牌'.format(len(brand_set)))
