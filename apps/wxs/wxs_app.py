@@ -14,6 +14,7 @@ class WxsApp(object):
         if 1 == i_debug:
             self.exp()
             return
+        WxsDsm.exp001()
         #WxsDsm.initialize_db()
         ''' 
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -51,7 +52,7 @@ class WxsApp(object):
         '''
         生成车辆识别码和品牌车型年款对应关系表，用于修正所里品牌车型年款不合理的地方。2020.07.25
         '''
-        WxsDsm.generate_vin_bmy_csv()
+        #WxsDsm.generate_vin_bmy_csv()
         
 
     def exp(self):

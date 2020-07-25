@@ -1303,11 +1303,6 @@ function nextImg() {
                         dfd.write('{0}*{1}\n'.format(file_str, (bmy_id - 1)))
         print('缺失年款数：{0};'.format(num))
 
-    
-    @staticmethod
-    def exp001():
-        WxsDsm.generate_error_samples_html()
-
     @staticmethod
     def generate_vin_bmy_csv():
         recs = CBmy.get_vin_code_bmys()
@@ -1325,3 +1320,15 @@ function nextImg() {
         with open('./logs/wxs_vin_code_bmy_check.csv', 'w+', encoding='utf-8') as fd:
             for row in rows:
                 fd.write('{0},{1},{2}\n'.format(row[0], row[1], row[2]))
+
+    
+    @staticmethod
+    def exp001():
+        bmy_set = set()
+        with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:
+            for line in sfd:
+                line = line.strip()
+                arrs0 = line.split('*')
+                bmy_id = int(arrs0[-1])
+                bmy_set.add(bmy_id)
+        print('共有{0}个年款'.format(len(bmy_set)))
