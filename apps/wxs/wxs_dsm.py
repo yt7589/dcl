@@ -1341,4 +1341,4 @@ function nextImg() {
         for bi in bmy_set:
             brand_id = bmy_id_brand_id_dict[bi]
             brand_set.add(brand_id)
-        print('共有{0}品牌')
+        print('共有{0}品牌'.format(len(brand_set)))
