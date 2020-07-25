@@ -143,4 +143,12 @@ class CBmy(object):
     def get_vin_code_bmys():
         return MVin.get_vin_code_bmys()
 
+    @staticmethod
+    def get_bmy_id_brand_id_dict():
+        recs = MBmy.get_bmy_id_brand_ids()
+        bmy_id_brand_id_dict = {}
+        for rec in recs:
+            bmy_id_brand_id_dict[int(rec['bmy_id'])] = int(rec['brand_id'])
+        return bmy_id_brand_id_dict
+
     

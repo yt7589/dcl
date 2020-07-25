@@ -67,3 +67,10 @@ class MBmy(object):
                     'model_code': 1}
         return MMongoDb.convert_recs(MMongoDb.db['t_bmy']\
                     .find(query_cond, fields))
+
+    @staticmethod
+    def get_bmy_id_brand_ids():
+        query_cond = {}
+        fields = {'bmy_id': 1, 'brand_code': 1}
+        return MMongoDb.convert_recs(MMongoDb.db['t_bmy']\
+                    .find(query_cond, fields))
