@@ -1307,3 +1307,20 @@ function nextImg() {
     @staticmethod
     def exp001():
         WxsDsm.generate_error_samples_html()
+
+    @staticmethod
+    def generate_vin_bmy_csv():
+        recs = CBmy.get_vin_code_bmys()
+        rows = []
+        source_type = ''
+        for rec in recs:
+            bmy_id = int(rec['bmy_id'])
+            bmy_vo = CBmy.get_bmy_by_id(bmy_id)
+            if rec['source_type'] == '1':
+                source_type = '所里'
+            else:
+                source_type = '我们'
+            row = [source_type, bmy_vo['bmy_name'], rec['vin_code']]
+            rows.append(row)
+        for row in rows:
+            print(row)

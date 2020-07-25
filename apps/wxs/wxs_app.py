@@ -48,6 +48,11 @@ class WxsApp(object):
         集成无锡所测试集数据
         '''
         #WxsDsm.integrate_wxs_test_ds()
+        '''
+        生成车辆识别码和品牌车型年款对应关系表，用于修正所里品牌车型年款不合理的地方。2020.07.25
+        '''
+        WxsDsm.generate_vin_bmy_csv()
+        
 
     def exp(self):
         ds_file = './datasets/CUB_200_2011/anno/train_ds_v4.txt'

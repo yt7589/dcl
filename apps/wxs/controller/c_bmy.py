@@ -139,4 +139,8 @@ class CBmy(object):
     def get_bmys():
         return MBmy.get_bmys()
 
+    @staticmethod
+    def get_vin_code_bmys():
+        return MVin.get_vin_code_bmys()
+
     
