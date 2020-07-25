@@ -1351,7 +1351,7 @@ function nextImg() {
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         for bi in bmy_set:
             bmy_id = bmy_sim_org_dict[bi]
-            bmy_name = bmy_id_brand_id_dict[bmy_id]
+            bmy_name = bmy_id_bmy_name_dict[bmy_id]
             arrs0 = bmy_name.split('-')
             brand_name = arrs0[0]
             #brand_id = bmy_id_brand_id_dict[bmy_id]
