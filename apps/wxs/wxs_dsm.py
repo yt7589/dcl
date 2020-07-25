@@ -1313,10 +1313,7 @@ function nextImg() {
         recs = CBmy.get_vin_code_bmys()
         rows = []
         source_type = ''
-        num = 1
         for rec in recs:
-            print('    process_{0}: {1};'.format(num, rec))
-            num += 1
             bmy_id = int(rec['bmy_id'])
             bmy_vo = CBmy.get_bmy_by_id(bmy_id)
             if int(rec['source_type']) == 1:
@@ -1325,5 +1322,6 @@ function nextImg() {
                 source_type = '我们'
             row = [source_type, bmy_vo['bmy_name'], rec['vin_code']]
             rows.append(row)
-        for row in rows:
-            print(row)
+        with open('./logs/wxs_vin_code_bmy_check.csv', 'w+', encoding='utf-8') as fd:
+            for row in rows:
+                fd.write('{0},{1},{2}\n'.format(row[0], row[1], row[2]))
