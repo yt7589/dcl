@@ -742,6 +742,16 @@ class WxsDsm(object):
         brand_id_brand_name_dict = {}
         brand_name_brand_id_dict = {}
         brand_set = set()
+        if not is_create_brands_dict:
+            with open('../../w1/bid_brands_dict.txt', 'w+', encoding='utf-8') as rfd:
+                for line in rfd:
+                    line = line.strip()
+                    arrs0 = line.split(':')
+                    brand_id = int(arrs0[0])
+                    brand_name = arrs0[1]
+                    brand_id_brand_name_dict[brand_id] = brand_name
+                    brand_name_brand_id_dict[brand_name] = brand_id
+                    brand_set.add(brand_name)
         idx = 0
         # 从精简bmy_id到原始bmy_id
         bmy_sim_org_dict = {}
