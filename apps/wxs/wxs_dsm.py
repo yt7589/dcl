@@ -1313,11 +1313,13 @@ function nextImg() {
         recs = CBmy.get_vin_code_bmys()
         rows = []
         source_type = ''
+        num = 1
         for rec in recs:
-            print('    process: {0};'.format(rec))
+            print('    process_{0}: {1};'.format(num, rec))
+            num += 1
             bmy_id = int(rec['bmy_id'])
             bmy_vo = CBmy.get_bmy_by_id(bmy_id)
-            if rec['source_type'] == '1':
+            if int(rec['source_type']) == 1:
                 source_type = '所里'
             else:
                 source_type = '我们'
