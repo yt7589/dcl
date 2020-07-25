@@ -1357,3 +1357,7 @@ function nextImg() {
             #brand_id = bmy_id_brand_id_dict[bmy_id]
             brand_set.add(brand_name)
         print('共有{0}品牌'.format(len(brand_set)))
+        blst = list(brand_set)
+        blst.sort()
+        for idx, bl in enumerate(blst):
+            print('{0}: {1};'.format(idx, bl))
