@@ -744,7 +744,7 @@ class WxsDsm(object):
         brand_set = set()
         if not is_create_brands_dict:
             print('read brand file')
-            with open('../../w1/bid_brands_dict.txt', 'w+', encoding='utf-8') as rfd:
+            with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as rfd:
                 for line in rfd:
                     line = line.strip()
                     arrs0 = line.split(':')
@@ -792,11 +792,9 @@ class WxsDsm(object):
 
     @staticmethod
     def convert_to_brand_ds_main():
-        '''
         brand_num = WxsDsm.convert_to_brand_ds('../../w1/bid_train_ds.txt', 
                     '../../w1/bid_brand_train_ds.txt', 
                     is_create_brands_dict=True)
-        '''
         brand_num = WxsDsm.convert_to_brand_ds('../../w1/bid_test_ds.txt', 
                     '../../w1/bid_brand_test_ds.txt', 
                     is_create_brands_dict=False)
