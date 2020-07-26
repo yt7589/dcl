@@ -6,6 +6,8 @@ Pipeline运行后会将每个图片的识别结果形成一个json文件，存�
 bmy_acc=bmy_corrects / total, brand_acc = brand_corrects / total
 '''
 import pymongo
+import json
+from pathlib import Path
 
 def get_bmy_sim_org_dict():
     '''
@@ -51,27 +53,24 @@ def get_result_dict():
             num += 1
     return result_dict, num
 
-def get_result_dict0():
-    bmy_sim_org_dict = get_bmy_sim_org_dict()
-    bmy_id_bmy_vo_dict = get_bmy_id_bmy_vo_dict()
-    result_dict = {}
-    total = 0
-    with open('./config/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tfd:
-        for line in tfd:
-            line = line.strip()
-            arrs0 = line.split('*')
-            full_filename = arrs0[0]
-            arrs1 = full_filename.split('/')
-            img_file = arrs1[-1]
-            sim_bmy_id = int(arrs0[1])
-            bmy_id = bmy_sim_org_dict[sim_bmy_id] + 1
-            bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
-            result_dict[img_file] = {
-                'bmy_code': bmy_vo['bmy_code'],
-                'brand_code': bmy_vo['brand_code']
-            }
-            total += 1
-    return result_dict, total
+def calculate_result(result_dict, base_path, result):
+    for path_obj in base_path.iterdir():
+        if path_obj.is_dir():
+            calculate_result(result_dict, path_obj, result)
+        else:
+            full_fn = str(path_obj)
+            arrs0 = full_fn.split('/')
+            img_file_json = arrs0[-1]
+            img_file = img_file_json[:-4]
+            bmy_vo = result_dict[img_file]
+            gt_bmy_code = bmy_vo['bmy_code']
+            gt_brand_code = bmy_vo['brand_code']
+
+def parse_result_json(json_file):
+    with open(json_file, 'r', encoding='utf-8') as jfd:
+        json_str = jfd.read()
+    json_obj = json.loads(json_str)
+    print('年款: {0}; 品牌：{1};'.format(json_obj['CXTZ']['CXNK'], json_obj['CXTZ']['CLPP']))
 
 
 
@@ -119,9 +118,7 @@ def process_test_ds():
 def main(args):
     print('main')
     result_dict, total = get_result_dict()
-    for k, v in result_dict.items():
-        print('@@@ {0}:{1};'.format(k, v))
-    print('共有{0}条记录'.format(total))
+    result_folder = '/media/zjkj/work/yantao/fgvc/dcl/logs/pipeline'
 
 if '__main__' == __name__:
     main({})
