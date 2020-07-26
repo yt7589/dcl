@@ -31,7 +31,7 @@ class WxsApp(object):
         '''
         向数据集中加入品牌信息
         '''
-        WxsDsm.convert_to_brand_ds_main()
+        #WxsDsm.convert_to_brand_ds_main()
         '''
         找出损坏的图片文件
         '''
@@ -53,6 +53,7 @@ class WxsApp(object):
         生成车辆识别码和品牌车型年款对应关系表，用于修正所里品牌车型年款不合理的地方。2020.07.25
         '''
         #WxsDsm.generate_vin_bmy_csv()
+
         
 
     def exp(self):
