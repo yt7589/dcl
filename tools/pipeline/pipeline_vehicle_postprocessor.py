@@ -61,10 +61,18 @@ def calculate_result(result_dict, base_path, result):
             full_fn = str(path_obj)
             arrs0 = full_fn.split('/')
             img_file_json = arrs0[-1]
+            bmy_code, brand_code = parse_result_json(img_file_json)
             img_file = img_file_json[:-4]
             bmy_vo = result_dict[img_file]
             gt_bmy_code = bmy_vo['bmy_code']
             gt_brand_code = bmy_vo['brand_code']
+            print('img_file: {0}:'.format(img_file))
+            print('    年款：{0} vs {1};'.format(gt_bmy_code, bmy_code))
+            print('    品牌：{0} vs {1};'.format(gt_brand_code, brand_code))
+            if bmy_code == gt_bmy_code:
+                result['bmy_corrects'] += 1
+            if brand_code == gt_brand_code:
+                result['brand_corrects'] += 1
 
 def parse_result_json(json_file):
     with open(json_file, 'r', encoding='utf-8') as jfd:
@@ -118,10 +126,22 @@ def process_test_ds():
 def main(args):
     print('main')
     result_dict, total = get_result_dict()
+    base_path = Path('/media/zjkj/work/yantao/fgvc/dcl/logs/pipeline')
+    result = {
+        'bmy_corrects': 0,
+        'brand_corrects': 0
+    }
+    calculate_result(result_dict, base_path, result)
+    print('Top1精度：{0}({1})；品牌精度：{2}({3});'.format(
+        result['bmy_corrects'] / total, result['bmy_corrects'],
+        result['brand_corrects'] / total , result['brand_corrects']
+    ))
+    '''
     result_folder = '/media/zjkj/work/yantao/fgvc/dcl/logs/pipeline'
     json_file = '/media/zjkj/work/yantao/fgvc/dcl/logs/pipeline/白#02_甘ARP285_096_日产_奇骏_2014_610500200969346824_0.jpg.json'
     bmy_code, brand_code = parse_result_json(json_file)
     print('年款编号：{0}; 品牌编号：{1};'.format(bmy_code, brand_code))
+    '''
 
 if '__main__' == __name__:
     main({})
