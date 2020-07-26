@@ -87,17 +87,19 @@ def generate_bmy_dict():
 def process_test_ds():
     bmy_sim_org_dict = get_bmy_sim_org_dict()
     bmy_id_bmy_vo_dict = get_bmy_id_bmy_vo_dict()
-    with open('./config/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tfd:
-        for line in tfd:
-            line = line.strip()
-            arrs0 = line.split('*')
-            full_fn = arrs0[0]
-            arrs1 = full_fn.split('/')
-            img_file = arrs1[-1]
-            sim_bmy_id = int(arrs0[1])
-            bmy_id = bmy_sim_org_dict[sim_bmy_id] + 1
-            bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
-            print('{0}*{1}*{2}'.format(img_file, bmy_vo['bmy_code'], bmy_vo['brand_code']))
+    with open('./config/result_dict.txt', 'w+', encoding='utf-8') as wfd:
+        with open('./config/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tfd:
+            for line in tfd:
+                line = line.strip()
+                arrs0 = line.split('*')
+                full_fn = arrs0[0]
+                arrs1 = full_fn.split('/')
+                img_file = arrs1[-1]
+                sim_bmy_id = int(arrs0[1])
+                bmy_id = bmy_sim_org_dict[sim_bmy_id] + 1
+                bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
+                print('{0}*{1}*{2}'.format(img_file, bmy_vo['bmy_code'], bmy_vo['brand_code']))
+                wfd.write('{0}*{1}*{2}\n'.format(img_file, bmy_vo['bmy_code'], bmy_vo['brand_code']))
 
 def main(args):
     print('main')
