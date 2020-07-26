@@ -68,7 +68,13 @@ def calculate_result(result_dict, base_path, result):
             img_file_json = arrs0[-1]
             bmy_code, brand_code = parse_result_json(full_fn)
             img_file = img_file_json[:-5]
-            bmy_vo = result_dict[img_file]
+            if img_file in result_dict:
+                bmy_vo = result_dict[img_file]
+            else:
+                bmy_vo = {
+                    'bmy_code': 'x',
+                    'brand_code': 'x'
+                }
             gt_bmy_code = bmy_vo['bmy_code']
             gt_brand_code = bmy_vo['brand_code']
             if bmy_code == gt_bmy_code:
@@ -82,13 +88,10 @@ def parse_result_json(json_file):
     '''
     bmy_code = ''
     brand_code = ''
-    try:
-        with open(json_file, 'r', encoding='utf-8') as jfd:
-            json_str = jfd.read()
-        json_obj = json.loads(json_str)
-        bmy_code, brand_code = json_obj['VEH'][0]['CXTZ']['CXNK'], json_obj['VEH'][0]['CXTZ']['CLPP']
-    except: 
-        print('读取{0}文件异常...'.format(json_file))
+    with open(json_file, 'r', encoding='utf-8') as jfd:
+        json_str = jfd.read()
+    json_obj = json.loads(json_str)
+    bmy_code, brand_code = json_obj['VEH'][0]['CXTZ']['CXNK'], json_obj['VEH'][0]['CXTZ']['CLPP']
     return bmy_code, brand_code
 
 
