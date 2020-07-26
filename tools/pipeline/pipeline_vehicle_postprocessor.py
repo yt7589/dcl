@@ -40,6 +40,7 @@ def get_result_dict():
     bmy_sim_org_dict = get_bmy_sim_org_dict()
     bmy_id_bmy_vo_dict = get_bmy_id_bmy_vo_dict()
     result_dict = {}
+    total = 0
     with open('./config/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tfd:
         for line in tfd:
             line = line.strip()
@@ -54,7 +55,8 @@ def get_result_dict():
                 'bmy_code': bmy_vo['bmy_code'],
                 'brand_code': bmy_vo['brand_code']
             }
-    return result_dict
+            total += 1
+    return result_dict, total
 
 def generate_bmy_dict():
     '''
@@ -74,9 +76,10 @@ def generate_bmy_dict():
 
 def main(args):
     print('main')
-    result_dict = get_result_dict()
+    result_dict, total = get_result_dict()
     for k, v in result_dict.items():
         print('@@@ {0}:{1};'.format(k, v))
+    print('共有{0}条记录'.format(total))
 
 if '__main__' == __name__:
     main({})
