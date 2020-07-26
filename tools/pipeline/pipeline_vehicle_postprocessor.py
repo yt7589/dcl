@@ -7,13 +7,37 @@ bmy_acc=bmy_corrects / total, brand_acc = brand_corrects / total
 '''
 import pymongo
 
-def process_test_ds(ds_file):
+def get_bmy_sim_org_dict():
+    '''
+    我们将3330个年款重新编为0~3329，称之为简化版bmy_id，我们同时维护一个
+    字典，可以通过简化bmy_id查到其真实bmy_id
+    '''
     bmy_sim_org_dict = {}
     with open('./config/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as sofd:
         for line in sofd:
             line = line.strip()
             arrs0 = line.split(':')
             bmy_sim_org_dict[int(arrs0[0])] = int(arrs0[1])
+    return bmy_sim_org_dict
+
+def get_bmy_id_bmy_vo_dict():
+    '''
+    维护bmy_id和bmy_code、brand_code的对应关系
+    '''
+    bmy_id_bmy_vo_dict = {}
+    with open('./config/bmys.txt', 'r', encoding='utf-8') as fd:
+        for line in fd:
+            line = line.strip()
+            arrs0 = line.split('*')
+            bmy_id = int(arrs0[0])
+            bmy_id_bmy_vo_dict[bmy_id] = {
+                'bmy_code': arrs0[1].strip(),
+                'brand_code': arrs0[2].strip()
+            }
+    return bmy_id_bmy_vo_dict
+
+def process_test_ds(ds_file):
+    bmy_sim_org_dict = get_bmy_sim_org_dict()
     with open(ds_file, 'r', encoding='utf-8') as tfd:
         for line in tfd:
             line = line.strip()
@@ -28,6 +52,9 @@ def process_test_ds(ds_file):
             brand_code = bmy_vo['brand_code']
 
 def generate_bmy_dict():
+    '''
+    将MongoDb中的内容从数据库中读出来保存为文本文件
+    '''
     mongo_client = pymongo.MongoClient('mongodb://localhost:27017/')
     db = mongo_client['stpdb']
     query_cond = {}
@@ -43,7 +70,9 @@ def generate_bmy_dict():
 def main(args):
     print('main')
     #process_test_ds('./config/bid_brand_test_ds.txt')
-    generate_bmy_dict()
+    bmy_id_bmy_vo_dict = get_bmy_id_bmy_vo_dict()
+    for k, v in bmy_id_bmy_vo_dict.items():
+        print('### {0}：{1}；'.format(k, v))
 
 if '__main__' == __name__:
     main({})
