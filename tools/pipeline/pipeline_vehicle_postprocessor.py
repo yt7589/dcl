@@ -70,6 +70,7 @@ def parse_result_json(json_file):
     with open(json_file, 'r', encoding='utf-8') as jfd:
         json_str = jfd.read()
     json_obj = json.loads(json_str)
+    print(json_obj)
     print('年款: {0}; 品牌：{1};'.format(json_obj['CXTZ']['CXNK'], json_obj['CXTZ']['CLPP']))
 
 
