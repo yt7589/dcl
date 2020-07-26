@@ -71,7 +71,7 @@ def parse_result_json(json_file):
         json_str = jfd.read()
     json_obj = json.loads(json_str)
     print(json_obj)
-    print('年款: {0}; 品牌：{1};'.format(json_obj['CXTZ']['CXNK'], json_obj['CXTZ']['CLPP']))
+    print('年款: {0}; '.format(json_obj['VEH'][0]['CXTZ']['CXNK']))
 
 
 
