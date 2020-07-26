@@ -61,7 +61,7 @@ def calculate_result(result_dict, base_path, result):
             full_fn = str(path_obj)
             arrs0 = full_fn.split('/')
             img_file_json = arrs0[-1]
-            bmy_code, brand_code = parse_result_json(img_file_json)
+            bmy_code, brand_code = parse_result_json(full_fn)
             img_file = img_file_json[:-4]
             bmy_vo = result_dict[img_file]
             gt_bmy_code = bmy_vo['bmy_code']
