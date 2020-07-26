@@ -58,6 +58,17 @@ def get_result_dict():
             total += 1
     return result_dict, total
 
+
+
+
+'''
+****************************************************************************************************************
+****************************************************************************************************************
+****************************  临时程序 *************************************************************************
+****************************************************************************************************************
+****************************************************************************************************************
+'''
+
 def generate_bmy_dict():
     '''
     将MongoDb中的内容从数据库中读出来保存为文本文件
@@ -73,13 +84,30 @@ def generate_bmy_dict():
         for rec in recs:
             fd.write('{0}*{1}*{2}\n'.format(rec['bmy_id'], rec['bmy_code'], rec['brand_code']))
     
+def process_test_ds():
+    bmy_sim_org_dict = get_bmy_sim_org_dict()
+    bmy_id_bmy_vo_dict = get_bmy_id_bmy_vo_dict()
+    with open('./config/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tfd:
+        for line in tfd:
+            line = line.strip()
+            arrs0 = line.split('*')
+            full_fn = arrs0[0]
+            arrs1 = full_fn.split('/')
+            img_file = arrs1[-1]
+            sim_bmy_id = int(arrs0[1])
+            bmy_id = bmy_sim_org_dict[sim_bmy_id] + 1
+            bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
+            print('{0}*{1}*{2}'.format(img_file, bmy_vo['bmy_code'], bmy_vo['brand_code']))
 
 def main(args):
     print('main')
+    '''
     result_dict, total = get_result_dict()
     for k, v in result_dict.items():
         print('@@@ {0}:{1};'.format(k, v))
     print('共有{0}条记录'.format(total))
+    '''
+    process_test_ds()
 
 if '__main__' == __name__:
     main({})
