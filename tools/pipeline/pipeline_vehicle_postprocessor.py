@@ -36,11 +36,11 @@ def get_bmy_id_bmy_vo_dict():
             }
     return bmy_id_bmy_vo_dict
 
-def get_result_dict(ds_file):
+def get_result_dict():
     bmy_sim_org_dict = get_bmy_sim_org_dict()
     bmy_id_bmy_vo_dict = get_bmy_id_bmy_vo_dict()
     result_dict = {}
-    with open(ds_file, 'r', encoding='utf-8') as tfd:
+    with open('./config/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tfd:
         for line in tfd:
             line = line.strip()
             arrs0 = line.split('*')
