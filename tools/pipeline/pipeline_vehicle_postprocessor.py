@@ -36,8 +36,10 @@ def get_bmy_id_bmy_vo_dict():
             }
     return bmy_id_bmy_vo_dict
 
-def process_test_ds(ds_file):
+def get_result_dict(ds_file):
     bmy_sim_org_dict = get_bmy_sim_org_dict()
+    bmy_id_bmy_vo_dict = get_bmy_id_bmy_vo_dict()
+    result_dict = {}
     with open(ds_file, 'r', encoding='utf-8') as tfd:
         for line in tfd:
             line = line.strip()
@@ -47,9 +49,12 @@ def process_test_ds(ds_file):
             img_file = arrs1[-1]
             sim_bmy_id = int(arrs0[1])
             bmy_id = bmy_sim_org_dict[sim_bmy_id] + 1
-            bmy_vo = None
-            bmy_code = bmy_vo['bmy_code']
-            brand_code = bmy_vo['brand_code']
+            bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
+            result_dict[img_file] = {
+                'bmy_code': bmy_vo['bmy_code'],
+                'brand_code': bmy_vo['brand_code']
+            }
+    return result_dict
 
 def generate_bmy_dict():
     '''
@@ -69,10 +74,9 @@ def generate_bmy_dict():
 
 def main(args):
     print('main')
-    #process_test_ds('./config/bid_brand_test_ds.txt')
-    bmy_id_bmy_vo_dict = get_bmy_id_bmy_vo_dict()
-    for k, v in bmy_id_bmy_vo_dict.items():
-        print('### {0}：{1}；'.format(k, v))
+    result_dict = get_result_dict()
+    for k, v in result_dict.items():
+        print('@@@ {0}:{1};'.format(k, v))
 
 if '__main__' == __name__:
     main({})
