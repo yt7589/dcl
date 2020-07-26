@@ -80,10 +80,16 @@ def parse_result_json(json_file):
     '''
     从每张图片对应的JSON文件中解析并返回Top1（年款）编号和品牌编号
     '''
-    with open(json_file, 'r', encoding='utf-8') as jfd:
-        json_str = jfd.read()
-    json_obj = json.loads(json_str)
-    return json_obj['VEH'][0]['CXTZ']['CXNK'], json_obj['VEH'][0]['CXTZ']['CLPP']
+    bmy_code = ''
+    brand_code = ''
+    try:
+        with open(json_file, 'r', encoding='utf-8') as jfd:
+            json_str = jfd.read()
+        json_obj = json.loads(json_str)
+        bmy_code, brand_code = json_obj['VEH'][0]['CXTZ']['CXNK'], json_obj['VEH'][0]['CXTZ']['CLPP']
+    except: 
+        print('读取{0}文件异常...'.format(json_file))
+    return bmy_code, brand_code
 
 
 
