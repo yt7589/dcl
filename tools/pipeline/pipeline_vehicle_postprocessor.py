@@ -38,6 +38,7 @@ def get_bmy_id_bmy_vo_dict():
 
 def get_result_dict():
     result_dict = {}
+    num = 0
     with open('./config/result_dict.txt', 'r', encoding='utf-8') as fd:
         for line in fd:
             line = line.strip()
@@ -47,7 +48,8 @@ def get_result_dict():
                 'bmy_code': arrs0[1],
                 'brand_code': arrs0[2]
             }
-    return result_dict
+            num += 1
+    return result_dict, num
 
 def get_result_dict0():
     bmy_sim_org_dict = get_bmy_sim_org_dict()
