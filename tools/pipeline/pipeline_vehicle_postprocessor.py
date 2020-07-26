@@ -54,6 +54,11 @@ def get_result_dict():
     return result_dict, num
 
 def calculate_result(result_dict, base_path, result):
+    '''
+    对指定目录下JSON文件，根据图片文件从result_dict中查出正确的年款编号和
+    品牌编号，然后解析JSON文件，得到预测的年款编号和品牌编号，如果年款编号
+    一致则年款正确数量加1，如果品牌编号一致则品牌正确数量加1
+    '''
     for path_obj in base_path.iterdir():
         if path_obj.is_dir():
             calculate_result(result_dict, path_obj, result)
@@ -66,15 +71,15 @@ def calculate_result(result_dict, base_path, result):
             bmy_vo = result_dict[img_file]
             gt_bmy_code = bmy_vo['bmy_code']
             gt_brand_code = bmy_vo['brand_code']
-            print('img_file: {0}:'.format(img_file))
-            print('    年款：{0} vs {1};'.format(gt_bmy_code, bmy_code))
-            print('    品牌：{0} vs {1};'.format(gt_brand_code, brand_code))
             if bmy_code == gt_bmy_code:
                 result['bmy_corrects'] += 1
             if brand_code == gt_brand_code:
                 result['brand_corrects'] += 1
 
 def parse_result_json(json_file):
+    '''
+    从每张图片对应的JSON文件中解析并返回Top1（年款）编号和品牌编号
+    '''
     with open(json_file, 'r', encoding='utf-8') as jfd:
         json_str = jfd.read()
     json_obj = json.loads(json_str)
@@ -124,7 +129,7 @@ def process_test_ds():
                 wfd.write('{0}*{1}*{2}\n'.format(img_file, bmy_vo['bmy_code'], bmy_vo['brand_code']))
 
 def main(args):
-    print('main')
+    print('车辆识别精度计算程序 v0.0.1')
     result_dict, total = get_result_dict()
     base_path = Path('/media/zjkj/work/yantao/fgvc/dcl/logs/pipeline')
     result = {
@@ -136,12 +141,6 @@ def main(args):
         result['bmy_corrects'] / total, result['bmy_corrects'],
         result['brand_corrects'] / total , result['brand_corrects']
     ))
-    '''
-    result_folder = '/media/zjkj/work/yantao/fgvc/dcl/logs/pipeline'
-    json_file = '/media/zjkj/work/yantao/fgvc/dcl/logs/pipeline/白#02_甘ARP285_096_日产_奇骏_2014_610500200969346824_0.jpg.json'
-    bmy_code, brand_code = parse_result_json(json_file)
-    print('年款编号：{0}; 品牌编号：{1};'.format(bmy_code, brand_code))
-    '''
 
 if '__main__' == __name__:
     main({})
