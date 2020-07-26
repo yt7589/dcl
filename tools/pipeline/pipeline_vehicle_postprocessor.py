@@ -37,6 +37,19 @@ def get_bmy_id_bmy_vo_dict():
     return bmy_id_bmy_vo_dict
 
 def get_result_dict():
+    result_dict = {}
+    with open('./config/result_dict.txt', 'r', encoding='utf-8') as fd:
+        for line in fd:
+            line = line.strip()
+            arrs0 = line.split('*')
+            img_file = arrs0[0]
+            result_dict[img_file] = {
+                'bmy_code': arrs0[1],
+                'brand_code': arrs0[2]
+            }
+    return result_dict
+
+def get_result_dict0():
     bmy_sim_org_dict = get_bmy_sim_org_dict()
     bmy_id_bmy_vo_dict = get_bmy_id_bmy_vo_dict()
     result_dict = {}
@@ -103,13 +116,10 @@ def process_test_ds():
 
 def main(args):
     print('main')
-    '''
     result_dict, total = get_result_dict()
     for k, v in result_dict.items():
         print('@@@ {0}:{1};'.format(k, v))
     print('共有{0}条记录'.format(total))
-    '''
-    process_test_ds()
 
 if '__main__' == __name__:
     main({})
