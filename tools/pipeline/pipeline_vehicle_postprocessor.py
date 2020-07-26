@@ -119,6 +119,7 @@ def main(args):
     print('main')
     result_dict, total = get_result_dict()
     result_folder = '/media/zjkj/work/yantao/fgvc/dcl/logs/pipeline'
+    parse_result_json()
 
 if '__main__' == __name__:
     main({})
