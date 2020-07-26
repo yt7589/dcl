@@ -119,7 +119,8 @@ def main(args):
     print('main')
     result_dict, total = get_result_dict()
     result_folder = '/media/zjkj/work/yantao/fgvc/dcl/logs/pipeline'
-    parse_result_json()
+    json_file = '/media/zjkj/work/yantao/fgvc/dcl/logs/pipeline/白#02_甘ARP285_096_日产_奇骏_2014_610500200969346824_0.jpg.json'
+    parse_result_json(json_file)
 
 if '__main__' == __name__:
     main({})
