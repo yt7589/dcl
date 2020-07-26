@@ -70,8 +70,7 @@ def parse_result_json(json_file):
     with open(json_file, 'r', encoding='utf-8') as jfd:
         json_str = jfd.read()
     json_obj = json.loads(json_str)
-    print('年款: {0}; 品牌：{1};'.format(json_obj['VEH'][0]['CXTZ']['CXNK'], json_obj['VEH'][0]['CXTZ']['CXNK']))
-    return json_obj['VEH'][0]['CXTZ']['CXNK'], json_obj['VEH'][0]['CXTZ']['CXNK']
+    return json_obj['VEH'][0]['CXTZ']['CXNK'], json_obj['VEH'][0]['CXTZ']['CLPP']
 
 
 
@@ -121,7 +120,8 @@ def main(args):
     result_dict, total = get_result_dict()
     result_folder = '/media/zjkj/work/yantao/fgvc/dcl/logs/pipeline'
     json_file = '/media/zjkj/work/yantao/fgvc/dcl/logs/pipeline/白#02_甘ARP285_096_日产_奇骏_2014_610500200969346824_0.jpg.json'
-    parse_result_json(json_file)
+    bmy_code, brand_code = parse_result_json(json_file)
+    print('年款编号：{0}; 品牌编号：{1};'.format(bmy_code, brand_code))
 
 if '__main__' == __name__:
     main({})
