@@ -1416,7 +1416,7 @@ function nextImg() {
                 bmy_set.add(bmy_name)
                 sim_bmy_id = int(arrs0[1])
                 if sim_bmy_id < 0:
-                    print('{0}: {1};'.format(bmy_name, sim_bmy_id))
+                    print('{0}: {1};'.format(img_file, bmy_name))
         print('共有品牌{0}个'.format(len(brand_set)))
         print('共有车型{0}个'.format(len(bm_set)))
         print('共有年款{0}个'.format(len(bmy_set)))
