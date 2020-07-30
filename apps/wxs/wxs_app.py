@@ -45,7 +45,7 @@ class WxsApp(object):
         {"品牌编号", "车型编号", "年款编号", "品牌_车型_年款"},{...},
         {...}
         '''
-        WxsDsm.generate_zjkj_cambricon_labels()
+        #WxsDsm.generate_zjkj_cambricon_labels()
         ''' 根据正确的测试集图片文件名，查出当前的品牌车型年款编号，没有的用-1表示，形成CSV文件 '''
         #WxsDsm.generate_test_ds_bmy_csv()
         ''' 生成Pipeline测试评价数据，将测试集中的图片文件拷贝到指定目录下 '''
@@ -58,6 +58,10 @@ class WxsApp(object):
         生成车辆识别码和品牌车型年款对应关系表，用于修正所里品牌车型年款不合理的地方。2020.07.25
         '''
         #WxsDsm.generate_vin_bmy_csv()
+        '''
+        处理所里测试集中5664张正确图片中新车型和新年款记录，添加到数据集中
+        '''
+        WxsDsm.process_unknown_wxs_tds()
 
         
 

@@ -1387,3 +1387,19 @@ function nextImg() {
             for idx, b2i in enumerate(b2):
                 print('### {0}: {1};'.format(idx, b2i))
                 b2fd.write('{0}: {1}\n'.format(idx, b2i))
+
+    @staticmethod
+    def process_unknown_wxs_tds():
+        '''
+        处理无锡所测试集中，没有错误的5664张图片中，新车型和新年款的记录，
+        将其增加新车型和新年款，并形成到测试集中：
+        1. 添加到zjkj_label_v1.txt中；
+        2. 添加到bid_brand_test_ds.txt和bid_brand_train_ds.txt文件中
+        '''
+        with open('./logs/wxs_tds_0730.txt', 'r', encoding='utf-8') as tfd:
+            for line in tfd:
+                line = line.strip()
+                arrs0 = line.split(',')
+                bmy_id_s1 = int(arrs0[1])
+                if bmy_id_s1 < 0:
+                    print(line)
