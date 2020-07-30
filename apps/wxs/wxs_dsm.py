@@ -1401,15 +1401,6 @@ function nextImg() {
         print('现有车型{0}个'.format(len(bm_set)))
         print('现有年款{0}个'.format(len(bmy_set)))
         
-        
-        
-        
-        i_debug = 1
-        if 1 == i_debug:
-            return
-        brand_set = set()
-        bm_set = set()
-        bmy_set = set()
         with open('./logs/wxs_tds_0730.csv', 'r', encoding='utf-8') as tfd:
             for line in tfd:
                 line = line.strip()
