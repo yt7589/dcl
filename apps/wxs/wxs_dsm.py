@@ -1425,7 +1425,7 @@ function nextImg() {
                     print('{0}: {1};'.format(img_file, bmy_name))
         
         diff_brand = t_brand_set - w_brand_set
-        print('测试集里面增加的新品牌{0}个'.forat(len(diff_brand)))
+        print('测试集里面增加的新品牌{0}个'.format(len(diff_brand)))
         
 
     @staticmethod
