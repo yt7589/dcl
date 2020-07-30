@@ -1396,10 +1396,27 @@ function nextImg() {
         1. 添加到zjkj_label_v1.txt中；
         2. 添加到bid_brand_test_ds.txt和bid_brand_train_ds.txt文件中
         '''
+        brand_set = set()
+        bm_set = set()
+        bmy_set = set()
         with open('./logs/wxs_tds_0730.csv', 'r', encoding='utf-8') as tfd:
             for line in tfd:
                 line = line.strip()
                 arrs0 = line.split(',')
-                bmy_id_s1 = int(arrs0[1])
-                if bmy_id_s1 < 0:
-                    print(line)
+                arrs1 = arrs0[0].split('/')
+                img_file = arrs1[-1]
+                arrs2 = img_file.split('_')
+                brand_name = arrs2[3].replace('-', '_')
+                brand_set.add(brand_name)
+                model_name = arrs2[4].replace('-', '_')
+                bm_name = '{0}牌-{1}'.format(brand_name, model_name)
+                bm_set.add(bm_name)
+                year_name = arrs2[5].replace('-', '_')
+                bmy_name = '{0}牌-{1}-{2}'.format(brand_name, model_name, year_name)
+                bmy_set.add(bmy_name)
+                sim_bmy_id = int(arrs0[1])
+                if sim_bmy_id < 0:
+                    print('{0}: {1};'.format(bmy_name, sim_bmy_id))
+        print('共有品牌{0}个'.format(len(brand_set)))
+        print('共有车型{0}个'.format(len(bm_set)))
+        print('共有年款{0}个'.format(len(bmy_set)))
