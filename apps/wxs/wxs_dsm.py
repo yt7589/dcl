@@ -1400,7 +1400,11 @@ function nextImg() {
         print('现有品牌{0}个'.format(len(brand_set)))
         print('现有车型{0}个'.format(len(bm_set)))
         print('现有年款{0}个'.format(len(bmy_set)))
+        w_brand_set, w_brand_name_code_dict, w_bm_set, w_bm_name_code_dict, w_bmy_set, w_bmy_name_code_dict = WxsDsm.wxs_excel_bmy_data()
         
+        t_brand_set = set()
+        t_bm_set = set()
+        t_bmy_set = set()
         with open('./logs/wxs_tds_0730.csv', 'r', encoding='utf-8') as tfd:
             for line in tfd:
                 line = line.strip()
@@ -1409,19 +1413,20 @@ function nextImg() {
                 img_file = arrs1[-1]
                 arrs2 = img_file.split('_')
                 brand_name = arrs2[3].replace('-', '_')
-                brand_set.add('{0}牌'.format(brand_name))
+                t_brand_set.add('{0}牌'.format(brand_name))
                 model_name = arrs2[4].replace('-', '_')
                 bm_name = '{0}牌-{1}'.format(brand_name, model_name)
-                bm_set.add(bm_name)
+                t_bm_set.add(bm_name)
                 year_name = arrs2[5].replace('-', '_')
                 bmy_name = '{0}牌-{1}-{2}'.format(brand_name, model_name, year_name)
-                bmy_set.add(bmy_name)
+                t_bmy_set.add(bmy_name)
                 sim_bmy_id = int(arrs0[1])
                 if sim_bmy_id < 0:
                     print('{0}: {1};'.format(img_file, bmy_name))
-        print('共有品牌{0}个'.format(len(brand_set)))
-        print('共有车型{0}个'.format(len(bm_set)))
-        print('共有年款{0}个'.format(len(bmy_set)))
+        
+        diff_brand = t_brand_set - w_brand_set
+        print('测试集里面增加的新品牌{0}个'.forat(len(diff_brand)))
+        
 
     @staticmethod
     def get_bdb_from_cambricon_label():
@@ -1451,6 +1456,44 @@ function nextImg() {
                 # 处理年款
                 year_name = arrs0[2]
                 bmy_code = arrs0[5]
+                bmy_name = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
+                bmy_set.add(bmy_name)
+                if bmy_name not in bmy_name_code_dict:
+                    bmy_name_code_dict[bmy_name] = bmy_code
+        return brand_set, brand_name_code_dict, bm_set, bm_name_code_dict, bmy_set, bmy_name_code_dict
+
+    @staticmethod
+    def wxs_excel_bmy_data():
+        brand_set = set()
+        brand_name_code_dict = {}
+        bm_set = set()
+        bm_name_code_dict = {}
+        bmy_set = set()
+        bmy_name_code_dict = {}
+        first_row = True
+        with open('./logs/bid_20200708.csv', 'r', encoding='utf-8') as sfd:
+            for line in sfd:
+                line = line.strip()
+                if first_row:
+                    first_row = False
+                    continue
+                arrs0 = line.split(',')
+                # 处理品牌
+                brand_code = arrs0[1]
+                brand_name = arrs0[2]
+                brand_set.add(brand_name)
+                if brand_name not in brand_name_code_dict:
+                    brand_name_code_dict[brand_name] = brand_code
+                # 处理车型
+                bm_code = arrs0[3]
+                model_name = arrs0[4]
+                bm_name = '{0}-{1}'.format(brand_name, model_name)
+                bm_set.add(bm_name)
+                if bm_name not in bm_name_code_dict:
+                    bm_name_code_dict[bm_name] = bm_code
+                # 处理年款
+                bmy_code = arrs0[5]
+                year_name = arrs0[6]
                 bmy_name = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
                 bmy_set.add(bmy_name)
                 if bmy_name not in bmy_name_code_dict:
