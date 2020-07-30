@@ -1426,6 +1426,8 @@ function nextImg() {
         
         diff_brand = t_brand_set - w_brand_set
         print('测试集共有{0}个品牌，增加的新品牌{1}个，标书品牌{2}个'.format(len(t_brand_set), len(diff_brand), len(w_brand_set)))
+        for bi in diff_brand:
+            print(bi)
         
 
     @staticmethod
