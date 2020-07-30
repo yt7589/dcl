@@ -1409,7 +1409,7 @@ function nextImg() {
                 img_file = arrs1[-1]
                 arrs2 = img_file.split('_')
                 brand_name = arrs2[3].replace('-', '_')
-                brand_set.add(brand_name)
+                brand_set.add('{0}牌'.format(brand_name))
                 model_name = arrs2[4].replace('-', '_')
                 bm_name = '{0}牌-{1}'.format(brand_name, model_name)
                 bm_set.add(bm_name)
