@@ -1453,7 +1453,7 @@ function nextImg() {
                 # 处理车型
                 model_name = arrs0[1]
                 bm_code = arrs0[4]
-                bm_name = '{0}-{1}'.foramt(brand_name, model_name)
+                bm_name = '{0}-{1}'.format(brand_name, model_name)
                 bm_set.add(bm_name)
                 if bm_name not in bm_name_code_dict:
                     bm_name_code_dict[bm_name] = bm_code
