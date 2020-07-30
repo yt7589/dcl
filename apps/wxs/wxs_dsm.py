@@ -1396,6 +1396,17 @@ function nextImg() {
         1. 添加到zjkj_label_v1.txt中；
         2. 添加到bid_brand_test_ds.txt和bid_brand_train_ds.txt文件中
         '''
+        brand_set, brand_name_code_dict, bm_set, bm_name_code_dict, bmy_set, bmy_name_code_dict = WxsDsm.get_bdb_from_cambricon_label()
+        print('现有品牌{0}个'.format(len(brand_set)))
+        print('现有车型{0}个'.format(len(bm_set)))
+        print('现有年款{0}个'.format(len(bmy_set)))
+        
+        
+        
+        
+        i_debug = 1
+        if 1 == i_debug:
+            return
         brand_set = set()
         bm_set = set()
         bmy_set = set()
@@ -1420,3 +1431,37 @@ function nextImg() {
         print('共有品牌{0}个'.format(len(brand_set)))
         print('共有车型{0}个'.format(len(bm_set)))
         print('共有年款{0}个'.format(len(bmy_set)))
+
+    @staticmethod
+    def get_bdb_from_cambricon_label():
+        brand_set = set()
+        brand_name_code_dict = {}
+        bm_set = set()
+        bm_name_code_dict = {}
+        bmy_set = set()
+        bmy_name_code_dict = {}
+        with open('../../w1/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
+            for line in cfd:
+                line = line.strip()
+                arrs0 = line.split(',')
+                # 处理品牌
+                brand_name = arrs0[0]
+                brand_code = arrs0[3]
+                brand_set.add(brand_name)
+                if brand_name not in brand_name_code_dict:
+                    brand_name_code_dict[brand_name] = brand_code
+                # 处理车型
+                model_name = arrs0[1]
+                bm_code = arrs0[4]
+                bm_name = '{0}-{1}'.foramt(brand_name, model_name)
+                bm_set.add(bm_name)
+                if bm_name not in bm_name_code_dict:
+                    bm_name_code_dict[bm_name] = bm_code
+                # 处理年款
+                year_name = arrs0[2]
+                bmy_code = arrs0[5]
+                bmy_name = '{0}-{1}-{2}'.format(brand_name, model_name, year_name)
+                bmy_set.add(bmy_name)
+                if bmy_name not in bmy_name_code_dict:
+                    bmy_name_code_dict[bmy_name] = bmy_code
+        return brand_set, brand_name_code_dict, bm_set, bm_name_code_dict, bmy_set, bmy_name_code_dict
