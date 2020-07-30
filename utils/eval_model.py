@@ -81,6 +81,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             batch_brand_correct = torch.sum((brand_top5_pos[:, 0] == brand_labels)).data.item()
             brand_correct += batch_brand_correct
             # 
+            '''
             pred_size = top3_pos[:, 0].shape[0]
             batch_bb_correct = 0
             for idx in range(pred_size):
@@ -91,6 +92,8 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
                 if pred_brand == gt_brand:
                     batch_bb_correct += 1
             bb_correct += batch_bb_correct
+            '''
+            bb_correct = 0
 
         val_acc1 = val_corrects1 / item_count
         val_acc2 = val_corrects2 / item_count
