@@ -1396,7 +1396,7 @@ function nextImg() {
         1. 添加到zjkj_label_v1.txt中；
         2. 添加到bid_brand_test_ds.txt和bid_brand_train_ds.txt文件中
         '''
-        with open('./logs/wxs_tds_0730.txt', 'r', encoding='utf-8') as tfd:
+        with open('./logs/wxs_tds_0730.csv', 'r', encoding='utf-8') as tfd:
             for line in tfd:
                 line = line.strip()
                 arrs0 = line.split(',')
