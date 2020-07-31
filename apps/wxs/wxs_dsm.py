@@ -1565,6 +1565,8 @@ function nextImg() {
                     sim_brand_id = 114
                 if file_brand_name == '双环牌':
                     sim_brand_id = 101
+                if file_brand_name == '雪铁龙牌':
+                    sim_brand_id = 58
                 ds_brand_name = bid_brands_dict[sim_brand_id]
                 if file_brand_name != ds_brand_name:
                     error_num += 1
