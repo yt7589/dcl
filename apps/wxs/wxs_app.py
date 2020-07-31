@@ -69,7 +69,8 @@ class WxsApp(object):
         '''
         根据错误分类样本列表，形成便于人工浏览的网页，保存于../../w1/es目录下
         '''
-        WxsDsm.generate_error_samples_html()
+        #WxsDsm.generate_error_samples_html()
+        WxsDsm.fix_test_ds_brand_errors()
 
         
 

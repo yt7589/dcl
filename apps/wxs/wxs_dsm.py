@@ -1519,3 +1519,30 @@ function nextImg() {
                 if bmy_name not in bmy_name_code_dict:
                     bmy_name_code_dict[bmy_name] = bmy_code
         return brand_set, brand_name_code_dict, bm_set, bm_name_code_dict, bmy_set, bmy_name_code_dict
+
+    @staticmethod
+    def fix_test_ds_brand_errors():
+        '''
+        '''
+        bid_brands_dict = {}
+        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+            for line in bfd:
+                line = line.strip()
+                arrs0 = line.split(':')
+                bid_brands_dict[int(arrs0[0])] = arrs0[1]
+        with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tfd:
+            for line in tfd:
+                line = line.strip()
+                arrs0 = line.split('*')
+                full_fn = arrs0[0]
+                arrs1 = full_fn.split('/')
+                img_file = arrs1[-1]
+                arrs2 = img_file.split('_')
+                file_brand_name = arrs2[4]
+                sim_bmy_id = arrs0[1]
+                sim_brand_id = int(arrs0[2])
+                ds_brand_name = bid_brands_dict[sim_brand_id]
+                msg = ''
+                if file_brand_name != ds_brand_name:
+                    msg = '########### Error:'
+                print('{0} {1}: {2} vs {3};'.format(msg, img_file, file_brand_name, ds_brand_name))
