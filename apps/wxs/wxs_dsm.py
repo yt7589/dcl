@@ -1680,11 +1680,16 @@ function nextImg() {
 
 
     @staticmethod
-    def findfile(base_folder, prefix):
-        for relpath, dirs, files in os.walk(base_folder):
-            for fi in files:
-                fn = str(fi)
-                if fn.startswith(prefix):
-                    full_path = os.path.join(base_folder, relpath, fi)
-                    return os.path.normpath(os.path.abspath(full_path))
-        return None
+    def generate_wxs_tds_table():
+        '''
+        将无锡所测试文件放到Excel表格中
+        '''
+        base_path = Path('/media/zjkj/work/品牌')
+        for path_obj in base_path.iterdir():
+            for file_obj in path_obj.iterdir():
+                full_fn = str(file_obj)
+                arrs0 = full_fn.split('/')
+                img_file = arrs0[-1]
+                parent_folder = arrs0[-2]
+                if file_obj.is_file() and img_file.endswith(('jpg', 'png', 'jpeg', 'bmp')):
+                    print('./{0}/{1}'.format(parent_folder, img_file))

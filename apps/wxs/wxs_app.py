@@ -78,7 +78,11 @@ class WxsApp(object):
         '''
         从t_vin表中获取当前不在所里5731个品牌车型年款中的车辆识别码
         '''
-        WxsDsm.get_non_wxs_vins()
+        #WxsDsm.get_non_wxs_vins()
+        '''
+        将无锡所测试文件放到Excel表格中
+        '''
+        WxsDsm.generate_wxs_tds_table()
 
         
 
