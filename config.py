@@ -75,8 +75,8 @@ class LoadConfig(object):
             self.rawdata_root = '/media/zjkj/work/vehicle_type_v2d/vehicle_type_v2d'
             self.anno_root = './datasets/CUB_200_2011/anno'
             #self.numcls = 478
-            self.numcls = 216 # 3330 # 11129 # 2838 #414
-            self.num_brands = 3330 # 216
+            self.numcls = 3330 # 11129 # 2838 #414
+            self.num_brands = 216
         elif args.dataset == 'STCAR':
             self.dataset = args.dataset
             self.rawdata_root = './dataset/st_car/data'
@@ -94,26 +94,20 @@ class LoadConfig(object):
         # path/image_name cls_num\n
 
         if 'train' in get_list:
-            '''
             self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_train_ds.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'label', 'brand_label'])
-            '''
-            self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_train_ds.txt'),\
-                                           sep="*",\
-                                           header=None,\
-                                           names=['ImageName', 'brand_label', 'label'])
         if 'val' in get_list:
             self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'brand_label', 'label'])
+                                           names=['ImageName', 'label', 'brand_label'])
         if 'test' in get_list:
             self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'brand_label', 'label'])
+                                           names=['ImageName', 'label', 'brand_label'])
         self.swap_num = args.swap_num
 
         self.save_dir = './net_model/'
