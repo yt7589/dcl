@@ -1626,6 +1626,7 @@ function nextImg() {
         vins = CBmy.get_non_wxs_vins()
         vin_img_file_dict = {}
         num = 0
+        missing_num = 0
         with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
@@ -1648,7 +1649,9 @@ function nextImg() {
                 img_file = vin_img_file_dict[vin['vin_code']]
             else:
                 img_file = '?????????'
+                missing_num += 1
             print('{0},{1},{2},{3}'.format(vin['vin_id'], bmy_name, vin['vin_code'], img_file))
+            print('共{0}个车辆识别码未找到图片'.format(missing_num))
 
 
     @staticmethod
