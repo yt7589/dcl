@@ -1553,6 +1553,8 @@ function nextImg() {
                 if file_brand_name == '广汽传祺牌':
                     file_brand_name = '广汽牌'
                     sim_brand_id = 100
+                if file_brand_name == '荣威牌':
+                    sim_brand_id = 71
                 ds_brand_name = bid_brands_dict[sim_brand_id]
                 if file_brand_name != ds_brand_name:
                     error_num += 1
