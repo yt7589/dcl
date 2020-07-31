@@ -1573,6 +1573,8 @@ function nextImg() {
                     sim_brand_id = 5
                 if file_brand_name == '别克牌':
                     sim_brand_id = 91
+                if file_brand_name == '大众牌':
+                    sim_brand_id = 37
                 ds_brand_name = bid_brands_dict[sim_brand_id]
                 if file_brand_name != ds_brand_name:
                     error_num += 1
