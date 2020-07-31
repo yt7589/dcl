@@ -19,7 +19,7 @@ class WxsApp(object):
         利用所里最新Excel表格内容为主，work/ggh2_to_bmy_dict.txt内容为辅，
         生成数据库中t_brand、t_model、t_bmy、t_vin表格中内容
         '''
-        WxsDsm.initialize_db()
+        #WxsDsm.initialize_db()
         ''' 
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
         '''
@@ -66,6 +66,10 @@ class WxsApp(object):
         处理所里测试集中5664张正确图片中新车型和新年款记录，添加到数据集中
         '''
         #WxsDsm.process_unknown_wxs_tds()
+        '''
+        根据错误分类样本列表，形成便于人工浏览的网页，保存于../../w1/es目录下
+        '''
+        WxsDsm.generate_error_samples_html()
 
         
 
