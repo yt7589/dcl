@@ -1535,69 +1535,71 @@ function nextImg() {
                 bid_brands_dict[int(arrs0[0])] = arrs0[1]
                 brand_id_brand_name_dict[int(arrs0[0])] = arrs0[1]
                 brand_name_brand_id_dict[arrs0[1]] = int(arrs0[0])
-        with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tfd:
-            for line in tfd:
-                line = line.strip()
-                arrs0 = line.split('*')
-                full_fn = arrs0[0]
-                arrs1 = full_fn.split('/')
-                img_file = arrs1[-1]
-                arrs2 = img_file.split('_')
-                file_brand_name = '{0}牌'.format(arrs2[3])
-                sim_bmy_id = arrs0[1]
-                sim_brand_id = int(arrs0[2])
-                if sim_brand_id == 210:
-                    sim_brand_id = 29
-                if file_brand_name == 'JEEP牌':
-                    file_brand_name = '吉普牌'
-                if file_brand_name == '广汽传祺牌':
-                    file_brand_name = '广汽牌'
-                    sim_brand_id = 100
-                if file_brand_name == '荣威牌':
-                    sim_brand_id = 71
-                if file_brand_name == '北汽绅宝牌':
-                    file_brand_name = '北京牌'
-                    sim_brand_id = 26
-                if file_brand_name == '莲花牌':
-                    sim_brand_id = 96
-                if file_brand_name == '吉利全球鹰牌':
-                    file_brand_name = '吉利牌'
-                    sim_brand_id = 114
-                if file_brand_name == '双环牌':
-                    sim_brand_id = 101
-                if file_brand_name == '雪铁龙牌':
-                    sim_brand_id = 58
-                if file_brand_name == '哈弗牌':
-                    sim_brand_id = 60
-                if file_brand_name == '悍马牌':
-                    sim_brand_id = 5
-                if file_brand_name == '别克牌':
-                    sim_brand_id = 91
-                if file_brand_name == '大众牌':
-                    sim_brand_id = 37
-                if file_brand_name == '金杯牌':
-                    sim_brand_id = 102
-                if file_brand_name == '斯巴鲁牌':
-                    sim_brand_id = 123
-                if file_brand_name == '福特牌':
-                    sim_brand_id = 2
-                if file_brand_name == '奔驰牌':
-                    sim_brand_id = 6
-                if file_brand_name == '一汽奔腾牌':
-                    file_brand_name = '一汽牌'
-                    sim_brand_id = 23
-                if file_brand_name == '双龙牌':
-                    file_brand_name = '双龙大宇牌'
-                    sim_brand_id = 145
-                if file_brand_name == '长安商用牌':
-                    file_brand_name = '长安牌'
-                    sim_brand_id = 16
-                if file_brand_name == '东风风光牌':
-                    file_brand_name = '东风牌'
-                    sim_brand_id = 69
-                ds_brand_name = bid_brands_dict[sim_brand_id]
-                if file_brand_name != ds_brand_name:
-                    error_num += 1
-                    print('{0}: {1} vs {2};'.format(img_file, file_brand_name, ds_brand_name))
-                else:
-                    print('{0}*{1}*{2}'.format(img_file, sim_bmy_id, sim_brand_id))
+        with open('./logs/n_bid_brand_test_ds.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tfd:
+                for line in tfd:
+                    line = line.strip()
+                    arrs0 = line.split('*')
+                    full_fn = arrs0[0]
+                    arrs1 = full_fn.split('/')
+                    img_file = arrs1[-1]
+                    arrs2 = img_file.split('_')
+                    file_brand_name = '{0}牌'.format(arrs2[3])
+                    sim_bmy_id = arrs0[1]
+                    sim_brand_id = int(arrs0[2])
+                    if sim_brand_id == 210:
+                        sim_brand_id = 29
+                    if file_brand_name == 'JEEP牌':
+                        file_brand_name = '吉普牌'
+                    if file_brand_name == '广汽传祺牌':
+                        file_brand_name = '广汽牌'
+                        sim_brand_id = 100
+                    if file_brand_name == '荣威牌':
+                        sim_brand_id = 71
+                    if file_brand_name == '北汽绅宝牌':
+                        file_brand_name = '北京牌'
+                        sim_brand_id = 26
+                    if file_brand_name == '莲花牌':
+                        sim_brand_id = 96
+                    if file_brand_name == '吉利全球鹰牌':
+                        file_brand_name = '吉利牌'
+                        sim_brand_id = 114
+                    if file_brand_name == '双环牌':
+                        sim_brand_id = 101
+                    if file_brand_name == '雪铁龙牌':
+                        sim_brand_id = 58
+                    if file_brand_name == '哈弗牌':
+                        sim_brand_id = 60
+                    if file_brand_name == '悍马牌':
+                        sim_brand_id = 5
+                    if file_brand_name == '别克牌':
+                        sim_brand_id = 91
+                    if file_brand_name == '大众牌':
+                        sim_brand_id = 37
+                    if file_brand_name == '金杯牌':
+                        sim_brand_id = 102
+                    if file_brand_name == '斯巴鲁牌':
+                        sim_brand_id = 123
+                    if file_brand_name == '福特牌':
+                        sim_brand_id = 2
+                    if file_brand_name == '奔驰牌':
+                        sim_brand_id = 6
+                    if file_brand_name == '一汽奔腾牌':
+                        file_brand_name = '一汽牌'
+                        sim_brand_id = 23
+                    if file_brand_name == '双龙牌':
+                        file_brand_name = '双龙大宇牌'
+                        sim_brand_id = 145
+                    if file_brand_name == '长安商用牌':
+                        file_brand_name = '长安牌'
+                        sim_brand_id = 16
+                    if file_brand_name == '东风风光牌':
+                        file_brand_name = '东风牌'
+                        sim_brand_id = 69
+                    ds_brand_name = bid_brands_dict[sim_brand_id]
+                    if file_brand_name != ds_brand_name:
+                        error_num += 1
+                        print('{0}: {1} vs {2};'.format(img_file, file_brand_name, ds_brand_name))
+                    else:
+                        print('{0}*{1}*{2}'.format(img_file, sim_bmy_id, sim_brand_id))
+                        wfd.write('{0}*{1}*{2}\n'.format(img_file, sim_bmy_id, sim_brand_id))
