@@ -76,12 +76,14 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             batch_corrects3 = torch.sum((top3_pos[:, 2] == labels)).data.item()
             val_corrects3 += (batch_corrects3 + batch_corrects2 + batch_corrects1)
             # 求出品牌精度
+            '''
             outputs_brand = outputs[-1]
             brand_top5_val, brand_top5_pos = torch.topk(outputs_brand, 5)
             batch_brand_correct = torch.sum((brand_top5_pos[:, 0] == brand_labels)).data.item()
             brand_correct += batch_brand_correct
-            # 
+            bb_correct = 0
             '''
+            # 
             pred_size = top3_pos[:, 0].shape[0]
             batch_bb_correct = 0
             for idx in range(pred_size):
@@ -92,8 +94,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
                 if pred_brand == gt_brand:
                     batch_bb_correct += 1
             bb_correct += batch_bb_correct
-            '''
-            bb_correct = 0
+            brand_correct = 0
 
         val_acc1 = val_corrects1 / item_count
         val_acc2 = val_corrects2 / item_count
