@@ -1547,9 +1547,7 @@ function nextImg() {
                 sim_bmy_id = arrs0[1]
                 sim_brand_id = int(arrs0[2])
                 ds_brand_name = bid_brands_dict[sim_brand_id]
-                msg = ''
                 if file_brand_name != ds_brand_name:
                     error_num += 1
-                    msg = '########### Error:'
-                print('{0} {1}: {2} vs {3};'.format(msg, img_file, file_brand_name, ds_brand_name))
+                    print('{0}: {1} vs {2};'.format(img_file, file_brand_name, ds_brand_name))
         print('错误记录：{0}条'.format(error_num))
