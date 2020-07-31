@@ -15,7 +15,11 @@ class WxsApp(object):
             self.exp()
             return
         #WxsDsm.exp001()
-        #WxsDsm.initialize_db()
+        '''
+        利用所里最新Excel表格内容为主，work/ggh2_to_bmy_dict.txt内容为辅，
+        生成数据库中t_brand、t_model、t_bmy、t_vin表格中内容
+        '''
+        WxsDsm.initialize_db()
         ''' 
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
         '''
@@ -61,7 +65,7 @@ class WxsApp(object):
         '''
         处理所里测试集中5664张正确图片中新车型和新年款记录，添加到数据集中
         '''
-        WxsDsm.process_unknown_wxs_tds()
+        #WxsDsm.process_unknown_wxs_tds()
 
         
 
