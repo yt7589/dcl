@@ -1525,11 +1525,16 @@ function nextImg() {
         '''
         '''
         bid_brands_dict = {}
+        brand_id_brand_name_dict = {}
+        brand_name_brand_id_dict = {}
+        error_num = 0
         with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
             for line in bfd:
                 line = line.strip()
                 arrs0 = line.split(':')
                 bid_brands_dict[int(arrs0[0])] = arrs0[1]
+                brand_id_brand_name_dict[int(arrs0[0])] = arrs0[1]
+                brand_name_brand_id_dict[arrs0[1]] = int(arrs0[0])
         with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tfd:
             for line in tfd:
                 line = line.strip()
@@ -1538,11 +1543,13 @@ function nextImg() {
                 arrs1 = full_fn.split('/')
                 img_file = arrs1[-1]
                 arrs2 = img_file.split('_')
-                file_brand_name = arrs2[4]
+                file_brand_name = '{0}牌'.format(arrs2[3])
                 sim_bmy_id = arrs0[1]
                 sim_brand_id = int(arrs0[2])
                 ds_brand_name = bid_brands_dict[sim_brand_id]
                 msg = ''
                 if file_brand_name != ds_brand_name:
+                    error_num += 1
                     msg = '########### Error:'
                 print('{0} {1}: {2} vs {3};'.format(msg, img_file, file_brand_name, ds_brand_name))
+        print('错误记录：{0}条'.format(error_num))
