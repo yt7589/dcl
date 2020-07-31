@@ -1189,9 +1189,9 @@ let images = [
                     '''
                     # 品牌为主时使用
                     gt_id = int(arrs0[1])
-                    gt_label = bid_brand_dict[gt_id+1]
+                    gt_label = bid_brand_dict[gt_id]
                     net_id = int(arrs0[2])
-                    net_label = bid_brand_dict[net_id+1]
+                    net_label = bid_brand_dict[net_id]
                     item = {
                         'orgFile': full_file,
                         'imgFile': dst_img_file,
