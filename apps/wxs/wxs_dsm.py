@@ -1561,6 +1561,7 @@ function nextImg() {
                 if file_brand_name == '莲花牌':
                     sim_brand_id = 96
                 if file_brand_name == '吉利全球鹰牌':
+                    file_brand_name = '吉利牌'
                     sim_brand_id = 114
                 ds_brand_name = bid_brands_dict[sim_brand_id]
                 if file_brand_name != ds_brand_name:
