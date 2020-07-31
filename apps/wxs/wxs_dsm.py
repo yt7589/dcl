@@ -1577,6 +1577,8 @@ function nextImg() {
                     sim_brand_id = 37
                 if file_brand_name == '金杯牌':
                     sim_brand_id = 102
+                if file_brand_name == '斯巴鲁牌':
+                    sim_brand_id = 123
                 ds_brand_name = bid_brands_dict[sim_brand_id]
                 if file_brand_name != ds_brand_name:
                     error_num += 1
