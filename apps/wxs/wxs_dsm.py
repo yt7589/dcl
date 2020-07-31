@@ -1684,6 +1684,7 @@ function nextImg() {
         '''
         将无锡所测试文件放到Excel表格中
         '''
+        num = 0
         base_path = Path('/media/zjkj/work/品牌')
         for path_obj in base_path.iterdir():
             for file_obj in path_obj.iterdir():
@@ -1693,3 +1694,5 @@ function nextImg() {
                 parent_folder = arrs0[-2]
                 if file_obj.is_file() and img_file.endswith(('jpg', 'png', 'jpeg', 'bmp')):
                     print('./{0}/{1}'.format(parent_folder, img_file))
+                    num += 1
+        print('共有{0}个图片文件'.format(num))
