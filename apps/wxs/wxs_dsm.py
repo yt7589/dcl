@@ -1610,5 +1610,7 @@ function nextImg() {
         从数据库中读出品牌车型年款列表
         '''
         bmys = CBmy.get_wxs_bmys()
-        for bi in bmys:
-            print(bi)
+        with open('./logs/wxs_bmys.csv', 'w+', encoding='utf-8') as bfd:
+            for bi in bmys:
+                print(bi)
+                bfd.write('{0},{1},{2}\n'.format(bi['bmy_id'], bi['bmy_code'], bi['bmy_name']))
