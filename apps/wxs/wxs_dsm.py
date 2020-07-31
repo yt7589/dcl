@@ -1546,8 +1546,11 @@ function nextImg() {
                 file_brand_name = '{0}牌'.format(arrs2[3])
                 sim_bmy_id = arrs0[1]
                 sim_brand_id = int(arrs0[2])
+                print('sim_brand_id={0};'.format(sim_brand_id))
                 if sim_brand_id == 210:
+                    print('!!!!!!!!!!!!!!!!!!!')
                     sim_brand_id == 29
+                    sys.exit(0)
                 ds_brand_name = bid_brands_dict[sim_brand_id]
                 if file_brand_name != ds_brand_name:
                     error_num += 1
