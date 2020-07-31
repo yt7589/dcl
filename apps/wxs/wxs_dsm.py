@@ -1549,7 +1549,7 @@ function nextImg() {
                 sim_brand_id = int(arrs0[2])
                 if sim_brand_id == 210:
                     sign = True
-                    sim_brand_id == 29
+                    sim_brand_id = 29
                 ds_brand_name = bid_brands_dict[sim_brand_id]
                 if sign:
                     print('ds_brand_name={0}; sim_brand_id={1};'.format(ds_brand_name, sim_brand_id))
