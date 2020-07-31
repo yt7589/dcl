@@ -1622,6 +1622,20 @@ function nextImg() {
         '''
         从t_vin表中获取当前不在所里5731个品牌车型年款中的车辆识别码
         '''
+        new_vin_folder_dict = {}
+        base_path = Path('/media/zjkj/work/guochanche_2n')
+        for path_obj in base_path.iterdir():
+            path_str = str(path_obj)
+            arrs0 = path_str.split('/')
+            vin_code = arrs0[-1]
+            new_vin_folder_dict[vin_code] = path_str
+
+        for k, v in new_vin_folder_dict.items():
+            print('{0}: {1};'.format(k, v))
+        i_debug = 1
+        if 1 == i_debug:
+            return
+
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         vins = CBmy.get_non_wxs_vins()
         vin_img_file_dict = {}
@@ -1642,6 +1656,7 @@ function nextImg() {
                 num += 1
                 if num % 1000 == 0:
                     print('处理{0}条样本数据...'.format(num))
+        
         for vin in vins:
             print(vin)
             bmy_id = int(vin['bmy_id'])
