@@ -1653,7 +1653,7 @@ function nextImg() {
                 missing_num += 1
                 missing_vins.append({
                     'vin_id': vin['vin_id'],
-                    'bmy_name': vin['bmy_name'],
+                    'bmy_name':bmy_name,
                     'vin_code': vin['vin_code']
                 })
             print('{0},{1},{2},{3}'.format(vin['vin_id'], bmy_name, vin['vin_code'], img_file))
