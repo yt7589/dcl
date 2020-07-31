@@ -37,7 +37,7 @@ def train(Config,
           ):
     # savepoint: save without evalution
     # checkpoint: save with evaluation
-    brand_weight = 1.5 # 决定品牌分支在学习中权重
+    brand_weight = 0.0 # 1.5 # 决定品牌分支在学习中权重
     step = 0
     eval_train_flag = False
     rec_loss = []
@@ -101,7 +101,7 @@ def train(Config,
             else:
                 ce_loss_bmy = get_ce_loss(outputs[0], labels)
                 ce_loss_brand = get_ce_loss(outputs[-1], brand_labels)
-            ce_loss = ce_loss_bmy  + brand_weight * ce_loss_brand
+            ce_loss = ce_loss_bmy # + brand_weight * ce_loss_brand
 
             if Config.use_Asoftmax:
                 fetch_batch = labels.size(0)
