@@ -1634,7 +1634,7 @@ function nextImg() {
                 arrs1 = full_fn.split('/')
                 img_file = arrs1[-1]
                 raw_vin_code = img_file.split('_')
-                arrs2 = raw_vin_code.split('#')
+                arrs2 = raw_vin_code[0].split('#')
                 vc = arrs2[0]
                 vin_img_file_dict[vc] = full_fn
                 num += 1
