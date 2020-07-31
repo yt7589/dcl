@@ -1652,31 +1652,31 @@ function nextImg() {
             vin_code = arrs0[-1]
             new_vin_folder_dict[vin_code] = path_str
         # 处理每个车辆识别码
-        for vin in vins:
-            print(vin)
-            bmy_id = int(vin['bmy_id'])
-            bmy_name = bmy_id_bmy_vo_dict[bmy_id]['bmy_name']
-            if vin['vin_code'] in vin_img_file_dict:
-                img_file = vin_img_file_dict[vin['vin_code']]
-            elif vin['vin_code'] in new_vin_folder_dict:
-                new_path = Path(new_vin_folder_dict[vin['vin_code']])
-                for file_obj in new_path.iterdir():
-                    img_file = str(file_obj)
-                    break
-            else:
-                img_file = '?????????'
-                missing_num += 1
-                missing_vins.append({
-                    'vin_id': vin['vin_id'],
-                    'bmy_name':bmy_name,
-                    'vin_code': vin['vin_code']
-                })
-            print('{0},{1},{2},{3}'.format(vin['vin_id'], bmy_name, vin['vin_code'], img_file))
+        with open('../../w1/to_be_processed_vins.csv', 'w+', encoding='utf-8') as vfd:
+            for vin in vins:
+                print(vin)
+                bmy_id = int(vin['bmy_id'])
+                bmy_name = bmy_id_bmy_vo_dict[bmy_id]['bmy_name']
+                if vin['vin_code'] in vin_img_file_dict:
+                    img_file = vin_img_file_dict[vin['vin_code']]
+                elif vin['vin_code'] in new_vin_folder_dict:
+                    new_path = Path(new_vin_folder_dict[vin['vin_code']])
+                    for file_obj in new_path.iterdir():
+                        img_file = str(file_obj)
+                        break
+                else:
+                    img_file = '?????????'
+                    missing_num += 1
+                    missing_vins.append({
+                        'vin_id': vin['vin_id'],
+                        'bmy_name':bmy_name,
+                        'vin_code': vin['vin_code']
+                    })
+                print('{0},{1},{2},{3}'.format(vin['vin_id'], bmy_name, vin['vin_code'], img_file))
+                vfd.write('{0},{1},{2},{3}\n'.format(vin['vin_id'], bmy_name, vin['vin_code'], img_file))
         print('共{0}个车辆识别码未找到图片'.format(missing_num))
-        '''
         for mv in missing_vins:
             print('### {0};'.format(mv))
-        '''
 
 
     @staticmethod
