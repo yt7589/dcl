@@ -1548,6 +1548,8 @@ function nextImg() {
                 sim_brand_id = int(arrs0[2])
                 if sim_brand_id == 210:
                     sim_brand_id = 29
+                if file_brand_name == 'JEEP牌':
+                    file_brand_name = '吉普牌'
                 ds_brand_name = bid_brands_dict[sim_brand_id]
                 if file_brand_name != ds_brand_name:
                     error_num += 1
