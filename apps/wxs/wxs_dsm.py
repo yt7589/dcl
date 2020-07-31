@@ -1599,4 +1599,5 @@ function nextImg() {
                 if file_brand_name != ds_brand_name:
                     error_num += 1
                     print('{0}: {1} vs {2};'.format(img_file, file_brand_name, ds_brand_name))
-        print('错误记录：{0}条'.format(error_num))
+                else:
+                    print('{0}*{1}*{2}'.format(img_file, sim_bmy_id, sim_brand_id))
