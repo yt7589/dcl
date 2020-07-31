@@ -1614,3 +1614,12 @@ function nextImg() {
             for bi in bmys:
                 print(bi)
                 bfd.write('{0},{1},{2}\n'.format(bi['bmy_id'], bi['bmy_code'], bi['bmy_name']))
+
+    @staticmethod
+    def get_non_wxs_vins():
+        '''
+        从t_vin表中获取当前不在所里5731个品牌车型年款中的车辆识别码
+        '''
+        vins = CBmy.get_non_wxs_vins()
+        for vin in vins:
+            print(vin)

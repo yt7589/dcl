@@ -74,7 +74,11 @@ class WxsApp(object):
         '''
         获取所里最新Excel表格中的品牌车型年款
         '''
-        WxsDsm.get_wxs_bmys()
+        #WxsDsm.get_wxs_bmys()
+        '''
+        从t_vin表中获取当前不在所里5731个品牌车型年款中的车辆识别码
+        '''
+        WxsDsm.get_non_wxs_vins()
 
         
 
