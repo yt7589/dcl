@@ -1535,6 +1535,7 @@ function nextImg() {
                 bid_brands_dict[int(arrs0[0])] = arrs0[1]
                 brand_id_brand_name_dict[int(arrs0[0])] = arrs0[1]
                 brand_name_brand_id_dict[arrs0[1]] = int(arrs0[0])
+        sign = False
         with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tfd:
             for line in tfd:
                 line = line.strip()
@@ -1546,12 +1547,13 @@ function nextImg() {
                 file_brand_name = '{0}牌'.format(arrs2[3])
                 sim_bmy_id = arrs0[1]
                 sim_brand_id = int(arrs0[2])
-                print('sim_brand_id={0};'.format(sim_brand_id))
                 if sim_brand_id == 210:
-                    print('!!!!!!!!!!!!!!!!!!!')
+                    sign = True
                     sim_brand_id == 29
-                    sys.exit(0)
                 ds_brand_name = bid_brands_dict[sim_brand_id]
+                if sign:
+                    print('ds_brand_name={0}; sim_brand_id={1};'.format(ds_brand_name, sim_brand_id))
+                    sys.exit(0)
                 if file_brand_name != ds_brand_name:
                     error_num += 1
                     print('{0}: {1} vs {2};'.format(img_file, file_brand_name, ds_brand_name))
