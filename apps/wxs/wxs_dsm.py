@@ -1581,6 +1581,8 @@ function nextImg() {
                     sim_brand_id = 123
                 if file_brand_name == '福特牌':
                     sim_brand_id = 2
+                if file_brand_name == '奔驰牌':
+                    sim_brand_id = 6
                 ds_brand_name = bid_brands_dict[sim_brand_id]
                 if file_brand_name != ds_brand_name:
                     error_num += 1
