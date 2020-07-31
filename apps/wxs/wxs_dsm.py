@@ -1648,7 +1648,7 @@ function nextImg() {
                 img_file = vin_img_file_dict[vin['vin_code']]
             else:
                 img_file = '?????????'
-            print('{0},{1},{2}'.format(vin['vin_id'], bmy_name, vin['vin_code'], img_file))
+            print('{0},{1},{2},{3}'.format(vin['vin_id'], bmy_name, vin['vin_code'], img_file))
 
 
     @staticmethod
