@@ -1592,6 +1592,9 @@ function nextImg() {
                 if file_brand_name == '长安商用牌':
                     file_brand_name = '长安牌'
                     sim_brand_id = 16
+                if file_brand_name == '东风风光牌':
+                    file_brand_name = '东风牌'
+                    sim_brand_id = 69
                 ds_brand_name = bid_brands_dict[sim_brand_id]
                 if file_brand_name != ds_brand_name:
                     error_num += 1
