@@ -1620,6 +1620,30 @@ function nextImg() {
         '''
         从t_vin表中获取当前不在所里5731个品牌车型年款中的车辆识别码
         '''
+        bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         vins = CBmy.get_non_wxs_vins()
+        raw_folder = '/media/zjkj/work/fgvc_dataset/raw'
+        gcc_zw = '/media/zjkj/work/guochanchezuowan-all'
+        gcc_2n = '/media/zjkj/work/guochanche_2n'
         for vin in vins:
             print(vin)
+            bmy_id = int(vin['bmy_id'])
+            bmy_name = bmy_id_bmy_vo_dict[bmy_id]['bmy_name']
+            img_file = WxsDsm.findfile(raw_folder, vin['vin_code'])
+            if img_file is None:
+                img_file = WxsDsm.findfile(gcc_zw, vin['vin_code'])
+                if img_file is None:
+                    img_file = WxsDsm.findfile(gcc_2n, vin['vin_code'])
+            print('{0},{1},{2},{3}'.format(
+                vin['vin_id'], bmy_name, vin['vin_code'], img_file
+            ))
+
+    @staticmethod
+    def findfile(base_folder, prefix):
+        for relpath, dirs, files in os.walk(base_folder):
+            for fi in files:
+                fn = str(fi)
+                if fn.startswith(prefix):
+                    full_path = os.path.join(base_folder, relpath, fi)
+                    return os.path.normpath(os.path.abspath(full_path))
+        return None
