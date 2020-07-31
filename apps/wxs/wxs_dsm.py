@@ -6,6 +6,8 @@ import shutil
 import random
 import datetime
 from pathlib import Path
+
+from torch import full
 from apps.wxs.controller.c_brand import CBrand
 from apps.wxs.controller.c_model import CModel
 from apps.wxs.controller.c_bmy import CBmy
@@ -1622,21 +1624,32 @@ function nextImg() {
         '''
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         vins = CBmy.get_non_wxs_vins()
-        raw_folder = '/media/zjkj/work/fgvc_dataset/raw'
-        gcc_zw = '/media/zjkj/work/guochanchezuowan-all'
-        gcc_2n = '/media/zjkj/work/guochanche_2n'
+        vin_img_file_dict = {}
+        num = 0
+        with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:
+            for line in sfd:
+                line = line.strip()
+                arrs0 = line.split('*')
+                full_fn = arrs0[0]
+                arrs1 = full_fn.split('/')
+                img_file = arrs1[-1]
+                raw_vin_code = img_file.split('_')
+                arrs2 = raw_vin_code.split('#')
+                vc = arrs2[0]
+                vin_img_file_dict[vc] = full_fn
+                num += 1
+                if num % 1000 == 0:
+                    print('处理{0}条样本数据...'.format(num))
         for vin in vins:
             print(vin)
             bmy_id = int(vin['bmy_id'])
             bmy_name = bmy_id_bmy_vo_dict[bmy_id]['bmy_name']
-            img_file = WxsDsm.findfile(raw_folder, vin['vin_code'])
-            if img_file is None:
-                img_file = WxsDsm.findfile(gcc_zw, vin['vin_code'])
-                if img_file is None:
-                    img_file = WxsDsm.findfile(gcc_2n, vin['vin_code'])
-            print('{0},{1},{2},{3}'.format(
-                vin['vin_id'], bmy_name, vin['vin_code'], img_file
-            ))
+            if vin['vin_code'] in vin_img_file_dict:
+                img_file = vin_img_file_dict[vin['vin_code']]
+            else:
+                img_file = '?????????'
+            print('{0},{1},{2}'.format(vin['vin_id'], bmy_name, vin['vin_code'], img_file))
+
 
     @staticmethod
     def findfile(base_folder, prefix):
