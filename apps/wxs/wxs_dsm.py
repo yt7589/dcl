@@ -1603,3 +1603,12 @@ function nextImg() {
                     else:
                         print('{0}*{1}*{2}'.format(img_file, sim_bmy_id, sim_brand_id))
                         wfd.write('{0}*{1}*{2}\n'.format(full_fn, sim_bmy_id, sim_brand_id))
+
+    @staticmethod
+    def get_wxs_bmys():
+        '''
+        从数据库中读出品牌车型年款列表
+        '''
+        bmys = CBmy.get_wxs_bmys()
+        for bi in bmys:
+            print(bi)

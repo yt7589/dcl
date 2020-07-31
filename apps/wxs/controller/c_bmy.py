@@ -151,4 +151,18 @@ class CBmy(object):
             bmy_id_brand_id_dict[int(rec['bmy_id'])] = int(rec['brand_id'])
         return bmy_id_brand_id_dict
 
+    @staticmethod
+    def get_wxs_bmys():
+        raw_bmys = MBmy.get_bmys()
+        bmys = []
+        for rb in raw_bmys:
+            if not rb['bmy_code'].startswith('b'):
+                bmy = {
+                    'bmy_id': int(rb['bmy_id'])-1,
+                    'bmy_name': rb['bmy_name'],
+                    'bmy_code': rb['bmy_code']
+                }
+                bmys.append(bmy)
+        return bmys
+
     

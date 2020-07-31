@@ -1,4 +1,5 @@
 # 
+from os import stat
 import pymongo
 from apps.wxs.model.m_mongodb import MMongoDb
 
