@@ -1139,8 +1139,10 @@ class WxsDsm(object):
         images/
         index.html
         '''
-        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         num = 1
+        '''
+        # 品牌车型年款为主时使用
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         bmy_sim_org_dict = {}
         with open('../../w1/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as sofd:
             for line in sofd:
@@ -1149,6 +1151,14 @@ class WxsDsm(object):
                 sim_id = int(arrs0[0])
                 org_id = int(arrs0[1])
                 bmy_sim_org_dict[sim_id] = org_id
+        '''
+        # 品牌为主时使用
+        bid_brand_dict = {}
+        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+            for line in bfd:
+                line = line.strip()
+                arrs0 = line.split(':')
+                bid_brand_dict[int(arrs0[0])] = arrs0[1]
         with open('../../w1/es/index.html', 'w+', encoding='utf-8') as hfd:
             hfd.write("""<!DOCTYPE html>
 <html>
@@ -1167,13 +1177,21 @@ let images = [
                     img_file = arrs1[-1]
                     dst_img_file = 'images/{0:05d}.jpg'.format(num)
                     dst_full_file = '/media/zjkj/work/yantao/w1/es/images/{0:05d}.jpg'.format(num)
-                    #print('拷贝文件：{0};'.format(dst_full_file))
-                    #shutil.copy(full_file, dst_full_file)
+                    print('拷贝文件：{0};'.format(dst_full_file))
+                    shutil.copy(full_file, dst_full_file)
                     num += 1
+                    '''
+                    # 品牌车型年款为主时使用
                     gt_id = bmy_sim_org_dict[int(arrs0[1])]
                     gt_label = bmy_id_bmy_name_dict[gt_id+1]
                     net_id = bmy_sim_org_dict[int(arrs0[2])]
                     net_label = bmy_id_bmy_name_dict[net_id+1]
+                    '''
+                    # 品牌为主时使用
+                    gt_id = int(arrs0[1])
+                    gt_label = bid_brand_dict[gt_id+1]
+                    net_id = int(arrs0[2])
+                    net_label = bid_brand_dict[net_id+1]
                     item = {
                         'orgFile': full_file,
                         'imgFile': dst_img_file,
