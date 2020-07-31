@@ -1602,4 +1602,4 @@ function nextImg() {
                         print('{0}: {1} vs {2};'.format(img_file, file_brand_name, ds_brand_name))
                     else:
                         print('{0}*{1}*{2}'.format(img_file, sim_bmy_id, sim_brand_id))
-                        wfd.write('{0}*{1}*{2}\n'.format(img_file, sim_bmy_id, sim_brand_id))
+                        wfd.write('{0}*{1}*{2}\n'.format(full_fn, sim_bmy_id, sim_brand_id))
