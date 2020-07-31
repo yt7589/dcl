@@ -1622,26 +1622,13 @@ function nextImg() {
         '''
         从t_vin表中获取当前不在所里5731个品牌车型年款中的车辆识别码
         '''
-        new_vin_folder_dict = {}
-        base_path = Path('/media/zjkj/work/guochanche_2n')
-        for path_obj in base_path.iterdir():
-            path_str = str(path_obj)
-            arrs0 = path_str.split('/')
-            vin_code = arrs0[-1]
-            new_vin_folder_dict[vin_code] = path_str
-
-        for k, v in new_vin_folder_dict.items():
-            print('{0}: {1};'.format(k, v))
-        i_debug = 1
-        if 1 == i_debug:
-            return
-
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         vins = CBmy.get_non_wxs_vins()
         vin_img_file_dict = {}
         num = 0
         missing_num = 0
         missing_vins = []
+        # 从samples.txt中读出文件名
         with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
@@ -1656,13 +1643,26 @@ function nextImg() {
                 num += 1
                 if num % 1000 == 0:
                     print('处理{0}条样本数据...'.format(num))
-        
+        # 处理guochanche_2n目录内容
+        new_vin_folder_dict = {}
+        base_path = Path('/media/zjkj/work/guochanche_2n')
+        for path_obj in base_path.iterdir():
+            path_str = str(path_obj)
+            arrs0 = path_str.split('/')
+            vin_code = arrs0[-1]
+            new_vin_folder_dict[vin_code] = path_str
+        # 处理每个车辆识别码
         for vin in vins:
             print(vin)
             bmy_id = int(vin['bmy_id'])
             bmy_name = bmy_id_bmy_vo_dict[bmy_id]['bmy_name']
             if vin['vin_code'] in vin_img_file_dict:
                 img_file = vin_img_file_dict[vin['vin_code']]
+            elif vin['vin_code'] in new_vin_folder_dict:
+                new_path = Path(new_vin_folder_dict[vin['vin_code']])
+                for file_obj in new_path.iterdir():
+                    img_file = str(file_obj)
+                    break
             else:
                 img_file = '?????????'
                 missing_num += 1
@@ -1673,8 +1673,10 @@ function nextImg() {
                 })
             print('{0},{1},{2},{3}'.format(vin['vin_id'], bmy_name, vin['vin_code'], img_file))
         print('共{0}个车辆识别码未找到图片'.format(missing_num))
+        '''
         for mv in missing_vins:
             print('### {0};'.format(mv))
+        '''
 
 
     @staticmethod
