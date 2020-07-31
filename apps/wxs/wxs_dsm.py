@@ -1569,6 +1569,8 @@ function nextImg() {
                     sim_brand_id = 58
                 if file_brand_name == '哈弗牌':
                     sim_brand_id = 60
+                if file_brand_name == '悍马牌':
+                    sim_brand_id = 5
                 ds_brand_name = bid_brands_dict[sim_brand_id]
                 if file_brand_name != ds_brand_name:
                     error_num += 1
