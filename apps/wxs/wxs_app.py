@@ -23,7 +23,7 @@ class WxsApp(object):
         ''' 
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
         '''
-        WxsDsm.generate_samples()
+        #WxsDsm.generate_samples()
         '''
         生成原始数据集，采用稀疏品牌车型年款编号
         '''
@@ -92,6 +92,10 @@ class WxsApp(object):
         获取无锡所品牌列表
         '''
         #WxsDsm.get_wxs_brands()
+        '''
+        从samples.txt文件中统计出品牌数、车型数、年款数
+        '''
+        WxsDsm.get_brand_bm_bmy_of_samples()
 
         
 

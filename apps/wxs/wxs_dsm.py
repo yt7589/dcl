@@ -1897,3 +1897,23 @@ function nextImg() {
         with open('../../w1/wxs_brands.csv', 'w+', encoding='utf-8') as bfd:
             for vo in brands:
                 bfd.write('{0},{1},{2}\n'.format(vo['brand_id'], vo['brand_name'], vo['brand_code']))
+
+    @staticmethod
+    def get_brand_bm_bmy_of_samples():
+        '''
+        从samples.txt文件中统计出品牌数、车型数、年款数
+        '''
+        bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
+        brand_set = set()
+        bm_set = set()
+        bmy_set = set()
+        with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:
+            for line in sfd:
+                line = line.strip()
+                arrs0 = line.split('*')
+                bmy_id = int(arrs0[1]) + 1
+                bmy_set.add(bmy_id)
+                bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
+                brand_set.add(int(bmy_vo['brand_id']))
+                bm_set.add(int(bmy_vo['model_id']))
+        print('共有品牌{0}个，车型{1}个，年款{2}个'.format(len(brand_set), len(bm_set), len(bmy_set)))
