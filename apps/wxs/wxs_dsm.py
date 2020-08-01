@@ -1912,7 +1912,9 @@ function nextImg() {
         bm_set = set()
         bmy_set = set()
         num = 0
-        with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:
+        #sample_file = '../../w1/samples.txt'
+        sample_file = '../../w1/raw_bid_train_ds.txt'
+        with open(sample_file, 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
                 arrs0 = line.split('*')
