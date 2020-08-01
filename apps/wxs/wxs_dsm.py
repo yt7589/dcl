@@ -249,20 +249,31 @@ class WxsDsm(object):
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         brand_set = set()
-        with open('./logs/conflicts.txt', 'w+', encoding='utf-8') as WxsDsm.g_cfd:
-            with open('../../w1/samples.txt', 'w+', encoding='utf-8') as sfd:
-                with open('../../w1/error_vins.txt', 'w+', encoding='utf-8') as efd:
+        oprr_num = 0
+        with open('./logs/conflicts.txt', 'w+', encoding='utf-8') \
+                        as WxsDsm.g_cfd:
+            with open('../../w1/samples.txt', 'w+', encoding='utf-8') \
+                            as sfd:
+                with open('../../w1/error_vins.txt', 'w+', encoding='utf-8') \
+                                as efd:
                     # 进口车目录
                     folder_name = '/media/zjkj/work/fgvc_dataset/raw'
                     base_path = Path(folder_name)
-                    WxsDsm.generate_imported_vehicle_samples(vin_code_bmy_id_dict, bmy_id_bmy_name_dict, brand_set, base_path, sfd, efd)
+                    oprr_num = WxsDsm.generate_imported_vehicle_samples(
+                                oprr_num, vin_code_bmy_id_dict, 
+                                bmy_id_bmy_name_dict, 
+                                brand_set, base_path, sfd, efd)
                     # 国产车已处理
-                    #domestic1_path = Path('/media/zjkj/work/guochanchezuowan-all')
-                    #WxsDsm.generate_samples_from_path_domestic(vin_bmy_id_dict, domestic1_path, sfd, efd)
-        print('已经处理品牌数：{0};'.format(len(WxsDsm.g_brand_set)))
+                    domestic1_path = Path('/media/zjkj/work/'\
+                                'guochanchezuowan-all')
+                    oprr_num = WxsDsm.generate_domestic_vehicle_samples(
+                                oprr_num,vin_code_bmy_id_dict, 
+                                domestic1_path, sfd, efd)
+        print('已经处理品牌数：{0};'.format(len(brand_set)))
 
     @staticmethod
-    def generate_imported_vehicle_samples(vin_code_bmy_id_dict, bmy_id_bmy_name_dict, brand_set, base_path, sfd, efd):
+    def generate_imported_vehicle_samples(oprr_num, vin_code_bmy_id_dict, 
+                bmy_id_bmy_name_dict, brand_set, base_path, sfd, efd):
         brand_num = 0
         for brand_obj in base_path.iterdir():
             brand_num += 1
@@ -272,23 +283,68 @@ class WxsDsm(object):
                         filename = str(sub_obj)
                         item_name = filename.split('/')[-1]
                         if not sub_obj.is_dir() and filename.endswith(
-                                    ('jpg','png','jpeg','bmp')) and not item_name.startswith('白') \
-                                        and not item_name.startswith('夜'): # 忽略其下目录
-                            WxsDsm.process_one_img_file(vin_code_bmy_id_dict, bmy_id_bmy_name_dict, brand_set, sub_obj, sfd, efd)
-                            '''
-                            if (WxsDsm.g_dif != brand_num - len(WxsDsm.g_brand_set)) and not item_name.startswith('白') \
-                                        and not item_name.startswith('夜'):
-                                WxsDsm.g_dif = brand_num - len(WxsDsm.g_brand_set)
-                                arrs0 = item_name.split('_')
-                                arrs1 = arrs0[0].split('#')
-                                vin_code = arrs1[0]
-                                bmy_id = WxsDsm.g_vin_bmy_id_dict[vin_code]
-                                #bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)[0]
-                                #bmy_vo = CBmy.get_bmy_by_id(bmy_id)
-                                bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
-                                WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}；目录品牌数：{2}；汇总品牌数：{3}\n'.format(filename, bmy_name, brand_num, len(WxsDsm.g_brand_set)))
-                                WxsDsm.err_num += 1
-                            '''
+                                    ('jpg','png','jpeg','bmp')) and not \
+                                        item_name.startswith('白') \
+                                        and not item_name.startswith('夜'): 
+                                        # 忽略其下目录
+                            oprr_num = WxsDsm.process_one_img_file(
+                                        oprr_num, vin_code_bmy_id_dict, 
+                                        bmy_id_bmy_name_dict, brand_set, 
+                                        sub_obj, sfd, efd)
+        return oprr_num
+
+
+    @staticmethod
+    def generate_domestic_vehicle_samples(oprr_num, vin_bmy_id_dict, 
+                path_obj, sfd, efd):
+        for branch_obj in path_obj.iterdir():
+            for vin_obj in branch_obj.iterdir():
+                for file_obj in vin_obj.iterdir():
+                    filename = str(file_obj)
+                    if not file_obj.is_dir() and filename.endswith(
+                                    ('jpg','png','jpeg','bmp')): 
+                                    # 忽略其下目录
+                        oprr_num = WxsDsm.process_one_img_file(
+                                    oprr_num, vin_bmy_id_dict, 
+                                    file_obj, sfd, efd)
+        return oprr_num
+
+    @staticmethod
+    def process_one_img_file(oprr_num, vin_bmy_id_dict, 
+                bmy_id_bmy_name_dict, brand_set, sub_obj, sfd, efd):
+        sub_file = str(sub_obj)
+        #print('处理文件：{0};'.format(sub_obj))
+        arrs0 = sub_file.split('/')
+        filename = arrs0[-1]
+        arrs1 = filename.split('_')
+        raw_vin_code = arrs1[0]
+        arrs2 = raw_vin_code.split('#')
+        vin_code = arrs2[0]
+        if vin_code in vin_bmy_id_dict:
+            bmy_id = vin_bmy_id_dict[vin_code]
+        else:
+            vin_had_bmy_id = False
+            for k, _ in vin_bmy_id_dict.items():
+                if k.startswith(vin_code):
+                    bmy_id = vin_bmy_id_dict[k]
+                    vin_had_bmy_id = True
+                    break
+            if not vin_had_bmy_id:
+                bmy_id = -1
+                if vin_code != '白' and vin_code != '夜':
+                    efd.write('{0}\n'.format(vin_code))
+        if bmy_id > 0:
+            sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
+            bmy_name = bmy_id_bmy_name_dict[bmy_id]
+            arrsn = bmy_name.split('-')
+            brand_name = arrsn[0]
+            brand_set.add(brand_name)
+        oprr_num += 1
+        if oprr_num % 1000 == 0:
+            print('处理{0}条记录...'.format(
+                oprr_num))
+        return oprr_num
+
     
     g_bmy_id_bmy_name_dict = None 
     g_vin_bmy_id_dict = None
@@ -352,43 +408,6 @@ class WxsDsm(object):
                     if not file_obj.is_dir() and filename.endswith(
                                     ('jpg','png','jpeg','bmp')): # 忽略其下目录
                         WxsDsm.process_one_img_file(vin_bmy_id_dict, file_obj, sfd, efd)
-
-    @staticmethod
-    def process_one_img_file(vin_bmy_id_dict, bmy_id_bmy_name_dict, brand_set, sub_obj, sfd, efd):
-        sub_file = str(sub_obj)
-        #print('处理文件：{0};'.format(sub_obj))
-        arrs0 = sub_file.split('/')
-        filename = arrs0[-1]
-        arrs1 = filename.split('_')
-        raw_vin_code = arrs1[0]
-        arrs2 = raw_vin_code.split('#')
-        vin_code = arrs2[0]
-        if vin_code in vin_bmy_id_dict:
-            bmy_id = vin_bmy_id_dict[vin_code]
-        else:
-            vin_had_bmy_id = False
-            for k, _ in vin_bmy_id_dict.items():
-                if k.startswith(vin_code):
-                    bmy_id = vin_bmy_id_dict[k]
-                    vin_had_bmy_id = True
-                    break
-            if not vin_had_bmy_id:
-                #wfd.write('############## {0}\n'.format(vin_code))
-                bmy_id = -1
-                if vin_code != '白' and vin_code != '夜':
-                    efd.write('{0}\n'.format(vin_code))
-                    WxsDsm.g_error_num += 1
-                    #print('##### error={0} ##### {1};'.format(WxsDsm.g_error_num, sub_file))
-        if bmy_id > 0:
-            sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
-            bmy_name = bmy_id_bmy_name_dict[bmy_id]
-            arrsn = bmy_name.split('-')
-            brand_name = arrsn[0]
-            #brand_set.add(brand_name)
-        WxsDsm.opr_num += 1
-        if WxsDsm.opr_num % 1000 == 0:
-            print('处理{0}条记录...'.format(
-                WxsDsm.opr_num))
 
     @staticmethod
     def generate_dataset():
