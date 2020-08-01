@@ -1714,6 +1714,7 @@ function nextImg() {
         wxs_vin_imgs_dict = {}
         empty_wxs_vins = []
         for vin in vins:
+            print('vin_code: {0};'.format(vin['vin_code']))
             if vin['vin_code'] in vin_img_num_dict:
                 wxs_vin_imgs_dict[vin['vin_code']] = vin_img_num_dict[vin['vin_code']]
             else:
