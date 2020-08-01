@@ -244,13 +244,17 @@ class WxsDsm(object):
     def _process_vin(vin_code, bmy_id, source_type):
         CBmy.add_vin(vin_code, bmy_id, source_type)
 
+    @staticmethod
+    def generate_samples():
+        pass
+    
     g_bmy_id_bmy_name_dict = None 
     g_vin_bmy_id_dict = None
     g_brand_set = None
     g_error_num = 0
     g_cfd = None
     @staticmethod
-    def generate_samples():
+    def generate_samples_org():
         vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
         WxsDsm.g_bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         WxsDsm.g_vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
@@ -1709,6 +1713,8 @@ function nextImg() {
         # 统计进口车车辆识别码和图片数量
         WxsDsm.get_import_vehicle_vin_set_img_num(vin_img_num_dict)
         print('共有{0}条记录'.format(len(vin_img_num_dict.keys())))
+        for k, v in vin_img_num_dict.items():
+            print('{0}: {1};'.format(k, v))
         i_debug = 1
         if 1 == i_debug:
             return 
@@ -1766,7 +1772,7 @@ function nextImg() {
             vin_img_num_dict[vin_code] += 1
         else:
             vin_img_num_dict[vin_code] = 1
-        if num % 100 == 0:
+        if num % 1000 == 0:
             print('处理{0}图片{1}个'.format(img_type, num))
 
     @staticmethod
