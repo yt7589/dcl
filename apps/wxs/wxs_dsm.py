@@ -1711,14 +1711,14 @@ function nextImg() {
         '''
         vin_img_num_dict = {}
         # 统计进口车车辆识别码和图片数量
-        WxsDsm.get_import_vehicle_vin_set_img_num(vin_img_num_dict)
-        print('共有{0}条记录'.format(len(vin_img_num_dict.keys())))
-        for k, v in vin_img_num_dict.items():
-            print('{0}: {1};'.format(k, v))
+        #WxsDsm.get_import_vehicle_vin_set_img_num(vin_img_num_dict)
+        WxsDsm.get_domestic_vehicle_vin_set_img_num(vin_img_num_dict)
+        print('共有{0}条'.format(len(vin_img_num_dict.keys())))
+        for k, v, in vin_img_num_dict.items():
+            print('{0}: {1};'.format(k,v))
         i_debug = 1
         if 1 == i_debug:
-            return 
-        WxsDsm.get_domestic_vehicle_vin_set_img_num(vin_img_num_dict)
+            return
         vins = CBmy.get_wxs_vins()
         wxs_vin_imgs_dict = {}
         empty_wxs_vins = []
