@@ -1705,11 +1705,14 @@ function nextImg() {
         求出无锡所Excel表格中每个车辆识别码的图片数，并列出图片数为零的
         车辆识别码编号
         '''
-        vin_set = set()
         vin_img_num_dict = {}
         # 统计进口车车辆识别码和图片数量
-        WxsDsm.get_import_vehicle_vin_set_img_num(vin_set, vin_img_num_dict)
-        WxsDsm.get_domestic_vehicle_vin_set_img_num(vin_set, vin_img_num_dict)
+        WxsDsm.get_import_vehicle_vin_set_img_num(vin_img_num_dict)
+        print('共有{0}条记录'.format(len(vin_img_num_dict.keys())))
+        i_debug = 1
+        if 1 == i_debug:
+            return 
+        WxsDsm.get_domestic_vehicle_vin_set_img_num(vin_img_num_dict)
         vins = CBmy.get_wxs_vins()
         wxs_vin_imgs_dict = {}
         empty_wxs_vins = []
@@ -1725,10 +1728,10 @@ function nextImg() {
                 wfd.write('{0}:{1}\n'.format(k, v))
         with open('../../w1/wxs_empty_vins.txt', 'w+', encoding='utf-8') as efd:
             for vi in empty_wxs_vins:
-                efd.write('{0}\n'.formst(vi))
+                efd.write('{0}\n'.format(vi))
 
     @staticmethod
-    def get_import_vehicle_vin_set_img_num(vin_set, vin_img_num_dict):
+    def get_import_vehicle_vin_set_img_num(vin_img_num_dict):
         num = 0
         base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
         for brand_obj in base_path.iterdir():
@@ -1738,10 +1741,10 @@ function nextImg() {
                         full_fn = str(file_obj)
                         if not file_obj.is_dir() and full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
                             num += 1
-                            WxsDsm.process_img_file_by_vin(vin_set, vin_img_num_dict, '进口车', full_fn, num)
+                            WxsDsm.process_img_file_by_vin(vin_img_num_dict, '进口车', full_fn, num)
 
     @staticmethod
-    def get_domestic_vehicle_vin_set_img_num(vin_set, vin_img_num_dict):
+    def get_domestic_vehicle_vin_set_img_num(vin_img_num_dict):
         num = 0
         base_path = Path('/media/zjkj/work/guochanchezuowan-all')
         for block_obj in base_path.iterdir():
@@ -1750,16 +1753,15 @@ function nextImg() {
                     full_fn = str(file_obj)
                     if not file_obj.is_dir() and full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
                         num += 1
-                        WxsDsm.process_img_file_by_vin(vin_set, vin_img_num_dict, '国产车', full_fn, num)
+                        WxsDsm.process_img_file_by_vin(vin_img_num_dict, '国产车', full_fn, num)
 
     @staticmethod
-    def process_img_file_by_vin(vin_set, vin_img_num_dict, img_type, full_fn, num):
+    def process_img_file_by_vin(vin_img_num_dict, img_type, full_fn, num):
         arrs0 = full_fn.split('/')
         img_file = arrs0[-1]
         arrs1 = img_file.split('_')
         arrs2 = arrs1[0].split('#')
         vin_code = arrs2[0]
-        vin_set.add(vin_code)
         if vin_code in vin_img_num_dict:
             vin_img_num_dict[vin_code] += 1
         else:
