@@ -1714,17 +1714,19 @@ function nextImg() {
         wxs_vin_imgs_dict = {}
         empty_wxs_vins = []
         for vin in vins:
-            print('vin_code: {0};'.format(vin['vin_code']))
             if vin['vin_code'] in vin_img_num_dict:
+                print('精确匹配 vin_code: {0};'.format(vin['vin_code']))
                 wxs_vin_imgs_dict[vin['vin_code']] = vin_img_num_dict[vin['vin_code']]
             else:
                 contained = False
                 for k, v in vin_img_num_dict.items():
                     if k.startswith(vin['vin_code']):
+                        print('模糊匹配 vin_code: {0}; [{1}]'.format(vin['vin_code'], k))
                         vin_img_num_dict[k] += 1
                         contained = True
                         break
                 if not contained:
+                    print('##### 未找到 vin_code: {0}; [{1}]'.format(vin['vin_code'], k))
                     wxs_vin_imgs_dict[vin['vin_code']] = 0
                     empty_wxs_vins.append(vin['vin_code'])
         print('共有{0}个车辆识别码，其中{0}个为空'.format(len(vins), len(empty_wxs_vins)))
