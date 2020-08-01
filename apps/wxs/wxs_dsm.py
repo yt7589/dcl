@@ -1709,14 +1709,10 @@ function nextImg() {
         求出无锡所Excel表格中每个车辆识别码的图片数，并列出图片数为零的
         车辆识别码编号
         '''
-        vin_img_num_dict = {}
-        # 统计进口车车辆识别码和图片数量
-        WxsDsm.get_import_vehicle_vin_set_img_num(vin_img_num_dict)
-        WxsDsm.get_domestic_vehicle_vin_set_img_num(vin_img_num_dict)
+        vin_img_num_dict = WxsDsm.get_vin_img_num_dict()
         vins = CBmy.get_wxs_vins()
         wxs_vin_imgs_dict = {}
         empty_wxs_vins = []
-        print('共有{0}条记录'.format(len(vin_img_num_dict.keys())))
         for vin in vins:
             if vin['vin_code'] in vin_img_num_dict:
                 wxs_vin_imgs_dict[vin['vin_code']] = vin_img_num_dict[vin['vin_code']]
@@ -1737,6 +1733,29 @@ function nextImg() {
         with open('../../w1/wxs_empty_vins.txt', 'w+', encoding='utf-8') as efd:
             for vi in empty_wxs_vins:
                 efd.write('{0}\n'.format(vi))
+
+    @staticmethod
+    def get_vin_img_num_dict():
+        dict_file = '../../w1/vin_img_num_dict.txt'
+        vin_img_num_dict = {}
+        if not os.path.exists(dict_file):
+            # 统计进口车车辆识别码和图片数量
+            WxsDsm.get_import_vehicle_vin_set_img_num(vin_img_num_dict)
+            WxsDsm.get_domestic_vehicle_vin_set_img_num(vin_img_num_dict)
+            print('共有{0}条记录'.format(len(vin_img_num_dict.keys())))
+            with open(dict_file, 'w+', encoding='utf-8') as dfd:
+                for k, v in vin_img_num_dict.items():
+                    dfd.write('{0}:{1}\n'.format(k, v))
+            return vin_img_num_dict
+        with open(dict_file, 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line = line.strip()
+                arrs0 = line.split(':')
+                vin_code = arrs0[0]
+                img_num = int(arrs0[1])
+                vin_img_num_dict[vin_code] = img_num
+        return vin_img_num_dict
+
 
     @staticmethod
     def get_import_vehicle_vin_set_img_num(vin_img_num_dict):
