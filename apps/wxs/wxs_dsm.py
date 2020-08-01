@@ -1729,7 +1729,7 @@ function nextImg() {
                     print('##### 未找到 vin_code: {0}; [{1}]'.format(vin['vin_code'], k))
                     wxs_vin_imgs_dict[vin['vin_code']] = 0
                     empty_wxs_vins.append(vin['vin_code'])
-        print('共有{0}个车辆识别码，其中{0}个为空'.format(len(vins), len(empty_wxs_vins)))
+        print('共有{0}个车辆识别码，其中{1}个为空'.format(len(vins), len(empty_wxs_vins)))
         with open('../../w1/wxs_vin_imgs.txt', 'w+', encoding='utf-8') as wfd:
             for k, v in wxs_vin_imgs_dict.items():
                 wfd.write('{0}:{1}\n'.format(k, v))
