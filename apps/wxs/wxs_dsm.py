@@ -1710,9 +1710,16 @@ function nextImg() {
         # 统计进口车车辆识别码和图片数量
         WxsDsm.get_import_vehicle_vin_set_img_num(vin_set, vin_img_num_dict)
         WxsDsm.get_domestic_vehicle_vin_set_img_num(vin_set, vin_img_num_dict)
-        #vins = CBmy.get_wxs_vins()
-        #for vin in vins:
-            #print(vin)
+        vins = CBmy.get_wxs_vins()
+        wxs_vin_imgs_dict = {}
+        empty_wxs_vins = []
+        for vin in vins:
+            if vin['vin_code'] in vin_img_num_dict:
+                wxs_vin_imgs_dict[vin['vin_code']] = vin_img_num_dict[vin['vin_code']]
+            else:
+                wxs_vin_imgs_dict[vin['vin_code']] = 0
+                empty_wxs_vins.append(vin['vin_code'])
+        print('共有{0}个车辆识别码，其中{0}个为空'.format(len(vins), len(empty_wxs_vins)))
 
     @staticmethod
     def get_import_vehicle_vin_set_img_num(vin_set, vin_img_num_dict):
