@@ -1907,6 +1907,7 @@ function nextImg() {
         brand_set = set()
         bm_set = set()
         bmy_set = set()
+        num = 0
         with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
@@ -1916,4 +1917,7 @@ function nextImg() {
                 bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
                 brand_set.add(int(bmy_vo['brand_id']))
                 bm_set.add(int(bmy_vo['model_id']))
+                num += 1
+                if num % 100 == 0:
+                    print('已经处理{0}条记录'.format(num))
         print('共有品牌{0}个，车型{1}个，年款{2}个'.format(len(brand_set), len(bm_set), len(bmy_set)))
