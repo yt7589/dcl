@@ -384,7 +384,7 @@ class WxsDsm(object):
             bmy_name = bmy_id_bmy_name_dict[bmy_id]
             arrsn = bmy_name.split('-')
             brand_name = arrsn[0]
-            brand_set.add(brand_name)
+            #brand_set.add(brand_name)
         WxsDsm.opr_num += 1
         if WxsDsm.opr_num % 1000 == 0:
             print('处理{0}条记录...'.format(
