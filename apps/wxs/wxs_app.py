@@ -87,11 +87,11 @@ class WxsApp(object):
         求出无锡所Excel表格中每个车辆识别码的图片数，并列出图片数为零的
         车辆识别码编号
         '''
-        #WxsDsm.get_wxs_vin_id_img_num()
+        WxsDsm.get_wxs_vin_id_img_num()
         '''
         获取无锡所品牌列表
         '''
-        WxsDsm.get_wxs_brands()
+        #WxsDsm.get_wxs_brands()
 
         
 
