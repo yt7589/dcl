@@ -255,14 +255,14 @@ class WxsDsm(object):
                     # 进口车目录
                     folder_name = '/media/zjkj/work/fgvc_dataset/raw'
                     base_path = Path(folder_name)
-                    WxsDsm.generate_imported_vehicle_samples(vin_code_bmy_id_dict, bmy_id_bmy_name_dict, base_path, sfd, efd)
+                    WxsDsm.generate_imported_vehicle_samples(vin_code_bmy_id_dict, bmy_id_bmy_name_dict, brand_set, base_path, sfd, efd)
                     # 国产车已处理
                     #domestic1_path = Path('/media/zjkj/work/guochanchezuowan-all')
                     #WxsDsm.generate_samples_from_path_domestic(vin_bmy_id_dict, domestic1_path, sfd, efd)
         print('已经处理品牌数：{0};'.format(len(WxsDsm.g_brand_set)))
 
     @staticmethod
-    def generate_imported_vehicle_samples(vin_code_bmy_id_dict, bmy_id_bmy_name_dict, base_path, sfd, efd):
+    def generate_imported_vehicle_samples(vin_code_bmy_id_dict, bmy_id_bmy_name_dict, brand_set, base_path, sfd, efd):
         brand_num = 0
         for brand_obj in base_path.iterdir():
             brand_num += 1
@@ -274,7 +274,7 @@ class WxsDsm(object):
                         if not sub_obj.is_dir() and filename.endswith(
                                     ('jpg','png','jpeg','bmp')) and not item_name.startswith('白') \
                                         and not item_name.startswith('夜'): # 忽略其下目录
-                            WxsDsm.process_one_img_file(vin_code_bmy_id_dict, bmy_id_bmy_name_dict, sub_obj, sfd, efd)
+                            WxsDsm.process_one_img_file(vin_code_bmy_id_dict, bmy_id_bmy_name_dict, brand_set, sub_obj, sfd, efd)
                             '''
                             if (WxsDsm.g_dif != brand_num - len(WxsDsm.g_brand_set)) and not item_name.startswith('白') \
                                         and not item_name.startswith('夜'):
@@ -354,7 +354,7 @@ class WxsDsm(object):
                         WxsDsm.process_one_img_file(vin_bmy_id_dict, file_obj, sfd, efd)
 
     @staticmethod
-    def process_one_img_file(vin_bmy_id_dict, bmy_id_bmy_name_dict, sub_obj, sfd, efd):
+    def process_one_img_file(vin_bmy_id_dict, bmy_id_bmy_name_dict, brand_set, sub_obj, sfd, efd):
         sub_file = str(sub_obj)
         #print('处理文件：{0};'.format(sub_obj))
         arrs0 = sub_file.split('/')
@@ -384,7 +384,7 @@ class WxsDsm(object):
             bmy_name = bmy_id_bmy_name_dict[bmy_id]
             arrsn = bmy_name.split('-')
             brand_name = arrsn[0]
-            WxsDsm.g_brand_set.add(brand_name)
+            brand_set.add(brand_name)
         WxsDsm.opr_num += 1
         if WxsDsm.opr_num % 1000 == 0:
             print('处理{0}条记录...'.format(
