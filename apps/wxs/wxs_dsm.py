@@ -1709,6 +1709,7 @@ function nextImg() {
         vin_img_num_dict = {}
         # 统计进口车车辆识别码和图片数量
         WxsDsm.get_import_vehicle_vin_set_img_num(vin_set, vin_img_num_dict)
+        WxsDsm.get_domestic_vehicle_vin_set_img_num(vin_set, vin_img_num_dict)
         #vins = CBmy.get_wxs_vins()
         #for vin in vins:
             #print(vin)
@@ -1724,18 +1725,34 @@ function nextImg() {
                         full_fn = str(file_obj)
                         if not file_obj.is_dir() and full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
                             num += 1
-                            arrs0 = full_fn.split('/')
-                            img_file = arrs0[-1]
-                            arrs1 = img_file.split('_')
-                            arrs2 = arrs1[0].split('#')
-                            vin_code = arrs2[0]
-                            vin_set.add(vin_code)
-                            if vin_code in vin_img_num_dict:
-                                vin_img_num_dict[vin_code] += 1
-                            else:
-                                vin_img_num_dict[vin_code] = 1
-                            if num % 100 == 0:
-                                print('处理进口车图片{0}个'.format(num))
+                            WxsDsm.process_img_file_by_vin(vin_set, vin_img_num_dict, '进口车', full_fn, num)
+
+    @staticmethod
+    def get_domestic_vehicle_vin_set_img_num(vin_set, vin_img_num_dict):
+        num = 0
+        base_path = Path('/media/zjkj/work/guochanchezuowan-all')
+        for block_obj in base_path.iterdir():
+            for vin_obj in block_obj.iterdir():
+                for file_obj in vin_obj.iterdir():
+                    full_fn = str(file_obj)
+                    if not file_obj.is_dir() and full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
+                        num += 1
+                        WxsDsm.process_img_file_by_vin(vin_set, vin_img_num_dict, '国产车', full_fn, num)
+
+    @staticmethod
+    def process_img_file_by_vin(vin_set, vin_img_num_dict, img_type, full_fn, num):
+        arrs0 = full_fn.split('/')
+        img_file = arrs0[-1]
+        arrs1 = img_file.split('_')
+        arrs2 = arrs1[0].split('#')
+        vin_code = arrs2[0]
+        vin_set.add(vin_code)
+        if vin_code in vin_img_num_dict:
+            vin_img_num_dict[vin_code] += 1
+        else:
+            vin_img_num_dict[vin_code] = 1
+        if num % 100 == 0:
+            print('处理{0}图片{1}个'.format(img_type, num))
 
     @staticmethod
     def get_wxs_empty_brands():
