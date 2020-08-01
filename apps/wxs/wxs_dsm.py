@@ -267,7 +267,9 @@ class WxsDsm(object):
                     domestic1_path = Path('/media/zjkj/work/'\
                                 'guochanchezuowan-all')
                     oprr_num = WxsDsm.generate_domestic_vehicle_samples(
-                                oprr_num,vin_code_bmy_id_dict, 
+                                oprr_num,vin_code_bmy_id_dict,  
+                                bmy_id_bmy_name_dict, 
+                                brand_set, 
                                 domestic1_path, sfd, efd)
         print('已经处理品牌数：{0};'.format(len(brand_set)))
 
@@ -296,6 +298,7 @@ class WxsDsm(object):
 
     @staticmethod
     def generate_domestic_vehicle_samples(oprr_num, vin_bmy_id_dict, 
+                bmy_id_bmy_name_dict, brand_set, 
                 path_obj, sfd, efd):
         for branch_obj in path_obj.iterdir():
             for vin_obj in branch_obj.iterdir():
@@ -306,6 +309,7 @@ class WxsDsm(object):
                                     # 忽略其下目录
                         oprr_num = WxsDsm.process_one_img_file(
                                     oprr_num, vin_bmy_id_dict, 
+                                    bmy_id_bmy_name_dict, brand_set, 
                                     file_obj, sfd, efd)
         return oprr_num
 
