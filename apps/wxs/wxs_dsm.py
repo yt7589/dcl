@@ -1711,23 +1711,25 @@ function nextImg() {
         '''
         vin_img_num_dict = {}
         # 统计进口车车辆识别码和图片数量
-        #WxsDsm.get_import_vehicle_vin_set_img_num(vin_img_num_dict)
+        WxsDsm.get_import_vehicle_vin_set_img_num(vin_img_num_dict)
         WxsDsm.get_domestic_vehicle_vin_set_img_num(vin_img_num_dict)
-        print('共有{0}条'.format(len(vin_img_num_dict.keys())))
-        for k, v, in vin_img_num_dict.items():
-            print('{0}: {1};'.format(k,v))
-        i_debug = 1
-        if 1 == i_debug:
-            return
         vins = CBmy.get_wxs_vins()
         wxs_vin_imgs_dict = {}
         empty_wxs_vins = []
+        print('共有{0}条记录'.format(len(vin_img_num_dict.keys())))
         for vin in vins:
             if vin['vin_code'] in vin_img_num_dict:
                 wxs_vin_imgs_dict[vin['vin_code']] = vin_img_num_dict[vin['vin_code']]
             else:
-                wxs_vin_imgs_dict[vin['vin_code']] = 0
-                empty_wxs_vins.append(vin['vin_code'])
+                contained = False
+                for k, v in vin_img_num_dict.items():
+                    if k.startswith(vin['vin_code']):
+                        vin_img_num_dict[k] += 1
+                        contained = True
+                        break
+                if not contained:
+                    wxs_vin_imgs_dict[vin['vin_code']] = 0
+                    empty_wxs_vins.append(vin['vin_code'])
         print('共有{0}个车辆识别码，其中{0}个为空'.format(len(vins), len(empty_wxs_vins)))
         with open('../../w1/wxs_vin_imgs.txt', 'w+', encoding='utf-8') as wfd:
             for k, v in wxs_vin_imgs_dict.items():
