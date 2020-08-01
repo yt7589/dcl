@@ -1713,26 +1713,38 @@ function nextImg() {
         vins = CBmy.get_wxs_vins()
         wxs_vin_imgs_dict = {}
         empty_wxs_vins = []
+        # 精确匹配
+        accurate_match_num = 0
+        accurate_vin_img_num_dict = {}
+        # 模糊查询
+        fuzzy_match_num = 0
+        fuzzy_vin_img_num_dict = {}
         for vin in vins:
             if vin['vin_code'] in vin_img_num_dict:
                 print('精确匹配 vin_code: {0};'.format(vin['vin_code']))
                 wxs_vin_imgs_dict[vin['vin_code']] = vin_img_num_dict[vin['vin_code']]
+                accurate_match_num += 1
+                accurate_vin_img_num_dict[vin['vin_code']] = vin_img_num_dict[vin['vin_code']]
             else:
                 contained = False
                 for k, v in vin_img_num_dict.items():
                     if k.startswith(vin['vin_code']):
                         print('模糊匹配 vin_code: {0}; [{1}]'.format(vin['vin_code'], k))
-                        vin_img_num_dict[k] += 1
+                        wxs_vin_imgs_dict[vin['vin_code']] = vin_img_num_dict[k]
                         contained = True
+                        fuzzy_match_num += 1
+                        fuzzy_vin_img_num_dict[vin['vin_code']] = vin_img_num_dict[k]
                         break
                 if not contained:
                     print('##### 未找到 vin_code: {0}; [{1}]'.format(vin['vin_code'], k))
                     wxs_vin_imgs_dict[vin['vin_code']] = 0
                     empty_wxs_vins.append(vin['vin_code'])
-        print('共有{0}个车辆识别码，其中{1}个为空'.format(len(vins), len(empty_wxs_vins)))
+        print('共有{0}个车辆识别码，其中{1}个为空；精确匹配{2}个，模糊匹配{3}个'\
+            .format(len(vins), len(empty_wxs_vins), accurate_match_num, fuzzy_match_num))
+        sorted_vid = sorted(wxs_vin_imgs_dict.items(), key=lambda x: x[1])
         with open('../../w1/wxs_vin_imgs.txt', 'w+', encoding='utf-8') as wfd:
-            for k, v in wxs_vin_imgs_dict.items():
-                wfd.write('{0}:{1}\n'.format(k, v))
+            for vid in sorted_vid:
+                wfd.write('{0}:{1}\n'.format(vid[0], vid[1]))
         with open('../../w1/wxs_empty_vins.txt', 'w+', encoding='utf-8') as efd:
             for vi in empty_wxs_vins:
                 efd.write('{0}\n'.format(vi))
