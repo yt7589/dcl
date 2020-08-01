@@ -27,3 +27,7 @@ class CBrand(object):
         根据品牌名称求出品牌详细信息
         '''
         return MBrand.get_brand_by_name(brand_name)
+
+    @staticmethod
+    def get_wxs_brands():
+        return MBrand.get_wxs_brands()

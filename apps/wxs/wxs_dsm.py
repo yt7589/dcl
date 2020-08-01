@@ -1803,3 +1803,13 @@ function nextImg() {
         找出无锡所Excel表格中图片数为零的品牌列表
         '''
         pass
+
+    @staticmethod
+    def get_wxs_brands():
+        '''
+        获取无锡所品牌列表
+        '''
+        brands = CBrand.get_wxs_brands()
+        with open('../../w1/wxs_brands.csv', 'w+', encoding='utf-8') as bfd:
+            for vo in brands:
+                bfd.write('{0},{1},{2}\n'.format(vo['brand_id'], vo['brand_name'], vo['brand_code']))
