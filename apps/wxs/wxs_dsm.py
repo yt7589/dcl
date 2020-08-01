@@ -1720,6 +1720,12 @@ function nextImg() {
                 wxs_vin_imgs_dict[vin['vin_code']] = 0
                 empty_wxs_vins.append(vin['vin_code'])
         print('共有{0}个车辆识别码，其中{0}个为空'.format(len(vins), len(empty_wxs_vins)))
+        with open('../../w1/wxs_vin_imgs.txt', 'w+', encoding='utf-8') as wfd:
+            for k, v in wxs_vin_imgs_dict.items():
+                wfd.write('{0}:{1}\n'.format(k, v))
+        with open('../../w1/wxs_empty_vins.txt', 'w+', encoding='utf-8') as efd:
+            for vi in empty_wxs_vins:
+                efd.write('{0}\n'.formst(vi))
 
     @staticmethod
     def get_import_vehicle_vin_set_img_num(vin_set, vin_img_num_dict):
