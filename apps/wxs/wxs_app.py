@@ -23,7 +23,7 @@ class WxsApp(object):
         ''' 
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
         '''
-        #WxsDsm.generate_samples()
+        WxsDsm.generate_samples()
         '''
         生成原始数据集，采用稀疏品牌车型年款编号
         '''
@@ -87,7 +87,7 @@ class WxsApp(object):
         求出无锡所Excel表格中每个车辆识别码的图片数，并列出图片数为零的
         车辆识别码编号
         '''
-        WxsDsm.get_wxs_vin_id_img_num()
+        #WxsDsm.get_wxs_vin_id_img_num()
         '''
         获取无锡所品牌列表
         '''

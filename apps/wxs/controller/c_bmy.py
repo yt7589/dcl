@@ -173,4 +173,8 @@ class CBmy(object):
     def get_wxs_vins():
         return MVin.get_wxs_vins()
 
+    @staticmethod
+    def get_wxs_vin_code_bmy_id_dict():
+        return MVin.get_wxs_vin_code_bmy_id_dict()
+
     

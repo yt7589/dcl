@@ -246,7 +246,49 @@ class WxsDsm(object):
 
     @staticmethod
     def generate_samples():
-        pass
+        vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
+        brand_set = set()
+        with open('./logs/conflicts.txt', 'w+', encoding='utf-8') as WxsDsm.g_cfd:
+            with open('../../w1/samples.txt', 'w+', encoding='utf-8') as sfd:
+                with open('../../w1/error_vins.txt', 'w+', encoding='utf-8') as efd:
+                    # 进口车目录
+                    folder_name = '/media/zjkj/work/fgvc_dataset/raw'
+                    base_path = Path(folder_name)
+                    WxsDsm.generate_imported_vehicle_samples(vin_code_bmy_id_dict, base_path, sfd, efd)
+                    # 国产车已处理
+                    #domestic1_path = Path('/media/zjkj/work/guochanchezuowan-all')
+                    #WxsDsm.generate_samples_from_path_domestic(vin_bmy_id_dict, domestic1_path, sfd, efd)
+        print('已经处理品牌数：{0};'.format(len(WxsDsm.g_brand_set)))
+
+    @staticmethod
+    def generate_imported_vehicle_samples(vin_code_bmy_id_dict, base_path, sfd, efd):
+        brand_num = 0
+        for brand_obj in base_path.iterdir():
+            brand_num += 1
+            for model_obj in brand_obj.iterdir():
+                for year_obj in model_obj.iterdir():
+                    for sub_obj in year_obj.iterdir():
+                        filename = str(sub_obj)
+                        item_name = filename.split('/')[-1]
+                        if not sub_obj.is_dir() and filename.endswith(
+                                    ('jpg','png','jpeg','bmp')) and not item_name.startswith('白') \
+                                        and not item_name.startswith('夜'): # 忽略其下目录
+                            WxsDsm.process_one_img_file(vin_code_bmy_id_dict, sub_obj, sfd, efd)
+                            '''
+                            if (WxsDsm.g_dif != brand_num - len(WxsDsm.g_brand_set)) and not item_name.startswith('白') \
+                                        and not item_name.startswith('夜'):
+                                WxsDsm.g_dif = brand_num - len(WxsDsm.g_brand_set)
+                                arrs0 = item_name.split('_')
+                                arrs1 = arrs0[0].split('#')
+                                vin_code = arrs1[0]
+                                bmy_id = WxsDsm.g_vin_bmy_id_dict[vin_code]
+                                #bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)[0]
+                                #bmy_vo = CBmy.get_bmy_by_id(bmy_id)
+                                bmy_name = WxsDsm.g_bmy_id_bmy_name_dict[bmy_id]
+                                WxsDsm.g_cfd.write('我们：{0} <=> 标书：{1}；目录品牌数：{2}；汇总品牌数：{3}\n'.format(filename, bmy_name, brand_num, len(WxsDsm.g_brand_set)))
+                                WxsDsm.err_num += 1
+                            '''
     
     g_bmy_id_bmy_name_dict = None 
     g_vin_bmy_id_dict = None
