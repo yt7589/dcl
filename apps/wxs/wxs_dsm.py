@@ -1918,6 +1918,6 @@ function nextImg() {
                 brand_set.add(int(bmy_vo['brand_id']))
                 bm_set.add(int(bmy_vo['model_id']))
                 num += 1
-                if num % 100 == 0:
+                if num % 1000 == 0:
                     print('已经处理{0}条记录'.format(num))
         print('共有品牌{0}个，车型{1}个，年款{2}个'.format(len(brand_set), len(bm_set), len(bmy_set)))
