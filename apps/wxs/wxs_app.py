@@ -82,7 +82,12 @@ class WxsApp(object):
         '''
         将无锡所测试文件放到Excel表格中
         '''
-        WxsDsm.generate_wxs_tds_table()
+        #WxsDsm.generate_wxs_tds_table()
+        '''
+        求出无锡所Excel表格中每个车辆识别码的图片数，并列出图片数为零的
+        车辆识别码编号
+        '''
+        WxsDsm.get_wxs_vin_id_img_num()
 
         
 

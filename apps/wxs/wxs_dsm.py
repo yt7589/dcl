@@ -1698,3 +1698,48 @@ function nextImg() {
                         tfd.write('{0}/{1}, \n'.format(parent_folder, img_file))
                         num += 1
         print('共有{0}个图片文件'.format(num))
+
+    @staticmethod
+    def get_wxs_vin_id_img_num():
+        '''
+        求出无锡所Excel表格中每个车辆识别码的图片数，并列出图片数为零的
+        车辆识别码编号
+        '''
+        vin_set = set()
+        vin_img_num_dict = {}
+        # 统计进口车车辆识别码和图片数量
+        WxsDsm.get_import_vehicle_vin_set_img_num(vin_set, vin_img_num_dict)
+        #vins = CBmy.get_wxs_vins()
+        #for vin in vins:
+            #print(vin)
+
+    @staticmethod
+    def get_import_vehicle_vin_set_img_num(vin_set, vin_img_num_dict):
+        num = 0
+        base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
+        for brand_obj in base_path.iterdir():
+            for model_obj in brand_obj.iterdir():
+                for year_obj in model_obj.iterdir():
+                    for file_obj in year_obj.iterdir():
+                        full_fn = str(file_obj)
+                        if not file_obj.is_dir() and full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
+                            num += 1
+                            arrs0 = full_fn.split('/')
+                            img_file = arrs0[-1]
+                            arrs1 = img_file.split('_')
+                            arrs2 = arrs1[0].split('#')
+                            vin_code = arrs2[0]
+                            vin_set.add(vin_code)
+                            if vin_code in vin_img_num_dict:
+                                vin_img_num_dict[vin_code] += 1
+                            else:
+                                vin_img_num_dict[vin_code] = 1
+                            if num % 100 == 0:
+                                print('处理进口车图片{0}个'.format(num))
+
+    @staticmethod
+    def get_wxs_empty_brands():
+        '''
+        找出无锡所Excel表格中图片数为零的品牌列表
+        '''
+        pass

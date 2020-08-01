@@ -69,7 +69,15 @@ class MVin(object):
 
     @staticmethod
     def get_non_wxs_vins():
-        query_cond = {'source_type': 2}
+        return MVin.get_vins_base(2)
+
+    @staticmethod
+    def get_wxs_vins():
+        return MVin.get_vins_base(1)
+
+    @staticmethod
+    def get_vins_base(source_type):
+        query_cond = {'source_type': source_type}
         fields = {'vin_id': 1, 'vin_code': 1, 'bmy_id': 1}
         return MMongoDb.convert_recs(MMongoDb.db['t_vin']\
             .find(query_cond, fields).sort([('vin_code', 1)]))

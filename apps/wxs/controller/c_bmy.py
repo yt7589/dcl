@@ -169,4 +169,8 @@ class CBmy(object):
     def get_non_wxs_vins():
         return MVin.get_non_wxs_vins()
 
+    @staticmethod
+    def get_wxs_vins():
+        return MVin.get_wxs_vins()
+
     
