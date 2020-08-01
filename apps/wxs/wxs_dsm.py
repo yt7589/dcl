@@ -416,7 +416,8 @@ class WxsDsm(object):
     @staticmethod
     def generate_dataset():
         print('生成数据集...')
-        vins = CBmy.get_vin_codes()
+        #vins = CBmy.get_vin_codes()
+        vins = CBmy.get_wxs_vins()
         vin_samples_dict = WxsDsm.get_vin_samples_dict()
         with open('../../w1/raw_bid_train_ds.txt', 'w+', encoding='utf-8') as train_fd:
             with open('../../w1/raw_bid_test_ds.txt', 'w+', encoding='utf-8') as test_fd:
@@ -438,20 +439,23 @@ class WxsDsm(object):
 
     @staticmethod
     def get_vin_samples_dict():
+        '''
+        获得一个字典，key值为车辆识别码，值为该车辆识别下样本列表
+        '''
         bmy_id_vin_dict = CBmy.get_bmy_id_vin_dict()
         vin_samples_dict = {}
         samples = []
         with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
-                line.strip()
+                line = line.strip()
                 arrs = line.split('*')
-                bmy_id = int(arrs[1][:-1])
+                bmy_id = int(arrs[1]) + 1
                 if bmy_id in bmy_id_vin_dict:
                     vin_code = bmy_id_vin_dict[bmy_id]
                     if vin_code not in vin_samples_dict:
-                        vin_samples_dict[vin_code] = [{'img_file': arrs[0], 'bmy_id': bmy_id}]
+                        vin_samples_dict[vin_code] = [{'img_file': arrs[0], 'bmy_id': bmy_id -1}]
                     else:
-                        vin_samples_dict[vin_code].append({'img_file': arrs[0], 'bmy_id': bmy_id})
+                        vin_samples_dict[vin_code].append({'img_file': arrs[0], 'bmy_id': bmy_id -1})
         return vin_samples_dict
 
     @staticmethod
