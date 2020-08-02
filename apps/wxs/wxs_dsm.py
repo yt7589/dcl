@@ -2008,7 +2008,7 @@ function nextImg() {
                 brand_vo = {
                     'brand_id': -1,
                     'brand_name': '未知',
-                    'soruce_type': -1
+                    'source_type': -1
                 }
             else:
                 brand_vo = CBrand.get_brand_vo_by_id(bi)
@@ -2019,7 +2019,7 @@ function nextImg() {
                 brand_vo = {
                     'brand_id': -1,
                     'brand_name': '未知',
-                    'soruce_type': -1
+                    'source_type': -1
                 }
             else:
                 brand_vo = CBrand.get_brand_vo_by_id(bi)
