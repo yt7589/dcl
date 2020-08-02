@@ -2025,3 +2025,33 @@ function nextImg() {
                 brand_vo = CBrand.get_brand_vo_by_id(bi)
             print('    {0}: {1}; {2};'.format(bi, brand_vo['brand_name'], brand_vo['source_type']))
         print('共有品牌{0}个，记录{1}条'.format(len(brand_id_ok_set), recs_num))
+
+    @staticmethod
+    def mark_error_img_in_wxs_tds():
+        '''
+        标出无锡所测试集中可能出错的图片
+        '''
+        base_path = Path('/media/zjkj/work/fgvc_dataset/wxs/fine')
+        img_ok_set = set()
+        for brand_obj in base_path.iterdir():
+            for model_obj in brand_obj.iterdir():
+                for year_obj in model_obj.iterdir():
+                    for file_obj in year_obj.iterdir():
+                        full_fn = str(file_obj)
+                        if file_obj.is_file() and full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
+                            arrs0 = full_fn.split('/')
+                            img_file = arrs0[-1]
+                            img_ok_set.add(img_file)
+        with open('../../w1/wxs_test_dataset_brands.csv', 'r', encoding='utf-8') as afd:
+            for line in afd:
+                line = line.strip()
+                arrs0 = line.split(',')
+                full_fn = arrs0[0]
+                arrs1 = full_fn.split('/')
+                img_file = arrs1[-1]
+                state = 'error'
+                if img_file in img_ok_set:
+                    state = 'ok'
+                brand_id = int(arrs0[1])
+                brand_notes = arrs0[2]
+                print('{0},{1},{2},{3};'.format(full_fn, brand_id, state, brand_notes))
