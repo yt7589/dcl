@@ -31,7 +31,7 @@ class WxsApp(object):
         '''
         将品牌车型年款变为0开始递增的序号
         '''
-        #WxsDsm.get_simplified_bmys()
+        WxsDsm.get_simplified_bmys()
         '''
         向数据集中加入品牌信息
         '''
@@ -95,7 +95,7 @@ class WxsApp(object):
         '''
         从samples.txt文件中统计出品牌数、车型数、年款数
         '''
-        WxsDsm.get_brand_bm_bmy_of_samples()
+        #WxsDsm.get_brand_bm_bmy_of_samples()
 
         
 
