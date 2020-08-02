@@ -2042,6 +2042,7 @@ function nextImg() {
                             arrs0 = full_fn.split('/')
                             img_file = arrs0[-1]
                             img_ok_set.add(img_file)
+                            print('add {0} to set'.format(img_file))
         with open('../../w1/wxs_test_dataset_brands.csv', 'r', encoding='utf-8') as afd:
             for line in afd:
                 line = line.strip()
@@ -2050,6 +2051,7 @@ function nextImg() {
                 arrs1 = full_fn.split('/')
                 img_file = arrs1[-1]
                 state = 'error'
+                print('####    {0};'.format(img_file))
                 if img_file in img_ok_set:
                     state = 'ok'
                 brand_id = int(arrs0[1])
