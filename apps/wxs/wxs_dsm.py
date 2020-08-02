@@ -1974,12 +1974,15 @@ function nextImg() {
         wxs_brand_id_brand_name_dict = CBrand.get_wxs_brand_id_brand_name_dict()
         num_not_in_wxs = 0
         num_not_in_known = 0
+        recs_num = 0
+        brand_id_set = set()
         with open('../../w1/wxs_test_dataset_brands.csv', 'r', encoding='utf-8') as afd:
             for line in afd:
                 line = line.strip()
                 arrs0 = line.split(',')
                 img_file = arrs0[0]
                 brand_id = int(arrs0[1])
+                brand_id_set(brand_id)
                 if brand_id not in wxs_brand_id_brand_name_dict:
                     print('##### Error: {0};'.format(brand_id))
                     num_not_in_wxs += 1
@@ -1991,5 +1994,8 @@ function nextImg() {
                     continue
                 brand_idx = brand_name_idx_dict[brand_name]
                 print('{0}*99999*{1};'.format(img_file, brand_idx))
+                recs_num += 1
+        print('共有品牌：{0}个'.format(len(brand_id_set)))
         print('不在无锡所Excel中品牌数：{0}个'.format(num_not_in_wxs))
         print('不在现有品牌列表：{0}个'.format(num_not_in_known))
+        print('共有记录：{0}条'.format(recs_num))
