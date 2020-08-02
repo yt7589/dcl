@@ -104,7 +104,7 @@ class WxsApp(object):
         '''
         求出无锡所测试集品牌与当前涉及的171个品牌的不同
         '''
-        WxsDsm.get_diff_wxs_tds_brands()
+        #WxsDsm.get_diff_wxs_tds_brands()
         '''
         标出无锡所测试集中可能出错的图片
         '''
