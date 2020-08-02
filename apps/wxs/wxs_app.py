@@ -108,7 +108,8 @@ class WxsApp(object):
         '''
         标出无锡所测试集中可能出错的图片
         '''
-        WxsDsm.mark_error_img_in_wxs_tds()
+        #WxsDsm.mark_error_img_in_wxs_tds()
+        WxsDsm.exp001()
 
         
 

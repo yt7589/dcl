@@ -6,6 +6,8 @@ import shutil
 import random
 import datetime
 from pathlib import Path
+import numpy as np
+import torch
 
 from torch import full
 from apps.wxs.controller.c_brand import CBrand
@@ -1430,11 +1432,6 @@ function nextImg() {
             for row in rows:
                 fd.write('{0},{1},{2}\n'.format(row[0], row[1], row[2]))
 
-    
-    @staticmethod
-    def exp001():
-        WxsDsm.exp001_1()
-
     @staticmethod
     def exp001_1():
         bmy_set = set()
@@ -2064,3 +2061,23 @@ function nextImg() {
                     brand_id = int(arrs0[1])
                     brand_notes = arrs0[2]
                     wfd.write('{0},{1},{2},{3}\n'.format(full_fn, brand_id, state, brand_notes))
+
+    
+    @staticmethod
+    def exp001():
+        # 测试由品牌预测年款算法原理
+        bmy_out = torch.tensor([
+            [1.1, 1.2, 1.3, 1.4, 1.5, 1.6],
+            [2.1, 2.2, 2.3, 2.4, 2.5, 2.6],
+            [3.1, 3.2, 3.3, 3.4, 3.5, 3.6]
+        ])
+        brand_result = [
+            [0, 2],
+            [1],
+            [2, 3, 5]
+        ]
+        bmy_mask = np.zeros((3, 6))
+        for idx, brs in enumerate(brand_result):
+            for br in brs:
+                bmy_mask[idx][br] = 1.0
+        print(bmy_mask)
