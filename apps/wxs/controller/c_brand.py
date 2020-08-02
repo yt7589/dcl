@@ -40,3 +40,7 @@ class CBrand(object):
         for rec in recs:
             wxs_brand_id_brand_name_dict[int(rec['brand_id'])] = rec['brand_name']
         return wxs_brand_id_brand_name_dict
+
+    @staticmethod
+    def get_brand_vo_by_id(brand_id):
+        return MBrand.get_brand_vo_by_id(brand_id)

@@ -41,3 +41,11 @@ class MBrand(object):
         fields = {'brand_id': 1, 'brand_name': 1, 'brand_code': 1}
         return MMongoDb.convert_recs(MMongoDb.db['t_brand']\
             .find(query_cond, fields))
+
+    @staticmethod
+    def get_brand_vo_by_id(brand_id):
+        query_cond = {'brand_id': brand_id}
+        fields = {'brand_id': 1, 'brand_name': 1, 
+                    'brand_code': 1, 'source_type': 1}
+        return MMongoDb.convert_recs(MMongoDb.db['t_brand']\
+            .find(query_cond, fields))

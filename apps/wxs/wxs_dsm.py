@@ -2003,5 +2003,25 @@ function nextImg() {
                 brand_id_ok_set.add(brand_id)
         print('共有品牌：{0}个'.format(len(brand_id_set)))
         print('不在无锡所Excel中品牌有{0}个，共{1}条记录'.format(len(brand_id_set1), num_not_in_wxs))
+        for bi in brand_id_set1:
+            if bi == -1:
+                brand_vo = {
+                    'brand_id': -1,
+                    'brand_name': '未知',
+                    'soruce_type': -1
+                }
+            else:
+                brand_vo = CBrand.get_brand_vo_by_id(bi)
+            print('    {0}: {1}; {2};'.format(bi, brand_vo['brand_name'], brand_vo['source_type']))
         print('不在现有品牌列表中品牌有{0}个，共{1}条记录'.format(len(brand_id_set2), num_not_in_known))
+        for bi in brand_id_set2:
+            if bi == -1:
+                brand_vo = {
+                    'brand_id': -1,
+                    'brand_name': '未知',
+                    'soruce_type': -1
+                }
+            else:
+                brand_vo = CBrand.get_brand_vo_by_id(bi)
+            print('    {0}: {1}; {2};'.format(bi, brand_vo['brand_name'], brand_vo['source_type']))
         print('共有品牌{0}个，记录{1}条'.format(len(brand_id_ok_set), recs_num))
