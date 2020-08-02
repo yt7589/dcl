@@ -855,9 +855,7 @@ class WxsDsm(object):
                     bmy_name = bmy_id_bmy_name_dict[bmy_id]
                     arrs1= bmy_name.split('-')
                     brand_name = arrs1[0]
-                    print('brand_name: {0};'.format(brand_name))
                     if not (brand_name in brand_set):
-                        print('Error !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
                         brand_set.add(brand_name)
                         brand_id_brand_name_dict[idx] = brand_name
                         brand_name_brand_id_dict[brand_name] = idx
@@ -872,13 +870,13 @@ class WxsDsm(object):
 
     @staticmethod
     def convert_to_brand_ds_main():
-        brand_num = WxsDsm.convert_to_brand_ds('../../w1/bid_train_ds.txt', 
+        brand_num_train = WxsDsm.convert_to_brand_ds('../../w1/bid_train_ds.txt', 
                     '../../w1/bid_brand_train_ds.txt', 
                     is_create_brands_dict=True)
-        brand_num = WxsDsm.convert_to_brand_ds('../../w1/bid_test_ds.txt', 
+        brand_num_test = WxsDsm.convert_to_brand_ds('../../w1/bid_test_ds.txt', 
                     '../../w1/bid_brand_test_ds.txt', 
                     is_create_brands_dict=False)
-        print('品牌种类：{0};'.format(brand_num))
+        print('品牌种类：train={0} & test={1};'.format(brand_num_train, brand_num_test))
 
     @staticmethod
     def get_brand_bmy_num_from_ds():
