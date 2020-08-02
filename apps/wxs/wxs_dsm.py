@@ -1941,5 +1941,14 @@ function nextImg() {
                 line = line.strip()
                 id_bmy_dict[row] = line
                 row += 1
-        for k, v in id_bmy_dict.items():
-            print('{0}:{1};'.format(k, v))
+        # 获取品牌列表
+        brand_idx_bmys = {}
+        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+            for line in bfd:
+                line = line.strip()
+                arrs0 = line.split(':')
+                brand_idx = arrs0[0]
+                brand_name = arrs0[1]
+                brand_idx_bmys[brand_idx] = []
+        for k, v in brand_idx_bmys.items():
+            print('### {0}:{1};'.format(k, v))
