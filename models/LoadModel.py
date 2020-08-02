@@ -108,10 +108,16 @@ class MainModel(nn.Module):
         bmy_out = out[-1]
         for idx1 in range(brand_out.shape[0]):
             brand_idx = int(brand_result[idx1].cpu().item())
+            bmy_idxs = MainModel.BRAND_BMYS_DICT[brand_idx]
+            for idx2 in range(self.num_bmys):
+                if idx2 not in bmy_idxs:
+                    bmy_out[idx1][idx2] = 0.0
+            '''
             print('brand_id={0};'.format(brand_idx))
             bmy_mask = self.bmy_masks[brand_idx]
             print('bmy_mask: {0} {1};'.format(bmy_mask.shape, bmy_mask))
             bmy_out[idx1] = bmy_out[idx1] * bmy_mask
+            '''
         return out
 
     def initialize_bmy_masks(self):
