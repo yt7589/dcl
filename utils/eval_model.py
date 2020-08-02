@@ -44,7 +44,6 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
     val_loss_recorder = LossRecord(val_batch_size)
     val_celoss_recorder = LossRecord(val_batch_size)
     print('evaluating %s ...'%val_version, flush=True)
-    fgvc_id_brand_dict = WxsDsm.get_fgvc_id_brand_dict()
     with torch.no_grad():
         for batch_cnt_val, data_val in enumerate(data_loader):
             inputs = Variable(data_val[0].cuda())
@@ -55,6 +54,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             outputs = model(inputs)
             loss = 0
 
+            print('outputs[0]: {0}; brand_labels: {1};'.format(outputs[0].shape, brand_labels.shape))
             ce_loss = get_ce_loss(outputs[0], brand_labels).item()
             loss += ce_loss
 
