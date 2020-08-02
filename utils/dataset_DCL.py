@@ -212,7 +212,7 @@ def collate_fn4test(batch):
         imgs.append(sample[0])
         brand_label.append(sample[1])
         img_name.append(sample[-2])
-        brand_label.append(sample[-1])
+        bmy_label.append(sample[-1])
     return torch.stack(imgs, 0), brand_label, img_name, bmy_label
 
 def preprocess_anno():
