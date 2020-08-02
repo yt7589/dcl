@@ -1982,7 +1982,7 @@ function nextImg() {
                 arrs0 = line.split(',')
                 img_file = arrs0[0]
                 brand_id = int(arrs0[1])
-                brand_id_set(brand_id)
+                brand_id_set.add(brand_id)
                 if brand_id not in wxs_brand_id_brand_name_dict:
                     print('##### Error: {0};'.format(brand_id))
                     num_not_in_wxs += 1
