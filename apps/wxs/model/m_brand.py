@@ -47,5 +47,4 @@ class MBrand(object):
         query_cond = {'brand_id': brand_id}
         fields = {'brand_id': 1, 'brand_name': 1, 
                     'brand_code': 1, 'source_type': 1}
-        return MMongoDb.convert_recs(MMongoDb.db['t_brand']\
-            .find(query_cond, fields))
+        return MMongoDb.db['t_brand'].find_one(query_cond, fields)
