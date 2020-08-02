@@ -2043,9 +2043,9 @@ function nextImg() {
                             raw_img_file = arrs0[-1]
                             arrs1 = raw_img_file.split('_')
                             img_file = '{0}_{1}_{2}_{3}_{4}_{5}_{6}.jpg'.format(
-                                raw_img_file[0], raw_img_file[1], raw_img_file[2],
-                                raw_img_file[3], raw_img_file[4], raw_img_file[5],
-                                raw_img_file[6]
+                                arrs1[0], arrs1[1], arrs1[2],
+                                arrs1[3], arrs1[4], arrs1[5],
+                                arrs1[6]
                             )
                             img_ok_set.add(img_file)
                             print('add {0} to set'.format(img_file))
