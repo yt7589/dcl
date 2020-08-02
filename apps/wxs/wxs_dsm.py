@@ -2076,7 +2076,7 @@ function nextImg() {
             [1],
             [2, 3, 5]
         ]
-        bmy_mask = np.zeros((3, 6))
+        bmy_mask = np.zeros((3, 6), dtype=np.float32)
         for idx, brs in enumerate(brand_result):
             for br in brs:
                 bmy_mask[idx][br] = 1.0
