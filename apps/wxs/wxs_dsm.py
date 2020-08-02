@@ -1947,8 +1947,11 @@ function nextImg() {
             for line in bfd:
                 line = line.strip()
                 arrs0 = line.split(':')
-                brand_idx = arrs0[0]
+                brand_idx = int(arrs0[0])
                 brand_name = arrs0[1]
                 brand_idx_bmys[brand_idx] = []
+                for k, v in id_bmy_dict.items():
+                    if v.startswith(brand_name):
+                        brand_idx_bmys[brand_idx].append(k)
         for k, v in brand_idx_bmys.items():
             print('### {0}:{1};'.format(k, v))
