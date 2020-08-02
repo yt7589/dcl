@@ -23,6 +23,8 @@ class MainModel(nn.Module):
         self.backbone_arch = config.backbone
         self.use_Asoftmax = config.use_Asoftmax
         self.run_mode = MainModel.RUN_MODE_NORMAL # 1-正常运行；2-输出最后一层的特征；
+        self.train_batch = config.train_batch
+        self.val_batch = config.val_batch
         print(self.backbone_arch)
         self.fc_size = {'resnet50': 2048, 'resnet18': 512}
 
@@ -99,18 +101,22 @@ class MainModel(nn.Module):
                 out.append(self.Aclassifier(last_x))
         out.append(y_brand)
         # 由品牌决定年款输出
-        '''
         brand_out = out[0]
-        brand_top3_val, brand_top3_pos = torch.topk(brand_out, 3)
-        brand_result = brand_top3_pos[:, 0]
+        brand_result = torch.argmax(brand_out, dim=1)
         bmy_out = out[-1]
-        for idx, br in enumerate(brand_result):
-            bmy_ids = MainModel.BRAND_BMYS_DICT[br]
-            for bmy_idx in range(bmy_out.shape[1]):
-                if bmy_idx not in bmy_ids:
-                    bmy_out[idx][bmy_idx] = 0.0
-        '''
+        for idx1 in range(brand_out.shape[0]):
+            brand_idx = int(brand_result[idx1].cpu().item())
+            bmy_mask = self.bmy_masks[brand_idx]
+            bmy_out[idx1] = bmy_out[idx1] * bmy_mask
         return out
+
+    def initialize_bmy_mask(self):
+        self.bmy_masks = np.zeros((self.num_brands, self.num_bmys), dtype=np.float32)
+        for bi in range(self.num_brands):
+            bmy_idxs = MainModel.BRAND_BMYS_DICT[bi]
+            for bmy_idx in bmy_idxs:
+                self.bmy_masks[bi][bmy_idx] = 1.0
+        self.bmy_masks = torch.from_numpy(self.bmy_masks).cuda()
 
     BRAND_BMYS_DICT = {
         0:[0, 34, 1159, 1163, 1171],

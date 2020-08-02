@@ -61,6 +61,8 @@ class LoadConfig(object):
         ###############################
         #### add dataset info here ####
         ###############################
+        self.train_batch = args.train_batch
+        self.val_batch = args.val_batch
 
         # put image data in $PATH/data
         # put annotation txt file in $PATH/anno

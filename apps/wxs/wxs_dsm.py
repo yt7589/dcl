@@ -2082,7 +2082,7 @@ function nextImg() {
             for br in brs:
                 bmy_mask[idx][br] = 1.0
         bmy_mask = torch.from_numpy(bmy_mask)
-        bmy_mask.to(dev)
+        bmy_mask = bmy_mask.to(dev)
         print(bmy_mask)
         bmy_out = bmy_out * bmy_mask
         print(bmy_out)
