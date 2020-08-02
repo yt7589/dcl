@@ -2049,17 +2049,18 @@ function nextImg() {
                             )
                             img_ok_set.add(img_file)
                             print('add {0} to set'.format(img_file))
-        with open('../../w1/wxs_test_dataset_brands.csv', 'r', encoding='utf-8') as afd:
-            for line in afd:
-                line = line.strip()
-                arrs0 = line.split(',')
-                full_fn = arrs0[0]
-                arrs1 = full_fn.split('/')
-                img_file = arrs1[-1]
-                state = 'error'
-                print('####    {0};'.format(img_file))
-                if img_file in img_ok_set:
-                    state = 'ok'
-                brand_id = int(arrs0[1])
-                brand_notes = arrs0[2]
-                print('{0},{1},{2},{3};'.format(full_fn, brand_id, state, brand_notes))
+        with open('../../w1/wxs_test_dataset_brands_error.csv', 'w+', encoding='utf-8') as wfd:
+            with open('../../w1/wxs_test_dataset_brands.csv', 'r', encoding='utf-8') as afd:
+                for line in afd:
+                    line = line.strip()
+                    arrs0 = line.split(',')
+                    full_fn = arrs0[0]
+                    arrs1 = full_fn.split('/')
+                    img_file = arrs1[-1]
+                    state = 'error'
+                    print('####    {0};'.format(img_file))
+                    if img_file in img_ok_set:
+                        state = 'ok'
+                    brand_id = int(arrs0[1])
+                    brand_notes = arrs0[2]
+                    wfd.write('{0},{1},{2},{3}\n'.format(full_fn, brand_id, state, brand_notes))
