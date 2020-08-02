@@ -2080,4 +2080,5 @@ function nextImg() {
         for idx, brs in enumerate(brand_result):
             for br in brs:
                 bmy_mask[idx][br] = 1.0
+        bmy_mask = torch.from_numpy(bmy_mask)
         print(bmy_mask)
