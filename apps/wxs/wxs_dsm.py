@@ -1926,3 +1926,20 @@ function nextImg() {
                 if num % 1000 == 0:
                     print('已经处理{0}条记录'.format(num))
         print('共有品牌{0}个，车型{1}个，年款{2}个'.format(len(brand_set), len(bm_set), len(bmy_set)))
+
+    @staticmethod
+    def bind_brand_head_bmy_head():
+        '''
+        实现先预测出品牌类别，然后从年款头中除该品牌对应的年款索引外的其他
+        类别全部清零，将年款头的内容输出作为输出
+        '''
+        # 列出年款文件../../w1/cambricon_vehicle_label.txt内容
+        id_bmy_dict = {}
+        row = 0
+        with open('../../w1/cambricon_vehcile_label.txt', 'r', encoding='utf-8') as cfd:
+            for line in cfd:
+                line = line.strip()
+                id_bmy_dict[row] = line
+                row += 1
+        for k, v in id_bmy_dict.items():
+            print('{0}:{1};'.format(k, v))
