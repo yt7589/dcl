@@ -99,6 +99,7 @@ class MainModel(nn.Module):
                 out.append(self.Aclassifier(last_x))
         out.append(y_brand)
         # 由品牌决定年款输出
+        '''
         brand_out = out[0]
         brand_top3_val, brand_top3_pos = torch.topk(brand_out, 3)
         brand_result = brand_top3_pos[:, 0]
@@ -108,6 +109,7 @@ class MainModel(nn.Module):
             for bmy_idx in range(bmy_out.shape[1]):
                 if bmy_idx not in bmy_ids:
                     bmy_out[idx][bmy_idx] = 0.0
+        '''
         return out
 
     BRAND_BMYS_DICT = {
