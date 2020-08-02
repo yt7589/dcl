@@ -2040,7 +2040,13 @@ function nextImg() {
                         full_fn = str(file_obj)
                         if file_obj.is_file() and full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
                             arrs0 = full_fn.split('/')
-                            img_file = arrs0[-1]
+                            raw_img_file = arrs0[-1]
+                            arrs1 = arrs0.split('_')
+                            img_file = '{0}_{1}_{2}_{3}_{4}_{5}_{6}.jpg'.format(
+                                raw_img_file[0], raw_img_file[1], raw_img_file[2],
+                                raw_img_file[3], raw_img_file[4], raw_img_file[5],
+                                raw_img_file[6]
+                            )
                             img_ok_set.add(img_file)
                             print('add {0} to set'.format(img_file))
         with open('../../w1/wxs_test_dataset_brands.csv', 'r', encoding='utf-8') as afd:
