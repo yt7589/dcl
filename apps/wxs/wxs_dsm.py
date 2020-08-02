@@ -2066,11 +2066,12 @@ function nextImg() {
     @staticmethod
     def exp001():
         # 测试由品牌预测年款算法原理
+        dev = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
         bmy_out = torch.tensor([
             [1.1, 1.2, 1.3, 1.4, 1.5, 1.6],
             [2.1, 2.2, 2.3, 2.4, 2.5, 2.6],
             [3.1, 3.2, 3.3, 3.4, 3.5, 3.6]
-        ])
+        ]).to(dev)
         brand_result = [
             [0, 2],
             [1],
@@ -2081,6 +2082,7 @@ function nextImg() {
             for br in brs:
                 bmy_mask[idx][br] = 1.0
         bmy_mask = torch.from_numpy(bmy_mask)
+        bmy_mask.to(dev)
         print(bmy_mask)
         bmy_out = bmy_out * bmy_mask
         print(bmy_out)
