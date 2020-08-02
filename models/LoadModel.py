@@ -69,6 +69,8 @@ class MainModel(nn.Module):
         if self.use_Asoftmax:
             self.Aclassifier = AngleLinear(self.fc_size[self.backbone_arch], self.num_classes, bias=False)
 
+        self.initialize_bmy_masks()
+
     def forward(self, x, last_cont=None, run_mode=RUN_MODE_NORMAL):
         x = self.model(x)
         if self.use_dcl:
@@ -110,7 +112,7 @@ class MainModel(nn.Module):
             bmy_out[idx1] = bmy_out[idx1] * bmy_mask
         return out
 
-    def initialize_bmy_mask(self):
+    def initialize_bmy_masks(self):
         self.bmy_masks = np.zeros((self.num_brands, self.num_bmys), dtype=np.float32)
         for bi in range(self.num_brands):
             bmy_idxs = MainModel.BRAND_BMYS_DICT[bi]
