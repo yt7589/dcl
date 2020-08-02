@@ -1953,5 +1953,7 @@ function nextImg() {
                 for k, v in id_bmy_dict.items():
                     if v.startswith(brand_name):
                         brand_idx_bmys[brand_idx].append(k)
+        print('{')
         for k, v in brand_idx_bmys.items():
-            print('### {0}:{1};'.format(k, v))
+            print('{0}:{1},'.format(k, v))
+        print('}')
