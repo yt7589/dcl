@@ -40,6 +40,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
     val_batch_size = data_loader.batch_size
     val_epoch_step = data_loader.__len__()
     num_cls = data_loader.num_cls
+    print('val_batch_size={0}; num_cls={1};'.format(val_batch_size, num_cls))
 
     val_loss_recorder = LossRecord(val_batch_size)
     val_celoss_recorder = LossRecord(val_batch_size)
