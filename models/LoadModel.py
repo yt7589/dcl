@@ -18,8 +18,8 @@ class MainModel(nn.Module):
     def __init__(self, config):
         super(MainModel, self).__init__()
         self.use_dcl = config.use_dcl
-        self.num_classes = config.numcls
         self.num_brands = config.num_brands
+        self.num_bmys = config.num_bmys
         self.backbone_arch = config.backbone
         self.use_Asoftmax = config.use_Asoftmax
         self.run_mode = MainModel.RUN_MODE_NORMAL # 1-正常运行；2-输出最后一层的特征；
@@ -51,10 +51,10 @@ class MainModel(nn.Module):
         if self.backbone_arch == 'se_resnet101':
             self.model = nn.Sequential(*list(self.model.children())[:-2])
         self.avgpool = nn.AdaptiveAvgPool2d(output_size=1)
-        # 年款分类器
-        self.classifier = nn.Linear(self.fc_size[self.backbone_arch], self.num_classes, bias=False)
         # 品牌分类器
-        self.brand_clfr = nn.Linear(self.fc_size[self.backbone_arch], self.num_brands, bias=False)
+        self.classifier = nn.Linear(self.fc_size[self.backbone_arch], self.num_brands, bias=False)
+        # 年款分类器
+        self.brand_clfr = nn.Linear(self.fc_size[self.backbone_arch], self.num_bmys, bias=False)
 
         if self.use_dcl:
             if config.cls_2:
