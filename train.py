@@ -115,12 +115,11 @@ if __name__ == '__main__':
         exp({})
         sys.exit(0)
     
+    # 留下一个GPU用于模型开发调试
+    os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(map(str, [1]))
     args = parse_args()
-
-    
     args.train_num_workers = 0
     args.val_num_workers = 0
-
     print(args, flush=True)
     Config = LoadConfig(args, 'train')
     Config.cls_2 = args.cls_2
@@ -238,8 +237,6 @@ if __name__ == '__main__':
 
         print('保存成功')
         sys.exit(0)
-    # 留下一个GPU用于模型开发调试
-    os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(map(str, [1]))
     model = nn.DataParallel(model)
 
 
