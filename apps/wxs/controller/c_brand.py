@@ -1,4 +1,5 @@
 #
+from os import stat
 from apps.wxs.model.m_pk_generator import MPkGenerator
 from apps.wxs.model.m_brand import MBrand
 
@@ -31,3 +32,11 @@ class CBrand(object):
     @staticmethod
     def get_wxs_brands():
         return MBrand.get_wxs_brands()
+
+    @staticmethod
+    def get_wxs_brand_id_brand_name_dict():
+        recs = MBrand.get_wxs_brands()
+        wxs_brand_id_brand_name_dict = {}
+        for rec in recs:
+            wxs_brand_id_brand_name_dict[int(rec['brand_id'])] = rec['brand_name']
+        return wxs_brand_id_brand_name_dict

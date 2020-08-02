@@ -1957,3 +1957,39 @@ function nextImg() {
         for k, v in brand_idx_bmys.items():
             print('{0}:{1},'.format(k, v))
         print('}')
+
+    @staticmethod
+    def get_diff_wxs_tds_brands():
+        '''
+        求出无锡所测试集品牌与当前涉及的171个品牌的不同
+        '''
+        brand_name_idx_dict = {}
+        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+            for line in bfd:
+                line = line.strip()
+                arrs0 = line.split(':')
+                brand_idx = int(arrs0[0])
+                brand_name = arrs0[1]
+                brand_name_idx_dict[brand_name] = brand_idx
+        wxs_brand_id_brand_name_dict = CBrand.get_wxs_brand_id_brand_name_dict()
+        num_not_in_wxs = 0
+        num_not_in_known = 0
+        with open('../../w1/wxs_test_dataset_brands.csv', 'r', encoding='utf-8') as afd:
+            for line in afd:
+                line = line.strip()
+                arrs0 = line.split(',')
+                img_file = arrs0[0]
+                brand_id = int(arrs0[1])
+                if brand_id not in wxs_brand_id_brand_name_dict:
+                    print('##### Error: {0};'.format(brand_id))
+                    num_not_in_wxs += 1
+                    continue
+                brand_name = wxs_brand_id_brand_name_dict[brand_id]
+                if brand_name not in brand_name_idx_dict:
+                    print('########### 品牌不在已知范围：{0};'.format(brand_name))
+                    num_not_in_known += 1
+                    continue
+                brand_idx = brand_name_idx_dict[brand_name]
+                print('{0}*99999*{1};'.format(img_file, brand_idx))
+        print('不在无锡所Excel中品牌数：{0}个'.format(num_not_in_wxs))
+        print('不在现有品牌列表：{0}个'.format(num_not_in_known))
