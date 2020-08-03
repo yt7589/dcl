@@ -8,6 +8,7 @@ import datetime
 from pathlib import Path
 import numpy as np
 import torch
+import cv2
 
 from torch import full
 from apps.wxs.controller.c_brand import CBrand
@@ -2131,4 +2132,7 @@ function nextImg() {
     
     @staticmethod
     def exp001():
-        pass
+        org_img = cv2.imread('/media/zjkj/work/fgvc_dataset/raw/讴歌/rdx/2015/19UTB585#19UTB585_粤YUA739_02_440200100861_440200202556241574.jpg')
+        img_w, img_h = org_img.shape[0], org_img.shape[1]
+        img = org_img[int(0.2*img_w):int(0.8*img_w), int(0.2*img_h):int(0.8*img_h)]
+        cv2.imshow('img:{0}*{1}'.format(img.shape[0], img.shape[1]), img)

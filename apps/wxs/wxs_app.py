@@ -113,8 +113,8 @@ class WxsApp(object):
         根据Csv文件生成测试数据集，其中年款值为一个不正确的值，因此年款精度为0，
         只测品牌精度
         '''
-        WxsDsm.generate_wxs_test_dataset()
-        #WxsDsm.exp001()
+        #WxsDsm.generate_wxs_test_dataset()
+        WxsDsm.exp001()
 
         
 
