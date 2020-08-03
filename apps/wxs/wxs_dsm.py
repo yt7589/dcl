@@ -2121,10 +2121,11 @@ function nextImg() {
                         brand_idx = brand_name_brand_idx_dict[brand_name]
                         if arrs0[2] == 'ok':
                             num_brand_in_dcl += 1
+                            wfd.write('{0}*88888*{1}\n'.format(full_fn, brand_idx))
                     else:
                         brand_idx = 99999
                     print('{0}*88888*{1};'.format(full_fn, brand_idx))
-                    wfd.write('{0}*88888*{1}\n'.format(full_fn, brand_idx))
+                    #wfd.write('{0}*88888*{1}\n'.format(full_fn, brand_idx))
         print('品牌在无锡所Excel中的数量：{0}个，占{1}%'.format(num_brand_in_wxs, num_brand_in_wxs / total))
         print('在当前模型品牌列表中记录数为：{0}个，占{1}%'.format(num_brand_in_dcl, num_brand_in_dcl / total))
     
