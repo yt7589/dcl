@@ -2071,9 +2071,9 @@ function nextImg() {
         total = 0
         num_brand_in_wxs = 0
         with open('../../w1/wxs_test_dataset_brands_error.csv', 'r', encoding='utf-8') as tfd:
-            total += 1
             wxs_brand_id_brand_name_dict = CBrand.get_wxs_brand_id_brand_name_dict()
             for line in tfd:
+                total += 1
                 line = line.strip()
                 arrs0 = line.split(',')
                 full_fn = '/media/zjkj/work/品牌/{0}'.format(arrs0[0])
