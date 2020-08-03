@@ -2085,11 +2085,6 @@ function nextImg() {
                                 arrs1[6]
                             )
                             tds_img_dict[img_file_key] = full_fn
-        for k, v in tds_img_dict.items():
-            print('{0} => {1};'.format(k, v))
-        i_debug = 1
-        if 1 == i_debug:
-            return
         # 生成现有171个品牌的品牌名称到索引号的字典
         brand_name_brand_idx_dict = {}
         with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
@@ -2109,7 +2104,10 @@ function nextImg() {
                     total += 1
                     line = line.strip()
                     arrs0 = line.split(',')
-                    full_fn = '/media/zjkj/work/品牌/{0}'.format(arrs0[0])
+                    raw_img_file = arrs0[0]
+                    arrs1 = raw_img_file.split('/')
+                    img_file = arrs1[-1]
+                    full_fn = tds_img_dict[img_file]
                     brand_id = int(arrs0[1])
                     if brand_id in wxs_brand_id_brand_name_dict:
                         brand_name = wxs_brand_id_brand_name_dict[brand_id]
