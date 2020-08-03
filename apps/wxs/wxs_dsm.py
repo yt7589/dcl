@@ -6,6 +6,7 @@ import shutil
 import random
 import datetime
 from pathlib import Path
+from train import i_debug
 import numpy as np
 import torch
 
@@ -2068,6 +2069,23 @@ function nextImg() {
         根据Csv文件生成测试数据集，其中年款值为一个不正确的值，因此年款精度为0，
         只测品牌精度
         '''
+        tds_img_dict = {}
+        base_path = Path('/media/zjkj/work/fgvc_dataset/wxs/fine')
+        for brand_obj in base_path.iterdir():
+            for model_obj in brand_obj.iterdir():
+                for year_obj in model_obj.iterdir():
+                    for file_obj in year_obj.iterdir():
+                        full_fn = str(file_obj)
+                        if file_obj.is_file() and full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
+                            arrs0 = full_fn.split('/')
+                            raw_img_file = arrs0[-1]
+                            img_file_key = '{0}_{1}_{2}_{3}_{4}_{5}_{6}.jpg'
+                            tds_img_dict[img_file_key] = full_fn
+        for k, v in tds_img_dict.items():
+            print('{0} => {1};'.format(k, v))
+        i_debug = 1
+        if 1 == i_debug:
+            return
         # 生成现有171个品牌的品牌名称到索引号的字典
         brand_name_brand_idx_dict = {}
         with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
