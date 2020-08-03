@@ -2095,10 +2095,11 @@ function nextImg() {
                     brand_name = '未知'
                 if brand_name in brand_name_brand_idx_dict:
                     brand_idx = brand_name_brand_idx_dict[brand_name]
-                    num_brand_in_dcl += 1
+                    if arrs0[2] == 'ok':
+                        num_brand_in_dcl += 1
                 else:
                     brand_idx = 99999
-                print('{0}*{1};'.format(full_fn, brand_name))
+                print('{0}*{1};'.format(full_fn, brand_idx))
         print('品牌在无锡所Excel中的数量：{0}个，占{1}%'.format(num_brand_in_wxs, num_brand_in_wxs / total))
         print('在当前模型品牌列表中记录数为：{0}个，占{1}%'.format(num_brand_in_dcl, num_brand_in_dcl / total))
     
