@@ -2068,6 +2068,7 @@ function nextImg() {
         根据Csv文件生成测试数据集，其中年款值为一个不正确的值，因此年款精度为0，
         只测品牌精度
         '''
+        num_brand_in_wxs = 0
         with open('../../w1/wxs_test_dataset_brands_error.csv', 'r', encoding='utf-8') as tfd:
             wxs_brand_id_brand_name_dict = CBrand.get_wxs_brand_id_brand_name_dict()
             for line in tfd:
@@ -2077,9 +2078,11 @@ function nextImg() {
                 brand_id = int(arrs0[1])
                 if brand_id in wxs_brand_id_brand_name_dict:
                     brand_name = wxs_brand_id_brand_name_dict[brand_id]
+                    num_brand_in_wxs += 1
                 else:
                     brand_name = '未知'
                 print('{0}*{1};'.format(full_fn, brand_name))
+        print('品牌在无锡所Excel中的数量：{0}个'.format(num_brand_in_wxs))
     
     @staticmethod
     def exp001():
