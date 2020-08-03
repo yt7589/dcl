@@ -2062,27 +2062,25 @@ function nextImg() {
                     brand_notes = arrs0[2]
                     wfd.write('{0},{1},{2},{3}\n'.format(full_fn, brand_id, state, brand_notes))
 
+    @staticmethod
+    def generate_wxs_test_dataset():
+        '''
+        根据Csv文件生成测试数据集，其中年款值为一个不正确的值，因此年款精度为0，
+        只测品牌精度
+        '''
+        with open('../../w1/wxs_test_dataset_brands_error.csv', 'r', encoding='utf-8') as tfd:
+            wxs_brand_id_brand_name_dict = CBrand.get_wxs_brand_id_brand_name_dict()
+            for line in tfd:
+                line = line.strip()
+                arrs0 = line.split(',')
+                full_fn = '/media/zjkj/work/品牌/{0}'.format(arrs0[0])
+                brand_id = int(arrs0[1])
+                if brand_id in wxs_brand_id_brand_name_dict:
+                    brand_name = wxs_brand_id_brand_name_dict[brand_id]
+                else:
+                    brand_name = '未知'
+                print('{0}*{1};'.format(full_fn, brand_name))
     
     @staticmethod
     def exp001():
-        # 测试由品牌预测年款算法原理
-        dev = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-        bmy_out = torch.tensor([
-            [1.1, 1.2, 1.3, 1.4, 1.5, 1.6],
-            [2.1, 2.2, 2.3, 2.4, 2.5, 2.6],
-            [3.1, 3.2, 3.3, 3.4, 3.5, 3.6]
-        ]).to(dev)
-        brand_result = [
-            [0, 2],
-            [1],
-            [2, 3, 5]
-        ]
-        bmy_mask = np.zeros((3, 6), dtype=np.float32)
-        for idx, brs in enumerate(brand_result):
-            for br in brs:
-                bmy_mask[idx][br] = 1.0
-        bmy_mask = torch.from_numpy(bmy_mask)
-        bmy_mask = bmy_mask.to(dev)
-        print(bmy_mask)
-        bmy_out = bmy_out * bmy_mask
-        print(bmy_out)
+        pass
