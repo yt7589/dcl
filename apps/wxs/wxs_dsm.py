@@ -2078,10 +2078,11 @@ function nextImg() {
                         if file_obj.is_file() and full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
                             arrs0 = full_fn.split('/')
                             raw_img_file = arrs0[-1]
+                            arrs1 = raw_img_file.split('_')
                             img_file_key = '{0}_{1}_{2}_{3}_{4}_{5}_{6}.jpg'.format(
-                                arrs0[0], arrs0[1], arrs0[2],
-                                arrs0[3], arrs0[4], arrs0[5],
-                                arrs0[6]
+                                arrs1[0], arrs1[1], arrs1[2],
+                                arrs1[3], arrs1[4], arrs1[5],
+                                arrs1[6]
                             )
                             tds_img_dict[img_file_key] = full_fn
         for k, v in tds_img_dict.items():
