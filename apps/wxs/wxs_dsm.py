@@ -2136,3 +2136,4 @@ function nextImg() {
         img_w, img_h = org_img.shape[0], org_img.shape[1]
         img = org_img[int(0.2*img_w):int(0.8*img_w), int(0.2*img_h):int(0.8*img_h)]
         cv2.imshow('img:{0}*{1}'.format(img.shape[0], img.shape[1]), img)
+        cv2.waitKey(0)
