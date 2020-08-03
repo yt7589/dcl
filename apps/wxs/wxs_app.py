@@ -109,7 +109,12 @@ class WxsApp(object):
         标出无锡所测试集中可能出错的图片
         '''
         #WxsDsm.mark_error_img_in_wxs_tds()
-        WxsDsm.exp001()
+        '''
+        根据Csv文件生成测试数据集，其中年款值为一个不正确的值，因此年款精度为0，
+        只测品牌精度
+        '''
+        WxsDsm.generate_wxs_test_dataset()
+        #WxsDsm.exp001()
 
         
 
