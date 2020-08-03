@@ -2080,26 +2080,28 @@ function nextImg() {
         total = 0
         num_brand_in_wxs = 0
         num_brand_in_dcl = 0
-        with open('../../w1/wxs_test_dataset_brands_error.csv', 'r', encoding='utf-8') as tfd:
-            wxs_brand_id_brand_name_dict = CBrand.get_wxs_brand_id_brand_name_dict()
-            for line in tfd:
-                total += 1
-                line = line.strip()
-                arrs0 = line.split(',')
-                full_fn = '/media/zjkj/work/品牌/{0}'.format(arrs0[0])
-                brand_id = int(arrs0[1])
-                if brand_id in wxs_brand_id_brand_name_dict:
-                    brand_name = wxs_brand_id_brand_name_dict[brand_id]
-                    num_brand_in_wxs += 1
-                else:
-                    brand_name = '未知'
-                if brand_name in brand_name_brand_idx_dict:
-                    brand_idx = brand_name_brand_idx_dict[brand_name]
-                    if arrs0[2] == 'ok':
-                        num_brand_in_dcl += 1
-                else:
-                    brand_idx = 99999
-                print('{0}*{1};'.format(full_fn, brand_idx))
+        with open('../../w1/wxs_brands_ds.txt', 'w+', encoding='utf-8') as wfd:
+            with open('../../w1/wxs_test_dataset_brands_error.csv', 'r', encoding='utf-8') as tfd:
+                wxs_brand_id_brand_name_dict = CBrand.get_wxs_brand_id_brand_name_dict()
+                for line in tfd:
+                    total += 1
+                    line = line.strip()
+                    arrs0 = line.split(',')
+                    full_fn = '/media/zjkj/work/品牌/{0}'.format(arrs0[0])
+                    brand_id = int(arrs0[1])
+                    if brand_id in wxs_brand_id_brand_name_dict:
+                        brand_name = wxs_brand_id_brand_name_dict[brand_id]
+                        num_brand_in_wxs += 1
+                    else:
+                        brand_name = '未知'
+                    if brand_name in brand_name_brand_idx_dict:
+                        brand_idx = brand_name_brand_idx_dict[brand_name]
+                        if arrs0[2] == 'ok':
+                            num_brand_in_dcl += 1
+                    else:
+                        brand_idx = 99999
+                    print('{0}*88888*{1};'.format(full_fn, brand_idx))
+                    wfd.write('{0}*88888*{1}\n'.format(full_fn, brand_idx))
         print('品牌在无锡所Excel中的数量：{0}个，占{1}%'.format(num_brand_in_wxs, num_brand_in_wxs / total))
         print('在当前模型品牌列表中记录数为：{0}个，占{1}%'.format(num_brand_in_dcl, num_brand_in_dcl / total))
     
