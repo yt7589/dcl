@@ -2107,7 +2107,10 @@ function nextImg() {
                     raw_img_file = arrs0[0]
                     arrs1 = raw_img_file.split('/')
                     img_file = arrs1[-1]
-                    full_fn = tds_img_dict[img_file]
+                    if img_file in tds_img_dict:
+                        full_fn = tds_img_dict[img_file]
+                    else:
+                        full_fn = '/media/zjkj/work/品牌/{0}'.format(raw_img_file)
                     brand_id = int(arrs0[1])
                     if brand_id in wxs_brand_id_brand_name_dict:
                         brand_name = wxs_brand_id_brand_name_dict[brand_id]
