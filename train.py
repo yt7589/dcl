@@ -116,7 +116,7 @@ if __name__ == '__main__':
         sys.exit(0)
     
     # 留下一个GPU用于模型开发调试
-    os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(map(str, [2]))
+    os.environ['CUDA_VISIBLE_DEVICES'] = '2' # ','.join(map(str, [2]))
     args = parse_args()
     args.train_num_workers = 0
     args.val_num_workers = 0
