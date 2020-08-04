@@ -3,6 +3,7 @@ import sys
 from apps.wxs.wxs_dsm import WxsDsm
 from apps.wxs.controller.c_brand import CBrand
 from apps.wxs.controller.c_model import CModel
+from apps.wxs.wxs_utils import WxsUtils
 
 class WxsApp(object):
     def __init__(self):
@@ -114,7 +115,11 @@ class WxsApp(object):
         只测品牌精度
         '''
         #WxsDsm.generate_wxs_test_dataset()
-        WxsDsm.exp001()
+        #WxsDsm.exp001()
+        '''
+        绘制在测试集上的精度变化曲线
+        '''
+        WxsUtils.draw_tds_acc_curve()
 
         
 
