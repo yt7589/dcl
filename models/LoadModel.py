@@ -104,6 +104,7 @@ class MainModel(nn.Module):
         out.append(y_brand)
         if not self.training:
             # 由品牌决定年款输出（仅在实际运行中开启）
+            print('Use brand to controll bmy...')
             brand_out = out[0]
             brand_result = torch.argmax(brand_out, dim=1)
             bmy_out = out[-1]
