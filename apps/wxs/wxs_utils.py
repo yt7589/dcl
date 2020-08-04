@@ -20,8 +20,10 @@ class WxsUtils(object):
             x.append(int(arrs1[2]))
             y.append(float(arrs1[3]))
         # 绘制测试集上精度变化曲线
+        x.sort()
         x = np.array(x)
         print('x: {0};'.format(x))
+        y.sort()
         y = np.array(y)
         print('y: {0};'.format(y))
         fig, ax = plt.subplots()
