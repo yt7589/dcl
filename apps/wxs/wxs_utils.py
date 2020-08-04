@@ -13,11 +13,12 @@ class WxsUtils(object):
         x = []
         y = []
         for file_obj in base_path.iterdir():
-            full_fn = str(file_obj)
-            print('### {0};'.format(full_fn))
-            arrs0 = full_fn.split('_')
-            x.append(int(arrs0[2]))
-            y.append(float(arrs0[3]))
+            full_path = str(file_obj)
+            arrs0 = full_path.split('/')
+            log_file = arrs0[-1]
+            arrs1 = log_file.split('_')
+            x.append(int(arrs1[2]))
+            y.append(float(arrs1[3]))
         # 绘制测试集上精度变化曲线
         x = np.array(x)
         y = np.array(y)
