@@ -14,6 +14,7 @@ class WxsUtils(object):
         y = []
         for file_obj in base_path.iterdir():
             full_fn = str(file_obj)
+            print('### {0};'.format(full_fn))
             arrs0 = full_fn.split('_')
             x.append(int(arrs0[2]))
             y.append(float(arrs0[3]))
