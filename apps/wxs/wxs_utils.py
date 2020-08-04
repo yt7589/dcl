@@ -21,11 +21,12 @@ class WxsUtils(object):
             y.append(float(arrs1[3]))
         # 绘制测试集上精度变化曲线
         x = np.array(x)
+        print('x: {0};'.format(x))
         y = np.array(y)
+        print('y: {0};'.format(y))
         fig, ax = plt.subplots()
         ax.plot(x, y, label='accuracy')
         ax.set_xlabel('steps')
         ax.set_ylabel('accuracy')
         ax.set_title("accuracy curve")
-        ax.legend()
         plt.show()
