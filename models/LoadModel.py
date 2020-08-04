@@ -102,20 +102,16 @@ class MainModel(nn.Module):
                 last_x = last_x.view(last_x.size(0), -1)
                 out.append(self.Aclassifier(last_x))
         out.append(y_brand)
-        # 由品牌决定年款输出
+        '''
+        # 由品牌决定年款输出（仅在实际运行中开启）
         brand_out = out[0]
         brand_result = torch.argmax(brand_out, dim=1)
         bmy_out = out[-1]
         for idx1 in range(brand_out.shape[0]):
             brand_idx = int(brand_result[idx1].cpu().item())
-            '''
-            bmy_idxs = MainModel.BRAND_BMYS_DICT[brand_idx]
-            for idx2 in range(self.num_bmys):
-                if idx2 not in bmy_idxs:
-                    bmy_out[idx1][idx2] = 0.0
-            '''
             bmy_mask = self.bmy_masks[brand_idx]
             bmy_out[idx1] = bmy_out[idx1] * bmy_mask
+        '''
         return out
 
     def initialize_bmy_masks(self):
