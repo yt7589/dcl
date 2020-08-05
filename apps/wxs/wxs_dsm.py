@@ -2177,6 +2177,8 @@ function nextImg() {
             )
             img_full_fn = img_file_full_fn_dict[img_file]
             box_raw = WxsDsm.parse_detect_json(json_file)
+            if box_raw is None:
+                continue
             arrs2 = box_raw.split(',')
             box = [int(arrs2[0]), int(arrs2[1]), int(arrs2[2]), int(arrs2[3])]
             crop_img = WxsDsm.crop_and_resize_img(img_full_fn, box)
@@ -2213,9 +2215,12 @@ function nextImg() {
     @staticmethod
     def parse_detect_json(json_file):
         with open(json_file, 'r', encoding='utf-8') as jfd:
+            print('############ bad file: {0};'.format(json_file))
             data = json.load(jfd)
-        print('json_file:{0};'.format(json_file))
-        return data['VEH'][0]['WZTZ']['CLWZ']
+        if len(data['VEH']) < 1:
+            return None
+        else:
+            return data['VEH'][0]['WZTZ']['CLWZ']
 
     @staticmethod
     def crop_and_resize_img(img_file, box, size=(224, 224), mode=1):
