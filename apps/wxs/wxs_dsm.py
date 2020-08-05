@@ -2164,8 +2164,9 @@ function nextImg() {
         base_path = Path('/media/zjkj/work/品牌')
         img_file_full_fn_dict = {}
         #WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
-        box = WxsDsm.parse_detect_json('/media/zjkj/work/yantao/w1/t001/白#06_黑E1T000_036_福田_风景_2011_610500200969340543.jpg_0.json')
-        print('车辆位置：{0} ({1});'.format(type(box), box))
+        box_raw = WxsDsm.parse_detect_json('/media/zjkj/work/yantao/w1/t001/白#06_黑E1T000_036_福田_风景_2011_610500200969340543.jpg_0.json')
+        print('车辆位置：{0} ({1});'.format(type(box_raw), box_raw))
+        box = box_raw.split(',')
         img_file = '/media/zjkj/work/品牌/036福田/白#06_黑E1T000_036_福田_风景_2011_610500200969340543.jpg_0.json'
         WxsDsm.crop_and_resize_img(img_file, box)
 
