@@ -2164,10 +2164,20 @@ function nextImg() {
         img_file_full_fn_dict = {}
         WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
         num = 0
+        s6125 = set()
         for k, v in img_file_full_fn_dict.items():
             print('{0}: {1};'.format(k, v))
             num += 1
+            s6125.add(k)
         print('共有{0}个文件'.format(num))
+        s6126 = set()
+        with open('./logs/wxs_tds_images.csv', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line = line.strip()
+                s6126.add(line)
+        diff = s6126 - s6125
+        for di in diff:
+            print(di)
 
     @staticmethod
     def get_img_file_full_fn_dict(img_file_full_fn_dict, base_path):
