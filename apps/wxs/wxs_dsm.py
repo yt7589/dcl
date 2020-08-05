@@ -2168,7 +2168,7 @@ function nextImg() {
         print('车辆位置：{0} ({1});'.format(type(box_raw), box_raw))
         arrs0 = box_raw.split(',')
         box = [int(arrs0[0]), int(arrs0[1]), int(arrs0[2]), int(arrs0[3])]
-        img_file = '/media/zjkj/work/品牌/036福田/白#06_黑E1T000_036_福田_风景_2011_610500200969340543.jpg_0.json'
+        img_file = '/media/zjkj/work/品牌/036福田/夜#02_陕ATD826_036_福田_福田_车型05610500200970639055.jpg'
         WxsDsm.crop_and_resize_img(img_file, box)
 
     g_num = 0
