@@ -2176,6 +2176,8 @@ function nextImg() {
                 WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, sub_obj)
             else:
                 full_fn = str(sub_obj)
+                if full_fn.endswith(('jp')):
+                    print('##### {0}'.format(full_fn))
                 if full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
                     arrs0 = full_fn.split('/')
                     img_file = arrs0[-1]
