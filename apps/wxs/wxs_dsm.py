@@ -2196,9 +2196,9 @@ function nextImg() {
     @staticmethod
     def crop_and_resize_img(img_file, box, size=(224, 224), mode=1):
         if mode == 1:
-            WxsDsm.crop_and_resize_no_aspect()
+            WxsDsm.crop_and_resize_no_aspect(img_file, box, size)
         else:
-            WxsDsm.crop_and_resize_keep_aspect()
+            WxsDsm.crop_and_resize_keep_aspect(img_file, box, size)
 
     @staticmethod
     def crop_and_resize_no_aspect(img_file, box, size=(224, 224), mode=1):
