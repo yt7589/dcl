@@ -2214,9 +2214,9 @@ function nextImg() {
     @staticmethod
     def parse_detect_json(json_file):
         with open(json_file, 'r', encoding='utf-8') as jfd:
-            print('############ bad file: {0};'.format(json_file))
             data = json.load(jfd)
         if len(data['VEH']) < 1:
+            print('############ bad file: {0};'.format(json_file))
             return None
         else:
             return data['VEH'][0]['WZTZ']['CLWZ']
