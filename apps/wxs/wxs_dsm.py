@@ -2188,6 +2188,7 @@ function nextImg() {
             if os.path.exists(folder2):
                 os.mkdir(folder2)
             dst_file = '{0}/{1}'.format(folder2, img_file)
+            print('save to {0};'.format(dst_file))
             cv2.imwrite(dst_file, crop_img)
 
     g_num = 0
@@ -2223,15 +2224,11 @@ function nextImg() {
 
     @staticmethod
     def crop_and_resize_no_aspect(img_file, box, size=(224, 224), mode=1):
-        print('切图范围：{0}; {1}'.format(box, img_file))
         org_img = cv2.imread(img_file)
-        print('org_img: {0}, {1};'.format(org_img.shape[0], org_img.shape[1]))
-        print('{0}:{1}, {2}:{3};'.format(box[0], box[0]+ box[2], box[1], box[1]+box[3]))
         crop_img = org_img[
             box[1] : box[1] + box[3],
             box[0] : box[0] + box[2]
         ]
-        #cv2.imwrite('/media/zjkj/work/yantao/a001.jpg', crop_img)
         '''
         plt.subplot(1, 3, 1)
         plt.title('org_img: {0}*{1}'.format(org_img.shape[0], org_img.shape[1]))
