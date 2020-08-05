@@ -2166,7 +2166,6 @@ function nextImg() {
         num = 0
         s6125 = set()
         for k, v in img_file_full_fn_dict.items():
-            print('{0}: {1};'.format(k, v))
             num += 1
             s6125.add(k)
         print('共有{0}个文件'.format(num))
@@ -2178,8 +2177,11 @@ function nextImg() {
                 img_file = arrs0[-1]
                 s6126.add(img_file)
         diff = s6126 - s6125
+        num1 = 0
         for di in diff:
-            print(di)
+            print('### {0};'.format(di))
+            num1 += 1
+        print('差异：{0}个'.format(num1))
 
     @staticmethod
     def get_img_file_full_fn_dict(img_file_full_fn_dict, base_path):
