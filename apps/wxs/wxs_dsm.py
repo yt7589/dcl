@@ -2164,7 +2164,10 @@ function nextImg() {
         base_path = Path('/media/zjkj/work/品牌')
         img_file_full_fn_dict = {}
         #WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
-        WxsDsm.parse_detect_json('/media/zjkj/work/yantao/w1/t001/白#06_黑E1T000_036_福田_风景_2011_610500200969340543.jpg_0.json')
+        box = WxsDsm.parse_detect_json('/media/zjkj/work/yantao/w1/t001/白#06_黑E1T000_036_福田_风景_2011_610500200969340543.jpg_0.json')
+        print('车辆位置：{0} ({1});'.format(type(box), box))
+        img_file = '/media/zjkj/work/品牌/036福田/白#06_黑E1T000_036_福田_风景_2011_610500200969340543.jpg_0.json'
+        WxsDsm.crop_and_resize_img(img_file, box)
 
     g_num = 0
     @staticmethod
@@ -2188,4 +2191,31 @@ function nextImg() {
     def parse_detect_json(json_file):
         with open(json_file, 'r', encoding='utf-8') as jfd:
             data = json.load(jfd)
-        print('车辆位置：{0};'.format(data['VEH'][0]['WZTZ']['CLWZ']))
+        return data['VEH'][0]['WZTZ']['CLWZ']
+
+    @staticmethod
+    def crop_and_resize_img(img_file, box, size=(224, 224), mode=1):
+        if mode == 1:
+            WxsDsm.crop_and_resize_no_aspect()
+        else:
+            WxsDsm.crop_and_resize_keep_aspect()
+
+    @staticmethod
+    def crop_and_resize_no_aspect(img_file, box, size=(224, 224), mode=1):
+        print('切图范围：{0};'.format(box))
+        org_img = cv2.imread(img_file)
+        crop_img = org_img[
+            box[0] : box[0] + box[2], 
+            box[1] : box[1] + box[3]
+        ]
+        plt.subplot(1, 2, 1)
+        plt.title('org_img: {0}*{1}'.format(org_img.shape[0], org_img.shape[1]))
+        plt.imshow(org_img)
+        plt.subplot(1, 2, 2)
+        plt.title('img: {0}*{1}'.format(crop_img.shape[0], crop_img.shape[1]))
+        plt.imshow(crop_img)
+        plt.show()
+
+    @staticmethod
+    def crop_and_resize_keep_aspect(img_file, box, size=(224, 224), mode=1):
+        pass
