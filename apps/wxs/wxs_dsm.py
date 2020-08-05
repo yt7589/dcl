@@ -2165,6 +2165,7 @@ function nextImg() {
         img_file_full_fn_dict = {}
         WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
         json_path = Path('/media/zjkj/work/yantao/w1/t001')
+        num = 0
         for json_obj in json_path.iterdir():
             json_file = str(json_obj)
             arrs0 = json_file.split('/')
@@ -2179,15 +2180,15 @@ function nextImg() {
             arrs2 = box_raw.split(',')
             box = [int(arrs2[0]), int(arrs2[1]), int(arrs2[2]), int(arrs2[3])]
             crop_img = WxsDsm.crop_and_resize_img(img_full_fn, box)
-            break
-        '''
-        box_raw = WxsDsm.parse_detect_json('/media/zjkj/work/yantao/w1/t001/夜#02_陕ATD826_036_福田_福田_车型05_610500200970639055.jpg_0.json')
-        print('车辆位置：{0} ({1});'.format(type(box_raw), box_raw))
-        arrs0 = box_raw.split(',')
-        box = [int(arrs0[0]), int(arrs0[1]), int(arrs0[2]), int(arrs0[3])]
-        img_file = '/media/zjkj/work/品牌/036福田/夜#02_陕ATD826_036_福田_福田_车型05_610500200970639055.jpg'
-        crop_img = WxsDsm.crop_and_resize_img(img_file, box)
-        '''
+            id_str = '{0:04d}'.format(num)
+            folder1 = '/media/zjkj/work/yantao/zjkj/test_ds/{0}'.format(id_str[:2])
+            if os.path.exists(folder1):
+                os.mkdir(folder1)
+            folder2 = '{0}/{1}'.format(folder1, id_str[2:])
+            if os.path.exists(folder2):
+                os.mkdir(folder2)
+            dst_file = '{0}/{1}'.format(folder2, img_file)
+            cv2.imwrite(dst_file, crop_img)
 
     g_num = 0
     @staticmethod
@@ -2231,6 +2232,7 @@ function nextImg() {
             box[0] : box[0] + box[2]
         ]
         #cv2.imwrite('/media/zjkj/work/yantao/a001.jpg', crop_img)
+        '''
         plt.subplot(1, 3, 1)
         plt.title('org_img: {0}*{1}'.format(org_img.shape[0], org_img.shape[1]))
         plt.imshow(org_img)
@@ -2242,6 +2244,7 @@ function nextImg() {
         plt.title('resized')
         plt.imshow(resized_img)
         plt.show()
+        '''
         return crop_img
 
     @staticmethod
