@@ -2164,7 +2164,7 @@ function nextImg() {
         base_path = Path('/media/zjkj/work/品牌')
         img_file_full_fn_dict = {}
         WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
-        json_path = Path('/')
+        json_path = Path('/media/zjkj/work/yantao/w1/t001')
         for json_obj in json_path.iterdir():
             json_file = str(json_obj)
             arrs0 = json_file.split('/')
