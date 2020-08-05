@@ -2212,12 +2212,16 @@ function nextImg() {
             box[1] : box[1] + box[3],
             box[0] : box[0] + box[2]
         ]
-        plt.subplot(1, 2, 1)
+        plt.subplot(1, 3, 1)
         plt.title('org_img: {0}*{1}'.format(org_img.shape[0], org_img.shape[1]))
         plt.imshow(org_img)
-        plt.subplot(1, 2, 2)
+        plt.subplot(1, 3, 2)
         plt.title('img: {0}*{1}'.format(crop_img.shape[0], crop_img.shape[1]))
         plt.imshow(crop_img)
+        resized_img = cv2.resize(crop_img, size, interpolation=cv2.INTER_LINEAR)
+        plt.subplot(1, 3, 3)
+        plt.title('resized')
+        plt.imshow(resized_img)
         plt.show()
 
     @staticmethod
