@@ -2272,6 +2272,7 @@ function nextImg() {
                 arrs0 = line.split(',')
                 arrs1 = arrs0[0].split('/')
                 img_file = arrs1[-1]
+                print('img_file: {0}; id: {1};'.format(img_file, arrs0[1]))
                 zc_dict[img_file] = {
                     'brand_id': int(arrs0[1]),
                     'status': arrs0[2],
