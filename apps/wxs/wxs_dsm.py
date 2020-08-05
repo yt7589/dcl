@@ -2269,8 +2269,9 @@ function nextImg() {
         with open('./logs/zhangcan.csv', 'r', encoding='utf-8') as zfd:
             for line in zfd:
                 line = line.strip()
-                arrs0 = line.split('/')
-                img_file = arrs0[0]
+                arrs0 = line.split(',')
+                arrs1 = arrs0[0].split('/')
+                img_file = arrs1[-1]
                 zc_dict[img_file] = {
                     'brand_id': int(arrs0[1]),
                     'status': arrs0[2],
