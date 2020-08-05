@@ -2,6 +2,7 @@
 import os
 from os import stat
 import sys
+import json
 import shutil
 import random
 import datetime
@@ -2162,29 +2163,8 @@ function nextImg() {
         # 遍历原始目录得到文件名和全路径名的字典
         base_path = Path('/media/zjkj/work/品牌')
         img_file_full_fn_dict = {}
-        WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
-        num = 0
-        s6125 = set()
-        for k, v in img_file_full_fn_dict.items():
-            num += 1
-            s6125.add(k)
-        print('共有{0}个文件'.format(num))
-        l6125 = list(s6125)
-        l6125.sort()
-        s6126 = set()
-        with open('./logs/wxs_tds_images.csv', 'r', encoding='utf-8') as fd:
-            for line in fd:
-                line = line.strip()
-                arrs0 = line.split('/')
-                img_file = arrs0[-1]
-                s6126.add(img_file[:-1])
-        l6126 = list(s6126)
-        l6126.sort()
-        for idx in range(6125):
-            if l6126[idx] != l6125[idx]:
-                print('{0}: {1} vs {2};'.format(idx, l6126[idx], l6125[idx]))
-        print('diff: {0};'.format(l6126[-1]))
-        print('次数：{0};'.format(WxsDsm.g_num))
+        #WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
+        WxsDsm.parse_detect_json('/media/zjkj/work/yantao/w1/t001/白#06_黑E1T000_036_福田_风景_2011_610500200969340543.jpg_0.json')
 
     g_num = 0
     @staticmethod
@@ -2203,3 +2183,9 @@ function nextImg() {
                         print('      第二个位置：{0};'.format(full_fn))
                     img_file_full_fn_dict[img_file] = full_fn
                     WxsDsm.g_num += 1
+
+    @staticmethod
+    def parse_detect_json(json_file):
+        with open(json_file, 'r', encoding='utf-8') as jfd:
+            data = json.load(jfd)
+        print('车辆位置：{0};'.format(data['VEH'][0]['WZTZ']['CLWZ']))
