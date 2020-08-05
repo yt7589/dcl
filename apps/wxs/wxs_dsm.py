@@ -2169,6 +2169,8 @@ function nextImg() {
             num += 1
             s6125.add(k)
         print('共有{0}个文件'.format(num))
+        l6125 = list(s6125)
+        l6125.sort()
         s6126 = set()
         with open('./logs/wxs_tds_images.csv', 'r', encoding='utf-8') as fd:
             for line in fd:
@@ -2176,12 +2178,15 @@ function nextImg() {
                 arrs0 = line.split('/')
                 img_file = arrs0[-1]
                 s6126.add(img_file)
+        l6126 = list(s6126)
+        l6126.sort()
         diff = s6126 - s6125
         num1 = 0
         for di in diff:
-            print('### {0};'.format(di))
             num1 += 1
         print('差异：{0}个'.format(num1))
+        for idx in range(6):
+            print('{0} vs {1};'.format(l6126[idx], l6125[idx]))
 
     @staticmethod
     def get_img_file_full_fn_dict(img_file_full_fn_dict, base_path):
