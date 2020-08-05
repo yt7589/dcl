@@ -2214,6 +2214,7 @@ function nextImg() {
     def parse_detect_json(json_file):
         with open(json_file, 'r', encoding='utf-8') as jfd:
             data = json.load(jfd)
+        print('json_file:{0};'.format(json_file))
         return data['VEH'][0]['WZTZ']['CLWZ']
 
     @staticmethod
