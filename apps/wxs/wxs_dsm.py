@@ -2191,7 +2191,6 @@ function nextImg() {
                 os.mkdir(folder2)
             dst_file = '{0}/{1}'.format(folder2, img_file)
             num += 1
-            print('save to {0};'.format(dst_file))
             cv2.imwrite(dst_file, crop_img)
 
     g_num = 0
