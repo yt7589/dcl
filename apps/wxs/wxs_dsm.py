@@ -2177,7 +2177,7 @@ function nextImg() {
                 line = line.strip()
                 arrs0 = line.split('/')
                 img_file = arrs0[-1]
-                s6126.add(img_file)
+                s6126.add(img_file[:-1])
         l6126 = list(s6126)
         l6126.sort()
         for idx in range(6125):
