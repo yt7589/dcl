@@ -2184,7 +2184,9 @@ function nextImg() {
             if l6126[idx] != l6125[idx]:
                 print('{0}: {1} vs {2};'.format(idx, l6126[idx], l6125[idx]))
         print('diff: {0};'.format(l6126[-1]))
+        print('次数：{0};'.format(WxsDsm.g_num))
 
+    g_num = 0
     @staticmethod
     def get_img_file_full_fn_dict(img_file_full_fn_dict, base_path):
         for sub_obj in base_path.iterdir():
@@ -2192,9 +2194,8 @@ function nextImg() {
                 WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, sub_obj)
             else:
                 full_fn = str(sub_obj)
-                if full_fn.endswith(('jp')):
-                    print('##### {0}'.format(full_fn))
                 if full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
                     arrs0 = full_fn.split('/')
                     img_file = arrs0[-1]
                     img_file_full_fn_dict[img_file] = full_fn
+                    WxsDsm.g_num += 1
