@@ -2174,7 +2174,9 @@ function nextImg() {
         with open('./logs/wxs_tds_images.csv', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
-                s6126.add(line)
+                arrs0 = line.split('/')
+                img_file = arrs0[-1]
+                s6126.add(img_file)
         diff = s6126 - s6125
         for di in diff:
             print(di)
