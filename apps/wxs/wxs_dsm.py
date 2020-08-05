@@ -2163,13 +2163,31 @@ function nextImg() {
         # 遍历原始目录得到文件名和全路径名的字典
         base_path = Path('/media/zjkj/work/品牌')
         img_file_full_fn_dict = {}
-        #WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
+        WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
+        json_path = Path('/')
+        for json_obj in json_path.iterdir():
+            json_file = str(json_obj)
+            arrs0 = json_file.split('/')
+            jf = arrs0[-1]
+            arrs1 = jf.split('_')
+            img_file = '{0}_{1}_{2}_{3}_{4}_{5}_{6}.jpg'.format(
+                arrs1[0], arrs1[1], arrs1[2], arrs1[3],
+                arrs1[4], arrs1[5], arrs1[6]
+            )
+            img_full_fn = img_file_full_fn_dict[img_file]
+            box_raw = WxsDsm.parse_detect_json(json_file)
+            arrs2 = box_raw.split(',')
+            box = [int(arrs2[0]), int(arrs2[1]), int(arrs2[2]), int(arrs2[3])]
+            crop_img = WxsDsm.crop_and_resize_img(img_full_fn, box)
+            break
+        '''
         box_raw = WxsDsm.parse_detect_json('/media/zjkj/work/yantao/w1/t001/夜#02_陕ATD826_036_福田_福田_车型05_610500200970639055.jpg_0.json')
         print('车辆位置：{0} ({1});'.format(type(box_raw), box_raw))
         arrs0 = box_raw.split(',')
         box = [int(arrs0[0]), int(arrs0[1]), int(arrs0[2]), int(arrs0[3])]
         img_file = '/media/zjkj/work/品牌/036福田/夜#02_陕ATD826_036_福田_福田_车型05_610500200970639055.jpg'
-        WxsDsm.crop_and_resize_img(img_file, box)
+        crop_img = WxsDsm.crop_and_resize_img(img_file, box)
+        '''
 
     g_num = 0
     @staticmethod
@@ -2198,9 +2216,9 @@ function nextImg() {
     @staticmethod
     def crop_and_resize_img(img_file, box, size=(224, 224), mode=1):
         if mode == 1:
-            WxsDsm.crop_and_resize_no_aspect(img_file, box, size)
+            return WxsDsm.crop_and_resize_no_aspect(img_file, box, size)
         else:
-            WxsDsm.crop_and_resize_keep_aspect(img_file, box, size)
+            return WxsDsm.crop_and_resize_keep_aspect(img_file, box, size)
 
     @staticmethod
     def crop_and_resize_no_aspect(img_file, box, size=(224, 224), mode=1):
@@ -2212,8 +2230,7 @@ function nextImg() {
             box[1] : box[1] + box[3],
             box[0] : box[0] + box[2]
         ]
-        cv2.imwrite('/media/zjkj/work/yantao/a001.jpg', crop_img)
-        '''
+        #cv2.imwrite('/media/zjkj/work/yantao/a001.jpg', crop_img)
         plt.subplot(1, 3, 1)
         plt.title('org_img: {0}*{1}'.format(org_img.shape[0], org_img.shape[1]))
         plt.imshow(org_img)
@@ -2225,7 +2242,7 @@ function nextImg() {
         plt.title('resized')
         plt.imshow(resized_img)
         plt.show()
-        '''
+        return crop_img
 
     @staticmethod
     def crop_and_resize_keep_aspect(img_file, box, size=(224, 224), mode=1):
