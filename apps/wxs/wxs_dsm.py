@@ -2270,17 +2270,27 @@ function nextImg() {
             for line in zfd:
                 line = line.strip()
                 arrs0 = line.split(',')
-                print('{0}, {1}, {2};'.format(arrs0[0], arrs0[1], arrs0[2]))
                 arrs1 = arrs0[0].split('/')
                 img_file = arrs1[-1]
-                print('img_file: {0}; id: {1};'.format(img_file, arrs0[1]))
                 zc_dict[img_file] = {
                     'brand_id': int(arrs0[1]),
                     'status': arrs0[2],
                     'notes': arrs0[3]
                 }
-        num = 0
-        for k, v in zc_dict.items():
-            print('{0}: {1};'.format(k, v))
-            num += 1
-        print('共有{0}条记录'.format(num))
+        with open('../../w1/zhangcan_new.csv', 'w+', encoding='utf-8') as wfd:
+            with open('./logs/wxs_tds_images.csv', 'r', encoding='utf-8') as ifd:
+                for line in ifd:
+                    line = line.strip()
+                    arrs0 = line.split(',')
+                    full_fn = arrs0[0]
+                    arrs1 = full_fn.split('/')
+                    img_file = arrs1[-1]
+                    brand_id = -1
+                    status = 'unknown'
+                    notes = ''
+                    if img_file in zc_dict:
+                        brand_id = zc_dict[img_file]['brand_id']
+                        status = zc_dict[img_file]['status']
+                        notes = zc_dict[img_file]['notes']
+                    wfd.write('{0},{1},{2},{3}\n'.format(full_fn, brand_id, status, notes))
+                
