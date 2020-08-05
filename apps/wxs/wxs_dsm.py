@@ -2166,12 +2166,14 @@ function nextImg() {
         WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
         json_path = Path('/media/zjkj/work/yantao/w1/t001')
         num = 0
+        bad_num = 0
         for json_obj in json_path.iterdir():
             json_file = str(json_obj)
+            if not json_file.endswith('json'):
+                continue
             arrs0 = json_file.split('/')
             jf = arrs0[-1]
             arrs1 = jf.split('_')
-            print('json_file: {0};'.format(json_file))
             img_file = '{0}_{1}_{2}_{3}_{4}_{5}_{6}'.format(
                 arrs1[0], arrs1[1], arrs1[2], arrs1[3],
                 arrs1[4], arrs1[5], arrs1[6]
@@ -2179,6 +2181,7 @@ function nextImg() {
             img_full_fn = img_file_full_fn_dict[img_file]
             box_raw = WxsDsm.parse_detect_json(json_file)
             if box_raw is None:
+                bad_num += 1
                 continue
             arrs2 = box_raw.split(',')
             box = [int(arrs2[0]), int(arrs2[1]), int(arrs2[2]), int(arrs2[3])]
@@ -2192,7 +2195,8 @@ function nextImg() {
                 os.mkdir(folder2)
             dst_file = '{0}/{1}'.format(folder2, img_file)
             num += 1
-            #cv2.imwrite(dst_file, crop_img)
+            cv2.imwrite(dst_file, crop_img)
+        print('共处理{0}个文件，其中失败文件数为{1}个'.format(num + bad_num, bad_num))
 
     g_num = 0
     @staticmethod
