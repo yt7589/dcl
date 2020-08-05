@@ -2209,8 +2209,8 @@ function nextImg() {
         print('org_img: {0}, {1};'.format(org_img.shape[0], org_img.shape[1]))
         print('{0}:{1}, {2}:{3};'.format(box[0], box[0]+ box[2], box[1], box[1]+box[3]))
         crop_img = org_img[
-            box[0] : box[0] + box[3], 
-            box[1] : box[1] + box[2]
+            box[0] : box[2], 
+            box[1] : box[3]
         ]
         plt.subplot(1, 2, 1)
         plt.title('org_img: {0}*{1}'.format(org_img.shape[0], org_img.shape[1]))
