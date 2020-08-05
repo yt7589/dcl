@@ -2212,6 +2212,8 @@ function nextImg() {
             box[1] : box[1] + box[3],
             box[0] : box[0] + box[2]
         ]
+        cv2.imwrite('/media/zjkj/work/yantao/a001.jpg', crop_img)
+        '''
         plt.subplot(1, 3, 1)
         plt.title('org_img: {0}*{1}'.format(org_img.shape[0], org_img.shape[1]))
         plt.imshow(org_img)
@@ -2223,6 +2225,7 @@ function nextImg() {
         plt.title('resized')
         plt.imshow(resized_img)
         plt.show()
+        '''
 
     @staticmethod
     def crop_and_resize_keep_aspect(img_file, box, size=(224, 224), mode=1):
