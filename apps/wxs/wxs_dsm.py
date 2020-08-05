@@ -2180,11 +2180,11 @@ function nextImg() {
             arrs2 = box_raw.split(',')
             box = [int(arrs2[0]), int(arrs2[1]), int(arrs2[2]), int(arrs2[3])]
             crop_img = WxsDsm.crop_and_resize_img(img_full_fn, box)
-            id_str = '{0:04d}'.format(num)
+            id_str = '{0:06d}'.format(num)
             folder1 = '/media/zjkj/work/yantao/zjkj/test_ds/{0}'.format(id_str[:2])
             if not os.path.exists(folder1):
                 os.mkdir(folder1)
-            folder2 = '{0}/{1}'.format(folder1, id_str[2:])
+            folder2 = '{0}/{1}'.format(folder1, id_str[2:4])
             if not os.path.exists(folder2):
                 os.mkdir(folder2)
             dst_file = '{0}/{1}'.format(folder2, img_file)
