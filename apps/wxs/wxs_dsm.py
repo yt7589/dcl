@@ -2192,7 +2192,7 @@ function nextImg() {
                 os.mkdir(folder2)
             dst_file = '{0}/{1}'.format(folder2, img_file)
             num += 1
-            cv2.imwrite(dst_file, crop_img)
+            #cv2.imwrite(dst_file, crop_img)
 
     g_num = 0
     @staticmethod
