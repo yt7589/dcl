@@ -2258,3 +2258,26 @@ function nextImg() {
     @staticmethod
     def crop_and_resize_keep_aspect(img_file, box, size=(224, 224), mode=1):
         pass
+
+    @staticmethod
+    def merge_zhangcan_csv():
+        '''
+        将张灿5634条记录的表格与6125张表格进行合并，将张灿的结果写入6125个表格
+        相应的行中
+        '''
+        zc_dict = {}
+        with open('./logs/zhangcan.csv', 'r', encoding='utf-8') as zfd:
+            for line in zfd:
+                line = line.strip()
+                arrs0 = line.split('/')
+                img_file = arrs0[0]
+                zc_dict[img_file] = {
+                    'brand_id': int(arrs0[1]),
+                    'status': arrs0[2],
+                    'notes': arrs0[3]
+                }
+        num = 0
+        for k, v in zc_dict.items():
+            print('{0}: {1};'.format(k, v))
+            num += 1
+        print('共有{0}条记录'.format(num))

@@ -129,7 +129,8 @@ class WxsApp(object):
         5. 将切好的图按照长边缩放到224，短边0填充方式缩放到224*224，保存到scale2目录；
         6. 文件按车辆识别码目录进行组织；
         '''
-        WxsDsm.process_detect_jsons()
+        #WxsDsm.process_detect_jsons()
+        WxsDsm.merge_zhangcan_csv()
 
         
 
