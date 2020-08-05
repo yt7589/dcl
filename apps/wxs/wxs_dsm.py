@@ -2170,7 +2170,7 @@ function nextImg() {
             arrs0 = json_file.split('/')
             jf = arrs0[-1]
             arrs1 = jf.split('_')
-            img_file = '{0}_{1}_{2}_{3}_{4}_{5}_{6}.jpg'.format(
+            img_file = '{0}_{1}_{2}_{3}_{4}_{5}_{6}'.format(
                 arrs1[0], arrs1[1], arrs1[2], arrs1[3],
                 arrs1[4], arrs1[5], arrs1[6]
             )
