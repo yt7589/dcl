@@ -2147,3 +2147,36 @@ function nextImg() {
         plt.title('img: {0}*{1}'.format(img.shape[0], img.shape[1]))
         plt.imshow(img)
         plt.show()
+
+    @staticmethod
+    def process_detect_jsons():
+        '''
+        将图片通过client1.8目录下的run.sh，发到服务器后，服务器会返回图像识别结果步骤：
+        1. 遍历原始文件目录，形成一个文件名-全路径名的字典；
+        2. 读取JSON文件，解析出原始文件名；
+        3. 根据JSON文件中位置信息进行功图；
+        4. 将切好的图直接缩放为224*244保存到scale1目录；
+        5. 将切好的图按照长边缩放到224，短边0填充方式缩放到224*224，保存到scale2目录；
+        6. 文件按车辆识别码目录进行组织；
+        '''
+        # 遍历原始目录得到文件名和全路径名的字典
+        base_path = Path('/media/zjkj/work/品牌')
+        img_file_full_fn_dict = {}
+        WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
+        num = 0
+        for k, v in img_file_full_fn_dict.items():
+            print('{0}: {1};'.format(k, v))
+            num += 1
+        print('共有{0}个文件'.format(num))
+
+    @staticmethod
+    def get_img_file_full_fn_dict(img_file_full_fn_dict, base_path):
+        for sub_obj in base_path.iterdir():
+            if sub_obj.is_dir():
+                WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, sub_obj)
+            else:
+                full_fn = str(sub_obj)
+                if full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
+                    arrs0 = full_fn.split('/')
+                    img_file = arrs0[-1]
+                    img_file_full_fn_dict[img_file] = full_fn
