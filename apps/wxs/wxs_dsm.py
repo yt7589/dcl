@@ -2182,10 +2182,10 @@ function nextImg() {
             crop_img = WxsDsm.crop_and_resize_img(img_full_fn, box)
             id_str = '{0:04d}'.format(num)
             folder1 = '/media/zjkj/work/yantao/zjkj/test_ds/{0}'.format(id_str[:2])
-            if os.path.exists(folder1):
+            if not os.path.exists(folder1):
                 os.mkdir(folder1)
             folder2 = '{0}/{1}'.format(folder1, id_str[2:])
-            if os.path.exists(folder2):
+            if not os.path.exists(folder2):
                 os.mkdir(folder2)
             dst_file = '{0}/{1}'.format(folder2, img_file)
             print('save to {0};'.format(dst_file))
