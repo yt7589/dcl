@@ -2183,6 +2183,7 @@ function nextImg() {
         for idx in range(6125):
             if l6126[idx] != l6125[idx]:
                 print('{0}: {1} vs {2};'.format(idx, l6126[idx], l6125[idx]))
+        print('diff: {0};'.format(l6126[-1]))
 
     @staticmethod
     def get_img_file_full_fn_dict(img_file_full_fn_dict, base_path):
