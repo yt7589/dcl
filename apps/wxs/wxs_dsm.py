@@ -2164,7 +2164,7 @@ function nextImg() {
         base_path = Path('/media/zjkj/work/品牌')
         img_file_full_fn_dict = {}
         #WxsDsm.get_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
-        box_raw = WxsDsm.parse_detect_json('/media/zjkj/work/yantao/w1/t001/白#06_黑E1T000_036_福田_风景_2011_610500200969340543.jpg_0.json')
+        box_raw = WxsDsm.parse_detect_json('/media/zjkj/work/yantao/w1/t001/夜#02_陕ATD826_036_福田_福田_车型05_610500200970639055.jpg_0.json')
         print('车辆位置：{0} ({1});'.format(type(box_raw), box_raw))
         arrs0 = box_raw.split(',')
         box = [int(arrs0[0]), int(arrs0[1]), int(arrs0[2]), int(arrs0[3])]
@@ -2209,8 +2209,8 @@ function nextImg() {
         print('org_img: {0}, {1};'.format(org_img.shape[0], org_img.shape[1]))
         print('{0}:{1}, {2}:{3};'.format(box[0], box[0]+ box[2], box[1], box[1]+box[3]))
         crop_img = org_img[
-            box[0] : box[2], 
-            box[1] : box[3]
+            box[0] : box[0] + box[2], 
+            box[1] : box[1] + box[3]
         ]
         plt.subplot(1, 2, 1)
         plt.title('org_img: {0}*{1}'.format(org_img.shape[0], org_img.shape[1]))
