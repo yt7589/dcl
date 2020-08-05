@@ -2180,13 +2180,9 @@ function nextImg() {
                 s6126.add(img_file)
         l6126 = list(s6126)
         l6126.sort()
-        diff = s6126 - s6125
-        num1 = 0
-        for di in diff:
-            num1 += 1
-        print('差异：{0}个'.format(num1))
-        for idx in range(6):
-            print('{0} vs {1};'.format(l6126[idx], l6125[idx]))
+        for idx in range(6125):
+            if l6126[idx] != l6125[idx]:
+                print('{0}: {1} vs {2};'.format(idx, l6126[idx], l6125[idx]))
 
     @staticmethod
     def get_img_file_full_fn_dict(img_file_full_fn_dict, base_path):
