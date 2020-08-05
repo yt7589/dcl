@@ -2197,5 +2197,9 @@ function nextImg() {
                 if full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
                     arrs0 = full_fn.split('/')
                     img_file = arrs0[-1]
+                    if img_file in img_file_full_fn_dict:
+                        print('### {0}有重名文件：'.format(img_file))
+                        print('      第一个位置：{0};'.format(img_file_full_fn_dict[img_file]))
+                        print('      第二个位置：{0};'.format(full_fn))
                     img_file_full_fn_dict[img_file] = full_fn
                     WxsDsm.g_num += 1
