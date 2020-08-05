@@ -119,7 +119,17 @@ class WxsApp(object):
         '''
         绘制在测试集上的精度变化曲线
         '''
-        WxsUtils.draw_tds_acc_curve()
+        #WxsUtils.draw_tds_acc_curve()
+        '''
+        将图片通过client1.8目录下的run.sh，发到服务器后，服务器会返回图像识别结果步骤：
+        1. 遍历原始文件目录，形成一个文件名-全路径名的字典；
+        2. 读取JSON文件，解析出原始文件名；
+        3. 根据JSON文件中位置信息进行功图；
+        4. 将切好的图直接缩放为224*244保存到scale1目录；
+        5. 将切好的图按照长边缩放到224，短边0填充方式缩放到224*224，保存到scale2目录；
+        6. 文件按车辆识别码目录进行组织；
+        '''
+        WxsDsm.process_detect_jsons()
 
         
 
