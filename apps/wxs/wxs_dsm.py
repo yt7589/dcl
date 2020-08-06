@@ -2314,8 +2314,11 @@ function nextImg() {
         base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds')
         img_file_full_fn_dict = {}
         WxsDsm.get_cut_test_ds_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
+        num = 0
         for k, v in img_file_full_fn_dict.items():
             print('{0}: {1};'.format(k, v))
+            num += 1
+        print('共有{0}个图片'.format(num))
 
     @staticmethod
     def get_cut_test_ds_img_file_full_fn_dict(img_file_full_fn_dict, base_path):
@@ -2329,6 +2332,5 @@ function nextImg() {
                 img_file = arrs_a[-1]
                 img_file_full_fn_dict[img_file] = full_fn
                 num += 1
-        print('共处理{0}个图片'.format(num))
 
                 
