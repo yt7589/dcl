@@ -157,7 +157,7 @@ if __name__ == '__main__':
                                                 pin_memory=True)
 
     setattr(dataloader['trainval'], 'total_item_len', len(trainval_set))
-    setattr(dataloader['trainval'], 'num_cls', Config.num_brands)
+    setattr(dataloader['trainval'], 'num_cls', Config.num_task1)
 
     dataloader['val'] = torch.utils.data.DataLoader(val_set,\
                                                 batch_size=args.val_batch,\
@@ -168,7 +168,7 @@ if __name__ == '__main__':
                                                 pin_memory=True)
 
     setattr(dataloader['val'], 'total_item_len', len(val_set))
-    setattr(dataloader['val'], 'num_cls', Config.num_brands)
+    setattr(dataloader['val'], 'num_cls', Config.num_task1)
 
     cudnn.benchmark = True
 
