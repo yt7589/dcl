@@ -99,7 +99,7 @@ def auto_load_resume(load_dir):
 
 if __name__ == '__main__':    
     # 留下一个GPU用于模型开发调试
-    os.environ['CUDA_VISIBLE_DEVICES'] = '0' # ','.join(map(str, [2]))
+    os.environ['CUDA_VISIBLE_DEVICES'] = '2' # ','.join(map(str, [2]))
     args = parse_args()
     args.train_num_workers = 0
     args.val_num_workers = 0
@@ -107,7 +107,6 @@ if __name__ == '__main__':
     Config = LoadConfig(args, 'train')
     Config.cls_2 = args.cls_2
     Config.cls_2xmul = args.cls_mul
-    Config.task1_control_task2 = True
     assert Config.cls_2 ^ Config.cls_2xmul
 
     transformers = load_data_transformers(args.resize_resolution, args.crop_resolution, args.swap_num)
@@ -158,7 +157,7 @@ if __name__ == '__main__':
                                                 pin_memory=True)
 
     setattr(dataloader['trainval'], 'total_item_len', len(trainval_set))
-    setattr(dataloader['trainval'], 'num_cls', Config.num_task1)
+    setattr(dataloader['trainval'], 'num_cls', Config.num_brands)
 
     dataloader['val'] = torch.utils.data.DataLoader(val_set,\
                                                 batch_size=args.val_batch,\
@@ -169,7 +168,7 @@ if __name__ == '__main__':
                                                 pin_memory=True)
 
     setattr(dataloader['val'], 'total_item_len', len(val_set))
-    setattr(dataloader['val'], 'num_cls', Config.num_task1)
+    setattr(dataloader['val'], 'num_cls', Config.num_brands)
 
     cudnn.benchmark = True
 
@@ -226,9 +225,9 @@ if __name__ == '__main__':
 
     # optimizer prepare
     if Config.use_backbone:
-        ignored_params = list(map(id, model.module.clfr1.parameters()))
+        ignored_params = list(map(id, model.module.classifier.parameters()))
     else:
-        ignored_params1 = list(map(id, model.module.clfr1.parameters()))
+        ignored_params1 = list(map(id, model.module.classifier.parameters()))
         ignored_params2 = list(map(id, model.module.classifier_swap.parameters()))
         ignored_params3 = list(map(id, model.module.Convmask.parameters()))
 
@@ -241,10 +240,10 @@ if __name__ == '__main__':
     momentum = 0.9
     if Config.use_backbone:
         optimizer = optim.SGD([{'params': base_params},
-                               {'params': model.module.clfr1.parameters(), 'lr': base_lr}], lr = base_lr, momentum=momentum)
+                               {'params': model.module.classifier.parameters(), 'lr': base_lr}], lr = base_lr, momentum=momentum)
     else:
         optimizer = optim.SGD([{'params': base_params},
-                               {'params': model.module.clfr1.parameters(), 'lr': lr_ratio*base_lr},
+                               {'params': model.module.classifier.parameters(), 'lr': lr_ratio*base_lr},
                                {'params': model.module.classifier_swap.parameters(), 'lr': lr_ratio*base_lr},
                                {'params': model.module.Convmask.parameters(), 'lr': lr_ratio*base_lr},
                               ], lr = base_lr, momentum=momentum)
