@@ -77,8 +77,8 @@ class LoadConfig(object):
             self.rawdata_root = '/media/zjkj/work/vehicle_type_v2d/vehicle_type_v2d'
             self.anno_root = './datasets/CUB_200_2011/anno'
             #self.numcls = 0
-            self.num_brands = 171 # 品牌数 v0.0.1
-            self.num_bmys = 2822 # 年款数
+            self.num_brands = 2822 # 171 # 品牌数 v0.0.1
+            self.num_bmys = 171 # 2822 # 年款数
         elif args.dataset == 'STCAR':
             self.dataset = args.dataset
             self.rawdata_root = './dataset/st_car/data'
@@ -99,7 +99,7 @@ class LoadConfig(object):
             self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_train_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'bmy_label', 'brand_label'])
+                                           names=['ImageName', 'brand_label', 'bmy_label'])
         if 'val' in get_list:
             '''
             # 所里品牌测试集
@@ -108,11 +108,18 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'task1_label', 'task2_label'])
             '''
+            '''
             # 正式环境：品牌为主任务
             self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
+            '''
+            # 正式环境：年款为主任务
+            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
+                                           sep="*",\
+                                           header=None,\
+                                           names=['ImageName', 'brand_label', 'bmy_label'])
         if 'test' in get_list:
             '''
             # 所里品牌测试集
@@ -121,11 +128,18 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'task1_label', 'task2_label'])
             '''
+            '''
             # 正式环境：品牌为主任务
             self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
+            '''
+            # 正式环境：年款为主任务
+            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
+                                           sep="*",\
+                                           header=None,\
+                                           names=['ImageName', 'brand_label', 'bmy_label'])
         self.swap_num = args.swap_num
 
         self.save_dir = './net_model/'
