@@ -140,7 +140,7 @@ def train(Config,
                             fd.write('{0} <=> {1};\r\n'.format(org_task1_labels[i*2], img_names[i]))
                 print('epoch{}: step: {:-8d} / {:d} loss=ce_loss+'
                             'swap_loss+law_loss: {:6.4f} = {:6.4f} '
-                            '+ {:6.4f} + {:6.4f} task1_loss: {:6.4f}'.format(
+                            '+ {:6.4f} + {:6.4f} task2_loss: {:6.4f}'.format(
                                 epoch, step % train_epoch_step, 
                                 train_epoch_step, 
                                 loss.detach().item(), 
