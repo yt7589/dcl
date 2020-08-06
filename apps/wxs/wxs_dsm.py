@@ -2319,9 +2319,10 @@ function nextImg() {
         base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds')
         img_file_full_fn_dict = {}
         WxsDsm.get_cut_test_ds_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
-        for k, v in org_test_ds_dict.items():
-            full_fn = img_file_full_fn_dict[k]
-            print('{0}*{1}*{2};'.format(full_fn, v['bmy_id'], v['brand_id']))
+        with open('./datasets/CUB_200_2011/anno/cut_wxs_brands_ds.txt', 'w+', encoding='utf-8') as wfd:
+            for k, v in org_test_ds_dict.items():
+                full_fn = img_file_full_fn_dict[k]
+                wfd.write('{0}*{1}*{2}\n'.format(full_fn, v['bmy_id'], v['brand_id']))
 
     @staticmethod
     def get_cut_test_ds_img_file_full_fn_dict(img_file_full_fn_dict, base_path):
