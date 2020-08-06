@@ -107,6 +107,7 @@ if __name__ == '__main__':
     Config = LoadConfig(args, 'train')
     Config.cls_2 = args.cls_2
     Config.cls_2xmul = args.cls_mul
+    Config.task1_control_task2 = False
     assert Config.cls_2 ^ Config.cls_2xmul
 
     transformers = load_data_transformers(args.resize_resolution, args.crop_resolution, args.swap_num)

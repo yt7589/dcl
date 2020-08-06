@@ -25,7 +25,7 @@ class MainModel(nn.Module):
         self.run_mode = MainModel.RUN_MODE_NORMAL # 1-正常运行；2-输出最后一层的特征；
         self.train_batch = config.train_batch
         self.val_batch = config.val_batch
-        print(self.backbone_arch)
+        self.task1_control_task2 = config.task1_control_task2
         self.fc_size = {'resnet50': 2048, 'resnet18': 512}
 
         if self.backbone_arch in dir(models):
@@ -102,7 +102,7 @@ class MainModel(nn.Module):
                 last_x = last_x.view(last_x.size(0), -1)
                 out.append(self.Aclassifier(last_x))
         out.append(y_task1)
-        if not self.training:
+        if not self.training and self.task1_control_task2:
             # 由品牌决定年款输出（仅在实际运行中开启）
             print('Use task to controll task2...')
             task1_out = out[0]
@@ -115,6 +115,8 @@ class MainModel(nn.Module):
         return out
 
     def initialize_task2_masks(self):
+        if not self.task1_control_task2:
+            return
         self.task2_masks = np.zeros((self.num_task1, self.num_task2), dtype=np.float32)
         for bi in range(self.num_task1):
             task2_idxs = MainModel.TASK1_TASK2_DICT[bi]

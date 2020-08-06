@@ -144,6 +144,8 @@ class LoadConfig(object):
         self.cls_2 = False
         self.cls_2xmul = True
 
+        self.task1_control_task2 = False
+
         self.log_folder = './logs'
         if not os.path.exists(self.log_folder):
             os.mkdir(self.log_folder)
