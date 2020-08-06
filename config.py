@@ -102,7 +102,7 @@ class LoadConfig(object):
                                            names=['ImageName', 'bmy_label', 'brand_label'])
         if 'val' in get_list:
             # 所里品牌测试集
-            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'cut_wxs_brands_ds.txt'),\
+            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'wxs_brands_ds.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
@@ -115,7 +115,7 @@ class LoadConfig(object):
             '''
         if 'test' in get_list:
             # 所里品牌测试集
-            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'cut_wxs_brands_ds.txt'),\
+            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'wxs_brands_ds.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
