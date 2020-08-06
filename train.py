@@ -99,7 +99,7 @@ def auto_load_resume(load_dir):
 
 if __name__ == '__main__':    
     # 留下一个GPU用于模型开发调试
-    os.environ['CUDA_VISIBLE_DEVICES'] = '2' # ','.join(map(str, [2]))
+    os.environ['CUDA_VISIBLE_DEVICES'] = '0' # ','.join(map(str, [2]))
     args = parse_args()
     args.train_num_workers = 0
     args.val_num_workers = 0
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     Config = LoadConfig(args, 'train')
     Config.cls_2 = args.cls_2
     Config.cls_2xmul = args.cls_mul
-    Config.task1_control_task2 = False
+    Config.task1_control_task2 = True
     assert Config.cls_2 ^ Config.cls_2xmul
 
     transformers = load_data_transformers(args.resize_resolution, args.crop_resolution, args.swap_num)

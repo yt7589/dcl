@@ -76,6 +76,7 @@ class LoadConfig(object):
             self.dataset = args.dataset
             self.rawdata_root = '/media/zjkj/work/vehicle_type_v2d/vehicle_type_v2d'
             self.anno_root = './datasets/CUB_200_2011/anno'
+            '''
             # 年款为主任务
             self.num_task1 = 2822 # 年款
             self.num_task2 = 171 # 品牌
@@ -83,7 +84,6 @@ class LoadConfig(object):
             # 品牌为主任务
             self.num_task1 = 171 # 年款
             self.num_task2 = 2822 # 品牌
-            '''
         elif args.dataset == 'STCAR':
             self.dataset = args.dataset
             self.rawdata_root = './dataset/st_car/data'
@@ -113,6 +113,7 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'task1_label', 'task2_label'])
             '''
+            '''
             # 正式环境：年款为主任务
             self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
@@ -124,7 +125,6 @@ class LoadConfig(object):
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'task2_label', 'task1_label'])
-            '''
         if 'test' in get_list:
             '''
             # 所里品牌测试集
@@ -132,6 +132,7 @@ class LoadConfig(object):
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'task1_label', 'task2_label'])
+            '''
             '''
             # 正式环境：年款为主任务
             self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
@@ -144,7 +145,6 @@ class LoadConfig(object):
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'task2_label', 'task1_label'])
-            '''
         self.swap_num = args.swap_num
 
         self.save_dir = './net_model/'
