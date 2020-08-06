@@ -2356,7 +2356,7 @@ function nextImg() {
                 arrs_d = arrs_c[0].split('#')
                 vin_code = arrs_d[0]
                 dst_folder = '{0}/{1}'.format(train_ds_folder, vin_code)
-                if os.path.exists(dst_folder):
+                if not os.path.exists(dst_folder):
                     os.mkdir(dst_folder)
                 dst_file = '{0}/{1}/{2}'.format(train_ds_folder, vin_code, img_file)
                 shutil.copy(img_full_fn, dst_file)
