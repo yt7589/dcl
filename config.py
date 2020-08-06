@@ -77,8 +77,8 @@ class LoadConfig(object):
             self.rawdata_root = '/media/zjkj/work/vehicle_type_v2d/vehicle_type_v2d'
             self.anno_root = './datasets/CUB_200_2011/anno'
             #self.numcls = 0
-            self.num_brands = 171 # 品牌数
-            self.num_bmys = 2822 # 年款数
+            self.num_task1 = 2822 # 年款
+            self.num_task2 = 171 # 品牌
         elif args.dataset == 'STCAR':
             self.dataset = args.dataset
             self.rawdata_root = './dataset/st_car/data'
@@ -99,33 +99,33 @@ class LoadConfig(object):
             self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_train_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'bmy_label', 'brand_label'])
+                                           names=['ImageName', 'task1_label', 'task2_label'])
         if 'val' in get_list:
             '''
             # 所里品牌测试集
             self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'wxs_brands_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'bmy_label', 'brand_label'])
+                                           names=['ImageName', 'task1_label', 'task2_label'])
             '''
             # 正式环境
             self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'bmy_label', 'brand_label'])
+                                           names=['ImageName', 'task1_label', 'task2_label'])
         if 'test' in get_list:
             '''
             # 所里品牌测试集
             self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'wxs_brands_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'bmy_label', 'brand_label'])
+                                           names=['ImageName', 'task1_label', 'task2_label'])
             '''
             # 正式环境
             self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'bmy_label', 'brand_label'])
+                                           names=['ImageName', 'task1_label', 'task2_label'])
         self.swap_num = args.swap_num
 
         self.save_dir = './net_model/'

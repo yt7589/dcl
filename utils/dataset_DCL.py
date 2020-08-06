@@ -34,31 +34,31 @@ class dataset(data.Dataset):
     def __init__(self, Config, anno, swap_size=[7,7], common_aug=None, swap=None, totensor=None, train=False, train_val=False, test=False):
         self.root_path = Config.rawdata_root
         #self.numcls = Config.numcls
-        self.num_brands = Config.num_brands
-        self.num_bmys = Config.num_bmys
+        self.num_task1 = Config.num_task1
+        self.num_task2 = Config.num_task2
         self.dataset = Config.dataset
         self.use_cls_2 = Config.cls_2
         self.use_cls_mul = Config.cls_2xmul
         if isinstance(anno, pd.core.frame.DataFrame):
             self.paths = anno['ImageName'].tolist()
-            self.brand_labels = anno['brand_label'].tolist()
-            self.bmy_labels = anno['bmy_label'].tolist()
-            shuffle_samples(self.paths, self.brand_labels, self.bmy_labels)
-            self.brand_labels = list(map(int, self.brand_labels))
-            self.bmy_labels = list(map(int, self.bmy_labels))
+            self.task1_labels = anno['task1_label'].tolist()
+            self.task2_labels = anno['task2_label'].tolist()
+            shuffle_samples(self.paths, self.task1_labels, self.task2_labels)
+            self.task1_labels = list(map(int, self.task1_labels))
+            self.task2_labels = list(map(int, self.task2_labels))
         elif isinstance(anno, dict):
             self.paths = anno['img_name']
-            self.brand_labels = anno['brand_label']
-            self.bmy_labels = anno['bmy_labels']
-            shuffle_samples(self.paths, self.brand_labels, self.bmy_labels)
-            self.brand_labels = list(map(int, self.brand_labels))
-            self.bmy_labels = list(map(int, self.bmy_labels))
+            self.task1_labels = anno['task1_label']
+            self.task2_labels = anno['task2_labels']
+            shuffle_samples(self.paths, self.task1_labels, self.task2_labels)
+            self.task1_labels = list(map(int, self.task1_labels))
+            self.task2_labels = list(map(int, self.task2_labels))
 
         if train_val:
             #self.paths, self.labels = random_sample(self.paths, self.labels)
             self.paths = self.paths[:300]
-            self.brand_labels = self.brand_labels[:300]
-            self.bmy_labels = self.bmy_labels[:300]
+            self.task1_labels = self.task1_labels[:300]
+            self.task2_labels = self.task2_labels[:300]
         self.common_aug = common_aug
         self.swap = swap
         self.totensor = totensor
@@ -81,9 +81,9 @@ class dataset(data.Dataset):
             sys.exit(0)
         if self.test:
             img = self.totensor(img)
-            brand_label = self.brand_labels[item]
-            bmy_label = self.bmy_labels[item]
-            return img, brand_label, self.paths[item], bmy_label
+            task1_label = self.task1_labels[item]
+            task2_label = self.task2_labels[item]
+            return img, task1_label, self.paths[item], task2_label
         img_unswap = self.common_aug(img) if not self.common_aug is None else img
         image_unswap_list = self.crop_image(img_unswap, self.swap_size)
 
@@ -101,24 +101,24 @@ class dataset(data.Dataset):
                 index = distance.index(min(distance))
                 swap_law2.append((index-(swap_range//2))/swap_range)
             img_swap = self.totensor(img_swap)
-            brand_label = self.brand_labels[item]
-            bmy_label = self.bmy_labels[item]
+            task1_label = self.task1_labels[item]
+            task2_label = self.task2_labels[item]
             if self.use_cls_mul:
                 #label_swap = label + self.numcls
                 #if not isinstance(label, int):
                 #    print(type(label))
-                brand_label_swap = int(brand_label) + self.numcls
+                task1_label_swap = int(task1_label) + self.numcls
             if self.use_cls_2:
-                brand_label_swap = -1
+                task1_label_swap = -1
             img_unswap = self.totensor(img_unswap)
-            return img_unswap, img_swap, brand_label, brand_label_swap, swap_law1, swap_law2, self.paths[item], bmy_label
+            return img_unswap, img_swap, task1_label, task1_label_swap, swap_law1, swap_law2, self.paths[item], task2_label
         else:
-            brand_label = self.brand_labels[item]
-            bmy_label = self.bmy_labels[item]
+            task1_label = self.task1_labels[item]
+            task2_label = self.task2_labels[item]
             swap_law2 = [(i-(swap_range//2))/swap_range for i in range(swap_range)]
-            brand_label_swap = brand_label
+            task1_label_swap = task1_label
             img_unswap = self.totensor(img_unswap)
-            return img_unswap, brand_label, brand_label_swap, swap_law1, swap_law2, self.paths[item], bmy_label
+            return img_unswap, task1_label, task1_label_swap, swap_law1, swap_law2, self.paths[item], task2_label
 
     def pil_loader(self,imgpath):
         with open(imgpath, 'rb') as f:
@@ -144,76 +144,76 @@ class dataset(data.Dataset):
 
 def collate_fn4train(batch):
     imgs = []
-    brand_label = []
-    brand_label_swap = []
+    task1_label = []
+    task1_label_swap = []
     law_swap = []
     img_name = []
-    bmy_label = []
+    task2_label = []
     #img_unswap, img_swap, label, label_swap, swap_law1, swap_law2, self.paths[item]
     for sample in batch:
         imgs.append(sample[0])
         imgs.append(sample[1])
-        brand_label.append(sample[2])
-        brand_label.append(sample[2])
+        task1_label.append(sample[2])
+        task1_label.append(sample[2])
         if sample[3] == -1:
-            brand_label_swap.append(1)
-            brand_label_swap.append(0)
+            task1_label_swap.append(1)
+            task1_label_swap.append(0)
         else:
-            brand_label_swap.append(sample[2])
-            brand_label_swap.append(sample[3])
+            task1_label_swap.append(sample[2])
+            task1_label_swap.append(sample[3])
         law_swap.append(sample[4])
         law_swap.append(sample[5])
         img_name.append(sample[-2])
-        bmy_label.append(sample[-1])
-        bmy_label.append(sample[-1])
-    return torch.stack(imgs, 0), brand_label, brand_label_swap, law_swap, img_name, bmy_label
+        task2_label.append(sample[-1])
+        task2_label.append(sample[-1])
+    return torch.stack(imgs, 0), task1_label, task1_label_swap, law_swap, img_name, task2_label
 
 def collate_fn4val(batch):
     imgs = []
-    brand_label = []
-    brand_label_swap = []
+    task1_label = []
+    task1_label_swap = []
     law_swap = []
     img_name = []
-    bmy_label = []
+    task2_label = []
     for sample in batch:
         imgs.append(sample[0])
-        brand_label.append(sample[1])
+        task1_label.append(sample[1])
         if sample[3] == -1:
-            brand_label_swap.append(1)
+            task1_label_swap.append(1)
         else:
-            brand_label_swap.append(sample[2])
+            task1_label_swap.append(sample[2])
         law_swap.append(sample[3])
         img_name.append(sample[-2])
-        brand_label.append(sample[-1])
-    return torch.stack(imgs, 0), brand_label, brand_label_swap, law_swap, img_name, bmy_label
+        task2_label.append(sample[-1])
+    return torch.stack(imgs, 0), task1_label, task1_label_swap, law_swap, img_name, task2_label
 
 def collate_fn4backbone(batch):
     imgs = []
-    brand_label = []
+    task1_label = []
     img_name = []
-    bmy_label = []
+    task2_label = []
     for sample in batch:
         imgs.append(sample[0])
         if len(sample) == 7:
-            brand_label.append(sample[2])
+            task1_label.append(sample[2])
         else:
-            brand_label.append(sample[1])
+            task1_label.append(sample[1])
         img_name.append(sample[-2])
-        brand_label.append(sample[-1])
-    return torch.stack(imgs, 0), brand_label, img_name, bmy_label
+        task2_label.append(sample[-1])
+    return torch.stack(imgs, 0), task1_label, img_name, task2_label
 
 
 def collate_fn4test(batch):
     imgs = []
-    brand_label = []
+    task1_label = []
     img_name = []
-    bmy_label = []
+    task2_label = []
     for sample in batch:
         imgs.append(sample[0])
-        brand_label.append(sample[1])
+        task1_label.append(sample[1])
         img_name.append(sample[-2])
-        bmy_label.append(sample[-1])
-    return torch.stack(imgs, 0), brand_label, img_name, bmy_label
+        task2_label.append(sample[-1])
+    return torch.stack(imgs, 0), task1_label, img_name, task2_label
 
 def preprocess_anno():
     '''
@@ -223,25 +223,24 @@ def preprocess_anno():
     anno_file = './datasets/CUB_200_2011/anno/ct_train_newd.txt'
     print(anno_file)
     anno = pd.read_csv(anno_file, sep="*", header=None, 
-                names=['ImageName', 'bmy_label', 'brand_label'])
+                names=['ImageName', 'task1_label', 'task2_label'])
     if isinstance(anno, pd.core.frame.DataFrame):
         paths = anno['ImageName'].tolist()
-        brand_labels = anno['brand_label'].tolist()
-        bmy_labels = anno['bmy_label'].tolist()
-        #self.labels = list(map(int, self.labels))
+        task1_labels = anno['task1_label'].tolist()
+        task2_labels = anno['task2_label'].tolist()
     elif isinstance(anno, dict):
         paths = anno['img_name']
-        brand_labels = anno['brand_label']
-        bmy_labels = anno['bmy_label'].tolist()
-    shuffle_samples(paths, brand_labels, bmy_labels)
+        task1_labels = anno['task1_label']
+        task2_labels = anno['task2_label'].tolist()
+    shuffle_samples(paths, task1_labels, task2_labels)
     paths_len = len(paths)
     for i in range(0, paths_len):
-        print('{0} => {1} {2};'.format(paths[i], brand_labels[i], bmy_labels[i]))
+        print('{0} => {1} {2};'.format(paths[i], task1_labels[i], task2_labels[i]))
 
-def shuffle_samples(paths, brand_labels, bmy_labels):
+def shuffle_samples(paths, task1_labels, task2_labels):
     paths_len = len(paths)
-    brand_labels_len = len(brand_labels)
-    print('{0}={1}?'.format(paths_len, brand_labels_len))
+    task1_labels_len = len(task1_labels)
+    print('{0}={1}?'.format(paths_len, task1_labels_len))
     for i in range(1, paths_len):
         rn = random.randint(0, paths_len-1)
         # 交换图片文件列表
@@ -249,10 +248,10 @@ def shuffle_samples(paths, brand_labels, bmy_labels):
         paths[rn] = paths[i]
         paths[i] = temp_path
         # 交换年款列表
-        temp_bmy_label = bmy_labels[rn]
-        bmy_labels[rn] = bmy_labels[i]
-        bmy_labels[i] = temp_bmy_label
+        temp_task2_label = task2_labels[rn]
+        task2_labels[rn] = task2_labels[i]
+        task2_labels[i] = temp_task2_label
         # 交换品牌列表
-        temp_brand_label = brand_labels[rn]
-        brand_labels[rn] = brand_labels[i]
-        brand_labels[i] = temp_brand_label
+        temp_task1_label = task1_labels[rn]
+        task1_labels[rn] = task1_labels[i]
+        task1_labels[i] = temp_task1_label
