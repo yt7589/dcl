@@ -225,8 +225,8 @@ if __name__ == '__main__':
 
     # optimizer prepare
     if Config.use_backbone:
-        ignored_params = list(map(id, model.module.classifier.parameters()))
-        ignored_params = list(map(id, model.module.brand_clfr.parameters()))
+        ignored_params = list(map(id, model.module.classifier.parameters())) \
+                    + list(map(id, model.module.brand_clfr.parameters()))
     else:
         ignored_params1 = list(map(id, model.module.classifier.parameters()))
         ignored_params1 = list(map(id, model.module.brand_clfr.parameters()))
