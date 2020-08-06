@@ -106,9 +106,9 @@ class LoadConfig(object):
             self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'wxs_brands_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'bmy_label', 'brand_label'])
+                                           names=['ImageName', 'task1_label', 'task2_label'])
             '''
-            # 正式环境
+            # 正式环境：品牌为主任务
             self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
                                            header=None,\
@@ -119,9 +119,9 @@ class LoadConfig(object):
             self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'wxs_brands_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'bmy_label', 'brand_label'])
+                                           names=['ImageName', 'task1_label', 'task2_label'])
             '''
-            # 正式环境
+            # 正式环境：品牌为主任务
             self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
                                            header=None,\
@@ -143,6 +143,8 @@ class LoadConfig(object):
         self.weighted_sample = False
         self.cls_2 = False
         self.cls_2xmul = True
+
+        self.task1_control_task2 = False
 
         self.log_folder = './logs'
         if not os.path.exists(self.log_folder):

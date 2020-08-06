@@ -256,3 +256,4 @@ def shuffle_samples(paths, brand_labels, bmy_labels):
         temp_brand_label = brand_labels[rn]
         brand_labels[rn] = brand_labels[i]
         brand_labels[i] = temp_brand_label
+

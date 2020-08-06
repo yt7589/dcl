@@ -74,18 +74,18 @@ def train(Config,
             loss = 0
             model.train(True)
             if Config.use_backbone:
-                inputs, brand_labels, img_names, bmy_labels = data
+                inputs, task1_labels, img_names, task2_labels = data
                 inputs = Variable(inputs.cuda())
-                brand_labels = Variable(torch.from_numpy(np.array(brand_labels)).cuda())
-                bmy_labels = Variable(torch.from_numpy(np.array(bmy_labels)).cuda())
+                task1_labels = Variable(torch.from_numpy(np.array(task1_labels)).cuda())
+                task2_labels = Variable(torch.from_numpy(np.array(task2_labels)).cuda())
 
             if Config.use_dcl:
-                inputs, brand_labels, brand_labels_swap, swap_law, img_names, bmy_labels = data
-                org_brand_labels = brand_labels
+                inputs, task1_labels, task1_labels_swap, swap_law, img_names, task2_labels = data
+                org_task1_labels = task1_labels
                 inputs = Variable(inputs.cuda())
-                brand_labels = Variable(torch.from_numpy(np.array(brand_labels)).cuda())
-                bmy_labels = Variable(torch.from_numpy(np.array(bmy_labels)).cuda())
-                brand_labels_swap = Variable(torch.from_numpy(np.array(brand_labels_swap)).cuda())
+                task1_labels = Variable(torch.from_numpy(np.array(task1_labels)).cuda())
+                task2_labels = Variable(torch.from_numpy(np.array(task2_labels)).cuda())
+                task1_labels_swap = Variable(torch.from_numpy(np.array(task1_labels_swap)).cuda())
                 swap_law = Variable(torch.from_numpy(np.array(swap_law)).float().cuda())
 
             optimizer.zero_grad()
@@ -96,19 +96,19 @@ def train(Config,
                 outputs = model(inputs, None)
 
             if Config.use_focal_loss:
-                ce_loss_brand = get_focal_loss(outputs[0], brand_labels)
-                ce_loss_bmy = get_focal_loss(outputs[-1], bmy_labels)
+                ce_loss_task1 = get_focal_loss(outputs[0], task1_labels)
+                ce_loss_task2 = get_focal_loss(outputs[-1], task2_labels)
             else:
-                ce_loss_brand = get_ce_loss(outputs[0], brand_labels)
-                ce_loss_bmy = get_ce_loss(outputs[-1], bmy_labels)
-            ce_loss = ce_loss_brand + bmy_weight * ce_loss_bmy
+                ce_loss_task1 = get_ce_loss(outputs[0], task1_labels)
+                ce_loss_task2 = get_ce_loss(outputs[-1], task2_labels)
+            ce_loss = ce_loss_task1 + bmy_weight * ce_loss_task2
 
             if Config.use_Asoftmax:
-                fetch_batch = brand_labels.size(0)
+                fetch_batch = task1_labels.size(0)
                 if batch_cnt % (train_epoch_step // 5) == 0:
-                    angle_loss = get_angle_loss(outputs[3], brand_labels[0:fetch_batch:2], decay=0.9)
+                    angle_loss = get_angle_loss(outputs[3], task1_labels[0:fetch_batch:2], decay=0.9)
                 else:
-                    angle_loss = get_angle_loss(outputs[3], brand_labels[0:fetch_batch:2])
+                    angle_loss = get_angle_loss(outputs[3], task1_labels[0:fetch_batch:2])
                 loss += angle_loss
 
             loss += ce_loss
@@ -119,7 +119,7 @@ def train(Config,
             beta_ = 1
             gamma_ = 0.01 if Config.dataset == 'STCAR' or Config.dataset == 'AIR' else 1
             if Config.use_dcl:
-                swap_loss = get_ce_loss(outputs[1], brand_labels_swap) * beta_
+                swap_loss = get_ce_loss(outputs[1], task1_labels_swap) * beta_
                 loss += swap_loss
                 law_loss = add_loss(outputs[2], swap_law) * gamma_
                 loss += law_loss
@@ -137,17 +137,17 @@ def train(Config,
                     with open('./logs/abnormal_samples_{0}_{1}_{2}.txt'.format(epoch, step, ce_loss_val), 'a+') as fd:
                         error_batch_len = len(img_names)
                         for i in range(error_batch_len):
-                            fd.write('{0} <=> {1};\r\n'.format(org_brand_labels[i*2], img_names[i]))
+                            fd.write('{0} <=> {1};\r\n'.format(org_task1_labels[i*2], img_names[i]))
                 print('epoch{}: step: {:-8d} / {:d} loss=ce_loss+'
                             'swap_loss+law_loss: {:6.4f} = {:6.4f} '
-                            '+ {:6.4f} + {:6.4f} brand_loss: {:6.4f}'.format(
+                            '+ {:6.4f} + {:6.4f} task2_loss: {:6.4f}'.format(
                                 epoch, step % train_epoch_step, 
                                 train_epoch_step, 
                                 loss.detach().item(), 
                                 ce_loss_val, 
                                 swap_loss.detach().item(), 
                                 law_loss.detach().item(),
-                                ce_loss_brand.detach().item()), flush=True
+                                ce_loss_task1.detach().item()), flush=True
                             )
                 
             if Config.use_backbone:
