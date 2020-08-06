@@ -33,7 +33,7 @@ def random_sample(img_names, labels):
 class dataset(data.Dataset):
     def __init__(self, Config, anno, swap_size=[7,7], common_aug=None, swap=None, totensor=None, train=False, train_val=False, test=False):
         self.root_path = Config.rawdata_root
-        #self.numcls = Config.numcls
+        self.numcls = Config.num_task1
         self.num_task1 = Config.num_task1
         self.num_task2 = Config.num_task2
         self.dataset = Config.dataset
