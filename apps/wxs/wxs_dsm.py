@@ -2306,7 +2306,12 @@ function nextImg() {
                 line = line.strip()
                 arrs_a = line.split('*')
                 arrs_b = arrs_a[0].split('/')
-                img_file = arrs_b[-1]
+                raw_img_file = arrs_b[-1]
+                arrs_c = raw_img_file.split('_')
+                img_file = '{0}_{1}_{2}_{3}_{4}_{5}_{6}.jpg'.format(
+                    arrs_c[0], arrs_c[1], arrs_c[2],
+                    arrs_c[3], arrs_c[4], arrs_c[5], arrs_c[6]
+                )
                 org_test_ds_dict[img_file] = {
                     'bmy_id': int(arrs_a[1]),
                     'brand_id': int(arrs_a[2])
