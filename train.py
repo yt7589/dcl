@@ -240,10 +240,13 @@ if __name__ == '__main__':
     momentum = 0.9
     if Config.use_backbone:
         optimizer = optim.SGD([{'params': base_params},
-                               {'params': model.module.classifier.parameters(), 'lr': base_lr}], lr = base_lr, momentum=momentum)
+                               {'params': model.module.classifier.parameters(), 'lr': base_lr},
+                               {'params': model.module.brand_clfr.parameters(), 'lr': base_lr}
+                               ], lr = base_lr, momentum=momentum)
     else:
         optimizer = optim.SGD([{'params': base_params},
                                {'params': model.module.classifier.parameters(), 'lr': lr_ratio*base_lr},
+                               {'params': model.module.brand_clfr.parameters(), 'lr': lr_ratio*base_lr},
                                {'params': model.module.classifier_swap.parameters(), 'lr': lr_ratio*base_lr},
                                {'params': model.module.Convmask.parameters(), 'lr': lr_ratio*base_lr},
                               ], lr = base_lr, momentum=momentum)
