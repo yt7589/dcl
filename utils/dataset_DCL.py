@@ -33,7 +33,7 @@ def random_sample(img_names, labels):
 class dataset(data.Dataset):
     def __init__(self, Config, anno, swap_size=[7,7], common_aug=None, swap=None, totensor=None, train=False, train_val=False, test=False):
         self.root_path = Config.rawdata_root
-        #self.numcls = Config.numcls
+        self.numcls = Config.num_brands
         self.num_brands = Config.num_brands
         self.num_bmys = Config.num_bmys
         self.dataset = Config.dataset
@@ -184,7 +184,7 @@ def collate_fn4val(batch):
             brand_label_swap.append(sample[2])
         law_swap.append(sample[3])
         img_name.append(sample[-2])
-        brand_label.append(sample[-1])
+        bmy_label.append(sample[-1])
     return torch.stack(imgs, 0), brand_label, brand_label_swap, law_swap, img_name, bmy_label
 
 def collate_fn4backbone(batch):
@@ -199,7 +199,7 @@ def collate_fn4backbone(batch):
         else:
             brand_label.append(sample[1])
         img_name.append(sample[-2])
-        brand_label.append(sample[-1])
+        bmy_label.append(sample[-1])
     return torch.stack(imgs, 0), brand_label, img_name, bmy_label
 
 
