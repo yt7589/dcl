@@ -226,9 +226,9 @@ if __name__ == '__main__':
 
     # optimizer prepare
     if Config.use_backbone:
-        ignored_params = list(map(id, model.module.classifier.parameters()))
+        ignored_params = list(map(id, model.module.clfr1.parameters()))
     else:
-        ignored_params1 = list(map(id, model.module.classifier.parameters()))
+        ignored_params1 = list(map(id, model.module.clfr1.parameters()))
         ignored_params2 = list(map(id, model.module.classifier_swap.parameters()))
         ignored_params3 = list(map(id, model.module.Convmask.parameters()))
 
@@ -241,10 +241,10 @@ if __name__ == '__main__':
     momentum = 0.9
     if Config.use_backbone:
         optimizer = optim.SGD([{'params': base_params},
-                               {'params': model.module.classifier.parameters(), 'lr': base_lr}], lr = base_lr, momentum=momentum)
+                               {'params': model.module.clfr1.parameters(), 'lr': base_lr}], lr = base_lr, momentum=momentum)
     else:
         optimizer = optim.SGD([{'params': base_params},
-                               {'params': model.module.classifier.parameters(), 'lr': lr_ratio*base_lr},
+                               {'params': model.module.clfr1.parameters(), 'lr': lr_ratio*base_lr},
                                {'params': model.module.classifier_swap.parameters(), 'lr': lr_ratio*base_lr},
                                {'params': model.module.Convmask.parameters(), 'lr': lr_ratio*base_lr},
                               ], lr = base_lr, momentum=momentum)
