@@ -130,7 +130,11 @@ class WxsApp(object):
         6. 文件按车辆识别码目录进行组织；
         '''
         #WxsDsm.process_detect_jsons()
-        WxsDsm.merge_zhangcan_csv()
+        #WxsDsm.merge_zhangcan_csv()
+        '''
+        将所里测试集中文件替换为切图后文件
+        '''
+        WxsDsm.generate_cut_img_test_ds()
 
         
 

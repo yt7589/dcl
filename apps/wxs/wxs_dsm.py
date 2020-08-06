@@ -2297,7 +2297,7 @@ function nextImg() {
     @staticmethod
     def generate_cut_img_test_ds():
         '''
-        以图片文件名为键的字典，值分别为年款类别和品牌类别
+        将所里测试集中文件替换为切图后文件
         '''
         test_ds_file = './dataset/CUB_200_2011/anno/wxs_brands_ds.txt'
         org_test_ds_dict = {}
