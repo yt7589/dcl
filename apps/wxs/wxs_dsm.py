@@ -2360,12 +2360,9 @@ function nextImg() {
                     os.mkdir(dst_folder)
                 dst_file = '{0}/{1}/{2}'.format(train_ds_folder, vin_code, img_file)
                 shutil.copy(img_full_fn, dst_file)
-                print('{0} => {1};'.format(img_full_fn, dst_file))
                 num += 1
                 if num % 1000 == 0:
                     print('已经拷贝{0}条记录'.format(num))
-                if num > 5:
-                    break
 
 
                 
