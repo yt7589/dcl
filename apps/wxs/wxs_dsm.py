@@ -2293,4 +2293,25 @@ function nextImg() {
                         status = zc_dict[img_file]['status']
                         notes = zc_dict[img_file]['notes']
                     wfd.write('{0},{1},{2},{3}\n'.format(full_fn, brand_id, status, notes))
+
+    @staticmethod
+    def generate_cut_img_test_ds():
+        '''
+        以图片文件名为键的字典，值分别为年款类别和品牌类别
+        '''
+        test_ds_file = './dataset/CUB_200_2011/anno/wxs_brands_ds.txt'
+        org_test_ds_dict = {}
+        with open(test_ds_file, 'r', encoding='utf-8') as tfd:
+            for line in tfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                arrs_b = arrs_a[0].split('/')
+                img_file = arrs_b[-1]
+                org_test_ds_dict[img_file] = {
+                    'bmy_id': int(arrs_a[1]),
+                    'brand_id': int(arrs_a[2])
+                }
+        for k, v in org_test_ds_dict.items():
+            print('{0}: {1};'.format(k, v))
+
                 
