@@ -2337,4 +2337,27 @@ function nextImg() {
                 img_file_full_fn_dict[img_file] = full_fn
                 num += 1
 
+    @staticmethod
+    def cut_dataset_imgs():
+        '''
+        '''
+        train_ds_folder = '/media/zjkj/work/yantao/zjkj/train_ds_raw'
+        # 将训练集图片拷贝到一个单独文件夹下
+        with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds.txt', 'r', encoding='utf-8') as dfd:
+            for line in dfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                img_full_fn = arrs_a[0]
+                arrs_b = img_full_fn.split('/')
+                img_file = arrs_b[-1]
+                arrs_c = img_file.split('_')
+                arrs_d = arrs_c[0].split('#')
+                vin_code = arrs_d[0]
+                dst_folder = '{0}/{1}'.format(train_ds_folder, vin_code)
+                if os.path.exists(dst_folder):
+                    os.mkdir(dst_folder)
+                dst_file = '{0}/{1}/{2}'.format(train_ds_folder, vin_code, img_file)
+                shutil.copy(img_full_fn, dst_file)
+
+
                 
