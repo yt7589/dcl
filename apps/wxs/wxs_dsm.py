@@ -2311,7 +2311,24 @@ function nextImg() {
                     'bmy_id': int(arrs_a[1]),
                     'brand_id': int(arrs_a[2])
                 }
-        for k, v in org_test_ds_dict.items():
+        base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds')
+        img_file_full_fn_dict = {}
+        WxsDsm.get_cut_test_ds_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
+        for k, v in img_file_full_fn_dict.items():
             print('{0}: {1};'.format(k, v))
+
+    @staticmethod
+    def get_cut_test_ds_img_file_full_fn_dict(img_file_full_fn_dict, base_path):
+        num = 0
+        for sub_obj in base_path.iterdir():
+            if sub_obj.is_dir():
+                WxsDsm.get_cut_test_ds_img_file_full_fn_dict(img_file_full_fn_dict, sub_obj)
+            else:
+                full_fn = str(sub_obj)
+                arrs_a = full_fn.split('/')
+                img_file = arrs_a[-1]
+                img_file_full_fn_dict[img_file] = full_fn
+                num += 1
+        print('共处理{0}个图片'.format(num))
 
                 
