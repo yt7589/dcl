@@ -2314,11 +2314,9 @@ function nextImg() {
         base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds')
         img_file_full_fn_dict = {}
         WxsDsm.get_cut_test_ds_img_file_full_fn_dict(img_file_full_fn_dict, base_path)
-        num = 0
-        for k, v in img_file_full_fn_dict.items():
-            print('{0}: {1};'.format(k, v))
-            num += 1
-        print('共有{0}个图片'.format(num))
+        for k, v in org_test_ds_dict.items():
+            full_fn = img_file_full_fn_dict[k]
+            print('{0}*{1}*{2};'.format(full_fn, v['bmy_id'], v['brand_id']))
 
     @staticmethod
     def get_cut_test_ds_img_file_full_fn_dict(img_file_full_fn_dict, base_path):
