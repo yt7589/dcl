@@ -2340,6 +2340,7 @@ function nextImg() {
     @staticmethod
     def cut_dataset_imgs():
         '''
+        将训练集图片拷贝到单独目录下，便于调用切图软件
         '''
         train_ds_folder = '/media/zjkj/work/yantao/zjkj/train_ds_raw'
         # 将训练集图片拷贝到一个单独文件夹下

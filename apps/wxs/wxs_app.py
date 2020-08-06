@@ -134,7 +134,11 @@ class WxsApp(object):
         '''
         将所里测试集中文件替换为切图后文件
         '''
-        WxsDsm.generate_cut_img_test_ds()
+        #WxsDsm.generate_cut_img_test_ds()
+        '''
+        将训练集图片拷贝到单独目录下，便于调用切图软件
+        '''
+        WxsDsm.cut_dataset_imgs()
 
         
 
