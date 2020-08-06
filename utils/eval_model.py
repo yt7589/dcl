@@ -29,7 +29,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
     val_corrects1 = 0
     val_corrects2 = 0
     val_corrects3 = 0
-    task2_correct = 0
+    bmy_correct = 0
     bb_correct = 0 # 通过bmy求出的品牌精度
     val_size = data_loader.__len__()
     item_count = data_loader.total_item_len
@@ -48,13 +48,13 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
         for batch_cnt_val, data_val in enumerate(data_loader):
             inputs = Variable(data_val[0].cuda())
             print('eval_model.eval_turn inputs: {0};'.format(inputs.shape))
-            task1_labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
-            task2_labels = Variable(torch.from_numpy(np.array(data_val[-1])).long().cuda())
+            brand_labels = Variable(torch.from_numpy(np.array(data_val[1])).long().cuda())
+            bmy_labels = Variable(torch.from_numpy(np.array(data_val[-1])).long().cuda())
             img_files  = data_val[-2]
             outputs = model(inputs)
             loss = 0
 
-            ce_loss = get_ce_loss(outputs[0], task1_labels).item()
+            ce_loss = get_ce_loss(outputs[0], brand_labels).item()
             loss += ce_loss
 
             val_loss_recorder.update(loss)
@@ -68,23 +68,37 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
 
             print('{:s} eval_batch: {:-6d} / {:d} loss: {:8.4f}'.format(val_version, batch_cnt_val, val_epoch_step, loss), flush=True)
 
-            batch_corrects1 = torch.sum((top3_pos[:, 0] == task1_labels)).data.item()
+            batch_corrects1 = torch.sum((top3_pos[:, 0] == brand_labels)).data.item()
             val_corrects1 += batch_corrects1
-            batch_corrects2 = torch.sum((top3_pos[:, 1] == task1_labels)).data.item()
+            batch_corrects2 = torch.sum((top3_pos[:, 1] == brand_labels)).data.item()
             val_corrects2 += (batch_corrects2 + batch_corrects1)
-            batch_corrects3 = torch.sum((top3_pos[:, 2] == task1_labels)).data.item()
+            batch_corrects3 = torch.sum((top3_pos[:, 2] == brand_labels)).data.item()
             val_corrects3 += (batch_corrects3 + batch_corrects2 + batch_corrects1)
             # 求出年款精度
-            outputs_task2 = outputs[-1]
-            task2_top5_val, task2_top5_pos = torch.topk(outputs_task2, 5)
-            batch_task2_correct = torch.sum((task2_top5_pos[:, 0] == task2_labels)).data.item()
-            task2_correct += batch_task2_correct
+            outputs_bmy = outputs[-1]
+            bmy_top5_val, bmy_top5_pos = torch.topk(outputs_bmy, 5)
+            batch_bmy_correct = torch.sum((bmy_top5_pos[:, 0] == bmy_labels)).data.item()
+            bmy_correct += batch_bmy_correct
             bb_correct = 0
+            '''
+            # 
+            pred_size = top3_pos[:, 0].shape[0]
+            batch_bb_correct = 0
+            for idx in range(pred_size):
+                pred_bmy = fgvc_id_brand_dict[int(top3_pos[idx][0])]
+                pred_brand = pred_bmy.split('_')[0]
+                gt_bmy = fgvc_id_brand_dict[int(labels[idx])]
+                gt_brand = gt_bmy.split('_')[0]
+                if pred_brand == gt_brand:
+                    batch_bb_correct += 1
+            bb_correct += batch_bb_correct
+            brand_correct = 0
+            '''
 
         val_acc1 = val_corrects1 / item_count
         val_acc2 = val_corrects2 / item_count
         val_acc3 = val_corrects3 / item_count
-        task2_acc = task2_correct / item_count
+        bmy_acc = bmy_correct / item_count
         bb_acc = bb_correct / item_count
 
         log_file.write(val_version  + '\t' +str(val_loss_recorder.get_val())+'\t' + str(val_celoss_recorder.get_val()) + '\t' + str(val_acc1) + '\t' + str(val_acc3) + '\n')
@@ -93,7 +107,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
         t1 = time.time()
         since = t1-t0
         print('--'*30, flush=True)
-        print('% 3d %s %s %s-loss: %.4f || task1：%s-acc@1: %.4f %s-acc@2: %.4f %s-acc@3: %.4f; task2:%.4f; ||time: %d' % (epoch_num, val_version, dt(), val_version, val_loss_recorder.get_val(init=True), val_version, val_acc1,val_version, val_acc2, val_version, val_acc3, task2_acc, since), flush=True)
+        print('% 3d %s %s %s-loss: %.4f || 品牌：%s-acc@1: %.4f %s-acc@2: %.4f %s-acc@3: %.4f; 年款:%.4f; ||time: %d' % (epoch_num, val_version, dt(), val_version, val_loss_recorder.get_val(init=True), val_version, val_acc1,val_version, val_acc2, val_version, val_acc3, bmy_acc, since), flush=True)
         print('--' * 30, flush=True)
 
     return val_acc1, val_acc2, val_acc3
