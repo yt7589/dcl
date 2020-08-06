@@ -2299,7 +2299,7 @@ function nextImg() {
         '''
         将所里测试集中文件替换为切图后文件
         '''
-        test_ds_file = './dataset/CUB_200_2011/anno/wxs_brands_ds.txt'
+        test_ds_file = './datasets/CUB_200_2011/anno/wxs_brands_ds.txt'
         org_test_ds_dict = {}
         with open(test_ds_file, 'r', encoding='utf-8') as tfd:
             for line in tfd:
