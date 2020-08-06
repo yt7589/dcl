@@ -229,11 +229,11 @@ if __name__ == '__main__':
                     + list(map(id, model.module.brand_clfr.parameters()))
     else:
         ignored_params1 = list(map(id, model.module.classifier.parameters()))
-        ignored_params1 = list(map(id, model.module.brand_clfr.parameters()))
+        ignored_params1x = list(map(id, model.module.brand_clfr.parameters()))
         ignored_params2 = list(map(id, model.module.classifier_swap.parameters()))
         ignored_params3 = list(map(id, model.module.Convmask.parameters()))
 
-        ignored_params = ignored_params1 + ignored_params2 + ignored_params3
+        ignored_params = ignored_params1 + ignored_params1x + ignored_params2 + ignored_params3 
     print('the num of new layers:', len(ignored_params), flush=True)
     base_params = filter(lambda p: id(p) not in ignored_params, model.module.parameters())
 
