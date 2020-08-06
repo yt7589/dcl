@@ -18,14 +18,14 @@ class MainModel(nn.Module):
     def __init__(self, config):
         super(MainModel, self).__init__()
         self.use_dcl = config.use_dcl
-        self.num_task1 = config.num_task1
-        self.num_task2 = config.num_task2
+        self.num_brands = config.num_brands
+        self.num_bmys = config.num_bmys
         self.backbone_arch = config.backbone
         self.use_Asoftmax = config.use_Asoftmax
         self.run_mode = MainModel.RUN_MODE_NORMAL # 1-正常运行；2-输出最后一层的特征；
         self.train_batch = config.train_batch
         self.val_batch = config.val_batch
-        self.task1_control_task2 = config.task1_control_task2
+        print(self.backbone_arch)
         self.fc_size = {'resnet50': 2048, 'resnet18': 512}
 
         if self.backbone_arch in dir(models):
@@ -54,11 +54,9 @@ class MainModel(nn.Module):
             self.model = nn.Sequential(*list(self.model.children())[:-2])
         self.avgpool = nn.AdaptiveAvgPool2d(output_size=1)
         # 品牌分类器
-        #self.classifier = nn.Linear(self.fc_size[self.backbone_arch], self.num_brands, bias=False)
-        self.clfr1 = nn.Linear(self.fc_size[self.backbone_arch], self.num_task1, bias=False)
+        self.classifier = nn.Linear(self.fc_size[self.backbone_arch], self.num_brands, bias=False)
         # 年款分类器
-        #self.brand_clfr = nn.Linear(self.fc_size[self.backbone_arch], self.num_bmys, bias=False)
-        self.clfr2 = nn.Linear(self.fc_size[self.backbone_arch], self.num_task2, bias=False)
+        self.brand_clfr = nn.Linear(self.fc_size[self.backbone_arch], self.num_bmys, bias=False)
 
         if self.use_dcl:
             if config.cls_2:
@@ -71,7 +69,7 @@ class MainModel(nn.Module):
         if self.use_Asoftmax:
             self.Aclassifier = AngleLinear(self.fc_size[self.backbone_arch], self.num_classes, bias=False)
 
-        self.initialize_task2_masks()
+        self.initialize_bmy_masks()
 
     def forward(self, x, last_cont=None, run_mode=RUN_MODE_NORMAL):
         x = self.model(x)
@@ -83,10 +81,12 @@ class MainModel(nn.Module):
         x = self.avgpool(x)
         if MainModel.RUN_MODE_FEATURE_EXTRACT == run_mode:
             return x
+        #x = x.view(x.size(0), -1)
+        #x = x.view(x.size(0), x.size(1))
         x = torch.flatten(x, start_dim=1, end_dim=-1)
         out = []
-        out.append(self.clfr1(x))
-        y_task1 = self.clfr2(x)
+        out.append(self.classifier(x))
+        y_brand = self.brand_clfr(x)
 
         if self.use_dcl:
             out.append(self.classifier_swap(x))
@@ -101,30 +101,28 @@ class MainModel(nn.Module):
                 last_x = self.avgpool(last_x)
                 last_x = last_x.view(last_x.size(0), -1)
                 out.append(self.Aclassifier(last_x))
-        out.append(y_task1)
-        if not self.training and self.task1_control_task2:
+        out.append(y_brand)
+        if not self.training:
             # 由品牌决定年款输出（仅在实际运行中开启）
-            print('Use task to controll task2...')
-            task1_out = out[0]
-            task1_result = torch.argmax(task1_out, dim=1)
-            task2_out = out[-1]
-            for idx1 in range(task1_out.shape[0]):
-                task1_idx = int(task1_result[idx1].cpu().item())
-                task2_mask = self.task2_masks[task1_idx]
-                task2_out[idx1] = task2_out[idx1] * task2_mask
+            print('Use brand to controll bmy...')
+            brand_out = out[0]
+            brand_result = torch.argmax(brand_out, dim=1)
+            bmy_out = out[-1]
+            for idx1 in range(brand_out.shape[0]):
+                brand_idx = int(brand_result[idx1].cpu().item())
+                bmy_mask = self.bmy_masks[brand_idx]
+                bmy_out[idx1] = bmy_out[idx1] * bmy_mask
         return out
 
-    def initialize_task2_masks(self):
-        if not self.task1_control_task2:
-            return
-        self.task2_masks = np.zeros((self.num_task1, self.num_task2), dtype=np.float32)
-        for bi in range(self.num_task1):
-            task2_idxs = MainModel.TASK1_TASK2_DICT[bi]
-            for task2_idx in task2_idxs:
-                self.task2_masks[bi][task2_idx] = 1.0
-        self.task2_masks = torch.from_numpy(self.task2_masks).cuda()
+    def initialize_bmy_masks(self):
+        self.bmy_masks = np.zeros((self.num_brands, self.num_bmys), dtype=np.float32)
+        for bi in range(self.num_brands):
+            bmy_idxs = MainModel.BRAND_BMYS_DICT[bi]
+            for bmy_idx in bmy_idxs:
+                self.bmy_masks[bi][bmy_idx] = 1.0
+        self.bmy_masks = torch.from_numpy(self.bmy_masks).cuda()
 
-    TASK1_TASK2_DICT = {
+    BRAND_BMYS_DICT = {
         0:[0, 34, 1159, 1163, 1171],
         1:[1, 2, 3, 4, 5, 6, 7, 24, 148, 149, 150, 151, 154, 155, 1148, 1149, 1150, 1151, 1152, 1153, 1154, 1158],
         2:[8, 9, 10, 11, 30, 31, 32, 75, 81, 87, 94, 99, 274, 316, 320, 357, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 492, 493, 494, 495, 496, 497, 498, 499, 500, 501, 502, 503, 504, 505, 506, 507, 508, 510, 511, 512, 515, 518, 522, 1541, 1615, 1616],
