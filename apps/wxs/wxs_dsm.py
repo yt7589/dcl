@@ -2343,6 +2343,7 @@ function nextImg() {
         '''
         train_ds_folder = '/media/zjkj/work/yantao/zjkj/train_ds_raw'
         # 将训练集图片拷贝到一个单独文件夹下
+        num = 0
         with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds.txt', 'r', encoding='utf-8') as dfd:
             for line in dfd:
                 line = line.strip()
@@ -2358,6 +2359,9 @@ function nextImg() {
                     os.mkdir(dst_folder)
                 dst_file = '{0}/{1}/{2}'.format(train_ds_folder, vin_code, img_file)
                 shutil.copy(img_full_fn, dst_file)
+                num += 1
+                if num % 1000 == 0:
+                    print('已经拷贝{0}条记录'.format(num))
 
 
                 
