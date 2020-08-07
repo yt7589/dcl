@@ -2410,5 +2410,63 @@ function nextImg() {
             for fn in missing_files:
                 mfd.write('{0}\n'.format(fn))
 
+    @staticmethod
+    def process_training_ds_detect_jsons():
+        '''
+        将图片通过client1.8目录下的run.sh，发到服务器后，服务器会返回图像识别结果步骤：
+        1. 遍历原始文件目录，形成一个文件名-全路径名的字典；
+        2. 读取JSON文件，解析出原始文件名；
+        3. 根据JSON文件中位置信息进行功图；
+        4. 将切好的图直接缩放为224*244保存到scale1目录；
+        5. 将切好的图按照长边缩放到224，短边0填充方式缩放到224*224，保存到scale2目录；
+        6. 文件按车辆识别码目录进行组织；
+        '''
+        # 遍历原始目录得到文件名和全路径名的字典
+        base_path = Path('/media/zjkj/work/品牌')
+        img_file_full_fn_dict = {}
+        img_file_full_fn_dict = {}
+        with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds.txt', 'r', encoding='utf-8') as dfd:
+            for line in dfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                arrs_b = full_fn.split('/')
+                img_file = arrs_b[-1]
+                img_file_full_fn_dict[img_file] = full_fn
+        json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
+        num = 0
+        bad_num = 0
+        bad_img_files = []
+        for json_obj in json_path.iterdir():
+            json_file = str(json_obj)
+            if not json_file.endswith('json'):
+                continue
+            arrs0 = json_file.split('/')
+            jf = arrs0[-1]
+            arrs1 = jf.split('_')
+            img_file = '{0}_{1}_{2}_{3}_{4}_{5}_{6}'.format(
+                arrs1[0], arrs1[1], arrs1[2], arrs1[3],
+                arrs1[4], arrs1[5], arrs1[6]
+            )
+            img_full_fn = img_file_full_fn_dict[img_file]
+            box_raw = WxsDsm.parse_detect_json(json_file)
+            if box_raw is None:
+                bad_num += 1
+                bad_img_files.append(img_file)
+                continue
+            arrs2 = box_raw.split(',')
+            box = [int(arrs2[0]), int(arrs2[1]), int(arrs2[2]), int(arrs2[3])]
+            crop_img = WxsDsm.crop_and_resize_img(img_full_fn, box)
+            arrs_a = img_file.split('_')
+            arrs_b = arrs_a[0].split('#')
+            vin_code = arrs_b[0]
+            folder1 = '/media/zjkj/work/yantao/zjkj/train_ds/{0}'.format(vin_code)
+            if not os.path.exists(folder1):
+                os.mkdir(folder1)
+            dst_file = '{0}/{1}'.format(folder1, img_file)
+            num += 1
+            cv2.imwrite(dst_file, crop_img)
+        print('共处理{0}个文件，其中失败文件数为{1}个'.format(num + bad_num, bad_num))
+
 
                 
