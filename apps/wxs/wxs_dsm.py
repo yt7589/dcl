@@ -2390,6 +2390,21 @@ function nextImg() {
                 print('已经处理{0}张图片...'.format(json_num))
         print('json_num={0};'.format(json_num))
         # 依次检查193万张，如果不包括在183集合中，将其记录下来
+        missing_files = []
+        with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds.txt', 'r', encoding='utf-8') as dfd:
+            for line in dfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                arrs_b = full_fn.split('/')
+                img_file = arrs_b[-1]
+                if img_file not in detected_img_set:
+                    print('未包括文件：{0};'.format(full_fn))
+                    missing_files.append(full_fn)
+        print('缺失文件数为：{0}个'.format(len(missing_files)))
+        with open('../../w1/missing_files.txt', 'w+', encoding='utf-8') as mfd:
+            for fn in missing_files:
+                mfd.write('{0}\n'.format(fn))
 
 
                 
