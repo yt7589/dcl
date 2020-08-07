@@ -138,7 +138,12 @@ class WxsApp(object):
         '''
         将训练集图片拷贝到单独目录下，便于调用切图软件
         '''
-        WxsDsm.cut_dataset_imgs()
+        #WxsDsm.cut_dataset_imgs()
+        '''
+        获取193万张原始图片和183万张检测图片之间，没有处理的图片列表，
+        供后续查找原因
+        '''
+        WxsDsm.find_diff_of_193_183()
 
         
 
