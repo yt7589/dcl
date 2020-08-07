@@ -2373,6 +2373,7 @@ function nextImg() {
         # 取出183万图片set
         json_num = 0
         base_path = Path('/media/zjkj/work/yantao/zjkj/t003')
+        detected_img_set = set()
         for sub_obj in base_path.iterdir():
             full_fn = str(sub_obj)
             if sub_obj.is_file() and full_fn.endswith(('json')):
@@ -2383,10 +2384,10 @@ function nextImg() {
                     arrs_b[0], arrs_b[1], arrs_b[2], 
                     arrs_b[3], arrs_b[4]
                 )
-                print(img_file)
+                detected_img_set.add(img_file)
                 json_num += 1
-            if json_num > 5:
-                break
+            if json_num % 100 == 0:
+                print('已经处理{0}张图片...'.format(json_num))
         print('json_num={0};'.format(json_num))
         # 依次检查193万张，如果不包括在183集合中，将其记录下来
 
