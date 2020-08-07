@@ -2473,9 +2473,9 @@ function nextImg() {
             if num % 100 == 0:
                 print('处理完成{0}个...'.format(num))
         print('共处理{0}个文件，其中失败文件数为{1}个'.format(num + bad_num, bad_num))
-        #bad_imgs_file = '../../w1/train_bad_imgs.txt'
-        bad_imgs_file = '../../w1/random_tds_bad_imgs.txt'
-        with open(bad_img_files, 'w+', encoding='utf-8') as bfd:
+        #bad_imgs_txt = '../../w1/train_bad_imgs.txt'
+        bad_imgs_txt = '../../w1/random_tds_bad_imgs.txt'
+        with open(bad_imgs_txt, 'w+', encoding='utf-8') as bfd:
             for bi in bad_img_files:
                 bfd.write('{0}\n'.format(bi))
 
