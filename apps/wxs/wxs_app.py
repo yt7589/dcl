@@ -121,13 +121,8 @@ class WxsApp(object):
         '''
         #WxsUtils.draw_tds_acc_curve()
         '''
-        将图片通过client1.8目录下的run.sh，发到服务器后，服务器会返回图像识别结果步骤：
-        1. 遍历原始文件目录，形成一个文件名-全路径名的字典；
-        2. 读取JSON文件，解析出原始文件名；
-        3. 根据JSON文件中位置信息进行功图；
-        4. 将切好的图直接缩放为224*244保存到scale1目录；
-        5. 将切好的图按照长边缩放到224，短边0填充方式缩放到224*224，保存到scale2目录；
-        6. 文件按车辆识别码目录进行组织；
+        对所里测试集图片经过检测后的JSON文件进行解析，对原始图片进行切图，放
+        到指定的目录下，子目录按00/00组织
         '''
         #WxsDsm.process_detect_jsons()
         #WxsDsm.merge_zhangcan_csv()
@@ -143,7 +138,13 @@ class WxsApp(object):
         获取193万张原始图片和183万张检测图片之间，没有处理的图片列表，
         供后续查找原因
         '''
-        WxsDsm.find_diff_of_193_183()
+        #WxsDsm.find_diff_of_193_183()
+        '''
+        将经过检测的训练集图片对应的JSON文件进行解析，对原始图片进行切图，放
+        到指定的目录下，按照车辆识别码作为目录进行组织
+        '''
+        WxsDsm.process_training_ds_detect_jsons()
+
 
         
 
