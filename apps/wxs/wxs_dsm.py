@@ -2392,6 +2392,7 @@ function nextImg() {
         # 依次检查193万张，如果不包括在183集合中，将其记录下来
         ts_num = 0
         missing_files = []
+        ts_set = set()
         with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds.txt', 'r', encoding='utf-8') as dfd:
             for line in dfd:
                 line = line.strip()
@@ -2400,10 +2401,11 @@ function nextImg() {
                 arrs_b = full_fn.split('/')
                 img_file = arrs_b[-1]
                 ts_num += 1
+                ts_set.add(img_file)
                 if img_file not in detected_img_set:
                     print('未包括文件：{0};'.format(full_fn))
                     missing_files.append(full_fn)
-        print('缺失文件数为：{0}个；共{1}个文件；'.format(len(missing_files), ts_num))
+        print('缺失文件数为：{0}个；共{1}个文件；真实数量为{2}个;'.format(len(missing_files), ts_num, len(ts_set)))
         with open('../../w1/missing_files.txt', 'w+', encoding='utf-8') as mfd:
             for fn in missing_files:
                 mfd.write('{0}\n'.format(fn))
