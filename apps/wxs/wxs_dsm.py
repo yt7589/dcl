@@ -2513,5 +2513,44 @@ function nextImg() {
                 dst_file = '{0}/{1}'.format(dst_folder_vin_code, img_file)
                 shutil.copy(full_fn, dst_file)
 
+    @staticmethod
+    def generate_cutted_dataset():
+        '''
+        生成由切过的图组成的数据集
+        '''
+        # 由数据集文件生成图片文件名和全路径名的字典
+        ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds.txt'
+        img_file_sample_dict = WxsDsm.get_img_file_sample_dict_from_ds_file(ds_file)
+        base_path = Path('/media/zjkj/work/yantao/zjkj/work/random_tds')
+        for vin_code_obj in base_path.iterdir():
+            for img_file_obj in vin_code_obj.iterdir():
+                full_fn = str(img_file_obj)
+                arrs_a = full_fn.split('/')
+                img_file = arrs_a[-1]
+                sample = img_file_sample_dict[img_file]
+                print('{0}*{1}*{2}'.format(sample['full_fn'], sample['bmy_id'], sample['brand_id']))
+
+    @staticmethod
+    def get_img_file_sample_dict_from_ds_file(ds_file):
+        '''
+        从数据集文件中得到图片文件名到全路径文件的字典
+        '''
+        # 形成图片文件名和全咱路径文件名字典
+        img_file_sample_dict = {}
+        with open(ds_file, 'r', encoding='utf-8') as tfd:
+            for line in tfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                arrs_b = full_fn.split('/')
+                img_file = arrs_b[-1]
+                img_file_sample_dict[img_file] = {
+                    'full_fn': full_fn,
+                    'bmy_id': int(arrs_a[1]),
+                    'brand_id': int(arrs_a[2])
+                }
+        print('生成文件名到全路径文件名字典')
+        return img_file_sample_dict
+
 
                 
