@@ -2437,13 +2437,20 @@ function nextImg() {
         print('生成图片文件名和全路径文件名字典')
         json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
         #json_path = Path('/media/zjkj/work/yantao/zjkj/work/random_tds_result')
-        num = 0
-        bad_num = 0
-        bad_img_files = []
+        json_files = []
+        jf_num = 0
         for json_obj in json_path.iterdir():
             json_file = str(json_obj)
             if not json_file.endswith('json'):
                 continue
+            json_files.append(json_file)
+            jf_num += 1
+            if jf_num % 100 == 0:
+                print('处理完成{0}个json文件'.format(jf_num))
+        num = 0
+        bad_num = 0
+        bad_img_files = []
+        for json_file in json_files:
             arrs0 = json_file.split('/')
             jf = arrs0[-1]
             arrs1 = jf.split('_')
