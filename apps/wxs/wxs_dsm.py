@@ -2474,10 +2474,44 @@ function nextImg() {
                 print('处理完成{0}个...'.format(num))
         print('共处理{0}个文件，其中失败文件数为{1}个'.format(num + bad_num, bad_num))
         #bad_imgs_txt = '../../w1/train_bad_imgs.txt'
-        bad_imgs_txt = '../../w1/train_ds_bad_imgs.txt'
+        bad_imgs_txt = '../../w1/random_tds_bad_imgs.txt'
         with open(bad_imgs_txt, 'w+', encoding='utf-8') as bfd:
             for bi in bad_img_files:
                 bfd.write('{0}\n'.format(bi))
+
+    @staticmethod
+    def copy_detect_bad_image_files():
+        '''
+        将检测失败的图片文件拷贝到指定目录下，供耀辉改进其检测算法
+        '''
+        # 形成图片文件名和全咱路径文件名字典
+        img_file_full_fn_dict = {}
+        ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds.txt'
+        with open(ds_file, 'r', encoding='utf-8') as tfd:
+            for line in tfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                arrs_b = full_fn.split('/')
+                img_file = arrs_b[-1]
+                img_file_full_fn_dict[img_file] = full_fn
+        print('生成文件名到全路径文件名字典')
+        # 拷贝文件
+        bad_imgs_txt = '../../w1/random_tds_bad_imgs.txt'
+        dst_folder = '/media/zjkj/work/yantao/zjkj/work/random_tds_bad_images'
+        with open(bad_imgs_txt, 'r', encoding='utf-8') as bfd:
+            for line in bfd:
+                line = line.strip()
+                img_file = line
+                full_fn = img_file_full_fn_dict[img_file]
+                arrs_a = img_file.split('_')
+                arrs_b = arrs_a[0].split('#')
+                vin_code = arrs_b[0]
+                dst_folder_vin_code = '{0}/{1}'.format(dst_folder, vin_code)
+                if not os.path.exists(dst_folder_vin_code):
+                    os.mkdir(dst_folder_vin_code)
+                dst_file = '{0}/{1}'.format(dst_folder_vin_code, img_file)
+                shutil.copy(full_fn, dst_file)
 
 
                 
