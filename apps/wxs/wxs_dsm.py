@@ -2456,7 +2456,7 @@ function nextImg() {
             if box_raw is None:
                 bad_num += 1
                 bad_img_files.append(img_file)
-                print('损坏文件：{0};'.format(img_file))
+                print('# 损坏文件：{0};'.format(img_file))
                 continue
             arrs2 = box_raw.split(',')
             box = [int(arrs2[0]), int(arrs2[1]), int(arrs2[2]), int(arrs2[3])]
