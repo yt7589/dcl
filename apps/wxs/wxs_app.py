@@ -131,9 +131,9 @@ class WxsApp(object):
         '''
         #WxsDsm.generate_cut_img_test_ds()
         '''
-        将训练集图片拷贝到单独目录下，便于调用切图软件
+        将训练集或随机抽取测试集图片拷贝到单独目录下，便于调用切图软件
         '''
-        #WxsDsm.cut_dataset_imgs()
+        WxsDsm.cut_dataset_imgs()
         '''
         获取193万张原始图片和183万张检测图片之间，没有处理的图片列表，
         供后续查找原因
@@ -143,7 +143,7 @@ class WxsApp(object):
         将经过检测的训练集图片对应的JSON文件进行解析，对原始图片进行切图，放
         到指定的目录下，按照车辆识别码作为目录进行组织
         '''
-        WxsDsm.process_training_ds_detect_jsons()
+        #WxsDsm.process_training_ds_detect_jsons()
 
 
         

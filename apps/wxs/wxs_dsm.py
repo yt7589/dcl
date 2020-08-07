@@ -2340,12 +2340,13 @@ function nextImg() {
     @staticmethod
     def cut_dataset_imgs():
         '''
-        将训练集图片拷贝到单独目录下，便于调用切图软件
+        将训练集或随机抽取测试集图片拷贝到单独目录下，便于调用切图软件
         '''
-        train_ds_folder = '/media/zjkj/work/yantao/zjkj/train_ds_raw'
+        # ds_folder = '/media/zjkj/work/yantao/zjkj/train_ds_raw'
+        ds_folder = '/media/zjkj/work/yantao/zjkj/work/random_tds_raw'
         # 将训练集图片拷贝到一个单独文件夹下
         num = 0
-        with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds.txt', 'r', encoding='utf-8') as dfd:
+        with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds.txt', 'r', encoding='utf-8') as dfd:
             for line in dfd:
                 line = line.strip()
                 arrs_a = line.split('*')
@@ -2355,10 +2356,10 @@ function nextImg() {
                 arrs_c = img_file.split('_')
                 arrs_d = arrs_c[0].split('#')
                 vin_code = arrs_d[0]
-                dst_folder = '{0}/{1}'.format(train_ds_folder, vin_code)
+                dst_folder = '{0}/{1}'.format(ds_folder, vin_code)
                 if not os.path.exists(dst_folder):
                     os.mkdir(dst_folder)
-                dst_file = '{0}/{1}/{2}'.format(train_ds_folder, vin_code, img_file)
+                dst_file = '{0}/{1}/{2}'.format(ds_folder, vin_code, img_file)
                 shutil.copy(img_full_fn, dst_file)
                 num += 1
                 if num % 1000 == 0:
