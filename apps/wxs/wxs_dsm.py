@@ -2364,5 +2364,31 @@ function nextImg() {
                 if num % 1000 == 0:
                     print('已经拷贝{0}条记录'.format(num))
 
+    @staticmethod
+    def find_diff_of_193_183():
+        '''
+        获取193万张原始图片和183万张检测图片之间，没有处理的图片列表，
+        供后续查找原因
+        '''
+        # 取出183万图片set
+        json_num = 0
+        base_path = Path('/media/zjkj/work/yantao/zjkj/t003')
+        for sub_obj in base_path.iterdir():
+            full_fn = str(sub_obj)
+            if sub_obj.is_file() and full_fn.endswith(('json')):
+                arrs_a = full_fn.split('/')
+                json_file = arrs_a[-1]
+                arrs_b = json_file.split('_')
+                img_file = '{0}_{1}_{2}_{3}_{4}'.format(
+                    arrs_b[0], arrs_b[1], arrs_b[2], 
+                    arrs_b[3], arrs_b[4]
+                )
+                print(img_file)
+                json_num += 1
+            if json_num > 5:
+                break
+        print('json_num={0};'.format(json_num))
+        # 依次检查193万张，如果不包括在183集合中，将其记录下来
+
 
                 
