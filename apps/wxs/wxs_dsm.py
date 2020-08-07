@@ -2433,6 +2433,7 @@ function nextImg() {
                 arrs_b = full_fn.split('/')
                 img_file = arrs_b[-1]
                 img_file_full_fn_dict[img_file] = full_fn
+        print('生成图片文件名和全路径文件名字典')
         json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
         num = 0
         bad_num = 0
@@ -2466,6 +2467,8 @@ function nextImg() {
             dst_file = '{0}/{1}'.format(folder1, img_file)
             num += 1
             cv2.imwrite(dst_file, crop_img)
+            if num % 100 == 0:
+                print('处理完成{0}个...'.format(num))
         print('共处理{0}个文件，其中失败文件数为{1}个'.format(num + bad_num, bad_num))
 
 
