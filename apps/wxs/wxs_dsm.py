@@ -2423,10 +2423,10 @@ function nextImg() {
         6. 文件按车辆识别码目录进行组织；
         '''
         # 遍历原始目录得到文件名和全路径名的字典
-        base_path = Path('/media/zjkj/work/品牌')
         img_file_full_fn_dict = {}
-        img_file_full_fn_dict = {}
-        with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds.txt', 'r', encoding='utf-8') as dfd:
+        # ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds.txt'
+        ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds.txt'
+        with open(ds_file, 'r', encoding='utf-8') as dfd:
             for line in dfd:
                 line = line.strip()
                 arrs_a = line.split('*')
@@ -2435,7 +2435,8 @@ function nextImg() {
                 img_file = arrs_b[-1]
                 img_file_full_fn_dict[img_file] = full_fn
         print('生成图片文件名和全路径文件名字典')
-        json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
+        # json_path = Path('/media/zjkj/work/yantao/zjkj/work/random_train_result')
+        json_path = Path('/media/zjkj/work/yantao/zjkj/work/random_tds_result')
         num = 0
         bad_num = 0
         bad_img_files = []
@@ -2462,7 +2463,8 @@ function nextImg() {
             arrs_a = img_file.split('_')
             arrs_b = arrs_a[0].split('#')
             vin_code = arrs_b[0]
-            folder1 = '/media/zjkj/work/yantao/zjkj/train_ds/{0}'.format(vin_code)
+            # folder1 = '/media/zjkj/work/yantao/zjkj/work/train_ds/{0}'.format(vin_code)
+            folder1 = '/media/zjkj/work/yantao/zjkj/work/random_tds/{0}'.format(vin_code)
             if not os.path.exists(folder1):
                 os.mkdir(folder1)
             dst_file = '{0}/{1}'.format(folder1, img_file)
@@ -2471,6 +2473,11 @@ function nextImg() {
             if num % 100 == 0:
                 print('处理完成{0}个...'.format(num))
         print('共处理{0}个文件，其中失败文件数为{1}个'.format(num + bad_num, bad_num))
+        #bad_imgs_file = '../../w1/train_bad_imgs.txt'
+        bad_imgs_file = '../../w1/random_tds_bad_imgs.txt'
+        with open(bad_img_files, 'w+', encoding='utf-8') as bfd:
+            for bi in bad_img_files:
+                bfd.write('{0}\n'.format(bi))
 
 
                 
