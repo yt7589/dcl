@@ -2447,7 +2447,7 @@ function nextImg() {
             arrs1 = jf.split('_')
             img_file = '{0}_{1}_{2}_{3}_{4}'.format(
                 arrs1[0], arrs1[1], arrs1[2], arrs1[3],
-                arrs1[4], arrs1[5], arrs1[6]
+                arrs1[4]
             )
             img_full_fn = img_file_full_fn_dict[img_file]
             box_raw = WxsDsm.parse_detect_json(json_file)
