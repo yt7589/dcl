@@ -2528,7 +2528,7 @@ function nextImg() {
                 arrs_a = full_fn.split('/')
                 img_file = arrs_a[-1]
                 sample = img_file_sample_dict[img_file]
-                print('{0}*{1}*{2}'.format(sample['full_fn'], sample['bmy_id'], sample['brand_id']))
+                print('{0}*{1}*{2}'.format(full_fn, sample['bmy_id'], sample['brand_id']))
 
     @staticmethod
     def get_img_file_sample_dict_from_ds_file(ds_file):
