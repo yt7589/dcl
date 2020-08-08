@@ -2419,10 +2419,13 @@ function nextImg() {
     @staticmethod
     def get_cut_json_files(json_path):
         #json_path = Path('/media/zjkj/work/yantao/zjkj/work/random_tds_result')
+        print('step 2')
         json_files = []
         jf_num = 0
+        print('step 3')
         for json_obj in json_path.iterdir():
             json_file = str(json_obj)
+            print('step 4: {0};'.format(json_file))
             if not json_file.endswith('json'):
                 continue
             json_files.append(json_file)
@@ -2517,8 +2520,9 @@ function nextImg() {
         img_file_full_fn_dict = WxsDsm.get_img_file_full_fn_dict_from_ds_file(ds_file)
         print('从数据集文件获取图片文件名和全路径文件名字典')
         finished_imgs = WxsDsm.get_cut_finished_imgs()
-        print('求出已经完成切图的文件列表')
+        print('求出已经完成切图的文件列表 v0.0.1')
         json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
+        print('step 1')
         json_files = WxsDsm.get_cut_json_files(json_path)
         print('求出所有车辆检测json文件列表')
         # 采用多线程方式运行
