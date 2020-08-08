@@ -2206,7 +2206,6 @@ function nextImg() {
         with open(json_file, 'r', encoding='utf-8') as jfd:
             data = json.load(jfd)
         if len(data['VEH']) < 1:
-            print('############ bad file: {0};'.format(json_file))
             return None
         else:
             return data['VEH'][0]['WZTZ']['CLWZ']
@@ -2445,7 +2444,7 @@ function nextImg() {
             arrs1 = jf.split('_')
             num += 1
             if num % 100 == 0:
-                print('@@@@@@@@@@@@@@@     切图完成{0}个文件...')
+                print('@@@@@@@@@@@@@@@     切图完成{0}个文件...'.format(num))
             img_file = '{0}_{1}_{2}_{3}_{4}'.format(
                 arrs1[0], arrs1[1], arrs1[2], arrs1[3],
                 arrs1[4]
