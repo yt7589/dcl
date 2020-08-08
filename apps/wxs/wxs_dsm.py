@@ -2510,9 +2510,12 @@ function nextImg() {
         '''
         ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds.txt'
         img_file_full_fn_dict = WxsDsm.get_img_file_full_fn_dict_from_ds_file(ds_file)
+        print('从数据集文件获取图片文件名和全路径文件名字典')
         finished_imgs = WxsDsm.get_cut_finished_imgs()
+        print('求出已经完成切图的文件列表')
         json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
         json_files = WxsDsm.get_cut_json_files(json_path)
+        print('求出所有车辆检测json文件列表')
         # 采用多线程方式运行
         imgs_queue = Queue(100)
         # 启动切图线程
