@@ -2443,12 +2443,14 @@ function nextImg() {
             arrs0 = json_file.split('/')
             jf = arrs0[-1]
             arrs1 = jf.split('_')
+            num += 1
+            if num % 100 == 0:
+                print('@@@@@@@@@@@@@@@     切图完成{0}个文件...')
             img_file = '{0}_{1}_{2}_{3}_{4}'.format(
                 arrs1[0], arrs1[1], arrs1[2], arrs1[3],
                 arrs1[4]
             )
             if img_file in finished_imgs:
-                print('完成图片：{0};'.format(img_file))
                 continue
             img_full_fn = img_file_full_fn_dict[img_file]
             box_raw = WxsDsm.parse_detect_json(json_file)
@@ -2463,9 +2465,6 @@ function nextImg() {
                 'img_file': img_file,
                 'crop_img': crop_img
             })
-            num += 1
-            if num % 100 == 0:
-                print('@@@@@@@@@@@@@@@     切图完成{0}个文件...')
         imgs_queue.put({
             'img_file': 'end',
             'crop_img': None
