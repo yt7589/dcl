@@ -2522,9 +2522,6 @@ function nextImg() {
         with open('../../w1/finished_imgs.txt', 'w+', encoding='utf-8') as ffd:
             for fi in finished_imgs:
                 ffd.write('{0}\n'.format(fi))
-        i_debug = 1
-        if 1 == i_debug:
-            return
         '''
         finished_imgs = []
         with open('../../w1/finished_imgs.txt', 'r', encoding='utf-8') as ffd:
@@ -2533,8 +2530,11 @@ function nextImg() {
                 finished_imgs.append(line)
         print('求出已经完成切图的文件列表 v0.0.1')
         json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
-        print('step 1')
-        json_files = WxsDsm.get_cut_json_files(json_path)
+        json_files = [] #WxsDsm.get_cut_json_files(json_path)
+        with open('../../w1/detect_json_files.txt', 'r', encoding='utf-8') as jfd:
+            for line in jfd:
+                line = line.strip()
+                json_files.append(json_files)
         print('求出所有车辆检测json文件列表')
         # 采用多线程方式运行
         imgs_queue = Queue(100)
