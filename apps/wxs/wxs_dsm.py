@@ -2398,6 +2398,7 @@ function nextImg() {
 
     @staticmethod
     def get_img_file_full_fn_dict_from_ds_file(ds_file):
+        num = 0
         # 遍历原始目录得到文件名和全路径名的字典
         img_file_full_fn_dict = {}
         #ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds.txt'
@@ -2409,6 +2410,9 @@ function nextImg() {
                 arrs_b = full_fn.split('/')
                 img_file = arrs_b[-1]
                 img_file_full_fn_dict[img_file] = full_fn
+                num += 1
+                if num % 10 == 0:
+                    print('处理{0}条数据集文件记录'.format(num))
         print('生成图片文件名和全路径文件名字典')
         return img_file_full_fn_dict
 
@@ -2508,6 +2512,7 @@ function nextImg() {
         5. 将切好的图按照长边缩放到224，短边0填充方式缩放到224*224，保存到scale2目录；
         6. 文件按车辆识别码目录进行组织；
         '''
+        print('process_training_ds_detect_jsons')
         ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds.txt'
         img_file_full_fn_dict = WxsDsm.get_img_file_full_fn_dict_from_ds_file(ds_file)
         print('从数据集文件获取图片文件名和全路径文件名字典')
