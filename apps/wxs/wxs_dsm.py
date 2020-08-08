@@ -2429,6 +2429,7 @@ function nextImg() {
 
     @staticmethod
     def generate_crop_cv_img_thread(imgs_queue, img_file_full_fn_dict, json_files, finished_imgs):
+        print('启动切图线程...')
         num = 0
         bad_num = 0
         bad_img_files = []
@@ -2441,6 +2442,7 @@ function nextImg() {
                 arrs1[4]
             )
             if img_file in finished_imgs:
+                print('完成图片：{0};'.format(img_file))
                 continue
             img_full_fn = img_file_full_fn_dict[img_file]
             box_raw = WxsDsm.parse_detect_json(json_file)
@@ -2474,6 +2476,7 @@ function nextImg() {
 
     @staticmethod
     def save_crop_cv_img_thread(imgs_queue):
+        print('启动保存图片文件线程...')
         num = 0
         while True:
             img_obj = imgs_queue.get()
