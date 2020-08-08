@@ -6,6 +6,8 @@ import json
 import shutil
 import random
 import datetime
+from multiprocessing import Queue
+import threading
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
@@ -2395,19 +2397,9 @@ function nextImg() {
                 mfd.write('{0}\n'.format(fn))
 
     @staticmethod
-    def process_training_ds_detect_jsons():
-        '''
-        将图片通过client1.8目录下的run.sh，发到服务器后，服务器会返回图像识别结果步骤：
-        1. 遍历原始文件目录，形成一个文件名-全路径名的字典；
-        2. 读取JSON文件，解析出原始文件名；
-        3. 根据JSON文件中位置信息进行功图；
-        4. 将切好的图直接缩放为224*244保存到scale1目录；
-        5. 将切好的图按照长边缩放到224，短边0填充方式缩放到224*224，保存到scale2目录；
-        6. 文件按车辆识别码目录进行组织；
-        '''
+    def get_img_file_full_fn_dict_from_ds_file(ds_file):
         # 遍历原始目录得到文件名和全路径名的字典
         img_file_full_fn_dict = {}
-        ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds.txt'
         #ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds.txt'
         with open(ds_file, 'r', encoding='utf-8') as dfd:
             for line in dfd:
@@ -2418,7 +2410,10 @@ function nextImg() {
                 img_file = arrs_b[-1]
                 img_file_full_fn_dict[img_file] = full_fn
         print('生成图片文件名和全路径文件名字典')
-        json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
+        return img_file_full_fn_dict
+
+    @staticmethod
+    def get_cut_json_files(json_path):
         #json_path = Path('/media/zjkj/work/yantao/zjkj/work/random_tds_result')
         json_files = []
         jf_num = 0
@@ -2430,6 +2425,10 @@ function nextImg() {
             jf_num += 1
             if jf_num % 100 == 0:
                 print('处理完成{0}个json文件'.format(jf_num))
+        return json_files
+
+    @staticmethod
+    def generate_crop_cv_img_thread(imgs_queue, img_file_full_fn_dict, json_files, finished_imgs):
         num = 0
         bad_num = 0
         bad_img_files = []
@@ -2441,6 +2440,8 @@ function nextImg() {
                 arrs1[0], arrs1[1], arrs1[2], arrs1[3],
                 arrs1[4]
             )
+            if img_file in finished_imgs:
+                continue
             img_full_fn = img_file_full_fn_dict[img_file]
             box_raw = WxsDsm.parse_detect_json(json_file)
             if box_raw is None:
@@ -2450,6 +2451,36 @@ function nextImg() {
             arrs2 = box_raw.split(',')
             box = [int(arrs2[0]), int(arrs2[1]), int(arrs2[2]), int(arrs2[3])]
             crop_img = WxsDsm.crop_and_resize_img(img_full_fn, box)
+            imgs_queue.put({
+                'img_file': img_file,
+                'crop_img': crop_img
+            })
+            num += 1
+            if num % 100 == 0:
+                print('@@@@@@@@@@@@@@@     切图完成{0}个文件...')
+        imgs_queue.put({
+            'img_file': 'end',
+            'crop_img': None
+        })
+        print('共处理{0}个文件，其中失败文件数为{1}个'.format(num + bad_num, bad_num))
+        bad_imgs_txt = '../../w1/train_bad_imgs.txt'
+        #bad_imgs_txt = '../../w1/random_tds_bad_imgs.txt'
+        with open(bad_imgs_txt, 'w+', encoding='utf-8') as bfd:
+            for bi in bad_img_files:
+                bfd.write('{0}\n'.format(bi))
+
+
+
+
+    @staticmethod
+    def save_crop_cv_img_thread(imgs_queue):
+        num = 0
+        while True:
+            img_obj = imgs_queue.get()
+            if img_obj['img_file'] == 'end':
+                break
+            img_file = img_obj['img_file']
+            crop_img = img_obj['crop_img']
             arrs_a = img_file.split('_')
             arrs_b = arrs_a[0].split('#')
             vin_code = arrs_b[0]
@@ -2461,13 +2492,39 @@ function nextImg() {
             num += 1
             cv2.imwrite(dst_file, crop_img)
             if num % 100 == 0:
-                print('处理完成{0}个...'.format(num))
-        print('共处理{0}个文件，其中失败文件数为{1}个'.format(num + bad_num, bad_num))
-        bad_imgs_txt = '../../w1/train_bad_imgs.txt'
-        #bad_imgs_txt = '../../w1/random_tds_bad_imgs.txt'
-        with open(bad_imgs_txt, 'w+', encoding='utf-8') as bfd:
-            for bi in bad_img_files:
-                bfd.write('{0}\n'.format(bi))
+                print('##########    保存完成{0}个...'.format(num))
+
+    @staticmethod
+    def process_training_ds_detect_jsons():
+        '''
+        将图片通过client1.8目录下的run.sh，发到服务器后，服务器会返回图像识别结果步骤：
+        1. 遍历原始文件目录，形成一个文件名-全路径名的字典；
+        2. 读取JSON文件，解析出原始文件名；
+        3. 根据JSON文件中位置信息进行功图；
+        4. 将切好的图直接缩放为224*244保存到scale1目录；
+        5. 将切好的图按照长边缩放到224，短边0填充方式缩放到224*224，保存到scale2目录；
+        6. 文件按车辆识别码目录进行组织；
+        '''
+        ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds.txt'
+        img_file_full_fn_dict = WxsDsm.get_img_file_full_fn_dict_from_ds_file(ds_file)
+        finished_imgs = WxsDsm.get_cut_finished_imgs()
+        json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
+        json_files = WxsDsm.get_cut_json_files(json_path)
+        # 采用多线程方式运行
+        imgs_queue = Queue(100)
+        # 启动切图线程
+        cut_img_thd = threading.Thread(target=WxsDsm.generate_crop_cv_img_thread, args=(imgs_queue, img_file_full_fn_dict, json_files, finished_imgs))
+        cut_img_thd.start()
+        # 启动保存图片线程
+        save_img_thd = threading.Thread(target=WxsDsm.save_crop_cv_img_thread, args=(imgs_queue,))
+        save_img_thd.start()
+        # 等待线程结束
+        cut_img_thd.join()
+        save_img_thd.join()
+        print('^_^ The End! ^_^')
+
+
+
 
     @staticmethod
     def copy_detect_bad_image_files():
