@@ -2131,23 +2131,6 @@ function nextImg() {
                     #wfd.write('{0}*88888*{1}\n'.format(full_fn, brand_idx))
         print('品牌在无锡所Excel中的数量：{0}个，占{1}%'.format(num_brand_in_wxs, num_brand_in_wxs / total))
         print('在当前模型品牌列表中记录数为：{0}个，占{1}%'.format(num_brand_in_dcl, num_brand_in_dcl / total))
-    
-    @staticmethod
-    def exp001():
-        crop_ratio = 0.15
-        org_img = cv2.imread('/media/zjkj/work/fgvc_dataset/raw/讴歌/rdx/2015/19UTB585#19UTB585_粤YUA739_02_440200100861_440200202556241574.jpg')
-        img_w, img_h = org_img.shape[0], org_img.shape[1]
-        img = org_img[
-            int(crop_ratio*img_w):int((1-crop_ratio)*img_w), 
-            int(crop_ratio*img_h):int((1-crop_ratio)*img_h)
-        ]
-        plt.subplot(1, 2, 1)
-        plt.title('org_img: {0}*{1}'.format(img_w, img_h))
-        plt.imshow(org_img)
-        plt.subplot(1, 2, 2)
-        plt.title('img: {0}*{1}'.format(img.shape[0], img.shape[1]))
-        plt.imshow(img)
-        plt.show()
 
     @staticmethod
     def process_detect_jsons():
@@ -2561,5 +2544,40 @@ function nextImg() {
         print('生成文件名到全路径文件名字典')
         return img_file_sample_dict
 
+    @staticmethod
+    def get_cut_finished_imgs():
+        # 遍历最终目录求出已完成切图的图片文件名列表
+        finished_path = Path('/media/zjkj/work/yantao/zjkj/train_ds')
+        finished_imgs = []
+        for vc_obj in finished_path.iterdir():
+            for file_obj in vc_obj.iterdir():
+                full_fn = str(file_obj)
+                arrs_a = full_fn.split('/')
+                img_file = arrs_a[-1]
+                finished_imgs.append(img_file)
+        return finished_imgs
+
+    @staticmethod
+    def exp001():
+        finished_imgs = WxsDsm.get_cut_finished_imgs()
+        for fi in finished_imgs:
+            print(fi)
+
+    @staticmethod
+    def crop_image_demo():
+        crop_ratio = 0.15
+        org_img = cv2.imread('/media/zjkj/work/fgvc_dataset/raw/讴歌/rdx/2015/19UTB585#19UTB585_粤YUA739_02_440200100861_440200202556241574.jpg')
+        img_w, img_h = org_img.shape[0], org_img.shape[1]
+        img = org_img[
+            int(crop_ratio*img_w):int((1-crop_ratio)*img_w), 
+            int(crop_ratio*img_h):int((1-crop_ratio)*img_h)
+        ]
+        plt.subplot(1, 2, 1)
+        plt.title('org_img: {0}*{1}'.format(img_w, img_h))
+        plt.imshow(org_img)
+        plt.subplot(1, 2, 2)
+        plt.title('img: {0}*{1}'.format(img.shape[0], img.shape[1]))
+        plt.imshow(img)
+        plt.show()
 
                 
