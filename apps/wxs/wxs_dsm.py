@@ -2425,7 +2425,6 @@ function nextImg() {
         print('step 3')
         for json_obj in json_path.iterdir():
             json_file = str(json_obj)
-            print('step 4: {0};'.format(json_file))
             if not json_file.endswith('json'):
                 continue
             json_files.append(json_file)
