@@ -2547,6 +2547,7 @@ function nextImg() {
     @staticmethod
     def get_cut_finished_imgs():
         # 遍历最终目录求出已完成切图的图片文件名列表
+        num = 0
         finished_path = Path('/media/zjkj/work/yantao/zjkj/train_ds')
         finished_imgs = []
         for vc_obj in finished_path.iterdir():
@@ -2555,6 +2556,9 @@ function nextImg() {
                 arrs_a = full_fn.split('/')
                 img_file = arrs_a[-1]
                 finished_imgs.append(img_file)
+                num += 1
+                if num % 100 == 0:
+                    print('统计完{0}个文件'.format(num))
         return finished_imgs
 
     @staticmethod
@@ -2562,6 +2566,7 @@ function nextImg() {
         finished_imgs = WxsDsm.get_cut_finished_imgs()
         for fi in finished_imgs:
             print(fi)
+        print('共{0}个文件'.format(len(finished_imgs)))
 
     @staticmethod
     def crop_image_demo():
