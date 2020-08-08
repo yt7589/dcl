@@ -2518,6 +2518,19 @@ function nextImg() {
         img_file_full_fn_dict = WxsDsm.get_img_file_full_fn_dict_from_ds_file(ds_file)
         print('从数据集文件获取图片文件名和全路径文件名字典')
         finished_imgs = WxsDsm.get_cut_finished_imgs()
+        with open('../../w1/finished_imgs.txt', 'w+', encoding='utf-8') as ffd:
+            for fi in finished_imgs:
+                ffd.write('{0}\n'.format(fi))
+        i_debug = 1
+        if 1 == i_debug:
+            return
+        '''
+        finished_imgs = []
+        with open('../../w1/finished_imgs.txt', 'r', encoding='utf-8') as ffd:
+            for line in ffd:
+                line = line.strip()
+                finished_imgs.append(line)
+        '''
         print('求出已经完成切图的文件列表 v0.0.1')
         json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
         print('step 1')
