@@ -2517,6 +2517,7 @@ function nextImg() {
         ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds.txt'
         img_file_full_fn_dict = WxsDsm.get_img_file_full_fn_dict_from_ds_file(ds_file)
         print('从数据集文件获取图片文件名和全路径文件名字典')
+        '''
         finished_imgs = WxsDsm.get_cut_finished_imgs()
         with open('../../w1/finished_imgs.txt', 'w+', encoding='utf-8') as ffd:
             for fi in finished_imgs:
@@ -2530,7 +2531,6 @@ function nextImg() {
             for line in ffd:
                 line = line.strip()
                 finished_imgs.append(line)
-        '''
         print('求出已经完成切图的文件列表 v0.0.1')
         json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
         print('step 1')
@@ -2647,7 +2647,10 @@ function nextImg() {
     @staticmethod
     def exp001():
         json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
-        WxsDsm.get_cut_json_files(json_path)
+        json_files = WxsDsm.get_cut_json_files(json_path)
+        with open('../../w1/detect_json_files.txt', 'w+', encoding='utf-8') as jfd:
+            for jf in json_files:
+                jfd.write('{0}\n'.format(jf))
 
     @staticmethod
     def crop_image_demo():
