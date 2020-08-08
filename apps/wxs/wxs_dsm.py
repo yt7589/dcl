@@ -2534,7 +2534,7 @@ function nextImg() {
         with open('../../w1/detect_json_files.txt', 'r', encoding='utf-8') as jfd:
             for line in jfd:
                 line = line.strip()
-                json_files.append(json_files)
+                json_files.append(line)
         print('求出所有车辆检测json文件列表')
         # 采用多线程方式运行
         imgs_queue = Queue(100)
