@@ -2635,10 +2635,8 @@ function nextImg() {
 
     @staticmethod
     def exp001():
-        finished_imgs = WxsDsm.get_cut_finished_imgs()
-        for fi in finished_imgs:
-            print(fi)
-        print('共{0}个文件'.format(len(finished_imgs)))
+        json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
+        WxsDsm.get_cut_json_files(json_path)
 
     @staticmethod
     def crop_image_demo():
