@@ -2522,11 +2522,11 @@ function nextImg() {
             for fi in finished_imgs:
                 ffd.write('{0}\n'.format(fi))
         '''
-        finished_imgs = []
+        finished_imgs = set()
         with open('../../w1/finished_imgs.txt', 'r', encoding='utf-8') as ffd:
             for line in ffd:
                 line = line.strip()
-                finished_imgs.append(line)
+                finished_imgs.add(line)
         print('求出已经完成切图的文件列表 v0.0.1')
         json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
         json_files = [] #WxsDsm.get_cut_json_files(json_path)
