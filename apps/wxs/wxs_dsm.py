@@ -2594,10 +2594,11 @@ function nextImg() {
         生成由切过的图组成的数据集
         '''
         # 由数据集文件生成图片文件名和全路径名的字典
-        ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds.txt'
+        # ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds.txt'
+        ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds.txt'
         img_file_sample_dict = WxsDsm.get_img_file_sample_dict_from_ds_file(ds_file)
-        base_path = Path('/media/zjkj/work/yantao/zjkj/work/random_tds')
-        cutted_ds_file = './datasets/CUB_200_2011/anno/random_tds_v1.txt'
+        base_path = Path('/media/zjkj/work/yantao/zjkj/train_ds')
+        cutted_ds_file = './datasets/CUB_200_2011/anno/train_ds_cut_v1.txt'
         with open(cutted_ds_file, 'w+', encoding='utf-8') as cfd:
             for vin_code_obj in base_path.iterdir():
                 for img_file_obj in vin_code_obj.iterdir():

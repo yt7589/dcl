@@ -147,11 +147,11 @@ class WxsApp(object):
         '''
         将检测失败的图片文件拷贝到指定目录下，供耀辉改进其检测算法
         '''
-        WxsDsm.copy_detect_bad_image_files()
+        #WxsDsm.copy_detect_bad_image_files()
         '''
         生成由切过的图组成的数据集
         '''
-        #WxsDsm.generate_cutted_dataset()
+        WxsDsm.generate_cutted_dataset()
         #WxsDsm.exp001()
 
 
