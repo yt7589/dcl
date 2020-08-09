@@ -2536,7 +2536,7 @@ function nextImg() {
                 json_files.append(line)
         print('求出所有车辆检测json文件列表')
         # 采用多线程方式运行
-        imgs_queue = Queue(100)
+        imgs_queue = Queue(2000)
         # 启动切图线程
         cut_img_thd = threading.Thread(target=WxsDsm.generate_crop_cv_img_thread, args=(imgs_queue, img_file_full_fn_dict, json_files, finished_imgs))
         cut_img_thd.start()
@@ -2558,7 +2558,8 @@ function nextImg() {
         '''
         # 形成图片文件名和全咱路径文件名字典
         img_file_full_fn_dict = {}
-        ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds.txt'
+        # ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds.txt'
+        ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds.txt'
         with open(ds_file, 'r', encoding='utf-8') as tfd:
             for line in tfd:
                 line = line.strip()
@@ -2569,8 +2570,10 @@ function nextImg() {
                 img_file_full_fn_dict[img_file] = full_fn
         print('生成文件名到全路径文件名字典')
         # 拷贝文件
-        bad_imgs_txt = '../../w1/random_tds_bad_imgs.txt'
-        dst_folder = '/media/zjkj/work/yantao/zjkj/work/random_tds_bad_images'
+        # bad_imgs_txt = '../../w1/random_tds_bad_imgs.txt'
+        bad_imgs_txt = '../../w1/train_ds_bad_imgs.txt'
+        # dst_folder = '/media/zjkj/work/yantao/zjkj/work/random_tds_bad_images'
+        dst_folder = '/media/zjkj/work/yantao/zjkj/work/train_ds_bad_images'
         with open(bad_imgs_txt, 'r', encoding='utf-8') as bfd:
             for line in bfd:
                 line = line.strip()

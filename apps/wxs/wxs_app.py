@@ -143,11 +143,11 @@ class WxsApp(object):
         将经过检测的训练集图片对应的JSON文件进行解析，对原始图片进行切图，放
         到指定的目录下，按照车辆识别码作为目录进行组织
         '''
-        WxsDsm.process_training_ds_detect_jsons()
+        #WxsDsm.process_training_ds_detect_jsons()
         '''
         将检测失败的图片文件拷贝到指定目录下，供耀辉改进其检测算法
         '''
-        #WxsDsm.copy_detect_bad_image_files()
+        WxsDsm.copy_detect_bad_image_files()
         '''
         生成由切过的图组成的数据集
         '''
