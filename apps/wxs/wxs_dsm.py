@@ -2611,6 +2611,7 @@ function nextImg() {
                     full_fn = str(img_file_obj)
                     arrs_a = full_fn.split('/')
                     img_file = arrs_a[-1]
+                    print(img_file)
                     if img_file in img_file_sample_dict:
                         sample = img_file_sample_dict[img_file]
                         cfd.write('{0}*{1}*{2}\n'.format(full_fn, sample['bmy_id'], sample['brand_id']))
