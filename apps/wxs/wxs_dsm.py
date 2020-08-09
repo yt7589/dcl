@@ -2611,11 +2611,12 @@ function nextImg() {
                     full_fn = str(img_file_obj)
                     arrs_a = full_fn.split('/')
                     img_file = arrs_a[-1]
-                    sample = img_file_sample_dict[img_file]
-                    cfd.write('{0}*{1}*{2}\n'.format(full_fn, sample['bmy_id'], sample['brand_id']))
-                    num += 1
-                    if num % 100 == 0:
-                        print('处理完成{0}我记录'.format(num))
+                    if img_file in img_file_sample_dict:
+                        sample = img_file_sample_dict[img_file]
+                        cfd.write('{0}*{1}*{2}\n'.format(full_fn, sample['bmy_id'], sample['brand_id']))
+                        num += 1
+                        if num % 100 == 0:
+                            print('处理完成{0}我记录'.format(num))
 
     @staticmethod
     def get_img_file_sample_dict_from_ds_file(ds_file):
