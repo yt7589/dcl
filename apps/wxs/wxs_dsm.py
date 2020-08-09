@@ -2636,7 +2636,12 @@ function nextImg() {
                     for img_file_obj in folder2_obj.iterdir():
                         full_fn = str(img_file_obj)
                         arrs_a = full_fn.split('/')
-                        img_file = arrs_a[-1]
+                        raw_img_file = arrs_a[-1]
+                        arrs_b = raw_img_file.split('_')
+                        img_file = '{0}_{1}_{2}_{3}_{4}_{5}_{6}_0.jpg'.format(
+                            arrs_b[0], arrs_b[1], arrs_b[2], arrs_b[3],
+                            arrs_b[4], arrs_b[5], arrs_b[6][:-4]
+                        )
                         print(img_file)
                         if img_file in img_file_sample_dict:
                             sample = img_file_sample_dict[img_file]
