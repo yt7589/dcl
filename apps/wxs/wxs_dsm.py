@@ -2599,6 +2599,7 @@ function nextImg() {
         img_file_sample_dict = WxsDsm.get_img_file_sample_dict_from_ds_file(ds_file)
         base_path = Path('/media/zjkj/work/yantao/zjkj/train_ds')
         cutted_ds_file = './datasets/CUB_200_2011/anno/train_ds_cut_v1.txt'
+        num = 0
         with open(cutted_ds_file, 'w+', encoding='utf-8') as cfd:
             for vin_code_obj in base_path.iterdir():
                 for img_file_obj in vin_code_obj.iterdir():
@@ -2607,6 +2608,9 @@ function nextImg() {
                     img_file = arrs_a[-1]
                     sample = img_file_sample_dict[img_file]
                     cfd.write('{0}*{1}*{2}\n'.format(full_fn, sample['bmy_id'], sample['brand_id']))
+                    num += 1
+                    if num % 100 == 0:
+                        print('处理完成{0}我记录'.format(num))
 
     @staticmethod
     def get_img_file_sample_dict_from_ds_file(ds_file):
