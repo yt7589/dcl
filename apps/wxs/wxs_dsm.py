@@ -2620,6 +2620,32 @@ function nextImg() {
                             print('处理完成{0}我记录'.format(num))
 
     @staticmethod
+    def generate_wxs_tds_cutted_dataset():
+        '''
+        生成由所里品牌测试切过的图组成的数据集
+        '''
+        # 由数据集文件生成图片文件名和全路径名的字典
+        ds_file = './datasets/CUB_200_2011/anno/wxs_brands_ds.txt'
+        img_file_sample_dict = WxsDsm.get_img_file_sample_dict_from_ds_file(ds_file)
+        base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds')
+        cutted_ds_file = './datasets/CUB_200_2011/anno/wxs_brands_cut_ds.txt'
+        num = 0
+        with open(cutted_ds_file, 'w+', encoding='utf-8') as cfd:
+            for folder1_obj in base_path.iterdir():
+                for folder2_obj in folder1_obj.iterdir():
+                    for img_file_obj in folder2_obj.iterdir():
+                        full_fn = str(img_file_obj)
+                        arrs_a = full_fn.split('/')
+                        img_file = arrs_a[-1]
+                        print(img_file)
+                        if img_file in img_file_sample_dict:
+                            sample = img_file_sample_dict[img_file]
+                            cfd.write('{0}*{1}*{2}\n'.format(full_fn, sample['bmy_id'], sample['brand_id']))
+                            num += 1
+                            if num % 100 == 0:
+                                print('处理完成{0}我记录'.format(num))
+
+    @staticmethod
     def get_img_file_sample_dict_from_ds_file(ds_file):
         '''
         从数据集文件中得到图片文件名到全路径文件的字典
