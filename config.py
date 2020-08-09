@@ -96,7 +96,7 @@ class LoadConfig(object):
         # path/image_name cls_num\n
 
         if 'train' in get_list:
-            self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_train_ds.txt'),\
+            self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'train_ds_cut_v1.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
@@ -109,7 +109,7 @@ class LoadConfig(object):
                                            names=['ImageName', 'task1_label', 'task2_label'])
             '''
             # 正式环境：品牌为主任务
-            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
+            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'random_tds_v1.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
@@ -122,7 +122,7 @@ class LoadConfig(object):
                                            names=['ImageName', 'task1_label', 'task2_label'])
             '''
             # 正式环境：品牌为主任务
-            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
+            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'random_tds_v1.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
