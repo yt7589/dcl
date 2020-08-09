@@ -2571,7 +2571,7 @@ function nextImg() {
         print('生成文件名到全路径文件名字典')
         # 拷贝文件
         # bad_imgs_txt = '../../w1/random_tds_bad_imgs.txt'
-        bad_imgs_txt = '../../w1/train_ds_bad_imgs.txt'
+        bad_imgs_txt = '../../w1/train_bad_imgs.txt'
         # dst_folder = '/media/zjkj/work/yantao/zjkj/work/random_tds_bad_images'
         dst_folder = '/media/zjkj/work/yantao/zjkj/work/train_ds_bad_images'
         with open(bad_imgs_txt, 'r', encoding='utf-8') as bfd:
