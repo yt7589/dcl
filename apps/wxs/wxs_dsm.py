@@ -2768,7 +2768,6 @@ function nextImg() {
                     brand_idx_imgs_dict[brand_idx].append(full_fn)
         int8_imgs = []
         for k, v in brand_idx_imgs_dict.items():
-            print('{0}: {1};'.format(k, len(v)))
             img_num = len(v)
             if img_num < threshold_num:
                 for img_full_fn in v:
@@ -2779,6 +2778,9 @@ function nextImg() {
                 random.shuffle(idx_list)
                 for i in range(threshold_num):
                     int8_imgs.append(v[idx_list[i]])
-        for img in int8_imgs:
-            print('### {0};'.format(img))
+        for img_full_fn in int8_imgs:
+            print('### {0};'.format(img_full_fn))
+            arrs_a = img_full_fn.split('/')
+            img_file = arrs_a[-1]
+            shutil.copy(img_full_fn, '/media/zjkj/work/yantao/zjkj/int8_images/{0}'.format(img_file))
         print('共有{0}张图片用于int8量化'.format(len(int8_imgs)))
