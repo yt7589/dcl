@@ -211,7 +211,7 @@ if __name__ == '__main__':
         model.eval()
         model.use_dcl = False
         model.use_Asoftmax = False
-        torch.onnx.export(model, example, "dcl_0810_1.onnx", verbose=False,
+        torch.onnx.export(model, example, "dcl_0810_2.onnx", verbose=False,
                             input_names=["data"], output_names=["output"], \
                             training=False, opset_version=9,
                             do_constant_folding=True,
