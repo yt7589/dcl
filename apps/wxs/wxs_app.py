@@ -155,8 +155,8 @@ class WxsApp(object):
         '''
         生成由所里品牌测试切过的图组成的数据集
         '''
-        WxsDsm.generate_wxs_tds_cutted_dataset()
-        #WxsDsm.exp001()
+        #WxsDsm.generate_wxs_tds_cutted_dataset()
+        WxsDsm.exp001()
 
 
         
