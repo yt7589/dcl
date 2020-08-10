@@ -203,7 +203,7 @@ if __name__ == '__main__':
         os.makedirs(save_dir)
     model.cuda()
     #summary(model, (3, 224, 224))
-    if 1>10:
+    if 1>0:
         print('prepare for storing the onnx file')
         example = torch.rand(1, 3, 224, 224).cuda()
         print(example.shape)
@@ -216,7 +216,8 @@ if __name__ == '__main__':
                             training=False, opset_version=9,
                             do_constant_folding=True,
                             dynamic_axes={"data":{0:"batch_size"},     # 批处理变量
-                                    "output":{0:"batch_size"}})
+                                    "output":{0:"batch_size"},
+                                    "501":{0:"batch_size"}})
 
         print('保存成功')
         sys.exit(0)
