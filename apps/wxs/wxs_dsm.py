@@ -2777,6 +2777,6 @@ function nextImg() {
                 idx_list = [x for x in range(len(v))]
                 random.shuffle(idx_list)
                 for i in range(4):
-                    int8_imgs.append(idx_list[i])
+                    int8_imgs.append(v[idx_list[i]])
         for img in int8_imgs:
             print('### {0};'.format(img))
