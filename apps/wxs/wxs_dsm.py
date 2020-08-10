@@ -2765,5 +2765,18 @@ function nextImg() {
                     brand_idx_imgs_dict[brand_idx] = [full_fn]
                 else:
                     brand_idx_imgs_dict[brand_idx].append(full_fn)
+        int8_imgs = []
         for k, v in brand_idx_imgs_dict.items():
             print('{0}: {1};'.format(k, len(v)))
+            img_num = len(v)
+            if img_num < 4:
+                for img_full_fn in v:
+                    int8_imgs.append(img_full_fn)
+            else:
+                # 随机排序
+                idx_list = range(len(v))
+                random.shuffle(idx_list)
+                for i in range(4):
+                    int8_imgs.append(idx_list[i])
+        for img in int8_imgs:
+            print('### {0};'.format(img))
