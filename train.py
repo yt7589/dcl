@@ -203,7 +203,7 @@ if __name__ == '__main__':
         os.makedirs(save_dir)
     model.cuda()
     #summary(model, (3, 224, 224))
-    if 1>0:
+    if 1>10:
         print('prepare for storing the onnx file')
         example = torch.rand(8, 3, 224, 224).cuda()
         print(example.shape)
@@ -211,6 +211,7 @@ if __name__ == '__main__':
         model.eval()
         model.use_dcl = False
         model.use_Asoftmax = False
+        '''
         # 由example这个输入来决定batch
         torch.onnx.export(model, example, "dcl_0810_8.onnx", verbose=False,
                             input_names=["data"], output_names=["brands", "bmys"], \
@@ -225,7 +226,6 @@ if __name__ == '__main__':
                             dynamic_axes={"data":{0:"batch_size"},     # 批处理变量
                                     "brands":{0:"batch_size"},
                                     "bmys":{0:"batch_size"}})
-        '''
         print('保存成功')
         sys.exit(0)
     model = nn.DataParallel(model)
