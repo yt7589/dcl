@@ -2714,12 +2714,11 @@ function nextImg() {
                 arrs_c = img_file.split('_')
                 fn_brand_name = '{0}牌'.format(arrs_c[3])
                 brand_name = brand_idx_brand_name_dict[brand_id]
-                print('{0} vs {1};'.format(brand_name, fn_brand_name))
                 if brand_name != fn_brand_name:
-                    diffs.append('{0} vs {1};'.format(brand_name, fn_brand_name))
-        print('共有{0}个不一样的记录'.format(len(diffs)))
+                    diffs.append('{0} <=> {1};'.format(brand_name, fn_brand_name))
         for di in diffs:
             print(di)
+        print('共有{0}个不一样的记录'.format(len(diffs)))
 
     @staticmethod
     def crop_image_demo():
