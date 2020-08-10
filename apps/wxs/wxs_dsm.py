@@ -2780,3 +2780,4 @@ function nextImg() {
                     int8_imgs.append(v[idx_list[i]])
         for img in int8_imgs:
             print('### {0};'.format(img))
+        print('共有{0}张图片用于int8量化'.format(len(int8_imgs)))
