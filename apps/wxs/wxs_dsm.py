@@ -2715,7 +2715,7 @@ function nextImg() {
                 fn_brand_name = '{0}牌'.format(arrs_c[3])
                 brand_name = brand_idx_brand_name_dict[brand_id]
                 if brand_name != fn_brand_name:
-                    diffs.append('{0} <=> {1};'.format(brand_name, fn_brand_name))
+                    diffs.append('{0} <=> {1}; {2};'.format(brand_name, fn_brand_name, full_fn))
         for di in diffs:
             print(di)
         print('共有{0}个不一样的记录'.format(len(diffs)))
