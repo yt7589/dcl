@@ -2696,7 +2696,7 @@ function nextImg() {
         '''
         with open('./datasets/CUB_200_2011/anno/wxs_brands_cut_ds.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
-                line = line.strio()
+                line = line.strip()
                 arrs_a = line.split('*')
                 brand_id = int(arrs_a[-1])
                 full_fn = arrs_a[0]
