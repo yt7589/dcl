@@ -2694,6 +2694,14 @@ function nextImg() {
         '''
         验证所里测试集品牌标注正确性
         '''
+        brand_idx_brand_name_dict = {}
+        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+            for line in bfd:
+                line = line.strip()
+                arrs_a = line.split(':')
+                brand_idx = int(arrs_a[0])
+                brand_name = arrs_a[1]
+                brand_idx_brand_name_dict[brand_idx] = brand_name
         with open('./datasets/CUB_200_2011/anno/wxs_brands_cut_ds.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
@@ -2704,7 +2712,8 @@ function nextImg() {
                 img_file = arrs_b[-1]
                 arrs_c = img_file.split('_')
                 fn_brand_name = '{0}牌'.format(arrs_c[3])
-                print('{0} vs {1};'.format(brand_id, fn_brand_name))
+                brand_name = brand_idx_brand_name_dict[brand_id]
+                print('{0} vs {1};'.format(brand_name, fn_brand_name))
 
     @staticmethod
     def crop_image_demo():
