@@ -2774,7 +2774,7 @@ function nextImg() {
                     int8_imgs.append(img_full_fn)
             else:
                 # 随机排序
-                idx_list = range(len(v))
+                idx_list = [x for x in range(len(v))]
                 random.shuffle(idx_list)
                 for i in range(4):
                     int8_imgs.append(idx_list[i])
