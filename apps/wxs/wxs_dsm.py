@@ -2694,7 +2694,7 @@ function nextImg() {
         '''
         验证所里测试集品牌标注正确性
         '''
-        with open('./dataset/CUB_200_2011/anno/wxs_brands_cut_ds.txt', 'r', encoding='utf-8') as sfd:
+        with open('./datasets/CUB_200_2011/anno/wxs_brands_cut_ds.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strio()
                 arrs_a = line.split('*')
