@@ -2737,4 +2737,33 @@ function nextImg() {
         plt.imshow(img)
         plt.show()
 
-                
+    @staticmethod
+    def check_wxs_tds_anno():
+        '''
+        检查无锡所测试集人工标注年款正确性，取出文件名中品牌车型年款，
+        从年款编号求出品牌车型年款，再从DCL模型预测出一个品牌车型年款，
+        如果三个不一致，则进行人工审核
+        '''
+        #with open('./datasets/CUB_200_2011/anno/wxs_')
+        pass
+
+    @staticmethod
+    def generate_int8_quant_imgs_by_brand():
+        '''
+        通过随机采样生成int8量化需要的图片，以品牌为控制单位：
+        当品牌下文件小于4个时，全部取；
+        当大于4个时，随机从中取其中4张
+        '''
+        brand_idx_imgs_dict = {}
+        with open('./datasets/CUB_200_2011/anno/train_ds_cut_v1.txt', 'r', encoding='utf-8') as dfd:
+            for line in dfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                brand_idx = int(arrs_a[-1])
+                if brand_idx not in brand_idx_imgs_dict:
+                    brand_idx_imgs_dict[brand_idx] = [full_fn]
+                else:
+                    brand_idx_imgs_dict[brand_idx].append(full_fn)
+        for k, v in brand_idx_imgs_dict.items():
+            print('{0}: {1};'.format(k, len(v)))

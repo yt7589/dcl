@@ -156,7 +156,13 @@ class WxsApp(object):
         生成由所里品牌测试切过的图组成的数据集
         '''
         #WxsDsm.generate_wxs_tds_cutted_dataset()
-        WxsDsm.exp001()
+        '''
+        通过随机采样生成int8量化需要的图片，以品牌为控制单位：
+        当品牌下文件小于4个时，全部取；
+        当大于4个时，随机从中取其中4张
+        '''
+        WxsDsm.generate_int8_quant_imgs_by_brand()
+        #WxsDsm.exp001()
 
 
         
