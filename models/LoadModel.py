@@ -102,7 +102,6 @@ class MainModel(nn.Module):
                 last_x = last_x.view(last_x.size(0), -1)
                 out.append(self.Aclassifier(last_x))
         out.append(y_brand)
-        '''
         if not self.training:
             # 由品牌决定年款输出（仅在实际运行中开启）
             print('Use brand to controll bmy...')
@@ -113,7 +112,6 @@ class MainModel(nn.Module):
                 brand_idx = int(brand_result[idx1].cpu().item())
                 bmy_mask = self.bmy_masks[brand_idx]
                 bmy_out[idx1] = bmy_out[idx1] * bmy_mask
-        '''
         return out
 
     def initialize_bmy_masks(self):
