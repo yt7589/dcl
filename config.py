@@ -101,9 +101,8 @@ class LoadConfig(object):
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
         if 'val' in get_list:
-            '''
             # 所里品牌测试集
-            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'wxs_brands_ds.txt'),\
+            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'wxs_brands_cut_ds.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'task1_label', 'task2_label'])
@@ -113,10 +112,10 @@ class LoadConfig(object):
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
-        if 'test' in get_list:
             '''
+        if 'test' in get_list:
             # 所里品牌测试集
-            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'wxs_brands_ds.txt'),\
+            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'wxs_brands_cut_ds.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'task1_label', 'task2_label'])
@@ -126,6 +125,7 @@ class LoadConfig(object):
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
+            '''
         self.swap_num = args.swap_num
 
         self.save_dir = './net_model/'
