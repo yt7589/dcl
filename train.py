@@ -211,13 +211,13 @@ if __name__ == '__main__':
         model.eval()
         model.use_dcl = False
         model.use_Asoftmax = False
-        torch.onnx.export(model, example, "dcl_0810_2.onnx", verbose=False,
-                            input_names=["data"], output_names=["output"], \
+        torch.onnx.export(model, example, "dcl_0810_3.onnx", verbose=False,
+                            input_names=["data"], output_names=["brands", "bmys"], \
                             training=False, opset_version=9,
                             do_constant_folding=True,
                             dynamic_axes={"data":{0:"batch_size"},     # 批处理变量
-                                    "output":{0:"batch_size"},
-                                    "501":{0:"batch_size"}})
+                                    "brands":{0:"batch_size"},
+                                    "bmys":{0:"batch_size"}})
 
         print('保存成功')
         sys.exit(0)
