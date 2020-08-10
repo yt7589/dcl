@@ -105,7 +105,7 @@ class LoadConfig(object):
             self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'wxs_brands_cut_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'task1_label', 'task2_label'])
+                                           names=['ImageName', 'bmy_label', 'brand_label'])
             '''
             # 正式环境：品牌为主任务
             self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'random_tds_v1.txt'),\
@@ -118,7 +118,7 @@ class LoadConfig(object):
             self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'wxs_brands_cut_ds.txt'),\
                                            sep="*",\
                                            header=None,\
-                                           names=['ImageName', 'task1_label', 'task2_label'])
+                                           names=['ImageName', 'bmy_label', 'brand_label'])
             '''
             # 正式环境：品牌为主任务
             self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'random_tds_v1.txt'),\
