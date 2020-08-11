@@ -2785,3 +2785,39 @@ function nextImg() {
             img_file = arrs_a[-1]
             shutil.copy(img_full_fn, '/media/zjkj/work/yantao/zjkj/int8_images/{0}'.format(img_file))
         print('共有{0}张图片用于int8量化'.format(len(int8_imgs)))
+
+    @staticmethod
+    def get_brand_images_main():
+        '''
+        获取指定品牌在训练数据集和所里测试数据集中的图片，便于对比品牌预测
+        错误图片的原因
+        '''
+        brand_idx = 137 # 威麟
+        dst_folder = '/media/zjkj/work/yantao/zjkj/debug/b_135_137'
+        ds_file = './datasets/CUB_200_2011/anno/train_ds_cut_v1.txt'
+        WxsDsm.get_brand_images(brand_idx, dst_folder, ds_file)
+        #
+        ds_file = './datasets/CUB_200_2011/anno/wxs_brands_cut_ds.txt'
+        WxsDsm.get_brand_images(brand_idx, dst_folder, ds_file)
+        #
+        brand_idx = 135
+        ds_file = './datasets/CUB_200_2011/anno/train_ds_cut_v1.txt'
+        WxsDsm.get_brand_images(brand_idx, dst_folder, ds_file)
+        #
+        ds_file = './datasets/CUB_200_2011/anno/wxs_brands_cut_ds.txt'
+        WxsDsm.get_brand_images(brand_idx, dst_folder, ds_file)
+
+    @staticmethod
+    def get_brand_images(brand_idx, dst_folder, ds_file):
+        with open(ds_file, 'r', encoding='utf-8') as tfd:
+            for line in tfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                pd_brand_idx = int(arrs_a[-1])
+                full_fn = arrs_a[0]
+                arrs_b = full_fn.split('/')
+                img_file = arrs_b[-1]
+                if pd_brand_idx == brand_idx:
+                    shutil.copy(full_fn, '{0}/{1}/{2}'.format(
+                        dst_folder, pd_brand_idx, img_file
+                    ))
