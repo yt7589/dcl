@@ -24,7 +24,12 @@ int main()
     {
         auto maxPositionBrand = std::max_element(net_outputs[0].begin() + in * BRAND_NUM, net_outputs[0].begin() + (in + 1) * BRAND_NUM);
         auto indexBrand = maxPositionBrand - (net_outputs[0].begin() + in * BRAND_NUM);
-        std::cout<<"in="<<in<<"; max="<<*maxPositionBrand<<"; idx="<<indexBrand<<std::endl;
+        std::cout<<"Brand: in="<<in<<"; max="<<*maxPositionBrand<<"; idx="<<indexBrand<<std::endl;
+        std::vector<int> bmyIdxs = brandBmys[indexBrand];
+        for (int i1=0; i1<bmyIdxs.size(); i1++)
+        {
+            std::cout<<bmyIdxs[i1]<<std::endl;
+        }
     }
     return 0;
 }
