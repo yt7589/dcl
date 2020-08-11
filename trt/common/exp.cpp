@@ -4,13 +4,16 @@
 
 const int BRAND_NUM = 3;
 const int BMY_NUM = 5;
+/*
+// for test purpose
 std::vector<std::vector<int>> brandBmys = std::vector<std::vector<int>>{
     {0, 1},
     {1, 2, 3},
     {4}
 };
+*/
 // batchSize = 2
-std::vector<std::vector<int>> brandBmys0 = std::vector<std::vector<int>>{
+std::vector<std::vector<int>> brandBmys = std::vector<std::vector<int>>{
         {0, 34, 1159, 1163, 1171},
         {1, 2, 3, 4, 5, 6, 7, 24, 148, 149, 150, 151, 154, 155, 1148, 1149, 1150, 1151, 1152, 1153, 1154, 1158},
         {8, 9, 10, 11, 30, 31, 32, 75, 81, 87, 94, 99, 274, 316, 320, 357, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 492, 493, 494, 495, 496, 497, 498, 499, 500, 501, 502, 503, 504, 505, 506, 507, 508, 510, 511, 512, 515, 518, 522, 1541, 1615, 1616},
@@ -221,7 +224,7 @@ int main()
 
 
 
-    
+
 
     // print the result
     for (int i=0; i<out_results.size(); i++) 
