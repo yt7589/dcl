@@ -22,10 +22,8 @@ from apps.wxs.wxs_dsm import WxsDsm
 def dt():
     return datetime.datetime.now().strftime("%Y-%m-%d-%H_%M_%S")
 
-def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
-
+def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=None):
     model.train(False)
-
     val_corrects1 = 0
     val_corrects2 = 0
     val_corrects3 = 0
@@ -81,7 +79,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             bmy_correct += batch_bmy_correct
             bb_correct = 0
             # 找出品牌错误的样本，写入文件top1_error_samples
-            with open('./logs/top1_error_samples.txt', 'w+', encoding='utf-8') as efd:
+            if efd is not None:
                 for idx in range(top3_pos.shape[0]):
                     if top3_pos[idx][0] != brand_labels[idx]:
                         efd.write('error sample: {0}*{1}*{2}\n'.format(
@@ -173,7 +171,8 @@ def filter_samples(Config, model, data_loader):
     return val_acc1
 
 def predict_main(Config, model, data_loader, val_version, epoch_num, log_file):
-    eval_turn(Config, model, data_loader, val_version, epoch_num, log_file)
+    with open('./logs/top1_error_samples.txt', 'w+', encoding='utf-8') as efd:
+        eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=efd)
 
 def predict_main_mine(Config, model):
     print('预测图像数据...')
