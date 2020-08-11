@@ -1603,6 +1603,7 @@ function nextImg() {
     @staticmethod
     def fix_test_ds_brand_errors():
         '''
+        将子品牌合并为主品牌
         '''
         bid_brands_dict = {}
         brand_id_brand_name_dict = {}

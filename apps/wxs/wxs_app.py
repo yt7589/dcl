@@ -70,7 +70,10 @@ class WxsApp(object):
         '''
         根据错误分类样本列表，形成便于人工浏览的网页，保存于../../w1/es目录下
         '''
-        #WxsDsm.generate_error_samples_html()
+        WxsDsm.generate_error_samples_html()
+        '''
+        将子品牌合并为主品牌
+        '''
         #WxsDsm.fix_test_ds_brand_errors()
         '''
         获取所里最新Excel表格中的品牌车型年款
@@ -115,7 +118,6 @@ class WxsApp(object):
         只测品牌精度
         '''
         #WxsDsm.generate_wxs_test_dataset()
-        #WxsDsm.exp001()
         '''
         绘制在测试集上的精度变化曲线
         '''
@@ -161,7 +163,7 @@ class WxsApp(object):
         当品牌下文件小于4个时，全部取；
         当大于4个时，随机从中取其中4张
         '''
-        WxsDsm.generate_int8_quant_imgs_by_brand()
+        #WxsDsm.generate_int8_quant_imgs_by_brand()
         #WxsDsm.exp001()
 
 
