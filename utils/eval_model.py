@@ -81,9 +81,13 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file):
             bmy_correct += batch_bmy_correct
             bb_correct = 0
             # 找出品牌错误的样本，写入文件top1_error_samples
-            for idx in range(top3_pos.shape[0]):
-                if top3_pos[idx][0] != brand_labels[idx]:
-                    print('error sample: {0}*{1}*{2};'.format(img_files[idx], brand_labels[idx], top3_pos[idx][0]))
+            with open('./logs/top1_error_samples.txt', 'w+', encoding='utf-8') as efd:
+                for idx in range(top3_pos.shape[0]):
+                    if top3_pos[idx][0] != brand_labels[idx]:
+                        efd.write('error sample: {0}*{1}*{2}\n'.format(
+                            img_files[idx], brand_labels[idx], 
+                            top3_pos[idx][0]
+                        ))
             '''
             # 
             pred_size = top3_pos[:, 0].shape[0]
