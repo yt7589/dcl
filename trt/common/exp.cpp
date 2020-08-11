@@ -33,8 +33,8 @@ int main()
             std::cout<<bmyIdxs[bmyIdx]<<std::endl;
             if (net_outputs[1][in*BMY_NUM + bmyIdx] > maxBmyVal)
             {
-                maxBmyIdx = bmyIdx;
-                maxBmyVal = net_outputs[1][in*BMY_NUM + bmyIdx];
+                maxBmyIdx = bmyIdxs[bmyIdx];
+                maxBmyVal = net_outputs[1][in*BMY_NUM + bmyIdxs[bmyIdx]];
             }
         }
         std::cout<<"idx="<<maxBmyIdx<<"; pos="<<maxBmyVal<<";"<<std::endl;
