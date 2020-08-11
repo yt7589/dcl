@@ -5,6 +5,11 @@
 const int BRAND_NUM = 3;
 const int BMY_NUM = 5;
 // batchSize = 2
+std::vector<std::vector<int>> brandBmys = std::vector<std::vector<int>>{
+    {0, 1},
+    {1, 2, 3},
+    {4}
+};
 
 int main()
 {
