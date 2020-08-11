@@ -221,5 +221,13 @@ int main()
 
 
 
+    
+
+    // print the result
+    for (int i=0; i<out_results.size(); i++) 
+    {
+        std::cout<<"bmyId="<<out_results[i][0]<<"; pos="<<out_results[i][1]<<"!"<<std::endl;
+    }
+
     return 0;
 }
