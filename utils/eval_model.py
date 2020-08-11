@@ -82,7 +82,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=
             if efd is not None:
                 for idx in range(top3_pos.shape[0]):
                     if top3_pos[idx][0] != brand_labels[idx]:
-                        efd.write('error sample: {0}*{1}*{2}\n'.format(
+                        efd.write('{0}*{1}*{2}\n'.format(
                             img_files[idx], brand_labels[idx], 
                             top3_pos[idx][0]
                         ))
