@@ -70,7 +70,7 @@ class WxsApp(object):
         '''
         根据错误分类样本列表，形成便于人工浏览的网页，保存于../../w1/es目录下
         '''
-        WxsDsm.generate_error_samples_html()
+        #WxsDsm.generate_error_samples_html()
         '''
         将子品牌合并为主品牌
         '''
@@ -164,6 +164,11 @@ class WxsApp(object):
         当大于4个时，随机从中取其中4张
         '''
         #WxsDsm.generate_int8_quant_imgs_by_brand()
+        '''
+        获取指定品牌在训练数据集和所里测试数据集中的图片，便于对比品牌预测
+        错误图片的原因
+        '''
+        WxsDsm.get_brand_images_main()
         #WxsDsm.exp001()
 
 
