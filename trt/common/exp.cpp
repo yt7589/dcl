@@ -31,7 +31,7 @@ int main()
         for (int bmyIdx=0; bmyIdx<bmyIdxs.size(); bmyIdx++)
         {
             std::cout<<bmyIdxs[bmyIdx]<<std::endl;
-            if (net_outputs[1][in*BMY_NUM + bmyIdx] > maxBmyVal)
+            if (net_outputs[1][in*BMY_NUM + bmyIdxs[bmyIdx]] > maxBmyVal)
             {
                 maxBmyIdx = bmyIdxs[bmyIdx];
                 maxBmyVal = net_outputs[1][in*BMY_NUM + bmyIdxs[bmyIdx]];
