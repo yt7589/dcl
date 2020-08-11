@@ -136,6 +136,7 @@ class LoadConfig(object):
         self.use_dcl = True
         self.use_backbone = False if self.use_dcl else True
         self.use_Asoftmax = False
+        # 当为True可以提升小样本类别精度
         self.use_focal_loss = False
         self.use_fpn = False
         self.use_hier = False
