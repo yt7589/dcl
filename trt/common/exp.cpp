@@ -2,17 +2,20 @@
 #include <vector>
 #include <algorithm>
 
+
+/*
+// for test purpose(batchSize = 2)
 const int BRAND_NUM = 3;
 const int BMY_NUM = 5;
-/*
-// for test purpose
 std::vector<std::vector<int>> brandBmys = std::vector<std::vector<int>>{
     {0, 1},
     {1, 2, 3},
     {4}
 };
 */
-// batchSize = 2
+
+const int BRAND_NUM = 171; // 品牌数
+const int BMY_NUM = 2822; // 年款数
 std::vector<std::vector<int>> brandBmys = std::vector<std::vector<int>>{
         {0, 34, 1159, 1163, 1171},
         {1, 2, 3, 4, 5, 6, 7, 24, 148, 149, 150, 151, 154, 155, 1148, 1149, 1150, 1151, 1152, 1153, 1154, 1158},
