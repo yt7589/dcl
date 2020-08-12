@@ -199,7 +199,7 @@ class CBmy(object):
                 'model_code': model_vo['model_code'],
                 'source_type': model_vo['source_type']
             }
-            bmy_id_bm_vo_dict[bmy_id] = model_vo
+            bmy_id_bm_vo_dict[bmy_id] = bm_vo
         return bmy_id_bm_vo_dict
 
     
