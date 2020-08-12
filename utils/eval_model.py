@@ -85,11 +85,10 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=
             # 求出车型精度
             batch_bm_correct = 0
             for im in range(bmy_top5_pos.shape[0]):
-                gt_sim_bmy_id = bmy_top5_pos[im][0]
-                net_sim_bmy_id = bmy_labels[im]
-                print('gt: {0}; net: {1};'.format(gt_sim_bmy_id.item(), net_sim_bmy_id.item()))
-                gt_bmy_id = bmy_sim_org_dict[gt_sim_bmy_id].item() + 1
-                net_bmy_id = bmy_sim_org_dict[net_sim_bmy_id].item() + 1
+                gt_sim_bmy_id = bmy_top5_pos[im][0].item()
+                net_sim_bmy_id = bmy_labels[im].item()
+                gt_bmy_id = bmy_sim_org_dict[gt_sim_bmy_id] + 1
+                net_bmy_id = bmy_sim_org_dict[net_sim_bmy_id] + 1
                 gt_bm_vo = bmy_id_bm_vo_dict[gt_bmy_id]
                 net_bm_vo = bmy_id_bm_vo_dict[net_bmy_id]
                 if gt_bm_vo['model_id'] == net_bm_vo['model_id']:
