@@ -2828,8 +2828,8 @@ function nextImg() {
         '''
         获取bmy_id（年款头输出）与车型值对象的字典
         '''
-        bmy_id_model_vo_dict = CBmy.get_bmy_id_bm_vo_dict()
-        np.save('../../w1/bmy_bm.npy', bmy_id_model_vo_dict)
+        #bmy_id_model_vo_dict = CBmy.get_bmy_id_bm_vo_dict()
+        #np.save('../../w1/bmy_bm.npy', bmy_id_model_vo_dict)
         bimvs = np.load('../../w1/bmy_bm.npy', allow_pickle=True).item()
         for k, v in bimvs.items():
-            print('{0}: {1};'.format(k, v))
+            print('### {0}: {1};'.format(k, v))
