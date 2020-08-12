@@ -2842,4 +2842,5 @@ function nextImg() {
                 sim_bmy_id = int(arrs_a[0])
                 org_bmy_id = int(arrs_a[1])
                 bmy_sim_org_dict[sim_bmy_id] = org_bmy_id
+        return bmy_sim_org_dict
         
