@@ -2830,6 +2830,16 @@ function nextImg() {
         '''
         #bmy_id_model_vo_dict = CBmy.get_bmy_id_bm_vo_dict()
         #np.save('../../w1/bmy_bm.npy', bmy_id_model_vo_dict)
-        bimvs = np.load('../../w1/bmy_bm.npy', allow_pickle=True).item()
-        for k, v in bimvs.items():
-            print('### {0}: {1};'.format(k, v))
+        return np.load('../../w1/bmy_bm.npy', allow_pickle=True).item()
+
+    @staticmethod
+    def get_bmy_sim_org_dict():
+        bmy_sim_org_dict = {}
+        with open('../../w1/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as bfd:
+            for line in bfd:
+                line = line.strip()
+                arrs_a = line.split(':')
+                sim_bmy_id = int(arrs_a[0])
+                org_bmy_id = int(arrs_a[1])
+                bmy_sim_org_dict[sim_bmy_id] = org_bmy_id
+        

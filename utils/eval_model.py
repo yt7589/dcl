@@ -28,6 +28,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=
     val_corrects2 = 0
     val_corrects3 = 0
     bmy_correct = 0
+    bm_correct = 0
     bb_correct = 0 # 通过bmy求出的品牌精度
     val_size = data_loader.__len__()
     item_count = data_loader.total_item_len
@@ -42,6 +43,9 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=
     val_loss_recorder = LossRecord(val_batch_size)
     val_celoss_recorder = LossRecord(val_batch_size)
     print('evaluating %s ...'%val_version, flush=True)
+    #
+    bmy_id_bm_vo_dict = WxsDsm.get_bmy_id_bm_vo_dict()
+    bmy_sim_org_dict = WxsDsm.get_bmy_sim_org_dict()
     with torch.no_grad():
         for batch_cnt_val, data_val in enumerate(data_loader):
             inputs = Variable(data_val[0].cuda())
@@ -78,6 +82,18 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=
             batch_bmy_correct = torch.sum((bmy_top5_pos[:, 0] == bmy_labels)).data.item()
             bmy_correct += batch_bmy_correct
             bb_correct = 0
+            # 求出车型精度
+            batch_bm_correct = 0
+            for im in range(bmy_top5_pos.shape[0]):
+                gt_sim_bmy_id = bmy_top5_pos[im][0]
+                net_sim_bmy_id = bmy_labels[im]
+                gt_bmy_id = bmy_sim_org_dict[gt_sim_bmy_id] + 1
+                net_bmy_id = bmy_sim_org_dict[net_sim_bmy_id] + 1
+                gt_bm_vo = bmy_id_bm_vo_dict[gt_bmy_id]
+                net_bm_vo = bmy_id_bm_vo_dict[net_bmy_id]
+                if gt_bm_vo['model_id'] == net_bm_vo['model_id']:
+                    batch_bm_correct += 1
+            bm_correct += batch_bm_correct
             # 找出品牌错误的样本，写入文件top1_error_samples
             if efd is not None:
                 for idx in range(top3_pos.shape[0]):
@@ -105,6 +121,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=
         val_acc2 = val_corrects2 / item_count
         val_acc3 = val_corrects3 / item_count
         bmy_acc = bmy_correct / item_count
+        bm_acc = bm_correct / item_count
         bb_acc = bb_correct / item_count
 
         log_file.write(val_version  + '\t' +str(val_loss_recorder.get_val())+'\t' + str(val_celoss_recorder.get_val()) + '\t' + str(val_acc1) + '\t' + str(val_acc3) + '\n')
@@ -113,7 +130,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=
         t1 = time.time()
         since = t1-t0
         print('--'*30, flush=True)
-        print('% 3d %s %s %s-loss: %.4f || 品牌：%s-acc@1: %.4f %s-acc@2: %.4f %s-acc@3: %.4f; 年款:%.4f; ||time: %d' % (epoch_num, val_version, dt(), val_version, val_loss_recorder.get_val(init=True), val_version, val_acc1,val_version, val_acc2, val_version, val_acc3, bmy_acc, since), flush=True)
+        print('% 3d %s %s %s-loss: %.4f || 品牌：%s-acc@1: %.4f %s-acc@2: %.4f %s-acc@3: %.4f; 车型:%.4f; 年款：%.4f; ||time: %d' % (epoch_num, val_version, dt(), val_version, val_loss_recorder.get_val(init=True), val_version, val_acc1,val_version, val_acc2, val_version, val_acc3, bm_acc, bmy_acc, since), flush=True)
         print('--' * 30, flush=True)
 
     return val_acc1, val_acc2, val_acc3
