@@ -2830,6 +2830,6 @@ function nextImg() {
         '''
         bmy_id_model_vo_dict = CBmy.get_bmy_id_bm_vo_dict()
         np.save('../../w1/bmy_bm.npy', bmy_id_model_vo_dict)
-        bimvs = np.load('../../w1/bmy_bm.npy').item()
+        bimvs = np.load('../../w1/bmy_bm.npy', allow_pickle=True).item()
         for k, v in bimvs.items():
             print('{0}: {1};'.format(k, v))
