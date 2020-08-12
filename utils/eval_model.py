@@ -87,6 +87,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=
             for im in range(bmy_top5_pos.shape[0]):
                 gt_sim_bmy_id = bmy_top5_pos[im][0]
                 net_sim_bmy_id = bmy_labels[im]
+                print('gt: {0}; net: {1};'.format(type(gt_sim_bmy_id), type(net_sim_bmy_id)))
                 gt_bmy_id = bmy_sim_org_dict[gt_sim_bmy_id] + 1
                 net_bmy_id = bmy_sim_org_dict[net_sim_bmy_id] + 1
                 gt_bm_vo = bmy_id_bm_vo_dict[gt_bmy_id]
