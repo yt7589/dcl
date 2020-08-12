@@ -2821,3 +2821,13 @@ function nextImg() {
                     shutil.copy(full_fn, '{0}/{1}/{2}'.format(
                         dst_folder, pd_brand_idx, img_file
                     ))
+
+    
+    @staticmethod
+    def get_bmy_id_bm_vo_dict():
+        '''
+        获取bmy_id（年款头输出）与车型值对象的字典
+        '''
+        bmy_id_model_vo_dict = CBmy.get_bmy_id_bm_vo_dict()
+        for k, v in bmy_id_model_vo_dict.items():
+            print('{0}: {1};'.format(k, v))

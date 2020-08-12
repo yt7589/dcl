@@ -75,3 +75,13 @@ class MBmy(object):
         fields = {'bmy_id': 1, 'brand_id': 1}
         return MMongoDb.convert_recs(MMongoDb.db['t_bmy']\
                     .find(query_cond, fields))
+
+    @staticmethod
+    def get_bmy_id_model_ids():
+        '''
+        获取bmy_id对应model_id的对应关系
+        '''
+        query_cond = {}
+        fields = {'bmy_id': 1, 'model_id': 1}
+        return MMongoDb.convert_recs(MMongoDb.db['t_bmy']\
+                    .find(query_cond, fields))

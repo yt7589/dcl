@@ -168,7 +168,11 @@ class WxsApp(object):
         获取指定品牌在训练数据集和所里测试数据集中的图片，便于对比品牌预测
         错误图片的原因
         '''
-        WxsDsm.get_brand_images_main()
+        #WxsDsm.get_brand_images_main()
+        '''
+        获取bmy_id（年款头输出）与车型值对象的字典
+        '''
+        WxsDsm.get_bmy_id_bm_vo_dict()
         #WxsDsm.exp001()
 
 

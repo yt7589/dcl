@@ -1,4 +1,5 @@
 # 
+from os import stat
 import pymongo
 from apps.wxs.model.m_mongodb import MMongoDb
 
@@ -28,4 +29,10 @@ class MModel(object):
     def get_model_by_name(model_name):
         query_cond = {'model_name': model_name}
         fields = {'model_id': 1, 'model_name': 1, 'model_code': 1, 'model_num': 1}
+        return MMongoDb.db['t_model'].find_one(query_cond, fields)
+
+    @staticmethod
+    def get_model_vo_by_id(model_id):
+        query_cond = {'model_id': model_id}
+        fields = {'model_name': 1, 'model_code': 1, 'source_type': 1}
         return MMongoDb.db['t_model'].find_one(query_cond, fields)
