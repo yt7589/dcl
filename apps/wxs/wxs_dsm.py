@@ -2882,49 +2882,26 @@ function nextImg() {
                     wfd.write('{0}*{1}\n'.format(full_fn, img_file_bmy_id_dict[img_file]))
                 else:
                     missed_num += 1
-        print('样本总数为：{0}个'.format(missed_num))
+        print('未标注样本总数为：{0}个'.format(missed_num))
 
-        i_debug = 1
-        if 1 == i_debug:
-            return
-        # 从org_bmy_id找到sim_bmy_id
-        bmy_org_sim_dict = {}
-        with open('../../w1/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as osfd:
-            for line in osfd:
+    @staticmethod
+    def generate_cut_wxs_tds_merged_raw_ds():
+        '''
+        生成由切图过图像和所里切图过测试集合并在一起的原始数据（bmyId为原始值）
+        '''
+        # 读入图片文件名与年款编号的对应关系字典
+        img_file_2_org_bmy_id_dict = {}
+        with open('../../w1/raw_bid_train_ds.txt', 'r', encoding='utf-8') as rfd:
+            for line in rfd:
                 line = line.strip()
-                arrs_a = line.split(':')
-                org_bmy_id = int(arrs_a[0])
-                sim_bmy_id = int(arrs_a[1])
-                bmy_org_sim_dict[org_bmy_id] = sim_bmy_id
-        # 获取sim_bmy_id_dict
-        sim_bmy_id_dict = {}
-        idx = 0
-        with open('../../w1/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
-            for line in cfd:
-                line = line.strip()
-                arrs_a = line.split(',')
-                bmy_name = '{0}-{1}-{2}'.format(arrs_a[0], arrs_a[1], arrs_a[2])
-                sim_bmy_id_dict[idx] = bmy_name
-                idx += 1
-        bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
-        unknown_samples = []
-        samples = []
-        unknown_bmy_id_set = set()
-        missing_files = set()
-        with open('../../w1/wxs_tds_bmy.csv', 'r', encoding='utf-8') as tfd:
-            for line in tfd:
-                line = line.strip()
-                arrs_a = line.split(',')
-                rel_img_file = arrs_a[0]
-                if arrs_a[1] == '':
-                    unknown_samples.append(rel_img_file)
-                else:
-                    org_bmy_id = int(arrs_a[1])
-                    arrs_b = rel_img_file.split('/')
-                    img_file = arrs_b[-1]
-                    if img_file in img_file_full_fn_dict:
-                        print('{0}*{1};'.format(img_file_full_fn_dict[img_file], org_bmy_id))
-                    else:
-                        missing_files.add(img_file)
-        print('共有{0}个未知样本'.format(len(unknown_samples)))
-        print('共有{0}个缺失图片'.format(len(missing_files)))
+                arrs_a = line.split('*')
+                org_bmy_id = int(arrs_a[1])
+                arrs_b = arrs_a[0].split('/')
+                img_file = arrs_b[-1]
+                img_file_2_org_bmy_id_dict[img_file] = org_bmy_id
+        for k, v in img_file_2_org_bmy_id_dict.items():
+            print('{0}: {1};'.format(k, v))
+        # 读入train_ds目录下切过的图，由图片文件名与年款编号的对应关系字典求出
+        # 年款编号
+        # 读入无锡所切图过的测试原始数据集
+        # 将所有内容写入到原始数据集文件中

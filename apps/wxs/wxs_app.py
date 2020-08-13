@@ -176,7 +176,11 @@ class WxsApp(object):
         '''
         将无锡所测试集年款信息添加到训练集中进行训练
         '''
-        WxsDsm.integrate_wxs_tds_bmy()
+        #WxsDsm.integrate_wxs_tds_bmy()
+        '''
+        生成由切图过图像和所里切图过测试集合并在一起的原始数据（bmyId为原始值）
+        '''
+        WxsDsm.generate_cut_wxs_tds_merged_raw_ds()
         #WxsDsm.exp001()
 
 
