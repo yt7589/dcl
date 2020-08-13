@@ -2858,11 +2858,6 @@ function nextImg() {
                     arrs_a = full_fn.split('/')
                     img_file = arrs_a[-1]
                     img_file_full_fn_dict[img_file] = full_fn
-        for k, v in img_file_full_fn_dict.items():
-            print('### {0}: {1};'.format(k, v))
-        i_debug = 1
-        if 1 == i_debug:
-            return
         # 从org_bmy_id找到sim_bmy_id
         bmy_org_sim_dict = {}
         with open('../../w1/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as osfd:
@@ -2900,11 +2895,9 @@ function nextImg() {
                         sim_bmy_id = bmy_org_sim_dict[org_bmy_id]
                         bmy_name = sim_bmy_id_dict[sim_bmy_id]
                         print('??? {0} <=> {1};'.format(rel_img_file, bmy_name))
-                        samples.append({
-                            'img_file': rel_img_file,
-                            'bmy_id': sim_bmy_id,
-                            'brand_idx': 0
-                        })
+                        arrs_b = rel_img_file.split('/')
+                        img_file = arrs_b[-1]
+                        print('{0}*{1};'.format(img_file_full_fn_dict[img_file], sim_bmy_id))
                     else:
                         unknown_bmy_id_set.add(org_bmy_id+1)
         print('共有{0}个未知样本'.format(len(unknown_samples)))     
