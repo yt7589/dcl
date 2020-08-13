@@ -2873,15 +2873,16 @@ function nextImg() {
                 else:
                     org_bmy_id = -1
                 img_file_bmy_id_dict[img_file] = org_bmy_id
-        sample_num = 0
+        missed_num = 0
         with open('../../w1/wxs_tds_v2.txt', 'w+', encoding='utf-8') as wfd:
             for k, v in img_file_full_fn_dict.items():
                 img_file = k
                 full_fn = v
                 if img_file in img_file_bmy_id_dict and img_file_bmy_id_dict[img_file] >= 0:
                     wfd.write('{0}*{1}\n'.format(full_fn, img_file_bmy_id_dict[img_file]))
-                    sample_num += 1
-        print('样本总数为：{0}个'.format(sample_num))
+                else:
+                    missed_num += 1
+        print('样本总数为：{0}个'.format(missed_num))
 
         i_debug = 1
         if 1 == i_debug:
