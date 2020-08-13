@@ -2849,6 +2849,21 @@ function nextImg() {
         '''
         将无锡所测试集年款信息添加到训练集中进行训练
         '''
+        # 从org_bmy_id找到sim_bmy_id
+        bmy_org_sim_dict = {}
+        with open('../../w1/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as osfd:
+            for line in osfd:
+                line = line.strip()
+                arrs_a = line.split(':')
+                org_bmy_id = int(arrs_a[0])
+                sim_bmy_id = int(arrs_a[1])
+                bmy_org_sim_dict[org_bmy_id] = sim_bmy_id
+        for k, v in bmy_org_sim_dict.items():
+            print('### {0}: {1};'.format(k, v))
+        i_debug = 1
+        if 1 == i_debug:
+            return
+        # 获取sim_bmy_id_dict
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         unknown_samples = []
         samples = []
