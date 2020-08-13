@@ -77,8 +77,8 @@ class LoadConfig(object):
             self.rawdata_root = '/media/zjkj/work/vehicle_type_v2d/vehicle_type_v2d'
             self.anno_root = './datasets/CUB_200_2011/anno'
             #self.numcls = 0
-            self.num_brands = 171 # 品牌数 v0.0.1
-            self.num_bmys = 2822 # 年款数
+            self.num_brands = 177 # 品牌数 
+            self.num_bmys = 2914 # 年款数
         elif args.dataset == 'STCAR':
             self.dataset = args.dataset
             self.rawdata_root = './dataset/st_car/data'
@@ -96,7 +96,7 @@ class LoadConfig(object):
         # path/image_name cls_num\n
 
         if 'train' in get_list:
-            self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'train_ds_cut_v1.txt'),\
+            self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_train_ds.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
@@ -109,7 +109,7 @@ class LoadConfig(object):
                                            names=['ImageName', 'bmy_label', 'brand_label'])
             '''
             # 正式环境：品牌为主任务
-            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'random_tds_v1.txt'),\
+            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
@@ -122,7 +122,7 @@ class LoadConfig(object):
                                            names=['ImageName', 'bmy_label', 'brand_label'])
             '''
             # 正式环境：品牌为主任务
-            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'random_tds_v1.txt'),\
+            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
