@@ -2849,11 +2849,15 @@ function nextImg() {
         '''
         将无锡所测试集年款信息添加到训练集中进行训练
         '''
+        unknown_samples = []
+        samples = []
         with open('../../w1/wxs_tds_bmy.csv', 'r', encoding='utf-8') as tfd:
             for line in tfd:
                 line = line.strip()
                 arrs_a = line.split(',')
-                print('{0}={1}'.format(arrs_a[0], arrs_a[1]))
+                rel_img_file = arrs_a[0]
                 if arrs_a[1] == '':
-                    print('********************* {0};'.format(arrs_a[0]))
-        
+                    unknown_samples.append()
+                else:
+                    bmy_id = int(arrs_a[1])
+        print('共有{0}个未知记录'.format(len(unknown_samples)))        
