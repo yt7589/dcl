@@ -2858,12 +2858,20 @@ function nextImg() {
                 org_bmy_id = int(arrs_a[0])
                 sim_bmy_id = int(arrs_a[1])
                 bmy_org_sim_dict[org_bmy_id] = sim_bmy_id
-        for k, v in bmy_org_sim_dict.items():
-            print('### {0}: {1};'.format(k, v))
+        # 获取sim_bmy_id_dict
+        sim_bmy_id_dict = {}
+        idx = 0
+        with open('../../w1/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
+            for line in cfd:
+                line = line.strip()
+                arrs_a = line.split(',')
+                bmy_name = '{0}-{1}-{2}'.format(arrs_a[0], arrs_a[1], arrs_a[2])
+                sim_bmy_id_dict[idx] = bmy_name
+        for k, v in sim_bmy_id_dict.items():
+            print('@@@ {0}: {1};'.format(k, v))
         i_debug = 1
         if 1 == i_debug:
             return
-        # 获取sim_bmy_id_dict
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         unknown_samples = []
         samples = []
