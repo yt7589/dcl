@@ -2873,6 +2873,7 @@ function nextImg() {
                 else:
                     org_bmy_id = -1
                 img_file_bmy_id_dict[img_file] = org_bmy_id
+                print('### {0} => {1};'.format(img_file, org_bmy_id))
         sample_num = 0
         for k, v in img_file_full_fn_dict.items():
             img_file = k
