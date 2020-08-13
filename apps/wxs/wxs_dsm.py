@@ -2861,6 +2861,27 @@ function nextImg() {
                     img_file_full_fn_dict[img_file] = full_fn
                     num += 1
         print('共有{0}个文件'.format(num))
+        img_file_bmy_id_dict = {}
+        with open('../../w1/wxs_tds_bmy.csv', 'r', encoding='utf-8') as tfd:
+            for line in tfd:
+                line = line.strip()
+                arrs_a = line.split(',')
+                arrs_b = arrs_a[0]
+                img_file = arrs_b[-1]
+                if arrs_a[1] != '':
+                    org_bmy_id = int(arrs_a[1])
+                else:
+                    org_bmy_id = -1
+                img_file_bmy_id_dict[img_file] = org_bmy_id
+        sample_num = 0
+        for k, v in img_file_full_fn_dict.items():
+            img_file = k
+            full_fn = v
+            if img_file in img_file_bmy_id_dict and img_file_bmy_id_dict[img_file] >= 0:
+                print('{0}*{1};'.format(full_fn, img_file_bmy_id_dict[img_file]))
+                sample_num += 1
+        print('样本总数为：{0}个'.format(sample_num))
+
         i_debug = 1
         if 1 == i_debug:
             return
