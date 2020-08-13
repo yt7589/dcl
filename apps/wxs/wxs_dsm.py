@@ -2881,6 +2881,7 @@ function nextImg() {
         unknown_samples = []
         samples = []
         unknown_bmy_id_set = set()
+        missing_files = set()
         with open('../../w1/wxs_tds_bmy.csv', 'r', encoding='utf-8') as tfd:
             for line in tfd:
                 line = line.strip()
@@ -2894,15 +2895,14 @@ function nextImg() {
                     if org_bmy_id in bmy_org_sim_dict:
                         sim_bmy_id = bmy_org_sim_dict[org_bmy_id]
                         bmy_name = sim_bmy_id_dict[sim_bmy_id]
-                        print('??? {0} <=> {1};'.format(rel_img_file, bmy_name))
                         arrs_b = rel_img_file.split('/')
                         img_file = arrs_b[-1]
                         if img_file in img_file_full_fn_dict:
                             print('{0}*{1};'.format(img_file_full_fn_dict[img_file], sim_bmy_id))
                         else:
-                            print('??????????????????/ {0};'.format(img_file))
+                            missing_files.add(img_file)
                     else:
                         unknown_bmy_id_set.add(org_bmy_id+1)
         print('共有{0}个未知样本'.format(len(unknown_samples)))     
         print('共有{0}个未知年款'.format(len(unknown_bmy_id_set)))   
-        print('共有{0}条测试集样本'.format(len(samples)))
+        print('共有{0}个缺失图片'.format(len(missing_files)))
