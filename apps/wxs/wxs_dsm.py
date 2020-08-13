@@ -2860,7 +2860,7 @@ function nextImg() {
                 if arrs_a[1] == '':
                     unknown_samples.append(rel_img_file)
                 else:
-                    bmy_id = int(arrs_a[1])
+                    bmy_id = int(arrs_a[1]) + 1
                     bmy_name = bmy_id_bmy_vo_dict[bmy_id]
                     print('{0} <=> {1};'.format(rel_img_file, bmy_name))
         print('共有{0}个未知记录'.format(len(unknown_samples)))        
