@@ -2843,4 +2843,17 @@ function nextImg() {
                 org_bmy_id = int(arrs_a[1])
                 bmy_sim_org_dict[sim_bmy_id] = org_bmy_id
         return bmy_sim_org_dict
+
+    @staticmethod
+    def integrate_wxs_tds_bmy():
+        '''
+        将无锡所测试集年款信息添加到训练集中进行训练
+        '''
+        with open('../../w1/wxs_tds_bmy.txt', 'r', encoding='utf-8') as tfd:
+            for line in tfd:
+                line = line.strip()
+                arrs_a = line.split(',')
+                print('{0}={1}'.format(arrs_a[0], arrs_a[1]))
+                if arrs_a[1] == '':
+                    print('********************* {0};'.format(arrs_a[0]))
         

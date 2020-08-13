@@ -172,7 +172,11 @@ class WxsApp(object):
         '''
         获取bmy_id（年款头输出）与车型值对象的字典
         '''
-        WxsDsm.get_bmy_id_bm_vo_dict()
+        #WxsDsm.get_bmy_id_bm_vo_dict()
+        '''
+        将无锡所测试集年款信息添加到训练集中进行训练
+        '''
+        WxsDsm.integrate_wxs_tds_bmy()
         #WxsDsm.exp001()
 
 
