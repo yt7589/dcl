@@ -2871,7 +2871,7 @@ function nextImg() {
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         unknown_samples = []
         samples = []
-        unknown_bmy_ids = []
+        unknown_bmy_id_set = set()
         with open('../../w1/wxs_tds_bmy.csv', 'r', encoding='utf-8') as tfd:
             for line in tfd:
                 line = line.strip()
@@ -2887,6 +2887,6 @@ function nextImg() {
                         bmy_name = sim_bmy_id_dict[sim_bmy_id]
                         print('??? {0} <=> {1};'.format(rel_img_file, bmy_name))
                     else:
-                        unknown_bmy_ids.append(org_bmy_id+1)
+                        unknown_bmy_id_set.add(org_bmy_id+1)
         print('共有{0}个未知样本'.format(len(unknown_samples)))     
-        print('共有{0}个未知年款'.format(len(unknown_bmy_ids)))   
+        print('共有{0}个未知年款'.format(len(unknown_bmy_id_set)))   
