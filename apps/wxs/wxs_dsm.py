@@ -733,7 +733,9 @@ class WxsDsm(object):
         bmy_set = set()
         sim_org_dict = {}
         org_sim_dict = {}
-        with open('../../w1/raw_bid_train_ds.txt', 'r', encoding='utf-8') as fd:
+        # raw_ds = '../../w1/raw_bid_train_ds.txt'
+        raw_ds = '../../w1/raw_bid_train_ds_v001.txt'
+        with open(raw_ds, 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
                 arrs0 = line.split('*')
@@ -753,9 +755,9 @@ class WxsDsm(object):
             for kos, vos in org_sim_dict.items():
                 osfd.write('{0}:{1}\n'.format(kos, vos))
         # 生成新的训练数据集
-        WxsDsm.simplify_bid_ds(org_sim_dict, '../../w1/bid_train_ds.txt', '../../w1/raw_bid_train_ds.txt')
+        WxsDsm.simplify_bid_ds(org_sim_dict, '../../w1/bid_train_ds.txt', raw_ds)
         # 生成新的测试数据集
-        WxsDsm.simplify_bid_ds(org_sim_dict, '../../w1/bid_test_ds.txt', '../../w1/raw_bid_test_ds.txt')
+        #WxsDsm.simplify_bid_ds(org_sim_dict, '../../w1/bid_test_ds.txt', '../../w1/raw_bid_test_ds.txt')
         # 生成新寒武纪需要的标签文件
         WxsDsm.generate_cambricon_labels(sim_org_dict)
     
