@@ -2897,7 +2897,10 @@ function nextImg() {
                         print('??? {0} <=> {1};'.format(rel_img_file, bmy_name))
                         arrs_b = rel_img_file.split('/')
                         img_file = arrs_b[-1]
-                        print('{0}*{1};'.format(img_file_full_fn_dict[img_file], sim_bmy_id))
+                        if img_file in img_file_full_fn_dict:
+                            print('{0}*{1};'.format(img_file_full_fn_dict[img_file], sim_bmy_id))
+                        else:
+                            print('??????????????????/ {0};'.format(img_file))
                     else:
                         unknown_bmy_id_set.add(org_bmy_id+1)
         print('共有{0}个未知样本'.format(len(unknown_samples)))     
