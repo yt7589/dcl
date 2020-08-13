@@ -2849,6 +2849,7 @@ function nextImg() {
         '''
         将无锡所测试集年款信息添加到训练集中进行训练
         '''
+        num = 0
         img_file_full_fn_dict = {}
         base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds')
         for sub1_obj in base_path.iterdir():
@@ -2858,6 +2859,11 @@ function nextImg() {
                     arrs_a = full_fn.split('/')
                     img_file = arrs_a[-1]
                     img_file_full_fn_dict[img_file] = full_fn
+                    num += 1
+        print('共有{0}个文件'.format(num))
+        i_debug = 1
+        if 1 == i_debug:
+            return
         # 从org_bmy_id找到sim_bmy_id
         bmy_org_sim_dict = {}
         with open('../../w1/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as osfd:
@@ -2891,18 +2897,11 @@ function nextImg() {
                     unknown_samples.append(rel_img_file)
                 else:
                     org_bmy_id = int(arrs_a[1])
-                    #bmy_name = bmy_id_bmy_vo_dict[org_bmy_id + 1]
-                    if org_bmy_id in bmy_org_sim_dict:
-                        sim_bmy_id = bmy_org_sim_dict[org_bmy_id]
-                        bmy_name = sim_bmy_id_dict[sim_bmy_id]
-                        arrs_b = rel_img_file.split('/')
-                        img_file = arrs_b[-1]
-                        if img_file in img_file_full_fn_dict:
-                            print('{0}*{1};'.format(img_file_full_fn_dict[img_file], sim_bmy_id))
-                        else:
-                            missing_files.add(img_file)
+                    arrs_b = rel_img_file.split('/')
+                    img_file = arrs_b[-1]
+                    if img_file in img_file_full_fn_dict:
+                        print('{0}*{1};'.format(img_file_full_fn_dict[img_file], org_bmy_id))
                     else:
-                        unknown_bmy_id_set.add(org_bmy_id+1)
-        print('共有{0}个未知样本'.format(len(unknown_samples)))     
-        print('共有{0}个未知年款'.format(len(unknown_bmy_id_set)))   
+                        missing_files.add(img_file)
+        print('共有{0}个未知样本'.format(len(unknown_samples)))
         print('共有{0}个缺失图片'.format(len(missing_files)))
