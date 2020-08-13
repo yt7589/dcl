@@ -2866,7 +2866,7 @@ function nextImg() {
             for line in tfd:
                 line = line.strip()
                 arrs_a = line.split(',')
-                arrs_b = arrs_a[0]
+                arrs_b = arrs_a[0].split('/')
                 img_file = arrs_b[-1]
                 if arrs_a[1] != '':
                     org_bmy_id = int(arrs_a[1])
