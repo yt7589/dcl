@@ -2849,7 +2849,7 @@ function nextImg() {
         '''
         将无锡所测试集年款信息添加到训练集中进行训练
         '''
-        with open('../../w1/wxs_tds_bmy.txt', 'r', encoding='utf-8') as tfd:
+        with open('../../w1/wxs_tds_bmy.csv', 'r', encoding='utf-8') as tfd:
             for line in tfd:
                 line = line.strip()
                 arrs_a = line.split(',')
