@@ -2899,9 +2899,21 @@ function nextImg() {
                 arrs_b = arrs_a[0].split('/')
                 img_file = arrs_b[-1]
                 img_file_2_org_bmy_id_dict[img_file] = org_bmy_id
-        for k, v in img_file_2_org_bmy_id_dict.items():
-            print('{0}: {1};'.format(k, v))
         # 读入train_ds目录下切过的图，由图片文件名与年款编号的对应关系字典求出
         # 年款编号
+        samples = []
+        base_path = Path('/media/zjkj/work/yantao/zjkj/train_ds')
+        for vc_obj in base_path.iterdir():
+            for file_obj in vc_obj.iterdir():
+                full_fn = str(file_obj)
+                arrs_a = full_fn.split('/')
+                img_file = arrs_a[-1]
+                org_bmy_id = img_file_2_org_bmy_id_dict[img_file]
+                samples.append({
+                    'img_full_fn': full_fn,
+                    'org_bmy_id': org_bmy_id
+                })
+        for s in samples:
+            print(s)
         # 读入无锡所切图过的测试原始数据集
         # 将所有内容写入到原始数据集文件中
