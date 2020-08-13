@@ -2849,6 +2849,20 @@ function nextImg() {
         '''
         将无锡所测试集年款信息添加到训练集中进行训练
         '''
+        img_file_full_fn_dict = {}
+        base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds')
+        for sub1_obj in base_path.iterdir():
+            for sub2_obj in sub1_obj.iterdir():
+                for file_obj in sub2_obj.iterdir():
+                    full_fn = str(file_obj)
+                    arrs_a = full_fn.split('/')
+                    img_file = arrs_a[-1]
+                    img_file_full_fn_dict[img_file] = full_fn
+        for k, v in img_file_full_fn_dict.items():
+            print('### {0}: {1};'.format(k, v))
+        i_debug = 1
+        if 1 == i_debug:
+            return
         # 从org_bmy_id找到sim_bmy_id
         bmy_org_sim_dict = {}
         with open('../../w1/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as osfd:
