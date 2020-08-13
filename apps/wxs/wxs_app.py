@@ -36,7 +36,7 @@ class WxsApp(object):
         '''
         向数据集中加入品牌信息
         '''
-        WxsDsm.convert_to_brand_ds_main()
+        #WxsDsm.convert_to_brand_ds_main()
         '''
         找出损坏的图片文件
         '''
@@ -104,7 +104,7 @@ class WxsApp(object):
         实现先预测出品牌类别，然后从年款头中除该品牌对应的年款索引外的其他
         类别全部清零，将年款头的内容输出作为输出
         '''
-        #WxsDsm.bind_brand_head_bmy_head()
+        WxsDsm.bind_brand_head_bmy_head()
         '''
         求出无锡所测试集品牌与当前涉及的171个品牌的不同
         '''
