@@ -2886,7 +2886,13 @@ function nextImg() {
                         sim_bmy_id = bmy_org_sim_dict[org_bmy_id]
                         bmy_name = sim_bmy_id_dict[sim_bmy_id]
                         print('??? {0} <=> {1};'.format(rel_img_file, bmy_name))
+                        samples.append({
+                            'img_file': rel_img_file,
+                            'bmy_id': sim_bmy_id,
+                            'brand_idx': 0
+                        })
                     else:
                         unknown_bmy_id_set.add(org_bmy_id+1)
         print('共有{0}个未知样本'.format(len(unknown_samples)))     
         print('共有{0}个未知年款'.format(len(unknown_bmy_id_set)))   
+        print('共有{0}条测试集样本'.format(len(samples)))
