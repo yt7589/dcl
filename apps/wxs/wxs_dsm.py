@@ -2857,7 +2857,7 @@ function nextImg() {
                 arrs_a = line.split(',')
                 rel_img_file = arrs_a[0]
                 if arrs_a[1] == '':
-                    unknown_samples.append()
+                    unknown_samples.append(rel_img_file)
                 else:
                     bmy_id = int(arrs_a[1])
         print('共有{0}个未知记录'.format(len(unknown_samples)))        
