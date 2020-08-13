@@ -2849,6 +2849,7 @@ function nextImg() {
         '''
         将无锡所测试集年款信息添加到训练集中进行训练
         '''
+        bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         unknown_samples = []
         samples = []
         with open('../../w1/wxs_tds_bmy.csv', 'r', encoding='utf-8') as tfd:
@@ -2860,4 +2861,6 @@ function nextImg() {
                     unknown_samples.append(rel_img_file)
                 else:
                     bmy_id = int(arrs_a[1])
+                    bmy_name = bmy_id_bmy_vo_dict[bmy_id]
+                    print('{0} <=> {1};'.format(rel_img_file, bmy_name))
         print('共有{0}个未知记录'.format(len(unknown_samples)))        
