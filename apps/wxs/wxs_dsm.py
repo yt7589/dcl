@@ -2867,6 +2867,7 @@ function nextImg() {
                 arrs_a = line.split(',')
                 bmy_name = '{0}-{1}-{2}'.format(arrs_a[0], arrs_a[1], arrs_a[2])
                 sim_bmy_id_dict[idx] = bmy_name
+                idx += 1
         for k, v in sim_bmy_id_dict.items():
             print('@@@ {0}: {1};'.format(k, v))
         i_debug = 1
