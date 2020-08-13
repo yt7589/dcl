@@ -2899,6 +2899,7 @@ function nextImg() {
                 arrs_b = arrs_a[0].split('/')
                 img_file = arrs_b[-1]
                 img_file_2_org_bmy_id_dict[img_file] = org_bmy_id
+        print('读入图片文件名与年款编号（-1）字典...')
         # 读入train_ds目录下切过的图，由图片文件名与年款编号的对应关系字典求出
         # 年款编号
         samples = []
@@ -2913,7 +2914,20 @@ function nextImg() {
                     'img_full_fn': full_fn,
                     'org_bmy_id': org_bmy_id
                 })
-        for s in samples:
-            print(s)
+        print('读入切过图的训练集图片文件，并生成原始训练集...')
         # 读入无锡所切图过的测试原始数据集
+        with open('../../w1/wxs_tds_v2.txt', 'r', encoding='utf-8') as afd:
+            for line in afd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                org_bmy_id = arrs_a[1]
+                samples.append({
+                    'img_full_fn': full_fn,
+                    'org_bmy_id': org_bmy_id
+                })
+        print('将无锡所测试集加入训练集')
         # 将所有内容写入到原始数据集文件中
+        with open('../../w1/raw_bid_train_ds_v001.txt', 'w+', encoding='utf-8') as wfd:
+            for sample in samples:
+                wfd.write('{0}*{1}\n'.format(sample['img_full_fn'], sample['org_bmy_id']))
