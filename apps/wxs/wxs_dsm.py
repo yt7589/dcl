@@ -2868,11 +2868,6 @@ function nextImg() {
                 bmy_name = '{0}-{1}-{2}'.format(arrs_a[0], arrs_a[1], arrs_a[2])
                 sim_bmy_id_dict[idx] = bmy_name
                 idx += 1
-        for k, v in sim_bmy_id_dict.items():
-            print('@@@ {0}: {1};'.format(k, v))
-        i_debug = 1
-        if 1 == i_debug:
-            return
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         unknown_samples = []
         samples = []
@@ -2885,6 +2880,8 @@ function nextImg() {
                     unknown_samples.append(rel_img_file)
                 else:
                     org_bmy_id = int(arrs_a[1])
-                    bmy_name = bmy_id_bmy_vo_dict[org_bmy_id + 1]
-                    print('{0} <=> {1};'.format(rel_img_file, bmy_name))
+                    #bmy_name = bmy_id_bmy_vo_dict[org_bmy_id + 1]
+                    sim_bmy_id = bmy_org_sim_dict[org_bmy_id]
+                    bmy_name = sim_bmy_id_dict[sim_bmy_id]
+                    print('??? {0} <=> {1};'.format(rel_img_file, bmy_name))
         print('共有{0}个未知记录'.format(len(unknown_samples)))        
