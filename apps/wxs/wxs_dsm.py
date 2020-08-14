@@ -2941,7 +2941,7 @@ function nextImg() {
         '''
         # 找出已经标注过年款的图片文件名
         img_file_has_bmy_set = set()
-        with open('../../w1/wxs_tds_bmy.csv', 'w+', encoding='utf-8') as cfd:
+        with open('../../w1/wxs_tds_bmy.csv', 'r', encoding='utf-8') as cfd:
             for line in cfd:
                 line = line.strip()
                 arrs_a = line.split(',')
