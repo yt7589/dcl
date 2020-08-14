@@ -2964,7 +2964,7 @@ function nextImg() {
                         to_anno_images.append(full_fn)
         print('共有{0}条需要标注'.format(len(to_anno_images)))
         # 拷贝图片文件
-        dst_folder = '/media/zjkj/work/yantao/zjkj/to_anno/images'
+        dst_folder = '/media/zjkj/work/yantao/w1/to_anno/images'
         for full_fn in to_anno_images:
             arrs_a = full_fn.split('/')
             img_file = arrs_a[-1]
