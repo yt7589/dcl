@@ -2963,4 +2963,4 @@ function nextImg() {
                         to_anno_images.append(full_fn)
         for fn in to_anno_images:
             print('## {0};'.format(fn))
-        print('共有{0}条需要标注'.format(len(to_ann_images)))
+        print('共有{0}条需要标注'.format(len(to_anno_images)))
