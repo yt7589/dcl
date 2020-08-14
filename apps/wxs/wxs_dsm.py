@@ -2963,3 +2963,9 @@ function nextImg() {
                     if img_file not in img_file_has_bmy_set:
                         to_anno_images.append(full_fn)
         print('共有{0}条需要标注'.format(len(to_anno_images)))
+        # 拷贝图片文件
+        dst_folder = '/media/zjkj/work/yantao/zjkj/to_anno/images'
+        for full_fn in to_anno_images:
+            arrs_a = full_fn.split('/')
+            img_file = arrs_a[-1]
+            shutil.copy(full_fn, '{0}/{1}'.format(dst_folder, img_file))
