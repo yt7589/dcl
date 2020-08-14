@@ -2933,3 +2933,34 @@ function nextImg() {
         with open('../../w1/raw_bid_train_ds_v001.txt', 'w+', encoding='utf-8') as wfd:
             for sample in samples:
                 wfd.write('{0}*{1}\n'.format(sample['img_full_fn'], sample['org_bmy_id']))
+
+    @staticmethod
+    def get_to_anno_wxs_tds():
+        '''
+        找出无锡所测试集中需要标注年款的记录
+        '''
+        # 找出已经标注过年款的图片文件名
+        img_file_has_bmy_set = set()
+        with open('../../w1/wxs_tds_bmy.csv', 'w+', encoding='utf-8') as cfd:
+            for line in cfd:
+                line = line.strip()
+                arrs_a = line.split(',')
+                rel_img_file = arrs_a[0]
+                arrs_b = rel_img_file.split('/')
+                img_file = arrs_b[-1]
+                if arrs_a[1] != '':
+                    img_file_has_bmy_set.add(img_file)
+        # 找出无锡所测试集中文件名与全路径文件名的字典
+        to_anno_images = []
+        base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds')
+        for sub1_obj in base_path.iterdir():
+            for sub2_obj in sub1_obj.iterdir():
+                for file_obj in sub2_obj.iterdir():
+                    full_fn = str(file_obj)
+                    arrs_a = full_fn.split('/')
+                    img_file = arrs_a[0]
+                    if img_file not in img_file_has_bmy_set:
+                        to_anno_images.append(full_fn)
+        for fn in to_anno_images:
+            print('## {0};'.format(fn))
+        print('共有{0}条需要标注'.format(len(to_ann_images)))
