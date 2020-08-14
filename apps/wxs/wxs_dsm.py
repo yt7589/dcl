@@ -2950,6 +2950,7 @@ function nextImg() {
                 img_file = arrs_b[-1]
                 if arrs_a[1] != '':
                     img_file_has_bmy_set.add(img_file)
+        print('已经标注：{0}条;'.format(len(img_file_has_bmy_set)))
         # 找出无锡所测试集中文件名与全路径文件名的字典
         to_anno_images = []
         base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds')
@@ -2958,9 +2959,7 @@ function nextImg() {
                 for file_obj in sub2_obj.iterdir():
                     full_fn = str(file_obj)
                     arrs_a = full_fn.split('/')
-                    img_file = arrs_a[0]
+                    img_file = arrs_a[-1]
                     if img_file not in img_file_has_bmy_set:
                         to_anno_images.append(full_fn)
-        for fn in to_anno_images:
-            print('## {0};'.format(fn))
         print('共有{0}条需要标注'.format(len(to_anno_images)))
