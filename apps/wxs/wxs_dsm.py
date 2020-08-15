@@ -6,6 +6,7 @@ import json
 import shutil
 import random
 import datetime
+import pickle
 from multiprocessing import Queue
 import threading
 from pathlib import Path
@@ -3005,6 +3006,8 @@ function nextImg() {
                 for file_obj in sub_obj.iterdir():
                     process_vin_image(file_obj)
         print('生成VIN与图片列表关系字典')
+        with open('../../w1/vin_code_2_images_dict.txt', 'w+', encoding='utf-8') as vcfd:
+            pickle.dump(vin_code_2_images_dict, vcfd)
         # 获取无锡所品牌车型年款列表
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         vin_code_vos = CBmy.get_wxs_vins()
@@ -3029,20 +3032,16 @@ function nextImg() {
                 os.mkdir(year_folder)
             # 通过两个目录fgvc_dataset/raw和guochanchezuowan-all找到图片文件列表
             # 随机抽取5张图片拷贝到该目录下
-            data = list(range(len(vin_code_2_images_dict[vin_code])))
-            random.shuffle(data)
-            selected_idxs = data[:10]
-            for idx in selected_idxs:
-                img_full_fn = vin_code_2_images_dict[vin_code][idx]
-                arrs_e = img_full_fn.split('/')
-                img_file = arrs_e[-1]
-                shutil.copy(img_full_fn, '{0}/{1}'.format(year_folder, img_file))
-            print('{0}: {1};'.format(vin_code, bmy_vo['bmy_name']))
+            if vin_code in vin_code_2_images_dict:
+                data = list(range(len(vin_code_2_images_dict[vin_code])))
+                random.shuffle(data)
+                selected_idxs = data[:10]
+                for idx in selected_idxs:
+                    img_full_fn = vin_code_2_images_dict[vin_code][idx]
+                    arrs_e = img_full_fn.split('/')
+                    img_file = arrs_e[-1]
+                    shutil.copy(img_full_fn, '{0}/{1}'.format(year_folder, img_file))
+                print('拷贝：{0}: {1};'.format(vin_code, bmy_vo['bmy_name']))
+            else:
+                print('#### Error vin_code: {0};'.format(vin_code))
         print('共有{0}条记录'.format(len(vin_code_vos)))
-        '''
-        
-        
-        
-        print('测试数据集：')
-        for idx in test_idxs:
-        '''
