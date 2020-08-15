@@ -2977,7 +2977,6 @@ function nextImg() {
         获取无锡所品牌车型年款Excel中每个年款5张示例图片，并以品牌车型年款
         目录结构进行组织
         '''
-        
         vin_code_2_images_dict = {}
         def process_vin_image(file_obj):
             global num
@@ -3006,8 +3005,9 @@ function nextImg() {
                         process_vin_image(file_obj)
         '''
         for vc_obj in Path('/media/zjkj/work/guochanchezuowan-all').iterdir():
-            for file_obj in vc_obj.iterdir():
-                process_vin_image(file_obj)
+            for sub_obj in vc_obj.iterdir():
+                for file_obj in sub_obj.iterdir():
+                    process_vin_image(file_obj)
         for k, v in vin_code_2_images_dict.items():
             print('{0}: {1}!'.format(k, v))
         i_debug = 1
