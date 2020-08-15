@@ -3004,11 +3004,7 @@ function nextImg() {
             for sub_obj in vc_obj.iterdir():
                 for file_obj in sub_obj.iterdir():
                     process_vin_image(file_obj)
-        for k, v in vin_code_2_images_dict.items():
-            print('{0}: {1}!'.format(k, v))
-        i_debug = 1
-        if 1 == i_debug:
-            return
+        print('生成VIN与图片列表关系字典')
         # 获取无锡所品牌车型年款列表
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         vin_code_vos = CBmy.get_wxs_vins()
@@ -3033,12 +3029,20 @@ function nextImg() {
                 os.mkdir(year_folder)
             # 通过两个目录fgvc_dataset/raw和guochanchezuowan-all找到图片文件列表
             # 随机抽取5张图片拷贝到该目录下
+            data = list(range(len(vin_code_2_images_dict[vin_code])))
+            random.shuffle(data)
+            selected_idxs = data[:10]
+            for idx in selected_idxs:
+                img_full_fn = vin_code_2_images_dict[vin_code][idx]
+                arrs_e = img_full_fn.split('/')
+                img_file = arrs_e[-1]
+                shutil.copy(img_full_fn, '{0}/{1}'.format(year_folder, img_file))
             print('{0}: {1};'.format(vin_code, bmy_vo['bmy_name']))
         print('共有{0}条记录'.format(len(vin_code_vos)))
         '''
-        data = list(range(len(samples)))
-        random.shuffle(data)
-        test_idxs = data[:10]
+        
+        
+        
         print('测试数据集：')
         for idx in test_idxs:
         '''
