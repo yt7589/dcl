@@ -3045,3 +3045,26 @@ function nextImg() {
             else:
                 print('#### Error vin_code: {0};'.format(vin_code))
         print('共有{0}条记录'.format(len(vin_code_vos)))
+
+    @staticmethod
+    def rectify_raw_bid_train_ds():
+        '''
+        修改数据集中人工标注错误，主要是无锡所测试集中有405条记录需要修改，
+        其他记录原样复制
+        '''
+        rectify_dict = {}
+        with open('./logs/wxs_tds_rectify_data.txt', 'r', encoding='utf-8') as fd1:
+            for line in fd1:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                rectify_dict[full_fn] = arrs_a[1]
+        with open('../../w1/raw_bid_train_ds_v001_bk.txt', 'r', encoding='utf-8') as rfd:
+            for line in rfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                if full_fn in rectify_dict:
+                    print('{0}*{1}'.format(full_fn, rectify_dict[full_fn]))
+                else:
+                    print('{0}'.format(line))

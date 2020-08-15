@@ -189,7 +189,12 @@ class WxsApp(object):
         获取无锡所品牌车型年款Excel中每个年款5张示例图片，并以品牌车型年款
         目录结构进行组织
         '''
-        WxsDsm.get_bmy_example_images()
+        #WxsDsm.get_bmy_example_images()
+        '''
+        修改数据集中人工标注错误，主要是无锡所测试集中有405条记录需要修改，
+        其他记录原样复制
+        '''
+        WxsDsm.rectify_raw_bid_train_ds()
         #WxsDsm.exp001()
 
 
