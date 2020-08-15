@@ -32,7 +32,7 @@ class WxsApp(object):
         '''
         将品牌车型年款变为0开始递增的序号
         '''
-        #WxsDsm.get_simplified_bmys()
+        WxsDsm.get_simplified_bmys()
         '''
         向数据集中加入品牌信息
         '''
@@ -194,7 +194,7 @@ class WxsApp(object):
         修改数据集中人工标注错误，主要是无锡所测试集中有405条记录需要修改，
         其他记录原样复制
         '''
-        WxsDsm.rectify_raw_bid_train_ds()
+        #WxsDsm.rectify_raw_bid_train_ds()
         #WxsDsm.exp001()
 
 
