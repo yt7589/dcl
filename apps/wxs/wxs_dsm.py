@@ -3059,12 +3059,13 @@ function nextImg() {
                 arrs_a = line.split('*')
                 full_fn = arrs_a[0]
                 rectify_dict[full_fn] = arrs_a[1]
-        with open('../../w1/raw_bid_train_ds_v001_bk.txt', 'r', encoding='utf-8') as rfd:
-            for line in rfd:
-                line = line.strip()
-                arrs_a = line.split('*')
-                full_fn = arrs_a[0]
-                if full_fn in rectify_dict:
-                    print('{0}*{1}'.format(full_fn, rectify_dict[full_fn]))
-                else:
-                    print('{0}'.format(line))
+        with open('../../w1/raw_bid_train_ds_v001.txt', 'w+', encoding='utf-8') as wfd:
+            with open('../../w1/raw_bid_train_ds_v001_bk.txt', 'r', encoding='utf-8') as rfd:
+                for line in rfd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    full_fn = arrs_a[0]
+                    if full_fn in rectify_dict:
+                        wfd.write('{0}*{1}\n'.format(full_fn, rectify_dict[full_fn]))
+                    else:
+                        wfd.write('{0}\n'.format(line))
