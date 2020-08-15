@@ -2976,6 +2976,33 @@ function nextImg() {
         获取无锡所品牌车型年款Excel中每个年款5张示例图片，并以品牌车型年款
         目录结构进行组织
         '''
+        vin_code_2_images_dict = {}
+        def process_vin_image(file_obj):
+            full_fn = str(file_obj)
+            if file_obj.is_file() and full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
+                arrs_a = full_fn.split('/')
+                arrs_b = arrs_a[-1].split('-')
+                arrs_c = arrs_b[0].split('#')
+                vin_code = arrs_c[0]
+                if vin_code not in vin_code_2_images_dict:
+                    vin_code_2_images_dict[vin_code] = [full_fn]
+                else:
+                    vin_code_2_images_dict[vin_code].append(full_fn)
+        # 获取VIN与图片列表关系字典
+        base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
+        for brand_obj in base_path.iterdir():
+            for bm_obj in brand_obj.iterdir():
+                for bmy_obj in bm_obj.iterdir():
+                    for file_obj in bmy_obj.iterdir():
+                        process_vin_image(file_obj)
+        for vc_obj in Path('/media/zjkj/work/guochanchezuowan-all').iterdir():
+            for file_obj in vc_obj.iterdir():
+                process_vin_image(file_obj)
+        for k, v in vin_code_2_images_dict.items():
+            print('{0}: {1}!'.format(k, v))
+        i_debug = 1
+        if 1 == i_debug:
+            return
         # 获取无锡所品牌车型年款列表
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         vin_code_vos = CBmy.get_wxs_vins()
