@@ -2976,18 +2976,25 @@ function nextImg() {
         获取无锡所品牌车型年款Excel中每个年款5张示例图片，并以品牌车型年款
         目录结构进行组织
         '''
+        num = 0
         vin_code_2_images_dict = {}
         def process_vin_image(file_obj):
+            global num
             full_fn = str(file_obj)
             if file_obj.is_file() and full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
+                print('full_fn={0};'.format(full_fn))
                 arrs_a = full_fn.split('/')
                 arrs_b = arrs_a[-1].split('-')
                 arrs_c = arrs_b[0].split('#')
                 vin_code = arrs_c[0]
+                print('   vin_code={0};'.format(vin_code))
                 if vin_code not in vin_code_2_images_dict:
                     vin_code_2_images_dict[vin_code] = [full_fn]
                 else:
                     vin_code_2_images_dict[vin_code].append(full_fn)
+                num += 1
+                if num > 10:
+                    sys.exit(0)
         # 获取VIN与图片列表关系字典
         base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
         for brand_obj in base_path.iterdir():
@@ -3029,3 +3036,10 @@ function nextImg() {
             # 随机抽取5张图片拷贝到该目录下
             print('{0}: {1};'.format(vin_code, bmy_vo['bmy_name']))
         print('共有{0}条记录'.format(len(vin_code_vos)))
+        '''
+        data = list(range(len(samples)))
+        random.shuffle(data)
+        test_idxs = data[:10]
+        print('测试数据集：')
+        for idx in test_idxs:
+        '''
