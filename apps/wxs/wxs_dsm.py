@@ -2979,9 +2979,26 @@ function nextImg() {
         # 获取无锡所品牌车型年款列表
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         vin_code_vos = CBmy.get_wxs_vins()
+        base_folder = '/media/zjkj/work/yantao/zjkj/bmy_example'
         for vo in vin_code_vos:
             vin_code = vo['vin_code']
             bmy_id = int(vo['bmy_id'])
             bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
+            # 创建目录结构
+            arrs_a = bmy_vo['bmy_name'].split('-')
+            brand_name = arrs_a[0]
+            brand_folder = '{0}/{1}'.format(base_folder, brand_name)
+            if not os.path.exists(brand_folder):
+                os.mkdir(brand_folder)
+            model_name = arrs_a[1]
+            model_folder = '{0}/{1}'.format(brand_folder, model_name)
+            if not os.path.exists(model_folder):
+                os.mkdir(model_folder)
+            year_name = arrs_a[2]
+            year_folder = '{0}/{1}'.format(model_folder, year_name)
+            if not os.path.exists(year_folder):
+                os.mkdir(year_folder)
+            # 通过两个目录fgvc_dataset/raw和guochanchezuowan-all找到图片文件列表
+            # 随机抽取5张图片拷贝到该目录下
             print('{0}: {1};'.format(vin_code, bmy_vo['bmy_name']))
         print('共有{0}条记录'.format(len(vin_code_vos)))
