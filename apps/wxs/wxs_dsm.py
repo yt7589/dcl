@@ -2985,7 +2985,7 @@ function nextImg() {
             if file_obj.is_file() and full_fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
                 print('full_fn={0};'.format(full_fn))
                 arrs_a = full_fn.split('/')
-                arrs_b = arrs_a[-1].split('-')
+                arrs_b = arrs_a[-1].split('_')
                 arrs_c = arrs_b[0].split('#')
                 vin_code = arrs_c[0]
                 print('   vin_code={0};'.format(vin_code))
