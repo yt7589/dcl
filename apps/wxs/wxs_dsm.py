@@ -2997,12 +2997,14 @@ function nextImg() {
                 if WxsDsm.num1 > 10:
                     sys.exit(0)
         # 获取VIN与图片列表关系字典
+        '''
         base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
         for brand_obj in base_path.iterdir():
             for bm_obj in brand_obj.iterdir():
                 for bmy_obj in bm_obj.iterdir():
                     for file_obj in bmy_obj.iterdir():
                         process_vin_image(file_obj)
+        '''
         for vc_obj in Path('/media/zjkj/work/guochanchezuowan-all').iterdir():
             for file_obj in vc_obj.iterdir():
                 process_vin_image(file_obj)
