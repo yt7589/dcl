@@ -2969,3 +2969,19 @@ function nextImg() {
             arrs_a = full_fn.split('/')
             img_file = arrs_a[-1]
             shutil.copy(full_fn, '{0}/{1}'.format(dst_folder, img_file))
+
+    @staticmethod
+    def get_bmy_example_images():
+        '''
+        获取无锡所品牌车型年款Excel中每个年款5张示例图片，并以品牌车型年款
+        目录结构进行组织
+        '''
+        # 获取无锡所品牌车型年款列表
+        bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
+        vin_code_vos = CBmy.get_wxs_vins()
+        for vo in vin_code_vos:
+            vin_code = vo['vin_code']
+            bmy_id = int(vo['bmy_id'])
+            bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
+            print('{0}: {1};'.format(vin_code, bmy_vo['bmy_name']))
+        print('共有{0}条记录'.format(len(vin_code_vos)))

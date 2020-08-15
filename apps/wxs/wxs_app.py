@@ -70,7 +70,7 @@ class WxsApp(object):
         '''
         根据错误分类样本列表，形成便于人工浏览的网页，保存于../../w1/es目录下
         '''
-        WxsDsm.generate_error_samples_html()
+        #WxsDsm.generate_error_samples_html()
         '''
         将子品牌合并为主品牌
         '''
@@ -185,6 +185,11 @@ class WxsApp(object):
         找出无锡所测试集中需要标注年款的记录
         '''
         #WxsDsm.get_to_anno_wxs_tds()
+        '''
+        获取无锡所品牌车型年款Excel中每个年款5张示例图片，并以品牌车型年款
+        目录结构进行组织
+        '''
+        WxsDsm.get_bmy_example_images()
         #WxsDsm.exp001()
 
 
