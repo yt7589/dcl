@@ -3006,7 +3006,7 @@ function nextImg() {
                 for file_obj in sub_obj.iterdir():
                     process_vin_image(file_obj)
         print('生成VIN与图片列表关系字典')
-        with open('../../w1/vin_code_2_images_dict.txt', 'w+', encoding='utf-8') as vcfd:
+        with open('../../w1/vin_code_2_images_dict.txt', 'wb', encoding='utf-8') as vcfd:
             pickle.dump(vin_code_2_images_dict, vcfd)
         # 获取无锡所品牌车型年款列表
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
