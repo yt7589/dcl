@@ -883,9 +883,10 @@ class WxsDsm(object):
         brand_num_train = WxsDsm.convert_to_brand_ds('../../w1/bid_train_ds.txt', 
                     '../../w1/bid_brand_train_ds.txt', 
                     is_create_brands_dict=True)
-        brand_num_test = WxsDsm.convert_to_brand_ds('../../w1/bid_test_ds.txt', 
-                    '../../w1/bid_brand_test_ds.txt', 
-                    is_create_brands_dict=False)
+        #brand_num_test = WxsDsm.convert_to_brand_ds('../../w1/bid_test_ds.txt', 
+         #           '../../w1/bid_brand_test_ds.txt', 
+         #           is_create_brands_dict=False)
+        brand_num_test = 0
         print('品牌种类：train={0} & test={1};'.format(brand_num_train, brand_num_test))
 
     @staticmethod
