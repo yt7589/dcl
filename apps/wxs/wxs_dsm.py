@@ -2970,13 +2970,14 @@ function nextImg() {
             img_file = arrs_a[-1]
             shutil.copy(full_fn, '{0}/{1}'.format(dst_folder, img_file))
 
+    num1 = 0
     @staticmethod
     def get_bmy_example_images():
         '''
         获取无锡所品牌车型年款Excel中每个年款5张示例图片，并以品牌车型年款
         目录结构进行组织
         '''
-        num = 0
+        
         vin_code_2_images_dict = {}
         def process_vin_image(file_obj):
             global num
@@ -2992,8 +2993,8 @@ function nextImg() {
                     vin_code_2_images_dict[vin_code] = [full_fn]
                 else:
                     vin_code_2_images_dict[vin_code].append(full_fn)
-                num += 1
-                if num > 10:
+                WxsDsm.num1 += 1
+                if WxsDsm.num1 > 10:
                     sys.exit(0)
         # 获取VIN与图片列表关系字典
         base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
