@@ -3078,6 +3078,14 @@ function nextImg() {
         给张灿，由其进行处理。如果模型预测错误，则标注模型错误，如果标注
         错误则写上新年款编号 2020-08-16
         '''
+        bid_brands_dict = {}
+        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+            for line in bfd:
+                line = line.strip()
+                arrs_a = line.split(':')
+                brand_idx = int(arrs_a[0])
+                brand_name = arrs_a[1]
+                bid_brands_dict[brand_idx] = brand_name
         with open('./logs/top1_error_samples.txt', 'r', encoding='utf-8') as efd:
             for line in efd:
                 line = line.strip()
@@ -3086,4 +3094,8 @@ function nextImg() {
                 img_file = arrs_b[-1]
                 anno_bmy_id = int(arrs_a[1])
                 dcl_bmy_id = int(arrs_a[2])
-                print('{0},{1},{2}'.format(img_file, anno_bmy_id, dcl_bmy_id))
+                print('{0},{1},{2}'.format(
+                    img_file, 
+                    bid_brands_dict[anno_bmy_id], 
+                    bid_brands_dict[dcl_bmy_id]
+                ))
