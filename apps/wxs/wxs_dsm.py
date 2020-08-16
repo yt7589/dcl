@@ -3086,7 +3086,7 @@ function nextImg() {
                 brand_idx = int(arrs_a[0])
                 brand_name = arrs_a[1]
                 bid_brands_dict[brand_idx] = brand_name
-        dst_folder = '/media/zjkj/yantao/temp/images'
+        dst_folder = '/media/zjkj/work/yantao/temp/images'
         with open('/media/zjkj/work/yantao/temp/error_samples.txt', 'w+', encoding='utf-8') as wfd:
             with open('./logs/top1_error_samples.txt', 'r', encoding='utf-8') as efd:
                 for line in efd:
