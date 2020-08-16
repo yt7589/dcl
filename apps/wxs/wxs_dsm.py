@@ -3070,3 +3070,20 @@ function nextImg() {
                         wfd.write('{0}*{1}\n'.format(full_fn, rectify_dict[full_fn]))
                     else:
                         wfd.write('{0}\n'.format(line))
+
+    @staticmethod
+    def process_error_sample_for_zhangcan():
+        '''
+        将模型预测错误的样本整理为图片文件名, 标注年款, 预测年款 格式，发
+        给张灿，由其进行处理。如果模型预测错误，则标注模型错误，如果标注
+        错误则写上新年款编号 2020-08-16
+        '''
+        with open('./logs/top1_error_samples.txt', 'r', encoding='utf-8') as efd:
+            for line in efd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                arrs_b = arrs_a[0].split('/')
+                img_file = arrs_b[-1]
+                anno_bmy_id = int(arrs_a[1])
+                dcl_bmy_id = int(arrs_a[2])
+                print('{0},{1},{2}'.format(img_file, anno_bmy_id, dcl_bmy_id))
