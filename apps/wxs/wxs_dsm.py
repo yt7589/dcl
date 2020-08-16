@@ -3086,16 +3086,20 @@ function nextImg() {
                 brand_idx = int(arrs_a[0])
                 brand_name = arrs_a[1]
                 bid_brands_dict[brand_idx] = brand_name
-        with open('./logs/top1_error_samples.txt', 'r', encoding='utf-8') as efd:
-            for line in efd:
-                line = line.strip()
-                arrs_a = line.split('*')
-                arrs_b = arrs_a[0].split('/')
-                img_file = arrs_b[-1]
-                anno_bmy_id = int(arrs_a[1])
-                dcl_bmy_id = int(arrs_a[2])
-                print('{0},{1},{2}'.format(
-                    img_file, 
-                    bid_brands_dict[anno_bmy_id], 
-                    bid_brands_dict[dcl_bmy_id]
-                ))
+        dst_folder = '/media/zjkj/yantao/temp/images'
+        with open('/media/zjkj/yantao/temp/error_samples.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./logs/top1_error_samples.txt', 'r', encoding='utf-8') as efd:
+                for line in efd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    full_fn = arrs_a[0]
+                    arrs_b = arrs_a[0].split('/')
+                    img_file = arrs_b[-1]
+                    shutil.copy(full_fn, '{0}/{1}'.format(dst_folder, img_file))
+                    anno_bmy_id = int(arrs_a[1])
+                    dcl_bmy_id = int(arrs_a[2])
+                    wfd.write('{0},{1},{2},\n'.format(
+                        img_file, 
+                        bid_brands_dict[anno_bmy_id], 
+                        bid_brands_dict[dcl_bmy_id]
+                    ))
