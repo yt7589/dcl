@@ -3109,6 +3109,18 @@ function nextImg() {
         '''
         处理20200817经过修正后的分类错误的样本数据
         '''
+        # 读取品牌名称到品牌索引号列表
+        brand_dict = {}
+        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line = line.strip()
+                arrs_a = line.split(':')
+                brand_dict[arrs_a[1]] = arrs_a[0]
+        for k, v in brand_dict.items():
+            print('@@@ {0}:{1};'.format(k, v))
+        i_debug = 1
+        if 1 == i_debug:
+            return 
         # 读取org_bmy_id到sim_bmy_id对应表
         bmy_org_sim_dict = {}
         with open('../../w1/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as osfd:
@@ -3118,11 +3130,6 @@ function nextImg() {
                 org_bmy_id = int(arrs_a[0])
                 sim_bmy_id = int(arrs_a[1])
                 bmy_org_sim_dict[org_bmy_id] = sim_bmy_id
-        for k, v in bmy_org_sim_dict.items():
-            print('### {0}:{1};'.format(k, v))
-        i_debug = 1
-        if 1 == i_debug:
-            return 
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         es_dict = {}
         with open('/media/zjkj/work/yantao/zjkj/doc/d20200817/error_samples.txt', 'r', encoding='utf-8') as efd:
