@@ -3103,3 +3103,22 @@ function nextImg() {
                         bid_brands_dict[anno_bmy_id], 
                         bid_brands_dict[dcl_bmy_id]
                     ))
+
+    @staticmethod
+    def process_error_sample_20200817():
+        '''
+        处理20200817经过修正后的分类错误的样本数据
+        '''
+        with open('/media/zjkj/work/yantao/zjkj/doc/d20200817', 'r', encoding='utf-8') as efd:
+            for line in efd:
+                line = line.strip()
+                arrs_a = line.split(',')
+                img_file = arrs_a[0]
+                anno_bn = arrs_a[1]
+                dcl_bn = arrs_a[2]
+                arrs_b = arrs_a[3].split('-')
+                bmy_name = arrs_b[0]
+                bmy_id = int(arrs_b[1]) + 1
+                print('{0}, {1}, {2}, {3}, {4};'.format(
+                    img_file, anno_bn, dcl_bn, bmy_name, bmy_id
+                ))
