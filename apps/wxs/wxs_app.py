@@ -32,7 +32,7 @@ class WxsApp(object):
         '''
         将品牌车型年款变为0开始递增的序号
         '''
-        #WxsDsm.get_simplified_bmys()
+        WxsDsm.get_simplified_bmys()
         '''
         向数据集中加入品牌信息
         '''
@@ -204,7 +204,7 @@ class WxsApp(object):
         '''
         处理20200817经过修正后的分类错误的样本数据
         '''
-        WxsDsm.process_error_sample_20200817()
+        #WxsDsm.process_error_sample_20200817()
         #WxsDsm.exp001()
 
 
