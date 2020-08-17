@@ -3143,13 +3143,16 @@ function nextImg() {
                 print('{0}, {1}, {2}, {3}, {4};'.format(
                     img_file, anno_bn, dcl_bn, bmy_name, bmy_name_dst
                 ))
-        with open('../../w1/raw_bid_train_ds_v001.txt', 'r', encoding='utf-8') as ofd:
-            for line in ofd:
-                line = line.strip()
-                arrs_a = line.split('*')
-                full_fn = arrs_a[0]
-                arrs_b = full_fn.split('/')
-                img_file = arrs_b[-1]
-                if img_file in es_dict:
-                    bmy_id = es_dict[img_file]
-                    print('{0}*{1};'.format(full_fn, bmy_id))
+        with open('../../w1/raw_bid_train_ds_v001.txt', 'w+', encoding='utf-8') as wfd:
+            with open('../../w1/raw_bid_train_ds_v000.txt', 'r', encoding='utf-8') as ofd:
+                for line in ofd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    full_fn = arrs_a[0]
+                    arrs_b = full_fn.split('/')
+                    img_file = arrs_b[-1]
+                    if img_file in es_dict:
+                        bmy_id = es_dict[img_file]
+                        wfd.write('{0}*{1}\n'.format(full_fn, bmy_id))
+                    else:
+                        wfd.write('{0}\n'.format(line))
