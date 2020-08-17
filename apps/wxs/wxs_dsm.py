@@ -3118,7 +3118,7 @@ function nextImg() {
                 dcl_bn = arrs_a[2]
                 arrs_b = arrs_a[3].split('-')
                 bmy_name = arrs_b[0]
-                bmy_id = int(arrs_b[1]) + 1
+                bmy_id = int(arrs_b[-1]) + 1
                 print('{0}, {1}, {2}, {3}, {4};'.format(
                     img_file, anno_bn, dcl_bn, bmy_name, bmy_id
                 ))
