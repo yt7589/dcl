@@ -3152,4 +3152,4 @@ function nextImg() {
                 img_file = arrs_b[-1]
                 if img_file in es_dict:
                     bmy_id = es_dict[img_file]
-                    print('{0}*{2};'.format(full_fn, bmy_id))
+                    print('{0}*{1};'.format(full_fn, bmy_id))
