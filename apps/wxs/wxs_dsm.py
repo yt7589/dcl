@@ -3116,11 +3116,6 @@ function nextImg() {
                 line = line.strip()
                 arrs_a = line.split(':')
                 brand_dict[arrs_a[1]] = arrs_a[0]
-        for k, v in brand_dict.items():
-            print('@@@ {0}:{1};'.format(k, v))
-        i_debug = 1
-        if 1 == i_debug:
-            return 
         # 读取org_bmy_id到sim_bmy_id对应表
         bmy_org_sim_dict = {}
         with open('../../w1/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as osfd:
@@ -3161,3 +3156,5 @@ function nextImg() {
                     bmy_name = bmy_id_bmy_name_dict[org_bmy_id+1]
                     arrs_c = bmy_name.split('-')
                     brand_name = arrs_c[0]
+                    brand_idx = brand_dict[brand_name]
+                    print('{0}*{1}*{2};'.format(full_fn, sim_bmy_id, brand_idx))
