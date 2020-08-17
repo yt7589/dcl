@@ -3152,7 +3152,7 @@ function nextImg() {
                 img_file = arrs_b[-1]
                 if img_file in es_dict:
                     org_bmy_id = es_dict[img_file]
-                    sim_bmy_id = org_bmy_id
+                    sim_bmy_id = bmy_org_sim_dict[org_bmy_id]
                     bmy_name = bmy_id_bmy_name_dict[org_bmy_id+1]
                     arrs_c = bmy_name.split('-')
                     brand_name = arrs_c[0]
