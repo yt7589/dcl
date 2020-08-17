@@ -3109,6 +3109,7 @@ function nextImg() {
         '''
         处理20200817经过修正后的分类错误的样本数据
         '''
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         with open('/media/zjkj/work/yantao/zjkj/doc/d20200817/error_samples.txt', 'r', encoding='utf-8') as efd:
             for line in efd:
                 line = line.strip()
@@ -3119,6 +3120,7 @@ function nextImg() {
                 arrs_b = arrs_a[3].split('-')
                 bmy_name = arrs_b[0]
                 bmy_id = int(arrs_b[-1]) + 1
+                bmy_name_dst = bmy_id_bmy_name_dict[bmy_id]
                 print('{0}, {1}, {2}, {3}, {4};'.format(
-                    img_file, anno_bn, dcl_bn, bmy_name, bmy_id
+                    img_file, anno_bn, dcl_bn, bmy_name, bmy_name_dst
                 ))
