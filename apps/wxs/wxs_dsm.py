@@ -3143,7 +3143,7 @@ function nextImg() {
                 print('{0}, {1}, {2}, {3}, {4};'.format(
                     img_file, anno_bn, dcl_bn, bmy_name, bmy_name_dst
                 ))
-        with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds_20200817.txt', 'r', encoding='utf-8') as ofd:
+        with open('../../w1/raw_bid_train_ds_v001.txt', 'r', encoding='utf-8') as ofd:
             for line in ofd:
                 line = line.strip()
                 arrs_a = line.split('*')
@@ -3151,10 +3151,5 @@ function nextImg() {
                 arrs_b = full_fn.split('/')
                 img_file = arrs_b[-1]
                 if img_file in es_dict:
-                    org_bmy_id = es_dict[img_file]
-                    sim_bmy_id = bmy_org_sim_dict[org_bmy_id]
-                    bmy_name = bmy_id_bmy_name_dict[org_bmy_id+1]
-                    arrs_c = bmy_name.split('-')
-                    brand_name = arrs_c[0]
-                    brand_idx = brand_dict[brand_name]
-                    print('{0}*{1}*{2};'.format(full_fn, sim_bmy_id, brand_idx))
+                    bmy_id = es_dict[img_file]
+                    print('{0}*{2};'.format(full_fn, bmy_id))
