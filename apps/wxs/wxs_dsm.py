@@ -3109,7 +3109,7 @@ function nextImg() {
         '''
         处理20200817经过修正后的分类错误的样本数据
         '''
-        with open('/media/zjkj/work/yantao/zjkj/doc/d20200817', 'r', encoding='utf-8') as efd:
+        with open('/media/zjkj/work/yantao/zjkj/doc/d20200817/error_samples.txt', 'r', encoding='utf-8') as efd:
             for line in efd:
                 line = line.strip()
                 arrs_a = line.split(',')
