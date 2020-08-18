@@ -104,7 +104,7 @@ class WxsApp(object):
         实现先预测出品牌类别，然后从年款头中除该品牌对应的年款索引外的其他
         类别全部清零，将年款头的内容输出作为输出
         '''
-        WxsDsm.bind_brand_head_bmy_head()
+        #WxsDsm.bind_brand_head_bmy_head()
         '''
         求出无锡所测试集品牌与当前涉及的171个品牌的不同
         '''
@@ -205,6 +205,11 @@ class WxsApp(object):
         处理20200817经过修正后的分类错误的样本数据
         '''
         #WxsDsm.process_error_sample_20200817()
+        '''
+        计算两张图片的相似度，通过获取两张图片ReID特征向量，然后计算二者的余弦
+        距离作为相似度
+        '''
+        WxsDsm.get_img_reid_feature_vector('E:/work/tcv/a001/白#02_川R171C1_012_比亚迪_L3_2010-2013_610500200969346136.jpg')
         #WxsDsm.exp001()
 
 

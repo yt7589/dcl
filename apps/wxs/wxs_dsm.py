@@ -7,6 +7,7 @@ import shutil
 import random
 import datetime
 import pickle
+import requests
 from multiprocessing import Queue
 import threading
 from pathlib import Path
@@ -3156,3 +3157,16 @@ function nextImg() {
                         wfd.write('{0}*{1}\n'.format(full_fn, bmy_id))
                     else:
                         wfd.write('{0}\n'.format(line))
+
+    @staticmethod
+    def calculate_img_similarity(img1, img2):
+        '''
+        计算两张图片的相似度，通过获取两张图片ReID特征向量，然后计算二者的余弦
+        距离作为相似度
+        '''
+        pass
+
+    @staticmethod
+    def get_img_reid_feature_vector(full_fn):
+        url = 'http://192.168.2.33:2222/vehicle/function/recognition'
+        print('url: {0};'.format(url))
