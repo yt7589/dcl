@@ -22,6 +22,7 @@ from apps.admin.controller.c_delta_ds import CDeltaDs
 from apps.wxs.wxs_app import WxsApp
 from apps.wxs.model.m_mongodb import MMongoDb
 import pymongo
+from models.siamese_app import SiameseApp
 
 MODE_TRAIN_WEB_SERVER = 101 # 运行训练阶段服务器
 MODE_RUN_WEB_SERVER = 102 # 运行预测阶段服务器
@@ -73,7 +74,8 @@ def main(args):
     if 1 == ii:
         #rst = MMongoDb.db.t_sample.create_index([('vin_id', pymongo.ASCENDING), ('img_file', pymongo.ASCENDING)], unique=True)
         #print('index rst: {0};'.format(rst))
-        app = WxsApp()
+        #app = WxsApp()
+        app = SiameseApp()
         app.startup(args)
         return
     print('细粒度图像识别系统')

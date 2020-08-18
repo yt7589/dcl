@@ -3164,13 +3164,15 @@ function nextImg() {
         计算两张图片的相似度，通过获取两张图片ReID特征向量，然后计算二者的余弦
         距离作为相似度
         '''
-        img1 = 'E:/work/tcv/a001/白#02_川R171C1_012_'\
-            '比亚迪_L3_2010-2013_610500200969346136.jpg'
+        img1 = 'E:/work/tcv/a001/白#02_陕DBD888_001_奥迪_A6L_2005-2011_610500200969342729.jpg'
         #img2 = 'E:/work/tcv/a001/ext_白#02_川R171C1_012_'\
         #    '比亚迪_L3_2010-2013_610500200969346136.jpg'
-        img2 = 'E:/work/tcv/a001/白#02_陕B1T321_003_阿斯顿马丁'\
-        '_VIRAGE_2012_610500200983043579.jpg'
+        img2 = 'E:/work/tcv/a001/白#02_川R171C1_012_比亚迪_L3_2010-2013_610500200969346136.jpg'
         WxsDsm.calculate_img_similarity(img1, img2)
+        img3 = 'E:/work/tcv/a001/白#02_豫A75DD7_001_奥迪_A6L_2012-2014_610500200969339543.jpg'
+        WxsDsm.calculate_img_similarity(img1, img3)
+        img4 = 'E:/work/tcv/a001/白#06_粤T20R21_001_奥迪_A6L_2012-2014_610500200969339816.jpg'
+        WxsDsm.calculate_img_similarity(img1, img4)
 
     @staticmethod
     def calculate_img_similarity(img1, img2):
@@ -3185,7 +3187,7 @@ function nextImg() {
 
     @staticmethod
     def get_img_reid_feature_vector(full_fn):
-        url = 'http://192.168.2.33:2222/vehicle/function/recognition'
+        url = 'http://192.168.2.17:2222/vehicle/function/recognition'
         print('url: {0};'.format(url))
         data = {'TPLX': 1, 'GCXH': 123131318}
         files = {'TPWJ': (full_fn, open(full_fn, 'rb'))}
