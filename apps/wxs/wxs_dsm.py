@@ -3159,18 +3159,35 @@ function nextImg() {
                         wfd.write('{0}\n'.format(line))
 
     @staticmethod
-    def calculate_img_similarity(img1, img2):
+    def calculate_img_similarity_main():
         '''
         计算两张图片的相似度，通过获取两张图片ReID特征向量，然后计算二者的余弦
         距离作为相似度
         '''
-        pass
+        img1 = 'E:/work/tcv/a001/白#02_川R171C1_012_'\
+            '比亚迪_L3_2010-2013_610500200969346136.jpg'
+        #img2 = 'E:/work/tcv/a001/ext_白#02_川R171C1_012_'\
+        #    '比亚迪_L3_2010-2013_610500200969346136.jpg'
+        img2 = 'E:/work/tcv/a001/白#02_陕B1T321_003_阿斯顿马丁'\
+        '_VIRAGE_2012_610500200983043579.jpg'
+        WxsDsm.calculate_img_similarity(img1, img2)
+
+    @staticmethod
+    def calculate_img_similarity(img1, img2):
+        img1_fv = WxsDsm.get_img_reid_feature_vector(img1)
+        img2_fv = WxsDsm.get_img_reid_feature_vector(img2)
+        print('img1: {0}; {1};'.format(type(img1_fv), img1_fv.shape))
+        print('img2: {0}; {1};'.format(type(img2_fv), img2_fv.shape))
+        img1_norm = np.linalg.norm(img1_fv, axis=0, keepdims=True)
+        img2_norm = np.linalg.norm(img2_fv, axis=0, keepdims=True)
+        similiarity = np.dot(img1_fv, img2_fv.T)/(img1_norm * img2_norm) 
+        print('similarity: {0};'.format(similiarity[0]))
 
     @staticmethod
     def get_img_reid_feature_vector(full_fn):
         url = 'http://192.168.2.33:2222/vehicle/function/recognition'
         print('url: {0};'.format(url))
-        data = {'TPLX': 1, 'GCXH': 123131314}
+        data = {'TPLX': 1, 'GCXH': 123131318}
         files = {'TPWJ': (full_fn, open(full_fn, 'rb'))}
         resp = requests.post(url, files=files, data = data)
         json_obj = json.loads(resp.text)
@@ -3179,6 +3196,7 @@ function nextImg() {
         for veh in vehs:
             cllxfl = veh['CXTZ']['CLLXFL']
             if cllxfl in ['11', '12', '13', '14', '21', '22']:
+                print('detected...')
                 vals = veh['CLTZXL'].split(',')
                 for val in vals:
                     raw.append(float(val))
