@@ -209,7 +209,16 @@ class WxsApp(object):
         计算两张图片的相似度，通过获取两张图片ReID特征向量，然后计算二者的余弦
         距离作为相似度
         '''
-        WxsDsm.get_img_reid_feature_vector('E:/work/tcv/a001/白#02_川R171C1_012_比亚迪_L3_2010-2013_610500200969346136.jpg')
+        img1_fv = WxsDsm.get_img_reid_feature_vector(
+            'E:/work/tcv/a001/白#02_川R171C1_012_'\
+            '比亚迪_L3_2010-2013_610500200969346136.jpg'
+        )
+        img2_fv = WxsDsm.get_img_reid_feature_vector(
+            'E:/work/tcv/a001/白#02_川R171C1_012_'\
+            '比亚迪_L3_2010-2013_610500200969346136.jpg'
+        )
+        print('img1: {0}; {1};'.format(type(img1_fv), img1_fv.shape))
+        print('img2: {0}; {1};'.format(type(img2_fv), img2_fv.shape))
         #WxsDsm.exp001()
 
 
