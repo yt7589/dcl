@@ -50,7 +50,7 @@ class WxsApp(object):
         {"品牌编号", "车型编号", "年款编号", "品牌_车型_年款"},{...},
         {...}
         '''
-        #WxsDsm.generate_zjkj_cambricon_labels()
+        WxsDsm.generate_zjkj_cambricon_labels()
         ''' 根据正确的测试集图片文件名，查出当前的品牌车型年款编号，没有的用-1表示，形成CSV文件 '''
         #WxsDsm.generate_test_ds_bmy_csv()
         ''' 生成Pipeline测试评价数据，将测试集中的图片文件拷贝到指定目录下 '''
@@ -209,7 +209,7 @@ class WxsApp(object):
         计算两张图片的相似度，通过获取两张图片ReID特征向量，然后计算二者的余弦
         距离作为相似度
         '''
-        WxsDsm.calculate_img_similarity_main()
+        #WxsDsm.calculate_img_similarity_main()
         #WxsDsm.exp001()
 
 
