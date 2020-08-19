@@ -15,6 +15,7 @@ import torch.nn as nn
 from torch import optim
 import torch.nn.functional as F
 #
+from apps.siamese.app_config import AppConfig
 from apps.siamese.atnt_face_ds import AtntFaceDs
 
 class SiameseApp(object):
@@ -23,8 +24,43 @@ class SiameseApp(object):
 
     def startup(self, args):
         print('Siamese Network App v0.0.2')
-        ds = AtntFaceDs()
-        ds.convert_pgm_to_png()
+        folder_dataset = dset.ImageFolder(root=AppConfig.training_dir)
+        siamese_dataset = AtntFaceDs(imageFolderDataset=folder_dataset,
+                                        transform=transforms.Compose([transforms.Resize((100,100)),
+                                                                      transforms.ToTensor()
+                                                                      ])
+                                       ,should_invert=False)
+        vis_dataloader = DataLoader(siamese_dataset,
+                        shuffle=True,
+                        num_workers=8,
+                        batch_size=8)
+        dataiter = iter(vis_dataloader)
+
+
+        example_batch = next(dataiter)
+        print('example_batch: {0};'.format(example_batch.shape))
+        concatenated = torch.cat((example_batch[0],example_batch[1]),0)
+        self.imshow(torchvision.utils.make_grid(concatenated))
+        print(example_batch[2].numpy())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def imshow(self, img,text=None,should_save=False):
         npimg = img.numpy()
