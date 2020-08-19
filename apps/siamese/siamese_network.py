@@ -1,14 +1,14 @@
 #
 import torch
 from torch import nn
+from apps.siamese.app_config import AppConfig
 
 class SiameseNetwork(nn.Module):
     def __init__(self):
         super(SiameseNetwork, self).__init__()
-        self.in_channel = 1 # 彩色图像为3，黑白图像为1
         self.cnn1 = nn.Sequential(
             nn.ReflectionPad2d(1),
-            nn.Conv2d(1, 4, kernel_size=3),
+            nn.Conv2d(AppConfig.img_channel, 4, kernel_size=3),
             nn.ReLU(inplace=True),
             nn.BatchNorm2d(4),
             nn.Dropout2d(p=.2),
@@ -27,7 +27,9 @@ class SiameseNetwork(nn.Module):
         )
 
         self.fc1 = nn.Sequential(
-            nn.Linear(8*100*100, 500),
+            #nn.Linear(8*100*100, 500), # 人脸识别
+            # 此处的8为最后层的通道数，我们做卷积操作均保持分辨率不变
+            nn.Linear(8*AppConfig.img_w*AppConfig.img_h, 500), # 车辆识别
             nn.ReLU(inplace=True),
 
             nn.Linear(500, 500),
@@ -37,6 +39,7 @@ class SiameseNetwork(nn.Module):
 
     def forward_once(self, x):
         output = self.cnn1(x)
+        print('Ln41 output: {0};'.format(output.shape))
         output = output.view(output.size()[0], -1)
         output = self.fc1(output)
         return output

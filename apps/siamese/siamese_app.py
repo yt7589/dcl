@@ -33,7 +33,7 @@ class SiameseApp(object):
     def train(self):
         folder_dataset = dset.ImageFolder(root=AppConfig.training_dir)
         siamese_dataset = AtntFaceDs(imageFolderDataset=folder_dataset,
-                                        transform=transforms.Compose([transforms.Resize((100,100)),
+                                        transform=transforms.Compose([transforms.Resize((AppConfig.img_w, AppConfig.img_h)),
                                                                       transforms.ToTensor()
                                                                       ])
                                        ,should_invert=False)
@@ -102,7 +102,7 @@ class SiameseApp(object):
     def ds_demo(self):
         folder_dataset = dset.ImageFolder(root=AppConfig.training_dir)
         siamese_dataset = AtntFaceDs(imageFolderDataset=folder_dataset,
-                                        transform=transforms.Compose([transforms.Resize((100,100)),
+                                        transform=transforms.Compose([transforms.Resize((AppConfig.img_w,AppConfig.img_h)),
                                                                       transforms.ToTensor()
                                                                       ])
                                        ,should_invert=False)
