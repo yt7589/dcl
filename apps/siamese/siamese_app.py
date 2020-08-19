@@ -52,10 +52,10 @@ class SiameseApp(object):
                 loss_contrastive.backward()
                 optimizer.step()
                 if i %10 == 0 :
-                    print("Epoch number {}\n Current loss {}\n".format(epoch,loss_contrastive.data[0]))
+                    print("Epoch number {}\n Current loss {}\n".format(epoch,loss_contrastive.data.item()))
                     iteration_number +=10
                     counter.append(iteration_number)
-                    loss_history.append(loss_contrastive.data[0])
+                    loss_history.append(loss_contrastive.data.item())
         self.show_plot(counter,loss_history)
 
 
