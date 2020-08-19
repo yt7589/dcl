@@ -17,6 +17,7 @@ import torch.nn.functional as F
 #
 from apps.siamese.app_config import AppConfig
 from apps.siamese.atnt_face_ds import AtntFaceDs
+from apps.siamese.siamese_network import SiameseNetwork
 
 class SiameseApp(object):
     def __init__(self):
@@ -38,7 +39,7 @@ class SiameseApp(object):
 
 
         example_batch = next(dataiter)
-        print('example_batch: {0};'.format(example_batch.shape))
+        print('example_batch: {0};'.format(example_batch[0].shape))
         concatenated = torch.cat((example_batch[0],example_batch[1]),0)
         self.imshow(torchvision.utils.make_grid(concatenated))
         print(example_batch[2].numpy())
