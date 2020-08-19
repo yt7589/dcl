@@ -27,7 +27,7 @@ class SiameseApp(object):
 
     def startup(self, args):
         print('Siamese Network App v0.0.2')
-        #self.train()
+        self.train()
         self.run()
 
     def train(self):
@@ -82,11 +82,11 @@ class SiameseApp(object):
             print('label2: {0};'.format(label2))
             concatenated = torch.cat((x0,x1),0)            
             output1,output2 = net(Variable(x0).cuda(), Variable(x1).cuda())
-            #euclidean_distance = F.pairwise_distance(output1, output2)
-            cosine_distance = 1 - F.cosine_similarity(output1, output2)
+            #distance = F.pairwise_distance(output1, output2)
+            distance = 1 - F.cosine_similarity(output1, output2)
             self.imshow(torchvision.utils.make_grid(concatenated),
                         'Dissimilarity:{0:0.2f}'.format(
-                            cosine_distance.cpu().data.numpy()[0]
+                            distance.cpu().data.numpy()[0]
                         ))
 
 

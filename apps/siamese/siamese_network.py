@@ -5,6 +5,7 @@ from torch import nn
 class SiameseNetwork(nn.Module):
     def __init__(self):
         super(SiameseNetwork, self).__init__()
+        self.in_channel = 1 # 彩色图像为3，黑白图像为1
         self.cnn1 = nn.Sequential(
             nn.ReflectionPad2d(1),
             nn.Conv2d(1, 4, kernel_size=3),
