@@ -20,7 +20,7 @@ class SiameseApp(object):
         self.name = 'models.SiameseApp'
 
     def startup(self, args):
-        print('Siamese Network App v0.0.1')
+        print('Siamese Network App v0.0.2')
 
     def imshow(self, img,text=None,should_save=False):
         npimg = img.numpy()
