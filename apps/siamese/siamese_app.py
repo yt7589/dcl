@@ -14,6 +14,8 @@ import PIL.ImageOps
 import torch.nn as nn
 from torch import optim
 import torch.nn.functional as F
+#
+from apps.siamese.atnt_face_ds import AtntFaceDs
 
 class SiameseApp(object):
     def __init__(self):
@@ -21,6 +23,8 @@ class SiameseApp(object):
 
     def startup(self, args):
         print('Siamese Network App v0.0.2')
+        ds = AtntFaceDs()
+        ds.convert_pgm_to_png()
 
     def imshow(self, img,text=None,should_save=False):
         npimg = img.numpy()

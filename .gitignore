@@ -137,6 +137,7 @@ ct_train_newd.txt
 logs/
 models/pretrained
 datasets/CUB_200_2011
+datasets/siamese
 net_model/
 
 # TensorRT related
