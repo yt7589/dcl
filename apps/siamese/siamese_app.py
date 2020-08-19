@@ -23,9 +23,14 @@ from apps.siamese.contrastive_loss import ContrastiveLoss
 class SiameseApp(object):
     def __init__(self):
         self.name = 'models.SiameseApp'
+        self.pkl_file = './datasets/siamese/faces/atnt.pkl'
 
     def startup(self, args):
         print('Siamese Network App v0.0.2')
+        self.train()
+        self.run()
+
+    def train(self):
         folder_dataset = dset.ImageFolder(root=AppConfig.training_dir)
         siamese_dataset = AtntFaceDs(imageFolderDataset=folder_dataset,
                                         transform=transforms.Compose([transforms.Resize((100,100)),
@@ -57,6 +62,30 @@ class SiameseApp(object):
                     counter.append(iteration_number)
                     loss_history.append(loss_contrastive.data.item())
         self.show_plot(counter,loss_history)
+        torch.save(net.state_dict(), self.pkl_file)
+
+    def run(self):
+        net = SiameseNetwork()
+        net.load_state_dict(torch.load(self.pkl_file))
+        net.cuda()
+        folder_dataset_test = dset.ImageFolder(root=AppConfig.testing_dir)
+        siamese_dataset = AtntFaceDs(imageFolderDataset=folder_dataset_test,
+                                        transform=transforms.Compose([transforms.Resize((100,100)),
+                                                                      transforms.ToTensor()
+                                                                      ])
+                                       ,should_invert=False)
+
+        test_dataloader = DataLoader(siamese_dataset,num_workers=6,batch_size=1,shuffle=True)
+        dataiter = iter(test_dataloader)
+        x0, _, _ = next(dataiter)
+
+        for i in range(10):
+            _,x1,label2 = next(dataiter)
+            concatenated = torch.cat((x0,x1),0)
+            
+            output1,output2 = net(Variable(x0).cuda(), Variable(x1).cuda())
+            euclidean_distance = F.pairwise_distance(output1, output2)
+            self.imshow(torchvision.utils.make_grid(concatenated),'Dissimilarity: {:.2f}'.format(euclidean_distance.cpu().data.numpy()[0][0]))
 
 
 
