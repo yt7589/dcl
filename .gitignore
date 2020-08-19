@@ -138,6 +138,7 @@ logs/
 models/pretrained
 datasets/CUB_200_2011
 datasets/siamese
+datasets/vehicles
 net_model/
 
 # TensorRT related
