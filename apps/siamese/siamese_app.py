@@ -65,33 +65,29 @@ class SiameseApp(object):
         torch.save(net.state_dict(), self.pkl_file)
 
     def run(self):
-        print('run 1')
         net = SiameseNetwork()
-        print('run2')
         net.load_state_dict(torch.load(self.pkl_file))
         net.cuda()
-        print('run3')
         folder_dataset_test = dset.ImageFolder(root=AppConfig.testing_dir)
         siamese_dataset = AtntFaceDs(imageFolderDataset=folder_dataset_test,
                                         transform=transforms.Compose([transforms.Resize((100,100)),
                                                                       transforms.ToTensor()
                                                                       ])
                                        ,should_invert=False)
-        print('run4')
         test_dataloader = DataLoader(siamese_dataset,num_workers=6,batch_size=1,shuffle=True)
         dataiter = iter(test_dataloader)
-        x0, _, _ = next(dataiter)
-        print('run5')
+        #x0, _, _ = next(dataiter)
         for i in range(10):
-            _,x1,label2 = next(dataiter)
-            concatenated = torch.cat((x0,x1),0)
-            
+            x0,x1,label2 = next(dataiter)
+            print('label2: {0};'.format(label2))
+            concatenated = torch.cat((x0,x1),0)            
             output1,output2 = net(Variable(x0).cuda(), Variable(x1).cuda())
-            euclidean_distance = F.pairwise_distance(output1, output2)
+            #euclidean_distance = F.pairwise_distance(output1, output2)
+            cosine_distance = 1 - F.cosine_similarity(output1, output2)
             self.imshow(torchvision.utils.make_grid(concatenated),
                         'Dissimilarity:{0:0.2f}'.format(
-                            euclidean_distance.cpu().data.numpy()[0]
-                        )) # .numpy()[0][0]
+                            cosine_distance.cpu().data.numpy()[0]
+                        ))
 
 
 
