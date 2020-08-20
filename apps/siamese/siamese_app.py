@@ -72,7 +72,7 @@ class SiameseApp(object):
         net.cuda()
         folder_dataset_test = dset.ImageFolder(root=AppConfig.testing_dir)
         siamese_dataset = AtntFaceDs(imageFolderDataset=folder_dataset_test,
-                                        transform=transforms.Compose([transforms.Resize((100,100)),
+                                        transform=transforms.Compose([transforms.Resize((AppConfig.img_w, AppConfig.img_h)),
                                                                       transforms.ToTensor()
                                                                       ])
                                        ,should_invert=False)
@@ -87,6 +87,9 @@ class SiameseApp(object):
             #distance = 1 - F.cosine_similarity(output1, output2)
             self.imshow(torchvision.utils.make_grid(concatenated),
                         'Dissimilarity:{0:0.2f}'.format(
+                            distance.cpu().data.numpy()[0]
+                        ))
+            print('Dissimilarity:{0:0.2f}'.format(
                             distance.cpu().data.numpy()[0]
                         ))
 
