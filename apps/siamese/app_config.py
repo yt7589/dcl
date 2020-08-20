@@ -1,6 +1,7 @@
 #
 
 class AppConfig(object):
+    '''
     # 人脸识别数据集
     img_w = 100
     img_h = 100
@@ -18,4 +19,3 @@ class AppConfig(object):
     testing_dir = "./datasets/vehicles/testing/"
     train_batch_size = 8
     train_number_epochs = 5 # 100
-    '''

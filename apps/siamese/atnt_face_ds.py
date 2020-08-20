@@ -33,6 +33,7 @@ class AtntFaceDs(Dataset):
 
         img0 = Image.open(img0_tuple[0])
         img1 = Image.open(img1_tuple[0])
+        '''
         # 人脸识别黑白图像
         img0 = img0.convert("L")
         img1 = img1.convert("L")
@@ -40,7 +41,6 @@ class AtntFaceDs(Dataset):
         # 车辆识别彩色图像
         img0 = img0.convert("RGB")
         img1 = img1.convert("RGB")
-        '''
         
         if self.should_invert:
             img0 = PIL.ImageOps.invert(img0)
