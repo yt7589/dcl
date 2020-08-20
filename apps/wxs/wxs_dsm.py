@@ -3222,6 +3222,7 @@ function nextImg() {
         dst_folder = '/media/zjkj/work/yantao/temp/t002'
 
         while True:
+            print('移动文件线程启动...')
             for jo in base_path.iterdir():
                 full_fn = str(jo)
                 if jo.is_file() and full_fn.endswith(file_exts):
