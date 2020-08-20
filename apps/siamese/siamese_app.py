@@ -92,9 +92,9 @@ class SiameseApp(object):
                         ))
             '''
             dv = distance.cpu().data.numpy()[0]
-            img0 = Image.fromarray(x0)
+            img0 = Image.fromarray(x0.numpy())
             img0.save('./logs/img0_{0}_{1}.jpg'.format(i, dv))
-            img1 = Image.fromarray(x1)
+            img1 = Image.fromarray(x1.numpy())
             img1.save('./logs/img1_{0}_{1}.jpg'.format(x1, dv))
             print('concatenated: {0}; {1};'.format(concatenated.shape, type(concatenated)))
             print('Dissimilarity:{0:0.2f}'.format(
