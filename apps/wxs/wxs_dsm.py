@@ -3216,7 +3216,7 @@ function nextImg() {
         for i in range(10085):
             with open('/media/zjkj/work/yantao/temp/t001/a_{0}.txt'.format(i), 'w+', encoding='utf-8') as wfd:
                 wfd.write('内容：{0:03d}个消息\n'.format(i))
-        file_ext = 'txt'
+        file_exts = ('txt', 'jpg', 'json')
         base_path = Path('/media/zjkj/work/yantao/temp/t001')
         num = 0
         dst_folder = '/media/zjkj/work/yantao/temp/t002'
@@ -3224,7 +3224,7 @@ function nextImg() {
         while True:
             for jo in base_path.iterdir():
                 full_fn = str(jo)
-                if jo.is_file() and full_fn.endswith((file_ext)):
+                if jo.is_file() and full_fn.endswith(file_exts):
                     print('移动：{0}文件'.format(full_fn))
                     arrs_a = full_fn.split('/')
                     json_file = arrs_a[-1]
