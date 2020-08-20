@@ -209,7 +209,12 @@ class WxsApp(object):
         计算两张图片的相似度，通过获取两张图片ReID特征向量，然后计算二者的余弦
         距离作为相似度
         '''
-        WxsDsm.calculate_img_similarity_main()
+        #WxsDsm.calculate_img_similarity_main()
+        '''
+        定期从车辆检测结果目录下读取检测的Json文件，将其存储到每100个文件一个目录的格式，
+        并且保存原有的文件名。
+        '''
+        WxsDsm.move_detect_json_to_folder()
         #WxsDsm.exp001()
 
 

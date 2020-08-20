@@ -3203,3 +3203,11 @@ function nextImg() {
                 for val in vals:
                     raw.append(float(val))
         return np.array(raw)
+
+    @staticmethod
+    def move_detect_json_to_folder():
+        '''
+        定期从车辆检测结果目录下读取检测的Json文件，将其存储到每100个文件一个目录的格式，
+        并且保存原有的文件名。
+        '''
+        print('移动车辆检测Json文件')
