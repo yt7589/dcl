@@ -13,8 +13,8 @@ class ContrastiveLoss(torch.nn.Module):
         self.margin = margin
 
     def forward(self, output1, output2, label):
-        # distance = F.pairwise_distance(output1, output2)
-        distance = 1 - F.cosine_similarity(output1, output2)
+        distance = F.pairwise_distance(output1, output2)
+        #distance = 1 - F.cosine_similarity(output1, output2)
         loss_contrastive = torch.mean((1-label) * torch.pow(distance, 2) +
                                       (label) * torch.pow(torch.clamp(
                                           self.margin - distance, min=0.0), 2))

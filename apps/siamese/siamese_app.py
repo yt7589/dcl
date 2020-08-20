@@ -78,13 +78,13 @@ class SiameseApp(object):
                                        ,should_invert=False)
         test_dataloader = DataLoader(siamese_dataset,num_workers=6,batch_size=1,shuffle=True)
         dataiter = iter(test_dataloader)
-        #x0, _, _ = next(dataiter)
+        x0, _, _ = next(dataiter)
         for i in range(10):
-            x0,x1,label2 = next(dataiter)
+            _,x1,label2 = next(dataiter)
             concatenated = torch.cat((x0,x1),0)            
             output1,output2 = net(Variable(x0).cuda(), Variable(x1).cuda())
-            #distance = F.pairwise_distance(output1, output2)
-            distance = 1 - F.cosine_similarity(output1, output2)
+            distance = F.pairwise_distance(output1, output2)
+            #distance = 1 - F.cosine_similarity(output1, output2)
             self.imshow(torchvision.utils.make_grid(concatenated),
                         'Dissimilarity:{0:0.2f}'.format(
                             distance.cpu().data.numpy()[0]
