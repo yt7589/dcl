@@ -15,7 +15,7 @@ class AppConfig(object):
     img_w = 224
     img_h = 224
     img_channel = 3
-    training_dir = "e:/work/tcv/projects/dcl/datasets/vehicles/training/"
-    testing_dir = "e:/work/tcv/projects/dcl/datasets/vehicles/testing/"
+    training_dir = "./datasets/vehicles/training/"
+    testing_dir = "./datasets/vehicles/testing/"
     train_batch_size = 8
     train_number_epochs = 5 # 100
