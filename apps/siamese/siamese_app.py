@@ -1,4 +1,5 @@
 #
+import os
 import torchvision
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
@@ -27,6 +28,7 @@ class SiameseApp(object):
 
     def startup(self, args):
         print('Siamese Network App v0.0.2')
+        os.environ['CUDA_VISIBLE_DEVICES'] = '2' # ','.join(map(str, [2]))
         self.train()
         self.run()
 
