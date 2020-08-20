@@ -29,7 +29,7 @@ class SiameseApp(object):
     def startup(self, args):
         print('Siamese Network App v0.0.2')
         os.environ['CUDA_VISIBLE_DEVICES'] = '2' # ','.join(map(str, [2]))
-        self.train()
+        #self.train()
         self.run()
 
     def train(self):
@@ -85,10 +85,13 @@ class SiameseApp(object):
             output1,output2 = net(Variable(x0).cuda(), Variable(x1).cuda())
             distance = F.pairwise_distance(output1, output2)
             #distance = 1 - F.cosine_similarity(output1, output2)
+            '''
             self.imshow(torchvision.utils.make_grid(concatenated),
                         'Dissimilarity:{0:0.2f}'.format(
                             distance.cpu().data.numpy()[0]
                         ))
+            '''
+            print('concatenated: {0};'.format(concatenated.shape))
             print('Dissimilarity:{0:0.2f}'.format(
                             distance.cpu().data.numpy()[0]
                         ))
