@@ -91,7 +91,7 @@ class SiameseApp(object):
                             distance.cpu().data.numpy()[0]
                         ))
             '''
-            print('concatenated: {0};'.format(concatenated.shape))
+            print('concatenated: {0}; {1};'.format(concatenated.shape, type(concatenated)))
             print('Dissimilarity:{0:0.2f}'.format(
                             distance.cpu().data.numpy()[0]
                         ))
