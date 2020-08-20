@@ -203,7 +203,7 @@ if __name__ == '__main__':
         os.makedirs(save_dir)
     model.cuda()
     #summary(model, (3, 224, 224))
-    if 1>0:
+    if 1>20:
         print('prepare for storing the onnx file')
         example = torch.rand(8, 3, 224, 224).cuda()
         print(example.shape)
@@ -219,7 +219,7 @@ if __name__ == '__main__':
                             do_constant_folding=True)
         '''
         # 动态batch
-        torch.onnx.export(model, example, "dcl_0820.onnx", verbose=False,
+        torch.onnx.export(model, example, "dcl_date.onnx", verbose=False,
                             input_names=["data"], output_names=["brands", "bmys"], \
                             training=False, opset_version=9,
                             do_constant_folding=True,
