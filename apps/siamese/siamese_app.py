@@ -85,19 +85,11 @@ class SiameseApp(object):
             output1,output2 = net(Variable(x0).cuda(), Variable(x1).cuda())
             distance = F.pairwise_distance(output1, output2)
             #distance = 1 - F.cosine_similarity(output1, output2)
-            '''
-            self.imshow(torchvision.utils.make_grid(concatenated),
+            img_file = './logs/img_{0:03d}'.format(i)
+            self.imshow(torchvision.utils.make_grid(concatenated), img_file, 
                         'Dissimilarity:{0:0.2f}'.format(
                             distance.cpu().data.numpy()[0]
                         ))
-            '''
-            dv = distance.cpu().data.numpy()[0]
-            img0_raw = x0.cpu().numpy().reshape((3, 224, 224))
-            print('x0_a: {0};'.format(img0_raw.shape))
-            img0 = Image.fromarray(np.uint8(img0_raw))
-            img0.save('./logs/img0_{0}_{1}.jpg'.format(i, dv))
-            img1 = Image.fromarray(x1.cpu().numpy())
-            img1.save('./logs/img1_{0}_{1}.jpg'.format(x1, dv))
             print('concatenated: {0}; {1};'.format(concatenated.shape, type(concatenated)))
             print('Dissimilarity:{0:0.2f}'.format(
                             distance.cpu().data.numpy()[0]
@@ -133,14 +125,15 @@ class SiameseApp(object):
         self.imshow(torchvision.utils.make_grid(concatenated))
         print(example_batch[2].numpy())
 
-    def imshow(self, img,text=None,should_save=False):
+    def imshow(self, img, img_file, text=None, should_save=False):
         npimg = img.numpy()
         plt.axis("off")
         if text:
             plt.text(75, 8, text, style='italic',fontweight='bold',
                 bbox={'facecolor':'white', 'alpha':0.8, 'pad':10})
         plt.imshow(np.transpose(npimg, (1, 2, 0)))
-        plt.show()    
+        #plt.show()  
+        plt.savefig(img_file)  
 
     def show_plot(self, iteration,loss):
         plt.plot(iteration,loss)
