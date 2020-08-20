@@ -92,6 +92,8 @@ class SiameseApp(object):
                         ))
             '''
             dv = distance.cpu().data.numpy()[0]
+            x0_a = x0.cpu().numpy()
+            print('x0_a: {0};'.format(x0_a.shape))
             img0 = Image.fromarray(x0.cpu().numpy())
             img0.save('./logs/img0_{0}_{1}.jpg'.format(i, dv))
             img1 = Image.fromarray(x1.cpu().numpy())
