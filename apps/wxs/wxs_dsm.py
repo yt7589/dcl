@@ -3227,7 +3227,8 @@ function nextImg() {
                 print('移动：{0}文件'.format(full_fn))
                 arrs_a = full_fn.split('/')
                 json_file = arrs_a[-1]
-                raw_str = '0:0>8d'.format(num)
+                raw_str = '{0:0>8d}'.format(num)
+                print('raw_str: {0};'.format(raw_str))
                 df1 = '{0}/{1}'.format(dst_folder, raw_str[:2])
                 if not os.path.exists(df1):
                     os.mkdir(df1)
