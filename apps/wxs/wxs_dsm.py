@@ -3217,8 +3217,9 @@ function nextImg() {
             with open('/media/zjkj/work/yantao/temp/t001/a_{0}.txt'.format(i), 'w+', encoding='utf-8') as wfd:
                 wfd.write('内容：{0:03d}个消息\n'.format(i))
         '''
+        file_ext = 'txt'
         base_path = Path('/media/zjkj/work/yantao/temp/t001')
         for jo in base_path.iterdir():
             full_fn = str(jo)
-            if jo.is_file() and full_fn.endswith(('json')):
+            if jo.is_file() and full_fn.endswith((file_ext)):
                 print('移动：{0}文件'.format(full_fn))
