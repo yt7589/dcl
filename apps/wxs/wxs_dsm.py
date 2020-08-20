@@ -3219,7 +3219,29 @@ function nextImg() {
         '''
         file_ext = 'txt'
         base_path = Path('/media/zjkj/work/yantao/temp/t001')
+        num = 0
+        dst_folder = '/media/zjkj/work/yantao/temp/t002'
         for jo in base_path.iterdir():
             full_fn = str(jo)
             if jo.is_file() and full_fn.endswith((file_ext)):
                 print('移动：{0}文件'.format(full_fn))
+                arrs_a = full_fn.split('/')
+                json_file = arrs_a[-1]
+                raw_str = '0:08d'.format(num)
+                df1 = '{0}/{1}'.format(dst_folder, raw_str[:2])
+                if not os.path.exists(df1):
+                    os.mkdir(df1)
+                df2 = '{0}/{1}'.format(df1, raw_str[2:4])
+                if not os.path.exists(df2):
+                    os.mkdir(df2)
+                df3 = '{0}/{1}'.format(df2, raw_str[4:6])
+                if not os.path.exists(df3):
+                    os.mkdir(df3)
+                '''
+                df = '{0}/{1}'.format(df3, raw_str[6:])
+                if not os.path.exists(df):
+                    os.mkdir(df)
+                '''
+                dst_file = '{0}/{1}'.format(df3, json_file)
+                shutil.move(full_fn, dst_file)
+                num += 1
