@@ -3213,13 +3213,15 @@ function nextImg() {
         '''
         print('移动车辆检测Json文件')
         # 生成1万个文件
+        '''
         for i in range(10085):
             with open('/media/zjkj/work/yantao/temp/t001/a_{0}.txt'.format(i), 'w+', encoding='utf-8') as wfd:
                 wfd.write('内容：{0:03d}个消息\n'.format(i))
+        '''
         file_exts = ('txt', 'jpg', 'json')
-        base_path = Path('/media/zjkj/work/yantao/temp/t001')
+        base_path = Path('/media/zjkj/work/yantao/zjkj/detect_raw_1')
         num = 0
-        dst_folder = '/media/zjkj/work/yantao/temp/t002'
+        dst_folder = '/media/zjkj/work/yantao/zjkj/detect_1'
 
         while True:
             print('移动文件线程启动...')
