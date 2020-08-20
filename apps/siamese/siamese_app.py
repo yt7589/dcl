@@ -81,7 +81,6 @@ class SiameseApp(object):
         #x0, _, _ = next(dataiter)
         for i in range(10):
             x0,x1,label2 = next(dataiter)
-            print('label2: {0};'.format(label2))
             concatenated = torch.cat((x0,x1),0)            
             output1,output2 = net(Variable(x0).cuda(), Variable(x1).cuda())
             #distance = F.pairwise_distance(output1, output2)

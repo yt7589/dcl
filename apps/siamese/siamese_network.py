@@ -39,7 +39,6 @@ class SiameseNetwork(nn.Module):
 
     def forward_once(self, x):
         output = self.cnn1(x)
-        print('Ln41 output: {0};'.format(output.shape))
         output = output.view(output.size()[0], -1)
         output = self.fc1(output)
         return output
