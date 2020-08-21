@@ -2209,23 +2209,29 @@ function nextImg() {
 
     @staticmethod
     def parse_detect_json(json_file):
+        cllxfls = ['11', '12', '13', '14', '21', '22']
         with open(json_file, 'r', encoding='utf-8') as jfd:
             data = json.load(jfd)
         if len(data['VEH']) < 1:
             return None
         else:
             # 找到面积最大的检测框作为最终检测结果
-            max_idx = 0
+            max_idx = -1
             max_area = 0
             for idx, veh in enumerate(data['VEH']):
-                box_str = veh['WZTZ']['CLWZ']
-                arrs_a = box_str.split(',')
-                x1, y1, w, h = int(arrs_a[0]), int(arrs_a[1]), int(arrs_a[2]), int(arrs_a[3])
-                area = w * h
-                if area > max_area:
-                    max_area = area
-                    max_idx = idx
-            return data['VEH'][max_idx]['WZTZ']['CLWZ']
+                cllxfl = veh['CXTZ']['CLLXFL']
+                if cllxfl in cllxfls:
+                    box_str = veh['WZTZ']['CLWZ']
+                    arrs_a = box_str.split(',')
+                    x1, y1, w, h = int(arrs_a[0]), int(arrs_a[1]), int(arrs_a[2]), int(arrs_a[3])
+                    area = w * h
+                    if area > max_area:
+                        max_area = area
+                        max_idx = idx
+            if max_idx < 0:
+                return None
+            else:
+                return data['VEH'][max_idx]['WZTZ']['CLWZ']
 
     @staticmethod
     def crop_and_resize_img(img_file, box, size=(224, 224), mode=1):
