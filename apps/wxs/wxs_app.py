@@ -219,7 +219,12 @@ class WxsApp(object):
         将1400万样本分割为10万一个单位，并保存为独立的文件: 
         samples_001.txt ~ sample_140.txt
         '''
-        WxsDsm.divide_samples()
+        #WxsDsm.divide_samples()
+        '''
+        将10万个样本文件中的图片拷贝到client1.8/work/sample_files目录下，并按每100个
+        文件一个目录组织
+        '''
+        WxsDsm.copy_sample_image_files_main()
         #WxsDsm.exp001()
 
 

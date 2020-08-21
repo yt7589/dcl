@@ -3282,3 +3282,36 @@ function nextImg() {
         with open(sample_fn, 'w+', encoding='utf-8') as nfd:
             for ff in files:
                 nfd.write('{0}\n'.format(ff))
+
+    @staticmethod
+    def copy_sample_image_files_main():
+        '''
+        将10万个样本文件中的图片拷贝到client1.8/work/sample_files目录下，并按每100个
+        文件一个目录组织
+        '''
+        sample_file = '/home/zjkj/client1.8/work/sample_list/raw_sample_00000.txt'
+        WxsDsm.copy_sample_image_files(sample_file)
+
+    @staticmethod
+    def copy_sample_image_files(sample_file):
+        dst_base_folder = '/home/zjkj/client1.8/work/sample_files'
+        num = 0
+        with open(sample_file, 'r', encoding='utf-8') as sfd:
+            for line in sfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                arrs_b = full_fn.split('/')
+                fn = arrs_b[-1]
+                raw_str = '{0:4d}'.format(num)
+                sub1 = '{0}/{1}'.format(dst_base_folder, raw_str[:2])
+                if not os.path.exists(sub1):
+                    os.mkdir(sub1)
+                dst_folder = '{0}/{1}'.format(sub1, raw_str[2:])
+                if not os.path.exists(dst_folder):
+                    os.mkdir(dst_folder)
+                dst_file = '{0}/{1}'.format(dst_folder, fn)
+                shutil.copy(full_fn, '{0}/{1}'.format(dst_base_folder, dst_file))
+                num += 1
+                if num % 100 = 0:
+                    print('完成{0}个文件拷贝'.format(num))
