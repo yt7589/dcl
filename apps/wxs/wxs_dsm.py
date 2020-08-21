@@ -3269,7 +3269,7 @@ function nextImg() {
                 files.append(full_fn)
                 if idx % 100000 == 0:
                     # 保存入一个新文件
-                    sample_fn = 'sample_{0:05d}.txt'.format(file_id)
+                    sample_fn = '../../w1/raw_sample_{0:05d}.txt'.format(file_id)
                     with open(sample_fn, 'w+', encoding='utf-8') as nfd:
                         for ff in files:
                             nfd.write('{0}\n'.format(ff))
@@ -3278,7 +3278,7 @@ function nextImg() {
                 if idx % 1000 == 0:
                     print('读取{0}个样本'.format(idx))
                 idx += 1
-        sample_fn = 'sample_{0:05d}.txt'.format(file_id)
+        sample_fn = '../../w1/raw_sample_{0:05d}.txt'.format(file_id)
         with open(sample_fn, 'w+', encoding='utf-8') as nfd:
             for ff in files:
                 nfd.write('{0}\n'.format(ff))
