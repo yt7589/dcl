@@ -224,11 +224,11 @@ class WxsApp(object):
         将10万个样本文件中的图片拷贝到client1.8/work/sample_files目录下，并按每100个
         文件一个目录组织
         '''
-        #WxsDsm.copy_sample_image_files_main()
+        WxsDsm.copy_sample_image_files_main()
         '''
         根据车辆检测结果Json文件，对原始图像进行切图，并保存到指定目录下
         '''
-        WxsDsm.process_seg_ds_detect_jsons()
+        #WxsDsm.process_seg_ds_detect_jsons()
         #WxsDsm.exp001()
 
 
