@@ -2220,7 +2220,7 @@ function nextImg() {
             for idx, veh in enumerate(data['VEH']):
                 box_str = veh['WZTZ']['CLWZ']
                 arrs_a = box_str.split(',')
-                x1, y1, x2, y2 = int(arrs_a[0]), int(arrs_a[1]), int(arrs_a[3]), int(arrs_a[4])
+                x1, y1, x2, y2 = int(arrs_a[0]), int(arrs_a[1]), int(arrs_a[2]), int(arrs_a[3])
                 area = (x2 - x1)*(y2 - y1)
                 if area > max_area:
                     max_area = area
