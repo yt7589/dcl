@@ -203,7 +203,7 @@ if __name__ == '__main__':
         os.makedirs(save_dir)
     model.cuda()
     #summary(model, (3, 224, 224))
-    if 1>20:
+    if 1>10:
         print('prepare for storing the onnx file')
         example = torch.rand(8, 3, 224, 224).cuda()
         print(example.shape)
