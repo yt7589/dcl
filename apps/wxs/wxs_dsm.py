@@ -3257,13 +3257,28 @@ function nextImg() {
         将1400万样本分割为10万一个单位，并保存为独立的文件: 
         samples_001.txt ~ sample_140.txt
         '''
+        file_id = 0
         idx = 1
+        files = []
         with open('../../w1/samples_v001.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
                 arrs_a = line.split('*')
                 full_fn = arrs_a[0]
                 #bmy_id = int(arrs_a[1])
+                files.append(full_fn)
+                if idx % 100000 == 0:
+                    # 保存入一个新文件
+                    sample_fn = 'sample_{0:05d}.txt'.format(file_id)
+                    with open(sample_fn, 'w+', encoding='utf-8') as nfd:
+                        for ff in files:
+                            nfd.write('{0}\n'.format(ff))
+                    files = []
+                    file_id += 1
                 if idx % 1000 == 0:
                     print('读取{0}个样本'.format(idx))
                 idx += 1
+        sample_fn = 'sample_{0:05d}.txt'.format(file_id)
+        with open(sample_fn, 'w+', encoding='utf-8') as nfd:
+            for ff in files:
+                nfd.write('{0}\n'.format(ff))
