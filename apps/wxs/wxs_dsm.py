@@ -3344,6 +3344,19 @@ function nextImg() {
         print('^_^ The End! ^_^')
 
     @staticmethod
+    def copy_cut_bad_images_pair():
+        '''
+        将切图错误的图片原图和切过的图拷贝到同一目录下
+        '''
+        bad_image_files = []
+        with open('/home/zjkj/client1.8/work/bad_image_files_yt.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line = line.strip()
+                bad_image_files.append(line)
+        for bif in bad_image_files:
+            print('deal with {0};'.format(bif))
+
+    @staticmethod
     def exp001():
         json_file = '/home/zjkj/client1.8/work/detect_results/HFC7150BNF_冀A220BN_02_130100100935_130100308146014823.jpg_0.json'
         rst = WxsDsm.parse_detect_json(json_file)
