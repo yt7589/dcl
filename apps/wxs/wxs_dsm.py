@@ -2475,7 +2475,7 @@ function nextImg() {
             'crop_img': None
         })
         print('共处理{0}个文件，其中失败文件数为{1}个'.format(num + bad_num, bad_num))
-        bad_imgs_txt = '../../w1/train_bad_imgs.txt'
+        bad_imgs_txt = '/home/zjkj/client1.8/work/bad_images.txt'
         #bad_imgs_txt = '../../w1/random_tds_bad_imgs.txt'
         with open(bad_imgs_txt, 'w+', encoding='utf-8') as bfd:
             for bi in bad_img_files:
@@ -2497,7 +2497,7 @@ function nextImg() {
             arrs_a = img_file.split('_')
             arrs_b = arrs_a[0].split('#')
             vin_code = arrs_b[0]
-            folder1 = '/media/zjkj/work/yantao/zjkj/train_ds/{0}'.format(vin_code)
+            folder1 = '/home/zjkj/client1.8/work/cutted_images/{0}'.format(vin_code)
             #folder1 = '/media/zjkj/work/yantao/zjkj/work/random_tds/{0}'.format(vin_code)
             if not os.path.exists(folder1):
                 os.mkdir(folder1)
@@ -3315,3 +3315,44 @@ function nextImg() {
                 num += 1
                 if num % 100 == 0:
                     print('完成{0}个文件拷贝'.format(num))
+
+    
+    @staticmethod
+    def process_seg_ds_detect_jsons():
+        '''
+        将图片通过client1.8目录下的run.sh，发到服务器后，服务器会返回图像识别结果步骤：
+        1. 遍历原始文件目录，形成一个文件名-全路径名的字典；
+        2. 读取JSON文件，解析出原始文件名；
+        3. 根据JSON文件中位置信息进行功图；
+        4. 将切好的图直接缩放为224*244保存到scale1目录；
+        5. 将切好的图按照长边缩放到224，短边0填充方式缩放到224*224，保存到scale2目录；
+        6. 文件按车辆识别码目录进行组织；
+        '''
+        print('process_training_ds_detect_jsons')
+        finished_imgs = set()
+        ds_file = '/home/zjkj/client1.8/work/sample_list/raw_sample_00000.txt'
+        img_file_full_fn_dict = {} #WxsDsm.get_img_file_full_fn_dict_from_ds_file(ds_file)
+        with open(ds_file, 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line = line.strip()
+                arrs_a = line.split('/')
+                img_file = arrs_a[-1]
+                img_file_full_fn_dict[img_file] = line
+        print('从数据集文件获取图片文件名和全路径文件名字典')
+        json_path = Path('/home/zjkj/client1.8/work/detect_results')
+        json_files = [] #WxsDsm.get_cut_json_files(json_path)
+        for jf in json_files.iterdir():
+            json_files.append(str(jf))
+        print('求出所有车辆检测json文件列表')
+        # 采用多线程方式运行
+        imgs_queue = Queue(2000)
+        # 启动切图线程
+        cut_img_thd = threading.Thread(target=WxsDsm.generate_crop_cv_img_thread, args=(imgs_queue, img_file_full_fn_dict, json_files, finished_imgs))
+        cut_img_thd.start()
+        # 启动保存图片线程
+        save_img_thd = threading.Thread(target=WxsDsm.save_crop_cv_img_thread, args=(imgs_queue,))
+        save_img_thd.start()
+        # 等待线程结束
+        cut_img_thd.join()
+        save_img_thd.join()
+        print('^_^ The End! ^_^')
