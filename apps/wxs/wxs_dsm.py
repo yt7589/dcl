@@ -3352,9 +3352,28 @@ function nextImg() {
         with open('/home/zjkj/client1.8/work/bad_image_files_yt.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
-                bad_image_files.append(line)
+                if line != '':
+                    bad_image_files.append(line)
+        bad_images_folder = '/home/zjkj/client1.8/work/bad_images'
         for bif in bad_image_files:
             print('deal with {0};'.format(bif))
+            org_base_path = Path('/home/zjkj/client1.8/work/sample_files')
+            for sub1 in org_base_path.iterdir():
+                for sub2 in sub1.iterdir():
+                    for file_obj in sub2.iterdir():
+                        full_fn = str(file_obj)
+                        arrs_a = full_fn.split('/')
+                        img_file = arrs_a[-1]
+                        if bif == img_file:
+                            shutil.copy(full_fn, '{0}/org_{1}'.format(bad_images_folder, bif))
+            cut_base_path = Path('/home/zjkj/client1.8/work/cutted_images')
+            for vf in cut_base_path.iterdir():
+                for file_obj in vf.iterdir():
+                    full_fn = str(file_obj)
+                    arrs_a = full_fn.split('/')
+                    img_file = arrs_a[-1]
+                    if bif == img_file:
+                        shutil.copy(full_fn, '{0}/cut_{1}'.format(bad_images_folder, bif))
 
     @staticmethod
     def exp001():
