@@ -24,7 +24,7 @@ class WxsApp(object):
         ''' 
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
         '''
-        WxsDsm.generate_samples()
+        #WxsDsm.generate_samples()
         '''
         生成原始数据集，采用稀疏品牌车型年款编号
         '''
@@ -215,6 +215,11 @@ class WxsApp(object):
         并且保存原有的文件名。
         '''
         #WxsDsm.move_detect_json_to_folder()
+        '''
+        将1400万样本分割为10万一个单位，并保存为独立的文件: 
+        samples_001.txt ~ sample_140.txt
+        '''
+        WxsDsm.divide_samples()
         #WxsDsm.exp001()
 
 

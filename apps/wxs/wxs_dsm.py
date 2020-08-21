@@ -3250,3 +3250,20 @@ function nextImg() {
                     shutil.move(full_fn, dst_file)
                     num += 1
             time.sleep(1)
+
+    @staticmethod
+    def divide_samples():
+        '''
+        将1400万样本分割为10万一个单位，并保存为独立的文件: 
+        samples_001.txt ~ sample_140.txt
+        '''
+        idx = 1
+        with open('../../w1/samples_v001.txt', 'r', encoding='utf-8') as sfd:
+            for line in sfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                #bmy_id = int(arrs_a[1])
+                if idx % 1000 == 0:
+                    print('读取{0}个样本'.format(idx))
+                idx += 1
