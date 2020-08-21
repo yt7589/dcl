@@ -3313,5 +3313,5 @@ function nextImg() {
                 dst_file = '{0}/{1}'.format(dst_folder, fn)
                 shutil.copy(full_fn, '{0}/{1}'.format(dst_base_folder, dst_file))
                 num += 1
-                if num % 100 = 0:
+                if num % 100 == 0:
                     print('完成{0}个文件拷贝'.format(num))
