@@ -2214,7 +2214,18 @@ function nextImg() {
         if len(data['VEH']) < 1:
             return None
         else:
-            return data['VEH'][0]['WZTZ']['CLWZ']
+            # 找到面积最大的检测框作为最终检测结果
+            max_idx = 0
+            max_area = 0
+            for idx, veh in enumerate(data['VEH']):
+                box_str = veh['WZTZ']['CLWZ']
+                arrs_a = box_str.split(',')
+                x1, y1, x2, y2 = int(arrs_a[0]), int(arrs_a[1]), int(arrs_a[3]), int(arrs_a[4])
+                area = (x2 - x1)*(y2 - y1)
+                if area > max_area:
+                    max_area = area
+                    max_idx = idx
+            return data['VEH'][max_idx]['WZTZ']['CLWZ']
 
     @staticmethod
     def crop_and_resize_img(img_file, box, size=(224, 224), mode=1):
@@ -2694,37 +2705,6 @@ function nextImg() {
                 if num % 100 == 0:
                     print('统计完{0}个文件'.format(num))
         return finished_imgs
-
-    @staticmethod
-    def exp001():
-        '''
-        验证所里测试集品牌标注正确性
-        '''
-        brand_idx_brand_name_dict = {}
-        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
-            for line in bfd:
-                line = line.strip()
-                arrs_a = line.split(':')
-                brand_idx = int(arrs_a[0])
-                brand_name = arrs_a[1]
-                brand_idx_brand_name_dict[brand_idx] = brand_name
-        diffs = []
-        with open('./datasets/CUB_200_2011/anno/wxs_brands_cut_ds.txt', 'r', encoding='utf-8') as sfd:
-            for line in sfd:
-                line = line.strip()
-                arrs_a = line.split('*')
-                brand_id = int(arrs_a[-1])
-                full_fn = arrs_a[0]
-                arrs_b = full_fn.split('/')
-                img_file = arrs_b[-1]
-                arrs_c = img_file.split('_')
-                fn_brand_name = '{0}牌'.format(arrs_c[3])
-                brand_name = brand_idx_brand_name_dict[brand_id]
-                if brand_name != fn_brand_name:
-                    diffs.append('{0} <=> {1}; {2};'.format(brand_name, fn_brand_name, full_fn))
-        for di in diffs:
-            print(di)
-        print('共有{0}个不一样的记录'.format(len(diffs)))
 
     @staticmethod
     def crop_image_demo():
@@ -3356,3 +3336,9 @@ function nextImg() {
         cut_img_thd.join()
         save_img_thd.join()
         print('^_^ The End! ^_^')
+
+    @staticmethod
+    def exp001():
+        json_file = '/home/zjkj/client1.8/work/detect_results/HFC7150BNF_冀A220BN_02_130100100935_130100308146014823.jpg_0.json'
+        rst = WxsDsm.parse_detect_json(json_file)
+        print(rst)

@@ -228,8 +228,8 @@ class WxsApp(object):
         '''
         根据车辆检测结果Json文件，对原始图像进行切图，并保存到指定目录下
         '''
-        WxsDsm.process_seg_ds_detect_jsons()
-        #WxsDsm.exp001()
+        #WxsDsm.process_seg_ds_detect_jsons()
+        WxsDsm.exp001()
 
 
         
