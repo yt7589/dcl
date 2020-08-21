@@ -3307,7 +3307,7 @@ function nextImg() {
                 sub1 = '{0}/{1}'.format(dst_base_folder, raw_str[:2])
                 if not os.path.exists(sub1):
                     os.mkdir(sub1)
-                dst_folder = '{0}/{1}'.format(sub1, raw_str[2:])
+                dst_folder = '{0}/{1}'.format(sub1, raw_str[2:4])
                 if not os.path.exists(dst_folder):
                     os.mkdir(dst_folder)
                 dst_file = '{0}/{1}'.format(dst_folder, fn)
