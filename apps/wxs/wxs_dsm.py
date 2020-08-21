@@ -3341,7 +3341,7 @@ function nextImg() {
         print('从数据集文件获取图片文件名和全路径文件名字典')
         json_path = Path('/home/zjkj/client1.8/work/detect_results')
         json_files = [] #WxsDsm.get_cut_json_files(json_path)
-        for jf in json_files.iterdir():
+        for jf in json_path.iterdir():
             json_files.append(str(jf))
         print('求出所有车辆检测json文件列表')
         # 采用多线程方式运行
