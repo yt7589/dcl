@@ -3303,7 +3303,7 @@ function nextImg() {
                 full_fn = arrs_a[0]
                 arrs_b = full_fn.split('/')
                 fn = arrs_b[-1]
-                raw_str = '{0:4d}'.format(num)
+                raw_str = '{0:4>d}'.format(num)
                 sub1 = '{0}/{1}'.format(dst_base_folder, raw_str[:2])
                 if not os.path.exists(sub1):
                     os.mkdir(sub1)
