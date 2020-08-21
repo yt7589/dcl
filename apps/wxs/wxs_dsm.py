@@ -262,7 +262,7 @@ class WxsDsm(object):
         oprr_num = 0
         with open('./logs/conflicts.txt', 'w+', encoding='utf-8') \
                         as WxsDsm.g_cfd:
-            with open('../../w1/samples.txt', 'w+', encoding='utf-8') \
+            with open('../../w1/samples_v001.txt', 'w+', encoding='utf-8') \
                             as sfd:
                 with open('../../w1/error_vins.txt', 'w+', encoding='utf-8') \
                                 as efd:
@@ -355,8 +355,7 @@ class WxsDsm(object):
             brand_set.add(brand_name)
         oprr_num += 1
         if oprr_num % 1000 == 0:
-            print('处理{0}条记录...'.format(
-                oprr_num))
+            print('处理{0}条记录...'.format(oprr_num))
         return oprr_num
 
     

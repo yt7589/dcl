@@ -24,7 +24,7 @@ class WxsApp(object):
         ''' 
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
         '''
-        #WxsDsm.generate_samples()
+        WxsDsm.generate_samples()
         '''
         生成原始数据集，采用稀疏品牌车型年款编号
         '''
@@ -214,7 +214,7 @@ class WxsApp(object):
         定期从车辆检测结果目录下读取检测的Json文件，将其存储到每100个文件一个目录的格式，
         并且保存原有的文件名。
         '''
-        WxsDsm.move_detect_json_to_folder()
+        #WxsDsm.move_detect_json_to_folder()
         #WxsDsm.exp001()
 
 
