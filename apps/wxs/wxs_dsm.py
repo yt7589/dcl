@@ -3303,7 +3303,7 @@ function nextImg() {
                 full_fn = arrs_a[0]
                 arrs_b = full_fn.split('/')
                 fn = arrs_b[-1]
-                raw_str = '{0:4>d}'.format(num)
+                raw_str = '{0:04>d}'.format(num)
                 sub1 = '{0}/{1}'.format(dst_base_folder, raw_str[:2])
                 if not os.path.exists(sub1):
                     os.mkdir(sub1)
@@ -3311,7 +3311,7 @@ function nextImg() {
                 if not os.path.exists(dst_folder):
                     os.mkdir(dst_folder)
                 dst_file = '{0}/{1}'.format(dst_folder, fn)
-                shutil.copy(full_fn, '{0}/{1}'.format(dst_base_folder, dst_file))
+                shutil.copy(full_fn, dst_file)
                 num += 1
                 if num % 100 == 0:
                     print('完成{0}个文件拷贝'.format(num))
