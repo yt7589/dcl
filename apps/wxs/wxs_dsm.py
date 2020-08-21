@@ -3365,7 +3365,7 @@ function nextImg() {
                         arrs_a = full_fn.split('/')
                         img_file = arrs_a[-1]
                         if bif == img_file:
-                            shutil.copy(full_fn, '{0}/org_{1}'.format(bad_images_folder, bif))
+                            shutil.copy(full_fn, '{0}/{1}_org.jpg'.format(bad_images_folder, bif[:-4]))
             cut_base_path = Path('/home/zjkj/client1.8/work/cutted_images')
             for vf in cut_base_path.iterdir():
                 for file_obj in vf.iterdir():
@@ -3373,7 +3373,7 @@ function nextImg() {
                     arrs_a = full_fn.split('/')
                     img_file = arrs_a[-1]
                     if bif == img_file:
-                        shutil.copy(full_fn, '{0}/cut_{1}'.format(bad_images_folder, bif))
+                        shutil.copy(full_fn, '{0}/{1}_cut.jpg'.format(bad_images_folder, bif[:-4]))
 
     @staticmethod
     def exp001():
