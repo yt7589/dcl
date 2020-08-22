@@ -62,7 +62,7 @@ def parse_args():
                         default=None, type=str)
     parser.add_argument('--acc_report', dest='acc_report',
                         action='store_true')
-    parser.add_argument('--swap_num', default=[5, 5],
+    parser.add_argument('--swap_num', default=[3, 3],
                     nargs=2, metavar=('swap1', 'swap2'),
                     type=int, help='specify a range')
     args = parser.parse_args()
