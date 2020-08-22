@@ -236,7 +236,9 @@ if __name__ == '__main__':
     os.environ['CUDA_VISIBLE_DEVICES'] = '1'
     args = parse_args()
     print(args)    
-    Config = LoadConfig(args, args.version, True)
+    Config = LoadConfig(args, args.version)
+    Config.use_dcl = False
+    Config.use_backbone = True
     cudnn.benchmark = True
     resume = './net_model/training_descibe_82121_CUB/weights_0_43999_0.9744_0.9899.pth'
     model = MainModel(Config)
