@@ -3,6 +3,8 @@ import torch
 from torch import nn
 from torchvision import models
 import torch.nn.functional as F
+import onnxruntime
+#from onnxruntime.datasets import get_example
 from collections import OrderedDict
 
 class MainModel(nn.Module):
@@ -81,6 +83,34 @@ class OnnxExporter(object):
                                     "bmys":{0:"batch_size"}})
         print('OnnxExporter.export_onnx 7')
         print('保存成功')
+        # 运行onnx
+        self.run_onnx()
 
     def run_onnx(self):
-        pass
+        example_model = onnxruntime.datasets.get_example("sigmoid.onnx")
+        sess = onnxruntime.InferenceSession(example_model)
+        # input
+        input_name = sess.get_inputs()[0].name
+        print("Input name  :", input_name)
+        input_shape = sess.get_inputs()[0].shape
+        print("Input shape :", input_shape)
+        input_type = sess.get_inputs()[0].type
+        print("Input type  :", input_type)
+        # output
+        output_name0 = sess.get_outputs()[0].name
+        print("Output0 name  :", output_name0)  
+        output_shape0 = sess.get_outputs()[0].shape
+        print("Output0 shape :", output_shape0)
+        output_type0 = sess.get_outputs()[0].type
+        print("Output0 type  :", output_type0)
+        # output2
+        output_name1 = sess.get_outputs()[1].name
+        print("Output1 name  :", output_name1)  
+        output_shape1 = sess.get_outputs()[1].shape
+        print("Output1 shape :", output_shape1)
+        output_type1 = sess.get_outputs()[1].type
+        print("Output1 type  :", output_type1)
+        # 
+        X = torch.rand(8, 3, 224, 224).cuda()
+        result = sess.run([output_name0, output_name1], {input_name: X})
+        print('result: {0}; {1};'.format(type(result), result))
