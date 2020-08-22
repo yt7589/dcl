@@ -68,7 +68,7 @@ class SiameseApp(object):
                     iteration_number +=10
                     counter.append(iteration_number)
                     loss_history.append(batch_loss)
-            print("Epoch{}: {} Current loss {}".format(epoch, epoch_loss / epoch_num))
+            print("Epoch{}: Current loss {}".format(epoch, epoch_loss / epoch_num))
         self.show_plot(counter,loss_history)
         torch.save(net.state_dict(), self.pkl_file)
 
