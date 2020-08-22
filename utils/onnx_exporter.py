@@ -116,7 +116,7 @@ class OnnxExporter(object):
         #X = torch.rand(8, 3, 224, 224) #.cuda()
         img_file = '/media/zjkj/work/yantao/zjkj/test_ds/00/00/白#06_WJG00300_016_长城_M4_2012-2014_610500200969341894.jpg'
         img = self.load_img(img_file)
-        X = img.numpy().reshape((1, 3, 224, 224))
+        X = img.reshape((1, 3, 224, 224))
         X = X.astype(np.float32)
         result = sess.run([output_name0, output_name1], {input_name: X})
         brand = np.argmax(result[0], axis=1)
@@ -127,4 +127,5 @@ class OnnxExporter(object):
         with open(img_file, 'rb') as f:
             with Image.open(f) as img:
                 img_obj = img.convert('RGB')
-        return F.resize(img_obj, (224, 224), Image.BILINEAR)
+                img_obj.resize((224, 224), Image.BILINEAR)
+        return np.asarray(img_obj)
