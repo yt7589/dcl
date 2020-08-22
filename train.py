@@ -204,6 +204,7 @@ if __name__ == '__main__':
         os.makedirs(save_dir)
     model.cuda()
     #summary(model, (3, 224, 224))
+    model = nn.DataParallel(model)
     if 1>0:
         print('prepare for storing the onnx file')
         example = torch.rand(8, 3, 224, 224).cuda()
@@ -220,7 +221,7 @@ if __name__ == '__main__':
                             do_constant_folding=True)
         '''
         # 动态batch
-        torch.onnx.export(model, example, "dcl_0822_2.onnx", verbose=False,
+        torch.onnx.export(model, example, "dcl_0822_3.onnx", verbose=False,
                             input_names=["data"], output_names=["brands", "bmys"], \
                             training=False, opset_version=9,
                             do_constant_folding=True,
@@ -229,7 +230,6 @@ if __name__ == '__main__':
                                     "bmys":{0:"batch_size"}})
         print('保存成功')
         sys.exit(0)
-    model = nn.DataParallel(model)
 
 
     # optimizer prepare
