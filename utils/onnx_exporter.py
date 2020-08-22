@@ -89,7 +89,7 @@ class OnnxExporter(object):
 
     def run_onnx(self):
         #example_model = onnxruntime.datasets.get_example('e:/temp/dcl_0822_n2.onnx')
-        sess = onnxruntime.InferenceSession('dcl_v001_1.onnx')
+        sess = onnxruntime.InferenceSession('dcl_v002_1.onnx')
         # input
         input_name = sess.get_inputs()[0].name
         print("Input name  :", input_name)
