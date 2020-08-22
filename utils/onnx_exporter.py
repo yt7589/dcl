@@ -1,4 +1,5 @@
 # onnx模型导出工具
+import numpy as np
 import torch
 from torch import nn
 from torchvision import models
@@ -87,8 +88,8 @@ class OnnxExporter(object):
         self.run_onnx()
 
     def run_onnx(self):
-        example_model = onnxruntime.datasets.get_example('e:/temp/dcl_0822_n2.onnx')
-        sess = onnxruntime.InferenceSession(example_model)
+        #example_model = onnxruntime.datasets.get_example('e:/temp/dcl_0822_n2.onnx')
+        sess = onnxruntime.InferenceSession('e:/temp/dcl_0822_n2.onnx')
         # input
         input_name = sess.get_inputs()[0].name
         print("Input name  :", input_name)
@@ -111,6 +112,11 @@ class OnnxExporter(object):
         output_type1 = sess.get_outputs()[1].type
         print("Output1 type  :", output_type1)
         # 
-        X = torch.rand(8, 3, 224, 224).cuda()
-        result = sess.run([output_name0, output_name1], {input_name: X})
-        print('result: {0}; {1};'.format(type(result), result))
+        #X = torch.rand(8, 3, 224, 224) #.cuda()
+        for i in range(5):
+            X = np.random.rand(8, 3, 224, 224)
+            X = X.astype(np.float32)
+            result = sess.run([output_name0, output_name1], {input_name: X})
+            brand = np.argmax(result[0], axis=1)
+            bmy = np.argmax(result[1], axis=1)
+            print('result: {0}; {1};'.format(brand, bmy))
