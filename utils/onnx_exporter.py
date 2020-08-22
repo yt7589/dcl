@@ -114,7 +114,7 @@ class OnnxExporter(object):
         # 
         #X = torch.rand(8, 3, 224, 224) #.cuda()
         for i in range(5):
-            X = np.random.rand(8, 3, 224, 224)
+            X = np.random.rand(1, 3, 224, 224)
             X = X.astype(np.float32)
             result = sess.run([output_name0, output_name1], {input_name: X})
             brand = np.argmax(result[0], axis=1)
