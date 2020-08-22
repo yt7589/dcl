@@ -36,7 +36,7 @@ def parse_args():
     parser.add_argument('--data', dest='dataset',
                         default='CUB', type=str)
     parser.add_argument('--backbone', dest='backbone',
-                        default='resnet18', type=str)
+                        default='resnet50', type=str)
     parser.add_argument('--b', dest='batch_size',
                         default=8, type=int)
     parser.add_argument('--nw', dest='num_workers',
