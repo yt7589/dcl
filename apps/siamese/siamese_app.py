@@ -44,9 +44,6 @@ class SiameseApp(object):
                         num_workers=8,
                         batch_size=AppConfig.train_batch_size)
         net = SiameseNetwork().cuda()
-        i_debug = 1
-        if 1 == i_debug:
-            return
         criterion = ContrastiveLoss()
         optimizer = optim.Adam(net.parameters(),lr = 0.0005 )
         counter = []
