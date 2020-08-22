@@ -3376,6 +3376,19 @@ function nextImg() {
                         shutil.copy(full_fn, '{0}/{1}_cut.jpg'.format(bad_images_folder, bif[:-4]))
 
     @staticmethod
+    def generate_txt_by_wxs_tds_ok_images():
+        '''
+        将无锡所测试集中标注出年款的图片文件名和年款编号写进文件文件中
+        '''
+        base_path = Path('E:/work/tcv/temp/wlok')
+        for img_obj in base_path.iterdir():
+            full_fn = str(img_obj)
+            arrs_a = full_fn.split('-')
+            bmy_code = arrs_a[0]
+            img_file = full_fn[len(bmy_code)+1:]
+            print('{0}: {1};'.format(bmy_code, img_file))
+    
+    @staticmethod
     def exp001():
         json_file = '/home/zjkj/client1.8/work/detect_results/HFC7150BNF_冀A220BN_02_130100100935_130100308146014823.jpg_0.json'
         rst = WxsDsm.parse_detect_json(json_file)

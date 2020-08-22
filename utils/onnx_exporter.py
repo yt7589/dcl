@@ -17,7 +17,7 @@ class MainModel(nn.Module):
         
         self.model = getattr(models, self.backbone_arch)()
         self.model = nn.Sequential(*list(self.model.children())[:-2])
-        self.avgpool = nn.AdaptiveAvgPool2d(output_size=1)
+        self.avgpool = nn.AvgPool2d(output_size=1) # nn.AdaptiveAvgPool2d(output_size=1)
         self.classifier = nn.Linear(2048, self.num_brands, bias=False)
         self.brand_clfr = nn.Linear(2048, self.num_bmys, bias=False)
 
@@ -81,3 +81,6 @@ class OnnxExporter(object):
                                     "bmys":{0:"batch_size"}})
         print('OnnxExporter.export_onnx 7')
         print('保存成功')
+
+    def run_onnx(self):
+        pass
