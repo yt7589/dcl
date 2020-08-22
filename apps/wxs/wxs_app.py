@@ -232,7 +232,11 @@ class WxsApp(object):
         '''
         将切图错误的图片原图和切过的图拷贝到同一目录下
         '''
-        WxsDsm.copy_cut_bad_images_pair()
+        #WxsDsm.copy_cut_bad_images_pair()
+        '''
+        将无锡所测试集中标注出年款的图片文件名和年款编号写进文件文件中
+        '''
+        WxsDsm.generate_txt_by_wxs_tds_ok_images()
         #WxsDsm.exp001()
 
 
