@@ -41,6 +41,15 @@ def parse_args():
                         default=8, type=int)
     parser.add_argument('--nw', dest='num_workers',
                         default=4, type=int)
+
+
+    parser.add_argument('--tb', dest='train_batch',
+                        default=8, type=int)
+    parser.add_argument('--vb', dest='val_batch',
+                        default=512, type=int)
+
+
+
     parser.add_argument('--ver', dest='version',
                         default='val', type=str)
     parser.add_argument('--save', dest='resume',
