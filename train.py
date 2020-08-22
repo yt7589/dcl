@@ -204,31 +204,6 @@ if __name__ == '__main__':
         os.makedirs(save_dir)
     model.cuda()
     #summary(model, (3, 224, 224))
-    if 1>10:
-        print('prepare for storing the onnx file')
-        example = torch.rand(8, 3, 224, 224).cuda()
-        print(example.shape)
-        model.train(False)
-        model.eval()
-        model.use_dcl = False
-        model.use_Asoftmax = False
-        '''
-        # 由example这个输入来决定batch
-        torch.onnx.export(model, example, "dcl_0810_8.onnx", verbose=False,
-                            input_names=["data"], output_names=["brands", "bmys"], \
-                            training=False, opset_version=9,
-                            do_constant_folding=True)
-        '''
-        # 动态batch
-        torch.onnx.export(model, example, "dcl_date.onnx", verbose=False,
-                            input_names=["data"], output_names=["brands", "bmys"], \
-                            training=False, opset_version=9,
-                            do_constant_folding=True,
-                            dynamic_axes={"data":{0:"batch_size"},     # 批处理变量
-                                    "brands":{0:"batch_size"},
-                                    "bmys":{0:"batch_size"}})
-        print('保存成功')
-        sys.exit(0)
     model = nn.DataParallel(model)
 
 
@@ -265,7 +240,9 @@ if __name__ == '__main__':
 
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
 
-    mode = 1 # 1-train; 2-prepare_cluster_data；3-筛查有问题样本数据
+    # 1-train; 2-prepare_cluster_data；3-筛查有问题样本数据；
+    # 4-运行精度测试程序；5-导出onnx模型文件；
+    mode = 5
     # train entry
     if 1 == mode:
         train(Config,
@@ -297,5 +274,30 @@ if __name__ == '__main__':
     elif 4 == mode:
         log_file = open('./logs/a1.log', 'w+', encoding='utf-8')
         predict_main(Config, model, dataloader['val'], 'val', 0, log_file)
+    elif 5 == mode:
+        print('prepare for storing the onnx file')
+        example = torch.rand(8, 3, 224, 224).cuda()
+        print(example.shape)
+        model.train(False)
+        model.eval()
+        model.use_dcl = False
+        model.use_Asoftmax = False
+        '''
+        # 由example这个输入来决定batch
+        torch.onnx.export(model, example, "dcl_0810_8.onnx", verbose=False,
+                            input_names=["data"], output_names=["brands", "bmys"], \
+                            training=False, opset_version=9,
+                            do_constant_folding=True)
+        '''
+        # 动态batch
+        torch.onnx.export(model, example, "dcl_date.onnx", verbose=False,
+                            input_names=["data"], output_names=["brands", "bmys"], \
+                            training=False, opset_version=9,
+                            do_constant_folding=True,
+                            dynamic_axes={"data":{0:"batch_size"},     # 批处理变量
+                                    "brands":{0:"batch_size"},
+                                    "bmys":{0:"batch_size"}})
+        print('保存成功')
+        sys.exit(0)
 
 
