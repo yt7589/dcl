@@ -1,6 +1,7 @@
 #
 import torch
 from torch import nn
+from torchvision import models
 import pretrainedmodels
 from apps.siamese.app_config import AppConfig
 
@@ -15,7 +16,8 @@ class SiameseNetwork(nn.Module):
         self.backbone_arch = 'resnet50'
         self.fv_dim = 256
         self.fc_size = {'resnet50': 2048, 'resnet18': 512}
-        self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=1000, pretrained=None)
+        #self.model = pretrainedmodels.__dict__[self.backbone_arch](num_classes=1000, pretrained=None)
+        self.model = getattr(models, self.backbone_arch)()
         self.model.load_state_dict(torch.load(pretrained_model[self.backbone_arch]))
         self.model = nn.Sequential(*list(self.model.children())[:-2])
         self.avgpool = nn.AdaptiveAvgPool2d(output_size=1)
