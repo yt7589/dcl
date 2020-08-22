@@ -260,7 +260,7 @@ if __name__ == '__main__':
     model.train(False)
     model.eval()
     run_mode = 1 # 1 dynamic; 2 static
-    if 1 == run_mode:
+    if 2 == run_mode:
         torch.save(model, 'dcl_v3.pth')
         dummy_input = torch.randn(1, 3, 224, 224, device='cuda')
         torch.onnx.export(model, dummy_input, "dcl_v3_batch.onnx", verbose=True,
@@ -294,8 +294,8 @@ if __name__ == '__main__':
         exit(0)
 
     
-    #with torch.no_grad():
-    #    test_sample(model)
+    with torch.no_grad():
+        test_sample(model)
 
 #python -m onnxsim dcl.onnx dlc_sim.onnx  --input-shape "1,3,224,224"
 # pip install onnx-simplifier
