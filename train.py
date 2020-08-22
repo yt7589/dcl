@@ -220,7 +220,7 @@ if __name__ == '__main__':
                             do_constant_folding=True)
         '''
         # 动态batch
-        torch.onnx.export(model, example, "dcl_0822_1.onnx", verbose=False,
+        torch.onnx.export(model, example, "dcl_0822_2.onnx", verbose=False,
                             input_names=["data"], output_names=["brands", "bmys"], \
                             training=False, opset_version=9,
                             do_constant_folding=True,
