@@ -94,9 +94,16 @@ class LoadConfig(object):
 
         # annotation file organized as :
         # path/image_name cls_num\n
+        # 正式环境
+        train_ds_file = 'bid_brand_train_ds.txt'
+        val_ds_file = 'bid_brand_test_ds.txt'
+        test_ds_file = 'bid_brand_test_ds.txt'
+        # 精度测试
+        val_ds_file = 'wxs_brands_ds.txt'
+        test_ds_file = 'wxs_brands_ds.txt'
 
         if 'train' in get_list:
-            self.train_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_train_ds.txt'),\
+            self.train_anno = pd.read_csv(os.path.join(self.anno_root, train_ds_file),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
@@ -109,7 +116,7 @@ class LoadConfig(object):
                                            names=['ImageName', 'bmy_label', 'brand_label'])
             '''
             # 正式环境：品牌为主任务
-            self.val_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
+            self.val_anno = pd.read_csv(os.path.join(self.anno_root, val_ds_file),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
@@ -122,7 +129,7 @@ class LoadConfig(object):
                                            names=['ImageName', 'bmy_label', 'brand_label'])
             '''
             # 正式环境：品牌为主任务
-            self.test_anno = pd.read_csv(os.path.join(self.anno_root, 'bid_brand_test_ds.txt'),\
+            self.test_anno = pd.read_csv(os.path.join(self.anno_root, test_ds_file),\
                                            sep="*",\
                                            header=None,\
                                            names=['ImageName', 'bmy_label', 'brand_label'])
