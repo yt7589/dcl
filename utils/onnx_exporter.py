@@ -1,7 +1,8 @@
 # onnx模型导出工具
-from torchvision import models, transforms, datasets
-from torch import nn
 import torch
+from torch import nn
+from torchvision import models
+import torch.nn.functional as F
 from collections import OrderedDict
 
 class MainModel(nn.Module):
@@ -26,7 +27,7 @@ class MainModel(nn.Module):
         x = torch.flatten(x, start_dim=1, end_dim=-1)
         brand_out = self.classifier(x)
         bmy_out = self.brand_clfr(x)
-        return brand_out, bmy_out
+        return F.softmax(brand_out), F.softmax(bmy_out)
 
 def load_model_wholepth_special(pth):
     # 直接加载
