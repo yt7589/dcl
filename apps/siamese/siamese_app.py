@@ -50,6 +50,8 @@ class SiameseApp(object):
         loss_history = [] 
         iteration_number= 0
         for epoch in range(0, AppConfig.train_number_epochs):
+            epoch_loss = 0
+            epoch_num = 0
             for i, data in enumerate(train_dataloader,0):
                 img0, img1 , label = data
                 img0, img1 , label = Variable(img0).cuda(), Variable(img1).cuda() , Variable(label).cuda()
@@ -58,11 +60,15 @@ class SiameseApp(object):
                 loss_contrastive = criterion(output1,output2,label)
                 loss_contrastive.backward()
                 optimizer.step()
+                batch_loss = loss_contrastive.data.item()
+                epoch_loss += batch_loss
+                epoch_num += 1
                 if i %10 == 0 :
-                    print("Epoch{}: {} Current loss {}".format(epoch, i, loss_contrastive.data.item()))
+                    #print("Epoch{}: {} Current loss {}".format(epoch, i, loss_contrastive.data.item()))
                     iteration_number +=10
                     counter.append(iteration_number)
-                    loss_history.append(loss_contrastive.data.item())
+                    loss_history.append(batch_loss)
+            print("Epoch{}: {} Current loss {}".format(epoch, epoch_loss / epoch_num))
         self.show_plot(counter,loss_history)
         torch.save(net.state_dict(), self.pkl_file)
 
