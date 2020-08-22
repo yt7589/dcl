@@ -26,7 +26,7 @@ class MainModel(nn.Module):
         x = torch.flatten(x, start_dim=1, end_dim=-1)
         brand_out = self.classifier(x)
         bmy_out = self.brand_clfr(x)
-        return bmy_out
+        return brand_out, bmy_out
 
 def load_model_wholepth_special(pth):
     # 直接加载
