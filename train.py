@@ -99,7 +99,7 @@ def auto_load_resume(load_dir):
 
 if __name__ == '__main__':    
     # 留下一个GPU用于模型开发调试
-    os.environ['CUDA_VISIBLE_DEVICES'] = '2' # ','.join(map(str, [2]))
+    os.environ['CUDA_VISIBLE_DEVICES'] = '1' # ','.join(map(str, [2]))
     args = parse_args()
     args.train_num_workers = 0
     args.val_num_workers = 0
@@ -189,8 +189,8 @@ if __name__ == '__main__':
             raise Exception("no checkpoints to load")
 
         model_dict = model.state_dict()
-        print('train.py Ln192 resume: {0};'.format(resume))
         pretrained_dict = torch.load(resume)
+        print('train.py Ln193 resume={0};'.format(resume))
         pretrained_dict = {k[7:]: v for k, v in pretrained_dict.items() if k[7:] in model_dict}
         model_dict.update(pretrained_dict)
         model.load_state_dict(model_dict)
@@ -204,6 +204,33 @@ if __name__ == '__main__':
         os.makedirs(save_dir)
     model.cuda()
     #summary(model, (3, 224, 224))
+    if 1>10:
+        print('prepare for storing the onnx file')
+        example = torch.rand(8, 3, 224, 224).cuda()
+        print(example.shape)
+        model.train(False)
+        model.eval()
+        model.use_dcl = False
+        model.use_Asoftmax = False
+        '''
+        # 由example这个输入来决定batch
+        torch.onnx.export(model, example, "dcl_0810_8.onnx", verbose=False,
+                            input_names=["data"], output_names=["brands", "bmys"], \
+                            training=False, opset_version=9,
+                            do_constant_folding=True)
+        '''
+        # 动态batch
+        torch.onnx.export(model, example, "dcl_date.onnx", verbose=False,
+                            input_names=["data"], output_names=["brands", "bmys"], \
+                            training=False, opset_version=9,
+                            do_constant_folding=True,
+                            dynamic_axes={"data":{0:"batch_size"},     # 批处理变量
+                                    "brands":{0:"batch_size"},
+                                    "bmys":{0:"batch_size"}})
+        print('保存成功')
+        sys.exit(0)
+    model = nn.DataParallel(model)
+
 
     # optimizer prepare
     if Config.use_backbone:
@@ -234,37 +261,11 @@ if __name__ == '__main__':
                                {'params': model.module.classifier_swap.parameters(), 'lr': lr_ratio*base_lr},
                                {'params': model.module.Convmask.parameters(), 'lr': lr_ratio*base_lr},
                               ], lr = base_lr, momentum=momentum)
+
+
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
 
-    # 导出onnx模型
-    if 1>0:
-        print('prepare for storing the onnx file')
-        example = torch.rand(8, 3, 224, 224).cuda()
-        print(example.shape)
-        model.train(False)
-        model.eval()
-        model.use_dcl = False
-        model.use_Asoftmax = False
-        '''
-        # 由example这个输入来决定batch
-        torch.onnx.export(model, example, "dcl_0810_8.onnx", verbose=False,
-                            input_names=["data"], output_names=["brands", "bmys"], \
-                            training=False, opset_version=9,
-                            do_constant_folding=True)
-        '''
-        # 动态batch
-        torch.onnx.export(model, example, "dcl_0822.onnx", verbose=False,
-                            input_names=["data"], output_names=["brands", "bmys"], \
-                            training=False, opset_version=9,
-                            do_constant_folding=True,
-                            dynamic_axes={"data":{0:"batch_size"},     # 批处理变量
-                                    "brands":{0:"batch_size"},
-                                    "bmys":{0:"batch_size"}})
-        print('保存成功')
-        sys.exit(0)
-    model = nn.DataParallel(model)
-
-    mode = 1 # 1-train; 2-prepare_cluster_data；3-筛查有问题样本数据；4-运行测试程序；5-保存onnx模型
+    mode = 1 # 1-train; 2-prepare_cluster_data；3-筛查有问题样本数据
     # train entry
     if 1 == mode:
         train(Config,
