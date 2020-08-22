@@ -17,5 +17,5 @@ class AppConfig(object):
     img_channel = 3
     training_dir = "./datasets/vehicles/training/"
     testing_dir = "./datasets/vehicles/testing/"
-    train_batch_size = 8
-    train_number_epochs = 10000 # 100
+    train_batch_size = 32
+    train_number_epochs = 100 # 100
