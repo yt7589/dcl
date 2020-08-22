@@ -30,6 +30,7 @@ from utils.dataset_DCL import collate_fn4train, collate_fn4val, collate_fn4test,
 
 import pdb
 import utils.utils as du
+from utils.onnx_exporter import OnnxExporter
 
 os.environ['CUDA_DEVICE_ORDRE'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '0,1,2,3'
@@ -277,28 +278,7 @@ if __name__ == '__main__':
         predict_main(Config, model, dataloader['val'], 'val', 0, log_file)
     elif 5 == mode:
         print('prepare for storing the onnx file')
-        example = torch.rand(8, 3, 224, 224).cuda()
-        print(example.shape)
-        onnx_model.train(False)
-        onnx_model.eval()
-        onnx_model.use_dcl = False
-        onnx_model.use_Asoftmax = False
-        '''
-        # 由example这个输入来决定batch
-        torch.onnx.export(onnx_model, example, "dcl_0810_8.onnx", verbose=False,
-                            input_names=["data"], output_names=["brands", "bmys"], \
-                            training=False, opset_version=9,
-                            do_constant_folding=True)
-        '''
-        # 动态batch
-        torch.onnx.export(onnx_model, example, "dcl_0822_4.onnx", verbose=False,
-                            input_names=["data"], output_names=["brands", "bmys"], \
-                            training=False, opset_version=9,
-                            do_constant_folding=True,
-                            dynamic_axes={"data":{0:"batch_size"},     # 批处理变量
-                                    "brands":{0:"batch_size"},
-                                    "bmys":{0:"batch_size"}})
-        print('保存成功')
-        sys.exit(0)
+        onnx_exporter = OnnxExporter()
+        onnx_exporter.export_onnx(onnx_model)
 
 
