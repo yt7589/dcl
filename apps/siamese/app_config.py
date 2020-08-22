@@ -18,4 +18,4 @@ class AppConfig(object):
     training_dir = "./datasets/vehicles/training/"
     testing_dir = "./datasets/vehicles/testing/"
     train_batch_size = 32
-    train_number_epochs = 1000 # 100
+    train_number_epochs = 10 # 100
