@@ -3384,10 +3384,9 @@ function nextImg() {
         for img_obj in base_path.iterdir():
             full_fn = str(img_obj)
             arrs_a = full_fn.split('-')
-            bmy_code = arrs_a[0]
-            raw_img_file = full_fn[len(bmy_code)+1:]
-            arrs_b = raw_img_file.split('\\')
-            img_file = arrs_b[-1]
+            arrs_b = arrs_a[0].split('\\')
+            bmy_code = arrs_b[-1]
+            img_file = full_fn[len(bmy_code)+1:]
             print('{0}: {1};'.format(bmy_code, img_file))
     
     @staticmethod
