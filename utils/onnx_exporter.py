@@ -87,7 +87,7 @@ class OnnxExporter(object):
         self.run_onnx()
 
     def run_onnx(self):
-        example_model = onnxruntime.datasets.get_example("sigmoid.onnx")
+        example_model = onnxruntime.datasets.get_example('e:/temp/dcl_0822_n2.onnx')
         sess = onnxruntime.InferenceSession(example_model)
         # input
         input_name = sess.get_inputs()[0].name
