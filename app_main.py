@@ -75,11 +75,11 @@ def main(args):
     if 1 == ii:
         #rst = MMongoDb.db.t_sample.create_index([('vin_id', pymongo.ASCENDING), ('img_file', pymongo.ASCENDING)], unique=True)
         #print('index rst: {0};'.format(rst))
-        onnx_exporter = OnnxExporter()
-        onnx_exporter.run_onnx()
-        #app = WxsApp()
+        #onnx_exporter = OnnxExporter()
+        #onnx_exporter.run_onnx()
+        app = WxsApp()
         #app = SiameseApp()
-        #app.startup(args)
+        app.startup(args)
         return
     print('细粒度图像识别系统')
     mode = MODE_DS_MANAGER #MODE_TRAIN_MONITOR
