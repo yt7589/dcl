@@ -263,7 +263,7 @@ if __name__ == '__main__':
     if 2 == run_mode:
         torch.save(model, 'dcl_v3.pth')
         dummy_input = torch.randn(1, 3, 224, 224, device='cuda')
-        torch.onnx.export(model, dummy_input, "dcl_v3_batch.onnx", verbose=True,
+        torch.onnx.export(model, dummy_input, "dcl_v3_batch.onnx", verbose=False,
                          input_names=["data"], output_names=["output"], \
                             training=False, opset_version=9,
                             do_constant_folding=True,
@@ -280,18 +280,41 @@ if __name__ == '__main__':
     else:
         fixbatch =  1
         dummy_input = torch.randn(fixbatch, 3, 224, 224, device='cuda')
-        onnx_file = f"dcl_v002_{fixbatch}.onnx"
+        onnx_file = f"dcl_v007_{fixbatch}.onnx"
         torch.onnx.export(model, dummy_input, onnx_file, verbose=True,
                          input_names=["data"], output_names=["brands", "bmys"], \
                             training=False, opset_version=9,
-                            do_constant_folding=True,)
+                            do_constant_folding=True)
         print("export finished")
         # Load the ONNX model
-        model = onnx.load(onnx_file)
+        #model = onnx.load(onnx_file)
         # Check that the IR is well formed
         #onnx.checker.check_model(model)
         print("check_model finished")
         #onnx.helper.printable_graph(model.graph)
+        # from PIL import Image
+        # import glob
+        # # define the mean and std of the images
+        # mean = np.array([0.485, 0.456, 0.406]).reshape([1, 1, 3])
+        # std = np.array([0.229, 0.224, 0.225]).reshape([1, 1, 3])
+        # def load_img(img_file):
+        #     with open(img_file, 'rb') as f:
+        #         with Image.open(f) as img:
+        #             img_obj = img.convert('RGB')
+        #             img_obj = img_obj.resize((224, 224), Image.BILINEAR)
+        #     raw = (np.asarray(img_obj) / 255.0 - mean) / std
+        #     return raw.reshape(3, 224, 224)
+        #
+        #
+        # for img_file in glob.glob("/media/zjkj/work/yantao/zjkj/test_ds/00/00/*.jpg"):
+        #     img = load_img(img_file)
+        #     X = img.reshape((1, 3, 224, 224))
+        #     X = torch.from_numpy(X.astype(np.float32)).cuda()
+        #     Y = model(X)
+        #     print(Y[0].argmax(dim=1).item(),Y[1].argmax(dim=1).item())
+
+
+
         exit(0)
 
     
