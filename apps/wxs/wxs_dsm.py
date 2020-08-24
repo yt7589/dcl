@@ -1961,9 +1961,24 @@ function nextImg() {
                 for k, v in id_bmy_dict.items():
                     if v.startswith(brand_name):
                         brand_idx_bmys[brand_idx].append(k)
+        # 生成Python代码LoadModel.py中的结构代码
         print('{')
         for k, v in brand_idx_bmys.items():
             print('{0}:{1},'.format(k, v))
+        print('}')
+        # 生成C++后处理中的Vector初始化代码
+        print('############################')
+        print('{')
+        for k, v in brand_idx_bmys.items():
+            row_str = '{'
+            first_item = True
+            for vi in v:
+                if first_item:
+                    row_str += '{0}'.format(vi)
+                    first_item = False
+                else:
+                    row_str += ',{0}'.format(vi)
+            row_str += '},'
         print('}')
 
     @staticmethod
