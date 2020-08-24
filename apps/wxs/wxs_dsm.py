@@ -1979,6 +1979,7 @@ function nextImg() {
                 else:
                     row_str += ',{0}'.format(vi)
             row_str += '},'
+            print(row_str)
         print('}')
 
     @staticmethod
