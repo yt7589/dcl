@@ -70,7 +70,7 @@ class WxsApp(object):
         '''
         根据错误分类样本列表，形成便于人工浏览的网页，保存于../../w1/es目录下
         '''
-        #WxsDsm.generate_error_samples_html()
+        WxsDsm.generate_error_samples_html()
         '''
         将子品牌合并为主品牌
         '''
@@ -104,7 +104,7 @@ class WxsApp(object):
         实现先预测出品牌类别，然后从年款头中除该品牌对应的年款索引外的其他
         类别全部清零，将年款头的内容输出作为输出
         '''
-        WxsDsm.bind_brand_head_bmy_head()
+        #WxsDsm.bind_brand_head_bmy_head()
         '''
         求出无锡所测试集品牌与当前涉及的171个品牌的不同
         '''
