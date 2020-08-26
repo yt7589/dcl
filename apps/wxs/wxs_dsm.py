@@ -3455,20 +3455,22 @@ function nextImg() {
                 img_file = arrs_a[1]
                 img_file_set.add(img_file)
         num = 1
-        with open('../../w1/raw_bid_train_ds_temp.txt', 'r', encoding='utf-8') as tfd:
-            for line in tfd:
-                line = line.strip()
-                arrs_a = line.split('*')
-                full_fn = arrs_a[0]
-                arrs_b = full_fn.split('/')
-                img_file = arrs_b[-1]
-                if img_file in img_file_set:
-                    print('    复制{0}份{1};'.format(img_file, duplicate_copys))
-                else:
-                    print('    {0};'.format(line))
-                num += 1
-                if num % 1000 == 0:
-                    print('已经处理完成{0}条记录'.format(num))
+        with open('../../w1/raw_bid_train_ds_v001.txt', 'r', encoding='utf-8') as wfd:
+            with open('../../w1/raw_bid_train_ds_temp.txt', 'r', encoding='utf-8') as tfd:
+                for line in tfd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    full_fn = arrs_a[0]
+                    arrs_b = full_fn.split('/')
+                    img_file = arrs_b[-1]
+                    if img_file in img_file_set:
+                        for i in range(duplicate_copys):
+                            wfd.write('{0}\n'.format(line))
+                    else:
+                        wfd.write('{0}\n'.format(line))
+                    num += 1
+                    if num % 1000 == 0:
+                        print('已经处理完成{0}条记录'.format(num))
     
     @staticmethod
     def exp001():
