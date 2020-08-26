@@ -3455,7 +3455,7 @@ function nextImg() {
                 img_file = arrs_a[1]
                 img_file_set.add(img_file)
         num = 1
-        with open('../../w1/raw_bid_train_ds_v001.txt', 'r', encoding='utf-8') as wfd:
+        with open('../../w1/raw_bid_train_ds_v001.txt', 'w+', encoding='utf-8') as wfd:
             with open('../../w1/raw_bid_train_ds_temp.txt', 'r', encoding='utf-8') as tfd:
                 for line in tfd:
                     line = line.strip()
