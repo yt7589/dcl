@@ -78,7 +78,7 @@ class LoadConfig(object):
             self.anno_root = './datasets/CUB_200_2011/anno'
             #self.numcls = 0
             self.num_brands = 177 # 品牌数
-            self.num_bmys = 3031 # 年款数
+            self.num_bmys = 3029 # 年款数
         elif args.dataset == 'STCAR':
             self.dataset = args.dataset
             self.rawdata_root = './dataset/st_car/data'
@@ -95,9 +95,9 @@ class LoadConfig(object):
         # annotation file organized as :
         # path/image_name cls_num\n
         # 正式环境
-        train_ds_file = 'bid_brand_train_ds_082401.txt'
-        val_ds_file = 'bid_brand_test_ds_082401.txt'
-        test_ds_file = 'bid_brand_test_ds_082401.txt'
+        train_ds_file = 'bid_brand_train_ds_082601.txt'
+        val_ds_file = 'bid_brand_test_ds_082601.txt'
+        test_ds_file = 'bid_brand_test_ds_082601.txt'
         '''
         # 精度测试
         val_ds_file = 'wxs_brands_ds.txt'
