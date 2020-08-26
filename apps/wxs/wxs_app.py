@@ -70,7 +70,7 @@ class WxsApp(object):
         '''
         根据错误分类样本列表，形成便于人工浏览的网页，保存于../../w1/es目录下
         '''
-        WxsDsm.generate_error_samples_html()
+        #WxsDsm.generate_error_samples_html()
         '''
         将子品牌合并为主品牌
         '''
@@ -237,6 +237,10 @@ class WxsApp(object):
         将无锡所测试集中标注出年款的图片文件名和年款编号写进文件文件中
         '''
         #WxsDsm.generate_txt_by_wxs_tds_ok_images()
+        '''
+        修改原始数据集中标注错误的样本，增加出错样本个数，生成新的数据集
+        '''
+        WxsDsm.correct_augment_raw_ds()
         #WxsDsm.exp001()
 
 

@@ -3405,6 +3405,20 @@ function nextImg() {
             bmy_code = arrs_b[-1]
             img_file = full_fn[len(prefix)+1:]
             print('{0}: {1};'.format(bmy_code, img_file))
+
+    @staticmethod
+    def correct_augment_raw_ds():
+        '''
+        修改原始数据集中标注错误的样本，增加出错样本个数，生成新的数据集
+        '''
+        # 生成修改字典
+        with open('./logs/correct_samples.txt', 'r', encoding='utf-8') as cfd:
+            for line in cfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                img_file = arrs_a[1]
+                bmy_code = arrs_a[-1]
+                print('{0} => {1}'.format(img_file, bmy_code))
     
     @staticmethod
     def exp001():
