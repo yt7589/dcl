@@ -104,7 +104,7 @@ class WxsApp(object):
         实现先预测出品牌类别，然后从年款头中除该品牌对应的年款索引外的其他
         类别全部清零，将年款头的内容输出作为输出
         '''
-        #WxsDsm.bind_brand_head_bmy_head()
+        WxsDsm.bind_brand_head_bmy_head()
         '''
         求出无锡所测试集品牌与当前涉及的171个品牌的不同
         '''
@@ -244,7 +244,7 @@ class WxsApp(object):
         '''
         复制指定份数必错的样本，希望能够不再出错
         '''
-        WxsDsm.duplicate_miss_samples()
+        #WxsDsm.duplicate_miss_samples()
         #WxsDsm.exp001()
 
 
