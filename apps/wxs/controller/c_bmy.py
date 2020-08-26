@@ -202,4 +202,10 @@ class CBmy(object):
             bmy_id_bm_vo_dict[bmy_id] = bm_vo
         return bmy_id_bm_vo_dict
 
-    
+    @staticmethod
+    def get_bmy_code_to_bmy_id_dict():
+        bmy_code_to_bmy_id_dict = {}
+        recs = MBmy.get_bmy_code_to_bmy_id_dict()
+        for rec in recs:
+            bmy_code_to_bmy_id_dict[rec['bmy_code']] = int(rec['bmy_id'])
+        return bmy_code_to_bmy_id_dict

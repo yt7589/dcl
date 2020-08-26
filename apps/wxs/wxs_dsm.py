@@ -3411,6 +3411,8 @@ function nextImg() {
         '''
         修改原始数据集中标注错误的样本，增加出错样本个数，生成新的数据集
         '''
+        bmy_code_to_bmy_id_dict = CBmy.get_bmy_code_to_bmy_id_dict()
+        bmy_org_sim_dict = {}
         # 生成修改字典
         with open('./logs/correct_samples.txt', 'r', encoding='utf-8') as cfd:
             for line in cfd:
@@ -3418,7 +3420,8 @@ function nextImg() {
                 arrs_a = line.split('*')
                 img_file = arrs_a[1]
                 bmy_code = arrs_a[-1]
-                print('{0} => {1}'.format(img_file, bmy_code))
+                org_bmy_id = bmy_code_to_bmy_id_dict[bmy_code]
+                print('{0}*{1};'.format(img_file, org_bmy_id))
     
     @staticmethod
     def exp001():
