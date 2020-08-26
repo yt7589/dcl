@@ -3412,7 +3412,7 @@ function nextImg() {
         修改原始数据集中标注错误的样本，增加出错样本个数，生成新的数据集
         '''
         bmy_code_to_bmy_id_dict = CBmy.get_bmy_code_to_bmy_id_dict()
-        bmy_org_sim_dict = {}
+        img_file_to_result_dict = {}
         # 生成修改字典
         with open('./logs/correct_samples.txt', 'r', encoding='utf-8') as cfd:
             for line in cfd:
@@ -3420,8 +3420,18 @@ function nextImg() {
                 arrs_a = line.split('*')
                 img_file = arrs_a[1]
                 bmy_code = arrs_a[-1]
-                org_bmy_id = bmy_code_to_bmy_id_dict['{0} '.format(bmy_code)]
+                org_bmy_id = bmy_code_to_bmy_id_dict['{0} '.format(bmy_code)] - 1
                 print('{0}*{1};'.format(img_file, org_bmy_id))
+                img_file_to_result_dict[img_file] = org_bmy_id
+        with open('../../w1/raw_bid_train_ds_v001.txt', 'r', encoding='utf-8') as rfd:
+            for line in rfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                arrs_b = full_fn.split('/')
+                img_file = arrs_b[-1]
+                if img_file in img_file_to_result_dict:
+                    print('### {0}*{1};'.format(full_fn, img_file_to_result_dict[img_file]))
     
     @staticmethod
     def exp001():
