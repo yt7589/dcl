@@ -3420,7 +3420,7 @@ function nextImg() {
                 arrs_a = line.split('*')
                 img_file = arrs_a[1]
                 bmy_code = arrs_a[-1]
-                org_bmy_id = bmy_code_to_bmy_id_dict[bmy_code]
+                org_bmy_id = bmy_code_to_bmy_id_dict['{0} '.format(bmy_code)]
                 print('{0}*{1};'.format(img_file, org_bmy_id))
     
     @staticmethod
