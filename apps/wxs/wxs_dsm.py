@@ -3440,6 +3440,22 @@ function nextImg() {
                     num += 1
                     if num %1000 == 0:
                         print('已经处理完成{0}条记录'.format(num))
+
+    @staticmethod
+    def duplicate_miss_samples():
+        '''
+        复制指定份数必错的样本，希望能够不再出错
+        '''
+        duplicate_copys = 30
+        img_file_set = set()
+        with open('./logs/miss_samples.txt', 'r', encoding='utf-8') as mfd:
+            for line in mfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                img_file = arrs_a[1]
+                img_file_set.add(img_file)
+        for ii in img_file_set:
+            print(ii)
     
     @staticmethod
     def exp001():

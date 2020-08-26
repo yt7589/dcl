@@ -36,7 +36,7 @@ class WxsApp(object):
         '''
         向数据集中加入品牌信息
         '''
-        WxsDsm.convert_to_brand_ds_main()
+        #WxsDsm.convert_to_brand_ds_main()
         '''
         找出损坏的图片文件
         '''
@@ -241,6 +241,10 @@ class WxsApp(object):
         修改原始数据集中标注错误的样本，增加出错样本个数，生成新的数据集
         '''
         #WxsDsm.correct_augment_raw_ds()
+        '''
+        复制指定份数必错的样本，希望能够不再出错
+        '''
+        WxsDsm.duplicate_miss_samples()
         #WxsDsm.exp001()
 
 
