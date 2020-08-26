@@ -3423,15 +3423,23 @@ function nextImg() {
                 org_bmy_id = bmy_code_to_bmy_id_dict['{0} '.format(bmy_code)] - 1
                 print('{0}*{1};'.format(img_file, org_bmy_id))
                 img_file_to_result_dict[img_file] = org_bmy_id
-        with open('../../w1/raw_bid_train_ds_v001.txt', 'r', encoding='utf-8') as rfd:
-            for line in rfd:
-                line = line.strip()
-                arrs_a = line.split('*')
-                full_fn = arrs_a[0]
-                arrs_b = full_fn.split('/')
-                img_file = arrs_b[-1]
-                if img_file in img_file_to_result_dict:
-                    print('### {0}*{1};'.format(full_fn, img_file_to_result_dict[img_file]))
+        num = 0
+        with open('../../w1/raw_bid_train_ds_v002.txt', 'w+', encoding='utf-8') as wfd:
+            with open('../../w1/raw_bid_train_ds_v001.txt', 'r', encoding='utf-8') as rfd:
+                for line in rfd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    full_fn = arrs_a[0]
+                    arrs_b = full_fn.split('/')
+                    img_file = arrs_b[-1]
+                    if img_file in img_file_to_result_dict:
+                        print('### {0}*{1};'.format(full_fn, img_file_to_result_dict[img_file]))
+                        wfd.write('{0}*{1}\n'.format(full_fn, img_file_to_result_dict[img_file]))
+                    else:
+                        wfd.write('{0}\n'.format(line))
+                    num += 1
+                    if num %1000 == 0:
+                        print('已经处理完成{0}条记录'.format(num))
     
     @staticmethod
     def exp001():
