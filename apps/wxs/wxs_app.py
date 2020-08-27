@@ -50,7 +50,7 @@ class WxsApp(object):
         {"品牌编号", "车型编号", "年款编号", "品牌_车型_年款"},{...},
         {...}
         '''
-        WxsDsm.generate_zjkj_cambricon_labels()
+        #WxsDsm.generate_zjkj_cambricon_labels()
         ''' 根据正确的测试集图片文件名，查出当前的品牌车型年款编号，没有的用-1表示，形成CSV文件 '''
         #WxsDsm.generate_test_ds_bmy_csv()
         ''' 生成Pipeline测试评价数据，将测试集中的图片文件拷贝到指定目录下 '''
@@ -70,7 +70,7 @@ class WxsApp(object):
         '''
         根据错误分类样本列表，形成便于人工浏览的网页，保存于../../w1/es目录下
         '''
-        #WxsDsm.generate_error_samples_html()
+        WxsDsm.generate_error_samples_html()
         '''
         将子品牌合并为主品牌
         '''
