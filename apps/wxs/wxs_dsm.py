@@ -3446,7 +3446,7 @@ function nextImg() {
         '''
         复制指定份数必错的样本，希望能够不再出错
         '''
-        duplicate_copys = 30
+        duplicate_copys = 10
         img_file_set = set()
         with open('./logs/miss_samples.txt', 'r', encoding='utf-8') as mfd:
             for line in mfd:
