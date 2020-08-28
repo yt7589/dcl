@@ -1249,7 +1249,7 @@ class WxsDsm(object):
                 line = line.strip()
                 arrs0 = line.split(':')
                 bid_brand_dict[int(arrs0[0])] = arrs0[1]
-        with open('../../w1/es/index.html', 'w+', encoding='utf-8') as hfd:
+        with open('../work/d20200828/es/index.html', 'w+', encoding='utf-8') as hfd:
             hfd.write("""<!DOCTYPE html>
 <html>
 <head>
@@ -1266,7 +1266,7 @@ let images = [
                     arrs1 = full_file.split('/')
                     img_file = arrs1[-1]
                     dst_img_file = 'images/{0:05d}.jpg'.format(num)
-                    dst_full_file = '/media/zjkj/work/yantao/w1/es/images/{0:05d}.jpg'.format(num)
+                    dst_full_file = '../work/d20200828/es/images/{0:05d}.jpg'.format(num)
                     print('拷贝文件：{0};'.format(dst_full_file))
                     shutil.copy(full_file, dst_full_file)
                     num += 1
