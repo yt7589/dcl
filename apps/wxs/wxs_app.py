@@ -200,7 +200,7 @@ class WxsApp(object):
         给张灿，由其进行处理。如果模型预测错误，则标注模型错误，如果标注
         错误则写上新年款编号 2020-08-16
         '''
-        #WxsDsm.process_error_sample_for_zhangcan()
+        WxsDsm.process_error_sample_for_zhangcan()
         '''
         处理20200817经过修正后的分类错误的样本数据
         '''
