@@ -3106,6 +3106,22 @@ function nextImg() {
                         bid_brands_dict[anno_bmy_id], 
                         bid_brands_dict[dcl_bmy_id]
                     ))
+        # 求出全路径文件名和样本字符串字典
+        full_fn_to_sample_dict = {}
+        with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds_082801.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                full_fn_to_sample_dict[full_fn] = line
+        with open('../work/dcl20200828/samples_to_duplicate.txt', 'w+', encoding='utf-8') as wfd:
+            with open('../work/dcl20200828/top1_error_samples.txt', 'r', encoding='utf-8') as efd:
+                for line in efd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    full_fn = arrs_a[0]
+                    sample_line = full_fn_to_sample_dict[full_fn]
+                    wfd.write('{0}\n'.format(sample_line))
 
     @staticmethod
     def process_error_sample_20200817():
