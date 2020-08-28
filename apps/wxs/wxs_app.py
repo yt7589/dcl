@@ -244,7 +244,7 @@ class WxsApp(object):
         '''
         复制指定份数必错的样本，希望能够不再出错
         '''
-        WxsDsm.duplicate_miss_samples()
+        #WxsDsm.duplicate_miss_samples()
         #WxsDsm.exp001()
 
 
