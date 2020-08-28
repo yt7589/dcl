@@ -3091,7 +3091,7 @@ function nextImg() {
                 bid_brands_dict[brand_idx] = brand_name
         dst_folder = '../work/dcl20200828/images'
         with open('../work/dcl20200828/error_samples.txt', 'w+', encoding='utf-8') as wfd:
-            with open('../work/dcl20200828/top1_error_samples.txt', 'r', encoding='utf-8') as efd:
+            with open('./logs/top1_error_samples.txt', 'r', encoding='utf-8') as efd:
                 for line in efd:
                     line = line.strip()
                     arrs_a = line.split('*')
@@ -3115,7 +3115,7 @@ function nextImg() {
                 full_fn = arrs_a[0]
                 full_fn_to_sample_dict[full_fn] = line
         with open('../work/dcl20200828/samples_to_duplicate.txt', 'w+', encoding='utf-8') as wfd:
-            with open('../work/dcl20200828/top1_error_samples.txt', 'r', encoding='utf-8') as efd:
+            with open('./logs/top1_error_samples.txt', 'r', encoding='utf-8') as efd:
                 for line in efd:
                     line = line.strip()
                     arrs_a = line.split('*')
