@@ -100,7 +100,7 @@ def auto_load_resume(load_dir):
 
 if __name__ == '__main__':    
     # 留下一个GPU用于模型开发调试
-    os.environ['CUDA_VISIBLE_DEVICES'] = '0' # ','.join(map(str, [2]))
+    os.environ['CUDA_VISIBLE_DEVICES'] = '0,1' # ','.join(map(str, [2]))
     args = parse_args()
     args.train_num_workers = 0
     args.val_num_workers = 0
@@ -246,7 +246,7 @@ if __name__ == '__main__':
 
     # 1-train; 2-prepare_cluster_data；3-筛查有问题样本数据；
     # 4-运行精度测试程序；5-导出onnx模型文件；
-    mode = 4
+    mode = 1
     # train entry
     if 1 == mode:
         train(Config,
