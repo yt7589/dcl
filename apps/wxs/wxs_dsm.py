@@ -3108,7 +3108,7 @@ function nextImg() {
                     ))
         # 求出全路径文件名和样本字符串字典
         full_fn_to_sample_dict = {}
-        with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds_082801.txt', 'r', encoding='utf-8') as fd:
+        with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds_082701.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
                 arrs_a = line.split('*')

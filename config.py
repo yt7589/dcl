@@ -95,9 +95,9 @@ class LoadConfig(object):
         # annotation file organized as :
         # path/image_name cls_num\n
         # 正式环境
-        train_ds_file = 'bid_brand_train_ds_082801.txt'
-        val_ds_file = 'bid_brand_test_ds_082801.txt'
-        test_ds_file = 'bid_brand_test_ds_082801.txt'
+        train_ds_file = 'bid_brand_train_ds_082701.txt'
+        val_ds_file = 'bid_brand_test_ds_082701.txt'
+        test_ds_file = 'bid_brand_test_ds_082701.txt'
         '''
         # 精度测试
         val_ds_file = 'wxs_brands_ds.txt'
