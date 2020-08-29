@@ -280,7 +280,7 @@ if __name__ == '__main__':
     else:
         fixbatch =  1
         dummy_input = torch.randn(fixbatch, 3, 224, 224, device='cuda')
-        onnx_file = f"dcl_v007_{fixbatch}.onnx"
+        onnx_file = f"dcl_v008_{fixbatch}.onnx"
         torch.onnx.export(model, dummy_input, onnx_file, verbose=True,
                          input_names=["data"], output_names=["brands", "bmys"], \
                             training=False, opset_version=9,

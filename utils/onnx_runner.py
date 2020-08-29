@@ -37,12 +37,12 @@ def display_onnx(sess):
     output_type1 = sess.get_outputs()[1].type
     print("Output1 type  :", output_type1)
 
-sess = onnxruntime.InferenceSession('dcl_v007_1.onnx')
+sess = onnxruntime.InferenceSession('dcl_v008_1.onnx')
 #img_file = '/media/zjkj/work/yantao/zjkj/test_ds/00/00/白#06_WJG00300_016_长城_M4_2012-2014_610500200969341894.jpg'
 #img_file = '/media/zjkj/work/yantao/zjkj/test_ds/00/00/白#02_陕EMH808_005_宝马_5系_2014_610500200969347480.jpg'
 num = 0
 correct_num = 0
-with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds.txt', 'r', encoding='utf-8') as tfd:
+with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds_082801.txt', 'r', encoding='utf-8') as tfd:
     for line in tfd:
         line = line.strip()
         arrs_a = line.split('*')
