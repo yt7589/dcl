@@ -249,7 +249,7 @@ if __name__ == '__main__':
     Config.use_dcl = False
     Config.use_backbone = True
     cudnn.benchmark = True
-    resume = './net_model/training_descibe_82121_CUB/weights_1_8922_0.9665_0.9906.pth'
+    resume = './net_model/training_descibe_82911_CUB/weights_0_1999_0.9867_0.9981.pth'
     model = MainModel(Config)
     model_dict=model.state_dict()
     pretrained_dict=torch.load(resume)
