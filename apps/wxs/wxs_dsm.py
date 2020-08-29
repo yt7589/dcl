@@ -3487,6 +3487,30 @@ function nextImg() {
                     num += 1
                     if num % 1000 == 0:
                         print('已经处理完成{0}条记录'.format(num))
+
+    @staticmethod
+    def wxs_tds_to_image_brand():
+        '''
+        求出无锡所测试集图片与品牌名称对应关系
+        '''
+        brand_idx_to_brand_name_dict = {}
+        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+            for line in bfd:
+                line = line.strip()
+                arrs_a = line.split(':')
+                brand_idx = int(arrs_a[0])
+                brand_name = arrs_a[1]
+                brand_idx_to_brand_name_dict[brand_idx] = brand_name
+        with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds_082801.txt', 'r', encoding='utf-8') as tfd:
+            for line in tfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                brand_idx = int(arrs_a[2])
+                arrs_b = full_fn.split('/')
+                img_file = arrs_b[-1]
+                brand_name = brand_idx_to_brand_name_dict[brand_idx]
+                print('{0}*{1};'.format(img_file, brand_name))
     
     @staticmethod
     def exp001():
