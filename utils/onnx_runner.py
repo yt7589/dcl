@@ -37,7 +37,7 @@ def display_onnx(sess):
     output_type1 = sess.get_outputs()[1].type
     print("Output1 type  :", output_type1)
 
-sess = onnxruntime.InferenceSession('dcl_v008_1.onnx')
+sess = onnxruntime.InferenceSession('dcl_v009_1.onnx')
 #img_file = '/media/zjkj/work/yantao/zjkj/test_ds/00/00/白#06_WJG00300_016_长城_M4_2012-2014_610500200969341894.jpg'
 #img_file = '/media/zjkj/work/yantao/zjkj/test_ds/00/00/白#02_陕EMH808_005_宝马_5系_2014_610500200969347480.jpg'
 num = 0
@@ -58,7 +58,7 @@ with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds_082801.txt', 'r', enco
         if gt_brand_idx == net_brand_idx:
             correct_num += 1
         num += 1
-        print('brand: {0}; bmy: {1};'.format(net_brand_idx, net_sim_bmy_id))
+        print('brand: {0}; bmy: {1};     {2}'.format(net_brand_idx, net_sim_bmy_id, num))
 print('brand accuracy: {0};'.format(correct_num / num))
 
 '''  
