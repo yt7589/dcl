@@ -50,7 +50,7 @@ class WxsApp(object):
         {"品牌编号", "车型编号", "年款编号", "品牌_车型_年款"},{...},
         {...}
         '''
-        #WxsDsm.generate_zjkj_cambricon_labels()
+        WxsDsm.generate_zjkj_cambricon_labels()
         ''' 根据正确的测试集图片文件名，查出当前的品牌车型年款编号，没有的用-1表示，形成CSV文件 '''
         #WxsDsm.generate_test_ds_bmy_csv()
         ''' 生成Pipeline测试评价数据，将测试集中的图片文件拷贝到指定目录下 '''
@@ -104,7 +104,7 @@ class WxsApp(object):
         实现先预测出品牌类别，然后从年款头中除该品牌对应的年款索引外的其他
         类别全部清零，将年款头的内容输出作为输出
         '''
-        WxsDsm.bind_brand_head_bmy_head()
+        #WxsDsm.bind_brand_head_bmy_head()
         '''
         求出无锡所测试集品牌与当前涉及的171个品牌的不同
         '''
