@@ -50,7 +50,7 @@ class MVin(object):
 
     @staticmethod
     def get_wxs_vin_code_bmy_id_dict():
-        query_cond = {'source_type': 1}
+        query_cond = {}
         fields = {'vin_code': 1, 'bmy_id': 1}
         return MMongoDb.convert_recs(MMongoDb.db['t_vin'].find(query_cond, fields))
 
