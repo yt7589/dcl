@@ -3517,3 +3517,58 @@ function nextImg() {
         json_file = '/home/zjkj/client1.8/work/detect_results/HFC7150BNF_冀A220BN_02_130100100935_130100308146014823.jpg_0.json'
         rst = WxsDsm.parse_detect_json(json_file)
         print(rst)
+
+
+
+    @staticmethod
+    def generate_samples_wxs0901():
+        vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
+        base_path = Path('../work/dcl/images')
+        for file_obj in base_path.iterdir():
+            full_fn = str(file_obj)
+            arrs_a = full_fn.split('/')
+            img_file = arrs_a[-1]
+            arrs_b = img_file.split('_')
+            arrs_c = arrs_b[0].split('#')
+            vin_code = arrs_c[0]
+            print('{0}: {1};'.format(img_file, vin_code))
+
+        
+
+    '''
+    @staticmethod
+    def process_one_img_file(oprr_num, vin_bmy_id_dict, 
+                bmy_id_bmy_name_dict, brand_set, sub_obj, sfd, efd):
+        sub_file = str(sub_obj)
+        #print('处理文件：{0};'.format(sub_obj))
+        arrs0 = sub_file.split('/')
+        filename = arrs0[-1]
+        arrs1 = filename.split('_')
+        raw_vin_code = arrs1[0]
+        arrs2 = raw_vin_code.split('#')
+        vin_code = arrs2[0]
+        if vin_code in vin_bmy_id_dict:
+            bmy_id = vin_bmy_id_dict[vin_code]
+        else:
+            vin_had_bmy_id = False
+            for k, _ in vin_bmy_id_dict.items():
+                if k.startswith(vin_code):
+                    bmy_id = vin_bmy_id_dict[k]
+                    vin_had_bmy_id = True
+                    break
+            if not vin_had_bmy_id:
+                bmy_id = -1
+                if vin_code != '白' and vin_code != '夜':
+                    efd.write('{0}\n'.format(vin_code))
+        if bmy_id > 0:
+            sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
+            bmy_name = bmy_id_bmy_name_dict[bmy_id]
+            arrsn = bmy_name.split('-')
+            brand_name = arrsn[0]
+            brand_set.add(brand_name)
+        oprr_num += 1
+        if oprr_num % 1000 == 0:
+            print('处理{0}条记录...'.format(oprr_num))
+        return oprr_num
+    '''

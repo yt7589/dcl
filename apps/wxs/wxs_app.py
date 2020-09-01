@@ -24,7 +24,7 @@ class WxsApp(object):
         ''' 
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
         '''
-        #WxsDsm.generate_samples()
+        WxsDsm.generate_samples()
         '''
         生成原始数据集，采用稀疏品牌车型年款编号
         '''
@@ -248,7 +248,7 @@ class WxsApp(object):
         '''
         求出无锡所测试集图片与品牌名称对应关系
         '''
-        WxsDsm.wxs_tds_to_image_brand()
+        #WxsDsm.wxs_tds_to_image_brand()
         #WxsDsm.exp001()
 
 
