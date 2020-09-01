@@ -3540,6 +3540,7 @@ function nextImg() {
                 bmy_id = -1
                 error_num += 1
                 print('### Error: {0} = {1};'.format(img_file, vin_code))
+            print('error num: {0};'.format(error_num))
 
         
 
