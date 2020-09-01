@@ -3532,11 +3532,13 @@ function nextImg() {
             arrs_b = img_file.split('_')
             arrs_c = arrs_b[0].split('#')
             vin_code = arrs_c[0]
-            print('{0}: {1};'.format(img_file, vin_code))
+            #print('{0}: {1};'.format(img_file, vin_code))
+            error_num = 0
             if vin_code in vin_code_bmy_id_dict:
                 bmy_id = vin_code_bmy_id_dict[vin_code]
             else:
                 bmy_id = -1
+                error_num += 1
                 print('### Error: {0} = {1};'.format(img_file, vin_code))
 
         
