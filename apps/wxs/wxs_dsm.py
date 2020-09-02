@@ -3525,6 +3525,8 @@ function nextImg() {
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         bmy_id_bmy_vo = CBmy.get_bmy_id_bmy_vo_dict()
+        for k, v in bmy_id_bmy_vo.items():
+            print('{0}: {1};'.format(k, v))
         base_path = Path('../work/dcl/images')
         error_num = 0
         for file_obj in base_path.iterdir():
@@ -3536,7 +3538,7 @@ function nextImg() {
             vin_code = arrs_c[0]
             #print('{0}: {1};'.format(img_file, vin_code))
             if vin_code in vin_code_bmy_id_dict:
-                bmy_id = vin_code_bmy_id_dict[vin_code]
+                bmy_id = int(vin_code_bmy_id_dict[vin_code])
                 bmy_vo = bmy_id_bmy_vo[bmy_id]
                 print('bmy_id={0};'.format(bmy_id))
                 print('{0}: {1}-{2};'.format(img_file, bmy_id, bmy_vo[bmy_id]['bmy_code']))
