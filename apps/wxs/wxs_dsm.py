@@ -3527,6 +3527,7 @@ function nextImg() {
         bmy_id_bmy_vo = CBmy.get_bmy_id_bmy_vo_dict()
         base_path = Path('../work/dcl/images')
         error_num = 0
+        b_num = 0
         for file_obj in base_path.iterdir():
             full_fn = str(file_obj)
             arrs_a = full_fn.split('/')
@@ -3540,11 +3541,12 @@ function nextImg() {
                 bmy_vo = bmy_id_bmy_vo[bmy_id]
                 if bmy_vo['bmy_code'].startswith('b'):
                     print('{0}: {1}-{2};'.format(img_file, bmy_id, bmy_vo['bmy_code']))
+                    b_num += 1
             else:
                 bmy_id = -1
                 error_num += 1
                 print('### Error: {0} = {1};'.format(img_file, vin_code))
-        print('error num: {0};'.format(error_num))
+        print('brand_error: {0}; error num: {1};'.format(b_num, error_num))
 
         
 
