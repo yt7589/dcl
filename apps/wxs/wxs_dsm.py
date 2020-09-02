@@ -3527,6 +3527,7 @@ function nextImg() {
         bmy_id_bmy_vo = CBmy.get_bmy_id_bmy_vo_dict()
         for k, v in bmy_id_bmy_vo.items():
             print('{0}: {1};'.format(k, v))
+        print('##### {0};'.format(bmy_id_bmy_vo[3199]))
         base_path = Path('../work/dcl/images')
         error_num = 0
         for file_obj in base_path.iterdir():
