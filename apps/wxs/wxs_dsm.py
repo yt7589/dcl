@@ -3538,6 +3538,7 @@ function nextImg() {
             if vin_code in vin_code_bmy_id_dict:
                 bmy_id = vin_code_bmy_id_dict[vin_code]
                 bmy_vo = bmy_id_bmy_vo[bmy_id]
+                print('bmy_id={0};'.format(bmy_id))
                 print('{0}: {1}-{2};'.format(img_file, bmy_id, bmy_vo[bmy_id]['bmy_code']))
             else:
                 bmy_id = -1
