@@ -92,12 +92,15 @@ class MBmy(object):
         获取bmy_code到bmy_id字典
         '''
         query_cond = {}
-        new_values = {'$set': {'bmy_code': 1, 'bmy_id': 1}}
+        fields = {'bmy_code': 1, 'bmy_id': 1}
         return MMongoDb.convert_recs(MMongoDb.db['t_bmy']\
-                    .find(query_cond, new_values))
+                    .find(query_cond, fields))
 
     @staticmethod
     def update_bmy_codes(bmy_id, bmy_code, bm_code, brand_code):
         query_cond = {'bmy_id': bmy_id}
-        fields = {'bmy_code': bmy_code, 'model_code': bm_code, 'brand_code': brand_code}
+        fields = {'$set': {
+            'bmy_code': bmy_code, 'model_code': bm_code, 
+            'brand_code': brand_code
+        }}
         MMongoDb.db['t_bmy'].update_one(query_cond, fields)
