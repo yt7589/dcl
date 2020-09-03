@@ -3553,6 +3553,24 @@ function nextImg() {
         '''
         将9月1日测试错误的车辆识别码由我们的编号转换为所里的编号
         '''
+        vc_to_bc = {}
+        with open('../work/dcl/bid_20200903.csv', 'r', encoding='utf-8') as bfd:
+            for line in bfd:
+                line = line.strip()
+                arrs_a = line.split(',')
+                vin_code = arrs_a[-1]
+                brand_code = arrs_a[1]
+                bm_code = arrs_a[3]
+                bmy_code = arrs_a[5]
+                vc_to_bc[vin_code] = {
+                    'brand_code': brand_code,
+                    'bm_code': bm_code,
+                    'bmy_code': bmy_code
+                }
+        for k, v in vc_to_bc.items():
+            print('### {0}: {1};'.format(k, v))
+        '''
+        # 获取需要修正的车辆识别码列表
         vin_codes = []
         with open('../work/dcl/f1.log', 'r', encoding='utf-8') as fd:
             for line in fd:
@@ -3560,9 +3578,7 @@ function nextImg() {
                 arrs_a = line.split('_')
                 vin_code = arrs_a[0]
                 vin_codes.append(vin_code)
-
-        for vc in vin_codes:
-            print('### {0};'.format(vc))
+        '''
         '''
         vin_code = 'SM6491-ME'
         bmy_id, _ = CBmy.get_bmy_id_by_vin_code(vin_code)
