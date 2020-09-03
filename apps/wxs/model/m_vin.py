@@ -90,7 +90,7 @@ class MVin(object):
 
     @staticmethod
     def get_vin_id_codes():
-        query_cond = {'$regex': '_'}
+        query_cond = {'$regex': {'vin_code': '_'}}
         fields = {'vin_id': 1, 'vin_code': 1, 'bmy_id': 1}
         return MMongoDb.convert_recs(MMongoDb.db['t_vin']\
             .find(query_cond, fields).sort([('vin_code', 1)]))
