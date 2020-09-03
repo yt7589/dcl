@@ -3553,10 +3553,6 @@ function nextImg() {
         '''
         将9月1日测试错误的车辆识别码由我们的编号转换为所里的编号
         '''
-        WxsDsm.change_hyphen_to_underscore_in_vin_code()
-        i_debug = 1
-        if 1 == i_debug:
-            return
         vc_to_bc = {}
         with open('../work/dcl/bid_20200903.csv', 'r', encoding='utf-8') as bfd:
             for line in bfd:
