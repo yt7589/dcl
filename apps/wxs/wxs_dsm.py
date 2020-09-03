@@ -3553,6 +3553,10 @@ function nextImg() {
         '''
         将9月1日测试错误的车辆识别码由我们的编号转换为所里的编号
         '''
+        WxsDsm.change_hyphen_to_underscore_in_vin_code()
+        i_debug = 1
+        if 1 == i_debug:
+            return
         vc_to_bc = {}
         with open('../work/dcl/bid_20200903.csv', 'r', encoding='utf-8') as bfd:
             for line in bfd:
@@ -3585,15 +3589,16 @@ function nextImg() {
             print('修正：{0} => {1};'.format(vin_code, bmy_code))
             bmy_id, _ = CBmy.get_bmy_id_by_vin_code(vin_code)
             CBmy.update_bmy_codes(bmy_id, bmy_code, bm_code, brand_code)
+
+    @staticmethod
+    def change_hyphen_to_underscore_in_vin_code():
         '''
-        vin_code = 'SM6491-ME'
-        bmy_id, _ = CBmy.get_bmy_id_by_vin_code(vin_code)
-        print('bmy_id={0};'.format(bmy_id))
-        bmy_code = '1113100001101'
-        bm_code = '1113100001'
-        brand_code = '1113'
-        CBmy.update_bmy_codes(bmy_id, bmy_code, bm_code, brand_code)
+        将数据库t_vin中所有车辆识别码中的_换成-，因为其会与分隔符
+        混淆
         '''
+        org_vin_code = 'VIOS GL_i ECT'
+        vin_code = org_vin_code.replace('_', '-')
+        print('##### vin_code: {0};'.format(vin_code))
 
 
         
