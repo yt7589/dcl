@@ -3554,7 +3554,7 @@ function nextImg() {
         将9月1日测试错误的车辆识别码由我们的编号转换为所里的编号
         '''
         vin_code = 'SM6491-ME'
-        bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)
+        bmy_id, _ = CBmy.get_bmy_id_by_vin_code(vin_code)
         print('bmy_id={0};'.format(bmy_id))
         bmy_code = '1113100001101'
         bm_code = '1113100001'
