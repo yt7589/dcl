@@ -3596,14 +3596,13 @@ function nextImg() {
         将数据库t_vin中所有车辆识别码中的_换成-，因为其会与分隔符
         混淆
         '''
-        org_vin_code = 'VIOS GL_i ECT'
-        vin_code = org_vin_code.replace('_', '-')
-        print('##### vin_code: {0};'.format(vin_code))
         old_vin_codes = CBmy.get_vin_id_codes()
         for vc in old_vin_codes:
             vin_id = int(vc['vin_id'])
-            vin_code = vc['vin_code']
-            print('### {0}: {1};'.format(vin_id, vin_code))
+            org_vin_code = vc['vin_code']
+            vin_code = org_vin_code.replace('_', '-')
+            CBmy.update_vin_code_by_vin_id(vin_id, vin_code)
+            print('### 更新： {0}: {1} 《= {2};'.format(vin_id, vin_code, org_vin_code))
 
 
         

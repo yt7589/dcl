@@ -94,3 +94,11 @@ class MVin(object):
         fields = {'vin_id': 1, 'vin_code': 1, 'bmy_id': 1}
         return MMongoDb.convert_recs(MMongoDb.db['t_vin']\
             .find(query_cond, fields).sort([('vin_code', 1)]))
+
+    @staticmethod
+    def update_vin_code_by_vin_id(vin_id, vin_code):
+        query_cond = {'vin_id': vin_id}
+        fields = {'$set': {
+            'vin_code': vin_code
+        }}
+        MMongoDb.db['t_vin'].update_one(query_cond, fields)

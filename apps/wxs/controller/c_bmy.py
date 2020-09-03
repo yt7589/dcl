@@ -217,3 +217,7 @@ class CBmy(object):
     @staticmethod
     def get_vin_id_codes():
         return MVin.get_vin_id_codes()
+
+    @staticmethod
+    def update_vin_code_by_vin_id(vin_id, vin_code):
+        MVin.update_vin_code_by_vin_id(vin_id, vin_code)
