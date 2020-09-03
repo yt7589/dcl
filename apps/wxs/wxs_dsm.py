@@ -3526,6 +3526,7 @@ function nextImg() {
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         bmy_id_bmy_vo = CBmy.get_bmy_id_bmy_vo_dict()
         base_path = Path('../work/dcl/images')
+        img_base_folder = '/media/zjkj/work/yantao/zjkj/es_images'
         error_num = 0
         b_num = 0
         total = 0
@@ -3540,7 +3541,7 @@ function nextImg() {
             if vin_code in vin_code_bmy_id_dict:
                 bmy_id = int(vin_code_bmy_id_dict[vin_code])
                 bmy_vo = bmy_id_bmy_vo[bmy_id]
-                print('{0}*{1};'.format(full_fn, bmy_id))
+                print('{0}*{1};'.format('{0}/{1}'.format(img_base_folder, img_file), bmy_id))
                 total += 1
                 if bmy_vo['bmy_code'].startswith('b'):
                     print('{0}: {1}-{2};'.format(img_file, bmy_id, bmy_vo['bmy_code']))
