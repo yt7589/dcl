@@ -3559,7 +3559,7 @@ function nextImg() {
                 line = line.strip()
                 arrs_a = line.split('_')
                 vin_code = arrs_a[0]
-                vin_codes += vin_code
+                vin_codes.apend(vin_code)
 
         for vc in vin_codes:
             print('### {0};'.format(vc))
