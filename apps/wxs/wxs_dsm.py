@@ -3599,6 +3599,11 @@ function nextImg() {
         org_vin_code = 'VIOS GL_i ECT'
         vin_code = org_vin_code.replace('_', '-')
         print('##### vin_code: {0};'.format(vin_code))
+        old_vin_codes = CBmy.get_vin_id_codes()
+        for vc in old_vin_codes:
+            vin_id = int(vc['vin_id'])
+            vin_code = vc['vin_code']
+            print('### {0}: {1};'.format(vin_id, vin_code))
 
 
         
