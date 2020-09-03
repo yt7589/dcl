@@ -3553,6 +3553,17 @@ function nextImg() {
         '''
         将9月1日测试错误的车辆识别码由我们的编号转换为所里的编号
         '''
+        vin_codes = []
+        with open('../work/dcl/f1.log', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line = line.strip()
+                arrs_a = line.split('_')
+                vin_code = arrs_a[0]
+                vin_codes += vin_code
+
+        for vc in vin_codes:
+            print('### {0};'.format(vc))
+        '''
         vin_code = 'SM6491-ME'
         bmy_id, _ = CBmy.get_bmy_id_by_vin_code(vin_code)
         print('bmy_id={0};'.format(bmy_id))
@@ -3560,6 +3571,7 @@ function nextImg() {
         bm_code = '1113100001'
         brand_code = '1113'
         CBmy.update_bmy_codes(bmy_id, bmy_code, bm_code, brand_code)
+        '''
 
 
         
