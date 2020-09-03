@@ -209,3 +209,7 @@ class CBmy(object):
         for rec in recs:
             bmy_code_to_bmy_id_dict[rec['bmy_code']] = int(rec['bmy_id'])
         return bmy_code_to_bmy_id_dict
+
+    @staticmethod
+    def update_bmy_codes(bmy_id, bmy_code, bm_code, brand_code):
+        MBmy.update_bmy_codes(bmy_id, bmy_code, bm_code, brand_code)

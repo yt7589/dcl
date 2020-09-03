@@ -95,3 +95,9 @@ class MBmy(object):
         fields = {'bmy_code': 1, 'bmy_id': 1}
         return MMongoDb.convert_recs(MMongoDb.db['t_bmy']\
                     .find(query_cond, fields))
+
+    @staticmethod
+    def update_bmy_codes(bmy_id, bmy_code, bm_code, brand_code):
+        query_cond = {'bmy_id': bmy_id}
+        fields = {'bmy_code': bmy_code, 'model_code': bm_code, 'brand_code': brand_code}
+        MMongoDb.db['t_bmy'].update_one(query_cond, fields)

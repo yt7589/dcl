@@ -3547,6 +3547,20 @@ function nextImg() {
                 error_num += 1
                 print('### Error: {0} = {1};'.format(img_file, vin_code))
         print('brand_error: {0}; error num: {1};'.format(b_num, error_num))
+        
+    @staticmethod
+    def correct_vin_bmy_codes_error():
+        '''
+        将9月1日测试错误的车辆识别码由我们的编号转换为所里的编号
+        '''
+        vin_code = 'SM6491-ME'
+        bmy_id = CBmy.get_bmy_id_by_vin_code(vin_code)
+        print('bmy_id={0};'.format(bmy_id))
+        bmy_code = '1113100001101'
+        bm_code = '1113100001'
+        brand_code = '1113'
+        CBmy.update_bmy_codes(bmy_id, bmy_code, bm_code, brand_code)
+
 
         
 
