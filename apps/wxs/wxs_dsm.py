@@ -3567,9 +3567,7 @@ function nextImg() {
                     'bm_code': bm_code,
                     'bmy_code': bmy_code
                 }
-        for k, v in vc_to_bc.items():
-            print('### {0}: {1};'.format(k, v))
-        '''
+        print('获取品牌车型年款编码完成')
         # 获取需要修正的车辆识别码列表
         vin_codes = []
         with open('../work/dcl/f1.log', 'r', encoding='utf-8') as fd:
@@ -3578,7 +3576,15 @@ function nextImg() {
                 arrs_a = line.split('_')
                 vin_code = arrs_a[0]
                 vin_codes.append(vin_code)
-        '''
+        print('获取需要修改的车辆识别码列表完成')
+        for vin_code in vin_codes:
+            vo = vc_to_bc[vin_code]
+            brand_code = vo['brand_code']
+            bm_code = vo['bm_code']
+            bmy_code = vo['bmy_code']
+            print('修正：{0} => {1};'.format(vin_code, bmy_code))
+            bmy_id, _ = CBmy.get_bmy_id_by_vin_code(vin_code)
+            CBmy.update_bmy_codes(bmy_id, bmy_code, bm_code, brand_code)
         '''
         vin_code = 'SM6491-ME'
         bmy_id, _ = CBmy.get_bmy_id_by_vin_code(vin_code)
