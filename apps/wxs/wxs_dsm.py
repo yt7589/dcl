@@ -3568,14 +3568,6 @@ function nextImg() {
                     'bmy_code': bmy_code
                 }
         print('获取品牌车型年款编码完成')
-        x = 'VIOS GL-i ECT'
-        if x in vc_to_bc:
-            print('##### {0};'.format(vc_to_bc[x]))
-        else:
-            print('!!!!!!!!!!!!!!!!!!!!!!')
-        i_debug = 1
-        if 1 == i_debug:
-            return
         # 获取需要修正的车辆识别码列表
         vin_codes = []
         with open('../work/dcl/f1.log', 'r', encoding='utf-8') as fd:
