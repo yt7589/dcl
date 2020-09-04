@@ -2235,7 +2235,7 @@ function nextImg() {
             max_idx = -1
             max_area = 0
             for idx, veh in enumerate(data['VEH']):
-                cllxfl = veh['CXTZ']['CLLXFL']
+                cllxfl = veh['CXTZ']['CLLXFL'][:2]
                 if cllxfl in cllxfls:
                     box_str = veh['WZTZ']['CLWZ']
                     arrs_a = box_str.split(',')
@@ -2248,6 +2248,16 @@ function nextImg() {
                 return None
             else:
                 return data['VEH'][max_idx]['WZTZ']['CLWZ']
+
+    @staticmethod
+    def process_es0901_jsons():
+        '''
+        解析9月1号测试错误图片车辆检测JSON文件
+        '''
+        base_path = Path('/media/zjkj/work/yantao/zjkj/es_results')
+        for file_obj in base_path.iterdir():
+            full_fn = str(file_obj)
+            print(full_fn)
 
     @staticmethod
     def crop_and_resize_img(img_file, box, size=(224, 224), mode=1):
