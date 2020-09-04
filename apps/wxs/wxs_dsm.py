@@ -2254,10 +2254,43 @@ function nextImg() {
         '''
         解析9月1号测试错误图片车辆检测JSON文件
         '''
+        #imgpath = '/media/zjkj/work/yantao/zjkj/es_crop/BH7161TMV_贵A5W20G_02_520000100860_520000104305010005.jpg'
+        #imgpath = '/media/zjkj/work/yantao/zjkj/es_crop/ZN6460WAS_贵A2J97H_02_520000100685_520000104861443836.jpg'
+        imgpath = '/media/zjkj/work/yantao/zjkj/es_crop/LZ6460Q9GE_赣A57S62_02_360000100650_360000200965450556.jpg'
+        with open(imgpath, 'rb') as f:
+            with Image.open(f) as img:
+                img_obj = img.convert('RGB')
+        print('img_obj: {0};'.format(img_obj))
+        i_debug = 1
+        if 1 == i_debug:
+            return
+        json_num = 0
+        error_num = 0
+        img_base_folder = '/media/zjkj/work/yantao/zjkj/es_images'
+        crop_base_folder = '/media/zjkj/work/yantao/zjkj/es_crop'
         base_path = Path('/media/zjkj/work/yantao/zjkj/es_results')
         for file_obj in base_path.iterdir():
             full_fn = str(file_obj)
-            print(full_fn)
+            json_num += 1
+            clwz = WxsDsm.parse_detect_json(full_fn)
+            if clwz is not None:
+                arrs_a = full_fn.split('/')
+                raw_json_fn = arrs_a[-1]
+                img_file = raw_json_fn[:-7]
+                img_full_fn = '{0}/{1}'.format(img_base_folder, img_file)
+                print('{0} clwz: {1};'.format(img_full_fn, clwz))
+                arrs2 = clwz.split(',')
+                box = [int(arrs2[0]), int(arrs2[1]), int(arrs2[2]), int(arrs2[3])]
+                if box[0] < 0:
+                    box[0] = 0
+                if box[1] < 0:
+                    box[1] = 0
+                crop_img = WxsDsm.crop_and_resize_img(img_full_fn, box)
+                cv2.imwrite('{0}/{1}'.format(crop_base_folder, img_file), crop_img)
+            else:
+                print('    Error: {0};'.format(full_fn))
+                error_num += 1
+        print('总文件数：{0}; 错误数量：{1};'.format(json_num, error_num))
 
     @staticmethod
     def crop_and_resize_img(img_file, box, size=(224, 224), mode=1):
@@ -3535,8 +3568,8 @@ function nextImg() {
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         bmy_id_bmy_vo = CBmy.get_bmy_id_bmy_vo_dict()
-        base_path = Path('../work/dcl/images')
-        img_base_folder = '/media/zjkj/work/yantao/zjkj/es_images'
+        img_base_folder = '/media/zjkj/work/yantao/zjkj/es_crop'
+        base_path = Path(img_base_folder)
         error_num = 0
         b_num = 0
         total = 0

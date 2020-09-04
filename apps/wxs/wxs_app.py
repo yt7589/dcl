@@ -6,16 +6,28 @@ from apps.wxs.controller.c_model import CModel
 from apps.wxs.wxs_utils import WxsUtils
 
 class WxsApp(object):
+    RM_EXP = 1000
+    RM_GENERATE_SAMPLES = 1001
+    RM_GENERATE_DATASET = 1002
+
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        i_debug = 10
-        if 1 == i_debug:
-            self.exp()
-            return
-        #WxsDsm.exp001()
+        mode = RM_GENERATE_DATASET
+        if RM_GENERATE_SAMPLES == mode:
+            ''' 
+            从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
+            '''
+            #WxsDsm.generate_samples()
+            #WxsDsm.generate_samples_wxs0901()
+            #WxsDsm.correct_vin_bmy_codes_error()
+            #WxsDsm.process_es0901_jsons()
+        elif RM_GENERATE_DATASET == mode:
+            WxsDsm.generate_dataset()
+        else:
+            WxsDsm.exp001()
         '''
         利用所里最新Excel表格内容为主，work/ggh2_to_bmy_dict.txt内容为辅，
         生成数据库中t_brand、t_model、t_bmy、t_vin表格中内容
@@ -27,7 +39,7 @@ class WxsApp(object):
         #WxsDsm.generate_samples()
         #WxsDsm.generate_samples_wxs0901()
         #WxsDsm.correct_vin_bmy_codes_error()
-        WxsDsm.process_es0901_jsons()
+        #WxsDsm.process_es0901_jsons()
         '''
         生成原始数据集，采用稀疏品牌车型年款编号
         '''
