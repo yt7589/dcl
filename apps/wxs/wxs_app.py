@@ -25,8 +25,9 @@ class WxsApp(object):
         从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
         '''
         #WxsDsm.generate_samples()
-        WxsDsm.generate_samples_wxs0901()
+        #WxsDsm.generate_samples_wxs0901()
         #WxsDsm.correct_vin_bmy_codes_error()
+        WxsDsm.process_es0901_jsons()
         '''
         生成原始数据集，采用稀疏品牌车型年款编号
         '''
