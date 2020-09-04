@@ -12,13 +12,14 @@ class WxsApp(object):
     RM_GET_SIMPLIFIED_BMYS = 1003
     RM_CONVERT_TO_BRAND_DS_MAIN = 1004
     RM_BIND_BRAND_HEAD_BMY_HEAD = 1005
+    RM_GENERATE_ZJKJ_CAMBRICON_LABELS = 1006
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_BIND_BRAND_HEAD_BMY_HEAD
+        mode = WxsApp.RM_GENERATE_ZJKJ_CAMBRICON_LABELS
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -48,8 +49,18 @@ class WxsApp(object):
             类别全部清零，将年款头的内容输出作为输出
             '''
             WxsDsm.bind_brand_head_bmy_head()
+        elif WxsApp.RM_GENERATE_ZJKJ_CAMBRICON_LABELS == mode:
+            '''
+            生成Cnstream要求的车辆品牌车型年款标签文件，格式为：
+            {"品牌编号", "车型编号", "年款编号", "品牌_车型_年款"},{...},
+            {...}
+            '''
+            WxsDsm.generate_zjkj_cambricon_labels()
         else:
             WxsDsm.exp001()
+            
+            
+            
         '''
         利用所里最新Excel表格内容为主，work/ggh2_to_bmy_dict.txt内容为辅，
         生成数据库中t_brand、t_model、t_bmy、t_vin表格中内容
@@ -71,12 +82,6 @@ class WxsApp(object):
         #WxsDsm.exp001()
         #WxsDsm.get_fine_wxs_dataset()
         #WxsDsm.generate_wxs_bmy_csv()
-        '''
-        生成Cnstream要求的车辆品牌车型年款标签文件，格式为：
-        {"品牌编号", "车型编号", "年款编号", "品牌_车型_年款"},{...},
-        {...}
-        '''
-        #WxsDsm.generate_zjkj_cambricon_labels()
         ''' 根据正确的测试集图片文件名，查出当前的品牌车型年款编号，没有的用-1表示，形成CSV文件 '''
         #WxsDsm.generate_test_ds_bmy_csv()
         ''' 生成Pipeline测试评价数据，将测试集中的图片文件拷贝到指定目录下 '''
