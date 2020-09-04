@@ -15,16 +15,19 @@ class WxsApp(object):
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = RM_GENERATE_DATASET
-        if RM_GENERATE_SAMPLES == mode:
+        mode = WxsApp.RM_GENERATE_DATASET
+        if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
             '''
-            #WxsDsm.generate_samples()
+            WxsDsm.generate_samples()
             #WxsDsm.generate_samples_wxs0901()
             #WxsDsm.correct_vin_bmy_codes_error()
             #WxsDsm.process_es0901_jsons()
-        elif RM_GENERATE_DATASET == mode:
+        elif WxsApp.RM_GENERATE_DATASET == mode:
+            '''
+            生成原始数据集，采用稀疏品牌车型年款编号
+            '''
             WxsDsm.generate_dataset()
         else:
             WxsDsm.exp001()
@@ -33,17 +36,6 @@ class WxsApp(object):
         生成数据库中t_brand、t_model、t_bmy、t_vin表格中内容
         '''
         #WxsDsm.initialize_db()
-        ''' 
-        从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
-        '''
-        #WxsDsm.generate_samples()
-        #WxsDsm.generate_samples_wxs0901()
-        #WxsDsm.correct_vin_bmy_codes_error()
-        #WxsDsm.process_es0901_jsons()
-        '''
-        生成原始数据集，采用稀疏品牌车型年款编号
-        '''
-        #WxsDsm.generate_dataset()
         '''
         将品牌车型年款变为0开始递增的序号
         '''
