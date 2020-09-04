@@ -49,6 +49,14 @@ class WxsApp(object):
         '''
         #WxsDsm.initialize_db()
         '''
+        将品牌车型年款变为0开始递增的序号
+        '''
+        #WxsDsm.get_simplified_bmys()
+        '''
+        向数据集中加入品牌信息
+        '''
+        #WxsDsm.convert_to_brand_ds_main()
+        '''
         找出损坏的图片文件
         '''
         #WxsDsm.find_bad_images()
