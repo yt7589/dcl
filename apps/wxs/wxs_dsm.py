@@ -3573,26 +3573,27 @@ function nextImg() {
         error_num = 0
         b_num = 0
         total = 0
-        for file_obj in base_path.iterdir():
-            full_fn = str(file_obj)
-            arrs_a = full_fn.split('/')
-            img_file = arrs_a[-1]
-            arrs_b = img_file.split('_')
-            arrs_c = arrs_b[0].split('#')
-            vin_code = arrs_c[0]
-            #print('{0}: {1};'.format(img_file, vin_code))
-            if vin_code in vin_code_bmy_id_dict:
-                bmy_id = int(vin_code_bmy_id_dict[vin_code])
-                bmy_vo = bmy_id_bmy_vo[bmy_id]
-                print('{0}*{1};'.format('{0}/{1}'.format(img_base_folder, img_file), bmy_id))
-                total += 1
-                if bmy_vo['bmy_code'].startswith('b'):
-                    print('{0}: {1}-{2};'.format(img_file, bmy_id, bmy_vo['bmy_code']))
-                    b_num += 1
-            else:
-                bmy_id = -1
-                error_num += 1
-                print('### Error: {0} = {1};'.format(img_file, vin_code))
+        with open('../../w1/wxs_es0901_ds.txt', 'w+', encoding='utf-8') as wfd:
+            for file_obj in base_path.iterdir():
+                full_fn = str(file_obj)
+                arrs_a = full_fn.split('/')
+                img_file = arrs_a[-1]
+                arrs_b = img_file.split('_')
+                arrs_c = arrs_b[0].split('#')
+                vin_code = arrs_c[0]
+                #print('{0}: {1};'.format(img_file, vin_code))
+                if vin_code in vin_code_bmy_id_dict:
+                    bmy_id = int(vin_code_bmy_id_dict[vin_code])
+                    bmy_vo = bmy_id_bmy_vo[bmy_id]
+                    wfd.write('{0}*{1}\n'.format('{0}/{1}'.format(img_base_folder, img_file), bmy_id))
+                    total += 1
+                    if bmy_vo['bmy_code'].startswith('b'):
+                        print('{0}: {1}-{2};'.format(img_file, bmy_id, bmy_vo['bmy_code']))
+                        b_num += 1
+                else:
+                    bmy_id = -1
+                    error_num += 1
+                    print('### Error: {0} = {1};'.format(img_file, vin_code))
         print('total: {0}; brand_error: {1}; error num: {2};'.format(total, b_num, error_num))
         
     @staticmethod
