@@ -11,13 +11,14 @@ class WxsApp(object):
     RM_GENERATE_DATASET = 1002
     RM_GET_SIMPLIFIED_BMYS = 1003
     RM_CONVERT_TO_BRAND_DS_MAIN = 1004
+    RM_BIND_BRAND_HEAD_BMY_HEAD = 1005
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_CONVERT_TO_BRAND_DS_MAIN
+        mode = WxsApp.RM_BIND_BRAND_HEAD_BMY_HEAD
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -41,6 +42,12 @@ class WxsApp(object):
             向数据集中加入品牌信息
             '''
             WxsDsm.convert_to_brand_ds_main()
+        elif WxsApp.RM_BIND_BRAND_HEAD_BMY_HEAD == mode:
+            '''
+            实现先预测出品牌类别，然后从年款头中除该品牌对应的年款索引外的其他
+            类别全部清零，将年款头的内容输出作为输出
+            '''
+            WxsDsm.bind_brand_head_bmy_head()
         else:
             WxsDsm.exp001()
         '''
@@ -119,11 +126,6 @@ class WxsApp(object):
         从samples.txt文件中统计出品牌数、车型数、年款数
         '''
         #WxsDsm.get_brand_bm_bmy_of_samples()
-        '''
-        实现先预测出品牌类别，然后从年款头中除该品牌对应的年款索引外的其他
-        类别全部清零，将年款头的内容输出作为输出
-        '''
-        #WxsDsm.bind_brand_head_bmy_head()
         '''
         求出无锡所测试集品牌与当前涉及的171个品牌的不同
         '''
