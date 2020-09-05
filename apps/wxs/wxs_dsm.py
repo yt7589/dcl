@@ -3651,6 +3651,27 @@ function nextImg() {
     @staticmethod
     def check_wxs0901_missing_vins():
         print('找出无锡所测试缺失车辆识别码...')
+        # 求出数据集中车辆识别码图片数量字典
+        vin_code_to_img_num = {}
+        with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds_090501.txt', 'r', encoding='utf-8') as dfd:
+            for line in dfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                arrs_b = full_fn.split('/')
+                img_file = arrs_b[-1]
+                arrs_c = img_file.split('_')
+                arrs_d = arrs_c[0].split('#')
+                vin_code = arrs_d[0]
+                if vin_code in vin_code_to_img_num:
+                    vin_code_to_img_num[vin_code] += 1
+                else:
+                    vin_code_to_img_num[vin_code] = 1
+        total = 0
+        for k, v in vin_code_to_img_num.items():
+            print('### {0}: {1};'.format(k, v))
+            total += v
+        print('total={0};'.format(total))
 
 
         
