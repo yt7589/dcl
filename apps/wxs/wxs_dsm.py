@@ -3685,12 +3685,26 @@ function nextImg() {
                         full_fn = str(file_obj)
                         if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
                             num = process_img_file(our_vc_to_in, full_fn, num)
+        '''
         our_vc_to_in = {}
         process_imported_vehicles(our_vc_to_in)
         process_domestic_vehicles(our_vc_to_in)
         with open('../../w1/vc_img_num.txt', 'w+', encoding='utf-8') as ifd:
             for k, v in our_vc_to_in.items():
                 ifd.write('{0}:{1}\n'.format(k, v))
+        '''
+        our_vc_to_in = {}
+        with open('../../w1/vc_img_num.txt', 'r', encoding='utf-8') as ifd:
+            for line in ifd:
+                line = line.strip()
+                arrs_a = line.split(':')
+                vin_code = arrs_a[0]
+                if vin_code in our_vc_to_in:
+                    our_vc_to_in[vin_code] += 1
+                else:
+                    our_vc_to_in[vin_code] = 1
+        for k, v in our_vc_to_in.items():
+            print('### {0}:{1};'.format(k, v))
         i_debug = 1
         if 1 == i_debug:
             return
