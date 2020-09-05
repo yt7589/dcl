@@ -3699,10 +3699,8 @@ function nextImg() {
                 line = line.strip()
                 arrs_a = line.split(':')
                 vin_code = arrs_a[0]
-                if vin_code in our_vc_to_in:
-                    our_vc_to_in[vin_code] += 1
-                else:
-                    our_vc_to_in[vin_code] = 1
+                img_num = int(arrs_a[1])
+                our_vc_to_in[vin_code] = img_num
         for k, v in our_vc_to_in.items():
             print('### {0}:{1};'.format(k, v))
         i_debug = 1
