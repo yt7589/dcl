@@ -3647,6 +3647,10 @@ function nextImg() {
             vin_code = org_vin_code.replace('_', '-')
             CBmy.update_vin_code_by_vin_id(vin_id, vin_code)
             print('### 更新： {0}: {1} 《= {2};'.format(vin_id, vin_code, org_vin_code))
+            
+    @staticmethod
+    def check_wxs0901_missing_vins():
+        print('找出无锡所测试缺失车辆识别码...')
 
 
         

@@ -13,13 +13,14 @@ class WxsApp(object):
     RM_CONVERT_TO_BRAND_DS_MAIN = 1004
     RM_BIND_BRAND_HEAD_BMY_HEAD = 1005
     RM_GENERATE_ZJKJ_CAMBRICON_LABELS = 1006
+    RM_CHECK_WXS0901_MISSING_VINS = 1007
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_GENERATE_ZJKJ_CAMBRICON_LABELS
+        mode = WxsApp.RM_CHECK_WXS0901_MISSING_VINS
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -56,6 +57,14 @@ class WxsApp(object):
             {...}
             '''
             WxsDsm.generate_zjkj_cambricon_labels()
+        elif WxsApp.RM_CHECK_WXS0901_MISSING_VINS == mode:
+            '''
+            根据fgvc_dataset/raw和guochanchezuowan_all目录，生成车辆识别码图片数量字典；
+            根据bid_brand_train_ds_090501.txt生成车辆识别码图片数量字典；
+            统计出在文件系统中车辆识别码图片数量为0但是在数据集中该车辆识别码图片数量
+            不为零的车辆识别码、品牌、品牌车型年款列表
+            '''
+            WxsApp.check_wxs0901_missing_vins()
         else:
             WxsDsm.exp001()
             
