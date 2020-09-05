@@ -3694,7 +3694,7 @@ function nextImg() {
                 ifd.write('{0}:{1}\n'.format(k, v))
         '''
         our_vc_to_in = {}
-        with open('../../w1/vc_img_num.txt', 'r', encoding='utf-8') as ifd:
+        with open('../work/dcl/vc_img_num.txt', 'r', encoding='utf-8') as ifd:
             for line in ifd:
                 line = line.strip()
                 arrs_a = line.split(':')
