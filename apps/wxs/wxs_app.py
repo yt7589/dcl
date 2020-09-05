@@ -64,7 +64,7 @@ class WxsApp(object):
             统计出在文件系统中车辆识别码图片数量为0但是在数据集中该车辆识别码图片数量
             不为零的车辆识别码、品牌、品牌车型年款列表
             '''
-            WxsApp.check_wxs0901_missing_vins()
+            WxsDsm.check_wxs0901_missing_vins()
         else:
             WxsDsm.exp001()
             
