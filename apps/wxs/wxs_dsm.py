@@ -3688,8 +3688,9 @@ function nextImg() {
         our_vc_to_in = {}
         process_imported_vehicles(our_vc_to_in)
         process_domestic_vehicles(our_vc_to_in)
-        for k, v in our_vc_to_in.items():
-            print('##### {0}: {1};'.format(k, v))
+        with open('../../w1/vc_img_num.txt', 'w+', encoding='utf-8') as ifd:
+            for k, v in our_vc_to_in.items():
+                ifd.write('{0}:{1}\n'.format(k, v))
         i_debug = 1
         if 1 == i_debug:
             return
