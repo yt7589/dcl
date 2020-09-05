@@ -3653,6 +3653,7 @@ function nextImg() {
         print('找出无锡所测试缺失车辆识别码...')
         # 求出数据集中车辆识别码图片数量字典
         base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
+        our_vc_to_in = {}
         num = 0
         for brand_obj in base_path.iterdir():
             for bm_obj in brand_obj.iterdir():
