@@ -3701,11 +3701,7 @@ function nextImg() {
                 vin_code = arrs_a[0]
                 img_num = int(arrs_a[1])
                 our_vc_to_in[vin_code] = img_num
-        for k, v in our_vc_to_in.items():
-            print('### {0}:{1};'.format(k, v))
-        i_debug = 1
-        if 1 == i_debug:
-            return
+        print('读取文件系统车辆识别号和图片文件数完成')
         vin_code_to_img_num = {}
         with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds_090501.txt', 'r', encoding='utf-8') as dfd:
             for line in dfd:
@@ -3721,6 +3717,10 @@ function nextImg() {
                     vin_code_to_img_num[vin_code] += 1
                 else:
                     vin_code_to_img_num[vin_code] = 1
+        print('读取数据集车辆识别号和图片文件数完成')
+        for key in vin_code_to_img_num.keys():
+            if key not in our_vc_to_in:
+                print('缺失车辆识别码：{0};'.format(key))
 
 
         
