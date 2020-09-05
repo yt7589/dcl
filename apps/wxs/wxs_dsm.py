@@ -3676,10 +3676,20 @@ function nextImg() {
                             full_fn = str(file_obj)
                             if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
                                 num = process_img_file(our_vc_to_in, full_fn, num)
-            for k, v in our_vc_to_in.items():
-                print('@@@ {0}: {1}'.format(k, v))
+        def process_domestic_vehicles(our_vc_to_in):
+            base_path = Path('/media/zjkj/work/guochanchezuowan-all')
+            num = 0
+            for sub_obj in base_path.iterdir():
+                for vc_obj in sub_obj.iterdir():
+                    for file_obj in vc_obj.iterdir():
+                        full_fn = str(file_obj)
+                        if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
+                            num = process_img_file(our_vc_to_in, full_fn, num)
         our_vc_to_in = {}
         process_imported_vehicles(our_vc_to_in)
+        process_domestic_vehicles(our_vc_to_in)
+        for k, v in our_vc_to_in.items():
+            print('##### {0}: {1};'.format(k, v))
         i_debug = 1
         if 1 == i_debug:
             return
