@@ -3809,7 +3809,7 @@ function nextImg() {
                             if vin_code != '白' and vin_code != '夜':
                                 print('{0}\n'.format(vin_code))
                     if bmy_id > 0:
-                        wfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
+                        wfd.write('{0}*{1}\n'.format(full_fn, bmy_id - 1))
                 
                 
                 
