@@ -44,3 +44,5 @@ class VdJsonSaver(object):
             if nop_num > 5:
                 break
             time.sleep(params['sleep_time'])
+        with open('{0}/file_id.txt'.format(base_folder), 'w+', encoding='utf-8') as fd:
+            ffd.write('{0}'.format(file_id))
