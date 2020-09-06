@@ -17,7 +17,9 @@ class VdJsonSaver(object):
             'userId': 1008,
             'userName': '测试'
         }
-        threading.Thread(target=self.move_save_thd, args=(params1))
+        save_thd = threading.Thread(target=self.move_save_thd, args=(params1))
+        save_thd.start()
+        save_thd.join()
         
     def move_save_thd(self, args=()):
         print('参数：{0}-{1};'.format(args[0]['userId'], args[0]['userName']))
