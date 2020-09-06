@@ -3569,12 +3569,12 @@ function nextImg() {
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         bmy_id_bmy_vo = CBmy.get_bmy_id_bmy_vo_dict()
-        img_base_folder = '/media/zjkj/work/yantao/zjkj/es_crop'
+        img_base_folder = '../datasets/es_crop'
         base_path = Path(img_base_folder)
         error_num = 0
         b_num = 0
         total = 0
-        with open('../../w1/wxs_es0901_ds.txt', 'w+', encoding='utf-8') as wfd:
+        with open('../work/wxs_es0901_ds.txt', 'w+', encoding='utf-8') as wfd:
             for file_obj in base_path.iterdir():
                 full_fn = str(file_obj)
                 arrs_a = full_fn.split('/')
