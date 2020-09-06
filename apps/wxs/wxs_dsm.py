@@ -3759,7 +3759,7 @@ function nextImg() {
         file_id = 998
         fd5 = create_folder(base_folder, file_id)
         print('fd5:{0}'.format(fd5))
-        base_path = '/media/zjkj/work/g2ne'
+        base_path = Path('/media/zjkj/work/g2ne')
         for sub0_obj in base_path.iterdir():
             for vc_obj in sub0_obj.iterdir():
                 for file_obj in vc_obj.iterdir():
