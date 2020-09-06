@@ -15,13 +15,14 @@ class WxsApp(object):
     RM_GENERATE_ZJKJ_CAMBRICON_LABELS = 1006
     RM_CHECK_WXS0901_MISSING_VINS = 1007
     RM_NORM_FILES_FOLDER = 1008
+    RM_GENERATE_ERROR_SAMPLES_HTML = 1009
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_NORM_FILES_FOLDER
+        mode = WxsApp.RM_GENERATE_ERROR_SAMPLES_HTML
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -73,6 +74,11 @@ class WxsApp(object):
             其中最后一个目录存文件
             '''
             WxsDsm.norm_files_folder()
+        if WxsApp.RM_GENERATE_ERROR_SAMPLES_HTML = mode:
+            '''
+            根据错误分类样本列表，形成便于人工浏览的网页，保存于../../w1/es目录下
+            '''
+            WxsDsm.generate_error_samples_html()
         else:
             WxsDsm.exp001()
             
@@ -115,10 +121,6 @@ class WxsApp(object):
         处理所里测试集中5664张正确图片中新车型和新年款记录，添加到数据集中
         '''
         #WxsDsm.process_unknown_wxs_tds()
-        '''
-        根据错误分类样本列表，形成便于人工浏览的网页，保存于../../w1/es目录下
-        '''
-        #WxsDsm.generate_error_samples_html()
         '''
         将子品牌合并为主品牌
         '''

@@ -1250,7 +1250,7 @@ class WxsDsm(object):
                 line = line.strip()
                 arrs0 = line.split(':')
                 bid_brand_dict[int(arrs0[0])] = arrs0[1]
-        with open('../work/dcl20200828/es/index.html', 'w+', encoding='utf-8') as hfd:
+        with open('../work/es0906/index.html', 'w+', encoding='utf-8') as hfd:
             hfd.write("""<!DOCTYPE html>
 <html>
 <head>
