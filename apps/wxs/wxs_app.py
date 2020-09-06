@@ -16,13 +16,14 @@ class WxsApp(object):
     RM_CHECK_WXS0901_MISSING_VINS = 1007
     RM_NORM_FILES_FOLDER = 1008
     RM_GENERATE_ERROR_SAMPLES_HTML = 1009
+    RM_REFINE_PREV_DATASET = 1010
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_GENERATE_SAMPLES
+        mode = WxsApp.RM_REFINE_PREV_DATASET
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -80,6 +81,8 @@ class WxsApp(object):
             根据错误分类样本列表，形成便于人工浏览的网页，保存于../../w1/es目录下
             '''
             WxsDsm.generate_error_samples_html()
+        elif WxsApp.RM_REFINE_PREV_DATASET == mode:
+            WxsDsm.refine_prev_dataset()
         else:
             WxsDsm.exp001()
             

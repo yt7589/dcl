@@ -3778,6 +3778,56 @@ function nextImg() {
                             print('移动{0}个文件'.format(num))
         with open('{0}/file_id.txt'.format(base_folder), 'w+', encoding='utf-8') as fd:
             ffd.write('{0}'.format(file_id))
+            
+            
+    @staticmethod
+    def refine_prev_dataset():
+        with open('./support/bid_train_ds.txt', 'r', encoding='utf-8') as tfd:
+            for line in tfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                arrs_b = full_fn.split('/')
+                img_file = arrs_b[-1]
+                arrs_c = img_file.split('_')
+                arrs_d = arrs_c['#']
+                vin_code = arrs_d[0]
+                print('{0}---{1}'.format(img_file, vin_code))
+                
+        '''        
+        sub_file = str(sub_obj)
+        #print('处理文件：{0};'.format(sub_obj))
+        arrs0 = sub_file.split('/')
+        filename = arrs0[-1]
+        arrs1 = filename.split('_')
+        raw_vin_code = arrs1[0]
+        arrs2 = raw_vin_code.split('#')
+        vin_code = arrs2[0]
+        if vin_code in vin_bmy_id_dict:
+            bmy_id = vin_bmy_id_dict[vin_code]
+        else:
+            vin_had_bmy_id = False
+            for k, _ in vin_bmy_id_dict.items():
+                if k.startswith(vin_code):
+                    bmy_id = vin_bmy_id_dict[k]
+                    vin_had_bmy_id = True
+                    break
+            if not vin_had_bmy_id:
+                bmy_id = -1
+                if vin_code != '白' and vin_code != '夜':
+                    efd.write('{0}\n'.format(vin_code))
+        if bmy_id > 0:
+            sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
+            bmy_name = bmy_id_bmy_name_dict[bmy_id]
+            arrsn = bmy_name.split('-')
+            brand_name = arrsn[0]
+            brand_set.add(brand_name)
+        oprr_num += 1
+        if oprr_num % 1000 == 0:
+            print('处理{0}条记录...'.format(oprr_num))
+        return oprr_num
+        '''
+        
         
 
     '''
