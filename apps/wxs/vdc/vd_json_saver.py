@@ -13,14 +13,19 @@ class VdJsonSaver(object):
         以启动规整化保存线程，按指定时间间隔运行，从检测结果目录
         拷贝出Json文件，放置到规整化目录下
         '''
-        params1 = {
-            'userId': 1008,
-            'userName': '测试'
+        params = {
+            'sleep_time': 1
         }
-        save_thd = threading.Thread(target=VdJsonSaver.move_save_thd, args=(params1,))
+        save_thd = threading.Thread(target=VdJsonSaver.move_save_thd, args=(params,))
         save_thd.start()
         save_thd.join()
     
     @staticmethod
-    def move_save_thd(params1):
-        print('参数：{0}-{1};'.format(params1['userId'], params1['userName']))
+    def move_save_thd(params):
+        nop_num = 0
+        while True:
+            print('移动Json文件...')
+            nop_num += 1
+            if nop_num > 5:
+                break
+            time.sleep(params['sleep_time'])
