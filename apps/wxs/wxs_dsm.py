@@ -3741,7 +3741,7 @@ function nextImg() {
     def norm_files_folder():
         print('规整文件存储目录')
         base_path = Path('/media/zjkj/work/bdb_images')
-        num += 1
+        num = 0
         for sf1 in base_path.iterdir():
             for sf2 in sf1.iterdir():
                 for sf3 in sf2.iterdir():
