@@ -25,6 +25,7 @@ from apps.wxs.controller.c_sample import CSample
 from apps.wxs.controller.c_dataset import CDataset
 import PIL.Image as Image
 from PIL import ImageStat
+from apps.wxs.vdc.vd_json_saver import VdJsonSaver
 
 class WxsDsm(object):
     def __init__(self):
@@ -3740,20 +3741,8 @@ function nextImg() {
     @staticmethod
     def norm_files_folder():
         print('规整文件存储目录')
-        base_path = Path('/media/zjkj/work/bdb_images')
-        num = 0
-        for sf1 in base_path.iterdir():
-            for sf2 in sf1.iterdir():
-                for sf3 in sf2.iterdir():
-                    for sf4 in sf3.iterdir():
-                        for sf5 in sf4.iterdir():
-                            for file_obj in sf5.iterdir():
-                                full_fn = str(file_obj)
-                                if file_obj.is_file() and full_fn.endswith(('jpg')):
-                                    num += 1
-                                    if num % 100 == 0:
-                                        print('统计完成{0}'.format(num))
-        print('文件总数为{0}个'.format(num))
+        saver = VdJsonSaver()
+        saver.start()
         i_debug = 1
         if 1 == i_debug:
             return
