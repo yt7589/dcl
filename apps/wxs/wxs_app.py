@@ -27,6 +27,7 @@ class WxsApp(object):
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
             '''
+            print('generate samples')
             #WxsDsm.generate_samples()
             WxsDsm.generate_samples_wxs0901()
             #WxsDsm.correct_vin_bmy_codes_error()
