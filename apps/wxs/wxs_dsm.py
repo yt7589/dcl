@@ -3755,6 +3755,7 @@ function nextImg() {
             return folder5
         base_folder = '/media/zjkj/work/bdb_images'
         base_path = Path('/media/zjkj/work/g2ne')
+        num = 0
         for sub0_obj in base_path.iterdir():
             for vc_obj in sub0_obj.iterdir():
                 for file_obj in vc_obj.iterdir():
@@ -3765,6 +3766,9 @@ function nextImg() {
                         img_file = arrs_a[-1]
                         shutil.move(full_fn, '{0}/{1}'.format(dst_folder, img_file))
                         file_id += 1
+                        num += 1
+                        if num % 100 == 0:
+                            print('移动{0}个文件'.format(num))
         with open('{0}/file_id.txt'.base_folder, 'w+', encoding='utf-8') as fd:
             ffd.write('{0}'.format(file_id))
         
