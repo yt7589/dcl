@@ -3790,7 +3790,7 @@ function nextImg() {
                 arrs_b = full_fn.split('/')
                 img_file = arrs_b[-1]
                 arrs_c = img_file.split('_')
-                arrs_d = arrs_c['#']
+                arrs_d = arrs_c.split('#')
                 vin_code = arrs_d[0]
                 print('{0}---{1}'.format(img_file, vin_code))
                 
