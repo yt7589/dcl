@@ -1945,14 +1945,14 @@ function nextImg() {
         # 列出年款文件../../w1/cambricon_vehicle_label.txt内容
         id_bmy_dict = {}
         row = 0
-        with open('../../w1/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
+        with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
             for line in cfd:
                 line = line.strip()
                 id_bmy_dict[row] = line
                 row += 1
         # 获取品牌列表
         brand_idx_bmys = {}
-        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+        with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
             for line in bfd:
                 line = line.strip()
                 arrs0 = line.split(':')
