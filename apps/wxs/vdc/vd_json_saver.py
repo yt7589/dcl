@@ -5,6 +5,8 @@
 import time
 import threading
 from pathlib import Path
+#
+from apps.wxs.fu.file_tree_folder.saver import FileTreeFolderSaver
 
 class VdJsonSaver(object):
     def __init__(self):
@@ -25,6 +27,8 @@ class VdJsonSaver(object):
     @staticmethod
     def move_save_thd(params):
         nop_num = 0
+        file_id = 0
+        base_folder = '/media/zjkj/work/fgvc_dataset/vd_jsons'
         while True:
             base_path = Path('/media/zjkj/work/fgvc_dataset/raw_json')
             is_nop = True
@@ -33,6 +37,8 @@ class VdJsonSaver(object):
                 full_fn = str(if_obj)
                 if jf_obj.is_file and full_fn.endswith(('json',)):
                     print('移动json文件:{0}...'.format(full_fn))
+                    #shutil.move(full_fn, 
+                    file_id = FileTreeFolderSaver.save_file(base_folder, file_id)
             if is_nop:
                 nop_num += 1
             if nop_num > 5:
