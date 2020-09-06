@@ -75,7 +75,7 @@ class WxsApp(object):
             其中最后一个目录存文件
             '''
             WxsDsm.norm_files_folder()
-        if WxsApp.RM_GENERATE_ERROR_SAMPLES_HTML == mode:
+        elif WxsApp.RM_GENERATE_ERROR_SAMPLES_HTML == mode:
             '''
             根据错误分类样本列表，形成便于人工浏览的网页，保存于../../w1/es目录下
             '''
