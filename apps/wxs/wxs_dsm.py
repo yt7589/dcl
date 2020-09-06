@@ -1136,12 +1136,12 @@ class WxsDsm(object):
         '''
         row = 0
         row_num = 0
-        with open('../../w1/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
+        with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
             for line in cfd:
                 row_num += 1
         item_sep = ','
-        with open('../../w1/zjkj_label_v1.txt', 'w+', encoding='utf-8') as zfd:
-            with open('../../w1/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
+        with open('./support/zjkj_label_v1.txt', 'w+', encoding='utf-8') as zfd:
+            with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
                 for line in cfd:
                     line = line.strip()
                     arrs0 = line.split(',')
