@@ -3782,17 +3782,42 @@ function nextImg() {
             
     @staticmethod
     def refine_prev_dataset():
-        with open('./support/bid_train_ds.txt', 'r', encoding='utf-8') as tfd:
-            for line in tfd:
-                line = line.strip()
-                arrs_a = line.split('*')
-                full_fn = arrs_a[0]
-                arrs_b = full_fn.split('/')
-                img_file = arrs_b[-1]
-                arrs_c = img_file.split('_')
-                arrs_d = arrs_c[0].split('#')
-                vin_code = arrs_d[0]
-                print('{0}---{1}'.format(img_file, vin_code))
+        vin_code_to_bmy_id = CBmy.get_wxs_vin_code_bmy_id_dict()
+        with open('./support/new_bid_train_ds.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./support/bid_train_ds.txt', 'r', encoding='utf-8') as tfd:
+                for line in tfd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    full_fn = arrs_a[0]
+                    arrs_b = full_fn.split('/')
+                    img_file = arrs_b[-1]
+                    arrs_c = img_file.split('_')
+                    arrs_d = arrs_c[0].split('#')
+                    vin_code = arrs_d[0]
+                    print('{0}---{1}'.format(img_file, vin_code))
+                    if vin_code in vin_code_to_bmy_id:
+                        bmy_id = vin_code_to_bmy_id[vin_code]
+                    else:
+                        vin_had_bmy_id = False
+                        for k, _ in vin_code_to_bmy_id.items():
+                            if k.startswith(vin_code):
+                                bmy_id = vin_code_to_bmy_id[k]
+                                vin_had_bmy_id = True
+                                break
+                        if not vin_had_bmy_id:
+                            bmy_id = -1
+                            if vin_code != '白' and vin_code != '夜':
+                                print('{0}\n'.format(vin_code))
+                    if bmy_id > 0:
+                        wfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
+                        bmy_name = bmy_id_bmy_name_dict[bmy_id]
+                        arrsn = bmy_name.split('-')
+                        brand_name = arrsn[0]
+                        brand_set.add(brand_name)
+                
+                
+                
+                
                 
         '''        
         sub_file = str(sub_obj)
