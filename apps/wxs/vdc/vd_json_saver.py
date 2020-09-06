@@ -4,6 +4,7 @@
 # 下面。
 import time
 import threading
+from pathlib import Path
 
 class VdJsonSaver(object):
     def __init__(self):
@@ -25,8 +26,15 @@ class VdJsonSaver(object):
     def move_save_thd(params):
         nop_num = 0
         while True:
-            print('移动Json文件...')
-            nop_num += 1
+            base_path = Path('/media/zjkj/work/fgvc_dataset/raw_json')
+            is_nop = True
+            for jf_obj in base_path.iterdir():
+                is_nop = False
+                full_fn = str(if_obj)
+                if jf_obj.is_file and full_fn.endswith(('json',)):
+                    print('移动json文件:{0}...'.format(full_fn))
+            if is_nop:
+                nop_num += 1
             if nop_num > 5:
                 break
             time.sleep(params['sleep_time'])
