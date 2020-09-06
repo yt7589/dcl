@@ -1267,7 +1267,7 @@ let images = [
                     arrs1 = full_file.split('/')
                     img_file = arrs1[-1]
                     dst_img_file = 'images/{0:05d}.jpg'.format(num)
-                    dst_full_file = '../work/dcl20200828/es/images/{0:05d}.jpg'.format(num)
+                    dst_full_file = '../work/es0906/images/{0:05d}.jpg'.format(num)
                     print('拷贝文件：{0};'.format(dst_full_file))
                     shutil.copy(full_file, dst_full_file)
                     num += 1
