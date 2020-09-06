@@ -3740,6 +3740,14 @@ function nextImg() {
     @staticmethod
     def norm_files_folder():
         print('规整文件存储目录')
+        file_id = 0
+        full_str = '{0:012d}'.format(file_id)
+        folder1 = full_str[:2]
+        folder2 = full_str[2:4]
+        folder3 = full_str[4:6]
+        folder4 = full_str[6:8]
+        folder5 = full_str[8:10]
+        print('base/d{0}/d{1}/d{2}/d{3}/d{4}'.format(folder1, folder2, folder3, folder4, folder5))
         
 
     '''
