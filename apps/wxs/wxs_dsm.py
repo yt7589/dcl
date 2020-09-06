@@ -3754,18 +3754,16 @@ function nextImg() {
             folder5 = create_tree_folder(folder4, full_str[8:10])
             return folder5
         base_folder = '/media/zjkj/work/bdb_images'
-        file_id = 0
-        create_folder(base_folder, file_id)
-        file_id = 998
-        fd5 = create_folder(base_folder, file_id)
-        print('fd5:{0}'.format(fd5))
         base_path = Path('/media/zjkj/work/g2ne')
         for sub0_obj in base_path.iterdir():
             for vc_obj in sub0_obj.iterdir():
                 for file_obj in vc_obj.iterdir():
                     full_fn = str(file_obj)
                     if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
-                        print(full_fn)
+                        dst_folder = create_folder(base_folder, file_id)
+                        arrs_a = full_fn.split('/')
+                        img_file = arrs_a[-1]
+                        shutil.move(full_fn, '{0}/{1}'.format(dst_folder, img_file))
                         file_id += 1
         
 
