@@ -836,7 +836,7 @@ class WxsDsm(object):
         brand_set = set()
         if not is_create_brands_dict:
             print('read brand file')
-            with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as rfd:
+            with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as rfd:
                 for line in rfd:
                     line = line.strip()
                     arrs0 = line.split(':')
@@ -848,7 +848,7 @@ class WxsDsm(object):
         idx = 0
         # 从精简bmy_id到原始bmy_id
         bmy_sim_org_dict = {}
-        with open('../../w1/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as sofd:
+        with open('./support/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as sofd:
             for line in sofd:
                 line = line.strip()
                 arrs0 = line.split(':')
@@ -875,15 +875,15 @@ class WxsDsm(object):
                     brand_id = brand_name_brand_id_dict[brand_name]
                     bfd.write('{0}*{1}*{2}\n'.format(img_file, sim_bmy_id, brand_id))
         if is_create_brands_dict:
-            with open('../../w1/bid_brands_dict.txt', 'w+', encoding='utf-8') as fd:
+            with open('./support/bid_brands_dict.txt', 'w+', encoding='utf-8') as fd:
                 for k, v in brand_id_brand_name_dict.items():
                     fd.write('{0}:{1}\n'.format(k, v))
         return len(brand_set)
 
     @staticmethod
     def convert_to_brand_ds_main():
-        brand_num_train = WxsDsm.convert_to_brand_ds('../../w1/bid_train_ds.txt', 
-                    '../../w1/bid_brand_train_ds.txt', 
+        brand_num_train = WxsDsm.convert_to_brand_ds('./support/bid_train_ds.txt', 
+                    './support/bid_brand_train_ds.txt', 
                     is_create_brands_dict=True)
         #brand_num_test = WxsDsm.convert_to_brand_ds('../../w1/bid_test_ds.txt', 
          #           '../../w1/bid_brand_test_ds.txt', 
