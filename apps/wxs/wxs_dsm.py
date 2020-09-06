@@ -3765,6 +3765,8 @@ function nextImg() {
                         img_file = arrs_a[-1]
                         shutil.move(full_fn, '{0}/{1}'.format(dst_folder, img_file))
                         file_id += 1
+        with open('{0}/file_id.txt'.base_folder, 'w+', encoding='utf-8') as fd:
+            ffd.write('{0}'.format(file_id))
         
 
     '''
