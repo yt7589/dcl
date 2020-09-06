@@ -21,5 +21,5 @@ class VdJsonSaver(object):
         save_thd.start()
         save_thd.join()
         
-    def move_save_thd(self, args=()):
-        print('参数：{0}-{1};'.format(args[0]['userId'], args[0]['userName']))
+    def move_save_thd(self, params1):
+        print('参数：{0}-{1};'.format(params1['userId'], params1['userName']))
