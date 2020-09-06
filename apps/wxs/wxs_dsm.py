@@ -737,7 +737,7 @@ class WxsDsm(object):
         sim_org_dict = {}
         org_sim_dict = {}
         # raw_ds = '../../w1/raw_bid_train_ds.txt'
-        raw_ds = '../../w1/raw_bid_train_ds_v001.txt'
+        raw_ds = './support/new_bid_train_ds.txt'
         with open(raw_ds, 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
@@ -751,16 +751,16 @@ class WxsDsm(object):
             sim_org_dict[idx] = bmy_id
             org_sim_dict[bmy_id] = idx
             print('idx={0}:{1};'.format(idx, bmy_id))
-        with open('../../w1/bmy_sim_org_dict.txt', 'w+', encoding='utf-8') as sofd:
+        with open('./support/bmy_sim_org_dict.txt', 'w+', encoding='utf-8') as sofd:
             for kso, vso in sim_org_dict.items():
                 sofd.write('{0}:{1}\n'.format(kso, vso))
-        with open('../../w1/bmy_org_sim_dict.txt', 'w+', encoding='utf-8') as osfd:
+        with open('./support/w1/bmy_org_sim_dict.txt', 'w+', encoding='utf-8') as osfd:
             for kos, vos in org_sim_dict.items():
                 osfd.write('{0}:{1}\n'.format(kos, vos))
         # 生成新的训练数据集
-        WxsDsm.simplify_bid_ds(org_sim_dict, '../../w1/bid_train_ds.txt', raw_ds)
+        WxsDsm.simplify_bid_ds(org_sim_dict, './support/bid_train_ds.txt', raw_ds)
         # 生成新的测试数据集
-        #WxsDsm.simplify_bid_ds(org_sim_dict, '../../w1/bid_test_ds.txt', '../../w1/raw_bid_test_ds.txt')
+        #WxsDsm.simplify_bid_ds(org_sim_dict, './support/bid_test_ds.txt', './support/raw_bid_test_ds.txt')
         # 生成新寒武纪需要的标签文件
         WxsDsm.generate_cambricon_labels(sim_org_dict)
     
@@ -787,7 +787,7 @@ class WxsDsm(object):
         由新的bmy_id求出老的bmy_id，然后求出品牌车型年款并用逗号分隔，生成一个txt文件
         '''
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
-        with open('../../w1/cambricon_vehicle_label.txt', 'w+', encoding='utf-8') as fd:
+        with open('./support/cambricon_vehicle_label.txt', 'w+', encoding='utf-8') as fd:
             for sim_bmy_id in range(len(sim_org_dict)):
                 bmy_id = sim_org_dict[sim_bmy_id] + 1
                 bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
