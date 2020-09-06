@@ -3740,14 +3740,21 @@ function nextImg() {
     @staticmethod
     def norm_files_folder():
         print('规整文件存储目录')
+        def create_tree_folder(parent_folder, child_folder):
+            dst_folder = '{0}/{1}'.format(parent_folder, child_folder)
+            if not os.path.exists(dst_folder):
+                os.mkdir(dst_folder)
+            return dst_folder
         file_id = 0
         full_str = '{0:012d}'.format(file_id)
-        folder1 = full_str[:2]
-        folder2 = full_str[2:4]
-        folder3 = full_str[4:6]
-        folder4 = full_str[6:8]
-        folder5 = full_str[8:10]
-        print('base/d{0}/d{1}/d{2}/d{3}/d{4}'.format(folder1, folder2, folder3, folder4, folder5))
+        bdb_images_base = '/media/zjkj/work/bad_images'
+        
+        folder1 = create_tree_folder(bdb_images_base, full_str[:2])
+        folder2 = create_tree_folder(folder1, full_str[2:4])
+        folder3 = create_tree_folder(folder2, full_str[4:6])
+        folder4 = create_tree_folder(folder3, full_str[6:8])
+        folder5 = create_tree_folder(folder4, full_str[8:10])
+        print('{0}'.format(folder5))
         
 
     '''
