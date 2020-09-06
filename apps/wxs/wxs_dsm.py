@@ -3745,16 +3745,29 @@ function nextImg() {
             if not os.path.exists(dst_folder):
                 os.mkdir(dst_folder)
             return dst_folder
-        file_id = 0
-        full_str = '{0:012d}'.format(file_id)
-        bdb_images_base = '/media/zjkj/work/bdb_images'
-        
-        folder1 = create_tree_folder(bdb_images_base, full_str[:2])
-        folder2 = create_tree_folder(folder1, full_str[2:4])
-        folder3 = create_tree_folder(folder2, full_str[4:6])
-        folder4 = create_tree_folder(folder3, full_str[6:8])
-        folder5 = create_tree_folder(folder4, full_str[8:10])
+        def create_folder(base_folder, file_id):
+            full_str = '{0:012d}'.format(file_id)
+            folder1 = create_tree_folder(base_folder, full_str[:2])
+            folder2 = create_tree_folder(folder1, full_str[2:4])
+            folder3 = create_tree_folder(folder2, full_str[4:6])
+            folder4 = create_tree_folder(folder3, full_str[6:8])
+            folder5 = create_tree_folder(folder4, full_str[8:10])
+            return folder5
         print('{0}'.format(folder5))
+        base_folder = '/media/zjkj/work/bdb_images'
+        file_id = 0
+        create_folder(base_folder, file_id)
+        file_id = 998
+        fd5 = create_folder(base_folder, file_id)
+        print('fd5:{0}'.format(fd5))
+        base_path = '/media/zjkj/work/g2ne'
+        for sub0_obj in base_path.iterdir():
+            for vc_obj in sub0_obj.iterdir():
+                for file_obj in vc_obj.iterdir():
+                    full_fn = str(file_obj)
+                    if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
+                        print(full_fn)
+                        file_id += 1
         
 
     '''
