@@ -3741,13 +3741,13 @@ function nextImg() {
     def norm_files_folder():
         print('规整文件存储目录')
         def create_tree_folder(parent_folder, child_folder):
-            dst_folder = '{0}/{1}'.format(parent_folder, child_folder)
+            dst_folder = '{0}/d{1}'.format(parent_folder, child_folder)
             if not os.path.exists(dst_folder):
                 os.mkdir(dst_folder)
             return dst_folder
         file_id = 0
         full_str = '{0:012d}'.format(file_id)
-        bdb_images_base = '/media/zjkj/work/bad_images'
+        bdb_images_base = '/media/zjkj/work/bdb_images'
         
         folder1 = create_tree_folder(bdb_images_base, full_str[:2])
         folder2 = create_tree_folder(folder1, full_str[2:4])
