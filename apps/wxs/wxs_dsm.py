@@ -3753,7 +3753,6 @@ function nextImg() {
             folder4 = create_tree_folder(folder3, full_str[6:8])
             folder5 = create_tree_folder(folder4, full_str[8:10])
             return folder5
-        print('{0}'.format(folder5))
         base_folder = '/media/zjkj/work/bdb_images'
         file_id = 0
         create_folder(base_folder, file_id)
