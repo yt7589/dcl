@@ -3810,10 +3810,6 @@ function nextImg() {
                                 print('{0}\n'.format(vin_code))
                     if bmy_id > 0:
                         wfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
-                        bmy_name = bmy_id_bmy_name_dict[bmy_id]
-                        arrsn = bmy_name.split('-')
-                        brand_name = arrsn[0]
-                        brand_set.add(brand_name)
                 
                 
                 
