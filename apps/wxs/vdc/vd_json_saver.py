@@ -17,7 +17,7 @@ class VdJsonSaver(object):
             'userId': 1008,
             'userName': '测试'
         }
-        save_thd = threading.Thread(target=VdJsonSaver.move_save_thd, args=(params1))
+        save_thd = threading.Thread(target=VdJsonSaver.move_save_thd, args=(params1,))
         save_thd.start()
         save_thd.join()
     
