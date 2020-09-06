@@ -14,13 +14,14 @@ class WxsApp(object):
     RM_BIND_BRAND_HEAD_BMY_HEAD = 1005
     RM_GENERATE_ZJKJ_CAMBRICON_LABELS = 1006
     RM_CHECK_WXS0901_MISSING_VINS = 1007
+    RM_NORM_FILES_FOLDER = 1008
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_CHECK_WXS0901_MISSING_VINS
+        mode = WxsApp.RM_NORM_FILES_FOLDER
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -65,6 +66,13 @@ class WxsApp(object):
             不为零的车辆识别码、品牌、品牌车型年款列表
             '''
             WxsDsm.check_wxs0901_missing_vins()
+        elif WxsApp.RM_NORM_FILES_FOLDER == mode:
+            '''
+            将大量图片文件统一存储为每个子目录存储100个文件，目录层次为：
+            d00/d00/d00/d00/d00/**.jpg
+            其中最后一个目录存文件
+            '''
+            WxsDsm.norm_files_folder()
         else:
             WxsDsm.exp001()
             

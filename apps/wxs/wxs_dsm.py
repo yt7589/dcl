@@ -3737,6 +3737,9 @@ function nextImg() {
                 print('缺失车辆识别码：{0};'.format(key))
 
 
+    @staticmethod
+    def norm_files_folder():
+        print('规整文件存储目录')
         
 
     '''
