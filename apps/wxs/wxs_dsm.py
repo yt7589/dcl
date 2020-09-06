@@ -3755,6 +3755,7 @@ function nextImg() {
             return folder5
         base_folder = '/media/zjkj/work/bdb_images'
         base_path = Path('/media/zjkj/work/g2ne')
+        file_id = 0
         num = 0
         for sub0_obj in base_path.iterdir():
             for vc_obj in sub0_obj.iterdir():
