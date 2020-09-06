@@ -3740,6 +3740,23 @@ function nextImg() {
     @staticmethod
     def norm_files_folder():
         print('规整文件存储目录')
+        base_path = Path('/media/zjkj/work/bdb_images')
+        num += 1
+        for sf1 in base_path.iterdir():
+            for sf2 in sf1.iterdir():
+                for sf3 in sf2.iterdir():
+                    for sf4 in sf3.iterdir():
+                        for sf5 in sf4.iterdir():
+                            for file_obj in sf5.iterdir():
+                                full_fn = str(file_obj)
+                                if file_obj.is_file() and full_fn.endswith(('jpg')):
+                                    num += 1
+                                    if num % 100 == 0:
+                                        print('统计完成{0}'.format(num))
+        print('文件总数为{0}个'.format(num))
+        i_debug = 1
+        if 1 == i_debug:
+            return
         def create_tree_folder(parent_folder, child_folder):
             dst_folder = '{0}/d{1}'.format(parent_folder, child_folder)
             if not os.path.exists(dst_folder):
@@ -3770,7 +3787,7 @@ function nextImg() {
                         num += 1
                         if num % 100 == 0:
                             print('移动{0}个文件'.format(num))
-        with open('{0}/file_id.txt'.base_folder, 'w+', encoding='utf-8') as fd:
+        with open('{0}/file_id.txt'.format(base_folder), 'w+', encoding='utf-8') as fd:
             ffd.write('{0}'.format(file_id))
         
 
