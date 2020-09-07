@@ -36,9 +36,10 @@ class VdJsonManager(object):
             for line in fd:
                 line = line.strip()
                 full_fn = '{0}/{1}'.format(base_folder, line)
-                file_id = FileTreeFolderSaver.save_file(dst_folder, full_fn, file_id)
-                if file_id % 100 == 0:
-                    print('处理完成{0}个文件'.format(file_id))
+                if os.path.exists(full_fn):
+                    file_id = FileTreeFolderSaver.save_file(dst_folder, full_fn, file_id)
+                    if file_id % 100 == 0:
+                        print('处理完成{0}个文件'.format(file_id))
                 
         '''
         for jf_obj in base_path.iterdir():
