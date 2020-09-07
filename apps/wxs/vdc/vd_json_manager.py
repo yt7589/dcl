@@ -88,7 +88,7 @@ class VdJsonManager(object):
             # 找到面积最大的检测框作为最终检测结果
             max_idx = -1
             max_area = 0
-            for idx, veh in enumerate(data['VEH']):'
+            for idx, veh in enumerate(data['VEH']):
                 psfx = veh['WZTZ']['PSXF']
                 cllxfl = veh['CXTZ']['CLLXFL'][:2]
                 if cllxfl in cllxfls:
