@@ -132,7 +132,7 @@ class VdJsonManager(object):
                             for sf5 in sf4.iterdir():
                                 for jf_obj in sf5.iterdir():
                                     full_fn = str(jf_obj)
-                                    idx = num // 6000000
+                                    idx = num // 600000
                                     fds[idx].write('{0}\n'.format(full_fn))
                                     num += 1
                                     if num % 100 == 0:
