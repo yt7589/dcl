@@ -17,6 +17,13 @@ class FileTreeFolderSaver(object):
         return file_id+1
         
     @staticmethod
+    def get_dst_fn(base_folder, src_full_fn, file_id):
+        dst_folder = FileTreeFolderSaver.create_folder(base_folder, file_id)
+        arrs_a = src_full_fn.split('/')
+        fn = arrs_a[-1]
+        return file_id+1, '{0}/{1}'.format(dst_folder, fn)
+        
+    @staticmethod
     def create_tree_folder(parent_folder, child_folder):
         dst_folder = '{0}/d{1}'.format(parent_folder, child_folder)
         if not os.path.exists(dst_folder):

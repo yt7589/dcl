@@ -95,6 +95,8 @@ class VdJsonManager(object):
         
     @staticmethod
     def process_vd_json_thd(params):
+        cut_img_head_folder = './support/datasets/train/head'
+        cut_img_tail_folder = './support/datasets/train/tail'
         img_file_to_full_fn = params['iffn_dict']
         idx = params['idx']
         num = 0
@@ -124,12 +126,56 @@ class VdJsonManager(object):
                         elif cllxfl in buss:
                             vehicle_type = VdJsonManager.VT_BUS
                         img_full_fn = img_file_to_full_fn[img_file]
-                        VdJsonManager.s_num += 1
+                        arrs_c = box_raw.split(',')
+                        box = [int(arrs_c[0]), int(arrs_c[1]), int(arrs_c[2]), int(arrs_c[3])]
+                        if box[0] < 0:
+                            box[0] = 0
+                        if box[1] < 0:
+                            box[1] = 0
+                        croped_img = VdJsonManager.crop_and_resize_img(img_full_fn, box)
+                        if VdJsonManager.HTT_HEAD == head_tail:
+                            VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn(cut_img_head_folder, img_full_fn, VdJsonManager.s_num)
+                        else:
+                            VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn(cut_img_tail_folder, img_full_fn, VdJsonManager.s_num)
+                        cv2.imwrite(dst_cut_fn, croped_img)
                         if VdJsonManager.s_num % 1000 == 0:
-                            print('Thread_{0}: {1};'.format(idx, VdJsonManager.s_num))
+                            print('Thread_{0}: cut and save {1};'.format(idx, VdJsonManager.s_num))
                     else:
                         print('error file: {0};'.format(full_fn))
                         efd.write('{0}\n'.format(full_fn))
+
+    @staticmethod
+    def crop_and_resize_img(img_file, box, size=(224, 224), mode=1):
+        if mode == 1:
+            return WxsDsm.crop_and_resize_no_aspect(img_file, box, size)
+        else:
+            return WxsDsm.crop_and_resize_keep_aspect(img_file, box, size)
+
+    @staticmethod
+    def crop_and_resize_no_aspect(img_file, box, size=(224, 224), mode=1):
+        org_img = cv2.imread(img_file)
+        crop_img = org_img[
+            box[1] : box[1] + box[3],
+            box[0] : box[0] + box[2]
+        ]
+        '''
+        plt.subplot(1, 3, 1)
+        plt.title('org_img: {0}*{1}'.format(org_img.shape[0], org_img.shape[1]))
+        plt.imshow(org_img)
+        plt.subplot(1, 3, 2)
+        plt.title('img: {0}*{1}'.format(crop_img.shape[0], crop_img.shape[1]))
+        plt.imshow(crop_img)
+        resized_img = cv2.resize(crop_img, size, interpolation=cv2.INTER_LINEAR)
+        plt.subplot(1, 3, 3)
+        plt.title('resized')
+        plt.imshow(resized_img)
+        plt.show()
+        '''
+        return crop_img
+
+    @staticmethod
+    def crop_and_resize_keep_aspect(img_file, box, size=(224, 224), mode=1):
+        pass
         
     @staticmethod
     def save_vd_json_fns():
