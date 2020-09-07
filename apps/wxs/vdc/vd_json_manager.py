@@ -146,20 +146,35 @@ class VdJsonManager(object):
     @staticmethod
     def get_raw_img_file_to_full_fn():
         img_file_to_full_fn = {}
+        iffn_file = './support/raw_iffn.txt'
         base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
         num = 0
-        for brand_obj in base_path.iterdir():
-            for bm_obj in brand_obj.iterdir():
-                for bmy_obj in bm_obj.iterdir():
-                    for file_obj in bmy_obj.iterdir():
-                        full_fn = str(file_obj)
-                        if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
-                            arrs_a = full_fn.split('/')
-                            img_file = arrs_a[-1]
-                            img_file_to_full_fn['img_file'] = full_fn
-                            num += 1
-                            if num % 100 == 0:
-                                print('加入字典文件数：{0};'.format(num))
+        if os.path.exists(iffn_file):
+            print('从缓存文件中读取...')
+            with open(iffn_file, 'r', encoding='utf-8') as rfd:
+                for line in rfd:
+                    line = line.strip()
+                    arrs_a = line.split(':')
+                    img_file = arrs_a[0]
+                    full_fn = arrs_a[1]
+                    img_file_to_full_fn[img_file] = full_fn
+        else:
+            print('从文件目录中读取...')
+            for brand_obj in base_path.iterdir():
+                for bm_obj in brand_obj.iterdir():
+                    for bmy_obj in bm_obj.iterdir():
+                        for file_obj in bmy_obj.iterdir():
+                            full_fn = str(file_obj)
+                            if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
+                                arrs_a = full_fn.split('/')
+                                img_file = arrs_a[-1]
+                                img_file_to_full_fn['img_file'] = full_fn
+                                num += 1
+                                if num % 100 == 0:
+                                    print('加入字典文件数：{0};'.format(num))
+            with (iffn_file, 'w+', encoding='utf-8') as wfd:
+                for k, v in img_file_to_full_fn.items():
+                    wfd.write('{0}:{1}\n'.format(k, v))
         return img_file_to_full_fn
                                 
                                 
