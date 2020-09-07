@@ -32,7 +32,7 @@ class VdJsonManager(object):
         #base_path = Path('/media/zjkj/work/fgvc_dataset/raw_json')
         base_folder = '/media/zjkj/work/fgvc_dataset/raw_json'
         dst_folder = '/media/zjkj/work/fgvc_dataset/vdc0907/json_500'
-        file_id = 384337
+        file_id = 1000000
         with open('/media/zjkj/work/fgvc_dataset/vdcj.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
