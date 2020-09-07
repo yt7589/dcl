@@ -79,6 +79,7 @@ class VdJsonManager(object):
                 print('处理完成{0}个文件'.format(file_id))
         '''
     
+    s_num = 0
     @staticmethod
     def parse_vd_jsons():
         img_file_to_full_fn = VdJsonManager.get_raw_img_file_to_full_fn()
@@ -123,7 +124,9 @@ class VdJsonManager(object):
                         elif cllxfl in buss:
                             vehicle_type = VdJsonManager.VT_BUS
                         img_full_fn = img_file_to_full_fn[img_file]
-                        print('Thread_{4}: img_file={0}: {1}; {2}; {3};'.format(img_full_fn, head_tail, vehicle_type, xlwz, idx))
+                        VdJsonManager.s_num += 1
+                        if VdJsonManager.s_num % 1000 == 0:
+                            print('Thread_{0}: {1};'.format(idx, VdJsonManager.s_num))
                     else:
                         print('error file: {0};'.format(full_fn))
                         efd.write('{0}\n'.format(full_fn))
