@@ -17,13 +17,14 @@ class WxsApp(object):
     RM_NORM_FILES_FOLDER = 1008
     RM_GENERATE_ERROR_SAMPLES_HTML = 1009
     RM_REFINE_PREV_DATASET = 1010
+    RM_PROCESS_VD_JSONS = 1011
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_GENERATE_ERROR_SAMPLES_HTML
+        mode = WxsApp.RM_PROCESS_VD_JSONS
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -82,7 +83,15 @@ class WxsApp(object):
             '''
             WxsDsm.generate_error_samples_html()
         elif WxsApp.RM_REFINE_PREV_DATASET == mode:
+            '''
+            生成原来的训练集和只包括所里出错的3153张图的训练集
+            '''
             WxsDsm.refine_prev_dataset()
+        elif WxsApp.RM_PROCESS_VD_JSONS == mode:
+            '''
+            处理车辆检测Json文件
+            '''
+            WxsDsm.process_vd_jsons()
         else:
             WxsDsm.exp001()
             
