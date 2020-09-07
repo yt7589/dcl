@@ -126,7 +126,7 @@ class VdJsonManager(object):
                         elif cllxfl in buss:
                             vehicle_type = VdJsonManager.VT_BUS
                         img_full_fn = img_file_to_full_fn[img_file]
-                        arrs_c = box_raw.split(',')
+                        arrs_c = xlwz.split(',')
                         box = [int(arrs_c[0]), int(arrs_c[1]), int(arrs_c[2]), int(arrs_c[3])]
                         if box[0] < 0:
                             box[0] = 0
