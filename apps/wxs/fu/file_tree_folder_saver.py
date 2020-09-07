@@ -9,7 +9,7 @@ class FileTreeFolderSaver(object):
     @staticmethod
     def save_file(base_folder, src_full_fn, file_id):
         dst_folder = FileTreeFolderSaver.create_folder(base_folder, file_id)
-        arrs_a = src_full.split('/')
+        arrs_a = src_full_fn.split('/')
         fn = arrs_a[-1]
         shutil.move(src_file, '{0}/{1}'.format(dst_folder, fn))
         return file_id+1
