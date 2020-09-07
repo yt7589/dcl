@@ -14,7 +14,7 @@ class VdJsonManager(object):
         self.refl = 'apps.wxs.vdc.VdJsonManager'
         
     def start(self):
-        mode = VdJsonManager.RM_PARSE_VD_JSON
+        mode = VdJsonManager.RM_SAVE_JSONS_IN_TREE_FOLDER
         if VdJsonManager.RM_SAVE_JSONS_IN_TREE_FOLDER == mode:
             VdJsonManager.save_jsons_in_tree_folder()
         elif VdJsonManager.RM_PARSE_VD_JSON == mode:
@@ -28,14 +28,25 @@ class VdJsonManager(object):
         将车辆检测Json文件从一个目录拷贝到树形目录下
         '''
         # 将Json文件以规整的目录格式存放
-        base_path = Path('/media/zjkj/work/fgvc_dataset/raw_json')
+        #base_path = Path('/media/zjkj/work/fgvc_dataset/raw_json')
+        base_folder = '/media/zjkj/work/fgvc_dataset/raw_json'
         dst_folder = '/media/zjkj/work/fgvc_dataset/vdc0907/json_500'
-        file_id = 0
+        file_id = 384337
+        with open('/media/zjkj/work/fgvc_dataset/vdcj.txt', 'r', encoding='utf-8') as fd:
+            for line in fd:
+                line = line.strip()
+                full_fn = '{0}/{1}'.format(base_folder, line)
+                file_id = FileTreeFolderSaver.save_file(dst_folder, full_fn, file_id)
+                if file_id % 100 == 0:
+                    print('处理完成{0}个文件'.format(file_id))
+                
+        '''
         for jf_obj in base_path.iterdir():
             full_fn = str(jf_obj)
             file_id = FileTreeFolderSaver.save_file(dst_folder, full_fn, file_id)
             if file_id % 100 == 0:
                 print('处理完成{0}个文件'.format(file_id))
+        '''
     
     @staticmethod
     def parse_vd_jsons():
