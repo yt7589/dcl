@@ -133,12 +133,15 @@ class VdJsonManager(object):
                             box[0] = 0
                         if box[1] < 0:
                             box[1] = 0
-                        croped_img = VdJsonManager.crop_and_resize_img(img_full_fn, box)
-                        if VdJsonManager.HTT_HEAD == head_tail:
-                            VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn(cut_img_head_folder, img_full_fn, VdJsonManager.s_num)
-                        else:
-                            VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn(cut_img_tail_folder, img_full_fn, VdJsonManager.s_num)
-                        cv2.imwrite(dst_cut_fn, croped_img)
+                        try:
+                            croped_img = VdJsonManager.crop_and_resize_img(img_full_fn, box)
+                            if VdJsonManager.HTT_HEAD == head_tail:
+                                VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn(cut_img_head_folder, img_full_fn, VdJsonManager.s_num)
+                            else:
+                                VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn(cut_img_tail_folder, img_full_fn, VdJsonManager.s_num)
+                            cv2.imwrite(dst_cut_fn, croped_img)
+                        except Exception as ex:
+                            print('##### Exception {0};'.format(ex))
                         if VdJsonManager.s_num % 1000 == 0:
                             print('Thread_{0}: cut and save {1};'.format(idx, VdJsonManager.s_num))
                     else:
