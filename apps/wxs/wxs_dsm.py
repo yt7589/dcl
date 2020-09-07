@@ -3819,7 +3819,7 @@ function nextImg() {
         '''
         # 将Json文件以规整的目录格式存放
         base_path = Path('/media/zjkj/work/fgvc_dataset/raw_json')
-        dst_folder = '/media/zjkj/work/fgvc_dataset/vdc0907/json_500')
+        dst_folder = '/media/zjkj/work/fgvc_dataset/vdc0907/json_500'
         file_id = 0
         for jf_obj in base_path.iterdir():
             full_fn = str(jf_obj)
