@@ -56,10 +56,20 @@ class VdJsonManager(object):
                 print('处理完成{0}个文件'.format(file_id))
         '''
     
+    # 车头车尾类型
+    HTT_HEAD = 'head'
+    HTT_TAIL = 'tail'
+    # 车辆类型
+    VT_CAR = 'car'
+    VT_TRUCK = 'truck'
+    VT_BUS = 'bus'
     @staticmethod
     def parse_vd_jsons():
         base_path = Path('/media/zjkj/work/fgvc_dataset/vdc0907/json_500')
         num = 0
+        cars = ['13', '14']
+        trucks = ['21', '22']
+        buss = ['11', '12']
         for sf1 in base_path.iterdir():
             for sf2 in sf1.iterdir():
                 for sf3 in sf2.iterdir():
@@ -67,13 +77,23 @@ class VdJsonManager(object):
                         for sf5 in sf4.iterdir():
                             for jf_obj in sf5.iterdir():
                                 full_fn = str(jf_obj)
-                                psfx, xlwz = VdJsonManager.parse_vd_json(full_fn)
-                                arrs_a = full_fn.split('_')
+                                psfx, cllxfl, xlwz = VdJsonManager.parse_vd_json(full_fn)
+                                arrs_a = full_fn.split('/')
+                                json_fn = arrs_a[-1]
+                                arrs_b = json_fn.split('_')
                                 img_file = '{0}_{1}_{2}_{3}_{4}'.format(
-                                    arrs_a[0], arrs_a[1], arrs_a[2],
-                                    arrs_a[3], arrs_a[4]
+                                    arrs_b[0], arrs_b[1], arrs_b[2],
+                                    arrs_b[3], arrs_b[4]
                                 )
-                                print('img_file={0};'.format(img_file))
+                                head_tail = VdJsonManager.HTT_HEAD
+                                if psfx == '2':
+                                    head_tail = VdJsonManager.HTT_TAIL
+                                vehicle_type = VdJsonManager.VT_CAR
+                                if cllxfl in trucks:
+                                    vehicle_type = VdJsonManager.VT_TRUCK
+                                elif cllxfl in buss:
+                                    vehicle_type = VdJsonManager.VT_BUS
+                                print('img_file={0}: {1}; {2};'.format(img_file, head_tail, vehicle_type))
                                 num += 1
                                 if num > 3:
                                     return
@@ -102,7 +122,9 @@ class VdJsonManager(object):
             if max_idx < 0:
                 return None
             else:
-                return data['VEH'][max_idx]['WZTZ']['PSFX'], data['VEH'][max_idx]['WZTZ']['CLWZ']
+                return data['VEH'][max_idx]['WZTZ']['PSFX'], 
+                        data['VEH'][max_idx]['CXTZ']['CLLXFL'][:2],
+                        data['VEH'][max_idx]['WZTZ']['CLWZ']
                                 
                                 
                                 
