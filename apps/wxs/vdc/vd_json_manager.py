@@ -15,7 +15,7 @@ class VdJsonManager(object):
         self.refl = 'apps.wxs.vdc.VdJsonManager'
         
     def start(self):
-        mode = VdJsonManager.RM_SAVE_JSONS_IN_TREE_FOLDER
+        mode = VdJsonManager.RM_PARSE_VD_JSON
         if VdJsonManager.RM_SAVE_JSONS_IN_TREE_FOLDER == mode:
             VdJsonManager.save_jsons_in_tree_folder()
         elif VdJsonManager.RM_PARSE_VD_JSON == mode:
@@ -66,9 +66,43 @@ class VdJsonManager(object):
                         for sf5 in sf4.iterdir():
                             for jf_obj in sf5.iterdir():
                                 full_fn = str(jf_obj)
-                                print('full_fn={0};'.format(full_fn))
+                                psfx, xlwz = VdJsonManager.parse_vd_json(full_fn)
+                                arrs_a = full_fn.split('_')
+                                img_file = '{0}_{1}_{2}_{3}_{4}'.format(
+                                    arrs_a[0], arrs_a[1], arrs_a[2],
+                                    arrs_a[3], arrs_a[4]
+                                )
+                                print('img_file={0};'.format(img_file))
                                 num += 1
+                                if num > 3:
+                                    return
         print('文件数量：{0};'.format(num))
+        
+    def parse_vd_json(json_file):
+        cllxfls = ['11', '12', '13', '14', '21', '22']
+        with open(json_file, 'r', encoding='utf-8') as jfd:
+            data = json.load(jfd)
+        if len(data['VEH']) < 1:
+            return None
+        else:
+            # 找到面积最大的检测框作为最终检测结果
+            max_idx = -1
+            max_area = 0
+            for idx, veh in enumerate(data['VEH']):'
+                psfx = veh['WZTZ']['PSXF']
+                cllxfl = veh['CXTZ']['CLLXFL'][:2]
+                if cllxfl in cllxfls:
+                    box_str = veh['WZTZ']['CLWZ']
+                    arrs_a = box_str.split(',')
+                    x1, y1, w, h = int(arrs_a[0]), int(arrs_a[1]), int(arrs_a[2]), int(arrs_a[3])
+                    area = w * h
+                    if area > max_area:
+                        max_area = area
+                        max_idx = idx
+            if max_idx < 0:
+                return None
+            else:
+                return data['VEH'][max_idx]['WZTZ']['PSXF'], data['VEH'][max_idx]['WZTZ']['CLWZ']
                                 
                                 
                                 
