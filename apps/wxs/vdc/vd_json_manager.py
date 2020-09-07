@@ -195,7 +195,7 @@ class VdJsonManager(object):
                         max_area = area
                         max_idx = idx
             if max_idx < 0:
-                return None
+                return None, None, None
             else:
                 return data['VEH'][max_idx]['WZTZ']['PSFX'], \
                         data['VEH'][max_idx]['CXTZ']['CLLXFL'][:2],\
