@@ -25,7 +25,7 @@ class VdJsonManager(object):
         self.refl = 'apps.wxs.vdc.VdJsonManager'
         
     def start(self):
-        mode = VdJsonManager.RM_GET_RAW_IMG_FILE_TO_FULL_FN
+        mode = VdJsonManager.RM_PARSE_VD_JSON
         if VdJsonManager.RM_SAVE_JSONS_IN_TREE_FOLDER == mode:
             VdJsonManager.save_jsons_in_tree_folder()
         elif VdJsonManager.RM_PARSE_VD_JSON == mode:
@@ -81,6 +81,7 @@ class VdJsonManager(object):
     @staticmethod
     def parse_vd_jsons():
         base_path = Path('/media/zjkj/work/fgvc_dataset/vdc0907/json_500')
+        img_file_to_full_fn = VdJsonManager.get_raw_img_file_to_full_fn()
         num = 0
         cars = ['13', '14']
         trucks = ['21', '22']
@@ -108,7 +109,8 @@ class VdJsonManager(object):
                                     vehicle_type = VdJsonManager.VT_TRUCK
                                 elif cllxfl in buss:
                                     vehicle_type = VdJsonManager.VT_BUS
-                                print('img_file={0}: {1}; {2};'.format(img_file, head_tail, vehicle_type))
+                                full_fn = img_file_to_full_fn[img_file]
+                                print('img_file={0}: {1}; {2};'.format(full_fn, head_tail, vehicle_type))
                                 num += 1
                                 if num > 3:
                                     return
