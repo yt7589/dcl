@@ -30,6 +30,6 @@ class VdJsonManager(object):
         file_id = 0
         for jf_obj in base_path.iterdir():
             full_fn = str(jf_obj)
-            file_id = FileTreeFolderSaver.save(dst_folder, full_fn, file_id)
+            file_id = FileTreeFolderSaver.save_file(dst_folder, full_fn, file_id)
             if file_id % 100 == num:
                 print('处理完成{0}个文件'.format(file_id))
