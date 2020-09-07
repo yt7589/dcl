@@ -15,7 +15,7 @@ class VdJsonManager(object):
         mode = VdJsonManager.RM_SAVE_JSONS_IN_TREE_FOLDER
         if VdJsonManager.RM_SAVE_JSONS_IN_TREE_FOLDER == mode:
             VdJsonManager.save_jsons_in_tree_folder()
-        elif:
+        else:
             print('unknow mode')
     
     @staticmethod
