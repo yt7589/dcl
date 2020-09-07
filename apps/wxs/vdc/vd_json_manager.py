@@ -122,8 +122,8 @@ class VdJsonManager(object):
             if max_idx < 0:
                 return None
             else:
-                return data['VEH'][max_idx]['WZTZ']['PSFX'], 
-                        data['VEH'][max_idx]['CXTZ']['CLLXFL'][:2],
+                return data['VEH'][max_idx]['WZTZ']['PSFX'], \
+                        data['VEH'][max_idx]['CXTZ']['CLLXFL'][:2],\
                         data['VEH'][max_idx]['WZTZ']['CLWZ']
                                 
                                 
