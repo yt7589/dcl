@@ -104,26 +104,29 @@ class VdJsonManager(object):
                 line = line.strip()
                 full_fn = line
                 psfx, cllxfl, xlwz = VdJsonManager.parse_vd_json(full_fn)
-                arrs_a = full_fn.split('/')
-                json_fn = arrs_a[-1]
-                arrs_b = json_fn.split('_')
-                img_file = '{0}_{1}_{2}_{3}_{4}'.format(
-                    arrs_b[0], arrs_b[1], arrs_b[2],
-                    arrs_b[3], arrs_b[4]
-                )
-                head_tail = VdJsonManager.HTT_HEAD
-                if psfx == '2':
-                    head_tail = VdJsonManager.HTT_TAIL
-                vehicle_type = VdJsonManager.VT_CAR
-                if cllxfl in trucks:
-                    vehicle_type = VdJsonManager.VT_TRUCK
-                elif cllxfl in buss:
-                    vehicle_type = VdJsonManager.VT_BUS
-                full_fn = img_file_to_full_fn[img_file]
-                print('img_file={0}: {1}; {2}; {3};'.format(full_fn, head_tail, vehicle_type, xlwz))
-                num += 1
-                if num > 3:
-                    return
+                if psfx is not None:
+                    arrs_a = full_fn.split('/')
+                    json_fn = arrs_a[-1]
+                    arrs_b = json_fn.split('_')
+                    img_file = '{0}_{1}_{2}_{3}_{4}'.format(
+                        arrs_b[0], arrs_b[1], arrs_b[2],
+                        arrs_b[3], arrs_b[4]
+                    )
+                    head_tail = VdJsonManager.HTT_HEAD
+                    if psfx == '2':
+                        head_tail = VdJsonManager.HTT_TAIL
+                    vehicle_type = VdJsonManager.VT_CAR
+                    if cllxfl in trucks:
+                        vehicle_type = VdJsonManager.VT_TRUCK
+                    elif cllxfl in buss:
+                        vehicle_type = VdJsonManager.VT_BUS
+                    full_fn = img_file_to_full_fn[img_file]
+                    print('img_file={0}: {1}; {2}; {3};'.format(full_fn, head_tail, vehicle_type, xlwz))
+                    num += 1
+                    if num > 3:
+                        return
+                else:
+                    print('error file: {0};'.format(full_fn))
         print('文件数量：{0};'.format(num))
         
     @staticmethod
@@ -174,7 +177,7 @@ class VdJsonManager(object):
         with open(json_file, 'r', encoding='utf-8') as jfd:
             data = json.load(jfd)
         if len(data['VEH']) < 1:
-            return None
+            return None, None, None
         else:
             # 找到面积最大的检测框作为最终检测结果
             max_idx = -1
