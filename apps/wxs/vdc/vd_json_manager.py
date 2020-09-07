@@ -9,18 +9,40 @@ from pathlib import Path
 from apps.wxs.fu.file_tree_folder_saver import FileTreeFolderSaver
 
 class VdJsonManager(object):
+    # 车头车尾类型
+    HTT_HEAD = 'head'
+    HTT_TAIL = 'tail'
+    # 车辆类型
+    VT_CAR = 'car'
+    VT_TRUCK = 'truck'
+    VT_BUS = 'bus'
+    # 运行模式定义
     RM_SAVE_JSONS_IN_TREE_FOLDER = 1
     RM_PARSE_VD_JSON = 2
+    RM_GET_RAW_IMG_FILE_TO_FULL_FN = 3
     
     def __init__(self):
         self.refl = 'apps.wxs.vdc.VdJsonManager'
         
     def start(self):
-        mode = VdJsonManager.RM_PARSE_VD_JSON
+        mode = VdJsonManager.RM_GET_RAW_IMG_FILE_TO_FULL_FN
         if VdJsonManager.RM_SAVE_JSONS_IN_TREE_FOLDER == mode:
             VdJsonManager.save_jsons_in_tree_folder()
         elif VdJsonManager.RM_PARSE_VD_JSON == mode:
             VdJsonManager.parse_vd_jsons()
+        # ***********************************************************************************
+        # ***********************************************************************************
+        elif VdJsonManager.RM_GET_RAW_IMG_FILE_TO_FULL_FN == mode:
+            '''
+            获取fgvc_dataset/raw目录下图片文件名与全路径文件名对应关系
+            '''
+            img_file_to_full_fn = VdJsonManager.get_raw_img_file_to_full_fn()
+            num = 0
+            for k, v in img_file_to_full_fn.items():
+                print('{0} => {1};'.format(k, v))
+                num += 1
+                if num > 20:
+                    break
         else:
             print('unknow mode')
     
@@ -56,13 +78,6 @@ class VdJsonManager(object):
                 print('处理完成{0}个文件'.format(file_id))
         '''
     
-    # 车头车尾类型
-    HTT_HEAD = 'head'
-    HTT_TAIL = 'tail'
-    # 车辆类型
-    VT_CAR = 'car'
-    VT_TRUCK = 'truck'
-    VT_BUS = 'bus'
     @staticmethod
     def parse_vd_jsons():
         base_path = Path('/media/zjkj/work/fgvc_dataset/vdc0907/json_500')
@@ -99,6 +114,7 @@ class VdJsonManager(object):
                                     return
         print('文件数量：{0};'.format(num))
         
+    @staticmethod
     def parse_vd_json(json_file):
         cllxfls = ['11', '12', '13', '14', '21', '22']
         with open(json_file, 'r', encoding='utf-8') as jfd:
@@ -127,7 +143,20 @@ class VdJsonManager(object):
                         data['VEH'][max_idx]['WZTZ']['CLWZ']
                                 
                                 
-                                
+    @staticmethod
+    def get_raw_img_file_to_full_fn():
+        img_file_to_full_fn = {}
+        base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
+        for brand_obj in base_path.iterdir():
+            for bm_obj in brand_obj.iterdir():
+                for bmy_obj in bm_obj.iterdir():
+                    for file_obj in bmy_obj.iterdir():
+                        full_fn = str(file_obj)
+                        if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
+                            arrs_a = full_fn.split('/')
+                            img_file = arrs_a[-1]
+                            img_file_to_full_fn['img_file'] = full_fn
+        return img_file_to_full_fn
                                 
                                 
                                 
