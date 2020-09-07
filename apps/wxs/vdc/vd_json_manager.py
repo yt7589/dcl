@@ -89,6 +89,7 @@ class VdJsonManager(object):
             thds.append(thd)
         for thd in thds:
             thd.start()
+        for thd in thds:
             thd.join()
         
     @staticmethod
