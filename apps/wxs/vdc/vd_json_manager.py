@@ -80,6 +80,10 @@ class VdJsonManager(object):
     
     @staticmethod
     def parse_vd_jsons():
+        VdJsonManager.save_vd_json_fns()
+        i_debug = 1
+        if 1 == i_debug:
+            return
         base_path = Path('/media/zjkj/work/fgvc_dataset/vdc0907/json_500')
         img_file_to_full_fn = VdJsonManager.get_raw_img_file_to_full_fn()
         num = 0
@@ -115,6 +119,23 @@ class VdJsonManager(object):
                                 if num > 3:
                                     return
         print('文件数量：{0};'.format(num))
+        
+    @staticmethod
+    def save_vd_json_fns():
+        base_path = Path('/media/zjkj/work/fgvc_dataset/vdc0907/json_500')
+        num = 0
+        with open('./support/vd_jsons.txt', 'w+', encoding='utf-8') as vfd:
+            for sf1 in base_path.iterdir():
+                for sf2 in sf1.iterdir():
+                    for sf3 in sf2.iterdir():
+                        for sf4 in sf3.iterdir():
+                            for sf5 in sf4.iterdir():
+                                for jf_obj in sf5.iterdir():
+                                    full_fn = str(jf_obj)
+                                    vfd.write('{0}\n'.format(full_fn))
+                                    num += 1
+                                    if num % 100 == 0:
+                                        print('记录{0}个Json文件'.format(num))
         
     @staticmethod
     def parse_vd_json(json_file):
