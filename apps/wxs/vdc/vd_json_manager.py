@@ -147,6 +147,7 @@ class VdJsonManager(object):
     def get_raw_img_file_to_full_fn():
         img_file_to_full_fn = {}
         base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
+        num = 0
         for brand_obj in base_path.iterdir():
             for bm_obj in brand_obj.iterdir():
                 for bmy_obj in bm_obj.iterdir():
@@ -156,6 +157,9 @@ class VdJsonManager(object):
                             arrs_a = full_fn.split('/')
                             img_file = arrs_a[-1]
                             img_file_to_full_fn['img_file'] = full_fn
+                            num += 1
+                            if num % 100 == 0:
+                                print('加入字典文件数：{0};'.format(num))
         return img_file_to_full_fn
                                 
                                 
