@@ -133,7 +133,7 @@ class VdJsonManager(object):
                                 for jf_obj in sf5.iterdir():
                                     full_fn = str(jf_obj)
                                     idx = num // 6000000
-                                    vfs[idx].write('{0}\n'.format(full_fn))
+                                    fds[idx].write('{0}\n'.format(full_fn))
                                     num += 1
                                     if num % 100 == 0:
                                         print('记录{0}个Json文件'.format(num))
