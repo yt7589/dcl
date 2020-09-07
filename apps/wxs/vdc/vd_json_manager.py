@@ -90,7 +90,6 @@ class VdJsonManager(object):
             max_idx = -1
             max_area = 0
             for idx, veh in enumerate(data['VEH']):
-                psfx = veh['WZTZ']['PSXF']
                 cllxfl = veh['CXTZ']['CLLXFL'][:2]
                 if cllxfl in cllxfls:
                     box_str = veh['WZTZ']['CLWZ']
@@ -103,7 +102,7 @@ class VdJsonManager(object):
             if max_idx < 0:
                 return None
             else:
-                return data['VEH'][max_idx]['WZTZ']['PSXF'], data['VEH'][max_idx]['WZTZ']['CLWZ']
+                return data['VEH'][max_idx]['WZTZ']['PSFX'], data['VEH'][max_idx]['WZTZ']['CLWZ']
                                 
                                 
                                 
