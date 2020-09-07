@@ -33,6 +33,7 @@ class VdJsonManager(object):
         base_folder = '/media/zjkj/work/fgvc_dataset/raw_json'
         dst_folder = '/media/zjkj/work/fgvc_dataset/vdc0907/json_500'
         file_id = 1229700
+        num = 0
         with open('/media/zjkj/work/fgvc_dataset/vdcj.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
@@ -41,6 +42,10 @@ class VdJsonManager(object):
                     file_id = FileTreeFolderSaver.save_file(dst_folder, full_fn, file_id)
                     if file_id % 100 == 0:
                         print('处理完成{0}个文件'.format(file_id))
+                else:
+                    num += 1
+                    if num % 100 == 0:
+                        print('预处理{0}个文件'.format(num))
                 
         '''
         for jf_obj in base_path.iterdir():
