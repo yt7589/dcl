@@ -168,7 +168,7 @@ class VdJsonManager(object):
                             if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
                                 arrs_a = full_fn.split('/')
                                 img_file = arrs_a[-1]
-                                img_file_to_full_fn['img_file'] = full_fn
+                                img_file_to_full_fn[img_file] = full_fn
                                 num += 1
                                 if num % 100 == 0:
                                     print('加入字典文件数：{0};'.format(num))
