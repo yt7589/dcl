@@ -26,6 +26,7 @@ from apps.wxs.controller.c_dataset import CDataset
 import PIL.Image as Image
 from PIL import ImageStat
 from apps.wxs.vdc.vd_json_saver import VdJsonSaver
+from apps.wxs.vdc.vd_json_manager import VdJsonManager
 
 class WxsDsm(object):
     def __init__(self):
@@ -3814,19 +3815,8 @@ function nextImg() {
                 
     @staticmethod
     def process_vd_jsons():
-        '''
-        处理车辆检测Json文件
-        '''
-        # 将Json文件以规整的目录格式存放
-        base_path = Path('/media/zjkj/work/fgvc_dataset/raw_json')
-        dst_folder = '/media/zjkj/work/fgvc_dataset/vdc0907/json_500'
-        file_id = 0
-        for jf_obj in base_path.iterdir():
-            full_fn = str(jf_obj)
-            file_id = FileTreeFolderSaver.save(dst_folder, full_fn, file_id)
-            if file_id % 100 == num:
-                print('处理完成{0}个文件'.format(file_id))
-                
+        vjm = VdJsonManager()
+        vjm.start()
                 
         '''        
         sub_file = str(sub_obj)
