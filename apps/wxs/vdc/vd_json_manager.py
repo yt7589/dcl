@@ -121,8 +121,8 @@ class VdJsonManager(object):
                             vehicle_type = VdJsonManager.VT_TRUCK
                         elif cllxfl in buss:
                             vehicle_type = VdJsonManager.VT_BUS
-                        full_fn = img_file_to_full_fn[img_file]
-                        print('Thread_{4}: img_file={0}: {1}; {2}; {3};'.format(full_fn, head_tail, vehicle_type, xlwz, idx))
+                        img_full_fn = img_file_to_full_fn[img_file]
+                        print('Thread_{4}: img_file={0}: {1}; {2}; {3};'.format(img_full_fn, head_tail, vehicle_type, xlwz, idx))
                     else:
                         print('error file: {0};'.format(full_fn))
                         efd.write('{0}\n'.format(full_fn))
