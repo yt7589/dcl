@@ -1245,7 +1245,7 @@ class WxsDsm(object):
         '''
         # 品牌为主时使用
         bid_brand_dict = {}
-        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+        with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
             for line in bfd:
                 line = line.strip()
                 arrs0 = line.split(':')
