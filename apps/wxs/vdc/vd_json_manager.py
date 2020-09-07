@@ -6,6 +6,7 @@ import os
 import json
 from pathlib import Path
 import threading
+import cv2
 #
 from apps.wxs.fu.file_tree_folder_saver import FileTreeFolderSaver
 
@@ -147,9 +148,9 @@ class VdJsonManager(object):
     @staticmethod
     def crop_and_resize_img(img_file, box, size=(224, 224), mode=1):
         if mode == 1:
-            return WxsDsm.crop_and_resize_no_aspect(img_file, box, size)
+            return VdJsonManager.crop_and_resize_no_aspect(img_file, box, size)
         else:
-            return WxsDsm.crop_and_resize_keep_aspect(img_file, box, size)
+            return VdJsonManager.crop_and_resize_keep_aspect(img_file, box, size)
 
     @staticmethod
     def crop_and_resize_no_aspect(img_file, box, size=(224, 224), mode=1):
