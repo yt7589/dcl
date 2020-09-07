@@ -122,9 +122,9 @@ class VdJsonManager(object):
         
     @staticmethod
     def save_vd_json_fns():
-        base_path = Path('/media/zjkj/work/fgvc_dataset/vdc0907/json_500')
-        num = 0
-        with open('./support/vd_jsons.txt', 'w+', encoding='utf-8') as vfd:
+        def process_json_files(fds):     
+            base_path = Path('/media/zjkj/work/fgvc_dataset/vdc0907/json_500')                                       
+            num = 0
             for sf1 in base_path.iterdir():
                 for sf2 in sf1.iterdir():
                     for sf3 in sf2.iterdir():
@@ -132,10 +132,35 @@ class VdJsonManager(object):
                             for sf5 in sf4.iterdir():
                                 for jf_obj in sf5.iterdir():
                                     full_fn = str(jf_obj)
-                                    vfd.write('{0}\n'.format(full_fn))
+                                    idx = num // 6000000
+                                    vfs[idx].write('{0}\n'.format(full_fn))
                                     num += 1
                                     if num % 100 == 0:
                                         print('记录{0}个Json文件'.format(num))
+        fds = []
+        with open('./support/vd_jsons_00.txt', 'w+', encoding='utf-8') as fd0:
+            fds.append(fd0)
+            with open('./support/vd_jsons_01.txt', 'w+', encoding='utf-8') as fd1:
+                fds.append(fd1)
+                with open('./support/vd_jsons_02.txt', 'w+', encoding='utf-8') as fd2:
+                    fds.append(fd2)
+                    with open('./support/vd_jsons_03.txt', 'w+', encoding='utf-8') as fd3:
+                        fds.append(fd3)
+                        with open('./support/vd_jsons_04.txt', 'w+', encoding='utf-8') as fd4:
+                            fds.append(fd4)
+                            with open('./support/vd_jsons_05.txt', 'w+', encoding='utf-8') as fd5:
+                                fds.append(fd5)
+                                with open('./support/vd_jsons_06.txt', 'w+', encoding='utf-8') as fd6:
+                                    fds.append(fd6)
+                                    with open('./support/vd_jsons_07.txt', 'w+', encoding='utf-8') as fd7:
+                                        fds.append(fd7)
+                                        with open('./support/vd_jsons_08.txt', 'w+', encoding='utf-8') as fd8:
+                                            fds.append(fd8)
+                                            with open('./support/vd_jsons_09.txt', 'w+', encoding='utf-8') as fd9:
+                                                fds.append(fd9)
+                                                with open('./support/vd_jsons_10.txt', 'w+', encoding='utf-8') as fd10:
+                                                    fds.append(fd10)
+                                                    process_json_files()
         
     @staticmethod
     def parse_vd_json(json_file):
