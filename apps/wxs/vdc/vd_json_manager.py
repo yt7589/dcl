@@ -81,9 +81,10 @@ class VdJsonManager(object):
     
     @staticmethod
     def parse_vd_jsons():
+        img_file_to_full_fn = VdJsonManager.get_raw_img_file_to_full_fn()
         thds = []
         for idx in range(11):
-            params = {'idx': idx}
+            params = {'idx': idx, 'iffn_dict': img_file_to_full_fn}
             thd = threading.Thread(target=VdJsonManager.process_vd_json_thd, args=(params,))
             thds.append(thd)
         for thd in thds:
@@ -92,12 +93,12 @@ class VdJsonManager(object):
         
     @staticmethod
     def process_vd_json_thd(params):
-        img_file_to_full_fn = VdJsonManager.get_raw_img_file_to_full_fn()
+        img_file_to_full_fn = params['iffn_dict']
+        idx = params['idx']
         num = 0
         cars = ['13', '14']
         trucks = ['21', '22']
         buss = ['11', '12']
-        idx = params['idx']
         with open('./support/vd_jsons_{0:02d}.txt'.format(idx), 'r', encoding='utf-8') as vfd:
             for line in vfd:
                 line = line.strip()
