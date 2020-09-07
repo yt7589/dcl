@@ -110,7 +110,7 @@ class VdJsonManager(object):
                                 elif cllxfl in buss:
                                     vehicle_type = VdJsonManager.VT_BUS
                                 full_fn = img_file_to_full_fn[img_file]
-                                print('img_file={0}: {1}; {2};'.format(full_fn, head_tail, vehicle_type))
+                                print('img_file={0}: {1}; {2}; {3};'.format(full_fn, head_tail, vehicle_type, xlwz))
                                 num += 1
                                 if num > 3:
                                     return
