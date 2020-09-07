@@ -99,35 +99,33 @@ class VdJsonManager(object):
         cars = ['13', '14']
         trucks = ['21', '22']
         buss = ['11', '12']
-        with open('./support/vd_jsons_{0:02d}.txt'.format(idx), 'r', encoding='utf-8') as vfd:
-            for line in vfd:
-                line = line.strip()
-                full_fn = line
-                psfx, cllxfl, xlwz = VdJsonManager.parse_vd_json(full_fn)
-                if psfx is not None:
-                    arrs_a = full_fn.split('/')
-                    json_fn = arrs_a[-1]
-                    arrs_b = json_fn.split('_')
-                    img_file = '{0}_{1}_{2}_{3}_{4}'.format(
-                        arrs_b[0], arrs_b[1], arrs_b[2],
-                        arrs_b[3], arrs_b[4]
-                    )
-                    head_tail = VdJsonManager.HTT_HEAD
-                    if psfx == '2':
-                        head_tail = VdJsonManager.HTT_TAIL
-                    vehicle_type = VdJsonManager.VT_CAR
-                    if cllxfl in trucks:
-                        vehicle_type = VdJsonManager.VT_TRUCK
-                    elif cllxfl in buss:
-                        vehicle_type = VdJsonManager.VT_BUS
-                    full_fn = img_file_to_full_fn[img_file]
-                    print('img_file={0}: {1}; {2}; {3};'.format(full_fn, head_tail, vehicle_type, xlwz))
-                    num += 1
-                    if num > 3:
-                        return
-                else:
-                    print('error file: {0};'.format(full_fn))
-        print('文件数量：{0};'.format(num))
+        with open('./support/vd_error_jsons.txt', 'w+', encoding='utf-8') as efd:
+            with open('./support/vd_jsons_{0:02d}.txt'.format(idx), 'r', encoding='utf-8') as vfd:
+                for line in vfd:
+                    line = line.strip()
+                    full_fn = line
+                    psfx, cllxfl, xlwz = VdJsonManager.parse_vd_json(full_fn)
+                    if psfx is not None:
+                        arrs_a = full_fn.split('/')
+                        json_fn = arrs_a[-1]
+                        arrs_b = json_fn.split('_')
+                        img_file = '{0}_{1}_{2}_{3}_{4}'.format(
+                            arrs_b[0], arrs_b[1], arrs_b[2],
+                            arrs_b[3], arrs_b[4]
+                        )
+                        head_tail = VdJsonManager.HTT_HEAD
+                        if psfx == '2':
+                            head_tail = VdJsonManager.HTT_TAIL
+                        vehicle_type = VdJsonManager.VT_CAR
+                        if cllxfl in trucks:
+                            vehicle_type = VdJsonManager.VT_TRUCK
+                        elif cllxfl in buss:
+                            vehicle_type = VdJsonManager.VT_BUS
+                        full_fn = img_file_to_full_fn[img_file]
+                        print('Thread_{4}: img_file={0}: {1}; {2}; {3};'.format(full_fn, head_tail, vehicle_type, xlwz, idx))
+                    else:
+                        print('error file: {0};'.format(full_fn))
+                        efd.write('{0}\n'.format(full_fn))
         
     @staticmethod
     def save_vd_json_fns():
