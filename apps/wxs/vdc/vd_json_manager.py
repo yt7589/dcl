@@ -172,7 +172,7 @@ class VdJsonManager(object):
                                 num += 1
                                 if num % 100 == 0:
                                     print('加入字典文件数：{0};'.format(num))
-            with (iffn_file, 'w+', encoding='utf-8') as wfd:
+            with open(iffn_file, 'w+', encoding='utf-8') as wfd:
                 for k, v in img_file_to_full_fn.items():
                     wfd.write('{0}:{1}\n'.format(k, v))
         return img_file_to_full_fn
