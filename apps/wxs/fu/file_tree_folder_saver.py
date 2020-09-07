@@ -23,9 +23,9 @@ class FileTreeFolderSaver(object):
     @staticmethod
     def create_folder(base_folder, file_id):
         full_str = '{0:012d}'.format(file_id)
-        folder1 = FileTreeFolderSavercreate_tree_folder(base_folder, full_str[:2])
-        folder2 = FileTreeFolderSavercreate_tree_folder(folder1, full_str[2:4])
-        folder3 = FileTreeFolderSavercreate_tree_folder(folder2, full_str[4:6])
-        folder4 = FileTreeFolderSavercreate_tree_folder(folder3, full_str[6:8])
-        folder5 = FileTreeFolderSavercreate_tree_folder(folder4, full_str[8:10])
+        folder1 = FileTreeFolderSaver.create_tree_folder(base_folder, full_str[:2])
+        folder2 = FileTreeFolderSaver.create_tree_folder(folder1, full_str[2:4])
+        folder3 = FileTreeFolderSaver.create_tree_folder(folder2, full_str[4:6])
+        folder4 = FileTreeFolderSaver.create_tree_folder(folder3, full_str[6:8])
+        folder5 = FileTreeFolderSaver.create_tree_folder(folder4, full_str[8:10])
         return folder5
