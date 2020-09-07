@@ -84,7 +84,7 @@ class VdJsonManager(object):
         thds = []
         for idx in range(11):
             params = {'idx': idx}
-            thd = threading.Thread(target=VdJsonSaver.move_save_thd, args=(params,))
+            thd = threading.Thread(target=VdJsonManager.process_vd_json_thd, args=(params,))
             thds.append(thd)
         for thd in thds:
             thd.start()
