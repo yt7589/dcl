@@ -13,7 +13,7 @@ class FileTreeFolderSaver(object):
         dst_folder = FileTreeFolderSaver.create_folder(base_folder, file_id)
         arrs_a = src_full_fn.split('/')
         fn = arrs_a[-1]
-        shutil.move(src_file, '{0}/{1}'.format(dst_folder, fn))
+        shutil.move(src_full_fn, '{0}/{1}'.format(dst_folder, fn))
         return file_id+1
         
     @staticmethod
