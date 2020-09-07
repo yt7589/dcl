@@ -2,6 +2,7 @@
 # 文件读写缓慢的问题，所以需要一个独立的线程，将Json文件定期
 # 从该目录中拷贝出来，存储到一个按文件编号为层次结构的规整目录
 # 下面。
+import os
 from pathlib import Path
 #
 from apps.wxs.fu.file_tree_folder_saver import FileTreeFolderSaver
