@@ -135,10 +135,7 @@ class VdJsonManager(object):
                             box[1] = 0
                         try:
                             croped_img = VdJsonManager.crop_and_resize_img(img_full_fn, box)
-                            if VdJsonManager.HTT_HEAD == head_tail:
-                                VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn(cut_img_head_folder, img_full_fn, VdJsonManager.s_num)
-                            else:
-                                VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn(cut_img_tail_folder, img_full_fn, VdJsonManager.s_num)
+                            VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn('{0}/{1}/{2}'.format(cut_img_head_folder, head_tail, vehicle_type), img_full_fn, VdJsonManager.s_num)
                             cv2.imwrite(dst_cut_fn, croped_img)
                         except Exception as ex:
                             print('##### Exception {0};'.format(ex))
