@@ -96,8 +96,8 @@ class VdJsonManager(object):
         
     @staticmethod
     def process_vd_json_thd(params):
-        cut_img_head_folder = './support/datasets/train/head'
-        cut_img_tail_folder = './support/datasets/train/tail'
+        cut_img_head_folder = './support/datasets/train'
+        cut_img_tail_folder = './support/datasets/train'
         img_file_to_full_fn = params['iffn_dict']
         idx = params['idx']
         num = 0
