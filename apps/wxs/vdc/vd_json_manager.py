@@ -160,7 +160,7 @@ class VdJsonManager(object):
                                                 fds.append(fd9)
                                                 with open('./support/vd_jsons_10.txt', 'w+', encoding='utf-8') as fd10:
                                                     fds.append(fd10)
-                                                    process_json_files()
+                                                    process_json_files(fds)
         
     @staticmethod
     def parse_vd_json(json_file):
