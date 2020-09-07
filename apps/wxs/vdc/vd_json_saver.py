@@ -28,7 +28,7 @@ class VdJsonSaver(object):
     def move_save_thd(params):
         nop_num = 0
         file_id = 0
-        base_folder = '/media/zjkj/work/fgvc_dataset/vd_jsons'
+        base_folder = '/media/zjkj/work/fgvc_dataset/vdc0907/json_gcczw'
         while True:
             base_path = Path('/media/zjkj/work/fgvc_dataset/raw_json')
             is_nop = True
@@ -37,8 +37,7 @@ class VdJsonSaver(object):
                 full_fn = str(if_obj)
                 if jf_obj.is_file and full_fn.endswith(('json',)):
                     print('移动json文件:{0}...'.format(full_fn))
-                    #shutil.move(full_fn, 
-                    file_id = FileTreeFolderSaver.save_file(base_folder, file_id)
+                    file_id = FileTreeFolderSaver.save_file(base_folder, full_fn, file_id)
             if is_nop:
                 nop_num += 1
             if nop_num > 5:
