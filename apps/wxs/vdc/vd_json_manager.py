@@ -4,6 +4,7 @@
 # 下面。
 from pathlib import Path
 #
+from apps.wxs.fu.file_tree_folder_saver import FileTreeFolderSaver
 
 class VdJsonManager(object):
     RM_SAVE_JSONS_IN_TREE_FOLDER = 1
