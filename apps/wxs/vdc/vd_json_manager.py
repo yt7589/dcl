@@ -181,7 +181,9 @@ class VdJsonManager(object):
                         if img_file in img_file_to_full_fn:
                             img_full_fn = img_file_to_full_fn[img_file]
                         else:
+                            print('     missing image file: {0}'.format(img_file))
                             miss_images_fd.write('{0}\n'.format(img_file))
+                            continue
                         arrs_c = xlwz.split(',')
                         box = [int(arrs_c[0]), int(arrs_c[1]), int(arrs_c[2]), int(arrs_c[3])]
                         if box[0] < 0:
