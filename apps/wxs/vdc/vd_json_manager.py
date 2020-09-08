@@ -90,7 +90,7 @@ class VdJsonManager(object):
         cutted_images = VdJsonManager.get_cutted_images()
         print('完成获取切图完成的图片文件名集合')
         VdJsonManager.s_lock = threading.RLock()
-        params = {'idx': 0, 'iffn_dict': img_file_to_full_fn}
+        params = {'idx': 0, 'iffn_dict': img_file_to_full_fn, 'cutted_images': cutted_images}
         thd = threading.Thread(target=VdJsonManager.process_vd_json_thd, args=(params,))
         thd.start()
         thd.join()
@@ -111,7 +111,10 @@ class VdJsonManager(object):
         '''
         从车辆检测json文件中取出图片文件名称
         '''
-        pass
+        arrs_a = json_full_fn.split('/')
+        fn = arrs_a[-1]
+        arrs_b = fn.split('_')
+        return '{0}_{1}_{2}_{3}_{4}'.format(arrs_b[0], arrs_b[1], arrs_b[2], arrs_b[3], arrs_b[4])
         
     @staticmethod
     def get_cutted_images():
@@ -141,6 +144,7 @@ class VdJsonManager(object):
         cut_img_tail_folder = './support/datasets/train'
         img_file_to_full_fn = params['iffn_dict']
         idx = params['idx']
+        cutted_images = params['cutted_images']
         num = 0
         cars = ['13', '14']
         trucks = ['21', '22']
@@ -150,6 +154,12 @@ class VdJsonManager(object):
                 for line in vfd:
                     line = line.strip()
                     full_fn = line
+                    j_img_file = VdJsonManager.get_img_file_in_vd_jf(full_fn)
+                    if j_img_file in cutted_images:
+                        VdJsonManager.s_num += 1
+                        if VdJsonManager.s_num % 1000 == 0:
+                            print('### Thread_{0}: cut and save {1};'.format(idx, VdJsonManager.s_num))
+                        continue
                     psfx, cllxfl, xlwz = VdJsonManager.parse_vd_json(full_fn)
                     if psfx is not None:
                         arrs_a = full_fn.split('/')
@@ -187,7 +197,6 @@ class VdJsonManager(object):
                         if VdJsonManager.s_num % 1000 == 0:
                             print('Thread_{0}: cut and save {1};'.format(idx, VdJsonManager.s_num))
                     else:
-                        print('error file: {0};'.format(full_fn))
                         efd.write('{0}\n'.format(full_fn))
 
     @staticmethod
