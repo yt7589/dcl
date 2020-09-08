@@ -90,6 +90,7 @@ class VdJsonManager(object):
         cutted_images = VdJsonManager.get_cutted_images()
         print('完成获取切图完成的图片文件名集合')
         VdJsonManager.s_lock = threading.RLock()
+        '''
         params = {'idx': 0, 'iffn_dict': img_file_to_full_fn, 'cutted_images': cutted_images}
         thd = threading.Thread(target=VdJsonManager.process_vd_json_thd, args=(params,))
         thd.start()
@@ -97,14 +98,13 @@ class VdJsonManager(object):
         '''
         thds = []
         for idx in range(11):
-            params = {'idx': idx, 'iffn_dict': img_file_to_full_fn}
+            params = {'idx': idx, 'iffn_dict': img_file_to_full_fn, 'cutted_images': cutted_images}
             thd = threading.Thread(target=VdJsonManager.process_vd_json_thd, args=(params,))
             thds.append(thd)
         for thd in thds:
             thd.start()
         for thd in thds:
             thd.join()
-        '''
         
     @staticmethod
     def get_img_file_in_vd_jf(json_full_fn):
