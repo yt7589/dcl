@@ -87,6 +87,7 @@ class VdJsonManager(object):
     def parse_vd_jsons():
         img_file_to_full_fn = VdJsonManager.get_raw_img_file_to_full_fn()
         VdJsonManager.s_lock = threading.RLock()
+        '''
         thds = []
         for idx in range(11):
             params = {'idx': idx, 'iffn_dict': img_file_to_full_fn}
@@ -96,6 +97,7 @@ class VdJsonManager(object):
             thd.start()
         for thd in thds:
             thd.join()
+        '''
         
     @staticmethod
     def process_vd_json_thd(params):
@@ -108,7 +110,7 @@ class VdJsonManager(object):
         trucks = ['21', '22']
         buss = ['11', '12']
         with open('./support/vd_error_jsons.txt', 'w+', encoding='utf-8') as efd:
-            with open('./support/vd_jsons_{0:02d}.txt'.format(idx), 'r', encoding='utf-8') as vfd:
+            with open('./support/vd_jsons.txt', 'r', encoding='utf-8') as vfd:
                 for line in vfd:
                     line = line.strip()
                     full_fn = line
@@ -137,10 +139,11 @@ class VdJsonManager(object):
                         if box[1] < 0:
                             box[1] = 0
                         try:
-                            croped_img = VdJsonManager.crop_and_resize_img(img_full_fn, box)
                             VdJsonManager.s_lock.acquire() # 获取锁以进行目录操作
                             VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn('{0}/{1}/{2}'.format(cut_img_head_folder, head_tail, vehicle_type), img_full_fn, VdJsonManager.s_num)
-                            cv2.imwrite(dst_cut_fn, croped_img)
+                            if not os.path.exists(dst_cut_fn):
+                                croped_img = VdJsonManager.crop_and_resize_img(img_full_fn, box)
+                                cv2.imwrite(dst_cut_fn, croped_img)
                             VdJsonManager.s_lock.release()
                         except Exception as ex:
                             print('##### Exception {0};'.format(ex))
