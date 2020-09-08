@@ -87,9 +87,6 @@ class VdJsonManager(object):
     def parse_vd_jsons():
         img_file_to_full_fn = VdJsonManager.get_raw_img_file_to_full_fn()
         print('完成获取图片文件名到全路径文件名字典')
-        i_debug = 1
-        if 1 == i_debug:
-            return
         cutted_images = VdJsonManager.get_cutted_images()
         print('完成获取切图完成的图片文件名集合')
         VdJsonManager.s_lock = threading.RLock()
