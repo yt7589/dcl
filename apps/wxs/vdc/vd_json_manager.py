@@ -22,6 +22,8 @@ class VdJsonManager(object):
     RM_SAVE_JSONS_IN_TREE_FOLDER = 1
     RM_PARSE_VD_JSON = 2
     RM_GET_RAW_IMG_FILE_TO_FULL_FN = 3
+    # 多线程同步锁
+    s_lock = None
     
     def __init__(self):
         self.refl = 'apps.wxs.vdc.VdJsonManager'
@@ -96,7 +98,6 @@ class VdJsonManager(object):
             thd.join()
         
     @staticmethod
-    s_lock = None
     def process_vd_json_thd(params):
         cut_img_head_folder = './support/datasets/train'
         cut_img_tail_folder = './support/datasets/train'
