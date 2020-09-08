@@ -149,6 +149,7 @@ class VdJsonManager(object):
         cars = ['13', '14']
         trucks = ['21', '22']
         buss = ['11', '12']
+        miss_images_fd = open('./support/miss_images.txt', 'w+', encoding='utf-8')
         with open('./support/vd_error_jsons.txt', 'w+', encoding='utf-8') as efd:
             with open('./support/vd_jsons.txt', 'r', encoding='utf-8') as vfd:
                 for line in vfd:
@@ -177,7 +178,10 @@ class VdJsonManager(object):
                             vehicle_type = VdJsonManager.VT_TRUCK
                         elif cllxfl in buss:
                             vehicle_type = VdJsonManager.VT_BUS
-                        img_full_fn = img_file_to_full_fn[img_file]
+                        if img_file in img_file_to_full_fn:
+                            img_full_fn = img_file_to_full_fn[img_file]
+                        else:
+                            miss_images_fd.write('{0}\n'.format(img_file))
                         arrs_c = xlwz.split(',')
                         box = [int(arrs_c[0]), int(arrs_c[1]), int(arrs_c[2]), int(arrs_c[3])]
                         if box[0] < 0:
@@ -197,6 +201,7 @@ class VdJsonManager(object):
                             print('Thread_{0}: cut and save {1};'.format(idx, VdJsonManager.s_num))
                     else:
                         efd.write('{0}\n'.format(full_fn))
+        miss_images_fd.close()
 
     @staticmethod
     def crop_and_resize_img(img_file, box, size=(224, 224), mode=1):
