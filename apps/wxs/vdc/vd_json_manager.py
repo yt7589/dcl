@@ -85,6 +85,11 @@ class VdJsonManager(object):
     s_num = 0
     @staticmethod
     def parse_vd_jsons():
+        cutted_images = VdJsonManager.get_cutted_images()
+        print('cutted num: {0};'.format(len(cutted_images)))
+        i_debug = 1
+        if 1 == i_debug:
+            return
         img_file_to_full_fn = VdJsonManager.get_raw_img_file_to_full_fn()
         VdJsonManager.s_lock = threading.RLock()
         params = {'idx': 0, 'iffn_dict': img_file_to_full_fn}
@@ -102,6 +107,35 @@ class VdJsonManager(object):
         for thd in thds:
             thd.join()
         '''
+        
+    @staticmethod
+    def get_img_file_in_vd_jf(json_full_fn):
+        '''
+        从车辆检测json文件中取出图片文件名称
+        '''
+        pass
+        
+    @staticmethod
+    def get_cutted_images():
+        '''
+        求出已经切图的图片文件列表
+        '''
+        cutted_images = set()
+        base_path = Path('./support/datasets/train')
+        for ht_obj in base_path.iterdir():
+            for bct_obj in ht_obj.iterdir():
+                for sf1 in bct_obj.iterdir():
+                    for sf2 in sf1.iterdir():
+                        for sf3 in sf2.iterdir():
+                            for sf4 in sf3.iterdir():
+                                for sf5 in sf4.iterdir():
+                                    for file_obj in sf5.iterdir():
+                                        full_fn = str(file_obj)
+                                        if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg')):
+                                            arrs_a = full_fn.split('/')
+                                            img_file = arrs_a[-1]
+                                            cutted_images.add(img_file)
+        return cutted_images
         
     @staticmethod
     def process_vd_json_thd(params):
