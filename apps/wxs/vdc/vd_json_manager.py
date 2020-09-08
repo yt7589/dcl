@@ -87,6 +87,9 @@ class VdJsonManager(object):
     def parse_vd_jsons():
         img_file_to_full_fn = VdJsonManager.get_raw_img_file_to_full_fn()
         print('完成获取图片文件名到全路径文件名字典')
+        i_debug = 1
+        if 1 == i_debug:
+            return
         cutted_images = VdJsonManager.get_cutted_images()
         print('完成获取切图完成的图片文件名集合')
         VdJsonManager.s_lock = threading.RLock()
@@ -338,6 +341,15 @@ class VdJsonManager(object):
                                 num += 1
                                 if num % 100 == 0:
                                     print('加入字典文件数：{0};'.format(num))
+                            elif file_obj.is_dir():
+                                for sf1 in file_obj.iterdir():
+                                    if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
+                                        arrs_a = full_fn.split('/')
+                                        img_file = arrs_a[-1]
+                                        img_file_to_full_fn[img_file] = full_fn
+                                        num += 1
+                                        if num % 100 == 0:
+                                            print('加入字典文件数：{0};'.format(num))
             with open(iffn_file, 'w+', encoding='utf-8') as wfd:
                 for k, v in img_file_to_full_fn.items():
                     wfd.write('{0}:{1}\n'.format(k, v))
