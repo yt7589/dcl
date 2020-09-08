@@ -143,6 +143,7 @@ class VdJsonManager(object):
                             VdJsonManager.s_lock.release()
                         except Exception as ex:
                             print('##### Exception {0};'.format(ex))
+                            VdJsonManager.s_lock.release()
                         if VdJsonManager.s_num % 1000 == 0:
                             print('Thread_{0}: cut and save {1};'.format(idx, VdJsonManager.s_num))
                     else:
