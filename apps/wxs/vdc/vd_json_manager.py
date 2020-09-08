@@ -87,6 +87,10 @@ class VdJsonManager(object):
     def parse_vd_jsons():
         img_file_to_full_fn = VdJsonManager.get_raw_img_file_to_full_fn()
         VdJsonManager.s_lock = threading.RLock()
+        params = {'idx': 0, 'iffn_dict': img_file_to_full_fn}
+        thd = threading.Thread(target=VdJsonManager.process_vd_json_thd, args=(params,))
+        thd.start()
+        thd.join()
         '''
         thds = []
         for idx in range(11):
