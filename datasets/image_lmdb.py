@@ -31,10 +31,10 @@ class ImageLmdb(object):
                 img_obj = img.convert('RGB')
         # 将对象保存到lmdb中
         txn = ImageLmdb.s_env.begin(write=True)
-        txn.put(key=img_full_fn, value=img_obj)
+        txn.put(key=img_full_fn.encode(), value=img_obj)
         txn.commit()
         # 从lmdb中读出图像对像
-        img_obj_db = txn.get(key=img_full_fn)
+        img_obj_db = txn.get(key=img_full_fn.encode())
         plt.subplot(1, 2, 1)
         plt.imshow(img_obj)
         plt.subplot(1, 2, 2)
