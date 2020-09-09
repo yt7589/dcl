@@ -29,6 +29,7 @@ from apps.wxs.vdc.vd_json_saver import VdJsonSaver
 from apps.wxs.vdc.vd_json_manager import VdJsonManager
 #
 from apps.wxs.bid.bid_vin import BidVin
+from apps.wxs.dm.gcc2n_dm import Gcc2nDm
 
 class WxsDsm(object):
     def __init__(self):
@@ -3824,3 +3825,5 @@ function nextImg() {
     def check_gcc2n_vin_codes():
         bid_vcs = BidVin.get_vin_codes()
         print('标书共{0}个车辆识别码'.format(len(bid_vcs)))
+        gcc2_vcs = Gcc2nDm.get_gcc2n_vcs()
+        print('gcc2n有[0}个车辆识别码'.format(len(gcc2_vcs)))
