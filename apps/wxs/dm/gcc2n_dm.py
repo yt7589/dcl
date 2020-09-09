@@ -19,5 +19,5 @@ class Gcc2nDm(object):
         for sf1 in base_path.iterdir():
             for sf2 in sf1.iterdir():
                 vc = str(sf2)
-                gcc2_vcs.add()
+                gcc2_vcs.add(vc)
         return gcc2_vcs
