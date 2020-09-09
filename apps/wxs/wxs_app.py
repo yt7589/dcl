@@ -19,6 +19,7 @@ class WxsApp(object):
     RM_REFINE_PREV_DATASET = 1010
     RM_PROCESS_VD_JSONS = 1011
     RM_CHECK_GCC2N_VIN_CODES = 1012
+    RM_LMDB_DEMO = 1013
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
@@ -98,6 +99,11 @@ class WxsApp(object):
             确认guochanche_2n目录下的车辆识别码都不在所里列表中
             '''
             WxsDsm.check_gcc2n_vin_codes()
+        elif WxsApp.RM_LMDB_DEMO == mode:
+            '''
+            学习LMDB的使用方法
+            '''
+            WxsDsm.run_lmdb_demo()
         else:
             WxsDsm.exp001()
             

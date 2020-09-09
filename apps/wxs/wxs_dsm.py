@@ -30,6 +30,7 @@ from apps.wxs.vdc.vd_json_manager import VdJsonManager
 #
 from apps.wxs.bid.bid_vin import BidVin
 from apps.wxs.dm.gcc2n_dm import Gcc2nDm
+from datasets.image_lmdb import ImageLmdb
 
 class WxsDsm(object):
     def __init__(self):
@@ -3829,6 +3830,10 @@ function nextImg() {
         print('gcc2n有{0}个车辆识别码'.format(len(gcc2_vcs)))
         intersection = bid_vcs & gcc2_vcs
         print('交集：{0};'.format(len(intersection)))
+        
+    @staticmethod
+    def run_lmdb_demo():
+        ImageLmdb.demo()
         
         
         
