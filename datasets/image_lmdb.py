@@ -11,7 +11,7 @@ class ImageLmdb(object):
         
     @staticmethod
     def initialize_lmdb():
-        ImageLmdb.s_env = lmdb.open('./support/ds_image.db', , map_size=2099511627776)
+        ImageLmdb.s_env = lmdb.open('./support/ds_image.db', map_size=2099511627776)
         
     @staticmethod
     def demo():
