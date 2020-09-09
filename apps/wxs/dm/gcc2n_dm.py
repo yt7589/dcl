@@ -14,7 +14,7 @@ class Gcc2nDm(object):
         base_path = Path('/media/zjkj/work/guochanche_2n')
         for vco in base_path.iterdir():
             vc = str(vco)
-            gcc2_vcs.add()
+            gcc2_vcs.add(vc)
         base_path = Path('/media/zjkj/work/g2ne')
         for sf1 in base_path.iterdir():
             for sf2 in sf1.iterdir():
