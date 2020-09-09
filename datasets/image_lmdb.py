@@ -1,6 +1,7 @@
 # 将图片文件保存到Lmdb中以提高训练效率。通过PIL读出图片
 # 文件，将内容以合路径文件名为Key，内容为Value保存到数据
 # 库中。
+import pickle
 import lmdb
 import matplotlib.pyplot as plt
 import PIL.Image as Image
@@ -31,10 +32,10 @@ class ImageLmdb(object):
                 img_obj = img.convert('RGB')
         # 将对象保存到lmdb中
         txn = ImageLmdb.s_env.begin(write=True)
-        txn.put(key=img_full_fn.encode(), value=img_obj)
+        txn.put(key=img_full_fn.encode(), value=pickle.dumps(img_obj))
         txn.commit()
         # 从lmdb中读出图像对像
-        img_obj_db = txn.get(key=img_full_fn.encode())
+        img_obj_db = pickle.loads(txn.get(key=img_full_fn.encode()))
         plt.subplot(1, 2, 1)
         plt.imshow(img_obj)
         plt.subplot(1, 2, 2)
