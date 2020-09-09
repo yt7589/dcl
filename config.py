@@ -77,7 +77,7 @@ class LoadConfig(object):
             self.rawdata_root = '/media/zjkj/work/vehicle_type_v2d/vehicle_type_v2d'
             self.anno_root = './datasets/CUB_200_2011/anno'
             #self.numcls = 0
-            self.num_brands = 248 #171 # 品牌数
+            self.num_brands = 171 #171 # 品牌数
             self.num_bmys = 3484 #2883 # 年款数
         elif args.dataset == 'STCAR':
             self.dataset = args.dataset
