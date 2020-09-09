@@ -27,6 +27,8 @@ import PIL.Image as Image
 from PIL import ImageStat
 from apps.wxs.vdc.vd_json_saver import VdJsonSaver
 from apps.wxs.vdc.vd_json_manager import VdJsonManager
+#
+from apps.wxs.dm.bid_vin import BidVin
 
 class WxsDsm(object):
     def __init__(self):

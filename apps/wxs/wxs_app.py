@@ -93,7 +93,7 @@ class WxsApp(object):
             处理车辆检测Json文件
             '''
             WxsDsm.process_vd_jsons()
-        else WxsApp.RM_CHECK_GCC2N_VIN_CODES == mode:
+        elif WxsApp.RM_CHECK_GCC2N_VIN_CODES == mode:
             '''
             确认guochanche_2n目录下的车辆识别码都不在所里列表中
             '''
