@@ -3827,3 +3827,40 @@ function nextImg() {
         print('标书共{0}个车辆识别码'.format(len(bid_vcs)))
         gcc2_vcs = Gcc2nDm.get_gcc2n_vcs()
         print('gcc2n有{0}个车辆识别码'.format(len(gcc2_vcs)))
+        intersection = bid_vcs & gcc2_vcs
+        print('交集：{0};'.format(len(intersection)))
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
