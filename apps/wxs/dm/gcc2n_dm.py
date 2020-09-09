@@ -1,4 +1,5 @@
 # 国产车2n目录相关统计信息
+from pathlib import Path
 
 class Gcc2nDm(object):
     def __init__(self):
