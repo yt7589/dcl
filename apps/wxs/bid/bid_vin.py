@@ -11,7 +11,7 @@ class BidVin(object):
         '''
         vc_set = set()
         is_first_line = True
-        with open('./logs/wxs_bid_0708.csv', 'r', encoding='utf-8') as fd:
+        with open('./logs/bid_20200708.csv', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
                 if not is_first_line:
