@@ -15,7 +15,7 @@ class ImageLmdb(object):
         
     @staticmethod
     def initialize_lmdb():
-        ImageLmdb.s_env = lmdb.open('./support/ds_image.db', map_size=2099511627776)
+        ImageLmdb.s_env = lmdb.open('./support/ds_image_v1.db', map_size=2099511627776)
         
     @staticmethod
     def destroy():
@@ -26,7 +26,7 @@ class ImageLmdb(object):
         '''
         将数据集中图片全部保存到lmdb中
         '''
-        base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds_v1')
+        base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds')
         txn = ImageLmdb.s_env.begin(write=True)
         for sf1 in base_path.iterdir():
             for sf2 in sf1.iterdir():
