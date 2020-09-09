@@ -9,6 +9,7 @@ import PIL.Image as Image
 
 class ImageLmdb(object):
     s_env = None
+    s_rd_txn = None
     
     def __init__(self):
         self.refl = 'datasets.ImageLmdb'
@@ -16,6 +17,7 @@ class ImageLmdb(object):
     @staticmethod
     def initialize_lmdb():
         ImageLmdb.s_env = lmdb.open('./support/ds_image_v1.db', map_size=2099511627776)
+        ImageLmdb.s_rd_txn = ImageLmdb.s_env.begin(write=False)
         
     @staticmethod
     def destroy():
@@ -61,9 +63,9 @@ class ImageLmdb(object):
         return pickle.loads(txn.get(key=img_full_fn.encode()))
         
     @staticmethod
-    def get_image_multi(txn, img_full_fn):
+    def get_image_multi(img_full_fn):
         #txn = ImageLmdb.s_env.begin(write=False)
-        return pickle.loads(txn.get(key=img_full_fn.encode()))
+        return pickle.loads(ImageLmdb.s_rd_txn.get(key=img_full_fn.encode()))
         
     @staticmethod
     def demo():
