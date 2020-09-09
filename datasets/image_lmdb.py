@@ -26,13 +26,29 @@ class ImageLmdb(object):
         '''
         将数据集中图片全部保存到lmdb中
         '''
-        base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds')
+        base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds_v1')
         for sf1 in base_path.iterdir():
             for sf2 in sf1.iterdir():
                 for file_obj in sf2.iterdir():
                     full_fn = str(file_obj)
                     if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg')):
                         print('处理图片文件：{0};'.format(full_fn))
+                        ImageLmdb.save_image(full_fn)
+                        
+    @staticmethod
+    def save_image(img_full_fn):
+        # 读取文件
+        with open(img_full_fn, 'rb') as f:
+            with Image.open(f) as img:
+                img_obj = img.convert('RGB')
+        txn = ImageLmdb.s_env.begin(write=True)
+        txn.put(key=img_full_fn.encode(), value=pickle.dumps(img_obj))
+        txn.commit()
+        
+    @staticmethod
+    def get_image(img_full_fn):
+        txn = ImageLmdb.s_env.begin(write=False)
+        return pickle.loads(txn.get(key=img_full_fn.encode()))
         
     @staticmethod
     def demo():
