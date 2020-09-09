@@ -3841,10 +3841,12 @@ function nextImg() {
         将所有数据集文件（通过遍历特定格式文件夹）保存到LMDB中
         '''
         # 读出并显示一个图片
+        ImageLmdb.initialize_lmdb()
         img_full_fn = '/media/zjkj/work/yantao/zjkj/test_ds/00/20/白#02_陕AY13C9_033_福特_福克斯_2007_610500200969342197.jpg'
         img = ImageLmdb.get_image_multi(img_full_fn)
         plt.imshow(img)
         plt.show()
+        ImageLmdb.destroy()
         i_debug = 1
         if 1 == i_debug:
             return
