@@ -10,6 +10,8 @@ import PIL.Image as Image
 from PIL import ImageStat
 
 import pdb
+# LMSV存储图片文件
+from datasets.image_lmdb import ImageLmdb
 
 def random_sample(img_names, labels):
     anno_dict = {}
@@ -31,7 +33,15 @@ def random_sample(img_names, labels):
 
 
 class dataset(data.Dataset):
+    # 数据集图片文件保存方法
+    IMGM_FILE = 1
+    IMGM_LMDB = 2
+    
     def __init__(self, Config, anno, swap_size=[7,7], common_aug=None, swap=None, totensor=None, train=False, train_val=False, test=False):
+        self.img_mode = dataset.IMGM_LMDB
+        if dataset.IMGM_LMDB == self.img_mode:
+            print('使用lmdb保存图片...')
+            ImageLmdb.initialize_lmdb() # 初始化LMDB
         self.root_path = Config.rawdata_root
         self.numcls = Config.num_brands
         self.num_brands = Config.num_brands
@@ -121,9 +131,12 @@ class dataset(data.Dataset):
             return img_unswap, brand_label, brand_label_swap, swap_law1, swap_law2, self.paths[item], bmy_label
 
     def pil_loader(self,imgpath):
-        with open(imgpath, 'rb') as f:
-            with Image.open(f) as img:
-                return img.convert('RGB')
+        if dataset.IMGM_FILE == self.img_mode:
+            with open(imgpath, 'rb') as f:
+                with Image.open(f) as img:
+                    return img.convert('RGB')
+        else:
+            return ImageLmdb.get_image_multi(img_full_fn)
 
     def crop_image(self, image, cropnum):
         width, high = image.size
