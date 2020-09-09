@@ -3835,6 +3835,10 @@ function nextImg() {
     def run_lmdb_demo():
         ImageLmdb.demo()
         
+    @staticmethod
+    def save_ds_imgs_to_lmdb():
+        ImageLmdb.save_ds_imgs_to_lmdb()
+        
         
         
         

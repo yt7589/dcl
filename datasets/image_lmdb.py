@@ -2,6 +2,7 @@
 # 文件，将内容以合路径文件名为Key，内容为Value保存到数据
 # 库中。
 import pickle
+from pathlib import Path
 import lmdb
 import matplotlib.pyplot as plt
 import PIL.Image as Image
@@ -19,6 +20,19 @@ class ImageLmdb(object):
     @staticmethod
     def destroy():
         ImageLmdb.s_env.close()
+        
+    @staticmethod
+    def save_ds_imgs_to_lmdb():
+        '''
+        将数据集中图片全部保存到lmdb中
+        '''
+        base_path = Path('/media/zjkj/work/yantao/zjkj/test_ds')
+        for sf1 in base_path.iterdir():
+            for sf2 in sf1.iterdir():
+                for file_obj in sf2.iterdir():
+                    full_fn = str(file_obj)
+                    if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg')):
+                        print('处理图片文件：{0};'.format(full_fn))
         
     @staticmethod
     def demo():
