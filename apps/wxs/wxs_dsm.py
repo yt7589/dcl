@@ -3837,7 +3837,12 @@ function nextImg() {
         
     @staticmethod
     def save_ds_imgs_to_lmdb():
+        '''
+        将所有数据集文件（通过遍历特定格式文件夹）保存到LMDB中
+        '''
+        ImageLmdb.initialize_lmdb()
         ImageLmdb.save_ds_imgs_to_lmdb()
+        ImageLmdb.destroy()
         
         
         
