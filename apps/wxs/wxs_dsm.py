@@ -3852,6 +3852,11 @@ function nextImg() {
         return oprr_num
         '''
         
+    @staticmethod
+    def check_gcc2n_vin_codes():
+        bid_vcs = BidVin.get_vin_codes()
+        print('标书共{0}个车辆识别码'.format(len(bid_vcs))
+        
         
 
     '''

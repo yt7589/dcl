@@ -18,13 +18,14 @@ class WxsApp(object):
     RM_GENERATE_ERROR_SAMPLES_HTML = 1009
     RM_REFINE_PREV_DATASET = 1010
     RM_PROCESS_VD_JSONS = 1011
+    RM_CHECK_GCC2N_VIN_CODES = 1012
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_PROCESS_VD_JSONS
+        mode = WxsApp.RM_CHECK_GCC2N_VIN_CODES
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -92,6 +93,11 @@ class WxsApp(object):
             处理车辆检测Json文件
             '''
             WxsDsm.process_vd_jsons()
+        else WxsApp.RM_CHECK_GCC2N_VIN_CODES == mode:
+            '''
+            确认guochanche_2n目录下的车辆识别码都不在所里列表中
+            '''
+            WxsDsm.check_gcc2n_vin_codes()
         else:
             WxsDsm.exp001()
             
