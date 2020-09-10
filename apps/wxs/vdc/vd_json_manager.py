@@ -151,7 +151,7 @@ class VdJsonManager(object):
         buss = ['11', '12']
         miss_images_fd = open('./support/miss_images.txt', 'w+', encoding='utf-8')
         with open('./support/vd_error_jsons.txt', 'w+', encoding='utf-8') as efd:
-            with open('./support/vd_jsons.txt', 'r', encoding='utf-8') as vfd:
+            with open('./support/vd_jsons_{0:02d}.txt'.format(idx), 'r', encoding='utf-8') as vfd:
                 for line in vfd:
                     line = line.strip()
                     full_fn = line
