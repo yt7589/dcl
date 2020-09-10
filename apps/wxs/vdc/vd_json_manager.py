@@ -356,6 +356,33 @@ class VdJsonManager(object):
                 for k, v in img_file_to_full_fn.items():
                     wfd.write('{0}:{1}\n'.format(k, v))
         return img_file_to_full_fn
+        
+        
+    @staticmethod
+    def run_vd_cut_save():
+        print('利用Python程序完成整个切图流程')
+        # 将图片文件列表均匀分给20个文本文件
+        for idx in range(20):
+            fd = open('./support/i900m_{0:02d}.txt', 'w+', encoding='utf-8')
+            ifds.append(fd)
+        num = 0
+        base_path = Path('/media/ps/My1/总已完成')
+        #img_full_fns = []
+        for sf1 in base_path.iterdir():
+            for vc_obj in sf1.iterdir():
+                for file_obj in vc_obj.iterdir():
+                    full_fn = str(file_obj)
+                    if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg')):
+                        #img_full_fns.append(full_fn)
+                        num += 1
+                        ifds[num % 20].write('{0}\n'.format(full_fn))
+                        if num % 1000 == 0:
+                            print('获取到{0}个文件'.format(num))
+        print('共有{0}个文件'.format(num))
+        for ifd in ifds:
+            ifd.close()
+        
+        
                                 
                                 
                                 

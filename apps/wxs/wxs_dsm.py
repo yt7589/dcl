@@ -3860,6 +3860,10 @@ function nextImg() {
         base_folder = '/media/zjkj/work/fgvc_dataset/vdc0907/json_500'
         FileUtil.get_files_in_subfolders_dict(base_folder)
         
+    @staticmethod
+    def run_vd_cut_save():
+        VdJsonManager.run_vd_cut_save()
+        
         
         
         

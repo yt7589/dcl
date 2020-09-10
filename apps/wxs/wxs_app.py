@@ -22,13 +22,14 @@ class WxsApp(object):
     RM_LMDB_DEMO = 1013
     RM_SAVE_DS_IMGS_TO_LMDB = 1015
     RM_GET_FILES_IN_SUBFOLDERS_DICT = 1016
+    RM_RUN_VD_CUT_SAVE = 1017
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_PROCESS_VD_JSONS
+        mode = WxsApp.RM_RUN_VD_CUT_SAVE
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -117,6 +118,17 @@ class WxsApp(object):
             获取指定目录及其下所有子目录下文件名与全路径文件名字典
             '''
             WxsDsm.get_files_in_subfolders_dict()
+        elif WxsApp.RM_RUN_VD_CUT_SAVE == mode:
+            '''
+            从图像目录中取出所有图片文件列表，将其分为20份，存为20个文本文件，
+            启动20个线程，每个线程处理一个文本文件：
+            1. 向服务器端发送请求，获取车辆检测结果；
+            2. 解析Json文件，得到车辆检测框；
+            3. 对原图进行切图，并缩放为224*224；
+            4. 求出图片树形目录位置；
+            5. 将文件保存到该目录下；
+            '''
+            WxsDsm.run_vd_cut_save()
         else:
             WxsDsm.exp001()
             
