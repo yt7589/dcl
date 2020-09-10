@@ -3869,6 +3869,10 @@ function nextImg() {
         src_ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds_090601'
         dst_ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds_091001'
         WxsDsm.delete_error_samples(src_ds_file, dst_ds_file)
+        # test dataset
+        src_ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds_090601'
+        dst_ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds_091001'
+        WxsDsm.delete_error_samples(src_ds_file, dst_ds_file)
         
     @staticmethod
     def delete_error_samples(src_ds_file, dst_ds_file):
