@@ -10,7 +10,7 @@ class FileUtil(object):
         
     @staticmethod
     def get_files_in_subfolders_dict(base_folder):
-        print('获取文件名与全路径文件名对应关系的字典...')
+        print('获取文件名与全路径文件名对应关系的字典...{0};'.format(base_folder))
         img_file_to_full_fn = {}
         num = 0
         for dirpath, dirnames, filenames in os.walk(base_folder):
