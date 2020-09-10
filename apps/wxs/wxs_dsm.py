@@ -3864,6 +3864,34 @@ function nextImg() {
     def run_vd_cut_save():
         VdJsonManager.run_vd_cut_save()
         
+    @staticmethod
+    def delete_error_samples_main():
+        src_ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds_090601'
+        dst_ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds_091001'
+        WxsDsm.delete_error_samples(src_ds_file, dst_ds_file)
+        
+    @staticmethod
+    def delete_error_samples(src_ds_file, dst_ds_file):
+        delete_files = set()
+        with open('./support/delete_files.txt', 'r', encoding='utf-8') as dfd:
+            for line in dfd:
+                line = line.strip()
+                arrs_a = line.split(',')
+                img_file = arrs_a[0]
+                delete_files.add(img_file)
+        with open(dst_ds_file, 'w+', encoding='utf-8') as wfd:
+            with open(src_ds_file, 'r', encoding='utf-8') as rfd:
+                for line in rfd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    full_fn = arrs_a[0]
+                    arrs_b = full_fn.split('/')
+                    img_file = arrs_b[-1]
+                    if img_file not in delete_files:
+                        wfd.write('{0}\n'.format(line))
+                    else:
+                        print('删除：{0};'.format(img_file))
+        
         
         
         

@@ -30,7 +30,7 @@ class WxsApp(object):
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_RUN_VD_CUT_SAVE
+        mode = WxsApp.RM_DELETE_ERROR_SAMPLES
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -134,7 +134,7 @@ class WxsApp(object):
             '''
             从数据集中删除品牌分类错误的样本
             '''
-            pass
+            WxsDsm.delete_error_samples_main()
         else:
             WxsDsm.exp001()
             

@@ -346,12 +346,15 @@ class VdJsonManager(object):
         efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
         # 将图片文件列表均匀分给20个文本文件
         ifds = []
+        thds = []
         for idx in range(txts_num):
             fd = open('./support/i900m_{0:02d}.txt', 'w+', encoding='utf-8')
             ifds.append(fd)
-        ifds = VdJsonManager.get_image_full_fns_to_txts(txts_num, ifds)
-        
-        
+            params = params = {'idx': idx, 'fd': fd, 'efd': efd, 'miss_images_fd': miss_images_fd}
+            thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
+            thds.append(thd)
+        #ifds = VdJsonManager.get_image_full_fns_to_txts(txts_num, ifds)
+        '''
         for ifd in ifds:
             ifd.close()
         miss_images_fd.close()
@@ -359,16 +362,13 @@ class VdJsonManager(object):
         i_debug = 1
         if 1 == i_debug:
             return
-        thds = []
-        
-        for idx in range(11):
-            params = params = {'idx': idx, 'fd': ifds[idx], 'efd': efd, 'miss_images_fd': miss_images_fd}
-            thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
-            thds.append(thd)
+        '''
+        # 等待线程池结束
         for thd in thds:
             thd.start()
         for thd in thds:
             thd.join()
+        # 关闭文件
         for ifd in ifds:
             ifd.close()
         miss_images_fd.close()
@@ -417,12 +417,6 @@ class VdJsonManager(object):
                     vehicle_type = VdJsonManager.VT_TRUCK
                 elif cllxfl in buss:
                     vehicle_type = VdJsonManager.VT_BUS
-                if img_file in img_file_to_full_fn:
-                    img_full_fn = img_file_to_full_fn[img_file]
-                else:
-                    print('     missing image file: {0}'.format(img_file))
-                    miss_images_fd.write('{0}\n'.format(img_file))
-                    continue
                 arrs_c = xlwz.split(',')
                 box = [int(arrs_c[0]), int(arrs_c[1]), int(arrs_c[2]), int(arrs_c[3])]
                 if box[0] < 0:
@@ -442,12 +436,6 @@ class VdJsonManager(object):
                     print('Thread_{0}: cut and save {1};'.format(idx, VdJsonManager.s_num))
             else:
                 efd.write('{0}\n'.format(full_fn))
-            
-            
-            
-            
-            
-        print('第{0}个线程启动...')
 
     @staticmethod
     def get_img_reid_feature_vector(full_fn):
