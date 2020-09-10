@@ -346,10 +346,17 @@ class VdJsonManager(object):
         efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
         # 将图片文件列表均匀分给20个文本文件
         ifds = VdJsonManager.get_image_full_fns_to_txts(txts_num)
+        
+        
+        for ifd in ifds:
+            ifd.close()
+        miss_images_fd.close()
+        efd.close()
         i_debug = 1
         if 1 == i_debug:
             return
         thds = []
+        
         for idx in range(11):
             params = params = {'idx': idx, 'fd': ifds[idx], 'efd': efd, 'miss_images_fd': miss_images_fd}
             thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
