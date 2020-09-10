@@ -9,6 +9,7 @@ import threading
 import cv2
 #
 from apps.wxs.fu.file_tree_folder_saver import FileTreeFolderSaver
+from apps.wxs.fu.file_util import FileUtil
 
 class VdJsonManager(object):
     # 车头车尾类型
@@ -313,7 +314,8 @@ class VdJsonManager(object):
     def get_raw_img_file_to_full_fn():
         img_file_to_full_fn = {}
         iffn_file = './support/raw_iffn.txt'
-        base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
+        #base_path = Path('/media/zjkj/work/fgvc_dataset/raw')
+        base_folder = '/media/zjkj/work/fgvc_dataset/raw'
         num = 0
         if os.path.exists(iffn_file):
             print('从缓存文件中读取...')
@@ -326,6 +328,8 @@ class VdJsonManager(object):
                     img_file_to_full_fn[img_file] = full_fn
         else:
             print('从文件目录中读取...')
+            img_file_to_full_fn = FileUtil.get_files_in_subfolders_dict(base_folder)
+            '''
             for brand_obj in base_path.iterdir():
                 for bm_obj in brand_obj.iterdir():
                     for bmy_obj in bm_obj.iterdir():
@@ -347,6 +351,7 @@ class VdJsonManager(object):
                                         num += 1
                                         if num % 100 == 0:
                                             print('加入字典文件数：{0};'.format(num))
+            '''
             with open(iffn_file, 'w+', encoding='utf-8') as wfd:
                 for k, v in img_file_to_full_fn.items():
                     wfd.write('{0}:{1}\n'.format(k, v))

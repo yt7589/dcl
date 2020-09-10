@@ -20,3 +20,4 @@ class FileUtil(object):
                 num += 1
                 if num % 1000 == 0:
                     print('处理{0}个文件'.format(num))
+        return img_file_to_full_fn
