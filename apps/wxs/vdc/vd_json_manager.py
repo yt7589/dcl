@@ -286,28 +286,7 @@ class VdJsonManager(object):
         cllxfls = ['11', '12', '13', '14', '21', '22']
         with open(json_file, 'r', encoding='utf-8') as jfd:
             data = json.load(jfd)
-        if len(data['VEH']) < 1:
-            return None, None, None
-        else:
-            # 找到面积最大的检测框作为最终检测结果
-            max_idx = -1
-            max_area = 0
-            for idx, veh in enumerate(data['VEH']):
-                cllxfl = veh['CXTZ']['CLLXFL'][:2]
-                if cllxfl in cllxfls:
-                    box_str = veh['WZTZ']['CLWZ']
-                    arrs_a = box_str.split(',')
-                    x1, y1, w, h = int(arrs_a[0]), int(arrs_a[1]), int(arrs_a[2]), int(arrs_a[3])
-                    area = w * h
-                    if area > max_area:
-                        max_area = area
-                        max_idx = idx
-            if max_idx < 0:
-                return None, None, None
-            else:
-                return data['VEH'][max_idx]['WZTZ']['PSFX'], \
-                        data['VEH'][max_idx]['CXTZ']['CLLXFL'][:2],\
-                        data['VEH'][max_idx]['WZTZ']['CLWZ']
+            return VdJsonManager.parse_vd_json_data(data)
                                 
                                 
     @staticmethod
@@ -361,8 +340,34 @@ class VdJsonManager(object):
     @staticmethod
     def run_vd_cut_save():
         print('利用Python程序完成整个切图流程')
+        txts_num = 20
+        VdJsonManager.s_num = 0
+        miss_images_fd = open('./support/m900_miss_images.txt', 'w+', encoding='utf-8')
+        efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
         # 将图片文件列表均匀分给20个文本文件
-        for idx in range(20):
+        ifds = VdJsonManager.get_image_full_fns_to_txts(txts_num)
+        i_debug = 1
+        if 1 == i_debug:
+            return
+        thds = []
+        for idx in range(11):
+            params = params = {'idx': idx, 'fd': ifds[idx], 'efd': efd, 'miss_images_fd': miss_images_fd}
+            thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
+            thds.append(thd)
+        for thd in thds:
+            thd.start()
+        for thd in thds:
+            thd.join()
+        for ifd in ifds:
+            ifd.close()
+        miss_images_fd.close()
+        efd.close()
+            
+        
+        
+    @staticmethod
+    def get_image_full_fns_to_txts(txts_num):
+        for idx in range(txts_num):
             fd = open('./support/i900m_{0:02d}.txt', 'w+', encoding='utf-8')
             ifds.append(fd)
         num = 0
@@ -379,8 +384,107 @@ class VdJsonManager(object):
                         if num % 1000 == 0:
                             print('获取到{0}个文件'.format(num))
         print('共有{0}个文件'.format(num))
-        for ifd in ifds:
-            ifd.close()
+        return ifds
+        
+    @staticmethod
+    def vd_cut_save_thd(params):
+        cut_img_head_folder = '/media/ps/My1/i900m_cutted'
+        idx = params['idx']
+        fd = params['fd']
+        miss_images_fd = params['miss_images_fd']
+        efd = params['efd']
+        for line in fd:
+            line = line.strip()
+            full_fn = line
+            data = VdJsonManager.get_img_reid_feature_vector(full_fn)
+            psfx, cllxfl, clwz = VdJsonManager.parse_vd_json_data(data)
+            if psfx is not None:
+                arrs_a = full_fn.split('/')
+                img_file = arrs_a[-1]
+                head_tail = VdJsonManager.HTT_HEAD
+                if psfx == '2':
+                    head_tail = VdJsonManager.HTT_TAIL
+                vehicle_type = VdJsonManager.VT_CAR
+                if cllxfl in trucks:
+                    vehicle_type = VdJsonManager.VT_TRUCK
+                elif cllxfl in buss:
+                    vehicle_type = VdJsonManager.VT_BUS
+                if img_file in img_file_to_full_fn:
+                    img_full_fn = img_file_to_full_fn[img_file]
+                else:
+                    print('     missing image file: {0}'.format(img_file))
+                    miss_images_fd.write('{0}\n'.format(img_file))
+                    continue
+                arrs_c = xlwz.split(',')
+                box = [int(arrs_c[0]), int(arrs_c[1]), int(arrs_c[2]), int(arrs_c[3])]
+                if box[0] < 0:
+                    box[0] = 0
+                if box[1] < 0:
+                    box[1] = 0
+                try:
+                    VdJsonManager.s_lock.acquire() # 获取锁以进行目录操作
+                    VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn('{0}/{1}/{2}'.format(cut_img_head_folder, head_tail, vehicle_type), full_fn, VdJsonManager.s_num)
+                    croped_img = VdJsonManager.crop_and_resize_img(full_fn, box)
+                    cv2.imwrite(dst_cut_fn, croped_img)
+                    VdJsonManager.s_lock.release()
+                except Exception as ex:
+                    print('##### Exception {0};'.format(ex))
+                    VdJsonManager.s_lock.release()
+                if VdJsonManager.s_num % 1000 == 0:
+                    print('Thread_{0}: cut and save {1};'.format(idx, VdJsonManager.s_num))
+            else:
+                efd.write('{0}\n'.format(full_fn))
+            
+            
+            
+            
+            
+        print('第{0}个线程启动...')
+
+    @staticmethod
+    def get_img_reid_feature_vector(full_fn):
+        url = 'http://192.168.2.17:2222/vehicle/function/recognition'
+        print('url: {0};'.format(url))
+        data = {'TPLX': 1, 'GCXH': 123131318}
+        files = {'TPWJ': (full_fn, open(full_fn, 'rb'))}
+        resp = requests.post(url, files=files, data = data)
+        json_obj = json.loads(resp.text)
+        # .......
+        vehs = json_obj['VEH']
+        raw = []
+        for veh in vehs:
+            cllxfl = veh['CXTZ']['CLLXFL']
+            if cllxfl in ['11', '12', '13', '14', '21', '22']:
+                print('detected...')
+                vals = veh['CLTZXL'].split(',')
+                for val in vals:
+                    raw.append(float(val))
+        return np.array(raw)
+            
+    @staticmethod
+    def parse_vd_json_data(data):
+        if len(data['VEH']) < 1:
+            return None, None, None
+        else:
+            # 找到面积最大的检测框作为最终检测结果
+            max_idx = -1
+            max_area = 0
+            for idx, veh in enumerate(data['VEH']):
+                cllxfl = veh['CXTZ']['CLLXFL'][:2]
+                if cllxfl in cllxfls:
+                    box_str = veh['WZTZ']['CLWZ']
+                    arrs_a = box_str.split(',')
+                    x1, y1, w, h = int(arrs_a[0]), int(arrs_a[1]), int(arrs_a[2]), int(arrs_a[3])
+                    area = w * h
+                    if area > max_area:
+                        max_area = area
+                        max_idx = idx
+            if max_idx < 0:
+                return None, None, None
+            else:
+                return data['VEH'][max_idx]['WZTZ']['PSFX'], \
+                        data['VEH'][max_idx]['CXTZ']['CLLXFL'][:2],\
+                        data['VEH'][max_idx]['WZTZ']['CLWZ']
         
         
                                 

@@ -23,6 +23,7 @@ class WxsApp(object):
     RM_SAVE_DS_IMGS_TO_LMDB = 1015
     RM_GET_FILES_IN_SUBFOLDERS_DICT = 1016
     RM_RUN_VD_CUT_SAVE = 1017
+    RM_DELETE_ERROR_SAMPLES = 1018
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
@@ -129,6 +130,11 @@ class WxsApp(object):
             5. 将文件保存到该目录下；
             '''
             WxsDsm.run_vd_cut_save()
+        elif WxsApp.RM_DELETE_ERROR_SAMPLES == mode:
+            '''
+            从数据集中删除品牌分类错误的样本
+            '''
+            pass
         else:
             WxsDsm.exp001()
             
