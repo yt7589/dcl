@@ -38,7 +38,7 @@ class dataset(data.Dataset):
     IMGM_LMDB = 2
     
     def __init__(self, Config, anno, swap_size=[7,7], common_aug=None, swap=None, totensor=None, train=False, train_val=False, test=False):
-        self.img_mode = dataset.IMGM_LMDB
+        self.img_mode = dataset.IMGM_FILE
         if dataset.IMGM_LMDB == self.img_mode:
             print('使用lmdb保存图片...')
             ImageLmdb.initialize_lmdb() # 初始化LMDB
