@@ -3857,7 +3857,7 @@ function nextImg() {
         
     @staticmethod
     def get_files_in_subfolders_dict():
-        base_folder = '/media/zjkj/work/fgvc/vdc0907/json_500'
+        base_folder = '/media/zjkj/work/fgvc_dataset/vdc0907/json_500'
         FileUtil.get_files_in_subfolders_dict(base_folder)
         
         
