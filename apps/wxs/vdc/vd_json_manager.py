@@ -345,7 +345,11 @@ class VdJsonManager(object):
         miss_images_fd = open('./support/m900_miss_images.txt', 'w+', encoding='utf-8')
         efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
         # 将图片文件列表均匀分给20个文本文件
-        ifds = VdJsonManager.get_image_full_fns_to_txts(txts_num)
+        ifds = []
+        for idx in range(txts_num):
+            fd = open('./support/i900m_{0:02d}.txt', 'w+', encoding='utf-8')
+            ifds.append(fd)
+        ifds = VdJsonManager.get_image_full_fns_to_txts(txts_num, ifds)
         
         
         for ifd in ifds:
@@ -373,10 +377,7 @@ class VdJsonManager(object):
         
         
     @staticmethod
-    def get_image_full_fns_to_txts(txts_num):
-        for idx in range(txts_num):
-            fd = open('./support/i900m_{0:02d}.txt', 'w+', encoding='utf-8')
-            ifds.append(fd)
+    def get_image_full_fns_to_txts(txts_num, ifds):
         num = 0
         base_path = Path('/media/ps/My1/总已完成')
         #img_full_fns = []
