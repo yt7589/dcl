@@ -355,6 +355,11 @@ class VdJsonManager(object):
             thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
             thds.append(thd)
         '''
+        
+        
+        for idx in range(txts_num):
+            fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'w+', encoding='utf-8')
+            ifds.append(fd)
         ifds = VdJsonManager.get_image_full_fns_to_txts(txts_num, ifds)
         
         for ifd in ifds:
@@ -389,7 +394,7 @@ class VdJsonManager(object):
                     if file_obj.is_file() and full_fn.endswith(('jpg', 'jpeg')):
                         #img_full_fns.append(full_fn)
                         num += 1
-                        ifds[num % 20].write('{0}\n'.format(full_fn))
+                        ifds[num % txts_num].write('{0}\n'.format(full_fn))
                         if num % 1000 == 0:
                             print('获取到{0}个文件'.format(num))
         print('共有{0}个文件'.format(num))
