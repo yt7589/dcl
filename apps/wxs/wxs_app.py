@@ -95,6 +95,7 @@ class WxsApp(object):
             '''
             处理车辆检测Json文件
             '''
+            print('?????')
             WxsDsm.process_vd_jsons()
         elif WxsApp.RM_CHECK_GCC2N_VIN_CODES == mode:
             '''
