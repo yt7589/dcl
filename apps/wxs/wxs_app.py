@@ -21,13 +21,14 @@ class WxsApp(object):
     RM_CHECK_GCC2N_VIN_CODES = 1012
     RM_LMDB_DEMO = 1013
     RM_SAVE_DS_IMGS_TO_LMDB = 1015
+    RM_GET_FILES_IN_SUBFOLDERS_DICT = 1016
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_PROCESS_VD_JSONS
+        mode = WxsApp.RM_GET_FILES_IN_SUBFOLDERS_DICT
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -110,6 +111,10 @@ class WxsApp(object):
             将所有数据集文件（通过遍历特定格式文件夹）保存到LMDB中
             '''
             WxsDsm.save_ds_imgs_to_lmdb()
+        elif WxsApp.RM_GET_FILES_IN_SUBFOLDERS_DICT == mode:
+            '''
+            获取指定目录及其下所有子目录下文件
+            '''
         else:
             WxsDsm.exp001()
             

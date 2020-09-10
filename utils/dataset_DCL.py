@@ -136,7 +136,7 @@ class dataset(data.Dataset):
                 with Image.open(f) as img:
                     return img.convert('RGB')
         else:
-            return ImageLmdb.get_image_multi(img_full_fn)
+            return ImageLmdb.get_image_multi(imgpath)
 
     def crop_image(self, image, cropnum):
         width, high = image.size
