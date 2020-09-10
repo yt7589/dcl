@@ -31,6 +31,7 @@ from apps.wxs.vdc.vd_json_manager import VdJsonManager
 from apps.wxs.bid.bid_vin import BidVin
 from apps.wxs.dm.gcc2n_dm import Gcc2nDm
 from datasets.image_lmdb import ImageLmdb
+from apps.wxs.fu.file_util import FileUtil
 
 class WxsDsm(object):
     def __init__(self):
@@ -3853,6 +3854,11 @@ function nextImg() {
         ImageLmdb.initialize_lmdb()
         ImageLmdb.save_ds_imgs_to_lmdb()
         ImageLmdb.destroy()
+        
+    @staticmethod
+    def get_files_in_subfolders_dict():
+        base_folder = '/media/zjkj/work/fgvc/vdc0907/json_500'
+        FileUtil.get_files_in_subfolders_dict(base_folder)
         
         
         
