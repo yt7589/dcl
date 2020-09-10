@@ -28,7 +28,7 @@ class WxsApp(object):
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_GET_FILES_IN_SUBFOLDERS_DICT
+        mode = WxsApp.RM_PROCESS_VD_JSONS
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -113,8 +113,9 @@ class WxsApp(object):
             WxsDsm.save_ds_imgs_to_lmdb()
         elif WxsApp.RM_GET_FILES_IN_SUBFOLDERS_DICT == mode:
             '''
-            获取指定目录及其下所有子目录下文件
+            获取指定目录及其下所有子目录下文件名与全路径文件名字典
             '''
+            pass
         else:
             WxsDsm.exp001()
             
