@@ -451,7 +451,6 @@ class VdJsonManager(object):
     @staticmethod
     def get_img_reid_feature_vector(full_fn):
         url = 'http://192.168.2.17:2222/vehicle/function/recognition'
-        print('url: {0};'.format(url))
         data = {'TPLX': 1, 'GCXH': 123131318}
         files = {'TPWJ': (full_fn, open(full_fn, 'rb'))}
         resp = requests.post(url, files=files, data = data)
