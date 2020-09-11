@@ -8,6 +8,7 @@ import requests
 from pathlib import Path
 import threading
 import cv2
+import numpy as np
 #
 from apps.wxs.fu.file_tree_folder_saver import FileTreeFolderSaver
 from apps.wxs.fu.file_util import FileUtil
