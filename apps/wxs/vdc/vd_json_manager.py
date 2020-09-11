@@ -346,6 +346,7 @@ class VdJsonManager(object):
         efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
         # 将图片文件列表均匀分给20个文本文件
         ifds = []
+        '''
         thds = []
         print('step 1')
         for idx in range(txts_num):
@@ -368,7 +369,6 @@ class VdJsonManager(object):
         i_debug = 1
         if 1 == i_debug:
             return
-        '''
         # 等待线程池结束
         n1 = 0
         for thd in thds:
