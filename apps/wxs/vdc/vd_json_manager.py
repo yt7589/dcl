@@ -400,6 +400,8 @@ class VdJsonManager(object):
                         num += 1
                         ifds[num % txts_num].write('{0}\n'.format(full_fn))
                         print('idx={0}: {1}; {2};'.format(num % txts_num, full_fn, ifds[num % txts_num]))
+                        if num > 10:
+                        break
                         #if num % 1000 == 0:
                         #    print('获取到{0}个文件'.format(num))
         print('共有{0}个文件'.format(num))
