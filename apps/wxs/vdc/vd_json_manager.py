@@ -426,7 +426,7 @@ class VdJsonManager(object):
             line = line.strip()
             full_fn = line
             data = VdJsonManager.get_img_reid_feature_vector(full_fn)
-            psfx, cllxfl, clwz = VdJsonManager.parse_vd_json_data(data)
+            psfx, cllxfl, xlwz = VdJsonManager.parse_vd_json_data(data)
             if psfx is not None:
                 arrs_a = full_fn.split('/')
                 img_file = arrs_a[-1]
