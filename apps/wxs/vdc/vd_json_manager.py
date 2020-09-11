@@ -413,6 +413,9 @@ class VdJsonManager(object):
     def vd_cut_save_thd(params):
         print('vcs step 1')
         cut_img_head_folder = '/media/ps/My1/i900m_cutted'
+        cars = ['13', '14']
+        trucks = ['21', '22']
+        buss = ['11', '12']
         idx = params['idx']
         fd = VdJsonManager.s_ifds[idx]
         miss_images_fd = VdJsonManager.s_miss_images_fd
