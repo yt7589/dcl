@@ -349,7 +349,6 @@ class VdJsonManager(object):
         # 将图片文件列表均匀分给20个文本文件
         ifds = []
         thds = []
-        print('step 1')
         for idx in range(txts_num):
             fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'r', encoding='utf-8')
             ifds.append(fd)
@@ -373,10 +372,7 @@ class VdJsonManager(object):
             return
         '''
         # 等待线程池结束
-        n1 = 0
         for thd in thds:
-            n1 += 1
-            print('start {0}_th thread'.format(n1))
             thd.start()
         for thd in thds:
             thd.join()
@@ -407,7 +403,6 @@ class VdJsonManager(object):
         
     @staticmethod
     def vd_cut_save_thd(params):
-        print('vcs step 1')
         cut_img_head_folder = '/media/ps/My1/i900m_cutted'
         cars = ['13', '14']
         trucks = ['21', '22']
@@ -416,9 +411,7 @@ class VdJsonManager(object):
         fd = params['fd']
         miss_images_fd = params['miss_images_fd']
         efd = params['efd']
-        print('vcs step 2')
         for line in fd:
-            print('vcs step 3')
             line = line.strip()
             full_fn = line
             data = VdJsonManager.get_img_reid_feature_vector(full_fn)
@@ -447,9 +440,10 @@ class VdJsonManager(object):
                     cv2.imwrite(dst_cut_fn, croped_img)
                     VdJsonManager.s_lock.release()
                 except Exception as ex:
-                    print('##### Exception {0};'.format(ex))
+                    print('##### Exception {0};[{1}]'.format(ex, full_fn))
+                    efd.write('{0}\n'.format(full_fn))
                     VdJsonManager.s_lock.release()
-                if VdJsonManager.s_num % 1000 == 0:
+                if VdJsonManager.s_num % 100 == 0:
                     print('Thread_{0}: cut and save {1};'.format(idx, VdJsonManager.s_num))
             else:
                 efd.write('{0}\n'.format(full_fn))
@@ -463,19 +457,6 @@ class VdJsonManager(object):
         resp = requests.post(url, files=files, data = data)
         json_obj = json.loads(resp.text)
         return json_obj
-        '''
-        # .......
-        vehs = json_obj['VEH']
-        raw = []
-        for veh in vehs:
-            cllxfl = veh['CXTZ']['CLLXFL']
-            if cllxfl in ['11', '12', '13', '14', '21', '22']:
-                print('detected...')
-                vals = veh['CLTZXL'].split(',')
-                for val in vals:
-                    raw.append(float(val))
-        return np.array(raw)
-        '''
             
     @staticmethod
     def parse_vd_json_data(data):
