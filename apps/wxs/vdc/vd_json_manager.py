@@ -4,6 +4,7 @@
 # 下面。
 import os
 import json
+import requests
 from pathlib import Path
 import threading
 import cv2
