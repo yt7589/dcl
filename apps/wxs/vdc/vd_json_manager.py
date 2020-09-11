@@ -463,6 +463,8 @@ class VdJsonManager(object):
         files = {'TPWJ': (full_fn, open(full_fn, 'rb'))}
         resp = requests.post(url, files=files, data = data)
         json_obj = json.loads(resp.text)
+        return json_obj
+        '''
         # .......
         vehs = json_obj['VEH']
         raw = []
@@ -474,6 +476,7 @@ class VdJsonManager(object):
                 for val in vals:
                     raw.append(float(val))
         return np.array(raw)
+        '''
             
     @staticmethod
     def parse_vd_json_data(data):
