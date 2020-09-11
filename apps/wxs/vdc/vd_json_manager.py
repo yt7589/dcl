@@ -352,7 +352,7 @@ class VdJsonManager(object):
         print('step 1')
         for idx in range(txts_num):
             fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'w+', encoding='utf-8')
-            VdJsonManager.ifds.append(fd)
+            VdJsonManager.s_ifds.append(fd)
         # , 'fd': fd, 'efd': efd, 'miss_images_fd': miss_images_fd
         for idx in range(txts_num):
             params = params = {'idx': idx}
@@ -383,7 +383,7 @@ class VdJsonManager(object):
         for thd in thds:
             thd.join()
         # 关闭文件
-        for ifd in VdJsonManager.ifds:
+        for ifd in VdJsonManager.s_ifds:
             ifd.close()
         VdJsonManager.miss_images_fd.close()
         VdJsonManager.efd.close()
