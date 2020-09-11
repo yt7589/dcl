@@ -338,26 +338,21 @@ class VdJsonManager(object):
                     wfd.write('{0}:{1}\n'.format(k, v))
         return img_file_to_full_fn
         
-        
-    s_miss_images_fd = None
-    s_efd = None
-    s_ifds = []
     @staticmethod
     def run_vd_cut_save():
         print('利用Python程序完成整个切图流程')
         txts_num = 20
         VdJsonManager.s_num = 0
-        VdJsonManager.miss_images_fd = open('./support/m900_miss_images.txt', 'w+', encoding='utf-8')
-        VdJsonManager.efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
+        VdJsonManager.s_lock = threading.RLock()
+        miss_images_fd = open('./support/m900_miss_images.txt', 'w+', encoding='utf-8')
+        efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
         # 将图片文件列表均匀分给20个文本文件
         thds = []
         print('step 1')
         for idx in range(txts_num):
             fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'r', encoding='utf-8')
-            VdJsonManager.s_ifds.append(fd)
-        # , 'fd': fd, 'efd': efd, 'miss_images_fd': miss_images_fd
-        for idx in range(txts_num):
-            params = params = {'idx': idx}
+            ifds.append(fd)
+            params = params = {'idx': idx , 'fd': fd, 'efd': efd, 'miss_images_fd': miss_images_fd}
             print('idx={0}: {1};'.format(idx, len(VdJsonManager.s_ifds)))
             thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
             thds.append(thd)
@@ -417,9 +412,9 @@ class VdJsonManager(object):
         trucks = ['21', '22']
         buss = ['11', '12']
         idx = params['idx']
-        fd = VdJsonManager.s_ifds[idx]
-        miss_images_fd = VdJsonManager.s_miss_images_fd
-        efd = VdJsonManager.s_efd
+        fd = params['fd']
+        miss_images_fd = params['miss_images_fd']
+        efd = params['efd']
         print('vcs step 2')
         for line in fd:
             print('vcs step 3')
