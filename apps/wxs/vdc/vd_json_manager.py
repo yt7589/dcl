@@ -346,15 +346,18 @@ class VdJsonManager(object):
         efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
         # 将图片文件列表均匀分给20个文本文件
         ifds = []
+        '''
         thds = []
+        print('step 1')
         for idx in range(txts_num):
             fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'w+', encoding='utf-8')
             ifds.append(fd)
             params = params = {'idx': idx, 'fd': fd, 'efd': efd, 'miss_images_fd': miss_images_fd}
+            print('idx={0}: {1};'.format(idx, len(ifds)))
             thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
             thds.append(thd)
-        
         '''
+        
         for idx in range(txts_num):
             fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'w+', encoding='utf-8')
             ifds.append(fd)
@@ -367,9 +370,11 @@ class VdJsonManager(object):
         i_debug = 1
         if 1 == i_debug:
             return
-        '''
         # 等待线程池结束
+        n1 = 0
         for thd in thds:
+            n1 += 1
+            print('start {0}_th thread'.format(n1))
             thd.start()
         for thd in thds:
             thd.join()
@@ -394,18 +399,21 @@ class VdJsonManager(object):
                         #img_full_fns.append(full_fn)
                         num += 1
                         ifds[num % txts_num].write('{0}\n'.format(full_fn))
-                        if num % 1000 == 0:
-                            print('获取到{0}个文件'.format(num))
+                        print('idx={0}: {1}; {2};'.format(num % txts_num, full_fn, ifds[num % txts_num]))
+                        #if num % 1000 == 0:
+                        #    print('获取到{0}个文件'.format(num))
         print('共有{0}个文件'.format(num))
         return ifds
         
     @staticmethod
     def vd_cut_save_thd(params):
+        print('vcs step 1')
         cut_img_head_folder = '/media/ps/My1/i900m_cutted'
         idx = params['idx']
         fd = params['fd']
         miss_images_fd = params['miss_images_fd']
         efd = params['efd']
+        print('vcs step 2')
         for line in fd:
             line = line.strip()
             full_fn = line
