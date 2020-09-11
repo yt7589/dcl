@@ -347,13 +347,14 @@ class VdJsonManager(object):
         miss_images_fd = open('./support/m900_miss_images.txt', 'w+', encoding='utf-8')
         efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
         # 将图片文件列表均匀分给20个文本文件
+        ifds = []
         thds = []
         print('step 1')
         for idx in range(txts_num):
             fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'r', encoding='utf-8')
             ifds.append(fd)
             params = params = {'idx': idx , 'fd': fd, 'efd': efd, 'miss_images_fd': miss_images_fd}
-            print('idx={0}: {1};'.format(idx, len(VdJsonManager.s_ifds)))
+            print('idx={0}: {1};'.format(idx, len(ifds)))
             thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
             thds.append(thd)
         
