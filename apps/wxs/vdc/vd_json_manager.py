@@ -356,7 +356,7 @@ class VdJsonManager(object):
         # , 'fd': fd, 'efd': efd, 'miss_images_fd': miss_images_fd
         for idx in range(txts_num):
             params = params = {'idx': idx}
-            print('idx={0}: {1};'.format(idx, len(ifds)))
+            print('idx={0}: {1};'.format(idx, len(VdJsonManager.s_ifds)))
             thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
             thds.append(thd)
         
