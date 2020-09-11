@@ -346,7 +346,6 @@ class VdJsonManager(object):
         efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
         # 将图片文件列表均匀分给20个文本文件
         ifds = []
-        '''
         thds = []
         for idx in range(txts_num):
             fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'w+', encoding='utf-8')
@@ -354,9 +353,8 @@ class VdJsonManager(object):
             params = params = {'idx': idx, 'fd': fd, 'efd': efd, 'miss_images_fd': miss_images_fd}
             thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
             thds.append(thd)
+        
         '''
-        
-        
         for idx in range(txts_num):
             fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'w+', encoding='utf-8')
             ifds.append(fd)
@@ -369,6 +367,7 @@ class VdJsonManager(object):
         i_debug = 1
         if 1 == i_debug:
             return
+        '''
         # 等待线程池结束
         for thd in thds:
             thd.start()
