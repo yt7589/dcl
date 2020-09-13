@@ -434,7 +434,7 @@ class VdJsonManager(object):
             if img_file in cutted_image_set:
                 # 忽略已经完成切图的文件
                 VdJsonManager.s_num += 1
-                if VdJsonManager.snum % 1000 == 0:
+                if VdJsonManager.s_num % 1000 == 0:
                     print('已经处理完成{0}个文件'.format(VdJsonManager.s_num))
                 continue
             data = VdJsonManager.get_img_reid_feature_vector(full_fn)
