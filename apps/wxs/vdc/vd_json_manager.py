@@ -341,17 +341,16 @@ class VdJsonManager(object):
     @staticmethod
     def run_vd_cut_save():
         print('利用Python程序完成整个切图流程')
-        
+        # 统计已经完成切图的图片文件集合
+        ci_num = 0
         cutted_image_set = set()
         for root, dirs, files in os.walk('/media/ps/My1/i900m_cutted', topdown=False):
             for fn in files:
                 cutted_image_set.add(fn)
-        
-        print('已经切图数量：{0};'.format(len(cutted_image_set)))
-        i_debug = 1
-        if 1 == i_debug:
-            return
-            
+                ci_num += 1
+                if ci_num % 1000 == 0:
+                    print('统计完成切图文件：{0}个'.format(ci_num))
+        print('已经切图数量：{0};'.format(len(cutted_image_set)))            
         txts_num = 20
         VdJsonManager.s_num = 0
         VdJsonManager.s_lock = threading.RLock()
@@ -363,7 +362,11 @@ class VdJsonManager(object):
         for idx in range(txts_num):
             fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'r', encoding='utf-8')
             ifds.append(fd)
-            params = params = {'idx': idx , 'fd': fd, 'efd': efd, 'miss_images_fd': miss_images_fd}
+            params = params = {
+                'idx': idx , 'fd': fd, 'efd': efd, 
+                'miss_images_fd': miss_images_fd,
+                'cutted_image_set': cutted_image_set
+            }
             print('idx={0}: {1};'.format(idx, len(ifds)))
             thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
             thds.append(thd)
@@ -422,14 +425,21 @@ class VdJsonManager(object):
         fd = params['fd']
         miss_images_fd = params['miss_images_fd']
         efd = params['efd']
+        cutted_image_set = params['cutted_image_set']
         for line in fd:
             line = line.strip()
             full_fn = line
+            arrs_a = full_fn.split('/')
+            img_file = arrs_a[-1]
+            if img_file in cutted_image_set:
+                # 忽略已经完成切图的文件
+                VdJsonManager.s_num += 1
+                if VdJsonManager.snum % 1000 == 0:
+                    print('已经处理完成{0}个文件'.format(VdJsonManager.s_num))
+                continue
             data = VdJsonManager.get_img_reid_feature_vector(full_fn)
             psfx, cllxfl, xlwz = VdJsonManager.parse_vd_json_data(data)
             if psfx is not None:
-                arrs_a = full_fn.split('/')
-                img_file = arrs_a[-1]
                 head_tail = VdJsonManager.HTT_HEAD
                 if psfx == '2':
                     head_tail = VdJsonManager.HTT_TAIL
