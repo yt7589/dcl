@@ -342,10 +342,12 @@ class VdJsonManager(object):
     def run_vd_cut_save():
         print('利用Python程序完成整个切图流程')
         
+        cutted_image_set = set()
         for root, dirs, files in os.walk('/media/ps/My1/i900m_cutted', topdown=False):
             for fn in files:
-                print('file: {0};'.format('{0}/{1}'.format(root, fn)))
+                cutted_image_set.add(fn)
         
+        print('已经切图数量：{0};'.format(len(cutted_image_set)))
         i_debug = 1
         if 1 == i_debug:
             return
