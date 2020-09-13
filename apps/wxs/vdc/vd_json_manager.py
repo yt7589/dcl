@@ -341,6 +341,15 @@ class VdJsonManager(object):
     @staticmethod
     def run_vd_cut_save():
         print('利用Python程序完成整个切图流程')
+        
+        for root, dirs, files in os.walk('/media/ps/My1/i900m_cutted', topdown=False):
+            for fn in files:
+                print('file: {0};'.format('{0}/{1}'.format(root, fn)))
+        
+        i_debug = 1
+        if 1 == i_debug:
+            return
+            
         txts_num = 20
         VdJsonManager.s_num = 0
         VdJsonManager.s_lock = threading.RLock()
