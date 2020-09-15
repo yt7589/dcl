@@ -481,7 +481,7 @@ class VdJsonManager(object):
     @staticmethod
     def parse_vd_json_data(data):
         cllxfls = ['11', '12', '13', '14', '21', '22']
-        if len(data['VEH']) < 1:
+        if ('VEH' not in data) or len(data['VEH']) < 1:
             return None, None, None
         else:
             # 找到面积最大的检测框作为最终检测结果
