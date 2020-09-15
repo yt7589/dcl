@@ -391,7 +391,7 @@ class VdJsonManager(object):
         for thd in thds:
             thd.join()
         # 关闭文件
-        for ifd in VdJsonManager.s_ifds:
+        for ifd in VdJsonManager.ifds:
             ifd.close()
         VdJsonManager.miss_images_fd.close()
         VdJsonManager.efd.close()
