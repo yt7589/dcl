@@ -342,10 +342,10 @@ class VdJsonManager(object):
     def run_vd_cut_save():
         print('利用Python程序完成整个切图流程')
         
-        for idx in range(txts_num):
+        for idx in range(20):
             fd = open('./support/raw_{0:02d}.txt'.format(idx), 'w+', encoding='utf-8')
             ifds.append(fd)
-        VdJsonManager.get_image_full_fns_to_txts(txts_num, ifds)
+        VdJsonManager.get_image_full_fns_to_txts(20, ifds)
         
         for ifd in ifds:
             ifd.close()
