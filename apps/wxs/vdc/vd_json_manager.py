@@ -341,6 +341,17 @@ class VdJsonManager(object):
     @staticmethod
     def run_vd_cut_save():
         print('利用Python程序完成整个切图流程')
+        
+        for idx in range(txts_num):
+            fd = open('./support/raw_{0:02d}.txt'.format(idx), 'w+', encoding='utf-8')
+            ifds.append(fd)
+        VdJsonManager.get_image_full_fns_to_txts(txts_num, ifds)
+        
+        for ifd in ifds:
+            ifd.close()
+        i_debug = 1
+        if 1 == i_debug:
+            return
         # 统计已经完成切图的图片文件集合
         ci_num = 0
         cutted_image_set = set()
@@ -415,7 +426,7 @@ class VdJsonManager(object):
                             num += 1
                             ifds[num % txts_num].write('{0}\n'.format(full_fn))
                             if num % 1000 == 0:
-                                print('获取到{0}个文件'.format(num))
+                                print('进口车获取到{0}个文件'.format(num))
         print('共有{0}个文件'.format(num))
         '''
         # 国产车
