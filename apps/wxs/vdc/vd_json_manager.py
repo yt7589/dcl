@@ -341,18 +341,6 @@ class VdJsonManager(object):
     @staticmethod
     def run_vd_cut_save():
         print('利用Python程序完成整个切图流程')
-        
-        ifds0 = []
-        for idx in range(20):
-            fd = open('./support/raw_{0:02d}.txt'.format(idx), 'w+', encoding='utf-8')
-            ifds0.append(fd)
-        VdJsonManager.get_image_full_fns_to_txts(20, ifds0)
-        
-        for ifd in ifds0:
-            ifd.close()
-        i_debug = 1
-        if 1 == i_debug:
-            return
         # 统计已经完成切图的图片文件集合
         ci_num = 0
         cutted_image_set = set()
