@@ -3924,6 +3924,7 @@ function nextImg() {
                             print('去掉错误记录{0};'.format(img_file))
         src_ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds_091001.txt'
         dst_ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds_20200919.txt'
+        convert_ds_file(src_ds_file, dst_ds_file)
             
         
         
