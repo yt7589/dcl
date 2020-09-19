@@ -3895,6 +3895,21 @@ function nextImg() {
                         wfd.write('{0}\n'.format(line))
                     else:
                         print('删除：{0};'.format(img_file))
+                        
+    @staticmethod
+    def delete_wxs_error_20200919():
+        '''
+        从9月1日错误集中删除品牌错误和车尾的数据
+        '''
+        error_images = set()
+        with open('./logs/wxs_error_20200919.txt', 'r', encoding='utf-8') as efd:
+            for line in efd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                img_file = arrs_a[0]
+                error_images.add(img_file)
+        for ei in error_images:
+            print('### {0};'.format(ei))
         
         
         
