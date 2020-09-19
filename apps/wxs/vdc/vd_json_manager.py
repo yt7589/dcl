@@ -344,7 +344,7 @@ class VdJsonManager(object):
         # 统计已经完成切图的图片文件集合
         ci_num = 0
         cutted_image_set = set()
-        for root, dirs, files in os.walk('/media/ps/My1/i900m_cutted', topdown=False):
+        for root, dirs, files in os.walk('/media/ps/My/i900m_cutted', topdown=False):
         #for root, dirs, files in os.walk('/media/zjkj/work/yantao/zjkj/raw_cutted', topdown=False):
             for fn in files:
                 cutted_image_set.add(fn)
@@ -420,7 +420,7 @@ class VdJsonManager(object):
         print('共有{0}个文件'.format(num))
         '''
         # 国产车
-        base_path = Path('/media/ps/My1/总已完成')
+        base_path = Path('/media/ps/My/总已完成')
         #img_full_fns = []
         for sf1 in base_path.iterdir():
             for vc_obj in sf1.iterdir():
@@ -438,7 +438,7 @@ class VdJsonManager(object):
     @staticmethod
     def vd_cut_save_thd(params):
         #cut_img_head_folder = '/media/zjkj/work/yantao/zjkj/raw_cutted'
-        cut_img_head_folder = '/media/ps/My1/i900m_cutted'
+        cut_img_head_folder = '/media/ps/My/i900m_cutted'
         cars = ['13', '14']
         trucks = ['21', '22']
         buss = ['11', '12']
