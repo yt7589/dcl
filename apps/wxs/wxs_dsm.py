@@ -3908,9 +3908,23 @@ function nextImg() {
                 arrs_a = line.split('*')
                 img_file = arrs_a[0]
                 error_images.add(img_file)
-        for ei in error_images:
-            print('### {0};'.format(ei))
-        
+        # 生成新的训练集
+        def convert_ds_file(src_ds_file, dst_ds_file):
+            with open(dst_ds_file, 'w+', encoding='utf-8') as w_trfd:
+                with open(src_ds_file, 'r', encoding='utf-8') as r_trfd:
+                    for line in r_trfd:
+                        line = line.strip()
+                        arrs_a = line.split('*')
+                        full_fn = arrs_a[0]
+                        arrs_b = full_fn.split('/')
+                        img_file = arrs_b[-1]
+                        if img_file not in error_images:
+                            w_trfd.write('{0}\n'.format(line))
+                        else:
+                            print('去掉错误记录{0};'.format(img_file))
+        src_ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds_091001.txt'
+        dst_ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds_20200919.txt'
+            
         
         
         
