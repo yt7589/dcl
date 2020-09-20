@@ -249,7 +249,7 @@ if __name__ == '__main__':
     Config.use_dcl = False
     Config.use_backbone = True
     cudnn.benchmark = True
-    resume = './net_model/training_descibe_82916_CUB/weights_0_1999_0.9867_0.9981.pth'
+    resume = './net_model/training_descibe_91920_CUB/weights_0_5999_0.9268_0.9714.pth'
     model = MainModel(Config)
     model_dict=model.state_dict()
     pretrained_dict=torch.load(resume)
@@ -280,12 +280,12 @@ if __name__ == '__main__':
     else:
         fixbatch =  1
         dummy_input = torch.randn(fixbatch, 3, 224, 224, device='cuda')
-        onnx_file = f"dcl_v009_{fixbatch}.onnx"
+        onnx_file = f"dcl_v010_{fixbatch}.onnx"
         torch.onnx.export(model, dummy_input, onnx_file, verbose=True,
                          input_names=["data"], output_names=["brands", "bmys"], \
                             training=False, opset_version=9,
                             do_constant_folding=True)
-        print("export finished")
+        print("export finished 20200920001")
         # Load the ONNX model
         #model = onnx.load(onnx_file)
         # Check that the IR is well formed
