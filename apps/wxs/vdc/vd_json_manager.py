@@ -344,8 +344,8 @@ class VdJsonManager(object):
         # 统计已经完成切图的图片文件集合
         ci_num = 0
         cutted_image_set = set()
-        #for root, dirs, files in os.walk('/media/ps/My/i900m_cutted', topdown=False):
-        for root, dirs, files in os.walk('/media/zjkj/work/yantao/zjkj/raw_cutted', topdown=False):
+        for root, dirs, files in os.walk('/media/zjkj/work/yantao/zjkj/i900m_cutted', topdown=False):
+        #for root, dirs, files in os.walk('/media/zjkj/work/yantao/zjkj/raw_cutted', topdown=False):
             for fn in files:
                 cutted_image_set.add(fn)
                 ci_num += 1
@@ -355,16 +355,16 @@ class VdJsonManager(object):
         txts_num = 20
         VdJsonManager.s_num = 0
         VdJsonManager.s_lock = threading.RLock()
-        #miss_images_fd = open('./support/m900_miss_images.txt', 'w+', encoding='utf-8')
-        miss_images_fd = open('./support/raw_miss_images.txt', 'w+', encoding='utf-8')
-        #efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
-        efd = open('./support/raw_error.txt', 'w+', encoding='utf-8')
+        miss_images_fd = open('./support/m900_miss_images.txt', 'w+', encoding='utf-8')
+        #miss_images_fd = open('./support/raw_miss_images.txt', 'w+', encoding='utf-8')
+        efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
+        #efd = open('./support/raw_error.txt', 'w+', encoding='utf-8')
         # 将图片文件列表均匀分给20个文本文件
         ifds = []
         thds = []
         for idx in range(txts_num):
-            fd = open('./support/raw_{0:02d}.txt'.format(idx), 'r', encoding='utf-8')
-            #fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'w+', encoding='utf-8')
+            #fd = open('./support/raw_{0:02d}.txt'.format(idx), 'r', encoding='utf-8')
+            fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'w+', encoding='utf-8')
             ifds.append(fd)
             params = params = {
                 'idx': idx , 'fd': fd, 'efd': efd, 
@@ -437,8 +437,8 @@ class VdJsonManager(object):
         
     @staticmethod
     def vd_cut_save_thd(params):
-        cut_img_head_folder = '/media/zjkj/work/yantao/zjkj/raw_cutted'
-        #cut_img_head_folder = '/media/ps/My/i900m_cutted'
+        #cut_img_head_folder = '/media/zjkj/work/yantao/zjkj/raw_cutted'
+        cut_img_head_folder = '/media/zjkj/work/yantao/zjkj/i900m_cutted'
         cars = ['13', '14']
         trucks = ['21', '22']
         buss = ['11', '12']
