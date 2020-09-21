@@ -364,7 +364,7 @@ class VdJsonManager(object):
         thds = []
         for idx in range(txts_num):
             #fd = open('./support/raw_{0:02d}.txt'.format(idx), 'r', encoding='utf-8')
-            fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'w+', encoding='utf-8')
+            fd = open('./support/i900m_{0:02d}.txt'.format(idx), 'r', encoding='utf-8')
             ifds.append(fd)
             params = params = {
                 'idx': idx , 'fd': fd, 'efd': efd, 
