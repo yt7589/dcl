@@ -3934,7 +3934,7 @@ function nextImg() {
             for line in lfd:
                 line = line.strip()
                 arrs_a = line.split(',')
-                key = '{0},{1},{2}'.format(arrs_a[0], arrs_a[1], arrs_a[2]))
+                key = '{0},{1},{2}'.format(arrs_a[0], arrs_a[1], arrs_a[2])
                 cvl_dict[key] = val
                 val += 1
         print('val={0};'.format(val))
