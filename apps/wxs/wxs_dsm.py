@@ -3929,7 +3929,8 @@ function nextImg() {
         
     @staticmethod
     def add_old_wxs_brand_ds():
-        with open('./support/bmy_sim_org_dcit.txt', 'r', encoding='utf-8') as sofd:
+        bmy_sim_org_dict = {}
+        with open('./support/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as sofd:
             for line in sofd:
                 line = line.strip()
                 arrs_a = line.split(':')
