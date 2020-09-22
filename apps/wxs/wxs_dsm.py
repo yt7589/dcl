@@ -3939,6 +3939,7 @@ function nextImg() {
                 cvl_dict[key] = val
                 val += 1
         print('val={0};'.format(val))
+        num = 0
         with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds_090901.txt', 'r', encoding='utf-8') as rfd:
             for line in rfd:
                 line = line.strip()
@@ -3953,7 +3954,8 @@ function nextImg() {
                 year_name = year_raw.replace('-', '_')
                 key = '{0},{1},{2}'.format(brand_name, model_name, year_name)
                 if key not in cvl_dict:
-                    print('key={0}, {1};'.format(key, img_file))
+                    num += 1
+        print('num={0};'.format(num))
             
         
         
