@@ -25,13 +25,14 @@ class WxsApp(object):
     RM_RUN_VD_CUT_SAVE = 1017
     RM_DELETE_ERROR_SAMPLES = 1018
     RM_DELETE_WXS_ERROR_20200919 = 1019
+    RM_ADD_OLD_WXS_BRAND_DS = 1020
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_RUN_VD_CUT_SAVE
+        mode = WxsApp.RM_ADD_OLD_WXS_BRAND_DS
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -136,11 +137,15 @@ class WxsApp(object):
             从数据集中删除品牌分类错误的样本
             '''
             WxsDsm.delete_error_samples_main()
-        elif WxsApp.RM_DELETE_WXS_ERROR_20200919:
+        elif WxsApp.RM_DELETE_WXS_ERROR_20200919 == mode:
             '''
             从9月1日错误集中删除品牌错误和车尾的数据
             '''
             WxsDsm.delete_wxs_error_20200919()
+        elif WxsApp.RM_ADD_OLD_WXS_BRAND_DS == mode:
+            '''
+            '''
+            WxsDsm.add_old_wxs_brand_ds()
         else:
             WxsDsm.exp001()
             

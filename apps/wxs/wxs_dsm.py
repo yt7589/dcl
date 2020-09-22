@@ -3925,6 +3925,23 @@ function nextImg() {
         src_ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds_091001.txt'
         dst_ds_file = './datasets/CUB_200_2011/anno/bid_brand_test_ds_20200919.txt'
         convert_ds_file(src_ds_file, dst_ds_file)
+        
+        
+    @staticmethod
+    def add_old_wxs_brand_ds():
+        with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds_090901.txt', 'r', encoding='utf-8') as rfd:
+            for line in rfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                arrs_b = full_fu.split('/')
+                img_file = arrs_b[-1]
+                arrs_c = img_file.split('_')
+                brand_name = '{0}牌'.format(arrs_c[3])
+                model_name = arrs_c[4]
+                year_raw = arrs_c[5]
+                year_name = year_raw.replace('-', '_')
+                print('{0},{1},{2}'.format(brand_name, model_name, year_name)
             
         
         
