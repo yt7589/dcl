@@ -3934,7 +3934,7 @@ function nextImg() {
                 line = line.strip()
                 arrs_a = line.split('*')
                 full_fn = arrs_a[0]
-                arrs_b = full_fu.split('/')
+                arrs_b = full_fn.split('/')
                 img_file = arrs_b[-1]
                 arrs_c = img_file.split('_')
                 brand_name = '{0}牌'.format(arrs_c[3])
