@@ -3941,7 +3941,7 @@ function nextImg() {
                 model_name = arrs_c[4]
                 year_raw = arrs_c[5]
                 year_name = year_raw.replace('-', '_')
-                print('{0},{1},{2}'.format(brand_name, model_name, year_name)
+                print('{0},{1},{2}'.format(brand_name, model_name, year_name))
             
         
         
