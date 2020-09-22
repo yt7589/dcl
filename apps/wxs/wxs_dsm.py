@@ -742,8 +742,8 @@ class WxsDsm(object):
         bmy_set = set()
         sim_org_dict = {}
         org_sim_dict = {}
-        # raw_ds = '../../w1/raw_bid_train_ds.txt'
-        raw_ds = './support/new_bid_train_ds.txt'
+        raw_ds = '../../w1/raw_bid_train_ds.txt'
+        #raw_ds = './support/new_bid_train_ds.txt'
         with open(raw_ds, 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
