@@ -3929,16 +3929,21 @@ function nextImg() {
         
     @staticmethod
     def add_old_wxs_brand_ds():
-        max_bmy_id = -1
+        with open('./support/bmy_sim_org_dcit.txt', 'r', encoding='utf-8') as sofd:
+            for line in sofd:
+                line = line.strip()
+                arrs_a = line.split(':')
+                sim_bmy_id = int(arrs_a[0])
+                org_bmy_id = int(arrs_a[1])
+                bmy_sim_org_dict[sim_bmy_id] = org_bmy_id
         with open('./support/bid_train_ds.txt', 'r', encoding='utf-8') as bfd:
             for line in bfd:
                 line = line.strip()
                 arrs_a = line.split('*')
                 full_fn = arrs_a[0]
-                x_bmy_id = int(arrs_a[1])
-                if x_bmy_id > max_bmy_id:
-                    max_bmy_id = x_bmy_id
-        print('max_bmy_id: {0};'.format(max_bmy_id))
+                sim_bmy_id = int(arrs_a[1])
+                if sim_bmy_id not in bmy_sim_org_dict:
+                    print('Error!!!!!!!!!!!!!!!!!!!!!!!!! {0}; {1};'.format(sim_bmy_id, full_fn))
         i_debug = 1
         if 1 == i_debug:
             return
