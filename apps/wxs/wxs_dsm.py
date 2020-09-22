@@ -3930,6 +3930,7 @@ function nextImg() {
     @staticmethod
     def add_old_wxs_brand_ds():
         bmy_org_sim_dict = {}
+        num = 0
         with open('./support/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as osfd:
             for line in osfd:
                 line = line.strip()
@@ -3950,6 +3951,8 @@ function nextImg() {
                 brand_name = arrs_c[3]
                 if org_bmy_id not in bmy_org_sim_dict:
                     print('img_file: {0}; bmy_id: {1};'.format(img_file, org_bmy_id))
+                    num += 1
+        print('error num: {0}'.format(num))
         '''
         cvl_dict = {}
         val = 0
