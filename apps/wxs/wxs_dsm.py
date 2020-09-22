@@ -3929,6 +3929,7 @@ function nextImg() {
         
     @staticmethod
     def add_old_wxs_brand_ds():
+        bmy_org_sim_dict = {}
         with open('./support/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as osfd:
             for line in osfd:
                 line = line.strip()
