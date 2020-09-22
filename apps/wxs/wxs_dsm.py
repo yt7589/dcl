@@ -3929,6 +3929,27 @@ function nextImg() {
         
     @staticmethod
     def add_old_wxs_brand_ds():
+        with open('./support/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as osfd:
+            for line in osfd:
+                line = line.strip()
+                arrs_a = line.split(':')
+                org_bmy_id = int(arrs_a[0])
+                sim_bmy_id = int(arrs_a[1])
+                bmy_org_sim_dict[org_bmy_id] = sim_bmy_id
+        print('读入原始年款编号与精简年款编号字典...')
+        with open('./support/wxs_raw_ds_20200922.txt', 'r', encoding='utf-8') as xfd:
+            for line in xfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                full_fn = arrs_a[0]
+                org_bmy_id = int(arrs_a[1])
+                arrs_b = full_fn.split('/')
+                img_file = arrs_b[-1]
+                arrs_c = img_file.split('_')
+                brand_name = arrs_c[3]
+                if org_bmy_id not in bmy_org_sim_dict:
+                    print('img_file: {0}; bmy_id: {1};'.format(img_file, org_bmy_id))
+        '''
         cvl_dict = {}
         val = 0
         with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as lfd:
@@ -3956,6 +3977,7 @@ function nextImg() {
                 if key not in cvl_dict:
                     num += 1
         print('num={0};'.format(num))
+        '''
             
         
         
