@@ -3937,14 +3937,17 @@ function nextImg() {
                 sim_bmy_id = int(arrs_a[0])
                 org_bmy_id = int(arrs_a[1])
                 bmy_sim_org_dict[sim_bmy_id] = org_bmy_id
-        with open('./support/bid_train_ds.txt', 'r', encoding='utf-8') as bfd:
-            for line in bfd:
-                line = line.strip()
-                arrs_a = line.split('*')
-                full_fn = arrs_a[0]
-                sim_bmy_id = int(arrs_a[1])
-                if sim_bmy_id not in bmy_sim_org_dict:
-                    print('Error!!!!!!!!!!!!!!!!!!!!!!!!! {0}; {1};'.format(sim_bmy_id, full_fn))
+        with open('./support/raw_bid_train_ds.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./support/bid_train_ds.txt', 'r', encoding='utf-8') as bfd:
+                for line in bfd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    full_fn = arrs_a[0]
+                    sim_bmy_id = int(arrs_a[1])
+                    if sim_bmy_id not in bmy_sim_org_dict:
+                        print('Error!!!!!!!!!!!!!!!!!!!!!!!!! {0}; {1};'.format(sim_bmy_id, full_fn))
+                    org_bmy_id = bmy_sim_org_dict[sim_bmy_id]
+                    wfd.write('{0}*{1}\n'.format(full_fn, org_bmy_id))
         i_debug = 1
         if 1 == i_debug:
             return
