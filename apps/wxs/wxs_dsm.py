@@ -3929,6 +3929,7 @@ function nextImg() {
         
     @staticmethod
     def add_old_wxs_brand_ds():
+        cvl_dict = {}
         val = 0
         with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as lfd:
             for line in lfd:
