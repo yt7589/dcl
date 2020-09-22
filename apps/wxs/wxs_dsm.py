@@ -3929,6 +3929,15 @@ function nextImg() {
         
     @staticmethod
     def add_old_wxs_brand_ds():
+        val = 0
+        with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as lfd:
+            for line in lfd:
+                line = line.strip()
+                arrs_a = line.split(',')
+                key = '{0},{1},{2}'.format(arrs_a[0], arrs_a[1], arrs_a[2]))
+                cvl_dict[key] = val
+                val += 1
+        print('val={0};'.format(val))
         with open('./datasets/CUB_200_2011/anno/bid_brand_train_ds_090901.txt', 'r', encoding='utf-8') as rfd:
             for line in rfd:
                 line = line.strip()
