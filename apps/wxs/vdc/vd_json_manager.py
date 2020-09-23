@@ -534,7 +534,7 @@ class VdJsonManager(object):
         with open('./support/es20200923_images.txt', 'w+', encoding='utf-8') as wfd:
             for file_obj in base_path.iterdir():
                 full_fn = str(file_obj)
-                wfd.write('full_fn: ./{0}\n'.format(full_fn))
+                wfd.write('./{0}\n'.format(full_fn))
         i_debug = 1
         if 1 == i_debug:
             return
