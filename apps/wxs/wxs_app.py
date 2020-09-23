@@ -146,6 +146,11 @@ class WxsApp(object):
             '''
             '''
             WxsDsm.add_old_wxs_brand_ds()
+        elif WxsApp.RM_GENERATE_FDS_SAMPLES == mode:
+            '''
+            生成全量数据集样本集，作为训练样本集
+            '''
+            WxsDsm.generate_fds_samples()
         else:
             WxsDsm.exp001()
             

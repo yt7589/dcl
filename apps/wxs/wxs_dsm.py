@@ -4004,6 +4004,88 @@ function nextImg() {
                     num += 1
         print('num={0};'.format(num))
         '''
+        
+    @staticmethod
+    def generate_fds_samples():
+        '''
+        生成539万进口车和900万国产车图片形成的全量数据集样本集
+        '''
+        print('生成全量数据集样本集...')
+        def process_image_folder(folder_name, oprr_num, vin_bmy_id_dict, 
+                    bmy_id_bmy_name_dict, brand_set, sfd, efd):
+            for root, dirs, files in os.walk(folder_name, topdown=False):
+                for fn in files:
+                    if fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
+                        full_fn = '{0}/{1}'.format(root, fn)
+                        oprr_num = WxsDsm.process_one_sample_image(
+                            oprr_num, vin_bmy_id_dict, 
+                            bmy_id_bmy_name_dict, brand_set, 
+                            full_fn, sfd, efd
+                        )
+            return oprr_num
+        vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
+        brand_set = set()
+        oprr_num = 0
+        with open('./support/samples_v002.txt', 'w+', encoding='utf-8') \
+                        as sfd:
+            with open('./support/error_vins.txt', 'w+', encoding='utf-8') \
+                            as efd:
+                # 进口车目录
+                import_folder = './support/fds/import'
+                oprr_num = process_image_folder(
+                    import_folder, oprr_num, 
+                    vin_bmy_id_dict, 
+                    bmy_id_bmy_name_dict, brand_set,
+                    sfd, efd
+                )
+                # 国产车已处理
+                domestic_folder = './support/fds/domestic'
+                oprr_num = process_image_folder(
+                    domestic_folder, oprr_num, 
+                    vin_bmy_id_dict, 
+                    bmy_id_bmy_name_dict, brand_set,
+                    sfd, efd
+                )
+        print('已经处理品牌数：{0};'.format(len(brand_set)))
+        
+        
+
+    @staticmethod
+    def process_one_sample_image(oprr_num, vin_bmy_id_dict, 
+                bmy_id_bmy_name_dict, brand_set, sub_file, sfd, efd):
+        '''
+        对每个图片进行处理（不包括所里原来的品牌测试集图片）
+        '''
+        arrs0 = sub_file.split('/')
+        filename = arrs0[-1]
+        arrs1 = filename.split('_')
+        raw_vin_code = arrs1[0]
+        arrs2 = raw_vin_code.split('#')
+        vin_code = arrs2[0]
+        if vin_code in vin_bmy_id_dict:
+            bmy_id = vin_bmy_id_dict[vin_code]
+        else:
+            vin_had_bmy_id = False
+            for k, _ in vin_bmy_id_dict.items():
+                if k.startswith(vin_code):
+                    bmy_id = vin_bmy_id_dict[k]
+                    vin_had_bmy_id = True
+                    break
+            if not vin_had_bmy_id:
+                bmy_id = -1
+                if vin_code != '白' and vin_code != '夜':
+                    efd.write('{0}\n'.format(vin_code))
+        if bmy_id > 0:
+            sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
+            bmy_name = bmy_id_bmy_name_dict[bmy_id]
+            arrsn = bmy_name.split('-')
+            brand_name = arrsn[0]
+            brand_set.add(brand_name)
+        oprr_num += 1
+        if oprr_num % 1000 == 0:
+            print('处理{0}条记录...'.format(oprr_num))
+        return oprr_num
             
         
         
