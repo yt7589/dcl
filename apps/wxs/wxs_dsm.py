@@ -269,9 +269,9 @@ class WxsDsm(object):
         oprr_num = 0
         with open('./logs/conflicts.txt', 'w+', encoding='utf-8') \
                         as WxsDsm.g_cfd:
-            with open('../../w1/samples_v001.txt', 'w+', encoding='utf-8') \
+            with open('./support/samples_v001.txt', 'w+', encoding='utf-8') \
                             as sfd:
-                with open('../../w1/error_vins.txt', 'w+', encoding='utf-8') \
+                with open('./support/error_vins.txt', 'w+', encoding='utf-8') \
                                 as efd:
                     # 进口车目录
                     folder_name = '/media/zjkj/work/fgvc_dataset/raw'
@@ -378,8 +378,8 @@ class WxsDsm(object):
         WxsDsm.g_vin_bmy_id_dict = CBmy.get_vin_bmy_id_dict()
         WxsDsm.g_brand_set = set()
         with open('./logs/conflicts.txt', 'w+', encoding='utf-8') as WxsDsm.g_cfd:
-            with open('../../w1/samples.txt', 'w+', encoding='utf-8') as sfd:
-                with open('../../w1/error_vins.txt', 'w+', encoding='utf-8') as efd:
+            with open('./support/samples.txt', 'w+', encoding='utf-8') as sfd:
+                with open('./support/error_vins.txt', 'w+', encoding='utf-8') as efd:
                     # 进口车目录
                     folder_name = '/media/zjkj/work/fgvc_dataset/raw'
                     base_path = Path(folder_name)
@@ -435,8 +435,8 @@ class WxsDsm(object):
         #vins = CBmy.get_vin_codes()
         vins = CBmy.get_wxs_vins()
         vin_samples_dict = WxsDsm.get_vin_samples_dict()
-        with open('../../w1/raw_bid_train_ds.txt', 'w+', encoding='utf-8') as train_fd:
-            with open('../../w1/raw_bid_test_ds.txt', 'w+', encoding='utf-8') as test_fd:
+        with open('./support/raw_bid_train_ds.txt', 'w+', encoding='utf-8') as train_fd:
+            with open('./support/raw_bid_test_ds.txt', 'w+', encoding='utf-8') as test_fd:
                 for vin in vins:
                     print('处理：{0} <=> {1};'.format(vin['vin_id'], vin['vin_code']))
                     if vin['vin_code'] in vin_samples_dict:
@@ -461,7 +461,7 @@ class WxsDsm(object):
         bmy_id_vin_dict = CBmy.get_bmy_id_vin_dict()
         vin_samples_dict = {}
         samples = []
-        with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:
+        with open('./support/samples.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
                 arrs = line.split('*')
@@ -819,7 +819,7 @@ class WxsDsm(object):
         '''
         fgvc_id_brand_dict = {}
         fgvc_id = 0
-        with open('../../w1/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as fd:
+        with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
                 arrs0 = line.split(',')
@@ -891,8 +891,8 @@ class WxsDsm(object):
         brand_num_train = WxsDsm.convert_to_brand_ds('./support/bid_train_ds.txt', 
                     './support/bid_brand_train_ds.txt', 
                     is_create_brands_dict=True)
-        #brand_num_test = WxsDsm.convert_to_brand_ds('../../w1/bid_test_ds.txt', 
-         #           '../../w1/bid_brand_test_ds.txt', 
+        #brand_num_test = WxsDsm.convert_to_brand_ds('./support/bid_test_ds.txt', 
+         #           './support/bid_brand_test_ds.txt', 
          #           is_create_brands_dict=False)
         brand_num_test = 0
         print('品牌种类：train={0} & test={1};'.format(brand_num_train, brand_num_test))
@@ -1241,7 +1241,7 @@ class WxsDsm(object):
         # 品牌车型年款为主时使用
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         bmy_sim_org_dict = {}
-        with open('../../w1/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as sofd:
+        with open('./support/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as sofd:
             for line in sofd:
                 line = line.strip()
                 arrs0 = line.split(':')
@@ -1453,7 +1453,7 @@ function nextImg() {
     def exp001_1():
         bmy_set = set()
         num = 0
-        with open('../../w1/bid_train_ds.txt', 'r', encoding='utf-8') as sfd:
+        with open('./support/bid_train_ds.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
                 arrs0 = line.split('*')
@@ -1465,7 +1465,7 @@ function nextImg() {
         print('共有{0}个年款'.format(len(bmy_set)))
         bmy_id_brand_id_dict = CBmy.get_bmy_id_brand_id_dict()
         bmy_sim_org_dict = {}
-        with open('../../w1/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as sofd:
+        with open('./support/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as sofd:
             for line in sofd:
                 line = line.strip()
                 arrs0 = line.split(':')
@@ -1482,18 +1482,18 @@ function nextImg() {
         print('共有{0}品牌'.format(len(brand_set)))
         blst = list(brand_set)
         blst.sort()
-        with open('../../w1/b1.txt', 'w+', encoding='utf-8') as b1fd:
+        with open('./support/b1.txt', 'w+', encoding='utf-8') as b1fd:
             for idx, bl in enumerate(blst):
                 print('{0}: {1};'.format(idx, bl))
                 b1fd.write('{0}: {1}\n'.format(idx, bl))
         b2 = []
-        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as fd1:
+        with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as fd1:
             for line in fd1:
                 line = line.strip()
                 arrs0 = line.split(':')
                 b2.append(arrs0[1])
         b2.sort()
-        with open('../../w1/b2.txt', 'w+', encoding='utf-8') as b2fd:
+        with open('./support/b2.txt', 'w+', encoding='utf-8') as b2fd:
             for idx, b2i in enumerate(b2):
                 print('### {0}: {1};'.format(idx, b2i))
                 b2fd.write('{0}: {1}\n'.format(idx, b2i))
@@ -1548,7 +1548,7 @@ function nextImg() {
         bm_name_code_dict = {}
         bmy_set = set()
         bmy_name_code_dict = {}
-        with open('../../w1/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
+        with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
             for line in cfd:
                 line = line.strip()
                 arrs0 = line.split(',')
@@ -1621,7 +1621,7 @@ function nextImg() {
         brand_id_brand_name_dict = {}
         brand_name_brand_id_dict = {}
         error_num = 0
-        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+        with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
             for line in bfd:
                 line = line.strip()
                 arrs0 = line.split(':')
@@ -1720,7 +1720,7 @@ function nextImg() {
         missing_num = 0
         missing_vins = []
         # 从samples.txt中读出文件名
-        with open('../../w1/samples.txt', 'r', encoding='utf-8') as sfd:
+        with open('./support/samples.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
                 arrs0 = line.split('*')
@@ -1743,7 +1743,7 @@ function nextImg() {
             vin_code = arrs0[-1]
             new_vin_folder_dict[vin_code] = path_str
         # 处理每个车辆识别码
-        with open('../../w1/to_be_processed_vins.csv', 'w+', encoding='utf-8') as vfd:
+        with open('./support/to_be_processed_vins.csv', 'w+', encoding='utf-8') as vfd:
             for vin in vins:
                 print(vin)
                 bmy_id = int(vin['bmy_id'])
@@ -1777,7 +1777,7 @@ function nextImg() {
         '''
         num = 0
         base_path = Path('/media/zjkj/work/品牌')
-        with open('../../w1/wxs_tds_images.csv', 'w+', encoding='utf-8') as tfd:
+        with open('./support/wxs_tds_images.csv', 'w+', encoding='utf-8') as tfd:
             for path_obj in base_path.iterdir():
                 for file_obj in path_obj.iterdir():
                     full_fn = str(file_obj)
@@ -1829,16 +1829,16 @@ function nextImg() {
         print('共有{0}个车辆识别码，其中{1}个为空；精确匹配{2}个，模糊匹配{3}个'\
             .format(len(vins), len(empty_wxs_vins), accurate_match_num, fuzzy_match_num))
         sorted_vid = sorted(wxs_vin_imgs_dict.items(), key=lambda x: x[1])
-        with open('../../w1/wxs_vin_imgs.txt', 'w+', encoding='utf-8') as wfd:
+        with open('./support/wxs_vin_imgs.txt', 'w+', encoding='utf-8') as wfd:
             for vid in sorted_vid:
                 wfd.write('{0}:{1}\n'.format(vid[0], vid[1]))
-        with open('../../w1/wxs_empty_vins.txt', 'w+', encoding='utf-8') as efd:
+        with open('./support/wxs_empty_vins.txt', 'w+', encoding='utf-8') as efd:
             for vi in empty_wxs_vins:
                 efd.write('{0}\n'.format(vi))
 
     @staticmethod
     def get_vin_img_num_dict():
-        dict_file = '../../w1/vin_img_num_dict.txt'
+        dict_file = './support/vin_img_num_dict.txt'
         vin_img_num_dict = {}
         if not os.path.exists(dict_file):
             # 统计进口车车辆识别码和图片数量
@@ -1911,7 +1911,7 @@ function nextImg() {
         获取无锡所品牌列表
         '''
         brands = CBrand.get_wxs_brands()
-        with open('../../w1/wxs_brands.csv', 'w+', encoding='utf-8') as bfd:
+        with open('./support/wxs_brands.csv', 'w+', encoding='utf-8') as bfd:
             for vo in brands:
                 bfd.write('{0},{1},{2}\n'.format(vo['brand_id'], vo['brand_name'], vo['brand_code']))
 
@@ -1925,9 +1925,9 @@ function nextImg() {
         bm_set = set()
         bmy_set = set()
         num = 0
-        #sample_file = '../../w1/samples.txt'
-        #sample_file = '../../w1/raw_bid_train_ds.txt'
-        sample_file = '../../w1/raw_bid_train_ds.txt'
+        #sample_file = './support/samples.txt'
+        #sample_file = './support/raw_bid_train_ds.txt'
+        sample_file = './support/raw_bid_train_ds.txt'
         with open(sample_file, 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
@@ -1948,7 +1948,7 @@ function nextImg() {
         实现先预测出品牌类别，然后从年款头中除该品牌对应的年款索引外的其他
         类别全部清零，将年款头的内容输出作为输出
         '''
-        # 列出年款文件../../w1/cambricon_vehicle_label.txt内容
+        # 列出年款文件./support/cambricon_vehicle_label.txt内容
         id_bmy_dict = {}
         row = 0
         with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
@@ -1995,7 +1995,7 @@ function nextImg() {
         求出无锡所测试集品牌与当前涉及的171个品牌的不同
         '''
         brand_name_idx_dict = {}
-        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+        with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
             for line in bfd:
                 line = line.strip()
                 arrs0 = line.split(':')
@@ -2010,7 +2010,7 @@ function nextImg() {
         brand_id_set1 = set()
         brand_id_set2 = set()
         brand_id_ok_set = set()
-        with open('../../w1/wxs_test_dataset_brands.csv', 'r', encoding='utf-8') as afd:
+        with open('./support/wxs_test_dataset_brands.csv', 'r', encoding='utf-8') as afd:
             for line in afd:
                 line = line.strip()
                 arrs0 = line.split(',')
@@ -2080,8 +2080,8 @@ function nextImg() {
                             )
                             img_ok_set.add(img_file)
                             print('add {0} to set'.format(img_file))
-        with open('../../w1/wxs_test_dataset_brands_error.csv', 'w+', encoding='utf-8') as wfd:
-            with open('../../w1/wxs_test_dataset_brands.csv', 'r', encoding='utf-8') as afd:
+        with open('./support/wxs_test_dataset_brands_error.csv', 'w+', encoding='utf-8') as wfd:
+            with open('./support/wxs_test_dataset_brands.csv', 'r', encoding='utf-8') as afd:
                 for line in afd:
                     line = line.strip()
                     arrs0 = line.split(',')
@@ -2121,7 +2121,7 @@ function nextImg() {
                             tds_img_dict[img_file_key] = full_fn
         # 生成现有171个品牌的品牌名称到索引号的字典
         brand_name_brand_idx_dict = {}
-        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+        with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
             for line in bfd:
                 line = line.strip()
                 arrs0 = line.split(':')
@@ -2131,8 +2131,8 @@ function nextImg() {
         total = 0
         num_brand_in_wxs = 0
         num_brand_in_dcl = 0
-        with open('../../w1/wxs_brands_ds.txt', 'w+', encoding='utf-8') as wfd:
-            with open('../../w1/wxs_test_dataset_brands_error.csv', 'r', encoding='utf-8') as tfd:
+        with open('./support/wxs_brands_ds.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./support/wxs_test_dataset_brands_error.csv', 'r', encoding='utf-8') as tfd:
                 wxs_brand_id_brand_name_dict = CBrand.get_wxs_brand_id_brand_name_dict()
                 for line in tfd:
                     total += 1
@@ -2350,7 +2350,7 @@ function nextImg() {
                     'status': arrs0[2],
                     'notes': arrs0[3]
                 }
-        with open('../../w1/zhangcan_new.csv', 'w+', encoding='utf-8') as wfd:
+        with open('./support/zhangcan_new.csv', 'w+', encoding='utf-8') as wfd:
             with open('./logs/wxs_tds_images.csv', 'r', encoding='utf-8') as ifd:
                 for line in ifd:
                     line = line.strip()
@@ -2480,7 +2480,7 @@ function nextImg() {
                     print('未包括文件：{0};'.format(full_fn))
                     missing_files.append(full_fn)
         print('缺失文件数为：{0}个；共{1}个文件；真实数量为{2}个;'.format(len(missing_files), ts_num, len(ts_set)))
-        with open('../../w1/missing_files.txt', 'w+', encoding='utf-8') as mfd:
+        with open('./support/missing_files.txt', 'w+', encoding='utf-8') as mfd:
             for fn in missing_files:
                 mfd.write('{0}\n'.format(fn))
 
@@ -2559,7 +2559,7 @@ function nextImg() {
         })
         print('共处理{0}个文件，其中失败文件数为{1}个'.format(num + bad_num, bad_num))
         bad_imgs_txt = '/home/zjkj/client1.8/work/bad_images.txt'
-        #bad_imgs_txt = '../../w1/random_tds_bad_imgs.txt'
+        #bad_imgs_txt = './support/random_tds_bad_imgs.txt'
         with open(bad_imgs_txt, 'w+', encoding='utf-8') as bfd:
             for bi in bad_img_files:
                 bfd.write('{0}\n'.format(bi))
@@ -2607,19 +2607,19 @@ function nextImg() {
         print('从数据集文件获取图片文件名和全路径文件名字典')
         '''
         finished_imgs = WxsDsm.get_cut_finished_imgs()
-        with open('../../w1/finished_imgs.txt', 'w+', encoding='utf-8') as ffd:
+        with open('./support/finished_imgs.txt', 'w+', encoding='utf-8') as ffd:
             for fi in finished_imgs:
                 ffd.write('{0}\n'.format(fi))
         '''
         finished_imgs = set()
-        with open('../../w1/finished_imgs.txt', 'r', encoding='utf-8') as ffd:
+        with open('./support/finished_imgs.txt', 'r', encoding='utf-8') as ffd:
             for line in ffd:
                 line = line.strip()
                 finished_imgs.add(line)
         print('求出已经完成切图的文件列表 v0.0.1')
         json_path = Path('/media/zjkj/work/yantao/zjkj/t003')
         json_files = [] #WxsDsm.get_cut_json_files(json_path)
-        with open('../../w1/detect_json_files.txt', 'r', encoding='utf-8') as jfd:
+        with open('./support/detect_json_files.txt', 'r', encoding='utf-8') as jfd:
             for line in jfd:
                 line = line.strip()
                 json_files.append(line)
@@ -2659,8 +2659,8 @@ function nextImg() {
                 img_file_full_fn_dict[img_file] = full_fn
         print('生成文件名到全路径文件名字典')
         # 拷贝文件
-        # bad_imgs_txt = '../../w1/random_tds_bad_imgs.txt'
-        bad_imgs_txt = '../../w1/train_bad_imgs.txt'
+        # bad_imgs_txt = './support/random_tds_bad_imgs.txt'
+        bad_imgs_txt = './support/train_bad_imgs.txt'
         # dst_folder = '/media/zjkj/work/yantao/zjkj/work/random_tds_bad_images'
         dst_folder = '/media/zjkj/work/yantao/zjkj/work/train_ds_bad_images'
         with open(bad_imgs_txt, 'r', encoding='utf-8') as bfd:
@@ -2886,13 +2886,13 @@ function nextImg() {
         获取bmy_id（年款头输出）与车型值对象的字典
         '''
         #bmy_id_model_vo_dict = CBmy.get_bmy_id_bm_vo_dict()
-        #np.save('../../w1/bmy_bm.npy', bmy_id_model_vo_dict)
-        return np.load('../../w1/bmy_bm.npy', allow_pickle=True).item()
+        #np.save('./support/bmy_bm.npy', bmy_id_model_vo_dict)
+        return np.load('./support/bmy_bm.npy', allow_pickle=True).item()
 
     @staticmethod
     def get_bmy_sim_org_dict():
         bmy_sim_org_dict = {}
-        with open('../../w1/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as bfd:
+        with open('./support/bmy_sim_org_dict.txt', 'r', encoding='utf-8') as bfd:
             for line in bfd:
                 line = line.strip()
                 arrs_a = line.split(':')
@@ -2919,7 +2919,7 @@ function nextImg() {
                     num += 1
         print('共有{0}个文件'.format(num))
         img_file_bmy_id_dict = {}
-        with open('../../w1/wxs_tds_bmy.csv', 'r', encoding='utf-8') as tfd:
+        with open('./support/wxs_tds_bmy.csv', 'r', encoding='utf-8') as tfd:
             for line in tfd:
                 line = line.strip()
                 arrs_a = line.split(',')
@@ -2931,7 +2931,7 @@ function nextImg() {
                     org_bmy_id = -1
                 img_file_bmy_id_dict[img_file] = org_bmy_id
         missed_num = 0
-        with open('../../w1/wxs_tds_v2.txt', 'w+', encoding='utf-8') as wfd:
+        with open('./support/wxs_tds_v2.txt', 'w+', encoding='utf-8') as wfd:
             for k, v in img_file_full_fn_dict.items():
                 img_file = k
                 full_fn = v
@@ -2948,7 +2948,7 @@ function nextImg() {
         '''
         # 读入图片文件名与年款编号的对应关系字典
         img_file_2_org_bmy_id_dict = {}
-        with open('../../w1/raw_bid_train_ds.txt', 'r', encoding='utf-8') as rfd:
+        with open('./support/raw_bid_train_ds.txt', 'r', encoding='utf-8') as rfd:
             for line in rfd:
                 line = line.strip()
                 arrs_a = line.split('*')
@@ -2973,7 +2973,7 @@ function nextImg() {
                 })
         print('读入切过图的训练集图片文件，并生成原始训练集...')
         # 读入无锡所切图过的测试原始数据集
-        with open('../../w1/wxs_tds_v2.txt', 'r', encoding='utf-8') as afd:
+        with open('./support/wxs_tds_v2.txt', 'r', encoding='utf-8') as afd:
             for line in afd:
                 line = line.strip()
                 arrs_a = line.split('*')
@@ -2985,7 +2985,7 @@ function nextImg() {
                 })
         print('将无锡所测试集加入训练集')
         # 将所有内容写入到原始数据集文件中
-        with open('../../w1/raw_bid_train_ds_v001.txt', 'w+', encoding='utf-8') as wfd:
+        with open('./support/raw_bid_train_ds_v001.txt', 'w+', encoding='utf-8') as wfd:
             for sample in samples:
                 wfd.write('{0}*{1}\n'.format(sample['img_full_fn'], sample['org_bmy_id']))
 
@@ -2996,7 +2996,7 @@ function nextImg() {
         '''
         # 找出已经标注过年款的图片文件名
         img_file_has_bmy_set = set()
-        with open('../../w1/wxs_tds_bmy.csv', 'r', encoding='utf-8') as cfd:
+        with open('./support/wxs_tds_bmy.csv', 'r', encoding='utf-8') as cfd:
             for line in cfd:
                 line = line.strip()
                 arrs_a = line.split(',')
@@ -3060,7 +3060,7 @@ function nextImg() {
                 for file_obj in sub_obj.iterdir():
                     process_vin_image(file_obj)
         print('生成VIN与图片列表关系字典 v0.0.1')
-        with open('../../w1/vin_code_2_images_dict.txt', 'wb') as vcfd:
+        with open('./support/vin_code_2_images_dict.txt', 'wb') as vcfd:
             pickle.dump(vin_code_2_images_dict, vcfd)
         # 获取无锡所品牌车型年款列表
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
@@ -3113,8 +3113,8 @@ function nextImg() {
                 arrs_a = line.split('*')
                 full_fn = arrs_a[0]
                 rectify_dict[full_fn] = arrs_a[1]
-        with open('../../w1/raw_bid_train_ds_v001.txt', 'w+', encoding='utf-8') as wfd:
-            with open('../../w1/raw_bid_train_ds_v001_bk.txt', 'r', encoding='utf-8') as rfd:
+        with open('./support/raw_bid_train_ds_v001.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./support/raw_bid_train_ds_v001_bk.txt', 'r', encoding='utf-8') as rfd:
                 for line in rfd:
                     line = line.strip()
                     arrs_a = line.split('*')
@@ -3132,7 +3132,7 @@ function nextImg() {
         错误则写上新年款编号 2020-08-16
         '''
         bid_brands_dict = {}
-        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+        with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
             for line in bfd:
                 line = line.strip()
                 arrs_a = line.split(':')
@@ -3180,14 +3180,14 @@ function nextImg() {
         '''
         # 读取品牌名称到品牌索引号列表
         brand_dict = {}
-        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as fd:
+        with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as fd:
             for line in fd:
                 line = line.strip()
                 arrs_a = line.split(':')
                 brand_dict[arrs_a[1]] = arrs_a[0]
         # 读取org_bmy_id到sim_bmy_id对应表
         bmy_org_sim_dict = {}
-        with open('../../w1/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as osfd:
+        with open('./support/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as osfd:
             for line in osfd:
                 line = line.strip()
                 arrs_a = line.split(':')
@@ -3212,8 +3212,8 @@ function nextImg() {
                 print('{0}, {1}, {2}, {3}, {4};'.format(
                     img_file, anno_bn, dcl_bn, bmy_name, bmy_name_dst
                 ))
-        with open('../../w1/raw_bid_train_ds_v001.txt', 'w+', encoding='utf-8') as wfd:
-            with open('../../w1/raw_bid_train_ds_v000.txt', 'r', encoding='utf-8') as ofd:
+        with open('./support/raw_bid_train_ds_v001.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./support/raw_bid_train_ds_v000.txt', 'r', encoding='utf-8') as ofd:
                 for line in ofd:
                     line = line.strip()
                     arrs_a = line.split('*')
@@ -3328,7 +3328,7 @@ function nextImg() {
         file_id = 0
         idx = 1
         files = []
-        with open('../../w1/samples_v001.txt', 'r', encoding='utf-8') as sfd:
+        with open('./support/samples_v001.txt', 'r', encoding='utf-8') as sfd:
             for line in sfd:
                 line = line.strip()
                 arrs_a = line.split('*')
@@ -3337,7 +3337,7 @@ function nextImg() {
                 files.append(full_fn)
                 if idx % 100000 == 0:
                     # 保存入一个新文件
-                    sample_fn = '../../w1/raw_sample_{0:05d}.txt'.format(file_id)
+                    sample_fn = './support/raw_sample_{0:05d}.txt'.format(file_id)
                     with open(sample_fn, 'w+', encoding='utf-8') as nfd:
                         for ff in files:
                             nfd.write('{0}\n'.format(ff))
@@ -3346,7 +3346,7 @@ function nextImg() {
                 if idx % 1000 == 0:
                     print('读取{0}个样本'.format(idx))
                 idx += 1
-        sample_fn = '../../w1/raw_sample_{0:05d}.txt'.format(file_id)
+        sample_fn = './support/raw_sample_{0:05d}.txt'.format(file_id)
         with open(sample_fn, 'w+', encoding='utf-8') as nfd:
             for ff in files:
                 nfd.write('{0}\n'.format(ff))
@@ -3490,8 +3490,8 @@ function nextImg() {
                 print('{0}*{1};'.format(img_file, org_bmy_id))
                 img_file_to_result_dict[img_file] = org_bmy_id
         num = 0
-        with open('../../w1/raw_bid_train_ds_v002.txt', 'w+', encoding='utf-8') as wfd:
-            with open('../../w1/raw_bid_train_ds_v001.txt', 'r', encoding='utf-8') as rfd:
+        with open('./support/raw_bid_train_ds_v002.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./support/raw_bid_train_ds_v001.txt', 'r', encoding='utf-8') as rfd:
                 for line in rfd:
                     line = line.strip()
                     arrs_a = line.split('*')
@@ -3521,8 +3521,8 @@ function nextImg() {
                 img_file = arrs_a[1]
                 img_file_set.add(img_file)
         num = 1
-        with open('../../w1/bid_brand_train_ds.txt', 'w+', encoding='utf-8') as wfd:
-            with open('../../w1/bid_brand_train_ds_temp.txt', 'r', encoding='utf-8') as tfd:
+        with open('./support/bid_brand_train_ds.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./support/bid_brand_train_ds_temp.txt', 'r', encoding='utf-8') as tfd:
                 for line in tfd:
                     line = line.strip()
                     arrs_a = line.split('*')
@@ -3544,7 +3544,7 @@ function nextImg() {
         求出无锡所测试集图片与品牌名称对应关系
         '''
         brand_idx_to_brand_name_dict = {}
-        with open('../../w1/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+        with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
             for line in bfd:
                 line = line.strip()
                 arrs_a = line.split(':')
@@ -3704,7 +3704,7 @@ function nextImg() {
         our_vc_to_in = {}
         process_imported_vehicles(our_vc_to_in)
         process_domestic_vehicles(our_vc_to_in)
-        with open('../../w1/vc_img_num.txt', 'w+', encoding='utf-8') as ifd:
+        with open('./support/vc_img_num.txt', 'w+', encoding='utf-8') as ifd:
             for k, v in our_vc_to_in.items():
                 ifd.write('{0}:{1}\n'.format(k, v))
         '''
@@ -4022,6 +4022,8 @@ function nextImg() {
                             bmy_id_bmy_name_dict, brand_set, 
                             full_fn, sfd, efd
                         )
+                        if oprr_num > 10:
+                            return 0
             return oprr_num
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
@@ -4032,7 +4034,7 @@ function nextImg() {
             with open('./support/error_vins.txt', 'w+', encoding='utf-8') \
                             as efd:
                 # 进口车目录
-                import_folder = './support/fds/import'
+                import_folder = '/media/ps/work/yantao/zjkj/raw_cutted'
                 oprr_num = process_image_folder(
                     import_folder, oprr_num, 
                     vin_bmy_id_dict, 
@@ -4040,7 +4042,7 @@ function nextImg() {
                     sfd, efd
                 )
                 # 国产车已处理
-                domestic_folder = './support/fds/domestic'
+                domestic_folder = '/media/ps/work/yantao/zjkj/i900m_cutted'
                 oprr_num = process_image_folder(
                     domestic_folder, oprr_num, 
                     vin_bmy_id_dict, 
