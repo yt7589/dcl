@@ -28,13 +28,14 @@ class WxsApp(object):
     RM_ADD_OLD_WXS_BRAND_DS = 1020
     RM_GENERATE_FDS_SAMPLES = 1021
     RM_RUN_VD_CUT_SAVE_ON_ES20200923 = 1022
+    RM_GENERATE_RAW_DS_ESC20200923 = 1023
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_RUN_VD_CUT_SAVE_ON_ES20200923
+        mode = WxsApp.RM_GENERATE_RAW_DS_ESC20200923
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -158,6 +159,11 @@ class WxsApp(object):
             将所里9月23日错误的品牌图片，调用切图程序进行切图
             '''
             WxsDsm.run_vd_cut_save_on_es20200923()
+        elif WxsApp.RM_GENERATE_RAW_DS_ESC20200923 == mode:
+            '''
+            生成2020-09-23无锡所测试错误图片切图后图片的原始数据集
+            '''
+            WxsDsm.generate_raw_ds_esc20200923()
         else:
             WxsDsm.exp001()
             

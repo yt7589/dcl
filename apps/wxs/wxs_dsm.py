@@ -4015,18 +4015,6 @@ function nextImg() {
         生成539万进口车和900万国产车图片形成的全量数据集样本集
         '''
         print('生成全量数据集样本集...')
-        def process_image_folder(folder_name, oprr_num, vin_bmy_id_dict, 
-                    bmy_id_bmy_name_dict, brand_set, sfd, efd):
-            for root, dirs, files in os.walk(folder_name, topdown=False):
-                for fn in files:
-                    if fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
-                        full_fn = '{0}/{1}'.format(root, fn)
-                        oprr_num = WxsDsm.process_one_sample_image(
-                            oprr_num, vin_bmy_id_dict, 
-                            bmy_id_bmy_name_dict, brand_set, 
-                            full_fn, sfd, efd
-                        )
-            return oprr_num
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         brand_set = set()
@@ -4037,7 +4025,7 @@ function nextImg() {
                             as efd:
                 # 进口车目录
                 import_folder = '/media/ps/work/yantao/zjkj/raw_cutted'
-                oprr_num = process_image_folder(
+                oprr_num = WxsDsm.process_image_folder(
                     import_folder, oprr_num, 
                     vin_code_bmy_id_dict, 
                     bmy_id_bmy_name_dict, brand_set,
@@ -4045,7 +4033,7 @@ function nextImg() {
                 )
                 # 国产车已处理
                 domestic_folder = '/media/ps/work/yantao/zjkj/i900m_cutted'
-                oprr_num = process_image_folder(
+                oprr_num = WxsDsm.process_image_folder(
                     domestic_folder, oprr_num, 
                     vin_code_bmy_id_dict, 
                     bmy_id_bmy_name_dict, brand_set,
@@ -4053,7 +4041,20 @@ function nextImg() {
                 )
         print('已经处理品牌数：{0};'.format(len(brand_set)))
         
-        
+    
+    @staticmethod
+    def process_image_folder(folder_name, oprr_num, vin_bmy_id_dict, 
+                bmy_id_bmy_name_dict, brand_set, sfd, efd):
+        for root, dirs, files in os.walk(folder_name, topdown=False):
+            for fn in files:
+                if fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
+                    full_fn = '{0}/{1}'.format(root, fn)
+                    oprr_num = WxsDsm.process_one_sample_image(
+                        oprr_num, vin_bmy_id_dict, 
+                        bmy_id_bmy_name_dict, brand_set, 
+                        full_fn, sfd, efd
+                    )
+        return oprr_num
 
     @staticmethod
     def process_one_sample_image(oprr_num, vin_bmy_id_dict, 
@@ -4090,6 +4091,30 @@ function nextImg() {
         if oprr_num % 1000 == 0:
             print('处理{0}条记录...'.format(oprr_num))
         return oprr_num
+        
+    @staticmethod
+    def generate_raw_ds_esc20200923():
+        '''
+        生成2020-09-23无锡所测试错误图片切图后图片的原始数据集
+        '''
+        print('生成全量数据集样本集...')
+        vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
+        brand_set = set()
+        oprr_num = 0
+        with open('./support/raw_ds_esc20200923.txt', 'w+', encoding='utf-8') \
+                        as sfd:
+            with open('./support/esc_20200923_error_vins.txt', 'w+', encoding='utf-8') \
+                            as efd:
+                # 进口车目录
+                import_folder = './support/ds_files/esc20200923'
+                oprr_num = WxsDsm.process_image_folder(
+                    import_folder, oprr_num, 
+                    vin_code_bmy_id_dict, 
+                    bmy_id_bmy_name_dict, brand_set,
+                    sfd, efd
+                )
+        print('已经处理品牌数：{0};'.format(len(brand_set)))
             
         
         
