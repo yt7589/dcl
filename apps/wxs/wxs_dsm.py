@@ -4023,8 +4023,8 @@ function nextImg() {
                             full_fn, sfd, efd
                         )
                         print('process {0};'.format(full_fn))
-                        if oprr_num > 10:
-                            return 0
+                        if oprr_num % 1000:
+                            print('处理完成{0}张图片...'.format(oprr_num))
             return oprr_num
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
