@@ -4022,6 +4022,7 @@ function nextImg() {
                             bmy_id_bmy_name_dict, brand_set, 
                             full_fn, sfd, efd
                         )
+                        print('process {0};'.format(full_fn))
                         if oprr_num > 10:
                             return 0
             return oprr_num

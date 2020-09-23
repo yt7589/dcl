@@ -26,13 +26,14 @@ class WxsApp(object):
     RM_DELETE_ERROR_SAMPLES = 1018
     RM_DELETE_WXS_ERROR_20200919 = 1019
     RM_ADD_OLD_WXS_BRAND_DS = 1020
+    RM_GENERATE_FDS_SAMPLES = 1021
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_GENERATE_ZJKJ_CAMBRICON_LABELS
+        mode = WxsApp.RM_GENERATE_FDS_SAMPLES
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
