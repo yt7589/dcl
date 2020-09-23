@@ -369,7 +369,8 @@ class VdJsonManager(object):
             params = params = {
                 'idx': idx , 'fd': fd, 'efd': efd, 
                 'miss_images_fd': miss_images_fd,
-                'cutted_image_set': cutted_image_set
+                'cutted_image_set': cutted_image_set,
+                'cut_img_folder': '/media/zjkj/work/yantao/zjkj/i900m_cutted'
             }
             print('idx={0}: {1};'.format(idx, len(ifds)))
             thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
@@ -437,8 +438,8 @@ class VdJsonManager(object):
         
     @staticmethod
     def vd_cut_save_thd(params):
-        #cut_img_head_folder = '/media/zjkj/work/yantao/zjkj/raw_cutted'
-        cut_img_head_folder = '/media/zjkj/work/yantao/zjkj/i900m_cutted'
+        #cut_img_folder = '/media/zjkj/work/yantao/zjkj/raw_cutted'
+        #cut_img_folder = '/media/zjkj/work/yantao/zjkj/i900m_cutted'
         cars = ['13', '14']
         trucks = ['21', '22']
         buss = ['11', '12']
@@ -447,6 +448,7 @@ class VdJsonManager(object):
         miss_images_fd = params['miss_images_fd']
         efd = params['efd']
         cutted_image_set = params['cutted_image_set']
+        cut_img_folder = params['cut_img_folder']
         for line in fd:
             line = line.strip()
             full_fn = line
@@ -477,7 +479,7 @@ class VdJsonManager(object):
                     box[1] = 0
                 try:
                     VdJsonManager.s_lock.acquire() # 获取锁以进行目录操作
-                    VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn('{0}/{1}/{2}'.format(cut_img_head_folder, head_tail, vehicle_type), full_fn, VdJsonManager.s_num)
+                    VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn('{0}/{1}/{2}'.format(cut_img_folder, head_tail, vehicle_type), full_fn, VdJsonManager.s_num)
                     croped_img = VdJsonManager.crop_and_resize_img(full_fn, box)
                     cv2.imwrite(dst_cut_fn, croped_img)
                     VdJsonManager.s_lock.release()
@@ -524,6 +526,40 @@ class VdJsonManager(object):
                 return data['VEH'][max_idx]['WZTZ']['PSFX'], \
                         data['VEH'][max_idx]['CXTZ']['CLLXFL'][:2],\
                         data['VEH'][max_idx]['WZTZ']['CLWZ']
+        
+    @staticmethod
+    def run_vd_cut_save_on_es20200923():
+        print('利用Python程序完成整个切图流程（处理20200923无锡所测试错误图片）')
+        base_path = Path('./support/ds_files/errorPicPP')
+        for file_obj in base_path.iterdir():
+            full_fn = str(file_obj)
+            print('full_fn: {0};'.format(full_fn))
+        i_debug = 1
+        if 1 == i_debug:
+            return
+        # 统计已经完成切图的图片文件集合
+        cutted_image_set = set()
+        txts_num = 2
+        VdJsonManager.s_num = 0
+        VdJsonManager.s_lock = threading.RLock()
+        miss_images_fd = open('./support/m900_miss_images.txt', 'w+', encoding='utf-8')
+        #miss_images_fd = open('./support/raw_miss_images.txt', 'w+', encoding='utf-8')
+        efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
+        #efd = open('./support/raw_error.txt', 'w+', encoding='utf-8')
+        # 将图片文件列表均匀分给20个文本文件
+        fd = open('./support/es20200923_images.txt'.format(idx), 'r', encoding='utf-8')
+        params = {
+            'idx': 0, 'fd': fd, 'efd': efd, 
+            'miss_images_fd': miss_images_fd,
+            'cutted_image_set': cutted_image_set,
+            'cut_img_folder': './support/ds_files/esc20200923'
+        }
+        thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
+        thd.start()
+        thd.join()
+        fd.close()
+        miss_images_fd.close()
+        efd.close()
         
         
                                 

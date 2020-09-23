@@ -3865,6 +3865,10 @@ function nextImg() {
         VdJsonManager.run_vd_cut_save()
         
     @staticmethod
+    def run_vd_cut_save_on_es20200923():
+        VdJsonManager.run_vd_cut_save_on_es20200923()
+        
+    @staticmethod
     def delete_error_samples_main():
         src_ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds_090601.txt'
         dst_ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds_091001.txt'
