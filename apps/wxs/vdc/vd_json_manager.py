@@ -531,7 +531,7 @@ class VdJsonManager(object):
     def run_vd_cut_save_on_es20200923():
         print('利用Python程序完成整个切图流程（处理20200923无锡所测试错误图片）')
         base_path = Path('./support/ds_files/errorPicPP')
-        with open('./support/es20200923_images.txt'.format(idx), 'w+', encoding='utf-8') as wfd:
+        with open('./support/es20200923_images.txt', 'w+', encoding='utf-8') as wfd:
             for file_obj in base_path.iterdir():
                 full_fn = str(file_obj)
                 wfd.write('full_fn: ./{0};'.format(full_fn))
@@ -548,7 +548,7 @@ class VdJsonManager(object):
         efd = open('./support/m900_error.txt', 'w+', encoding='utf-8')
         #efd = open('./support/raw_error.txt', 'w+', encoding='utf-8')
         # 将图片文件列表均匀分给20个文本文件
-        fd = open('./support/es20200923_images.txt'.format(idx), 'r', encoding='utf-8')
+        fd = open('./support/es20200923_images.txt', 'r', encoding='utf-8')
         params = {
             'idx': 0, 'fd': fd, 'efd': efd, 
             'miss_images_fd': miss_images_fd,
