@@ -530,17 +530,8 @@ class VdJsonManager(object):
     @staticmethod
     def run_vd_cut_save_on_es20200923():
         print('利用Python程序完成整个切图流程（处理20200923无锡所测试错误图片）')
-        base_path = Path('./support/ds_files/errorPicPP')
-        with open('./support/es20200923_images.txt', 'w+', encoding='utf-8') as wfd:
-            for file_obj in base_path.iterdir():
-                full_fn = str(file_obj)
-                wfd.write('./{0}\n'.format(full_fn))
-        i_debug = 1
-        if 1 == i_debug:
-            return
         # 统计已经完成切图的图片文件集合
         cutted_image_set = set()
-        txts_num = 2
         VdJsonManager.s_num = 0
         VdJsonManager.s_lock = threading.RLock()
         miss_images_fd = open('./support/wxs_es20200923_miss_images.txt', 'w+', encoding='utf-8')
