@@ -4022,8 +4022,6 @@ function nextImg() {
                             bmy_id_bmy_name_dict, brand_set, 
                             full_fn, sfd, efd
                         )
-                        if oprr_num % 1000 == 0:
-                            print('处理完成{0}张图片...'.format(oprr_num))
             return oprr_num
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
