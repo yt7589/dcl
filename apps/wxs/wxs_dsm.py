@@ -4038,7 +4038,7 @@ function nextImg() {
                 import_folder = '/media/ps/work/yantao/zjkj/raw_cutted'
                 oprr_num = process_image_folder(
                     import_folder, oprr_num, 
-                    vin_bmy_id_dict, 
+                    vin_code_bmy_id_dict, 
                     bmy_id_bmy_name_dict, brand_set,
                     sfd, efd
                 )
@@ -4046,7 +4046,7 @@ function nextImg() {
                 domestic_folder = '/media/ps/work/yantao/zjkj/i900m_cutted'
                 oprr_num = process_image_folder(
                     domestic_folder, oprr_num, 
-                    vin_bmy_id_dict, 
+                    vin_code_bmy_id_dict, 
                     bmy_id_bmy_name_dict, brand_set,
                     sfd, efd
                 )
