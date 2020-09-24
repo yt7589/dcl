@@ -4115,6 +4115,32 @@ function nextImg() {
                     sfd, efd
                 )
         print('已经处理品牌数：{0};'.format(len(brand_set)))
+        
+    @staticmethod
+    def get_vd_failed_images():
+        '''
+        找出无锡所9月23日品牌错误图片中未检测出图片列表
+        '''
+        vd_set = set()
+        with open('./support/raw_ds_esc20200923.txt', 'r', encoding='utf-8') as rfd:
+            for line in rfd:
+                line = line.strip()
+                arrs_a = line.split('/')
+                img_file = arrs_a[-1]
+                vd_set.add(img_file)
+        failed_images = []
+        with open('./support/es20200923_images.txt', 'r', encoding='utf-8') as efd:
+            for line in efd:
+                line = line.strip()
+                arrs_a = line.split('/')
+                img_file = arrs_a[-1]
+                if img_file not in vd_set:
+                    print('未检出文件{0};'.format(img_file))
+                    failed_images.append(img_file)
+        print('共有{0}张图片未检出'.format(len(failed_images)))
+        with open('../vd_failed_images.txt', 'w+', encoding='utf-8') as wfd:
+            for img in failed_images:
+                wfd.write('{0}\n'.format(img))
             
         
         
