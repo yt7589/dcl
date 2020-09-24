@@ -4125,17 +4125,17 @@ function nextImg() {
         with open('./support/raw_ds_esc20200923.txt', 'r', encoding='utf-8') as rfd:
             for line in rfd:
                 line = line.strip()
-                arrs_a = line.split('/')
-                img_file = arrs_a[-1]
+                arrs_a = line.split('*')
+                rel_fn = arrs_a[0]
+                arrs_b = rel_fn.split('/')
+                img_file = arrs_b[-1]
                 vd_set.add(img_file)
         failed_images = []
         with open('./support/es20200923_images.txt', 'r', encoding='utf-8') as efd:
             for line in efd:
                 line = line.strip()
-                arrs_a = line.split('*')
-                rel_fn = arrs_a[0]
-                arrs_b = rel_fn.split('/')
-                img_file = arrs_b[-1]
+                arrs_a = line.split('/')
+                img_file = arrs_a[-1]
                 if img_file not in vd_set:
                     print('未检出文件{0};'.format(img_file))
                     failed_images.append(img_file)
