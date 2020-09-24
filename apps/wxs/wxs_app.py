@@ -36,7 +36,7 @@ class WxsApp(object):
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_GET_VD_FAILED_IMAGES
+        mode = WxsApp.RM_GET_SIMPLIFIED_BMYS
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
