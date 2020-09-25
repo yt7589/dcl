@@ -4150,6 +4150,16 @@ function nextImg() {
         将随机抽取的切图图片替换为质量更高的切图图片，即更新train_ds目录
         下的图片内容
         '''
+        
+        '''
+        rds_set = set()
+        with open('./support/rds
+        i_debug = 1
+        if 1 == i_debug:
+            return
+        '''
+        
+        
         # 读出随机抽取train_ds目录下图片文件名和全路径文件名字典
         tnum = 0
         train_ds_images = set()
@@ -4172,7 +4182,7 @@ function nextImg() {
             return num
         process_folder(folder_name, train_ds_dict, train_ds_images, add_to_image_set, tnum)
         print('随机测试集数量：{0};'.format(len(train_ds_images)))
-        with open('./support/rds_dict.txt', 'w+', encoding='utf-8') as wfd:
+        with open('./support/rds_set.txt', 'w+', encoding='utf-8') as wfd:
             for img_file in train_ds_images:
                 wfd.write('{0}\n'.format(img_file))
         with open('./support/rds_dict.txt', 'w+', encoding='utf-8') as wfd:
