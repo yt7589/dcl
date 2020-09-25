@@ -4220,6 +4220,14 @@ function nextImg() {
                 wnum += 1
                 if wnum % 100 == 0:
                     print('写入{0}条记录'.format(wnum))
+                    
+    @staticmethod
+    def add_err_imgs_to_rds():
+        print('将错误样本加入到训练集中去...')
+        with open('./support/error_images_wxs20200901.txt', 'r', encoding='utf-8') as efd:
+            for line in efd:
+                line = line.strip()
+                print('错误图片名：./support/ds_files/es_crop/{0};'.format(line))
         
             
         

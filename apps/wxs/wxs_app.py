@@ -31,13 +31,14 @@ class WxsApp(object):
     RM_GENERATE_RAW_DS_ESC20200923 = 1023
     RM_GET_VD_FAILED_IMAGES = 1024
     RM_COPY_FINE_RANDOM_IMAGES = 1025
+    RM_ADD_ERR_IMGS_TO_RDS = 1026
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_COPY_FINE_RANDOM_IMAGES
+        mode = WxsApp.RM_ADD_ERR_IMGS_TO_RDS
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -177,6 +178,11 @@ class WxsApp(object):
             下的图片内容
             '''
             WxsDsm.copy_fine_random_images()
+        elif WxsApp.RM_ADD_ERR_IMGS_TO_RDS == mode:
+            '''
+            将文件名与图片内容不符的样本加入到训练集中
+            '''
+            WxsDsm.add_err_imgs_to_rds()
         else:
             WxsDsm.exp001()
             
