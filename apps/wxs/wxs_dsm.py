@@ -4174,9 +4174,9 @@ function nextImg() {
         print('随机测试集数量：{0};'.format(len(train_ds_images)))
         fds_dict = {}
         fds_num = 0
-        raw_folder = '/media/zjkj/work/yantao/zjkj/raw_cutted'
+        raw_folder = '/media/ps/work/yantao/zjkj/raw_cutted'
         fds_num = process_folder(raw_folder, fds_dict, None, nop_func, fds_num)
-        d900_folder = '/media/zjkj/work/yantao/zjkj/i900m_cutted'
+        d900_folder = '/media/ps/work/yantao/zjkj/i900m_cutted'
         process_folder(d900_folder, fds_dict, None, nop_func, fds_num)
         with open('./support/fds_dict.txt', 'w+', encoding='utf-8') as wfd:
             for k, v in fds_dict.items():
