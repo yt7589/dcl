@@ -4248,7 +4248,8 @@ function nextImg() {
                 for line in sfd:
                     line = line.strip()
                     arrs_a = line.split('*')
-                    org_bmy_id = arrs_a[1]
+                    org_bmy_id = int(arrs_a[1])
+                    print('org_bmy_id: {0};'.format(org_bmy_id))
                     if org_bmy_id in bmy_org_sim_dict:
                         sim_bmy_id = bmy_org_sim_dict[org_bmy_id]
                         brand_name = sim_dict[sim_bmy_id]
