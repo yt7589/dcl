@@ -4175,7 +4175,7 @@ function nextImg() {
         with open('./support/rds_dict.txt', 'w+', encoding='utf-8') as wfd:
             for img_file in train_ds_images:
                 wfd.write('{0}\n'.format(img_file))
-        with open('./support/rds_dict.txt', 'w+', encodeing='utf-8') as wfd:
+        with open('./support/rds_dict.txt', 'w+', encoding='utf-8') as wfd:
             for k, v in train_ds_dict.items():
                 wfd.write('{0}:{1}\n'.format(k, v))
         fds_dict = {}
