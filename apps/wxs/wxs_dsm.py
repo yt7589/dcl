@@ -4224,10 +4224,16 @@ function nextImg() {
     @staticmethod
     def add_err_imgs_to_rds():
         print('将错误样本加入到训练集中去...')
+        vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         with open('./support/error_images_wxs20200901.txt', 'r', encoding='utf-8') as efd:
             for line in efd:
                 line = line.strip()
-                print('错误图片名：./support/ds_files/es_crop/{0};'.format(line))
+                # 获取车辆识别码
+                arrs_a = line.split('_')
+                arrs_b = arrs_a[0].split('#')
+                vin_code = arrs_b[0]
+                org_bmy_id = int(vin_code_bmy_id_dict[vin_code]) - 1
+                print('错误图片名：./support/ds_files/es_crop/{0}*{1};'.format(line, org_bmy_id))
         
             
         
