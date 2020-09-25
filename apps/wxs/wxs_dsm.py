@@ -4172,15 +4172,25 @@ function nextImg() {
             return num
         process_folder(folder_name, train_ds_dict, train_ds_images, add_to_image_set, tnum)
         print('随机测试集数量：{0};'.format(len(train_ds_images)))
+        with open('./support/rds_dict.txt', 'w+', encoding='utf-8') as wfd:
+            for img_file in train_ds_images:
+                wfd.write('{0}\n'.format(img_file))
+        with open('./support/rds_dict.txt', 'w+', encodeing='utf-8') as wfd:
+            for k, v in train_ds_dict.items():
+                wfd.write('{0}:{1}\n'.format(k, v))
         fds_dict = {}
         fds_num = 0
         raw_folder = '/media/ps/work/yantao/zjkj/raw_cutted'
         fds_num = process_folder(raw_folder, fds_dict, None, nop_func, fds_num)
         d900_folder = '/media/ps/work/yantao/zjkj/i900m_cutted'
         process_folder(d900_folder, fds_dict, None, nop_func, fds_num)
+        wnum = 0
         with open('./support/fds_dict.txt', 'w+', encoding='utf-8') as wfd:
             for k, v in fds_dict.items():
                 wfd.write('{0}:{1}\n'.format(k, v))
+                wnum += 1
+                if wnum % 100 == 0:
+                    print('写入{0}条记录'.format(wnum))
         
             
         
