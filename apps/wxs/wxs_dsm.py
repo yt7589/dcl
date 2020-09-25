@@ -4224,21 +4224,57 @@ function nextImg() {
     @staticmethod
     def add_err_imgs_to_rds():
         print('将错误样本加入到训练集中去...')
-        err_num = 0
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
-        with open('./support/error_images_wxs20200901.txt', 'r', encoding='utf-8') as efd:
-            for line in efd:
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
+        brand_set = set()
+        oprr_num = 0
+        vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
+        sfd = open('./support/esi_samples.txt', 'w+', encoding='utf-8')
+        efd = open('./support/esi_errors.txt', 'w+', encoding='utf-8')
+        with open('./support/error_images_wxs20200901.txt', 'r', encoding='utf-8') as afd:
+            for line in afd:
                 line = line.strip()
                 # 获取车辆识别码
-                arrs_a = line.split('_')
-                arrs_b = arrs_a[0].split('#')
-                vin_code = arrs_b[0]
-                if vin_code in vin_code_bmy_id_dict:
-                    org_bmy_id = int(vin_code_bmy_id_dict[vin_code]) - 1
-                else:
-                    err_num += 1
-                print('错误图片名：./support/ds_files/es_crop/{0}*{1};'.format(line, org_bmy_id))
-        print('错误图片数：{0};'.format(err_num))
+                WxsDsm.process_err_one_img_file(oprr_num, vin_code_bmy_id_dict,
+                    bmy_id_bmy_name_dict, brand_set, line, 
+                )
+        sfd.close()
+        efd.close()
+        
+        
+    
+    @staticmethod
+    def process_err_one_img_file(oprr_num, vin_bmy_id_dict, 
+                bmy_id_bmy_name_dict, brand_set, sub_file, sfd, efd):
+        arrs0 = sub_file.split('/')
+        filename = arrs0[-1]
+        arrs1 = filename.split('_')
+        raw_vin_code = arrs1[0]
+        arrs2 = raw_vin_code.split('#')
+        vin_code = arrs2[0]
+        if vin_code in vin_bmy_id_dict:
+            bmy_id = vin_bmy_id_dict[vin_code]
+        else:
+            vin_had_bmy_id = False
+            for k, _ in vin_bmy_id_dict.items():
+                if k.startswith(vin_code):
+                    bmy_id = vin_bmy_id_dict[k]
+                    vin_had_bmy_id = True
+                    break
+            if not vin_had_bmy_id:
+                bmy_id = -1
+                if vin_code != '白' and vin_code != '夜':
+                    efd.write('{0}\n'.format(vin_code))
+        if bmy_id > 0:
+            sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
+            bmy_name = bmy_id_bmy_name_dict[bmy_id]
+            arrsn = bmy_name.split('-')
+            brand_name = arrsn[0]
+            brand_set.add(brand_name)
+        oprr_num += 1
+        if oprr_num % 1000 == 0:
+            print('处理{0}条记录...'.format(oprr_num))
+        return oprr_num
         
             
         
