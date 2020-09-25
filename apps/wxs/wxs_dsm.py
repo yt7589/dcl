@@ -4150,16 +4150,35 @@ function nextImg() {
         将随机抽取的切图图片替换为质量更高的切图图片，即更新train_ds目录
         下的图片内容
         '''
-        
-        '''
         rds_set = set()
-        with open('./support/rds
+        with open('./support/rds_set.txt', 'r', encoding='utf-8') as fd1:
+            for line in fd1:
+                line = line.strip()
+                rds_set.add(line)
+        rds_dict = {}
+        with open('./support/rds_dict.txt', 'r', encoding='utf-8') as fd2:
+            for line in fd2:
+                line = line.strip()
+                arrs_a = line.split(':')
+                rds_dict[arrs_a[0]] = arrs_a[1]
+        fds_dict = {}
+        with open('./support/fds_dict.txt', 'r', encoding='utf-8') as fd3:
+            for line in fd3:
+                line = line.strip()
+                arrs_a = line.split(':')
+                fds_dict[arrs_a[0]] = arrs_a[1]
+        num = 0
+        for img_file in rds_set:
+            if img_file in fds_dict and img_file in rds_dict:
+                src_file = fds_dict[img_file]
+                dst_file = rds_dict[img_file]
+                shutil.copy(src_file, dst_file)
+                num += 1
+                if num % 100 == 0:
+                    print('拷贝{0}个图片'.format(num))
         i_debug = 1
         if 1 == i_debug:
-            return
-        '''
-        
-        
+            return        
         # 读出随机抽取train_ds目录下图片文件名和全路径文件名字典
         tnum = 0
         train_ds_images = set()
