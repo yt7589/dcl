@@ -4239,7 +4239,7 @@ function nextImg() {
                 sim_dict[sim_bmy_id] = arrs_a[0] # brand_name
         brand_name_idx_dict = {}
         with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as dfd:
-            for line in bfd:
+            for line in dfd:
                 line = line.strip()
                 arrs_a = line.split(':')
                 brand_name_idx_dict[arrs_a[1]] = int(arrs_a[0])
