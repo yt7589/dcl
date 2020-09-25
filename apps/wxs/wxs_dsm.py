@@ -4236,7 +4236,7 @@ function nextImg() {
                 line = line.strip()
                 # 获取车辆识别码
                 WxsDsm.process_err_one_img_file(oprr_num, vin_code_bmy_id_dict,
-                    bmy_id_bmy_name_dict, brand_set, line, 
+                    bmy_id_bmy_name_dict, brand_set, line, sfd, efd
                 )
         sfd.close()
         efd.close()
