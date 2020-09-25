@@ -4143,6 +4143,24 @@ function nextImg() {
         with open('../vd_failed_images.txt', 'w+', encoding='utf-8') as wfd:
             for img in failed_images:
                 wfd.write('{0}\n'.format(img))
+                
+    @staticmethod
+    def copy_fine_random_images():
+        '''
+        将随机抽取的切图图片替换为质量更高的切图图片，即更新train_ds目录
+        下的图片内容
+        '''
+        # 读出随机抽取train_ds目录下图片文件名和全路径文件名字典
+        train_ds_images = set()
+        train_ds_dict = {}
+        folder_name = './support/ds_files/train_ds'
+        for root, dirs, files in os.walk(folder_name, topdown=False):
+            for fn in files:
+                if fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
+                    full_fn = '{0}/{1}'.format(root, fn)
+                    train_ds_images.add(fn)
+                    train_ds_dict[fn] = full_fn
+        print('随机测试集数量：{0};'.format(len(train_ds_images)))
             
         
         
