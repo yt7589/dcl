@@ -4224,6 +4224,7 @@ function nextImg() {
     @staticmethod
     def add_err_imgs_to_rds():
         print('将错误样本加入到训练集中去...')
+        err_num = 0
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         with open('./support/error_images_wxs20200901.txt', 'r', encoding='utf-8') as efd:
             for line in efd:
@@ -4232,8 +4233,12 @@ function nextImg() {
                 arrs_a = line.split('_')
                 arrs_b = arrs_a[0].split('#')
                 vin_code = arrs_b[0]
-                org_bmy_id = int(vin_code_bmy_id_dict[vin_code]) - 1
+                if vin_code in vin_code_bmy_id_dict:
+                    org_bmy_id = int(vin_code_bmy_id_dict[vin_code]) - 1
+                else:
+                    err_num += 1
                 print('错误图片名：./support/ds_files/es_crop/{0}*{1};'.format(line, org_bmy_id))
+        print('错误图片数：{0};'.format(err_num))
         
             
         
