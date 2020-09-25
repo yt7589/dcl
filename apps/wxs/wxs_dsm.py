@@ -4249,11 +4249,12 @@ function nextImg() {
                     line = line.strip()
                     arrs_a = line.split('*')
                     org_bmy_id = arrs_a[1]
-                    sim_bmy_id = bmy_org_sim_dict[org_bmy_id]
-                    brand_name = sim_dict[sim_bmy_id]
-                    brand_idx = brand_name_idx_dict[brand_name]
-                    img_file = arrs_a[0]
-                    wfd.write('./support/ds_files/es_crop/{0}*{1}*{2}\n'.format(img_file, sim_bmy_id, brand_idx))
+                    if org_bmy_id in bmy_org_sim_dict:
+                        sim_bmy_id = bmy_org_sim_dict[org_bmy_id]
+                        brand_name = sim_dict[sim_bmy_id]
+                        brand_idx = brand_name_idx_dict[brand_name]
+                        img_file = arrs_a[0]
+                        wfd.write('./support/ds_files/es_crop/{0}*{1}*{2}\n'.format(img_file, sim_bmy_id, brand_idx))
         
     @staticmethod
     def add_err_imgs_to_rds1():
