@@ -4224,6 +4224,39 @@ function nextImg() {
     @staticmethod
     def add_err_imgs_to_rds():
         print('将错误样本加入到训练集中去...')
+        bmy_org_sim_dict = {}
+        with open('./support/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as bfd:
+            for line in bfd:
+                line = line.strip()
+                arrs_a = line.split(':')
+                bmy_org_sim_dict[int(arrs_a[0])] = int(arrs_a[1])
+        sim_bmy_id = 0
+        sim_dict = {}
+        with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
+            for line in cfd:
+                line = line.strip()
+                arrs_a = line.split(',')
+                sim_dict[sim_bmy_id] = arrs_a[0] # brand_name
+        brand_name_idx_dict = {}
+        with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as dfd:
+            for line in bfd:
+                line = line.strip()
+                arrs_a = line.split(':')
+                brand_name_idx_dict[arrs_a[1]] = int(arrs_a[0])
+        with open('./support/esi_ds.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./support/esi_samples.txt', 'r', encoding='utf-8') as sfd:
+                for line in sfd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    org_bmy_id = arrs_a[1]
+                    sim_bmy_id = bmy_org_sim_dict[org_bmy_id]
+                    brand_name = sim_dict[sim_bmy_id]
+                    brand_idx = brand_name_idx_dict[brand_name]
+                    img_file = arrs_a[0]
+                    wfd.write('./support/ds_files/es_crop/{0}*{1}*{2}\n'.format(img_file, sim_bmy_id, brand_idx))
+        
+    @staticmethod
+    def add_err_imgs_to_rds1():
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         brand_set = set()
