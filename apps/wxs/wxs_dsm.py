@@ -4151,6 +4151,7 @@ function nextImg() {
         下的图片内容
         '''
         # 读出随机抽取train_ds目录下图片文件名和全路径文件名字典
+        tnum = 0
         train_ds_images = set()
         train_ds_dict = {}
         folder_name = './support/ds_files/train_ds'
@@ -4160,6 +4161,9 @@ function nextImg() {
                     full_fn = '{0}/{1}'.format(root, fn)
                     train_ds_images.add(fn)
                     train_ds_dict[fn] = full_fn
+                    tnum += 1
+                    if tnum % 100 == 0:
+                        print('处理随机训练集{0}张图片'.format(tnum))
         print('随机测试集数量：{0};'.format(len(train_ds_images)))
             
         
