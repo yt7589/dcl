@@ -4237,6 +4237,7 @@ function nextImg() {
                 line = line.strip()
                 arrs_a = line.split(',')
                 sim_dict[sim_bmy_id] = arrs_a[0] # brand_name
+                sim_bmy_id += 1
         brand_name_idx_dict = {}
         with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as dfd:
             for line in dfd:
