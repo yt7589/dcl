@@ -4155,16 +4155,33 @@ function nextImg() {
         train_ds_images = set()
         train_ds_dict = {}
         folder_name = './support/ds_files/train_ds'
-        for root, dirs, files in os.walk(folder_name, topdown=False):
-            for fn in files:
-                if fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
-                    full_fn = '{0}/{1}'.format(root, fn)
-                    train_ds_images.add(fn)
-                    train_ds_dict[fn] = full_fn
-                    tnum += 1
-                    if tnum % 100 == 0:
-                        print('处理随机训练集{0}张图片'.format(tnum))
+        def add_to_image_set(img_set, img_file):
+            img_set.add(img_file)
+        def nop_func(img_set, img_file):
+            pass
+        def process_folder(folder_name, ffn_dict, fn_func, num):
+            for root, dirs, files in os.walk(folder_name, topdown=False):
+                for fn in files:
+                    if fn.endswith(('jpg', 'png', 'jpeg', 'bmp')):
+                        full_fn = '{0}/{1}'.format(root, fn)
+                        fn_func(fn)
+                        ffn_dict[fn] = full_fn
+                        num += 1
+                        if num % 100 == 0:
+                            print('处理随机训练集{0}张图片'.format(num))
+            return num
+        process_folder(folder_name, train_ds_dict, add_to_image_set, tnum)
         print('随机测试集数量：{0};'.format(len(train_ds_images)))
+        fds_dict = {}
+        fds_num = 0
+        raw_folder = '/media/zjkj/work/yantao/zjkj/raw_cutted'
+        fds_num = process_folder(raw_folder, fds_dict, nop_func, fds_num)
+        d900_folder = '/media/zjkj/work/yantao/zjkj/i900m_cutted'
+        process_folder(d900_folder, fds_dict, nop_func, fds_num)
+        with open('./support/fds_dict.txt', 'w+', encoding='utf-8') as wfd:
+            for k, v in fds_dict.items():
+                wfd.write('{0}:{1}\n'.format(k, v))
+        
             
         
         
