@@ -4323,13 +4323,15 @@ function nextImg() {
         print('清理全量数据集...')
         # 获取错误样本列表
         es_set = set()
+        num1 = 0
         with open('./support/esi_samples.txt', 'r', encoding='utf-8') as efd:
             for line in efd:
                 line = line.strip()
                 arrs_a = line.split('*')
                 img_file = arrs_a[0]
                 es_set.add(img_file)
-        print('读出错误文件列表：{0}个'.format(len(es_set)))
+                num1 += 1
+        print('读出错误文件列表：{0}个，文件数：{1}个'.format(len(es_set), num1))
         i_debug = 1
         if 1 == i_debug:
             return
