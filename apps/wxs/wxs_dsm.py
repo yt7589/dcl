@@ -4328,6 +4328,7 @@ function nextImg() {
     def pfdm_test_ds():
         # 获取bmy_id对应的brand_id
         bmy_id_2_bmy_vo = CBmy.get_bmy_id_2_bmy_vo()
+        efd = open('./support/fds_errors.txt', 'w+', encoding='utf-8')
         with open('./support/fds_test_ds.txt', 'w+', encoding='utf-8') as wfd:
             with open('./support/fds_test_ds_raw.txt', 'r', encoding='utf-8') as tfd:
                 for line in tfd:
@@ -4339,6 +4340,9 @@ function nextImg() {
                         bmy_vo = bmy_id_2_bmy_vo[bmy_id]
                         brand_id = bmy_vo['brand_id']
                         wfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, brand_id))
+                    else:
+                        efd.write('{0}\n'.format(full_fn))
+        efd.close()
         
     @staticmethod
     def pfdm_train_ds():
