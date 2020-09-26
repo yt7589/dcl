@@ -4447,6 +4447,64 @@ function nextImg() {
                             sub_obj, sfd, efd)
         return oprr_num
 
+    @staticmethod
+    def bind_fds_brand_head_bmy_head():
+        '''
+        实现先预测出品牌类别，然后从年款头中除该品牌对应的年款索引外的其他
+        类别全部清零，将年款头的内容输出作为输出
+        '''
+        # 列出年款文件./support/cambricon_vehicle_label.txt内容
+        brand_idx_bmys = {}
+        bmys = CBmy.get_bmys()
+        for bmy in bmys:
+            bmy_id = int(bmy['bmy_id'])
+            brand_id = int(bmy['brand_id'])
+            if brand_id in brand_idx_bmys:
+                brand_idx_bmys[brand_id].append(bmy_id)
+            else:
+                brand_idx_bmys[brand_id] = [bmy_id]
+        '''
+        id_bmy_dict = {}
+        row = 0
+        with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
+            for line in cfd:
+                line = line.strip()
+                id_bmy_dict[row] = line
+                row += 1
+        # 获取品牌列表
+        brand_idx_bmys = {}
+        with open('./support/bid_brands_dict.txt', 'r', encoding='utf-8') as bfd:
+            for line in bfd:
+                line = line.strip()
+                arrs0 = line.split(':')
+                brand_idx = int(arrs0[0])
+                brand_name = arrs0[1]
+                brand_idx_bmys[brand_idx] = []
+                for k, v in id_bmy_dict.items():
+                    if v.startswith(brand_name):
+                        brand_idx_bmys[brand_idx].append(k)
+        '''
+        # 生成Python代码LoadModel.py中的结构代码
+        print('{')
+        for k, v in brand_idx_bmys.items():
+            print('{0}:{1},'.format(k, v))
+        print('}')
+        # 生成C++后处理中的Vector初始化代码
+        print('############################')
+        print('{')
+        for k, v in brand_idx_bmys.items():
+            row_str = '{'
+            first_item = True
+            for vi in v:
+                if first_item:
+                    row_str += '{0}'.format(vi)
+                    first_item = False
+                else:
+                    row_str += ',{0}'.format(vi)
+            row_str += '},'
+            print(row_str)
+        print('}')
+
             
         
         
