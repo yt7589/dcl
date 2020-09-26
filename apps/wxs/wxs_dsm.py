@@ -4224,6 +4224,10 @@ function nextImg() {
     @staticmethod
     def add_err_imgs_to_rds():
         print('将错误样本加入到训练集中去...')
+        WxsDsm.add_err_imgs_to_rds1()
+        i_debug = 1
+        if 1 == i_debug:
+            return
         bmy_org_sim_dict = {}
         with open('./support/bmy_org_sim_dict.txt', 'r', encoding='utf-8') as bfd:
             for line in bfd:
@@ -4288,6 +4292,7 @@ function nextImg() {
         raw_vin_code = arrs1[0]
         arrs2 = raw_vin_code.split('#')
         vin_code = arrs2[0]
+        print('vin_code={0};'.format(vin_code))
         if vin_code in vin_bmy_id_dict:
             bmy_id = vin_bmy_id_dict[vin_code]
         else:
@@ -4302,6 +4307,7 @@ function nextImg() {
                 if vin_code != '白' and vin_code != '夜':
                     efd.write('{0}\n'.format(vin_code))
         if bmy_id > 0:
+            print('       {0}*{1};'.format(sub_file, bmy_id - 1))
             sfd.write('{0}*{1}\n'.format(sub_file, bmy_id - 1))
             bmy_name = bmy_id_bmy_name_dict[bmy_id]
             arrsn = bmy_name.split('-')
