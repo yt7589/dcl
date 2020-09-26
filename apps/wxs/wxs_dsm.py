@@ -4342,10 +4342,13 @@ function nextImg() {
                     line = line.strip()
                     arrs_a = line.split('*')
                     full_fn = arrs_a[0]
+                    arrs_b = full_fn.split('/')
+                    fn = arrs_b[-1]
                     bmy_id = int(arrs_a[1]) + 1
                     bmy_vo = bmy_id_2_bmy_vo[bmy_id]
                     brand_id = bmy_vo['brand_id']
-                    ffd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, brand_id))
+                    if fn not in es_set:
+                        ffd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, brand_id))
                     num += 1
                     if num % 100 == 0:
                         print('处理完成{0}条记录'.format(num))
