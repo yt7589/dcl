@@ -4335,7 +4335,7 @@ function nextImg() {
                     arrs_a = line.split('*')
                     full_fn = arrs_a[0]
                     bmy_id = int(arrs_a[1]) + 1
-                    if bmy in bmy_id_2_bmy_vo:
+                    if bmy_id in bmy_id_2_bmy_vo:
                         bmy_vo = bmy_id_2_bmy_vo[bmy_id]
                         brand_id = bmy_vo['brand_id']
                         wfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, brand_id))
