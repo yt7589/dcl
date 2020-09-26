@@ -4325,26 +4325,6 @@ function nextImg() {
         WxsDsm.pfdm_test_ds()
         
     @staticmethod
-    def pfdm_test_ds():
-        # 获取bmy_id对应的brand_id
-        bmy_id_2_bmy_vo = CBmy.get_bmy_id_2_bmy_vo()
-        efd = open('./support/fds_errors.txt', 'w+', encoding='utf-8')
-        with open('./support/fds_test_ds.txt', 'w+', encoding='utf-8') as wfd:
-            with open('./support/fds_test_ds_raw.txt', 'r', encoding='utf-8') as tfd:
-                for line in tfd:
-                    line = line.strip()
-                    arrs_a = line.split('*')
-                    full_fn = arrs_a[0]
-                    bmy_id = int(arrs_a[1]) + 1
-                    if bmy_id in bmy_id_2_bmy_vo:
-                        bmy_vo = bmy_id_2_bmy_vo[bmy_id]
-                        brand_id = bmy_vo['brand_id']
-                        wfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, brand_id))
-                    else:
-                        efd.write('{0}\n'.format(full_fn))
-        efd.close()
-        
-    @staticmethod
     def pfdm_train_ds():
         # 获取错误样本列表
         es_set = set()
@@ -4377,7 +4357,47 @@ function nextImg() {
                     num += 1
                     if num % 100 == 0:
                         print('处理完成{0}条记录'.format(num))
-        
+                        
+                        
+    @staticmethod
+    def pfdm_test_ds():
+        vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
+        bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
+        brand_set = set()
+        oprr_num = 0
+        with open('./logs/conflicts.txt', 'w+', encoding='utf-8') \
+                        as WxsDsm.g_cfd:
+            with open('./support/raw_fds_test_ds.txt', 'w+', encoding='utf-8') \
+                            as sfd:
+                with open('./support/error_vins.txt', 'w+', encoding='utf-8') \
+                                as efd:
+                    # 进口车目录
+                    folder_name = './support/es_images_0926'
+                    base_path = Path(folder_name)
+                    oprr_num = WxsDsm.generate_fds_test_samples(
+                                oprr_num, vin_code_bmy_id_dict, 
+                                bmy_id_bmy_name_dict, 
+                                brand_set, base_path, sfd, efd)
+        print('已经处理品牌数：{0};'.format(len(brand_set)))
+
+    @staticmethod
+    def generate_fds_test_samples(oprr_num, vin_code_bmy_id_dict, 
+                bmy_id_bmy_name_dict, brand_set, base_path, sfd, efd):
+        brand_num = 0
+        for sub_obj in base_path.iterdir():
+            filename = str(sub_obj)
+            item_name = filename.split('/')[-1]
+            if not sub_obj.is_dir() and filename.endswith(
+                        ('jpg','png','jpeg','bmp')) and not \
+                            item_name.startswith('白') \
+                            and not item_name.startswith('夜'): 
+                            # 忽略其下目录
+                oprr_num = WxsDsm.process_one_img_file(
+                            oprr_num, vin_code_bmy_id_dict, 
+                            bmy_id_bmy_name_dict, brand_set, 
+                            sub_obj, sfd, efd)
+        return oprr_num
+
             
         
         
