@@ -4322,7 +4322,29 @@ function nextImg() {
     def purify_full_ds_main():
         print('清理全量数据集...')
         #WxsDsm.pfdm_train_ds()
-        WxsDsm.pfdm_test_ds()
+        #WxsDsm.pfdm_test_ds()
+        WxsDsm.generate_fds_cambricon_labels()
+    
+
+    @staticmethod
+    def generate_fds_cambricon_labels():
+        '''
+        由新的bmy_id求出老的bmy_id，然后求出品牌车型年款并用逗号分隔，生成一个txt文件
+        '''
+        bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
+        with open('./support/cambricon_vehicle_label.txt', 'w+', encoding='utf-8') as fd:
+            for bmy_id, bmy_vo in bmy_id_bmy_vo_dict:
+                bmy_name = bmy_vo['bmy_name']
+                arrs0 = bmy_name.split('-')
+                brand_name = arrs0[0]
+                model_name = arrs0[1]
+                year_name = arrs0[2]
+                fd.write('{0},{1},{2},{3},{4},{5}\n'.format(
+                    brand_name, model_name, year_name,
+                    bmy_vo['brand_code'],
+                    bmy_vo['model_code'],
+                    bmy_vo['bmy_code']
+                ))
         
     @staticmethod
     def pfdm_train_ds():
