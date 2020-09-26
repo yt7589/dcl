@@ -4333,7 +4333,7 @@ function nextImg() {
         '''
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         with open('./support/cambricon_vehicle_label.txt', 'w+', encoding='utf-8') as fd:
-            for bmy_id, bmy_vo in bmy_id_bmy_vo_dict:
+            for bmy_id, bmy_vo in bmy_id_bmy_vo_dict.items():
                 bmy_name = bmy_vo['bmy_name']
                 arrs0 = bmy_name.split('-')
                 brand_name = arrs0[0]
