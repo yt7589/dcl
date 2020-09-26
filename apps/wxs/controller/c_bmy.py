@@ -221,3 +221,19 @@ class CBmy(object):
     @staticmethod
     def update_vin_code_by_vin_id(vin_id, vin_code):
         MVin.update_vin_code_by_vin_id(vin_id, vin_code)
+
+    @staticmethod
+    def get_bmy_id_2_bmy_vo():
+        raw_bmys = MBmy.get_bmys()
+        bmy_id_2_bmy_vo = []
+        for rb in raw_bmys:
+            if not rb['bmy_code'].startswith('b'):
+                bmy_vo = {
+                    'bmy_id': int(rb['bmy_id']),
+                    'bmy_name': rb['bmy_name'],
+                    'bmy_code': rb['bmy_code'],
+                    'brand_id': int(rb['brand_id']),
+                    'model_id': int(rb['model_id'])
+                }
+                bmy_id_2_bmy_vo[int(rb['bmy_id'])] = bmy_vo
+        return bmy_id_2_bmy_vo
