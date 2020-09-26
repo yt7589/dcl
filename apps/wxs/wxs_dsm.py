@@ -4367,7 +4367,7 @@ function nextImg() {
         # 生成数据集
         num = 0
         with open('./support/fds_test_ds.txt', 'w+', encoding='utf-8') as ffd:
-            with open('./support/raw_bid_test_ds.txt', 'r', encoding='utf-8') as tfd:
+            with open('./support/raw_fds_test_ds.txt', 'r', encoding='utf-8') as tfd:
                 for line in tfd:
                     line = line.strip()
                     arrs_a = line.split('*')
