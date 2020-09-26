@@ -4321,6 +4321,26 @@ function nextImg() {
     @staticmethod
     def purify_full_ds_main():
         print('清理全量数据集...')
+        #WxsDsm.pfdm_train_ds()
+        WxsDsm.pfdm_test_ds()
+        
+    @staticmethod
+    def pfdm_test_ds():
+        # 获取bmy_id对应的brand_id
+        bmy_id_2_bmy_vo = CBmy.get_bmy_id_2_bmy_vo()
+        with open('./support/fds_test_ds.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./support/fds_test_ds_raw.txt', 'r', encoding='utf-8') as tfd:
+                for line in tfd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    full_fn = arrs_a[0]
+                    bmy_id = int(arrs_a[1]) + 1
+                    bmy_vo = bmy_id_2_bmy_vo[bmy_id]
+                    brand_id = bmy_vo['brand_id']
+                    wfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, brand_id))
+        
+    @staticmethod
+    def pfdm_train_ds():
         # 获取错误样本列表
         es_set = set()
         num1 = 0
