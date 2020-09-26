@@ -4318,6 +4318,32 @@ function nextImg() {
             print('处理{0}条记录...'.format(oprr_num))
         return oprr_num
         
+    @staticmethod
+    def purify_full_ds_main():
+        print('清理全量数据集...')
+        # 获取错误样本列表
+        es_set = set()
+        with open('./support/esi_samples.txt', 'r', encoding='utf-8') as efd:
+            for line in efd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                img_file = arrs_a[0]
+                es_set.add(img_file)
+        print('读出错误文件列表：{0}个'.format(len(es_set)))
+        i_debug = 1
+        if 1 == i_debug:
+            return
+        # 获取bmy_id对应的brand_id
+        bmy_id_2_brand_id = {}
+        # 生成数据集
+        with open('./support/fds_train_ds.txt', 'w+', encoding='utf-8') as ffd:
+            with open('./support/raw_bid_train_ds.txt', 'r', encoding='utf-8') as tfd:
+                for line in tfd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    full_fn = arrs_a[0]
+                    bmy_id = int(arrs_a[1]) + 1
+        
             
         
         
