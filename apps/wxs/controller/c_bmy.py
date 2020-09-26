@@ -225,7 +225,7 @@ class CBmy(object):
     @staticmethod
     def get_bmy_id_2_bmy_vo():
         raw_bmys = MBmy.get_bmys()
-        bmy_id_2_bmy_vo = []
+        bmy_id_2_bmy_vo = {}
         for rb in raw_bmys:
             if not rb['bmy_code'].startswith('b'):
                 bmy_vo = {
