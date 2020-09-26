@@ -4375,7 +4375,7 @@ function nextImg() {
                     arrs_b = full_fn.split('/')
                     fn = arrs_b[-1]
                     bmy_id = int(arrs_a[1]) + 1
-                    if fn not in es_set and bmy_id in bmy_id_2_bmy_vo:
+                    if bmy_id in bmy_id_2_bmy_vo:
                         bmy_vo = bmy_id_2_bmy_vo[bmy_id]
                         brand_id = bmy_vo['brand_id']
                         ffd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, brand_id))
