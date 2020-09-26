@@ -4323,7 +4323,8 @@ function nextImg() {
         print('清理全量数据集...')
         #WxsDsm.pfdm_train_ds()
         #WxsDsm.pfdm_test_ds()
-        WxsDsm.generate_fds_cambricon_labels()
+        #WxsDsm.generate_fds_cambricon_labels()
+        WxsDsm.bind_fds_brand_head_bmy_head()
     
 
     @staticmethod
