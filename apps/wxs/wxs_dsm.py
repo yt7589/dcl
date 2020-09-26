@@ -4361,6 +4361,33 @@ function nextImg() {
                         
     @staticmethod
     def pfdm_test_ds():
+        #WxsDsm.pre_pdfm_test_ds()
+        # 获取bmy_id对应的brand_id
+        bmy_id_2_bmy_vo = CBmy.get_bmy_id_2_bmy_vo()
+        # 生成数据集
+        num = 0
+        with open('./support/fds_test_ds.txt', 'w+', encoding='utf-8') as ffd:
+            with open('./support/raw_bid_test_ds.txt', 'r', encoding='utf-8') as tfd:
+                for line in tfd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    full_fn = arrs_a[0]
+                    arrs_b = full_fn.split('/')
+                    fn = arrs_b[-1]
+                    bmy_id = int(arrs_a[1]) + 1
+                    if fn not in es_set and bmy_id in bmy_id_2_bmy_vo:
+                        bmy_vo = bmy_id_2_bmy_vo[bmy_id]
+                        brand_id = bmy_vo['brand_id']
+                        ffd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, brand_id))
+                    else:
+                        print('Error: {0};'.format(full_fn))
+                    num += 1
+                    if num % 100 == 0:
+                        print('处理完成{0}条记录'.format(num))
+                        
+    
+    @staticmethod
+    def pre_pdfm_test_ds():
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         brand_set = set()
