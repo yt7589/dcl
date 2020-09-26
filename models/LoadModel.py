@@ -121,7 +121,7 @@ class MainModel(nn.Module):
 
     def initialize_bmy_masks(self):
         self.bmy_masks = np.zeros((self.num_brands, self.num_bmys), dtype=np.float32)
-        for bi in range(self.num_brands):
+        for bi in MainModel.BRAND_BMYS_DICT.keys():
             bmy_idxs = MainModel.BRAND_BMYS_DICT[bi]
             for bmy_idx in bmy_idxs:
                 self.bmy_masks[bi][bmy_idx] = 1.0
