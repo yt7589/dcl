@@ -4527,7 +4527,6 @@ function nextImg() {
                 bm_name = '{0}-{1}'.format(arrs_a[1].strip(), arrs_a[3].strip())
                 wxs_bid_bm_dict[bm_code] = bm_name
         for k, v in wxs_bid_bm_dict.items():
-            print('{0}: {1}'.format(k, v))
             dbv = wxs_db_bm_dict[k]
             if v != dbv:
                 print('{0}: 标书：{1}；数据库：{2};'.format(k, v, dbv))
