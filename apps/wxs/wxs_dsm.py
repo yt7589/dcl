@@ -4524,7 +4524,7 @@ function nextImg() {
                 line = line.strip()
                 arrs_a = line.split(',')
                 bm_code = arrs_a[2]
-                bm_name = '{0}-{1}'.format(arrs_a[1], arrs_a[3])
+                bm_name = '{0}-{1}'.format(arrs_a[1].strip(), arrs_a[3].strip())
                 wxs_bid_bm_dict[bm_code] = bm_name
         for k, v in wxs_bid_bm_dict.items():
             print('{0}: {1}'.format(k, v))
