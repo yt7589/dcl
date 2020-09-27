@@ -4,6 +4,7 @@
 # 下面。
 import os
 import json
+import shutil
 import requests
 from pathlib import Path
 import threading
@@ -556,6 +557,7 @@ class VdJsonManager(object):
     @staticmethod
     def vd_cut_by_folder():
         print('对某个目录中文件进行切图...')
+        VdJsonManager.s_lock = threading.RLock()
         cutted_image_set = set()
         miss_images_fd = open('./support/esi0926_miss_images.txt', 'w+', encoding='utf-8')
         efd = open('./support/esi0926_error.txt', 'w+', encoding='utf-8')
