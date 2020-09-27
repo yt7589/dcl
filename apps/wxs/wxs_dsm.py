@@ -4549,11 +4549,19 @@ function nextImg() {
             for fn in files:
                 full_fn = '{0}/{1}'.format(root, fn)
                 cutted_img_dict[fn] = full_fn
-        num = 0
-        for k, v in cutted_img_dict.items():
-            print('{0}:{1};'.format(k, v))
-            num += 1
-        print('共{0}个图片文件'.format(num))
+        with open('./support/fds_test_ds.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./support/fds_test_ds_old', 'r', encoding='utf-8') as ofd:
+                for line in ofd:
+                    line = line.strip()
+                    arrs_a = line.split('*')
+                    org_full_fn = arrs_a[0]
+                    bmy_id = arrs_a[1]
+                    brand_id = arrs_a[2]
+                    arrs_b = org_full_fn.split('/')
+                    img_file = arrs_b[-1]
+                    full_fn = cutted_img_dict[img_file]
+                    print('{0}*{1}*{2};'.format(full_fn, bmy_id, brand_id))
+                    wfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, brand_id))
         
 
             
