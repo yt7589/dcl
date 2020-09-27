@@ -4515,8 +4515,12 @@ function nextImg() {
         print('检查新版所里Excel文件是否有变化...')
         wxs_db_bm_dict = CModel.get_wxs_db_bm_dict()
         wxs_bid_bm_dict = {}
+        first_row = True
         with open('./support/wxs_bid_brand_model.csv', 'r', encoding='utf-8') as cfd:
             for line in cfd:
+                if first_row:
+                    first_row = False
+                    continue
                 line = line.strip()
                 arrs_a = line.split(',')
                 bm_code = arrs_a[2]
