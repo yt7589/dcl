@@ -4505,6 +4505,24 @@ function nextImg() {
             row_str += '},'
             print(row_str)
         print('}')
+        
+    @staticmethod
+    def compare_new_wxs_bid_excel():
+        '''
+        检查所里9月18日发布的文件中，仅有2200个品牌车型的代码，与之前版本的
+        品牌车型年款代码进行比较，看看是否一致
+        '''
+        print('检查新版所里Excel文件是否有变化...')
+        wxs_bm_dict = {}
+        with open('./support/wxs_bid_brand_model.csv', 'r', encoding='utf-8') as cfd:
+            for line in cfd:
+                line = line.strip()
+                arrs_a = line.split(',')
+                bm_code = arrs_a[2]
+                bm_name = '{0}-{1}'.format(arrs_a[1], arrs_a[3])
+                wxs_bm_dict[bm_code] = bm_name
+        for k, v in wxs_bm_dict.items():
+            print('{0}: {1}'.format(k, v))
 
             
         

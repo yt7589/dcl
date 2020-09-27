@@ -33,13 +33,14 @@ class WxsApp(object):
     RM_COPY_FINE_RANDOM_IMAGES = 1025
     RM_ADD_ERR_IMGS_TO_RDS = 1026
     RM_PURIFY_FULL_DS_MAIN = 1027
+    RM_COMPARE_NEW_WXS_BID_EXCEL = 1028
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_GENERATE_ZJKJ_CAMBRICON_LABELS
+        mode = WxsApp.RM_COMPARE_NEW_WXS_BID_EXCEL
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -189,6 +190,12 @@ class WxsApp(object):
             清理全量数据集
             '''
             WxsDsm.purify_full_ds_main()
+        elif WxsApp.RM_COMPARE_NEW_WXS_BID_EXCEL == mode:
+            '''
+            检查所里9月18日发布的文件中，仅有2200个品牌车型的代码，与之前版本的
+            品牌车型年款代码进行比较，看看是否一致
+            '''
+            WxsDsm.compare_new_wxs_bid_excel()
         else:
             WxsDsm.exp001()
             
