@@ -4553,7 +4553,7 @@ function nextImg() {
         for k, v in cutted_img_dict.items():
             print('{0}:{1};'.format(k, v))
             num += 1
-        print('共{0}个图片文件')
+        print('共{0}个图片文件'.format(num))
         
 
             
