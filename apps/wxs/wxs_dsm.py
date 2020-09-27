@@ -4549,6 +4549,7 @@ function nextImg() {
             for fn in files:
                 full_fn = '{0}/{1}'.format(root, fn)
                 cutted_img_dict[fn] = full_fn
+        error_num = 0
         with open('./support/fds_test_ds.txt', 'w+', encoding='utf-8') as wfd:
             with open('./support/fds_test_ds_old.txt', 'r', encoding='utf-8') as ofd:
                 for line in ofd:
@@ -4559,9 +4560,14 @@ function nextImg() {
                     brand_id = arrs_a[2]
                     arrs_b = org_full_fn.split('/')
                     img_file = arrs_b[-1]
-                    full_fn = cutted_img_dict[img_file]
-                    print('{0}*{1}*{2};'.format(full_fn, bmy_id, brand_id))
-                    wfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, brand_id))
+                    if img_file in cutted_img_dict:
+                        full_fn = cutted_img_dict[img_file]
+                        print('{0}*{1}*{2};'.format(full_fn, bmy_id, brand_id))
+                        wfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, brand_id))
+                    else:
+                        print('切图失败文件：{0};'.format(org_full_fn))
+                        error_num += 1
+        print('切图失败文件数：{0};'.format(error_num))
         
 
             
