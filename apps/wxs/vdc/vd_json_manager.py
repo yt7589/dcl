@@ -494,7 +494,7 @@ class VdJsonManager(object):
 
     @staticmethod
     def get_img_reid_feature_vector(full_fn):
-        url = 'http://192.168.2.17:2222/vehicle/function/recognition'
+        url = 'http://192.168.2.68:9008/vehicle/function/recognition'
         data = {'TPLX': 1, 'GCXH': 123131318}
         files = {'TPWJ': (full_fn, open(full_fn, 'rb'))}
         resp = requests.post(url, files=files, data = data)
@@ -551,8 +551,91 @@ class VdJsonManager(object):
         thd.join()
         fd.close()
         miss_images_fd.close()
+        efd.close()      
+        
+    @staticmethod
+    def vd_cut_by_folder():
+        print('对某个目录中文件进行切图...')
+        cutted_image_set = set()
+        miss_images_fd = open('./support/esi0926_miss_images.txt', 'w+', encoding='utf-8')
+        efd = open('./support/esi0926_error.txt', 'w+', encoding='utf-8')
+        # 求出目录的文件列表
+        with open('./support/es_images_0926.txt', 'w+', encoding='utf-8') as wfd:
+            for root, dirs, files in os.walk('./support/es_images_0926', topdown=False):
+                for fn in files:
+                    full_fn = '{0}/{1}'.format(root, fn)
+                    wfd.write('{0}\n'.format(full_fn))
+        fd = open('./support/es_images_0926.txt', 'r', encoding='utf-8')
+        params = params = {
+            'idx': 0 , 'fd': fd, 'efd': efd, 
+            'miss_images_fd': miss_images_fd,
+            'cutted_image_set': cutted_image_set,
+            'cut_img_folder': './support/esi0926_cutted',
+            'fail_img_folder': './support/esi0926_failed'
+        }
+        thd = threading.Thread(target=VdJsonManager.vd_cut_by_folder_thd, args=(params,))
+        thd.start()
+        thd.join()
+        fd.close()
+        miss_images_fd.close()
         efd.close()
         
+    @staticmethod
+    def vd_cut_by_folder_thd(params):
+        cars = ['13', '14']
+        trucks = ['21', '22']
+        buss = ['11', '12']
+        idx = params['idx']
+        fd = params['fd']
+        miss_images_fd = params['miss_images_fd']
+        efd = params['efd']
+        cutted_image_set = params['cutted_image_set']
+        cut_img_folder = params['cut_img_folder']
+        fail_img_folder = params['fail_img_folder']
+        for line in fd:
+            line = line.strip()
+            full_fn = line
+            arrs_a = full_fn.split('/')
+            img_file = arrs_a[-1]
+            if img_file in cutted_image_set:
+                # 忽略已经完成切图的文件
+                VdJsonManager.s_num += 1
+                if VdJsonManager.s_num % 1000 == 0:
+                    print('已经处理完成{0}个文件'.format(VdJsonManager.s_num))
+                continue
+            data = VdJsonManager.get_img_reid_feature_vector(full_fn)
+            psfx, cllxfl, xlwz = VdJsonManager.parse_vd_json_data(data)
+            if psfx is not None:
+                head_tail = VdJsonManager.HTT_HEAD
+                if psfx == '2':
+                    head_tail = VdJsonManager.HTT_TAIL
+                vehicle_type = VdJsonManager.VT_CAR
+                if cllxfl in trucks:
+                    vehicle_type = VdJsonManager.VT_TRUCK
+                elif cllxfl in buss:
+                    vehicle_type = VdJsonManager.VT_BUS
+                arrs_c = xlwz.split(',')
+                box = [int(arrs_c[0]), int(arrs_c[1]), int(arrs_c[2]), int(arrs_c[3])]
+                if box[0] < 0:
+                    box[0] = 0
+                if box[1] < 0:
+                    box[1] = 0
+                try:
+                    VdJsonManager.s_lock.acquire() # 获取锁以进行目录操作
+                    VdJsonManager.s_num, dst_cut_fn = FileTreeFolderSaver.get_dst_fn('{0}/{1}/{2}'.format(cut_img_folder, head_tail, vehicle_type), full_fn, VdJsonManager.s_num)
+                    croped_img = VdJsonManager.crop_and_resize_img(full_fn, box)
+                    cv2.imwrite(dst_cut_fn, croped_img)
+                    VdJsonManager.s_lock.release()
+                except Exception as ex:
+                    print('##### Exception {0};[{1}]'.format(ex, full_fn))
+                    efd.write('{0}\n'.format(full_fn))
+                    shutil.copy(full_fn, '{0}/{1}'.format(fail_img_folder, img_file))
+                    VdJsonManager.s_lock.release()
+                if VdJsonManager.s_num % 100 == 0:
+                    print('Thread_{0}: cut and save {1};'.format(idx, VdJsonManager.s_num))
+            else:
+                efd.write('{0}\n'.format(full_fn))
+                shutil.copy(full_fn, '{0}/{1}'.format(fail_img_folder, img_file))
         
                                 
                                 
@@ -577,3 +660,15 @@ class VdJsonManager(object):
                                 
                                 
                                 
+
+
+
+
+
+
+
+
+
+
+
+

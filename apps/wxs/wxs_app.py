@@ -34,13 +34,14 @@ class WxsApp(object):
     RM_ADD_ERR_IMGS_TO_RDS = 1026
     RM_PURIFY_FULL_DS_MAIN = 1027
     RM_COMPARE_NEW_WXS_BID_EXCEL = 1028
+    RM_VD_CUT_BY_FOLDER = 1029
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_COMPARE_NEW_WXS_BID_EXCEL
+        mode = WxsApp.RM_VD_CUT_BY_FOLDER
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -196,6 +197,12 @@ class WxsApp(object):
             品牌车型年款代码进行比较，看看是否一致
             '''
             WxsDsm.compare_new_wxs_bid_excel()
+        elif WxsApp.RM_VD_CUT_BY_FOLDER == mode:
+            '''
+            对指定目录文件进行切图，以树形目录方式存到目录中，将切图失败的图片
+            保存到另外的目录
+            '''
+            WxsDsm.vd_cut_by_folder()
         else:
             WxsDsm.exp001()
             

@@ -4530,6 +4530,14 @@ function nextImg() {
             dbv = wxs_db_bm_dict[k]
             if v != dbv:
                 print('{0}: 标书：{1}；数据库：{2};'.format(k, v, dbv))
+                
+    @staticmethod
+    def vd_cut_by_folder():
+        '''
+        对指定目录文件进行切图，以树形目录方式存到目录中，将切图失败的图片
+        保存到另外的目录
+        '''
+        VdJsonManager.vd_cut_by_folder()
 
             
         
