@@ -4513,16 +4513,20 @@ function nextImg() {
         品牌车型年款代码进行比较，看看是否一致
         '''
         print('检查新版所里Excel文件是否有变化...')
-        wxs_bm_dict = {}
+        wxs_db_bm_dict = CModel.get_wxs_db_bm_dict()
+        wxs_bid_bm_dict = {}
         with open('./support/wxs_bid_brand_model.csv', 'r', encoding='utf-8') as cfd:
             for line in cfd:
                 line = line.strip()
                 arrs_a = line.split(',')
                 bm_code = arrs_a[2]
                 bm_name = '{0}-{1}'.format(arrs_a[1], arrs_a[3])
-                wxs_bm_dict[bm_code] = bm_name
-        for k, v in wxs_bm_dict.items():
+                wxs_bid_bm_dict[bm_code] = bm_name
+        for k, v in wxs_bid_bm_dict.items():
             print('{0}: {1}'.format(k, v))
+            dbv = wxs_db_bm_dict[k]
+            if v != dbv:
+                print('{0}: 标书：{1}；数据库：{2};'.format(k, v, dbv))
 
             
         

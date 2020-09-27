@@ -25,3 +25,11 @@ class CModel(object):
     def get_model_by_name(model_name):
         return MModel.get_model_by_name(model_name)
         
+    @staticmethod
+    def get_wxs_db_bm_dict():
+        recs = MModel.get_wxs_bms()
+        wxs_db_dm_dict = {}
+        for rec in recs:
+            wxs_db_dm_dict[rec['model_code']] = rec['model_name']
+        return wxs_db_dm_dict
+        

@@ -36,3 +36,10 @@ class MModel(object):
         query_cond = {'model_id': model_id}
         fields = {'model_name': 1, 'model_code': 1, 'source_type': 1}
         return MMongoDb.db['t_model'].find_one(query_cond, fields)
+        
+    @staticmethod
+    def get_wxs_bms():
+        query_cond = {'source_type': 1}
+        fields = {'model_code':1, 'model_name': 1}
+        return MMongoDb.convert_recs(MMongoDb.db['t_model']\
+                    .find(query_cond, fields))
