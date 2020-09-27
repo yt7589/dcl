@@ -4550,7 +4550,7 @@ function nextImg() {
                 full_fn = '{0}/{1}'.format(root, fn)
                 cutted_img_dict[fn] = full_fn
         with open('./support/fds_test_ds.txt', 'w+', encoding='utf-8') as wfd:
-            with open('./support/fds_test_ds_old', 'r', encoding='utf-8') as ofd:
+            with open('./support/fds_test_ds_old.txt', 'r', encoding='utf-8') as ofd:
                 for line in ofd:
                     line = line.strip()
                     arrs_a = line.split('*')
