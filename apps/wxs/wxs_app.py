@@ -35,13 +35,14 @@ class WxsApp(object):
     RM_PURIFY_FULL_DS_MAIN = 1027
     RM_COMPARE_NEW_WXS_BID_EXCEL = 1028
     RM_VD_CUT_BY_FOLDER = 1029
+    RM_REFINE_FDS_TEST_DS = 1030
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_VD_CUT_BY_FOLDER
+        mode = WxsApp.RM_REFINE_FDS_TEST_DS
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -203,6 +204,11 @@ class WxsApp(object):
             保存到另外的目录
             '''
             WxsDsm.vd_cut_by_folder()
+        elif WxsApp.RM_REFINE_FDS_TEST_DS == mode:
+            '''
+            将全量数据集测试集图片换为切过的图片
+            '''
+            WxsDsm.refine_fds_test_ds()
         else:
             WxsDsm.exp001()
             

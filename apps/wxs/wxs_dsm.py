@@ -4538,6 +4538,23 @@ function nextImg() {
         保存到另外的目录
         '''
         VdJsonManager.vd_cut_by_folder()
+        
+    @staticmethod
+    def refine_fds_test_ds():
+        '''
+        将全量数据集测试集图片换为切过的图片
+        '''
+        cutted_img_dict = {}
+        for root, dirs, files in os.walk('./support/esi0926_cutted', topdown=False):
+            for fn in files:
+                full_fn = '{0}/{1}'.format(root, fn)
+                cutted_img_dict[fn] = full_fn
+        num = 0
+        for k, v in cutted_img_dict.items():
+            print('{0}:{1};'.format(k, v))
+            num += 1
+        print('共{0}个图片文件')
+        
 
             
         
