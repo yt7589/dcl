@@ -282,5 +282,7 @@ if __name__ == '__main__':
         print('prepare for storing the onnx file')
         onnx_exporter = OnnxExporter()
         onnx_exporter.export_onnx(onnx_model)
+    elif 6 == mode: # 绘制热力图
+        print('绘制分类卷积网络热力图')
 
 
