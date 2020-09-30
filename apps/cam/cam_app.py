@@ -9,6 +9,7 @@ class CamApp(object):
     def startup(self, args):
         i_debug = 10
         if 1 == i_debug:
+            # 为无锡所招标预留功能开发
             app = WxsApp()
             app.startup(args)
             return
