@@ -4596,13 +4596,13 @@ function nextImg() {
         arrs_a = fn.split('_')
         arrs_b = arrs_a[0].split('#')
         vin_code = arrs_b[0]
-        if vin_code in vin_bmy_id_dict:
-            bmy_id = vin_bmy_id_dict[vin_code]
+        if vin_code in vin_code_bmy_id_dict:
+            bmy_id = vin_code_bmy_id_dict[vin_code]
         else:
             vin_had_bmy_id = False
-            for k, _ in vin_bmy_id_dict.items():
+            for k, _ in vin_code_bmy_id_dict.items():
                 if k.startswith(vin_code):
-                    bmy_id = vin_bmy_id_dict[k]
+                    bmy_id = vin_code_bmy_id_dict[k]
                     vin_had_bmy_id = True
                     break
             if not vin_had_bmy_id:
