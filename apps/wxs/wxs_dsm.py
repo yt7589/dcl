@@ -4582,7 +4582,7 @@ function nextImg() {
             for fn in files:
                 if fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
                     print('{0}/{1}'.format(root, fn))
-                    process_one_wxs_bid_ds_image(vin_code_bmy_id_dict, bmy_id_bmy_vo_dict, fn, sfd, efd)
+                    WxsDsm.process_one_wxs_bid_ds_image(vin_code_bmy_id_dict, bmy_id_bmy_vo_dict, fn, sfd, efd)
                     num += 1
         print('共有{0}个文件'.format(num))
         sfd.close()
