@@ -4581,21 +4581,23 @@ function nextImg() {
         for root, dirs, files in os.walk('./support/wxs_ds', topdown=False):
             for fn in files:
                 if fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
-                    print('{0}/{1}'.format(root, fn))
-                    WxsDsm.process_one_wxs_bid_ds_image(vin_code_bmy_id_dict, bmy_id_bmy_vo_dict, fn, sfd, efd)
+                    full_fn = '{0}/{1}'.format(root, fn)
+                    WxsDsm.process_one_wxs_bid_ds_image(vin_code_bmy_id_dict, bmy_id_bmy_vo_dict, full_fn, sfd, efd)
                     num += 1
         print('共有{0}个文件'.format(num))
         sfd.close()
         efd.close()
 
     @staticmethod
-    def process_one_wxs_bid_ds_image(vin_code_bmy_id_dict, bmy_id_bmy_vo_dict, fn, sfd, efd):
+    def process_one_wxs_bid_ds_image(vin_code_bmy_id_dict, bmy_id_bmy_vo_dict, full_fn, sfd, efd):
         '''
         对每个图片进行处理（不包括所里原来的品牌测试集图片）
         '''
-        arrs_a = fn.split('_')
-        arrs_b = arrs_a[0].split('#')
-        vin_code = arrs_b[0]
+        arrs_a = full_fn.split('/'
+        fn = arrs_a[-1]
+        arrs_b = fn.split('_')
+        arrs_c = arrs_b[0].split('#')
+        vin_code = arrs_c[0]
         if vin_code in vin_code_bmy_id_dict:
             bmy_id = vin_code_bmy_id_dict[vin_code]
         else:
@@ -4611,7 +4613,7 @@ function nextImg() {
                     efd.write('{0}\n'.format(vin_code))
         if bmy_id > 0:
             bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
-            sfd.write('{0}*{1}*{2}\n'.format(sub_file, bmy_id, bmy_vo['brand_id']))
+            sfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, bmy_vo['brand_id']))
 
             
         
