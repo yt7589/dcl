@@ -4579,8 +4579,8 @@ function nextImg() {
         print('无锡所招标测试集数据预处理程序...')
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
-        sfd = open('./support/wxs_train_ds0.txt', 'w+', encoding='utf-8')
-        efd = open('./support/wxs_ds_error0.txt', 'w+', encoding='utf-8')
+        sfd = open('./support/wxs_train_ds.txt', 'w+', encoding='utf-8')
+        efd = open('./support/wxs_ds_error.txt', 'w+', encoding='utf-8')
         num = 0
         for root, dirs, files in os.walk('./support/wxs_ds', topdown=False):
             for fn in files:
