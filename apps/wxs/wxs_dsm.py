@@ -4569,6 +4569,11 @@ function nextImg() {
                         error_num += 1
         print('切图失败文件数：{0};'.format(error_num))
         
+        
+    @staticmethod
+    def wxs_bid_ds_main():
+        print('无锡所招标测试集数据预处理程序...')
+        
 
             
         
