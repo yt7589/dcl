@@ -4593,7 +4593,7 @@ function nextImg() {
         '''
         对每个图片进行处理（不包括所里原来的品牌测试集图片）
         '''
-        arrs_a = full_fn.split('/'
+        arrs_a = full_fn.split('/')
         fn = arrs_a[-1]
         arrs_b = fn.split('_')
         arrs_c = arrs_b[0].split('#')
