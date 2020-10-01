@@ -4573,13 +4573,45 @@ function nextImg() {
     @staticmethod
     def wxs_bid_ds_main():
         print('无锡所招标测试集数据预处理程序...')
+        vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
+        bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
+        sfd = open('./support/wxs_train_ds.txt', 'w+', encoding='utf-8')
+        efd = open('./support/wxs_ds_error.txt', 'w+', encoding='utf-8')
         num = 0
         for root, dirs, files in os.walk('./support/wxs_ds', topdown=False):
             for fn in files:
                 if fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
                     print('{0}/{1}'.format(root, fn))
+                    process_one_wxs_bid_ds_image(vin_code_bmy_id_dict, bmy_id_bmy_vo_dict, fn, sfd, efd)
                     num += 1
         print('共有{0}个文件'.format(num))
+        sfd.close()
+        efd.close()
+
+    @staticmethod
+    def process_one_wxs_bid_ds_image(vin_code_bmy_id_dict, bmy_id_bmy_vo_dict, fn, sfd, efd):
+        '''
+        对每个图片进行处理（不包括所里原来的品牌测试集图片）
+        '''
+        arrs_a = fn.split('_')
+        arrs_b = arrs_a[0].split('#')
+        vin_code = arrs_b[0]
+        if vin_code in vin_bmy_id_dict:
+            bmy_id = vin_bmy_id_dict[vin_code]
+        else:
+            vin_had_bmy_id = False
+            for k, _ in vin_bmy_id_dict.items():
+                if k.startswith(vin_code):
+                    bmy_id = vin_bmy_id_dict[k]
+                    vin_had_bmy_id = True
+                    break
+            if not vin_had_bmy_id:
+                bmy_id = -1
+                if vin_code != '白' and vin_code != '夜':
+                    efd.write('{0}\n'.format(vin_code))
+        if bmy_id > 0:
+            bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
+            sfd.write('{0}*{1}*{2}\n'.format(sub_file, bmy_id, bmy_vo['brand_id']))
 
             
         
