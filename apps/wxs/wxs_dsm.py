@@ -4577,7 +4577,7 @@ function nextImg() {
         for root, dirs, files in os.walk('./support/wxs_ds', topdown=False):
             for fn in files:
                 if fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
-                    num += 0
+                    num += 1
         print('共有{0}个文件'.format(num))
 
             
