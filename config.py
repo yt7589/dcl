@@ -95,14 +95,16 @@ class LoadConfig(object):
         # annotation file organized as :
         # path/image_name cls_num\n
         # 正式环境
+        '''
         train_ds_file = 'fds_train_ds_20200926.txt'
         val_ds_file = 'fds_test_ds_20200926.txt'
         test_ds_file = 'fds_test_ds_20200926.txt'
         '''
-        # 精度测试
-        val_ds_file = 'wxs_brands_ds.txt'
-        test_ds_file = 'wxs_brands_ds.txt'
-        '''
+        # 无锡所测试程序
+        train_ds_file = 'wxs_train_ds.txt'
+        val_ds_file = 'wxs_test_ds.txt'
+        test_ds_file = 'wxs_test_ds.txt'
+        
 
         if 'train' in get_list:
             self.train_anno = pd.read_csv(os.path.join(self.anno_root, train_ds_file),\
