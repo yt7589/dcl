@@ -643,6 +643,15 @@ class VdJsonManager(object):
     def run_vd_cut_save_on_wxs_ds():
         print('利用Python程序完成整个切图流程（处理无锡所测试数据集）')
         # 统计已经完成切图的图片文件集合
+        with open('./support/wxs_ds_images.txt', 'w+', encoding='utf-8') as wfd:
+            for root, dirs, files in os.walk('./support/wxs_ds', topdown=False):
+                for fn in files:
+                    if fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
+                        full_fn = '{0}/{1}'.format(root, fn)
+                        wfd.write('{0}\n'.format(full_fn))
+        i_debug = 1
+        if 1 == i_debug:
+            return
         cutted_image_set = set()
         VdJsonManager.s_num = 0
         VdJsonManager.s_lock = threading.RLock()
@@ -653,7 +662,7 @@ class VdJsonManager(object):
             'idx': 0, 'fd': fd, 'efd': efd, 
             'miss_images_fd': miss_images_fd,
             'cutted_image_set': cutted_image_set,
-            'cut_img_folder': './support/wxs_ds_cutted'
+            'cut_img_folder': './support/ds_files/wxs_ds'
         }
         thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
         thd.start()
