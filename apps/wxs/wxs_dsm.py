@@ -3869,6 +3869,10 @@ function nextImg() {
         VdJsonManager.run_vd_cut_save_on_es20200923()
         
     @staticmethod
+    def run_vd_cut_save_on_wxs_ds():
+        VdJsonManager.run_vd_cut_save_on_wxs_ds()
+        
+    @staticmethod
     def delete_error_samples_main():
         src_ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds_090601.txt'
         dst_ds_file = './datasets/CUB_200_2011/anno/bid_brand_train_ds_091001.txt'
@@ -4575,8 +4579,8 @@ function nextImg() {
         print('无锡所招标测试集数据预处理程序...')
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
-        sfd = open('./support/wxs_train_ds.txt', 'w+', encoding='utf-8')
-        efd = open('./support/wxs_ds_error.txt', 'w+', encoding='utf-8')
+        sfd = open('./support/wxs_train_ds0.txt', 'w+', encoding='utf-8')
+        efd = open('./support/wxs_ds_error0.txt', 'w+', encoding='utf-8')
         num = 0
         for root, dirs, files in os.walk('./support/wxs_ds', topdown=False):
             for fn in files:
@@ -4610,7 +4614,7 @@ function nextImg() {
             if not vin_had_bmy_id:
                 bmy_id = -1
                 if vin_code != '白' and vin_code != '夜':
-                    efd.write('{0}\n'.format(vin_code))
+                    efd.write('{0}\n'.format(full_fn))
         if bmy_id > 0:
             bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
             sfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, bmy_vo['brand_id']))

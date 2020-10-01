@@ -37,6 +37,7 @@ class WxsApp(object):
     RM_VD_CUT_BY_FOLDER = 1029
     RM_REFINE_FDS_TEST_DS = 1030
     RM_WXS_BID_DS_MAIN = 1031
+    RM_RUN_VD_CUT_SAVE_ON_WXS_DS = 1032
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
@@ -215,6 +216,11 @@ class WxsApp(object):
             无锡所招标品牌测试集
             '''
             WxsDsm.wxs_bid_ds_main()
+        elif WxsApp.RM_RUN_VD_CUT_SAVE_ON_WXS_DS == mode:
+            '''
+            将所里9月23日错误的品牌图片，调用切图程序进行切图
+            '''
+            WxsDsm.run_vd_cut_save_on_wxs_ds()
         else:
             WxsDsm.exp001()
             

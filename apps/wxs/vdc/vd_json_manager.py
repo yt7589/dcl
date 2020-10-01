@@ -639,6 +639,29 @@ class VdJsonManager(object):
                 efd.write('{0}\n'.format(full_fn))
                 shutil.copy(full_fn, '{0}/{1}'.format(fail_img_folder, img_file))
         
+    @staticmethod
+    def run_vd_cut_save_on_wxs_ds():
+        print('利用Python程序完成整个切图流程（处理无锡所测试数据集）')
+        # 统计已经完成切图的图片文件集合
+        cutted_image_set = set()
+        VdJsonManager.s_num = 0
+        VdJsonManager.s_lock = threading.RLock()
+        miss_images_fd = open('./support/wxs_miss.txt', 'w+', encoding='utf-8')
+        efd = open('./support/wxs_error.txt', 'w+', encoding='utf-8')
+        fd = open('./support/wxs_ds_images.txt', 'r', encoding='utf-8')
+        params = {
+            'idx': 0, 'fd': fd, 'efd': efd, 
+            'miss_images_fd': miss_images_fd,
+            'cutted_image_set': cutted_image_set,
+            'cut_img_folder': './support/wxs_ds_cutted'
+        }
+        thd = threading.Thread(target=VdJsonManager.vd_cut_save_thd, args=(params,))
+        thd.start()
+        thd.join()
+        fd.close()
+        miss_images_fd.close()
+        efd.close()      
+        
                                 
                                 
                                 
