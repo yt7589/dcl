@@ -1,4 +1,6 @@
 #
+import os
+import datetime
 import argparse
 import torch
 import torch.backends.cudnn as cudnn
@@ -20,6 +22,7 @@ class CamApp(object):
             app.startup(args)
             return
         print('模型热力图绘制应用 v0.0.3')
+        os.environ['CUDA_VISIBLE_DEVICES'] = '2'
         args = self.parse_args()
         # arg_dict = vars(args)
         args.train_num_workers = 0
@@ -82,7 +85,51 @@ class CamApp(object):
         setattr(dataloader['val'], 'num_cls', Config.num_brands)
         cudnn.benchmark = True
         print('Choose model and train set', flush=True)
+        print('Choose model and train set', flush=True)
+        model = MainModel(Config)
+
+        # load model
+        if (args.resume is None) and (not args.auto_resume):
+            print('train from imagenet pretrained models ...', flush=True)
+        else:
+            if not args.resume is None:
+                resume = args.resume
+                print('load from pretrained checkpoint %s ...'% resume, flush=True)
+            elif args.auto_resume:
+                resume = self.auto_load_resume(Config.save_dir)
+                print('load from %s ...'%resume, flush=True)
+            else:
+                raise Exception("no checkpoints to load")
+
+            model_dict = model.state_dict()
+            pretrained_dict = torch.load(resume)
+            print('train.py Ln193 resume={0};'.format(resume))
+            pretrained_dict = {k[7:]: v for k, v in pretrained_dict.items() if k[7:] in model_dict}
+            model_dict.update(pretrained_dict)
+            model.load_state_dict(model_dict)
+        print('Set cache dir', flush=True)
+        time = datetime.datetime.now()
+        filename = '%s_%d%d%d_%s'%(args.discribe, time.month, time.day, time.hour, Config.dataset)
+        save_dir = os.path.join(Config.save_dir, filename)
+        print('save_dir: {0} + {1};'.format(Config.save_dir, filename))
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir)
+        model.cuda()
+        
         print('^_^ The End! ^_^')
+        
+        
+        
+    def auto_load_resume(self, load_dir):
+        folders = os.listdir(load_dir)
+        #date_list = [int(x.split('_')[1].replace(' ',0)) for x in folders]
+        date_list = [int(x.split('_')[2]) for x in folders]
+        choosed = folders[date_list.index(max(date_list))]
+        weight_list = os.listdir(os.path.join(load_dir, choosed))
+        acc_list = [x[:-4].split('_')[-1] if x[:7]=='weights' else 0 for x in weight_list]
+        acc_list = [float(x) for x in acc_list]
+        choosed_w = weight_list[acc_list.index(max(acc_list))]
+        return os.path.join(load_dir, choosed, choosed_w)
         
     # parameters setting
     def parse_args(self):
