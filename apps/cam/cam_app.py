@@ -182,14 +182,4 @@ class CamApp(object):
         parser.add_argument('--cls_mul', dest='cls_mul',
                             action='store_true')
         args = parser.parse_args()
-    
-        # 添加默认参数
-        args.data = 'CUB'
-        args.epoch = 360
-        args.backbone = 'resnet50'
-        args.cp = 1000
-        args
-        
-        args.auto_resume = True
-        args.backbone = 'resnet50'
         return args
