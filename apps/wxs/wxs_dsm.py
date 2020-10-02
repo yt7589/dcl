@@ -4655,6 +4655,13 @@ function nextImg() {
     @staticmethod
     def get_wxs_bid_ds_scores():
         print('计算在无锡所数据集上的品牌精度和车型精度')
+        for root, dirs, files in os.walk('./support/wxs_ds', topdown=False):
+            for fn in files:
+                if ' ' in fn:
+                    print('### {0}/{1}'.format(root, fn))
+        i_debug = 1
+        if 1 == i_debug:
+            return 
         brand_acc_dict = {}
         bm_acc_dict = {}
         with open('./support/wxs_ds_rst.txt', 'r', encoding='utf-8') as rfd:
@@ -4676,6 +4683,32 @@ function nextImg() {
                 arrs_b[0], arrs_b[1], arrs_b[2], arrs_b[3], arrs_b[4]
             )
             print('full_fn: {0}'.format(img_file))
+            data = VdJsonManager.get_img_reid_feature_vector(full_fn)
+            
+    @staticmethod
+    def parse_vd_json_data(data):
+        cllxfls = ['11', '12', '13', '14', '21', '22']
+        if ('VEH' not in data) or len(data['VEH']) < 1:
+            return None, None, None
+        else:
+            # 找到面积最大的检测框作为最终检测结果
+            max_idx = -1
+            max_area = 0
+            for idx, veh in enumerate(data['VEH']):
+                cllxfl = veh['CXTZ']['CLLXFL'][:2]
+                if cllxfl in cllxfls:
+                    box_str = veh['WZTZ']['CLWZ']
+                    arrs_a = box_str.split(',')
+                    x1, y1, w, h = int(arrs_a[0]), int(arrs_a[1]), int(arrs_a[2]), int(arrs_a[3])
+                    area = w * h
+                    if area > max_area:
+                        max_area = area
+                        max_idx = idx
+            if max_idx < 0:
+                return None, None, None
+            else:
+                return data['VEH'][max_idx]['CXTZ']['CLPP'], data['VEH'][max_idx]['CXTZ']['PPCX'],
+                        data['VEH'][max_idx]['CXTZ']['PPXHMS']
 
             
         
