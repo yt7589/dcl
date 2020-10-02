@@ -4582,7 +4582,7 @@ function nextImg() {
         sfd = open('./support/wxs_train_ds.txt', 'w+', encoding='utf-8')
         efd = open('./support/wxs_ds_error.txt', 'w+', encoding='utf-8')
         num = 0
-        for root, dirs, files in os.walk('./support/wxs_ds', topdown=False):
+        for root, dirs, files in os.walk('./support/ds_files/wxs_ds', topdown=False):
             for fn in files:
                 if fn.endswith(('jpg', 'jpeg', 'png', 'bmp')):
                     full_fn = '{0}/{1}'.format(root, fn)
