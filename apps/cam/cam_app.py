@@ -15,6 +15,8 @@ class CamApp(object):
             app.startup(args)
             return
         print('模型热力图绘制应用 v0.0.1')
+        args = self.parse_args()
+        print('{0}: {1};'.format(type(args), args))
         
     # parameters setting
     def parse_args():
