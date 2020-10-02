@@ -4651,6 +4651,27 @@ function nextImg() {
                         bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
                         wfd.write('{0}*{1}*{2}\n'.format(img_file, bmy_vo['brand_code'], bmy_vo['model_code']))
         efd.close()
+        
+    @staticmethod
+    def get_wxs_bid_ds_scores():
+        print('计算在无锡所数据集上的品牌精度和车型精度')
+        brand_acc_dict = {}
+        bm_acc_dict = {}
+        with open('./support/wxs_ds_rst.txt', 'r', encoding='utf-8') as rfd:
+            for line in rfd:
+                line = line.strip()
+                arrs_a = line.split('*')
+                img_file = arrs_a[0]
+                brand_code = arrs_a[1]
+                bm_code = arrs_a[2]
+                brand_acc_dict[img_file] = brand_code
+                bm_acc_dict[img_file] = bm_code
+        base_path = Path('./support/wxs_ds_rst')
+        for fo in base_path.iterdir():
+            full_fn = str(fo)
+            arrs_a = full_fn.split('/')
+            json_file = arrs_a[-1]
+            print('full_fn: {0}'.format(json_file))
 
             
         
