@@ -43,7 +43,7 @@ class WxsBidTest(object):
             with open(full_fn, 'r', encoding='utf-8') as jfd:
                 vd_json = jfd.read()
             data = json.loads(vd_json) # VdJsonManager.get_img_reid_feature_vector(full_fn)
-            clpp, ppcx, ppxhms = WxsDsm.parse_vd_json_for_ppcx(data)
+            clpp, ppcx, ppxhms = WxsBidTest.parse_vd_json_for_ppcx(data)
             brand_code = brand_acc_dict[img_file]
             bm_code = bm_acc_dict[img_file]
             total_num += 1
