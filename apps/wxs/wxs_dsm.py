@@ -4621,7 +4621,34 @@ function nextImg() {
             
     @staticmethod
     def form_wxs_bid_test_rst():
-        print('生成无锡所数据集测试结果...')
+        print('生成无锡所数据集测试结果...v0.0.1')
+        vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
+        bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
+        with open('./support/wxs_ds_rst.txt', 'w+', encoding='utf-8') as wfd:
+            with open('./support/wxs_ds_images.txt', 'r', encoding='utf-8') as rfd:
+                for line in rfd:
+                    line = line.strip()
+                    arrs_a = line.split('/')
+                    img_file = arrs_a[-1]
+                    arrs_b = img_file.split('_')
+                    arrs_c = arrs_b[0].split('#')
+                    vin_code = arrs_c[0]
+                    if vin_code in vin_code_bmy_id_dict:
+                        bmy_id = vin_code_bmy_id_dict[vin_code]
+                    else:
+                        vin_had_bmy_id = False
+                        for k, _ in vin_code_bmy_id_dict.items():
+                            if k.startswith(vin_code):
+                                bmy_id = vin_code_bmy_id_dict[k]
+                                vin_had_bmy_id = True
+                                break
+                        if not vin_had_bmy_id:
+                            bmy_id = -1
+                            if vin_code != '白' and vin_code != '夜':
+                                efd.write('{0}\n'.format(full_fn))
+                    if bmy_id > 0:
+                        bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
+                        sfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_vo['brand_code'], bmy_vo['model_code']))
 
             
         

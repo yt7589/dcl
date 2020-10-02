@@ -38,13 +38,14 @@ class WxsApp(object):
     RM_REFINE_FDS_TEST_DS = 1030
     RM_WXS_BID_DS_MAIN = 1031
     RM_RUN_VD_CUT_SAVE_ON_WXS_DS = 1032
+    RM_FORM_WXS_BID_TEST_RST = 1033
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_RUN_VD_CUT_SAVE_ON_WXS_DS
+        mode = WxsApp.RM_FORM_WXS_BID_TEST_RST
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
