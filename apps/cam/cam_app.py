@@ -161,7 +161,7 @@ class CamApp(object):
         parser.add_argument('--start_epoch', dest='start_epoch',
                             default=0,  type=int)
         parser.add_argument('--detail', dest='cam',
-                            default='', type=str)
+                            default='cam', type=str)
         parser.add_argument('--size', dest='resize_resolution',
                             default=224, type=int)
         parser.add_argument('--crop', dest='crop_resolution',
