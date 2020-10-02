@@ -221,6 +221,12 @@ class WxsApp(object):
             将所里9月23日错误的品牌图片，调用切图程序进行切图
             '''
             WxsDsm.run_vd_cut_save_on_wxs_ds()
+        elif WxsApp.RM_FORM_WXS_BID_TEST_RST == mode:
+            '''
+            生成无锡所数据集测试正确结果，格式为：文件名*品牌代码*车型代码，用于
+            计算在Pipeline中的品牌精度和车型精度
+            '''
+            WxsDsm.form_wxs_bid_test_rst()
         else:
             WxsDsm.exp001()
             

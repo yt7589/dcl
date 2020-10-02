@@ -4618,6 +4618,10 @@ function nextImg() {
         if bmy_id > 0:
             bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
             sfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_id, bmy_vo['brand_id']))
+            
+    @staticmethod
+    def form_wxs_bid_test_rst():
+        print('生成无锡所数据集测试结果...')
 
             
         
