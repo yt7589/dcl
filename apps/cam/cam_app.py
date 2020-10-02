@@ -7,9 +7,11 @@ import torch.nn as nn
 import torch.backends.cudnn as cudnn
 import torch.optim as optim
 from torch.optim import lr_scheduler
+import PIL.Image as Image
 from models.LoadModel import MainModel
 from config import LoadConfig, load_data_transformers
 from utils.dataset_DCL import collate_fn4train, collate_fn4val, collate_fn4test, collate_fn4backbone, dataset
+from transforms import transforms
 #
 from apps.cam.core.feature_extractor import FeatureExtractor
 from apps.cam.core.model_outputs import ModelOutputs
@@ -160,8 +162,25 @@ class CamApp(object):
         print('cam_model: {0};'.format(cam_model))
         grad_cam = GradCam(model=cam_model, feature_module=cam_model[7], \
                        target_layer_names=["2"], use_cuda=True)
+        # 读入图片数据
+        img = None
+        with open(imgpath, 'rb') as f:
+            with Image.open(f) as img:
+                img = img.convert('RGB')
+                
+        to_tensor = transforms.Compose([
+            transforms.Resize((crop_reso, crop_reso)),
+            # ImageNetPolicy(),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+        ])
+        input = to_tensor(img)
+        # If None, returns the map for the highest scoring category.
+        # Otherwise, targets the requested index.
+        target_index = None
+        mask = grad_cam(input, target_index)
         
-        print('^_^ The End! 001 ^_^')
+        print('^_^ The End! 002 ^_^')
         
         
         
