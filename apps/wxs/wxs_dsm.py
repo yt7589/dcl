@@ -4678,8 +4678,10 @@ function nextImg() {
             img_file = '{0}_{1}_{2}_{3}_{4}'.format(
                 arrs_b[0], arrs_b[1], arrs_b[2], arrs_b[3], arrs_b[4]
             )
-            print('full_fn: {0}'.format(img_file))
-            data = VdJsonManager.get_img_reid_feature_vector(full_fn)
+            print('full_fn: {0}'.format(full_fn))
+            with open(full_fn, 'r', encoding='utf-8') as jfd:
+                vd_json = jfd.read()
+            data = json.loads(vd_json) # VdJsonManager.get_img_reid_feature_vector(full_fn)
             clpp, ppcx, ppxhms = WxsDsm.parse_vd_json_for_ppcx(data)
             brand_code = brand_acc_dict[img_file]
             bm_code = bm_acc_dict[img_file]
