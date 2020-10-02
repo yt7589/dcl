@@ -10,6 +10,10 @@ from torch.optim import lr_scheduler
 from models.LoadModel import MainModel
 from config import LoadConfig, load_data_transformers
 from utils.dataset_DCL import collate_fn4train, collate_fn4val, collate_fn4test, collate_fn4backbone, dataset
+#
+from apps.cam.core.feature_extractor import FeatureExtractor
+
+#
 from apps.wxs.wxs_app import WxsApp
 
 class CamApp(object):
