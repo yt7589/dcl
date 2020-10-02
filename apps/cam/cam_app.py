@@ -4,6 +4,8 @@ import datetime
 import argparse
 import torch
 import torch.backends.cudnn as cudnn
+import torch.optim as optim
+from torch.optim import lr_scheduler
 from models.LoadModel import MainModel
 from config import LoadConfig, load_data_transformers
 from utils.dataset_DCL import collate_fn4train, collate_fn4val, collate_fn4test, collate_fn4backbone, dataset
@@ -21,7 +23,7 @@ class CamApp(object):
             app = WxsApp()
             app.startup(args)
             return
-        print('模型热力图绘制应用 v0.0.3')
+        print('模型热力图绘制应用 v0.0.4')
         os.environ['CUDA_VISIBLE_DEVICES'] = '2'
         args = self.parse_args()
         # arg_dict = vars(args)
@@ -89,7 +91,6 @@ class CamApp(object):
         model = MainModel(Config)
 
         # load model
-        print('args.resume={0}; args.auto_resume={1};'.format(args.resume, args.auto_resume))
         if (args.resume is None) and (not args.auto_resume):
             print('train from imagenet pretrained models ...', flush=True)
         else:
@@ -116,6 +117,36 @@ class CamApp(object):
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
         model.cuda()
+        model = nn.DataParallel(model)
+        # optimizer prepare
+        if Config.use_backbone:
+            ignored_params = list(map(id, model.module.classifier.parameters())) \
+                        + list(map(id, model.module.brand_clfr.parameters()))
+        else:
+            ignored_params1 = list(map(id, model.module.classifier.parameters()))
+            ignored_params1x = list(map(id, model.module.brand_clfr.parameters()))
+            ignored_params2 = list(map(id, model.module.classifier_swap.parameters()))
+            ignored_params3 = list(map(id, model.module.Convmask.parameters()))
+            ignored_params = ignored_params1 + ignored_params1x + ignored_params2 + ignored_params3 
+        print('the num of new layers:', len(ignored_params), flush=True)
+        base_params = filter(lambda p: id(p) not in ignored_params, model.module.parameters())
+        lr_ratio = args.cls_lr_ratio
+        base_lr = args.base_lr
+        momentum = 0.9
+        if Config.use_backbone:
+            optimizer = optim.SGD([{'params': base_params},
+                                   {'params': model.module.classifier.parameters(), 'lr': base_lr},
+                                   {'params': model.module.brand_clfr.parameters(), 'lr': base_lr}
+                                   ], lr = base_lr, momentum=momentum)
+        else:
+            optimizer = optim.SGD([{'params': base_params},
+                                   {'params': model.module.classifier.parameters(), 'lr': lr_ratio*base_lr},
+                                   {'params': model.module.brand_clfr.parameters(), 'lr': lr_ratio*base_lr},
+                                   {'params': model.module.classifier_swap.parameters(), 'lr': lr_ratio*base_lr},
+                                   {'params': model.module.Convmask.parameters(), 'lr': lr_ratio*base_lr},
+                                  ], lr = base_lr, momentum=momentum)
+
+        exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
         
         print('^_^ The End! ^_^')
         
