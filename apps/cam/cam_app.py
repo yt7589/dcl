@@ -1,5 +1,7 @@
 #
 import argparse
+from models.LoadModel import MainModel
+from config import LoadConfig, load_data_transformers
 from apps.wxs.wxs_app import WxsApp
 
 class CamApp(object):
@@ -16,7 +18,17 @@ class CamApp(object):
             return
         print('模型热力图绘制应用 v0.0.1')
         args = self.parse_args()
-        print('{0}: {1};'.format(type(args), args))
+        # arg_dict = vars(args)
+        args.train_num_workers = 0
+        args.val_num_workers = 0
+        print(args, flush=True)
+        Config = LoadConfig(args, 'train')
+        Config.cls_2 = args.cls_2
+        Config.cls_2xmul = args.cls_mul
+        assert Config.cls_2 ^ Config.cls_2xmul
+        transformers = load_data_transformers(args.resize_resolution, args.crop_resolution, args.swap_num)
+        print('^_^ The End! ^_^')
+
         
     # parameters setting
     def parse_args(self):
@@ -66,4 +78,4 @@ class CamApp(object):
                         nargs=2, metavar=('swap1', 'swap2'),
                         type=int, help='specify a range')
         args = parser.parse_args()
-        return vars(args)
+        return args
