@@ -4671,7 +4671,11 @@ function nextImg() {
             full_fn = str(fo)
             arrs_a = full_fn.split('/')
             json_file = arrs_a[-1]
-            print('full_fn: {0}'.format(json_file))
+            arrs_b = json_file.split('_')
+            img_file = '{0}_{1}_{2}_{3}_{4}'.format(
+                arrs_b[0], arrs_b[1], arrs_b[2], arrs_b[3], arrs_b[4]
+            )
+            print('full_fn: {0}'.format(img_file))
 
             
         
