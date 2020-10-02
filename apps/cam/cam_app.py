@@ -13,6 +13,7 @@ from utils.dataset_DCL import collate_fn4train, collate_fn4val, collate_fn4test,
 #
 from apps.cam.core.feature_extractor import FeatureExtractor
 from apps.cam.core.model_outputs import ModelOutputs
+from apps.cam.core.grad_cam import GradCam
 
 #
 from apps.wxs.wxs_app import WxsApp
