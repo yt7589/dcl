@@ -66,4 +66,4 @@ class CamApp(object):
                         nargs=2, metavar=('swap1', 'swap2'),
                         type=int, help='specify a range')
         args = parser.parse_args()
-        return args
+        return vars(args)
