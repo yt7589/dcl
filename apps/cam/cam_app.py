@@ -1,6 +1,7 @@
 #
 import argparse
 import torch
+import torch.backends.cudnn as cudnn
 from models.LoadModel import MainModel
 from config import LoadConfig, load_data_transformers
 from utils.dataset_DCL import collate_fn4train, collate_fn4val, collate_fn4test, collate_fn4backbone, dataset
