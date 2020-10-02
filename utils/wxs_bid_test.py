@@ -12,7 +12,7 @@ class WxsBidTest(object):
         
     @staticmethod
     def get_wxs_bid_ds_scores():
-        print('计算在无锡所数据集上的品牌精度和车型精度')
+        print('计算在无锡所数据集上的品牌精度和车型精度工具类 v0.0.1')
         # 指定wxs_ds_rst.txt文件位置，该文件格式为：图片文件名*品牌代码*车型代码
         wxs_ds_rst_txt = './support/wxs_ds_rst.txt'
         vd_json_folder = './support/wxs_ds_rst'
