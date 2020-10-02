@@ -89,6 +89,7 @@ class CamApp(object):
         model = MainModel(Config)
 
         # load model
+        print('args.resume={0}; args.auto_resume={1};'.format(args.resume, args.auto_resume))
         if (args.resume is None) and (not args.auto_resume):
             print('train from imagenet pretrained models ...', flush=True)
         else:
