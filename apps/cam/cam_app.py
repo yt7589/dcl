@@ -12,6 +12,7 @@ from config import LoadConfig, load_data_transformers
 from utils.dataset_DCL import collate_fn4train, collate_fn4val, collate_fn4test, collate_fn4backbone, dataset
 #
 from apps.cam.core.feature_extractor import FeatureExtractor
+from apps.cam.core.model_outputs import ModelOutputs
 
 #
 from apps.wxs.wxs_app import WxsApp
@@ -28,7 +29,7 @@ class CamApp(object):
             app = WxsApp()
             app.startup(args)
             return
-        print('模型热力图绘制应用 v0.0.5')
+        print('模型热力图绘制应用 v0.0.6')
         os.environ['CUDA_VISIBLE_DEVICES'] = '2'
         args = self.parse_args()
         # arg_dict = vars(args)
