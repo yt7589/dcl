@@ -4646,10 +4646,10 @@ function nextImg() {
                         if not vin_had_bmy_id:
                             bmy_id = -1
                             if vin_code != '白' and vin_code != '夜':
-                                efd.write('{0}\n'.format(full_fn))
+                                efd.write('{0}\n'.format(img_file))
                     if bmy_id > 0:
                         bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
-                        wfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_vo['brand_code'], bmy_vo['model_code']))
+                        wfd.write('{0}*{1}*{2}\n'.format(img_file, bmy_vo['brand_code'], bmy_vo['model_code']))
         efd.close()
 
             
