@@ -23,7 +23,7 @@ class CamApp(object):
             app = WxsApp()
             app.startup(args)
             return
-        print('模型热力图绘制应用 v0.0.4')
+        print('模型热力图绘制应用 v0.0.5')
         os.environ['CUDA_VISIBLE_DEVICES'] = '2'
         args = self.parse_args()
         # arg_dict = vars(args)
@@ -148,7 +148,7 @@ class CamApp(object):
 
         exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
         
-        print('^_^ The End! ^_^')
+        print('^_^ The End! 17：12 ^_^')
         
         
         
