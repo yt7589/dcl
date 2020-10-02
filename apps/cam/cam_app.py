@@ -19,7 +19,7 @@ class CamApp(object):
         print('{0}: {1};'.format(type(args), args))
         
     # parameters setting
-    def parse_args():
+    def parse_args(self):
         parser = argparse.ArgumentParser(description='dcl parameters')
         parser.add_argument('--data', dest='dataset',
                             default='CUB', type=str)
