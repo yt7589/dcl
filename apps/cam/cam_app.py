@@ -109,7 +109,7 @@ class CamApp(object):
             model.load_state_dict(model_dict)
         print('Set cache dir', flush=True)
         time = datetime.datetime.now()
-        filename = '%s_%d%d%d_%s'%(args.discribe, time.month, time.day, time.hour, Config.dataset)
+        filename = '%s_%d%d%d_%s'%(args.cam, time.month, time.day, time.hour, Config.dataset)
         save_dir = os.path.join(Config.save_dir, filename)
         print('save_dir: {0} + {1};'.format(Config.save_dir, filename))
         if not os.path.exists(save_dir):
