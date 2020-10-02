@@ -1,7 +1,9 @@
 #
 import argparse
+import torch
 from models.LoadModel import MainModel
 from config import LoadConfig, load_data_transformers
+from utils.dataset_DCL import collate_fn4train, collate_fn4val, collate_fn4test, collate_fn4backbone, dataset
 from apps.wxs.wxs_app import WxsApp
 
 class CamApp(object):
@@ -16,7 +18,7 @@ class CamApp(object):
             app = WxsApp()
             app.startup(args)
             return
-        print('模型热力图绘制应用 v0.0.1')
+        print('模型热力图绘制应用 v0.0.3')
         args = self.parse_args()
         # arg_dict = vars(args)
         args.train_num_workers = 0
@@ -27,6 +29,58 @@ class CamApp(object):
         Config.cls_2xmul = args.cls_mul
         assert Config.cls_2 ^ Config.cls_2xmul
         transformers = load_data_transformers(args.resize_resolution, args.crop_resolution, args.swap_num)
+        # inital dataloader
+        train_set = dataset(Config = Config,\
+                            anno = Config.train_anno,\
+                            common_aug = transformers["common_aug"],\
+                            swap = transformers["swap"],\
+                            swap_size=args.swap_num, \
+                            totensor = transformers["train_totensor"],\
+                            train = True)
+        trainval_set = dataset(Config = Config,\
+                            anno = Config.val_anno,\
+                            common_aug = transformers["None"],\
+                            swap = transformers["None"],\
+                            swap_size=args.swap_num, \
+                            totensor = transformers["val_totensor"],\
+                            train = False,
+                            train_val = True)
+        val_set = dataset(Config = Config,\
+                          anno = Config.val_anno,\
+                          common_aug = transformers["None"],\
+                          swap = transformers["None"],\
+                            swap_size=args.swap_num, \
+                          totensor = transformers["test_totensor"],\
+                          test=True)
+        dataloader = {}
+        dataloader['train'] = torch.utils.data.DataLoader(train_set,\
+                                                    batch_size=args.train_batch,\
+                                                    shuffle=True,\
+                                                    num_workers=args.train_num_workers,\
+                                                    collate_fn=collate_fn4train if not Config.use_backbone else collate_fn4backbone,
+                                                    drop_last=True if Config.use_backbone else False,
+                                                    pin_memory=True)
+        setattr(dataloader['train'], 'total_item_len', len(train_set))
+        dataloader['trainval'] = torch.utils.data.DataLoader(trainval_set,\
+                                                    batch_size=args.val_batch,\
+                                                    shuffle=False,\
+                                                    num_workers=args.val_num_workers,\
+                                                    collate_fn=collate_fn4val if not Config.use_backbone else collate_fn4backbone,
+                                                    drop_last=True if Config.use_backbone else False,
+                                                    pin_memory=True)
+        setattr(dataloader['trainval'], 'total_item_len', len(trainval_set))
+        setattr(dataloader['trainval'], 'num_cls', Config.num_brands)
+        dataloader['val'] = torch.utils.data.DataLoader(val_set,\
+                                                    batch_size=args.val_batch,\
+                                                    shuffle=False,\
+                                                    num_workers=args.val_num_workers,\
+                                                    collate_fn=collate_fn4test if not Config.use_backbone else collate_fn4backbone,
+                                                    drop_last=True if Config.use_backbone else False,
+                                                    pin_memory=True)
+        setattr(dataloader['val'], 'total_item_len', len(val_set))
+        setattr(dataloader['val'], 'num_cls', Config.num_brands)
+        cudnn.benchmark = True
+        print('Choose model and train set', flush=True)
         print('^_^ The End! ^_^')
         
     # parameters setting
