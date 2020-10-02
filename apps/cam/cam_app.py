@@ -169,8 +169,9 @@ class CamApp(object):
             with Image.open(f) as img:
                 img = img.convert('RGB')
                 
+        crop_reso = (224, 224)
         to_tensor = transforms.Compose([
-            transforms.Resize(((224, 224), (224, 224)),
+            transforms.Resize((crop_reso, crop_reso)),
             # ImageNetPolicy(),
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
