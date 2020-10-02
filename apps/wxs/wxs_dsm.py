@@ -4707,7 +4707,7 @@ function nextImg() {
             if max_idx < 0:
                 return None, None, None
             else:
-                return data['VEH'][max_idx]['CXTZ']['CLPP'], data['VEH'][max_idx]['CXTZ']['PPCX'],
+                return data['VEH'][max_idx]['CXTZ']['CLPP'], data['VEH'][max_idx]['CXTZ']['PPCX'], \
                         data['VEH'][max_idx]['CXTZ']['PPXHMS']
 
             
