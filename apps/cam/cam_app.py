@@ -164,7 +164,8 @@ class CamApp(object):
                        target_layer_names=["2"], use_cuda=True)
         # 读入图片数据
         img = None
-        with open(imgpath, 'rb') as f:
+        img_file = '/media/ps/0A9AD66165F33762/yantao/dcl/support/ds_files/wxs_ds/head/car/d00/d00/d00/d00/d96/SC7168CH5_冀B591C5_02_120000100604_120000702916290242.jpg'
+        with open(img_file, 'rb') as f:
             with Image.open(f) as img:
                 img = img.convert('RGB')
                 
