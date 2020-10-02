@@ -64,7 +64,7 @@ class CamApp(object):
                             default=224, type=int)
         parser.add_argument('--crop', dest='crop_resolution',
                             default=224, type=int)
-        parser.add_argument('--cls_2', dest='cls_2', default=False, 
+        parser.add_argument('--cls_2', dest='cls_2', default=True, 
                             action='store_true')
         parser.add_argument('--swap_num', default=[7, 7],
                         nargs=2, metavar=('swap1', 'swap2'),
