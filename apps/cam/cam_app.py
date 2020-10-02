@@ -157,6 +157,7 @@ class CamApp(object):
         exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
         # *******************
         # *******************
+        print('cam_model: {0};'.format(cam_model))
         grad_cam = GradCam(model=cam_model, feature_module=cam_model.layer4, \
                        target_layer_names=["2"], use_cuda=True)
         
