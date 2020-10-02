@@ -158,7 +158,7 @@ class CamApp(object):
         # *******************
         # *******************
         print('cam_model: {0};'.format(cam_model))
-        grad_cam = GradCam(model=cam_model, feature_module=cam_model.layer4, \
+        grad_cam = GradCam(model=cam_model, feature_module=cam_model['7'], \
                        target_layer_names=["2"], use_cuda=True)
         
         print('^_^ The End! 001 ^_^')
