@@ -4655,13 +4655,6 @@ function nextImg() {
     @staticmethod
     def get_wxs_bid_ds_scores():
         print('计算在无锡所数据集上的品牌精度和车型精度')
-        for root, dirs, files in os.walk('./support/wxs_ds', topdown=False):
-            for fn in files:
-                if ' ' in fn:
-                    print('### {0}/{1}'.format(root, fn))
-        i_debug = 1
-        if 1 == i_debug:
-            return 
         brand_acc_dict = {}
         bm_acc_dict = {}
         with open('./support/wxs_ds_rst.txt', 'r', encoding='utf-8') as rfd:
@@ -4674,6 +4667,9 @@ function nextImg() {
                 brand_acc_dict[img_file] = brand_code
                 bm_acc_dict[img_file] = bm_code
         base_path = Path('./support/wxs_ds_rst')
+        brand_num = 0
+        bm_num = 0
+        total_num = 0
         for fo in base_path.iterdir():
             full_fn = str(fo)
             arrs_a = full_fn.split('/')
@@ -4684,9 +4680,19 @@ function nextImg() {
             )
             print('full_fn: {0}'.format(img_file))
             data = VdJsonManager.get_img_reid_feature_vector(full_fn)
+            clpp, ppcx, ppxhms = WxsDsm.parse_vd_json_for_ppcx(data)
+            brand_code = brand_acc_dict[img_file]
+            bm_code = bm_acc_dict[img_file]
+            total_num += 1
+            if brand_code == clpp:
+                brand_num += 1
+            if bm_code == ppcx:
+                bm_num += 1
+        print('brand_acc: {0};'.format(brand_num / total_num))
+        print('bm_acc: {0};'.format(bm_num / total_num))
             
     @staticmethod
-    def parse_vd_json_data(data):
+    def parse_vd_json_for_ppcx(data):
         cllxfls = ['11', '12', '13', '14', '21', '22']
         if ('VEH' not in data) or len(data['VEH']) < 1:
             return None, None, None
