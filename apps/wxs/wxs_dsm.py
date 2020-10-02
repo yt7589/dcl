@@ -4624,6 +4624,7 @@ function nextImg() {
         print('生成无锡所数据集测试结果...v0.0.1')
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
+        efd = open('./support/wxs_bid_test_rst_error.txt', 'w+', encoding='utf-8')
         with open('./support/wxs_ds_rst.txt', 'w+', encoding='utf-8') as wfd:
             with open('./support/wxs_ds_images.txt', 'r', encoding='utf-8') as rfd:
                 for line in rfd:
@@ -4648,7 +4649,8 @@ function nextImg() {
                                 efd.write('{0}\n'.format(full_fn))
                     if bmy_id > 0:
                         bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
-                        sfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_vo['brand_code'], bmy_vo['model_code']))
+                        wfd.write('{0}*{1}*{2}\n'.format(full_fn, bmy_vo['brand_code'], bmy_vo['model_code']))
+        efd.close()
 
             
         
