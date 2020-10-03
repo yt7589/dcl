@@ -1141,39 +1141,27 @@ class WxsDsm(object):
         每行有两个元素
         '''
         bmys = CBmy.get_zjkj_bmys()
-        for bmy in bmys:
-            print('{{\"{0}\", \"{1}\", \"{2}\", \"{3}-{4}-{5}\"}},'.format(bmy['brand_code'], bmy['model_code'], bmy['bmy_code'], bmy['brand_name'], bmy['model_name'], bmy['bmy_name']))
-        i_debug = 1
-        if 1 == i_debug:
-            return
-        row = 0
-        row_num = 0
-        with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
-            for line in cfd:
-                row_num += 1
+        print('从数据库中读出内容...')
         item_sep = ','
         with open('./support/zjkj_label_fds.txt', 'w+', encoding='utf-8') as zfd:
-            with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
-                for line in cfd:
-                    line = line.strip()
-                    arrs0 = line.split(',')
-                    brand_name = arrs0[0]
-                    model_name = arrs0[1]
-                    year_name = arrs0[2]
-                    brand_code = arrs0[3]
-                    model_code = arrs0[4]
-                    year_code = arrs0[5]
-                    line_break = ''
-                    if row % 2 != 0:
-                        line_break = '\n'
-                    row += 1
-                    if row == row_num:
-                        item_sep = ''
-                    zfd.write('{{"{0}", "{1}", "{2}", "{3}-{4}-{5}"}}{6}{7}'.format(
-                        brand_code, model_code, year_code,
-                        brand_name, model_name, year_name,
-                        item_sep, line_break
-                    ))
+            zfd.write('{{"{0}", "{1}", "{2}", "{3}-{4}-{5}"}}{6}{7}'.format(
+                    'b0000', 'b000011111', 'b00001111122222',
+                    '未知品牌', '未知车型', '未知年款',
+                    item_sep, line_break
+                ))
+            for bmy in bmys:
+                line_break = ''
+                item_sep = ','
+                if row % 2 != 0:
+                    line_break = '\n'
+                row += 1
+                if row == row_num:
+                    item_sep = ''
+                zfd.write('{{"{0}", "{1}", "{2}", "{3}-{4}-{5}"}}{6}{7}'.format(
+                    bmy['brand_code'], bmy['model_code'], bmy['bmy_code'],
+                    bmy['brand_name'], bmy['model_name'], bmy['bmy_name'],
+                    item_sep, line_break
+                ))
     
         
     @staticmethod
