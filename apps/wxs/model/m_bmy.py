@@ -67,7 +67,7 @@ class MBmy(object):
                     'brand_id': 1, 'brand_code': 1, 'model_id': 1, 
                     'model_code': 1}
         return MMongoDb.convert_recs(MMongoDb.db['t_bmy']\
-                    .find(query_cond, fields))
+                    .find(query_cond, fields).sort([('bmy_id', pymongo.ASCENDING)]))
 
     @staticmethod
     def get_bmy_id_brand_ids():

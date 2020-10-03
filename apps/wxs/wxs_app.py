@@ -40,13 +40,14 @@ class WxsApp(object):
     RM_RUN_VD_CUT_SAVE_ON_WXS_DS = 1032
     RM_FORM_WXS_BID_TEST_RST = 1033
     RM_GET_WXS_BID_DS_SCORES = 1034
+    RM_GENERATE_ZJKJ_FDS_LABELS = 1035
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_WXS_BID_DS_MAIN
+        mode = WxsApp.RM_GENERATE_ZJKJ_FDS_LABELS
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -234,6 +235,11 @@ class WxsApp(object):
             获取无锡所数据集品牌精度和车型精度
             '''
             WxsDsm.get_wxs_bid_ds_scores()
+        elif WxsApp.RM_GENERATE_ZJKJ_FDS_LABELS == mode:
+            '''
+            生成全量数据集标签
+            '''
+            WxsDsm.generate_zjkj_fds_labels()
         else:
             WxsDsm.exp001()
             

@@ -1133,6 +1133,50 @@ class WxsDsm(object):
         return unknown_vin_codes, new_brand_set, new_bmy_set, brand_vins_dict, bmy_vins_dict
         
     @staticmethod
+    def generate_zjkj_fds_labels():
+        '''
+        将品牌车型年款信息由Cambricon格式标签文件改为公司要求格式：
+        {"品牌编号", "车型编号", "年款编号", "品牌-车型-年款"},{......},
+        ......
+        每行有两个元素
+        '''
+        bmys = CBmy.get_bmys()
+        for bmy in bmys:
+            print('{\"{0}\", \"{1}\", \"{2}\", \"{3}-{4}-{5}\"},'.format(bmy['brand_code'], bmy['model_code'], bmy['bmy_code'], bmy['brand_name'], bmy['mode_name'], bmy['bmy_name']))
+        i_debug = 1
+        if 1 == i_debug:
+            return
+        row = 0
+        row_num = 0
+        with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
+            for line in cfd:
+                row_num += 1
+        item_sep = ','
+        with open('./support/zjkj_label_fds.txt', 'w+', encoding='utf-8') as zfd:
+            with open('./support/cambricon_vehicle_label.txt', 'r', encoding='utf-8') as cfd:
+                for line in cfd:
+                    line = line.strip()
+                    arrs0 = line.split(',')
+                    brand_name = arrs0[0]
+                    model_name = arrs0[1]
+                    year_name = arrs0[2]
+                    brand_code = arrs0[3]
+                    model_code = arrs0[4]
+                    year_code = arrs0[5]
+                    line_break = ''
+                    if row % 2 != 0:
+                        line_break = '\n'
+                    row += 1
+                    if row == row_num:
+                        item_sep = ''
+                    zfd.write('{{"{0}", "{1}", "{2}", "{3}-{4}-{5}"}}{6}{7}'.format(
+                        brand_code, model_code, year_code,
+                        brand_name, model_name, year_name,
+                        item_sep, line_break
+                    ))
+    
+        
+    @staticmethod
     def generate_zjkj_cambricon_labels():
         '''
         将品牌车型年款信息由Cambricon格式标签文件改为公司要求格式：
@@ -3564,10 +3608,20 @@ function nextImg() {
     
     @staticmethod
     def exp001():
-        json_file = '/home/zjkj/client1.8/work/detect_results/HFC7150BNF_冀A220BN_02_130100100935_130100308146014823.jpg_0.json'
-        rst = WxsDsm.parse_detect_json(json_file)
-        print(rst)
-
+        sim_dict = {}
+        with open('./support/cpp_bp.txt', 'r', encoding='utf-8') as cfd:
+            for line in cfd:
+                line = line.strip()
+                arrs_a = line.split(':')
+                idx = int(arrs_a[0])
+                content = arrs_a[1].replace('[', '{').replace(']', '}')
+                sim_dict[idx] = content
+        with open('./support/cpp_bp_vec.txt', 'w+', encoding='utf-8') as wfd:
+            for idx in range(1500+1):
+                if idx in sim_dict:
+                    wfd.write('{0}\n'.format(sim_dict[idx]))
+                else:
+                    wfd.write('{0},\n')
 
 
     @staticmethod
