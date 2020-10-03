@@ -2,6 +2,7 @@
 from apps.wxs.model.m_pk_generator import MPkGenerator
 from apps.wxs.model.m_bmy import MBmy
 from apps.wxs.model.m_model import MModel
+from apps.wxs.model.m_brand import MBrand
 from apps.wxs.model.m_vin import MVin
 
 class CBmy(object):
@@ -237,3 +238,64 @@ class CBmy(object):
                 }
                 bmy_id_2_bmy_vo[int(rb['bmy_id'])] = bmy_vo
         return bmy_id_2_bmy_vo
+        
+    @staticmethod
+    def get_zjkj_bmys():
+        items = []
+        bmys = CBmy.get_bmys()
+        for bmy in bmys:
+            brand_id = int(bmy['brand_id'])
+            brand_vo = MBrand.get_brand_vo_by_id(brand_id)
+            model_id = int(bmy['model_id'])
+            model_vo = MModel.get_model_vo_by_id(model_id)
+            item = {
+                'bmy_id': int(bmy['bmy_id']),
+                'bmy_name': bmy['bmy_name'],
+                'model_id': int(bmy['model_id']),
+                'model_code': bmy['model_code'],
+                'model_name': model_vo['model_name'],
+                'brand_id': int(bmy['brand_id']),
+                'brand_code': bmy['brand_code'],
+                'brand_name': brand_vo['brand_name']
+            }
+            items.append(item)
+        return items
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
