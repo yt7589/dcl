@@ -1141,14 +1141,16 @@ class WxsDsm(object):
         每行有两个元素
         '''
         bmys = CBmy.get_zjkj_bmys()
+        row_num = len(bmys) + 1
         print('从数据库中读出内容...')
         item_sep = ','
         with open('./support/zjkj_label_fds.txt', 'w+', encoding='utf-8') as zfd:
             zfd.write('{{"{0}", "{1}", "{2}", "{3}-{4}-{5}"}}{6}{7}'.format(
                     'b0000', 'b000011111', 'b00001111122222',
                     '未知品牌', '未知车型', '未知年款',
-                    item_sep, line_break
+                    ',', ''
                 ))
+            row = 1
             for bmy in bmys:
                 line_break = ''
                 item_sep = ','
