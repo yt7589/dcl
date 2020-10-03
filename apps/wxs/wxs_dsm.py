@@ -1142,7 +1142,7 @@ class WxsDsm(object):
         '''
         bmys = CBmy.get_zjkj_bmys()
         for bmy in bmys:
-            print('{\"{0}\", \"{1}\", \"{2}\", \"{3}-{4}-{5}\"},'.format(bmy['brand_code'], bmy['model_code'], bmy['bmy_code'], bmy['brand_name'], bmy['model_name'], bmy['bmy_name']))
+            print('\"{0}\", \"{1}\", \"{2}\", \"{3}-{4}-{5}\",'.format(bmy['brand_code'], bmy['model_code'], bmy['bmy_code'], bmy['brand_name'], bmy['model_name'], bmy['bmy_name']))
         i_debug = 1
         if 1 == i_debug:
             return
