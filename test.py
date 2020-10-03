@@ -280,12 +280,12 @@ if __name__ == '__main__':
     else:
         fixbatch =  1
         dummy_input = torch.randn(fixbatch, 3, 224, 224, device='cuda')
-        onnx_file = f"dcl_v010_{fixbatch}.onnx"
+        onnx_file = f"dcl_v012_{fixbatch}.onnx"
         torch.onnx.export(model, dummy_input, onnx_file, verbose=True,
                          input_names=["data"], output_names=["brands", "bmys"], \
                             training=False, opset_version=9,
                             do_constant_folding=True)
-        print("export finished 20200920001")
+        print("export finished 2020-10-02")
         # Load the ONNX model
         #model = onnx.load(onnx_file)
         # Check that the IR is well formed
