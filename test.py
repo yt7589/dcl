@@ -250,6 +250,7 @@ if __name__ == '__main__':
     Config.use_backbone = True
     cudnn.benchmark = True
     resume = './net_model/training_descibe_91920_CUB/weights_0_5999_0.9268_0.9714.pth'
+    resume = './net_model/training_descibe_10213_CUB/weights_30_433_0.9944_0.9996.pth'
     model = MainModel(Config)
     model_dict=model.state_dict()
     pretrained_dict=torch.load(resume)
@@ -280,7 +281,7 @@ if __name__ == '__main__':
     else:
         fixbatch =  1
         dummy_input = torch.randn(fixbatch, 3, 224, 224, device='cuda')
-        onnx_file = f"dcl_v012_{fixbatch}.onnx"
+        onnx_file = f"dcl_v1002_01_{fixbatch}.onnx"
         torch.onnx.export(model, dummy_input, onnx_file, verbose=True,
                          input_names=["data"], output_names=["brands", "bmys"], \
                             training=False, opset_version=9,
