@@ -250,6 +250,7 @@ class CBmy(object):
             model_vo = MModel.get_model_vo_by_id(model_id)
             item = {
                 'bmy_id': int(bmy['bmy_id']),
+                'bmy_code': bmy['bmy_code'],
                 'bmy_name': bmy['bmy_name'],
                 'model_id': int(bmy['model_id']),
                 'model_code': bmy['model_code'],
