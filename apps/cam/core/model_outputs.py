@@ -18,6 +18,7 @@ class ModelOutputs():
     def __call__(self, x):
         target_activations = []
         for name, module in self.model._modules.items():
+            print('name: {0};'.format(name))
             if module == self.feature_module:
                 target_activations, x = self.feature_extractor(x)
             elif "avgpool" in name.lower():
