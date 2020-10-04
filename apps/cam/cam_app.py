@@ -176,7 +176,7 @@ class CamApp(object):
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
         ])
-        input = to_tensor(img)
+        input = to_tensor(img).reshape(1, 3, 224, 224)
         print('input: {0};'.format(input.shape))
         # If None, returns the map for the highest scoring category.
         # Otherwise, targets the requested index.
