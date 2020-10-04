@@ -23,6 +23,9 @@ class ModelOutputs():
             elif "avgpool" in name.lower():
                 x = module(x)
                 x = x.view(x.size(0),-1)
+            elif 'brand_clfr' in name.lower():
+                x = module(x)
+                break
             else:
                 x = module(x)
         
