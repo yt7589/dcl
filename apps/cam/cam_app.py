@@ -164,7 +164,7 @@ class CamApp(object):
         print('avgpoo: {0};'.format(cam_main_model.avgpool))
         headers = {'avgpool': cam_main_model.avgpool, 'classifier': cam_main_model.brand_clfr}
         grad_cam = GradCam(model=cam_model, feature_module=cam_model[7], \
-                       target_layer_names=["2"], headers, use_cuda=True)
+                       target_layer_names=["2"], headers=headers, use_cuda=True)
         # 读入图片数据
         img = None
         img_file = '/media/ps/0A9AD66165F33762/yantao/dcl/support/ds_files/wxs_ds/head/car/d00/d00/d00/d00/d96/SC7168CH5_冀B591C5_02_120000100604_120000702916290242.jpg'
