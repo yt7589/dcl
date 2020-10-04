@@ -4766,13 +4766,15 @@ function nextImg() {
     def generate_samples_wxs_bid_ds():
         for root, dirs, files in os.walk('./support/ds_files/wxs_ds', topdown=False):
             for img_file in files:
-                if ' _' in img_file:
-                    arrs_a = img_file.split(' _')
-                    fn = '{0}_{1}'.format(arrs_a[0], arrs_a[1])
+                if '(' in img_file:
+                    arrs_a = img_file.split('_')
+                    arrs_b = arrs_a[0].split('(')
+                    vin_code = arrs_b[0]
+                    fn = '{0}_{1}_{2}_{3}_{4}'.format(vin_code, arrs_a[1], arrs_a[2], arrs_a[3], arrs_a[4])
                     src_file = '{0}/{1}'.format(root, img_file)
                     dst_file = '{0}/{1}'.format(root, fn)
                     print('rename: {0} -> {1};'.format(src_file, dst_file))
-                    #os.rename(src_file, dst_file)
+                    os.rename(src_file, dst_file)
         i_debug = 1
         if 1 == i_debug:
             return
