@@ -742,7 +742,7 @@ class WxsDsm(object):
         bmy_set = set()
         sim_org_dict = {}
         org_sim_dict = {}
-        raw_ds = './support/raw_bid_train_ds.txt'
+        raw_ds = './support/raw_wxs_bid_train_ds.txt'
         #raw_ds = './support/new_bid_train_ds.txt'
         with open(raw_ds, 'r', encoding='utf-8') as fd:
             for line in fd:
@@ -764,7 +764,7 @@ class WxsDsm(object):
             for kos, vos in org_sim_dict.items():
                 osfd.write('{0}:{1}\n'.format(kos, vos))
         # 生成新的训练数据集
-        WxsDsm.simplify_bid_ds(org_sim_dict, './support/bid_train_ds.txt', raw_ds)
+        WxsDsm.simplify_bid_ds(org_sim_dict, './support/wxs_bid_train_ds.txt', raw_ds)
         # 生成新的测试数据集
         #WxsDsm.simplify_bid_ds(org_sim_dict, './support/bid_test_ds.txt', './support/raw_bid_test_ds.txt')
         # 生成新寒武纪需要的标签文件
