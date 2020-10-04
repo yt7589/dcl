@@ -888,8 +888,8 @@ class WxsDsm(object):
 
     @staticmethod
     def convert_to_brand_ds_main():
-        brand_num_train = WxsDsm.convert_to_brand_ds('./support/bid_train_ds.txt', 
-                    './support/bid_brand_train_ds.txt', 
+        brand_num_train = WxsDsm.convert_to_brand_ds('./support/wxs_bid_train_ds.txt', 
+                    './support/wxs_bid_brand_train_ds.txt', 
                     is_create_brands_dict=True)
         #brand_num_test = WxsDsm.convert_to_brand_ds('./support/bid_test_ds.txt', 
          #           './support/bid_brand_test_ds.txt', 
