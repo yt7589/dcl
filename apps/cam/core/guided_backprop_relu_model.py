@@ -52,6 +52,7 @@ class GuidedBackpropReLUModel:
         else:
             output = self.forward(input)
         print('output type: {0};'.format(type(output)))
+        print('input type: {0};'.format(type(input)))
         output = output[1]
 
         if index == None:
