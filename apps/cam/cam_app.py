@@ -194,7 +194,7 @@ class CamApp(object):
         print('^_^ The End! 002 ^_^')
         
         
-    def show_cam_on_image(self, img_path, mask):
+    def show_cam_on_image(self, image_path, mask):
         img = cv2.imread(image_path, 1)
         img = np.float32(cv2.resize(img, (224, 224))) / 255
         heatmap = cv2.applyColorMap(np.uint8(255 * mask), cv2.COLORMAP_JET)
