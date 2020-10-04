@@ -4773,27 +4773,26 @@ function nextImg() {
         b_num = 0
         total = 0
         with open('./support/raw_wxs_bid_train_ds.txt', 'w+', encoding='utf-8') as wfd:
-            for file_obj in base_path.iterdir():
-                full_fn = str(file_obj)
-                arrs_a = full_fn.split('/')
-                img_file = arrs_a[-1]
-                arrs_b = img_file.split('_')
-                arrs_c = arrs_b[0].split('#')
-                vin_code = arrs_c[0]
-                #print('{0}: {1};'.format(img_file, vin_code))
-                if vin_code in vin_code_bmy_id_dict:
-                    bmy_id = int(vin_code_bmy_id_dict[vin_code])
-                    org_bmy_id = bmy_id - 1
-                    bmy_vo = bmy_id_bmy_vo[bmy_id]
-                    wfd.write('{0}*{1}\n'.format('{0}/{1}'.format(img_base_folder, img_file), org_bmy_id))
-                    total += 1
-                    if bmy_vo['bmy_code'].startswith('b'):
-                        print('{0}: {1}-{2};'.format(img_file, bmy_id, bmy_vo['bmy_code']))
-                        b_num += 1
-                else:
-                    bmy_id = -1
-                    error_num += 1
-                    print('### Error: {0} = {1};'.format(img_file, vin_code))
+            for root, dirs, files in os.walk('./support/ds_files/wxs_ds', topdown=False):
+                for img_file in files:
+                    full_fn = '{0}/{1}'.format(root, img_file)
+                    arrs_a = img_file.split('_')
+                    arrs_b = arrs_a[0].split('#')
+                    vin_code = arrs_b[0]
+                    #print('{0}: {1};'.format(img_file, vin_code))
+                    if vin_code in vin_code_bmy_id_dict:
+                        bmy_id = int(vin_code_bmy_id_dict[vin_code])
+                        org_bmy_id = bmy_id - 1
+                        bmy_vo = bmy_id_bmy_vo[bmy_id]
+                        wfd.write('{0}*{1}\n'.format('{0}/{1}'.format(img_base_folder, img_file), org_bmy_id))
+                        total += 1
+                        if bmy_vo['bmy_code'].startswith('b'):
+                            print('{0}: {1}-{2};'.format(img_file, bmy_id, bmy_vo['bmy_code']))
+                            b_num += 1
+                    else:
+                        bmy_id = -1
+                        error_num += 1
+                        print('### Error: {0} = {1};'.format(img_file, vin_code))
         print('total: {0}; brand_error: {1}; error num: {2};'.format(total, b_num, error_num))
 
             
