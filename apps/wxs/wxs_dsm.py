@@ -4806,7 +4806,7 @@ function nextImg() {
                         bmy_id = int(vin_code_bmy_id_dict[vin_code])
                         org_bmy_id = bmy_id - 1
                         bmy_vo = bmy_id_bmy_vo[bmy_id]
-                        wfd.write('{0}*{1}\n'.format('{0}/{1}'.format(img_base_folder, img_file), org_bmy_id))
+                        wfd.write('{0}*{1}\n'.format('{0}/{1}'.format(root, img_file), org_bmy_id))
                         total += 1
                         if bmy_vo['bmy_code'].startswith('b'):
                             print('{0}: {1}-{2};'.format(full_fn, bmy_id, bmy_vo['bmy_code']))
