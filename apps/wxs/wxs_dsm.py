@@ -4780,7 +4780,9 @@ function nextImg() {
             for root, dirs, files in os.walk('./support/ds_files/wxs_ds', topdown=False):
                 for img_file in files:
                     if ' _' in img_file:
-                        print('target file: {0};'.format(img_file))
+                        arrs_a = img_file.split(' _')
+                        fn = '{0}_{1}'.format(arrs_a[0], arrs_a[1])
+                        print('### {0} => {1};'.format(img_file, fn))
         delete_spaces_in_postfix_fn()
         i_debug = 1
         if 1 == i_debug:
