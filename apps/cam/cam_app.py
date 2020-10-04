@@ -186,6 +186,7 @@ class CamApp(object):
         img_obj = to_tensor(img)
         input = img_obj.reshape(1, 3, 224, 224)
         input.cuda()
+        input.requires_grad_(True)
         print('input: {0};'.format(input.shape))
         # If None, returns the map for the highest scoring category.
         # Otherwise, targets the requested index.
