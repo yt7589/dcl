@@ -51,6 +51,8 @@ class GuidedBackpropReLUModel:
             output = self.forward(input.cuda())
         else:
             output = self.forward(input)
+        print('output type: {0};'.format(type(output)))
+        output = output[1]
 
         if index == None:
             index = np.argmax(output.cpu().data.numpy())
