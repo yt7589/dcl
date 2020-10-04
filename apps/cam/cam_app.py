@@ -179,14 +179,25 @@ class CamApp(object):
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
         ])
-        input = to_tensor(img).reshape(1, 3, 224, 224)
+        img_obj = to_tensor(img)
+        input = img_obj.reshape(1, 3, 224, 224)
         print('input: {0};'.format(input.shape))
         # If None, returns the map for the highest scoring category.
         # Otherwise, targets the requested index.
         target_index = None
         mask = grad_cam(input, target_index)
+        #
+        self.show_cam_on_image(img_obj, mask)
         
         print('^_^ The End! 002 ^_^')
+        
+        
+    def show_cam_on_image(self, img, mask):
+        heatmap = cv2.applyColorMap(np.uint8(255 * mask), cv2.COLORMAP_JET)
+        heatmap = np.float32(heatmap) / 255
+        cam = heatmap + np.float32(img)
+        cam = cam / np.max(cam)
+        cv2.imwrite("cam.jpg", np.uint8(255 * cam))
         
         
         
