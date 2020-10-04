@@ -8,6 +8,7 @@ import torch.backends.cudnn as cudnn
 import torch.optim as optim
 from torch.optim import lr_scheduler
 import PIL.Image as Image
+import cv2
 from models.LoadModel import MainModel
 from config import LoadConfig, load_data_transformers
 from utils.dataset_DCL import collate_fn4train, collate_fn4val, collate_fn4test, collate_fn4backbone, dataset
@@ -16,6 +17,7 @@ from transforms import transforms
 from apps.cam.core.feature_extractor import FeatureExtractor
 from apps.cam.core.model_outputs import ModelOutputs
 from apps.cam.core.grad_cam import GradCam
+
 
 #
 from apps.wxs.wxs_app import WxsApp
@@ -32,7 +34,7 @@ class CamApp(object):
             app = WxsApp()
             app.startup(args)
             return
-        print('模型热力图绘制应用 v0.0.6')
+        print('模型热力图绘制应用 v0.0.7')
         os.environ['CUDA_VISIBLE_DEVICES'] = '2'
         args = self.parse_args()
         # arg_dict = vars(args)
@@ -187,12 +189,14 @@ class CamApp(object):
         target_index = None
         mask = grad_cam(input, target_index)
         #
-        self.show_cam_on_image(img_obj, mask)
+        self.show_cam_on_image(img_file, mask)
         
         print('^_^ The End! 002 ^_^')
         
         
-    def show_cam_on_image(self, img, mask):
+    def show_cam_on_image(self, img_path, mask):
+        img = cv2.imread(image_path, 1)
+        img = np.float32(cv2.resize(img, (224, 224))) / 255
         heatmap = cv2.applyColorMap(np.uint8(255 * mask), cv2.COLORMAP_JET)
         heatmap = np.float32(heatmap) / 255
         cam = heatmap + np.float32(img)
