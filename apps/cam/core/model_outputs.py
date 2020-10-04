@@ -10,6 +10,7 @@ class ModelOutputs():
     def __init__(self, model, feature_module, target_layers, headers):
         self.model = model
         self.feature_module = feature_module
+        self.headers = headers
         self.feature_extractor = FeatureExtractor(self.feature_module, target_layers)
 
     def get_gradients(self):
@@ -31,8 +32,8 @@ class ModelOutputs():
             '''
             else:
                 x = module(x)
-        x = header['avgpool'](x)
+        x = self.headers['avgpool'](x)
         x = x.view(x.size(0),-1)
-        x = header['classifier'](x)
+        x = self.headers['classifier'](x)
         
         return target_activations, x
