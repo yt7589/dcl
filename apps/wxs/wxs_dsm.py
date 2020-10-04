@@ -4782,7 +4782,10 @@ function nextImg() {
                     if ' _' in img_file:
                         arrs_a = img_file.split(' _')
                         fn = '{0}_{1}'.format(arrs_a[0], arrs_a[1])
-                        print('### {0} => {1};'.format(img_file, fn))
+                        src_file = '{0}/{1}'.format(root, img_file)
+                        dst_file = '{0}/{1}'.format(root, fn)
+                        #os.rename(src_file, dst_file)
+                        print('### {0} => {1};'.format(src_file, dst_file))
         delete_spaces_in_postfix_fn()
         i_debug = 1
         if 1 == i_debug:
