@@ -18,6 +18,7 @@ from transforms import transforms
 from apps.cam.core.feature_extractor import FeatureExtractor
 from apps.cam.core.model_outputs import ModelOutputs
 from apps.cam.core.grad_cam import GradCam
+from apps.cam.core.guided_backprop_relu_model import GuidedBackpropReLUModel
 
 
 #
@@ -191,8 +192,32 @@ class CamApp(object):
         mask = grad_cam(input, target_index)
         #
         self.show_cam_on_image(img_file, mask)
+        #
+        gb_model = GuidedBackpropReLUModel(model=cam_main_model, use_cuda=args.use_cuda)
+        gb = gb_model(input, index=target_index)
+        gb = gb.transpose((1, 2, 0))
+        cam_mask = cv2.merge([mask, mask, mask])
+        cam_gb = self.deprocess_image(cam_mask*gb)
+        gb = self.deprocess_image(gb)
+        cv2.imwrite('gb.jpg', gb)
+        cv2.imwrite('cam_gb.jpg', cam_gb)
         
         print('^_^ The End! 002 ^_^')
+        
+    def preprocess_image(self, img):
+        means = [0.485, 0.456, 0.406]
+        stds = [0.229, 0.224, 0.225]
+
+        preprocessed_img = img.copy()[:, :, ::-1]
+        for i in range(3):
+            preprocessed_img[:, :, i] = preprocessed_img[:, :, i] - means[i]
+            preprocessed_img[:, :, i] = preprocessed_img[:, :, i] / stds[i]
+        preprocessed_img = \
+            np.ascontiguousarray(np.transpose(preprocessed_img, (2, 0, 1)))
+        preprocessed_img = torch.from_numpy(preprocessed_img)
+        preprocessed_img.unsqueeze_(0)
+        input = preprocessed_img.requires_grad_(True)
+        return input
         
         
     def show_cam_on_image(self, image_path, mask):
