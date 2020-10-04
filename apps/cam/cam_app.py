@@ -126,7 +126,7 @@ class CamApp(object):
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
         model.cuda()
-        cam_model = model.model
+        cam_model = model
         model = nn.DataParallel(model)
         # optimizer prepare
         if Config.use_backbone:
