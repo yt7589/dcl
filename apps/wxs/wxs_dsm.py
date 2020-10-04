@@ -4764,6 +4764,7 @@ function nextImg() {
         
     @staticmethod
     def generate_samples_wxs_bid_ds():
+        '''
         for root, dirs, files in os.walk('./support/ds_files/wxs_ds', topdown=False):
             for img_file in files:
                 if '(' in img_file:
@@ -4778,6 +4779,7 @@ function nextImg() {
         i_debug = 1
         if 1 == i_debug:
             return
+        '''
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         bmy_id_bmy_vo = CBmy.get_bmy_id_bmy_vo_dict()
