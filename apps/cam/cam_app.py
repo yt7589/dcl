@@ -126,6 +126,7 @@ class CamApp(object):
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
         model.cuda()
+        cam_main_model = model
         cam_model = model.model
         model = nn.DataParallel(model)
         # optimizer prepare
@@ -160,7 +161,7 @@ class CamApp(object):
         # *******************
         # *******************
         print('model: {0};'.format(cam_model))
-        print('avgpoo: {0};'.format(model.avgpool))
+        print('avgpoo: {0};'.format(cam_main_model.avgpool))
         grad_cam = GradCam(model=cam_model, feature_module=cam_model[7], \
                        target_layer_names=["2"], use_cuda=True)
         # 读入图片数据
