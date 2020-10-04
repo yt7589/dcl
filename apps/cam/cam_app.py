@@ -36,7 +36,7 @@ class CamApp(object):
             app = WxsApp()
             app.startup(args)
             return
-        print('模型热力图绘制应用 v0.0.7')
+        print('模型热力图绘制应用 v0.1.0')
         os.environ['CUDA_VISIBLE_DEVICES'] = '2'
         args = self.parse_args()
         # arg_dict = vars(args)
