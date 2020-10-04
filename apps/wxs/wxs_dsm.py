@@ -4774,6 +4774,7 @@ function nextImg() {
                     src_file = '{0}/{1}'.format(root, img_file)
                     dst_file = '{0}/{1}'.format(root, fn)
                     print('rename: {0} -> {1};'.format(src_file, dst_file))
+                    os.rename(src_file, dst_file)
         i_debug = 1
         if 1 == i_debug:
             return
