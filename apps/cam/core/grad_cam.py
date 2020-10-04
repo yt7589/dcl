@@ -23,7 +23,7 @@ class GradCam:
             features, output = self.extractor(input.cuda())
         else:
             features, output = self.extractor(input)
-        print('features: {0}; output: {1};'.format(type(features), output.shape))
+        print('features: {0}; output: {1}; len={2};'.format(features[0].shape, output.shape, len(features)))
 
         if index == None:
             index = np.argmax(output.cpu().data.numpy())
