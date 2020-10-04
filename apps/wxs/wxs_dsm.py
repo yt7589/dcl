@@ -4786,10 +4786,6 @@ function nextImg() {
                         dst_file = '{0}/{1}'.format(root, fn)
                         os.rename(src_file, dst_file)
                         print('### {0} => {1};'.format(src_file, dst_file))
-        delete_spaces_in_postfix_fn()
-        i_debug = 1
-        if 1 == i_debug:
-            return
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         bmy_id_bmy_vo = CBmy.get_bmy_id_bmy_vo_dict()
