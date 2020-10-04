@@ -221,6 +221,15 @@ class CamApp(object):
         input = preprocessed_img.requires_grad_(True)
         return input
         
+    def deprocess_image(self, img):
+        """ see https://github.com/jacobgil/keras-grad-cam/blob/master/grad-cam.py#L65 """
+        img = img - np.mean(img)
+        img = img / (np.std(img) + 1e-5)
+        img = img * 0.1
+        img = img + 0.5
+        img = np.clip(img, 0, 1)
+        return np.uint8(img*255)
+        
         
     def show_cam_on_image(self, image_path, mask):
         img = cv2.imread(image_path, 1)
