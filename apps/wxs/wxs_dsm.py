@@ -4766,7 +4766,7 @@ function nextImg() {
     def generate_samples_wxs_bid_ds():
         for root, dirs, files in os.walk('./support/ds_files/wxs_ds', topdown=False):
             for img_file in files:
-                if ' ' in img_file:
+                if ' _' in img_file:
                     arrs_a = img_file.split(' _')
                     fn = '{0}_{1}'.format(arrs_a[0], arrs_a[1])
                     src_file = '{0}/{1}'.format(root, img_file)
