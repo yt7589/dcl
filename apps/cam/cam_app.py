@@ -193,7 +193,7 @@ class CamApp(object):
         #
         self.show_cam_on_image(img_file, mask)
         #
-        gb_model = GuidedBackpropReLUModel(model=cam_main_model, use_cuda=args.use_cuda)
+        gb_model = GuidedBackpropReLUModel(model=cam_main_model, use_cuda=True)
         gb = gb_model(input, index=target_index)
         gb = gb.transpose((1, 2, 0))
         cam_mask = cv2.merge([mask, mask, mask])
