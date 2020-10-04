@@ -5,7 +5,7 @@ import cv2
 from apps.cam.core.model_outputs import ModelOutputs
 
 class GradCam:
-    def __init__(self, model, feature_module, target_layer_names, use_cuda):
+    def __init__(self, model, feature_module, target_layer_names, headers use_cuda):
         self.model = model
         self.feature_module = feature_module
         self.model.eval()
@@ -13,7 +13,7 @@ class GradCam:
         if self.cuda:
             self.model = model.cuda()
 
-        self.extractor = ModelOutputs(self.model, self.feature_module, target_layer_names)
+        self.extractor = ModelOutputs(self.model, self.feature_module, target_layer_names, headers)
 
     def forward(self, input):
         return self.model(input)
