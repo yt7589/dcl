@@ -4809,7 +4809,7 @@ function nextImg() {
                         wfd.write('{0}*{1}\n'.format('{0}/{1}'.format(img_base_folder, img_file), org_bmy_id))
                         total += 1
                         if bmy_vo['bmy_code'].startswith('b'):
-                            print('{0}: {1}-{2};'.format(img_file, bmy_id, bmy_vo['bmy_code']))
+                            print('{0}: {1}-{2};'.format(full_fn, bmy_id, bmy_vo['bmy_code']))
                             b_num += 1
                     else:
                         bmy_id = -1
