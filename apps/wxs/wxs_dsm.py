@@ -4784,7 +4784,7 @@ function nextImg() {
                         fn = '{0}_{1}'.format(arrs_a[0], arrs_a[1])
                         src_file = '{0}/{1}'.format(root, img_file)
                         dst_file = '{0}/{1}'.format(root, fn)
-                        #os.rename(src_file, dst_file)
+                        os.rename(src_file, dst_file)
                         print('### {0} => {1};'.format(src_file, dst_file))
         delete_spaces_in_postfix_fn()
         i_debug = 1
