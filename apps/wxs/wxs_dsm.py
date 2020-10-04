@@ -4666,6 +4666,12 @@ function nextImg() {
     @staticmethod
     def form_wxs_bid_test_rst():
         print('生成无锡所数据集测试结果...v0.0.1')
+        def generate_wxs_ds_images():
+            with open('./support/wxs_ds_images.txt', 'w+', encoding='utf-8') as wfd:
+                for root, dirs, files in os.walk('./support/ds_files/wxs_ds', topdown=False):
+                    for fn in files:
+                        wfd.write('{0}/{1}\n'.format(root, fn))
+        generate_wxs_ds_images()
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_vo_dict = CBmy.get_bmy_id_bmy_vo_dict()
         efd = open('./support/wxs_bid_test_rst_error.txt', 'w+', encoding='utf-8')
