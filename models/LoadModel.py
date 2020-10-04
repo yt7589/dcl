@@ -85,11 +85,11 @@ class MainModel(nn.Module):
         #x = x.view(x.size(0), x.size(1))
         x = torch.flatten(x, start_dim=1, end_dim=-1)
         out = []
-        y_bmy = F.softmax(self.classifier(x), dim=1)
-        #y_bmy = self.classifier(x)
+        #y_bmy = F.softmax(self.classifier(x), dim=1)
+        y_bmy = self.classifier(x)
         out.append(y_bmy)
-        #y_brand = self.brand_clfr(x)
-        y_brand = F.softmax(self.brand_clfr(x), dim=1)
+        y_brand = self.brand_clfr(x)
+        #y_brand = F.softmax(self.brand_clfr(x), dim=1)
 
         if self.use_dcl:
             out.append(self.classifier_swap(x))

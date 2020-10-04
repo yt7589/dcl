@@ -45,6 +45,7 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=
     print('evaluating %s ...'%val_version, flush=True)
     #
     bmy_id_bm_vo_dict = WxsDsm.get_bmy_id_bm_vo_dict()
+    bmy_sim_org_dict = WxsDsm.get_bmy_sim_org_dict()
     with torch.no_grad():
         for batch_cnt_val, data_val in enumerate(data_loader):
             inputs = Variable(data_val[0].cuda())
@@ -84,8 +85,10 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=
             # 求出车型精度
             batch_bm_correct = 0
             for im in range(bmy_top5_pos.shape[0]):
-                gt_bmy_id = bmy_top5_pos[im][0].item()
-                net_bmy_id = bmy_labels[im].item()
+                gt_sim_bmy_id = bmy_top5_pos[im][0].item()
+                net_sim_bmy_id = bmy_labels[im].item()
+                gt_bmy_id = bmy_sim_org_dict[gt_sim_bmy_id] + 1
+                net_bmy_id = bmy_sim_org_dict[net_sim_bmy_id] + 1
                 gt_bm_vo = bmy_id_bm_vo_dict[gt_bmy_id]
                 net_bm_vo = bmy_id_bm_vo_dict[net_bmy_id]
                 if gt_bm_vo['model_id'] == net_bm_vo['model_id']:
@@ -192,7 +195,7 @@ def predict_main_mine(Config, model):
     print('预测图像数据...')
     correct_num = 0
     total_num = 0
-    with open('./datasets/CUB_200_2011/anno/test_ds_v4.txt', 'r', encoding='utf-8') as fd:
+    with open('./datasets/CUB_200_2011/anno/bid_brand_test_ds_20200925.txt', 'r', encoding='utf-8') as fd:
         for line in fd:
             arrs0 = line[:-1].split('*')
             img_file = arrs0[0]
