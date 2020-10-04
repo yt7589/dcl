@@ -126,7 +126,7 @@ class CamApp(object):
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
         model.cuda()
-        cam_model = model
+        cam_model = model.model
         model = nn.DataParallel(model)
         # optimizer prepare
         if Config.use_backbone:
@@ -159,7 +159,7 @@ class CamApp(object):
         exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=args.decay_step, gamma=0.1)
         # *******************
         # *******************
-        #print('model: {0};'.format(model))
+        print('model: {0};'.format(model))
         grad_cam = GradCam(model=cam_model, feature_module=cam_model[7], \
                        target_layer_names=["2"], use_cuda=True)
         # 读入图片数据
