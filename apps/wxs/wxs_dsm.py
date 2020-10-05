@@ -3598,20 +3598,31 @@ function nextImg() {
     
     @staticmethod
     def exp001():
-        sim_dict = {}
-        with open('./support/cpp_bp.txt', 'r', encoding='utf-8') as cfd:
-            for line in cfd:
-                line = line.strip()
-                arrs_a = line.split(':')
-                idx = int(arrs_a[0])
-                content = arrs_a[1].replace('[', '{').replace(']', '}')
-                sim_dict[idx] = content
-        with open('./support/cpp_bp_vec.txt', 'w+', encoding='utf-8') as wfd:
-            for idx in range(1500+1):
-                if idx in sim_dict:
-                    wfd.write('{0}\n'.format(sim_dict[idx]))
-                else:
-                    wfd.write('{0},\n')
+        def delete_brackets_in_fn():
+            for root, dirs, files in os.walk('../../wt/support/wxs_ds_rst', topdown=False):
+                for img_file in files:
+                    if '(' in img_file:
+                        arrs_a = img_file.split('_')
+                        arrs_b = arrs_a[0].split('(')
+                        vin_code = arrs_b[0]
+                        fn = '{0}_{1}_{2}_{3}_{4}'.format(vin_code, arrs_a[1], arrs_a[2], arrs_a[3], arrs_a[4])
+                        src_file = '{0}/{1}'.format(root, img_file)
+                        dst_file = '{0}/{1}'.format(root, fn)
+                        print('rename: {0} -> {1};'.format(src_file, dst_file))
+                        os.rename(src_file, dst_file)
+        def delete_spaces_in_postfix_fn():
+            for root, dirs, files in os.walk('../../wt/support/wxs_ds_rst', topdown=False):
+                for img_file in files:
+                    if ' _' in img_file:
+                        arrs_a = img_file.split(' _')
+                        fn = '{0}_{1}'.format(arrs_a[0], arrs_a[1])
+                        src_file = '{0}/{1}'.format(root, img_file)
+                        dst_file = '{0}/{1}'.format(root, fn)
+                        os.rename(src_file, dst_file)
+                        print('### {0} => {1};'.format(src_file, dst_file))
+        delete_brackets_in_fn()
+        delete_spaces_in_postfix_fn()
+        
 
 
     @staticmethod
