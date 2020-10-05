@@ -77,7 +77,6 @@ class LoadConfig(object):
             self.rawdata_root = '/media/zjkj/work/vehicle_type_v2d/vehicle_type_v2d'
             self.anno_root = './datasets/CUB_200_2011/anno'
             #self.numcls = 0
-            '''
             # 正式环境
             self.num_brands = 1500 # 249 # 206 # 品牌数
             self.num_bmys = 20000 # 3539 # 3421 # 年款数
@@ -85,6 +84,7 @@ class LoadConfig(object):
             # 所里测试
             self.num_brands = 154
             self.num_bmys = 2458
+            '''
         elif args.dataset == 'STCAR':
             self.dataset = args.dataset
             self.rawdata_root = './dataset/st_car/data'
@@ -101,7 +101,6 @@ class LoadConfig(object):
         # annotation file organized as :
         # path/image_name cls_num\n
         # 正式环境
-        '''
         train_ds_file = 'fds_train_ds_20200926.txt'
         val_ds_file = 'fds_test_ds_20200926.txt'
         test_ds_file = 'fds_test_ds_20200926.txt'
@@ -110,7 +109,7 @@ class LoadConfig(object):
         train_ds_file = 'wxs_bid_brand_train_ds_20201004.txt'
         val_ds_file = 'wxs_bid_brand_test_ds_20201004.txt'
         test_ds_file = 'wxs_bid_brand_test_ds_20201004.txt'
-        
+        '''
 
         if 'train' in get_list:
             self.train_anno = pd.read_csv(os.path.join(self.anno_root, train_ds_file),\
