@@ -3598,8 +3598,9 @@ function nextImg() {
     
     @staticmethod
     def exp001():
+        print('exp001 ??????????????????????')
         def delete_brackets_in_fn():
-            for root, dirs, files in os.walk('../../wt/support/wxs_ds_rst', topdown=False):
+            for root, dirs, files in os.walk('../wt/support/wxs_ds_rst', topdown=False):
                 for img_file in files:
                     if '(' in img_file:
                         arrs_a = img_file.split('_')
@@ -3611,7 +3612,7 @@ function nextImg() {
                         print('rename: {0} -> {1};'.format(src_file, dst_file))
                         os.rename(src_file, dst_file)
         def delete_spaces_in_postfix_fn():
-            for root, dirs, files in os.walk('../../wt/support/wxs_ds_rst', topdown=False):
+            for root, dirs, files in os.walk('../wt/support/wxs_ds_rst', topdown=False):
                 for img_file in files:
                     if ' _' in img_file:
                         arrs_a = img_file.split(' _')
