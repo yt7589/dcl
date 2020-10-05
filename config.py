@@ -102,8 +102,8 @@ class LoadConfig(object):
         # path/image_name cls_num\n
         # 正式环境
         train_ds_file = 'fds_train_ds_20200926.txt'
-        val_ds_file = 'fds_test_ds_20200926.txt'
-        test_ds_file = 'fds_test_ds_20200926.txt'
+        val_ds_file = 'wxs_ftds_20201005.txt'
+        test_ds_file = 'wxs_ftds_20201005.txt'
         '''
         # 无锡所测试程序
         train_ds_file = 'wxs_bid_brand_train_ds_20201004.txt'
