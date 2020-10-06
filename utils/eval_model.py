@@ -86,11 +86,12 @@ def eval_turn(Config, model, data_loader, val_version, epoch_num, log_file, efd=
             batch_bm_correct = 0
             for im in range(bmy_top5_pos.shape[0]):
                 gt_bmy_id = bmy_top5_pos[im][0].item()
-                net_bmy_id = bmy_labels[im].item()                
-                gt_bm_vo = bmy_id_bm_vo_dict[gt_bmy_id]
-                net_bm_vo = bmy_id_bm_vo_dict[net_bmy_id]
-                if gt_bm_vo['model_id'] == net_bm_vo['model_id']:
-                    batch_bm_correct += 1
+                net_bmy_id = bmy_labels[im].item()
+                if gt_bmy_id in bmy_id_bm_vo_dict:
+                    gt_bm_vo = bmy_id_bm_vo_dict[gt_bmy_id]
+                    net_bm_vo = bmy_id_bm_vo_dict[net_bmy_id]
+                    if gt_bm_vo['model_id'] == net_bm_vo['model_id']:
+                        batch_bm_correct += 1
             bm_correct += batch_bm_correct
             # 找出品牌错误的样本，写入文件top1_error_samples
             if efd is not None:
