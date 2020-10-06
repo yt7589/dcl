@@ -4873,7 +4873,7 @@ function nextImg() {
                                 efd.write('{0}\n'.format(img_file))
                     if bmy_id > 0:
                         bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
-                        wfd.write('{0}*{1}*{2}\n'.format(img_file, bmy_id, bmy_vo['brand_id']))
+                        wfd.write('{0}*{1}*{2}\n'.format(line, bmy_id, bmy_vo['brand_id']))
         efd.close()
             
         
