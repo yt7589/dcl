@@ -76,7 +76,7 @@ def test_web_api():
 def main(args):
     MMongoDb._initialize()
     print('细粒度图像识别系统')
-    mode = MODE_DRAW_CAM
+    mode = MODE_WXS_BID
     if MODE_DRAW_ACCS_CURVE == mode:
         #du.draw_accs_curve()
         pass
