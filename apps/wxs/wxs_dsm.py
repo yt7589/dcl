@@ -4074,31 +4074,45 @@ function nextImg() {
         '''
         生成539万进口车和900万国产车图片形成的全量数据集样本集
         '''
-        print('生成全量数据集样本集 v0.0.1')
+        print('生成全量数据集样本集 v0.0.2')
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         brand_set = set()
         oprr_num = 0
-        with open('./support/raw_wxs_bid_train_ds.txt', 'w+', encoding='utf-8') \
+        mode = 2 # 1-训练数据集；2-测试数据集
+        if 1 == mode:
+            ds_file = './support/raw_wxs_bid_train_ds.txt'
+        else:
+            ds_file = './support/raw_wxs_bid_test_ds.txt'
+        with open(ds_file, 'w+', encoding='utf-8') \
                         as sfd:
             with open('./support/error_vins.txt', 'w+', encoding='utf-8') \
                             as efd:
-                # 进口车目录
-                import_folder = '/media/ps/work/yantao/zjkj/raw_cutted'
-                oprr_num = WxsDsm.process_image_folder(
-                    import_folder, oprr_num, 
-                    vin_code_bmy_id_dict, 
-                    bmy_id_bmy_name_dict, brand_set,
-                    sfd, efd
-                )
-                # 国产车已处理
-                domestic_folder = '/media/ps/work/yantao/zjkj/i900m_cutted'
-                oprr_num = WxsDsm.process_image_folder(
-                    domestic_folder, oprr_num, 
-                    vin_code_bmy_id_dict, 
-                    bmy_id_bmy_name_dict, brand_set,
-                    sfd, efd
-                )
+                if 1 == mode:
+                    # 进口车目录
+                    import_folder = '/media/ps/work/yantao/zjkj/raw_cutted'
+                    oprr_num = WxsDsm.process_image_folder(
+                        import_folder, oprr_num, 
+                        vin_code_bmy_id_dict, 
+                        bmy_id_bmy_name_dict, brand_set,
+                        sfd, efd
+                    )
+                    # 国产车已处理
+                    domestic_folder = '/media/ps/work/yantao/zjkj/i900m_cutted'
+                    oprr_num = WxsDsm.process_image_folder(
+                        domestic_folder, oprr_num, 
+                        vin_code_bmy_id_dict, 
+                        bmy_id_bmy_name_dict, brand_set,
+                        sfd, efd
+                    )
+                else:
+                    imgs_folder = '../scm_dcl/support_20201019/ds_files/wxs_ds'
+                    oprr_num = WxsDsm.process_image_folder(
+                        imgs_folder, oprr_num, 
+                        vin_code_bmy_id_dict, 
+                        bmy_id_bmy_name_dict, brand_set,
+                        sfd, efd
+                    )
         print('已经处理品牌数：{0};'.format(len(brand_set)))
         
     
