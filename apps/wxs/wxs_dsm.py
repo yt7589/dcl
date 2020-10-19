@@ -4079,7 +4079,7 @@ function nextImg() {
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         brand_set = set()
         oprr_num = 0
-        with open('./support/samples_v002.txt', 'w+', encoding='utf-8') \
+        with open('./support/raw_wxs_bid_train_ds.txt', 'w+', encoding='utf-8') \
                         as sfd:
             with open('./support/error_vins.txt', 'w+', encoding='utf-8') \
                             as efd:
