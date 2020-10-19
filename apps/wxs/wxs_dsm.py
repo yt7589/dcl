@@ -4074,7 +4074,7 @@ function nextImg() {
         '''
         生成539万进口车和900万国产车图片形成的全量数据集样本集
         '''
-        print('生成全量数据集样本集...')
+        print('生成全量数据集样本集 v0.0.1')
         vin_code_bmy_id_dict = CBmy.get_wxs_vin_code_bmy_id_dict()
         bmy_id_bmy_name_dict = CBmy.get_bmy_id_bmy_name_dict()
         brand_set = set()
@@ -4127,7 +4127,10 @@ function nextImg() {
         arrs1 = filename.split('_')
         raw_vin_code = arrs1[0]
         arrs2 = raw_vin_code.split('#')
-        vin_code = arrs2[0]
+        vin_code0 = arrs2[0]
+        arrs_a = vin_code0.split('(')
+        vin_code1 = arrs_a[0]
+        vin_code = vin_code1.strip()
         if vin_code in vin_bmy_id_dict:
             bmy_id = vin_bmy_id_dict[vin_code]
         else:
