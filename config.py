@@ -77,9 +77,14 @@ class LoadConfig(object):
             self.rawdata_root = '/media/zjkj/work/vehicle_type_v2d/vehicle_type_v2d'
             self.anno_root = './datasets/CUB_200_2011/anno'
             #self.numcls = 0
+            # 全量数据集精简版
+            self.num_brands = 196
+            self.num_bmys = 3171
+            '''
             # 正式环境
             self.num_brands = 1500 # 249 # 206 # 品牌数
             self.num_bmys = 20000 # 3539 # 3421 # 年款数
+            '''
             '''
             # 所里测试
             self.num_brands = 154
@@ -100,10 +105,16 @@ class LoadConfig(object):
 
         # annotation file organized as :
         # path/image_name cls_num\n
+        # 全量数据集精简版
+        train_ds_file = 'sfds_train_ds_20201020.txt'
+        val_ds_file = 'sfds_test_ds_20201020.txt'
+        test_ds_file = 'sfds_test_ds_20201020.txt'
+        '''
         # 正式环境
         train_ds_file = 'fds_train_ds_20200926.txt'
         val_ds_file = 'wxs_ftds_20201005.txt'
         test_ds_file = 'wxs_ftds_20201005.txt'
+        '''
         '''
         # 无锡所测试程序
         train_ds_file = 'wxs_bid_brand_train_ds_20201004.txt'
