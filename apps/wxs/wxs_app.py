@@ -1,4 +1,4 @@
-#
+# v0.0.1
 import sys
 from apps.wxs.wxs_dsm import WxsDsm
 from apps.wxs.controller.c_brand import CBrand
