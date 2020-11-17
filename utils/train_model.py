@@ -218,7 +218,7 @@ def train(Config,
                 if len(checkpoint_list) == 6:
                     os.remove(checkpoint_list[0])
                     del checkpoint_list[0]
-                torch.save(model.state_dict(), save_path)
+                torch.save(model.state_dict(), save_path, _use_new_zipfile_serialization=False)
                 torch.cuda.empty_cache()
 
 
