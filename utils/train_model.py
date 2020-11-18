@@ -187,7 +187,7 @@ def train(Config,
 
                 save_path = os.path.join(save_dir, 'weights_%d_%d_%.4f_%.4f.pth'%(epoch, batch_cnt, val_acc1, val_acc3))
                 torch.cuda.synchronize()
-                torch.save(model.state_dict(), save_path)
+                torch.save(model.state_dict(), save_path, _use_new_zipfile_serialization=False)
                 print('saved model to %s' % (save_path), flush=True)
                 torch.cuda.empty_cache()
                 # 保存精度等信息并初始化
