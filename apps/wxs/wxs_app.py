@@ -43,13 +43,14 @@ class WxsApp(object):
     RM_GENERATE_ZJKJ_FDS_LABELS = 1035
     RM_GENERATE_SAMPLES_WXS_BID_DS = 1036
     RM_USE_WXS_BID_DS_AS_FTDS = 1037
+    RM_TEMP001 = 10038
 
     def __init__(self):
         self.name = 'apps.wxs.WxsApp'
 
     def startup(self, args):
         print('2020年7月无锡所招标应用')
-        mode = WxsApp.RM_GENERATE_ZJKJ_CAMBRICON_LABELS
+        mode = WxsApp.RM_TEMP001
         if WxsApp.RM_GENERATE_SAMPLES == mode:
             ''' 
             从fgvc_dataset/raw和guochanchezuowan_all目录生成样本列表
@@ -252,8 +253,11 @@ class WxsApp(object):
             将无锡所测试集作为全量数据集测试集
             '''
             WxsDsm.use_wxs_bid_ds_as_ftds()
+        elif WxsApp.RM_TEMP001 == mode:
+            WxsDsm.temp001()
         else:
             WxsDsm.exp001()
+
             
             
             
