@@ -4896,6 +4896,13 @@ function nextImg() {
     @staticmethod
     def temp001():
         print('统计目录文件数')
+        num = 0
+        for root, dirs, files in os.walk('/media/ps/work/yantao/zjkj/train_ds_raw', topdown=False):
+            for img_file in files:
+                num += 1
+                if num % 10000 == 0:
+                    print('处理{0}个文件'.format(num))
+        print('共有{0}个文件'.format(num))
             
         
         
