@@ -4892,6 +4892,10 @@ function nextImg() {
                         bmy_vo = bmy_id_bmy_vo_dict[bmy_id]
                         wfd.write('{0}*{1}*{2}\n'.format(line, bmy_id, bmy_vo['brand_id']))
         efd.close()
+
+    @staticmethod
+    def temp001():
+        print('统计目录文件数')
             
         
         
